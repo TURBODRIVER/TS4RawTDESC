@@ -2,6 +2,10 @@
 
 <TuningRoot>
     <Instance instance_type="statistic" class="BodyTypeLevelCommodity" module="sims.body_type_level.body_type_level_commodity" description="A commodity representing the level of a particular BodyType for a sim." instance_needs_reference="True" instance_subclasses_only="False" parents="Commodity" path="Statistics\Descriptions" use_guid_for_reference="True">
+        <TunableList name="ages_allowed" class="TunableEnumSet" default="BABY,TODDLER,CHILD,TEEN,YOUNGADULT,ADULT,ELDER" display="Ages Allowed" description="Valid ages for this commodity to exist in." group="General" unique_entries="true">
+            <TunableEnum type="Age" class="TunableEnumEntry" default="ADULT" static_entries="sims-sim_info_types.Age" group="General" />
+        </TunableList>
+
         <TunableEnum type="BodyType" name="body_type" class="TunableEnumEntry" default="NONE" display="Body Type" static_entries="sims-outfits-outfit_enums.BodyType" description="The body type this commodity is associated with." group="General" invalid_entries="NONE" />
 
         <TunableList name="eligible_species" class="TunableEnumSet" default="HUMAN" display="Eligible Species" description="Only species in this list will have the commodity added to them." group="General" unique_entries="true">
