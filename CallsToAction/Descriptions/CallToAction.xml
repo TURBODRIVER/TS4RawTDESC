@@ -135,6 +135,8 @@
             <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The set of tags that are used to determine which objects to highlight." group="General" invalid_entries="INVALID" pack_safe="True" />
         </TunableList>
 
+        <Tunable type="bool" name="_target_neighbor_lots" class="Tunable" default="False" display="Target Neighbor Lots" description="Whether or not neighboring lots would be the target instead of objects or sims." group="General" />
+
         <Tunable type="float" name="_thickness" class="TunableRange" default="0.002" display="Thickness" min="0.001" max="0.005" description="The thickness of the highlight." tuning_state="NeedsTuning" group="General" />
 
         <TunableVariant type="None" name="_tutorial_text" class="OptionalTunable" default="disabled" display="Tutorial Text" description="Text for a tutorial call to action. If this is enabled, the CTA will be a tutorial CTA with the specified text." group="General">
