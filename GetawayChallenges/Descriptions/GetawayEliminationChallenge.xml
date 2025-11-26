@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="getaway_challenge" class="GetawayEliminationChallenge" module="custom_schedules.getaway_challenge_tuning" description="With this challenge, someone will be eliminated every day from the Getaway." instance_needs_reference="True" instance_subclasses_only="False" parents="GetawayChallengeWithDailyTimer, GetawayChallenge" path="GetawayChallenges\Descriptions" use_guid_for_reference="True">
+        <Tunable type="situation" name="elimination_situation" class="TunableReference" display="Elimination Situation" description="This situation forces the eliminated sim off of the lot. " allow_none="True" group="General" restrict="SingleSimLeaveSituation" />
+    </Instance>
+
+    
+</TuningRoot>

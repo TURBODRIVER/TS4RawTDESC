@@ -34,7 +34,7 @@
                     <TunableTuple name="household_value" class="TunableClubRuleCriteriaHouseholdValue" display="Household Value" description="Household value-based criteria." group="General">
                         <TunableEnum type="HouseholdValueCategory" name="household_value" class="TunableEnumEntry" default="AVERAGE" display="Household Value" static_entries="clubs-club_tuning.HouseholdValueCategory" description="In order to pass this criteria, the target sim must have a household value in this enum value's associated interval." group="General" />
                     </TunableTuple>
-                    <TunableTuple name="relationship" class="TunableClubRuleCriteriaRelationship" display="Relationship" description="Relationship-based criteria." group="General">
+                    <TunableTuple name="relationship" class="TunableClubRuleCriteriaRelationship" display="Relationship" description="Marriage-based criteria." group="General">
                         <TunableEnum type="MaritalStatus" name="marital_status" class="TunableEnumEntry" default="MARRIED" display="Marital Status" static_entries="clubs-club_tuning.MaritalStatus" description="Marital status a Sim must have in order to pass this criteria." group="General" />
                     </TunableTuple>
                     <TunableTuple name="skill" class="TunableClubRuleCriteriaSkill" display="Skill" description="Skill-based criteria." group="General">

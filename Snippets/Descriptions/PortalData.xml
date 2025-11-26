@@ -24,6 +24,10 @@
                 </TunableList>
             </TunableVariant>
             <TunableVariant type="None" name="traversal_cost" class="TunablePortalCostVariant" default="traversal_length" display="Traversal Cost" description="Define how expensive it is, in meters, to traverse this portal." group="General">
+                <TunableTuple name="asymmetrical_fixed_cost" class="TunablePortalCostAsymmetrical" display="Asymmetrical Fixed Cost" description="The cost of the portal depends on the direction the sim is taking through it." group="General">
+                    <Tunable type="float" name="go_back_cost" class="TunableRange" default="1" display="Go Back Cost" min="0" max="9999" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="go_there_cost" class="TunableRange" default="1" display="Go There Cost" min="0" max="9999" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
                 <TunableTuple name="fixed_cost" class="TunablePortalCostFixed" display="Fixed Cost" description="The cost of the portal is a fixed value, defined in meters." group="General">
                     <Tunable type="float" name="cost" class="TunableRange" default="1" display="Cost" min="0" max="9999" tuning_state="NeedsTuning" group="General" />
                 </TunableTuple>

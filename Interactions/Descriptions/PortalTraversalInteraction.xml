@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="PortalTraversalInteraction" module="routing.portals.portal_traversal_interaction" description="This class allows for interactions where the action is to traverse a portal associated with an object. Tune a portal constraint on the interaction for the actor, and the actor will route to the other side of the portal. You do not need to tune any other animation. Running this interaction will cause the sim to ignore the tuned Portal Traversal Cost on the Portal Data; the Traversal Cost of the portal is set to zero while the sim is running this interaction." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True" />
+</TuningRoot>

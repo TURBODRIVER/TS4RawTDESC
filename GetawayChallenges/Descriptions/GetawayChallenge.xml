@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="getaway_challenge" class="GetawayChallenge" module="custom_schedules.getaway_challenge_tuning" description="Structure containing a Getaway Challenge preset that can be used on CustomSchedules when they are used as a Getaway." instance_needs_reference="True" instance_subclasses_only="False" path="GetawayChallenges\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="description_tooltip" class="TunableLocalizedString" default="0x0" display="Description Tooltip" description="Description of this challenge." group="UI" />
+
+        <Tunable type="int" name="display_name" class="TunableLocalizedString" default="0x0" display="Display Name" description="The challenge will display in the UI with this string." group="UI" />
+
+        <TunableList name="groups" class="TunableList" display="Groups" description="A single challenge may apply different behaviors to different roles. A role may only belong to a single group." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableList name="associated_buff" class="TunableList" display="Associated Buff" description="The list of buffs associated with the role selected by the player." group="General">
+                    <TunableTuple class="TunableBuffReference" description="The buff associated with the role selected by the player. A Sim of Interest requires a unique buff to be identified." group="General">
+                        <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                                <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                                <Tunable name="none" class="TunableExistance" display="None" />
+                            </TunableVariant>
+                        </TunableVariant>
+                        <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" pack_safe="True" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableList name="disallowed_ages" class="TunableEnumSet" display="Disallowed Ages" description="Selected sims in this group must be an allowed age for this challenge to apply. The UI will make weak attempts at enforcing this requirement." group="General" unique_entries="true">
+                    <TunableEnum type="Age" class="TunableEnumEntry" default="BABY" static_entries="sims-sim_info_types.Age" group="General" />
+                </TunableList>
+                <TunableList name="disallowed_species" class="TunableEnumSet" display="Disallowed Species" description="Selected sims in this group must be an allowed species for this challenge to apply. The UI will make weak attempts at enforcing this requirement." group="General" unique_entries="true">
+                    <TunableEnum type="SpeciesExtended" class="TunableEnumEntry" default="INVALID" static_entries="sims-sim_info_types.SpeciesExtended" group="General" />
+                </TunableList>
+                <Tunable type="int" name="group_name" class="TunableLocalizedString" default="0x0" display="Group Name" description="The display name of this group of roles. Used in the UI as a header for each group of roles." group="UI" />
+                <Tunable type="bool" name="multi_select" class="Tunable" default="True" display="Multi Select" description="If True, multiple roles are allowed to be selected. Otherwise only a single role may be selected." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="The challenge will display in the UI using this icon." group="UI" resource_types="0x2f7d0004" />
+    </Instance>
+
+    
+</TuningRoot>

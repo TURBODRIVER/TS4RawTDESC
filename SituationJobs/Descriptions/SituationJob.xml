@@ -348,6 +348,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableVariant>
@@ -455,6 +480,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableVariant>
@@ -519,6 +569,9 @@
                                                 </TunableVariant>
                                             </TunableTuple>
                                             <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                            <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                            </TunableTuple>
                                             <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                             </TunableTuple>
@@ -798,6 +851,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableList>
@@ -942,7 +1020,7 @@
                         <TunableTuple name="sentiments_by_type" class="TunableTunableSentimentTrackSelectionByType" display="Sentiments By Type" description="A TunableRelationshipTrackSelectionStrategyBase that will select sentiments that match the tuned values." group="General">
                             <TunableVariant type="None" name="sentiment_duration" class="OptionalTunable" default="disabled" display="Sentiment Duration" description="If tuned, only sentiments with the tuned duration will be affected." group="General">
                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
-                                <TunableEnum type="SentimentDurationType" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" static_entries="relationships-relationship_enums.SentimentDurationType" group="General" invalid_entries="INVALID" />
+                                <TunableEnum type="SentimentType" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" static_entries="relationships-relationship_enums.SentimentType" group="General" invalid_entries="INVALID" />
                             </TunableVariant>
                             <TunableVariant type="None" name="sentiment_sign" class="OptionalTunable" default="disabled" display="Sentiment Sign" description="If tuned, only sentiments with the tuned sign will be affected." group="General">
                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
@@ -1301,7 +1379,7 @@
                         <TunableTuple name="sentiments_by_type" class="TunableTunableSentimentTrackSelectionByType" display="Sentiments By Type" description="A TunableRelationshipTrackSelectionStrategyBase that will select sentiments that match the tuned values." group="General">
                             <TunableVariant type="None" name="sentiment_duration" class="OptionalTunable" default="disabled" display="Sentiment Duration" description="If tuned, only sentiments with the tuned duration will be affected." group="General">
                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
-                                <TunableEnum type="SentimentDurationType" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" static_entries="relationships-relationship_enums.SentimentDurationType" group="General" invalid_entries="INVALID" />
+                                <TunableEnum type="SentimentType" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" static_entries="relationships-relationship_enums.SentimentType" group="General" invalid_entries="INVALID" />
                             </TunableVariant>
                             <TunableVariant type="None" name="sentiment_sign" class="OptionalTunable" default="disabled" display="Sentiment Sign" description="If tuned, only sentiments with the tuned sign will be affected." group="General">
                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
@@ -1878,6 +1956,31 @@
                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                 <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                             </TunableVariant>
+                            <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                    <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                        <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                        <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                            <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                            </TunableTuple>
+                                            <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableVariant>
                             <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                         </TunableTuple>
                     </TunableVariant>
@@ -1985,6 +2088,31 @@
                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                 <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                             </TunableVariant>
+                            <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                    <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                        <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                        <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                            <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                            </TunableTuple>
+                                            <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableVariant>
                             <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                         </TunableTuple>
                     </TunableVariant>
@@ -2049,6 +2177,9 @@
                                         </TunableVariant>
                                     </TunableTuple>
                                     <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                    <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                        <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                    </TunableTuple>
                                     <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                     </TunableTuple>
@@ -2328,6 +2459,31 @@
                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                 <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                             </TunableVariant>
+                            <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                    <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                        <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                        <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                            <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                            </TunableTuple>
+                                            <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableVariant>
                             <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                         </TunableTuple>
                     </TunableList>
@@ -2577,6 +2733,10 @@
                                     <Tunable type="bool" name="consider_exploration" class="Tunable" default="False" display="Consider Exploration" description="If checked, then we will allow sims who do not have matching attractions but are exploring. If not, then we will strictly consider only their current romantic preference unless the sim has no preference and a fallback is tuned. Only applicable to human sims." group="General" />
                                     <Tunable type="bool" name="fallback_if_no_preference_is_set" class="Tunable" default="False" display="Fallback If No Preference Is Set" description="If checked then if no gender preference is set for the sim we will fallback to a heterosexual connection. If this is set on human sims, it will only work if the sim is exploring, but will do so even if consider_exploration is unchecked." group="General" />
                                     <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                                    <TunableVariant type="None" name="gender_preference" class="OptionalTunable" default="disabled" display="Gender Preference" description="If specified, then filter based on this preference type rather than evaluating attraction to a specific sim." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableEnum type="GenderAttractionPreference" name="enabled" class="TunableEnumEntry" default="MALE" display="Enabled" static_entries="sims-sim_info_types.GenderAttractionPreference" description="Gender preference a Sim must have in order to pass this criteria." group="General" />
+                                    </TunableVariant>
                                     <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
                                 </TunableTuple>
                                 <TunableTuple name="gender_relative" class="TunableGenderRelativeFilterTerm" display="Gender Relative" description="A term for filtering Sims base on their gender relative to target sims gender. Only new Sims may be conformed by creating them of a valid gender. Existing Sims may not be conformed." group="General">
@@ -2872,6 +3032,10 @@
                                 </TunableTuple>
                                 <TunableTuple name="matchmaking_gender_preference" class="TunableMatchmakingGenderPreferenceFilterTerm" display="Matchmaking Gender Preference" description="A filter term specific for matchmaking app for filtering sims that fit the requesting sim info's romantic and woohoo preferences. The requesting sim also need to fit the filtered sim's romantic and woohoo preferences." group="General">
                                     <Tunable type="bool" name="consider_woohoo_preferences" class="Tunable" default="True" display="Consider Woohoo Preferences" description="If checked then woohoo preferences will also be considered along gender preferences. If not, then we will strictly consider only their current romantic preference." group="General" />
+                                    <TunableVariant type="None" name="gender_preference" class="OptionalTunable" default="disabled" display="Gender Preference" description="If specified, then filter based on this preference type rather than evaluating attraction to a specific sim." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableEnum type="GenderAttractionPreference" name="enabled" class="TunableEnumEntry" default="MALE" display="Enabled" static_entries="sims-sim_info_types.GenderAttractionPreference" description="Gender preference a Sim must have in order to pass this criteria." group="General" />
+                                    </TunableVariant>
                                     <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
                                     <Tunable type="bool" name="pass_all_if_no_preference_is_set" class="Tunable" default="True" display="Pass All If No Preference Is Set" description="If checked then if no gender preference is set for the sim and they are also not exploring, we will let any sim pass the filter." group="General" />
                                 </TunableTuple>
@@ -3240,6 +3404,10 @@
                                         <Tunable type="bool" name="consider_exploration" class="Tunable" default="False" display="Consider Exploration" description="If checked, then we will allow sims who do not have matching attractions but are exploring. If not, then we will strictly consider only their current romantic preference unless the sim has no preference and a fallback is tuned. Only applicable to human sims." group="General" />
                                         <Tunable type="bool" name="fallback_if_no_preference_is_set" class="Tunable" default="False" display="Fallback If No Preference Is Set" description="If checked then if no gender preference is set for the sim we will fallback to a heterosexual connection. If this is set on human sims, it will only work if the sim is exploring, but will do so even if consider_exploration is unchecked." group="General" />
                                         <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                                        <TunableVariant type="None" name="gender_preference" class="OptionalTunable" default="disabled" display="Gender Preference" description="If specified, then filter based on this preference type rather than evaluating attraction to a specific sim." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableEnum type="GenderAttractionPreference" name="enabled" class="TunableEnumEntry" default="MALE" display="Enabled" static_entries="sims-sim_info_types.GenderAttractionPreference" description="Gender preference a Sim must have in order to pass this criteria." group="General" />
+                                        </TunableVariant>
                                         <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
                                     </TunableTuple>
                                     <TunableTuple name="gender_relative" class="TunableGenderRelativeFilterTerm" display="Gender Relative" description="A term for filtering Sims base on their gender relative to target sims gender. Only new Sims may be conformed by creating them of a valid gender. Existing Sims may not be conformed." group="General">
@@ -3535,6 +3703,10 @@
                                     </TunableTuple>
                                     <TunableTuple name="matchmaking_gender_preference" class="TunableMatchmakingGenderPreferenceFilterTerm" display="Matchmaking Gender Preference" description="A filter term specific for matchmaking app for filtering sims that fit the requesting sim info's romantic and woohoo preferences. The requesting sim also need to fit the filtered sim's romantic and woohoo preferences." group="General">
                                         <Tunable type="bool" name="consider_woohoo_preferences" class="Tunable" default="True" display="Consider Woohoo Preferences" description="If checked then woohoo preferences will also be considered along gender preferences. If not, then we will strictly consider only their current romantic preference." group="General" />
+                                        <TunableVariant type="None" name="gender_preference" class="OptionalTunable" default="disabled" display="Gender Preference" description="If specified, then filter based on this preference type rather than evaluating attraction to a specific sim." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableEnum type="GenderAttractionPreference" name="enabled" class="TunableEnumEntry" default="MALE" display="Enabled" static_entries="sims-sim_info_types.GenderAttractionPreference" description="Gender preference a Sim must have in order to pass this criteria." group="General" />
+                                        </TunableVariant>
                                         <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
                                         <Tunable type="bool" name="pass_all_if_no_preference_is_set" class="Tunable" default="True" display="Pass All If No Preference Is Set" description="If checked then if no gender preference is set for the sim and they are also not exploring, we will let any sim pass the filter." group="General" />
                                     </TunableTuple>
@@ -3931,6 +4103,9 @@
                         </TunableVariant>
                     </TunableTuple>
                     <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                    <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                        <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                    </TunableTuple>
                     <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                     </TunableTuple>
@@ -4255,6 +4430,10 @@
                                     <Tunable type="bool" name="consider_exploration" class="Tunable" default="False" display="Consider Exploration" description="If checked, then we will allow sims who do not have matching attractions but are exploring. If not, then we will strictly consider only their current romantic preference unless the sim has no preference and a fallback is tuned. Only applicable to human sims." group="General" />
                                     <Tunable type="bool" name="fallback_if_no_preference_is_set" class="Tunable" default="False" display="Fallback If No Preference Is Set" description="If checked then if no gender preference is set for the sim we will fallback to a heterosexual connection. If this is set on human sims, it will only work if the sim is exploring, but will do so even if consider_exploration is unchecked." group="General" />
                                     <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                                    <TunableVariant type="None" name="gender_preference" class="OptionalTunable" default="disabled" display="Gender Preference" description="If specified, then filter based on this preference type rather than evaluating attraction to a specific sim." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableEnum type="GenderAttractionPreference" name="enabled" class="TunableEnumEntry" default="MALE" display="Enabled" static_entries="sims-sim_info_types.GenderAttractionPreference" description="Gender preference a Sim must have in order to pass this criteria." group="General" />
+                                    </TunableVariant>
                                     <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
                                 </TunableTuple>
                                 <TunableTuple name="gender_relative" class="TunableGenderRelativeFilterTerm" display="Gender Relative" description="A term for filtering Sims base on their gender relative to target sims gender. Only new Sims may be conformed by creating them of a valid gender. Existing Sims may not be conformed." group="General">
@@ -4550,6 +4729,10 @@
                                 </TunableTuple>
                                 <TunableTuple name="matchmaking_gender_preference" class="TunableMatchmakingGenderPreferenceFilterTerm" display="Matchmaking Gender Preference" description="A filter term specific for matchmaking app for filtering sims that fit the requesting sim info's romantic and woohoo preferences. The requesting sim also need to fit the filtered sim's romantic and woohoo preferences." group="General">
                                     <Tunable type="bool" name="consider_woohoo_preferences" class="Tunable" default="True" display="Consider Woohoo Preferences" description="If checked then woohoo preferences will also be considered along gender preferences. If not, then we will strictly consider only their current romantic preference." group="General" />
+                                    <TunableVariant type="None" name="gender_preference" class="OptionalTunable" default="disabled" display="Gender Preference" description="If specified, then filter based on this preference type rather than evaluating attraction to a specific sim." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableEnum type="GenderAttractionPreference" name="enabled" class="TunableEnumEntry" default="MALE" display="Enabled" static_entries="sims-sim_info_types.GenderAttractionPreference" description="Gender preference a Sim must have in order to pass this criteria." group="General" />
+                                    </TunableVariant>
                                     <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
                                     <Tunable type="bool" name="pass_all_if_no_preference_is_set" class="Tunable" default="True" display="Pass All If No Preference Is Set" description="If checked then if no gender preference is set for the sim and they are also not exploring, we will let any sim pass the filter." group="General" />
                                 </TunableTuple>
@@ -4918,6 +5101,10 @@
                                         <Tunable type="bool" name="consider_exploration" class="Tunable" default="False" display="Consider Exploration" description="If checked, then we will allow sims who do not have matching attractions but are exploring. If not, then we will strictly consider only their current romantic preference unless the sim has no preference and a fallback is tuned. Only applicable to human sims." group="General" />
                                         <Tunable type="bool" name="fallback_if_no_preference_is_set" class="Tunable" default="False" display="Fallback If No Preference Is Set" description="If checked then if no gender preference is set for the sim we will fallback to a heterosexual connection. If this is set on human sims, it will only work if the sim is exploring, but will do so even if consider_exploration is unchecked." group="General" />
                                         <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                                        <TunableVariant type="None" name="gender_preference" class="OptionalTunable" default="disabled" display="Gender Preference" description="If specified, then filter based on this preference type rather than evaluating attraction to a specific sim." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableEnum type="GenderAttractionPreference" name="enabled" class="TunableEnumEntry" default="MALE" display="Enabled" static_entries="sims-sim_info_types.GenderAttractionPreference" description="Gender preference a Sim must have in order to pass this criteria." group="General" />
+                                        </TunableVariant>
                                         <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
                                     </TunableTuple>
                                     <TunableTuple name="gender_relative" class="TunableGenderRelativeFilterTerm" display="Gender Relative" description="A term for filtering Sims base on their gender relative to target sims gender. Only new Sims may be conformed by creating them of a valid gender. Existing Sims may not be conformed." group="General">
@@ -5213,6 +5400,10 @@
                                     </TunableTuple>
                                     <TunableTuple name="matchmaking_gender_preference" class="TunableMatchmakingGenderPreferenceFilterTerm" display="Matchmaking Gender Preference" description="A filter term specific for matchmaking app for filtering sims that fit the requesting sim info's romantic and woohoo preferences. The requesting sim also need to fit the filtered sim's romantic and woohoo preferences." group="General">
                                         <Tunable type="bool" name="consider_woohoo_preferences" class="Tunable" default="True" display="Consider Woohoo Preferences" description="If checked then woohoo preferences will also be considered along gender preferences. If not, then we will strictly consider only their current romantic preference." group="General" />
+                                        <TunableVariant type="None" name="gender_preference" class="OptionalTunable" default="disabled" display="Gender Preference" description="If specified, then filter based on this preference type rather than evaluating attraction to a specific sim." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableEnum type="GenderAttractionPreference" name="enabled" class="TunableEnumEntry" default="MALE" display="Enabled" static_entries="sims-sim_info_types.GenderAttractionPreference" description="Gender preference a Sim must have in order to pass this criteria." group="General" />
+                                        </TunableVariant>
                                         <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
                                         <Tunable type="bool" name="pass_all_if_no_preference_is_set" class="Tunable" default="True" display="Pass All If No Preference Is Set" description="If checked then if no gender preference is set for the sim and they are also not exploring, we will let any sim pass the filter." group="General" />
                                     </TunableTuple>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="aspirations.childhood_inspiration_tuning">
+        <Class name="ChildhoodInspirationTuning">
+            <Tunable type="int" name="COOLDOWN_TIME" class="Tunable" default="90" display="Cooldown Time" description="cool down time in sim hour for the active challenge that is removed by player, or removed from suggested list that can be suggested again." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="MAX_NUM_OF_ACTIVE_CHILDHOOD_INSPIRATION" class="Tunable" default="5" display="Max Num Of Active Childhood Inspiration" description="Max number of active childhood inspirations displayed in the childhood inspiration panel." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="MAX_NUM_OF_VISIBLE_SUGGESTED_INSPIRATION" class="Tunable" default="5" display="Max Num Of Visible Suggested Inspiration" description="Number of suggested inspirations displayed in the childhood inspiration panel." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="REFRESH_TIME" class="Tunable" default="90" display="Refresh Time" description="Duration in sim hours to refresh the suggested challenge." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

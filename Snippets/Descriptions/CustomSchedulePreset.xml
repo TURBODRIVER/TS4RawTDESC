@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="CustomSchedulePreset" module="custom_schedules.custom_schedule_preset_tuning" description="Structure containing a preset CustomSchedule for shipped Custom Schedule Venues." instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="assignment_hierarchy" class="TunableList" display="Assignment Hierarchy" description="The order of this list dicates the order that roles are displayed AND the order with which we attempt to automatically place the active household sim into based on assignment criteria." group="General">
+            <Tunable type="snippet" class="TunableReference" description="A pre-made CustomScheduleAssignment." allow_none="False" group="General" pack_safe="True" restrict="CustomScheduleAssignment" />
+        </TunableList>
+
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="This Schedule's name." group="UI" />
+
+        <TunableList name="preselected_getaway_challenges" class="TunableList" display="Preselected Getaway Challenges" description="A list of all challenges automatically applied to a Premade Getaway." group="General" unique_entries="true">
+            <TunableTuple class="TunableTuple" description="A challenge paired with CustomScheduleAssignment(s) deemed 'of_interest' and 'participating'." group="General">
+                <TunableList name="assigned_groups" class="TunableList" display="Assigned Groups" description="This mirrors 'GetawayChallenge' groups. Assign each CustomScheduleAssignment to the group index you expect the assignment to auto-fill into." group="General">
+                    <TunableList class="TunableList" group="General">
+                        <Tunable type="snippet" class="TunableReference" description="A CustomScheduleAssignment that auto-fills into this index's group within the Getaway Challenge." allow_none="False" group="General" restrict="CustomScheduleAssignment" />
+                    </TunableList>
+                </TunableList>
+                <Tunable type="getaway_challenge" name="challenge" class="TunableReference" display="Challenge" description="The Getaway Challenge to be automatically applied when scheduling a getaway with this schedule." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="time_slots" class="TunableMapping" display="Time Slots" mapping_key="key" mapping_value="value" description="A tunable mapping from hour offset of the start of a day that will be applied at that hour every day." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="int" name="key" class="TunableRange" default="0" display="Key" min="0" max="23" description="The range of hours in a day." tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="value" class="TunableTuple" display="Value" group="General">
+                    <Tunable type="club_interaction_group" name="default_behavior" class="TunableReference" display="Default Behavior" description="The default ClubInteractionGroup used for this time slot if a Time Slot Assignment's interactions are unavailable." allow_none="True" group="General" pack_safe="True" />
+                    <TunableList name="time_slot_assignments" class="TunableMapping" display="Time Slot Assignments" mapping_key="key" mapping_value="value" group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="snippet" name="key" class="TunableReference" display="Key" description="The pre-made CustomScheduleAssignment used for this time slot assignment." allow_none="False" group="General" pack_safe="True" restrict="CustomScheduleAssignment" />
+                            <TunableTuple name="value" class="TunableTuple" display="Value" description="Data for a given 'Assignment' during a given time slot." group="General">
+                                <TunableVariant type="None" name="behavior_overrides" class="OptionalTunable" default="disabled" display="Behavior Overrides" description="If enabled, this will override the 'default behaviors' tuned on the associated CustomScheduleAssignment." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableList name="enabled" class="TunableSet" display="Enabled" max="5" description="ClubInteractionGroups to use instead of the CustomScheduleAssignment's 'default behaviors'." group="General" unique_entries="true">
+                                        <Tunable type="club_interaction_group" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                    </TunableList>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="outfit_override" class="OptionalTunable" default="disabled" display="Outfit Override" description="If enabled, this will override the 'default outfit' tuned on the associated CustomScheduleAssignment." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableVariant type="None" name="enabled" class="CustomScheduleOutfitVariant" default="no_outfit" display="Enabled" group="General">
+                                        <TunableTuple name="no_outfit" class="TunableCustomScheduleNoOutfitSetting" display="No Outfit" description="If selected, the CustomScheduleAssignment will not make any changes to the default outfit for the assignment." group="General" />
+                                        <TunableTuple name="outfit_category" class="TunableCustomScheduleCategorySetting" display="Outfit Category" description="If selected, the CustomScheduleAssignment will force an outfit category. If the assignment's default outfit setting is 'Uniform', it will use the uniform's outfit category." group="General">
+                                            <TunableEnum type="OutfitCategory" name="outfit_category" class="TunableEnumEntry" default="EVERYDAY" display="Outfit Category" static_entries="sims-outfits-outfit_enums.OutfitCategory" description="The outfit category to use." group="General" invalid_entries="SITUATION,SMALL_BUSINESS" />
+                                        </TunableTuple>
+                                        <TunableTuple name="style_and_color" class="TunableCustomScheduleStyleAndColorSetting" display="Style And Color" description="If selected, the CustomScheduleAssignment will force a generated outfit based on tuned Style and Color tags." group="General">
+                                            <TunableVariant type="None" name="color" class="OptionalTunable" default="disabled" display="Color" description="The desired color tag for the outfit." group="General">
+                                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                <TunableEnum type="Tag" name="enabled" class="TunableEnumWithFilter" default="INVALID" display="Enabled" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A color tag used to find matching CAS parts." dynamic_entries_prefix="color" group="General" pack_safe="True" />
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="style" class="OptionalTunable" default="disabled" display="Style" description="The desired style tag for the outfit." group="General">
+                                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                <TunableEnum type="Tag" name="enabled" class="TunableEnumWithFilter" default="INVALID" display="Enabled" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A style tag used to find matching CAS parts." dynamic_entries_prefix="style" group="General" pack_safe="True" />
+                                            </TunableVariant>
+                                        </TunableTuple>
+                                    </TunableVariant>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="sim_count_override" class="OptionalTunable" default="disabled" display="Sim Count Override" description="If enabled, this will override the 'sim count' tuned on the associated CustomScheduleAssignment." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableRange" default="0" display="Enabled" min="0" max="8" tuning_state="NeedsTuning" group="General" />
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+
+    
+</TuningRoot>

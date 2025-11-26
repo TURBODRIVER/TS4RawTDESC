@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="GetawayPlayerFacingSituation" module="custom_schedules.getaway_player_facing_situation" description="This is a player-facing situation used to display active activities for household sims. It does not handle GetawayChallenge behavior, since this is used to convey Schedule information to the player." instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="participant_job_and_role_state" class="TunableSituationJobAndRoleState" display="Participant Job And Role State" description="Job and Role State for the participant." group="General">
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

@@ -41,7 +41,7 @@
                                 </TunableTuple>
                             </TunableTuple>
                             <TunableTuple name="test_event" class="TunableTestEventTrigger" display="Test Event" description="A trigger that triggers based on a test and the events associated with that test." group="General">
-                                <Tunable type="bool" name="only_trigger_for_situation_sims" class="Tunable" default="True" display="Only Trigger For Situation Sims" description="If checked then we will only perform this trigger if the Sim linked to the even is in the situation." group="General" />
+                                <Tunable type="bool" name="only_trigger_for_situation_sims" class="Tunable" default="True" display="Only Trigger For Situation Sims" description="If checked then we will only perform this trigger if the Sim linked to the event is in the situation." group="General" />
                                 <TunableVariant type="None" name="test" class="CustomStatesSituationTriggerDataTestVariant" default="ran_interaction_test" display="Test" description="A test that will be listened to in order to act as a trigger. These tests will not be checked when entering the state to see if they are already complete." group="General">
                                     <TunableTuple name="at_work" class="TunableAtWorkTest" display="At Work" description="Tests if the subject is currently at work." group="General">
                                         <TunableVariant type="None" name="active_work_restriction" class="OptionalTunable" default="disabled" display="Active Work Restriction" description="If enabled, if this is set the test will only pass if the Sim is at an active event. If not set, the test will instead only pass if the Sim is not at an active event." group="General">
@@ -423,14 +423,21 @@
                                     </TunableTuple>
                                     <TunableTuple name="collection_test" class="TunableCollectionThresholdTest" display="Collection Test" description="Tests for a provided amount of a given collection type." group="General">
                                         <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
-                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will override the threshold and check for collection completed" group="General" />
-                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection. When enabled both the Collection Type and Complete Collection tuning will be ignored." group="General">
+                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                        <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                        <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                        <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
                                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                             <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
                                                 <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
                                             </TunableList>
                                         </TunableVariant>
-                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for which the Sim experiences motive failure" group="General">
+                                        <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                        </TunableVariant>
+                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
                                             <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
                                             <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
                                         </TunableTuple>
@@ -664,6 +671,36 @@
                                             </TunableTuple>
                                             <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                 <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                    <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                        <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                        <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                        <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                        <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                            </TunableList>
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                        </TunableVariant>
+                                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                            <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                        </TunableVariant>
+                                                        <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                    </TunableTuple>
+                                                </TunableList>
                                             </TunableTuple>
                                             <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -1472,6 +1509,7 @@
                                         </TunableTuple>
                                     </TunableTuple>
                                 </TunableVariant>
+                                <Tunable type="bool" name="trigger_only_if_all_situation_sims" class="Tunable" default="False" display="Trigger Only If All Situation Sims" description="If checked then we will only perform this trigger if ALL Sims in the situation simultaneously satisfy the test." group="General" />
                             </TunableTuple>
                             <TunableTuple name="time_of_day" class="TunableTimeOfDayTrigger" display="Time Of Day" description="A trigger that triggers at a time of day." group="General">
                                 <TunableTuple name="time" class="TunableTimeOfDay" display="Time" description="The time of day that this trigger will occur at." group="General">
@@ -1521,7 +1559,7 @@
                                 </TunableTuple>
                             </TunableTuple>
                             <TunableTuple name="test_event" class="TunableTestEventTrigger" display="Test Event" description="A trigger that triggers based on a test and the events associated with that test." group="General">
-                                <Tunable type="bool" name="only_trigger_for_situation_sims" class="Tunable" default="True" display="Only Trigger For Situation Sims" description="If checked then we will only perform this trigger if the Sim linked to the even is in the situation." group="General" />
+                                <Tunable type="bool" name="only_trigger_for_situation_sims" class="Tunable" default="True" display="Only Trigger For Situation Sims" description="If checked then we will only perform this trigger if the Sim linked to the event is in the situation." group="General" />
                                 <TunableVariant type="None" name="test" class="CustomStatesSituationTriggerDataTestVariant" default="ran_interaction_test" display="Test" description="A test that will be listened to in order to act as a trigger. These tests will not be checked when entering the state to see if they are already complete." group="General">
                                     <TunableTuple name="at_work" class="TunableAtWorkTest" display="At Work" description="Tests if the subject is currently at work." group="General">
                                         <TunableVariant type="None" name="active_work_restriction" class="OptionalTunable" default="disabled" display="Active Work Restriction" description="If enabled, if this is set the test will only pass if the Sim is at an active event. If not set, the test will instead only pass if the Sim is not at an active event." group="General">
@@ -1903,14 +1941,21 @@
                                     </TunableTuple>
                                     <TunableTuple name="collection_test" class="TunableCollectionThresholdTest" display="Collection Test" description="Tests for a provided amount of a given collection type." group="General">
                                         <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
-                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will override the threshold and check for collection completed" group="General" />
-                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection. When enabled both the Collection Type and Complete Collection tuning will be ignored." group="General">
+                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                        <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                        <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                        <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
                                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                             <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
                                                 <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
                                             </TunableList>
                                         </TunableVariant>
-                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for which the Sim experiences motive failure" group="General">
+                                        <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                        </TunableVariant>
+                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
                                             <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
                                             <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
                                         </TunableTuple>
@@ -2144,6 +2189,36 @@
                                             </TunableTuple>
                                             <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                 <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                    <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                        <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                        <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                        <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                        <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                            </TunableList>
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                        </TunableVariant>
+                                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                            <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                        </TunableVariant>
+                                                        <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                    </TunableTuple>
+                                                </TunableList>
                                             </TunableTuple>
                                             <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -2952,6 +3027,7 @@
                                         </TunableTuple>
                                     </TunableTuple>
                                 </TunableVariant>
+                                <Tunable type="bool" name="trigger_only_if_all_situation_sims" class="Tunable" default="False" display="Trigger Only If All Situation Sims" description="If checked then we will only perform this trigger if ALL Sims in the situation simultaneously satisfy the test." group="General" />
                             </TunableTuple>
                             <TunableTuple name="time_of_day" class="TunableTimeOfDayTrigger" display="Time Of Day" description="A trigger that triggers at a time of day." group="General">
                                 <TunableTuple name="time" class="TunableTimeOfDay" display="Time" description="The time of day that this trigger will occur at." group="General">
@@ -3122,7 +3198,7 @@
                                 </TunableTuple>
                             </TunableTuple>
                             <TunableTuple name="test_event" class="TunableTestEventTrigger" display="Test Event" description="A trigger that triggers based on a test and the events associated with that test." group="General">
-                                <Tunable type="bool" name="only_trigger_for_situation_sims" class="Tunable" default="True" display="Only Trigger For Situation Sims" description="If checked then we will only perform this trigger if the Sim linked to the even is in the situation." group="General" />
+                                <Tunable type="bool" name="only_trigger_for_situation_sims" class="Tunable" default="True" display="Only Trigger For Situation Sims" description="If checked then we will only perform this trigger if the Sim linked to the event is in the situation." group="General" />
                                 <TunableVariant type="None" name="test" class="CustomStatesSituationTriggerDataTestVariant" default="ran_interaction_test" display="Test" description="A test that will be listened to in order to act as a trigger. These tests will not be checked when entering the state to see if they are already complete." group="General">
                                     <TunableTuple name="at_work" class="TunableAtWorkTest" display="At Work" description="Tests if the subject is currently at work." group="General">
                                         <TunableVariant type="None" name="active_work_restriction" class="OptionalTunable" default="disabled" display="Active Work Restriction" description="If enabled, if this is set the test will only pass if the Sim is at an active event. If not set, the test will instead only pass if the Sim is not at an active event." group="General">
@@ -3504,14 +3580,21 @@
                                     </TunableTuple>
                                     <TunableTuple name="collection_test" class="TunableCollectionThresholdTest" display="Collection Test" description="Tests for a provided amount of a given collection type." group="General">
                                         <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
-                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will override the threshold and check for collection completed" group="General" />
-                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection. When enabled both the Collection Type and Complete Collection tuning will be ignored." group="General">
+                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                        <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                        <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                        <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
                                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                             <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
                                                 <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
                                             </TunableList>
                                         </TunableVariant>
-                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for which the Sim experiences motive failure" group="General">
+                                        <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                        </TunableVariant>
+                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
                                             <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
                                             <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
                                         </TunableTuple>
@@ -3745,6 +3828,36 @@
                                             </TunableTuple>
                                             <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                 <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                    <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                        <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                        <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                        <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                        <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                            </TunableList>
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                        </TunableVariant>
+                                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                            <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                        </TunableVariant>
+                                                        <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                    </TunableTuple>
+                                                </TunableList>
                                             </TunableTuple>
                                             <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -4553,6 +4666,7 @@
                                         </TunableTuple>
                                     </TunableTuple>
                                 </TunableVariant>
+                                <Tunable type="bool" name="trigger_only_if_all_situation_sims" class="Tunable" default="False" display="Trigger Only If All Situation Sims" description="If checked then we will only perform this trigger if ALL Sims in the situation simultaneously satisfy the test." group="General" />
                             </TunableTuple>
                             <TunableTuple name="time_of_day" class="TunableTimeOfDayTrigger" display="Time Of Day" description="A trigger that triggers at a time of day." group="General">
                                 <TunableTuple name="time" class="TunableTimeOfDay" display="Time" description="The time of day that this trigger will occur at." group="General">
@@ -4865,6 +4979,9 @@
                                     </TunableVariant>
                                 </TunableTuple>
                                 <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                    <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                </TunableTuple>
                                 <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                     <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                 </TunableTuple>
@@ -5148,6 +5265,31 @@
                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                             <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                         </TunableVariant>
+                        <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                    <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                    <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                        <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                            <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                        </TunableTuple>
+                                        <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                            <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                        </TunableTuple>
+                                        <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                            <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                        </TunableTuple>
+                                        <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                            <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                        </TunableTuple>
+                                        <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                            <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                        </TunableTuple>
+                                    </TunableVariant>
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableVariant>
                         <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                     </TunableTuple>
                 </TunableList>
@@ -5189,7 +5331,7 @@
                                 </TunableTuple>
                             </TunableTuple>
                             <TunableTuple name="test_event" class="TunableTestEventTrigger" display="Test Event" description="A trigger that triggers based on a test and the events associated with that test." group="General">
-                                <Tunable type="bool" name="only_trigger_for_situation_sims" class="Tunable" default="True" display="Only Trigger For Situation Sims" description="If checked then we will only perform this trigger if the Sim linked to the even is in the situation." group="General" />
+                                <Tunable type="bool" name="only_trigger_for_situation_sims" class="Tunable" default="True" display="Only Trigger For Situation Sims" description="If checked then we will only perform this trigger if the Sim linked to the event is in the situation." group="General" />
                                 <TunableVariant type="None" name="test" class="CustomStatesSituationTriggerDataTestVariant" default="ran_interaction_test" display="Test" description="A test that will be listened to in order to act as a trigger. These tests will not be checked when entering the state to see if they are already complete." group="General">
                                     <TunableTuple name="at_work" class="TunableAtWorkTest" display="At Work" description="Tests if the subject is currently at work." group="General">
                                         <TunableVariant type="None" name="active_work_restriction" class="OptionalTunable" default="disabled" display="Active Work Restriction" description="If enabled, if this is set the test will only pass if the Sim is at an active event. If not set, the test will instead only pass if the Sim is not at an active event." group="General">
@@ -5571,14 +5713,21 @@
                                     </TunableTuple>
                                     <TunableTuple name="collection_test" class="TunableCollectionThresholdTest" display="Collection Test" description="Tests for a provided amount of a given collection type." group="General">
                                         <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
-                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will override the threshold and check for collection completed" group="General" />
-                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection. When enabled both the Collection Type and Complete Collection tuning will be ignored." group="General">
+                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                        <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                        <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                        <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
                                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                             <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
                                                 <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
                                             </TunableList>
                                         </TunableVariant>
-                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for which the Sim experiences motive failure" group="General">
+                                        <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                        </TunableVariant>
+                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
                                             <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
                                             <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
                                         </TunableTuple>
@@ -5812,6 +5961,36 @@
                                             </TunableTuple>
                                             <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                 <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                    <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                        <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                        <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                        <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                        <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                        <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                        <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                            </TunableList>
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                        </TunableVariant>
+                                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                            <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                        </TunableVariant>
+                                                        <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                    </TunableTuple>
+                                                </TunableList>
                                             </TunableTuple>
                                             <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -6620,6 +6799,7 @@
                                         </TunableTuple>
                                     </TunableTuple>
                                 </TunableVariant>
+                                <Tunable type="bool" name="trigger_only_if_all_situation_sims" class="Tunable" default="False" display="Trigger Only If All Situation Sims" description="If checked then we will only perform this trigger if ALL Sims in the situation simultaneously satisfy the test." group="General" />
                             </TunableTuple>
                             <TunableTuple name="time_of_day" class="TunableTimeOfDayTrigger" display="Time Of Day" description="A trigger that triggers at a time of day." group="General">
                                 <TunableTuple name="time" class="TunableTimeOfDay" display="Time" description="The time of day that this trigger will occur at." group="General">

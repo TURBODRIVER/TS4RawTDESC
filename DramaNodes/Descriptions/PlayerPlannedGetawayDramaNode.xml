@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="drama_node" class="PlayerPlannedGetawayDramaNode" module="custom_schedules.player_planned_getaway_drama_node" description="A drama node that lets players plan a Getaway in advance." instance_subclasses_only="False" parents="PlayerPlannedStayoverDramaNode, BaseDramaNode" path="DramaNodes\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="advance_notice_time" class="TunableTimeSpan" display="Advance Notice Time" description="The amount of time between the alert and the start of the getaway." group="General">
+            <Tunable type="int" name="hours" class="TunableRange" default="1" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <Tunable type="float" name="cost_multiplier" class="TunableRange" default="0.1" display="Cost Multiplier" min="0.0" max="None" description="This multiplier is applied to the lot value of the location of the getaway to determine the cost of attendance." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="default_duration_nights" class="Tunable" default="2" display="Default Duration Nights" description="The default number of nights to select for Getaway duration." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="maximum_duration_nights" class="Tunable" default="6" display="Maximum Duration Nights" description="The maximum number of selectable nights for Getaway duration." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="start_without_me_text" class="TunableLocalizedString" default="0x0" display="Start Without Me Text" description="Button text for starting the Getaway while the sim is off-lot of the Getaway." group="General" />
+    </Instance>
+</TuningRoot>

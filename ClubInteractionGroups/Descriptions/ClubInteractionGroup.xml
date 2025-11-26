@@ -20,6 +20,38 @@
 
         <Tunable type="bool" name="club_rule" class="Tunable" default="True" display="Club Rule" description="If checked, this interaction group can be used as a club rule for clubs." group="General" />
 
+        <TunableVariant type="None" name="custom_schedule_enabled" class="OptionalTunable" default="disabled" display="Custom Schedule Enabled" description="Whether or not this group is available at all for Custom Schedules." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="ClubCustomScheduleOptions" display="Enabled" group="General">
+                <Tunable type="bool" name="activities_rule" class="Tunable" default="True" display="Activities Rule" description="If checked, this interaction group can be used as a scheduled activity for a role." group="General" />
+                <TunableTuple name="additional_buff" class="TunablePackSafeBuffReference" display="Additional Buff" description="This buff is applied to sims adhering to this ClubInteractionGroup. It is removed when this is no longer active." group="General">
+                    <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                            <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                        </TunableVariant>
+                    </TunableVariant>
+                    <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="True" group="General" pack_safe="True" />
+                </TunableTuple>
+                <Tunable type="bool" name="behavior_rule" class="Tunable" default="True" display="Behavior Rule" description="If checked, this interaction group can be used as a generic behavior for a timeslot" group="General" />
+                <Tunable type="bool" name="shufflable" class="Tunable" default="True" display="Shufflable" description="If checked, this interaction group can be shuffled to in Activity Shuffle challenges." group="General" />
+                <TunableList name="tooltip_text" class="TunableMapping" display="Tooltip Text" mapping_key="key" mapping_value="value" description="Mapping from the Pack to its associated tooltip strings." group="General" mapping_class="RulesTooltipsStringsTuple">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="Pack" name="key" class="TunableEnumEntry" default="BASE_GAME" display="Key" static_entries="sims4-common.Pack" description="The pack containing the strings." group="General" />
+                        <TunableList name="value" class="TunableList" display="Value" description="A list of tooltips for rules for this interaction group. " group="General">
+                            <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may NOT require tokens." group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+
         <Tunable type="bool" name="is_targeted" class="Tunable" default="True" display="Is Targeted" description="If checked, this interaction group contains interactions that target other Sims. If unchecked, this interaction group contains interactions that do not target other Sims." group="General" />
 
         <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name for this interaction group." group="UI" />

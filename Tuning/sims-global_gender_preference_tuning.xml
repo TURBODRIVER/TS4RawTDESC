@@ -85,6 +85,13 @@
                 </TunableTuple>
             </TunableList>
 
+            <TunableList name="GENDERED_CLOTHING_PREFERENCE_TAGS" class="TunableMapping" display="Gendered Clothing Preference Tags" mapping_key="key" mapping_value="value" description="A mapping between gender preference trait and the tag associated with CAS items indicating gendered clothing type." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Gender" name="key" class="TunableEnumEntry" default="MALE" display="Key" static_entries="sims-sim_info_types.Gender" description="The Clothing Preference Gender related to the provided tag (not necessarily the gender of the Sim.)" group="General" />
+                    <TunableEnum type="Tag" name="value" class="TunableEnumWithFilter" default="INVALID" display="Value" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="GenderAppropriate" group="General" />
+                </TunableTuple>
+            </TunableList>
+
             <Tunable type="trait" name="MALE_CLOTHING_PREFERENCE_TRAIT" class="TunableReference" display="Male Clothing Preference Trait" description="The trait that signifies that this sim prefers to wear male clothing." allow_none="False" group="General" />
 
             <TunableList name="ROMANTIC_PREFERENCE_TRAITS_MAPPING" class="TunableMapping" display="Romantic Preference Traits Mapping" mapping_key="key" mapping_value="value" description="A mapping between gender and the romantic orientation traits for easy lookup." group="General">

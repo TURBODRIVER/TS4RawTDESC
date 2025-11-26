@@ -33,6 +33,18 @@
                             <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A set of tests to run to see if this item would be available." group="General" />
                         </TunableTuple>
                     </TunableList>
+                    <Tunable type="bool" name="test_individual_definitions" class="Tunable" default="False" display="Test Individual Definitions" description="If True, then potential definitions will be passed to tests as PickedItemIds." group="General" />
+                </TunableTuple>
+                <TunableTuple name="tested_items_from_tags" class="TunableDefinitionsFromTagsTested" display="Tested Items From Tags" description="Test items (specified by tags) that are able to be displayed within the picker." group="General">
+                    <TunableList name="item_list" class="TunableList" display="Item List" min="1" description="The list of items potentially available." group="General">
+                        <TunableTuple class="TunableTuple" description="A pair of tag sets and tests to run in order to see if those items should be available." group="General">
+                            <TunableList name="tag_set" class="TunableTags" display="Tag Set" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A set of tags specifying potentially available items." group="General" invalid_entries="INVALID" pack_safe="True" />
+                            </TunableList>
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A set of tests to run to see if those items should be available." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                    <Tunable type="bool" name="test_individual_definitions" class="Tunable" default="False" display="Test Individual Definitions" description="If True, then potential definitions will be passed to tests as PickedItemIds." group="General" />
                 </TunableTuple>
             </TunableVariant>
         </TunableList>
@@ -76,6 +88,18 @@
                         <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A set of tests to run to see if this item would be available." group="General" />
                     </TunableTuple>
                 </TunableList>
+                <Tunable type="bool" name="test_individual_definitions" class="Tunable" default="False" display="Test Individual Definitions" description="If True, then potential definitions will be passed to tests as PickedItemIds." group="General" />
+            </TunableTuple>
+            <TunableTuple name="tested_items_from_tags" class="TunableDefinitionsFromTagsTested" display="Tested Items From Tags" description="Test items (specified by tags) that are able to be displayed within the picker." group="General">
+                <TunableList name="item_list" class="TunableList" display="Item List" min="1" description="The list of items potentially available." group="General">
+                    <TunableTuple class="TunableTuple" description="A pair of tag sets and tests to run in order to see if those items should be available." group="General">
+                        <TunableList name="tag_set" class="TunableTags" display="Tag Set" group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A set of tags specifying potentially available items." group="General" invalid_entries="INVALID" pack_safe="True" />
+                        </TunableList>
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A set of tests to run to see if those items should be available." group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="bool" name="test_individual_definitions" class="Tunable" default="False" display="Test Individual Definitions" description="If True, then potential definitions will be passed to tests as PickedItemIds." group="General" />
             </TunableTuple>
         </TunableVariant>
     </Instance>

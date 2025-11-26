@@ -141,6 +141,13 @@
                 <Tunable type="interaction" name="FIT_CHANGE_POSITIVE_AFFORDANCE" class="TunableReference" display="Fit Change Positive Affordance" description="Affordance to run when a Sim's fitness changes to positive effect." allow_none="False" group="General" />
             </TunableTuple>
 
+            <TunableList name="ROMANTIC_ATTRACTION_FILTER_STRINGS" class="TunableMapping" display="Romantic Attraction Filter Strings" mapping_key="preference" mapping_value="preference_string" description="The string keys for romantic attraction preferences, e.g. for club sim filtering." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="GenderAttractionPreference" name="preference" class="TunableEnumEntry" default="MALE" display="Preference" static_entries="sims-sim_info_types.GenderAttractionPreference" description="The gender that a Sim is attracted to." group="General" />
+                    <Tunable type="int" name="preference_string" class="TunableLocalizedString" default="0x0" display="Preference String" description="A localized string that may NOT require tokens." group="General" />
+                </TunableTuple>
+            </TunableList>
+
             <TunableList name="SIM_DEFINITIONS" class="TunableMapping" display="Sim Definitions" mapping_key="key" mapping_value="value" description="A Map from Species to base definition object." group="General">
                 <TunableTuple class="TunableTuple" group="General">
                     <TunableEnum type="SpeciesExtended" name="key" class="TunableEnumEntry" default="HUMAN" display="Key" static_entries="sims-sim_info_types.SpeciesExtended" description="Species this definition is for." group="General" invalid_entries="INVALID" />

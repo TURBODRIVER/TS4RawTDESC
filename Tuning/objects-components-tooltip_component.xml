@@ -68,6 +68,9 @@
                                     </TunableVariant>
                                 </TunableTuple>
                                 <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                    <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                </TunableTuple>
                                 <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                     <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                 </TunableTuple>

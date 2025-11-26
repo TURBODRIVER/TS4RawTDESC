@@ -10,6 +10,8 @@
                 </TunableTuple>
             </TunableList>
 
+            <Tunable type="snippet" name="SHARE_BED_TEST_SET" class="TunableReference" display="Share Bed Test Set" description="Test set used to determine if sims can sleep in the same bed. Used to kick out an existing sim from another part if the two aren't compatible." allow_none="False" group="General" pack_safe="True" restrict="TestSetInstance" />
+
             <TunableList name="TAGS_TO_CONVERT" class="TunableEnumSet" display="Tags To Convert" description="The tags that should automatically be converted from 'use preference' functionality to 'use only' functionality on load." group="General" unique_entries="true">
                 <TunableEnum type="ObjectPreferenceTag" class="TunableEnumEntry" default="INVALID" dynamic_entries="autonomy-autonomy_preference.ObjectPreferenceTag._elements" static_entries="autonomy-autonomy_preference.ObjectPreferenceTag" group="General" invalid_entries="INVALID" />
             </TunableList>

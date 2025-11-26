@@ -3,6 +3,16 @@
 <TuningRoot>
     <Module name="world.rentable_lot_tuning">
         <Class name="RentableZoneTuning">
+            <TunableTuple name="GETAWAY_MODIFIERS" class="TunableGetawayPriceModifiers" display="Getaway Modifiers" description="Global pricing modifiers for all getaway rentable zones." group="General">
+                <Tunable type="float" name="household_sim_count_multiplier" class="Tunable" default="0.1" display="Household Sim Count Multiplier" description="The cost multiplier we apply based on all participating household sims." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="npc_sim_count_multiplier" class="Tunable" default="0.1" display="Npc Sim Count Multiplier" description="The cost multiplier we apply based on all participating npc sims." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="profit_add" class="Tunable" default="0.0" display="Profit Add" description="Add modifier for the earnings from a lot." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="profit_multiply" class="Tunable" default="0.004" display="Profit Multiply" description="Multiplier for the earnings from a lot." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="rent_add" class="Tunable" default="0.0" display="Rent Add" description="Add modifier for the price to rent a lot." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="rent_multiply" class="Tunable" default="0.004" display="Rent Multiply" description="Multiplier for the price to rent a lot." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="sim_count_multiplier" class="Tunable" default="0.2" display="Sim Count Multiplier" description="The profit multiplier we apply based on all participating npc sims." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
             <TunableTuple name="PRICE_MODIFIERS" class="TunablePriceModifiers" display="Price Modifiers" description="Global price modifiers for all rentable zones." group="General">
                 <Tunable type="float" name="add" class="Tunable" default="0.0" display="Add" description="Add modifier for the price to rent a lot." tuning_state="NeedsTuning" group="General" />
                 <Tunable type="float" name="multiply" class="Tunable" default="1.0" display="Multiply" description="Multiplier for the price to rent a lot." tuning_state="NeedsTuning" group="General" />

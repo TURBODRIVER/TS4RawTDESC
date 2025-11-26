@@ -2,6 +2,14 @@
 
 <TuningRoot>
     <Module name="event_testing.test_variants">
+        <Class name="CollectionThresholdCountingMethod" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="COLLECTION" enum_value="1" />
+
+            <EnumItem name="DEFINITION" enum_value="2" />
+
+            <EnumItem name="LEGACY" enum_value="0" />
+        </Class>
+
         <Class name="SimoleonsTestEvents" enum_bit_flag="False" enum_locked="False">
             <EnumItem name="AllSimoloenEvents" enum_value="0" />
 

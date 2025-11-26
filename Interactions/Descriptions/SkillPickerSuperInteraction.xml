@@ -45,6 +45,10 @@
             </TunableTuple>
         </TunableVariant>
 
+        <TunableList name="skill_tags_filter" class="TunableList" display="Skill Tags Filter" description="If any are tuned, only skills with the tuned tags will be displayed" group="Picker Tuning">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" pack_safe="True" />
+        </TunableList>
+
         <TunableVariant type="None" name="stat_to_copy_value_to" class="OptionalTunable" default="disabled" display="Stat To Copy Value To" description="If tuned, the value of the picked statistic will be copied to this stat after picking." group="Picker Tuning">
             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
             <Tunable type="statistic" name="enabled" class="TunableReference" display="Enabled" description="If tuned, the value of the picked statistic will be copied to this stat after picking." allow_none="False" group="General" restrict="Skill" />

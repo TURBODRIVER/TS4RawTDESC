@@ -25,7 +25,7 @@
 
             <TunableList name="SITUATION_CATEGORY_PLAYER_PLANNED_DRAMA_NODE" class="TunableMapping" display="Situation Category Player Planned Drama Node" mapping_key="situation_category" mapping_value="drama_node" description="A mapping of Situaiton Categories to Player Planned Drama Nodes used for scheduling. If the Situation Category is found in this mapping, the corresponding Drama Node is used. If the Situation Category is not found in this mapping, the tuned Default Player Planned Drama Node is used." group="General">
                 <TunableTuple class="TunableTuple" group="General">
-                    <Tunable type="drama_node" name="drama_node" class="TunableReference" display="Drama Node" description="The drama node that will be scheduled when a player plans an event for the future." allow_none="False" group="General" restrict="PlayerPlannedDramaNode" />
+                    <Tunable type="drama_node" name="drama_node" class="TunableReference" display="Drama Node" description="The drama node that will be scheduled when a player plans an event for the future." allow_none="False" group="General" restrict="PlayerPlannedDramaNode,PlayerPlannedStayoverDramaNode" />
                     <TunableEnum type="SituationCategoryUid" name="situation_category" class="TunableEnumEntry" default="DEFAULT" display="Situation Category" dynamic_entries="situations-situation_types.SituationCategoryUid._elements" static_entries="situations-situation_types.SituationCategoryUid" group="General" />
                 </TunableTuple>
             </TunableList>

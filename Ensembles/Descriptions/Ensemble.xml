@@ -29,6 +29,10 @@
             <TunableEnum type="Species" class="TunableEnumEntry" default="HUMAN" static_entries="sims-sim_info_types.Species" description="A species that cannot be added to this type of ensemble." group="General" invalid_entries="INVALID" />
         </TunableList>
 
+        <TunableList name="prohibited_traits" class="TunableList" display="Prohibited Traits" description="A list of traits that that Sims cannot have in order to be added to this type of ensemble." group="General">
+            <Tunable type="trait" class="TunableReference" description="A trait a Sim should NOT have." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
         <Tunable type="bool" name="rally" class="Tunable" default="True" display="Rally" description="If this is True then this ensemble will offer rallying behavior." group="General" />
 
         <Tunable type="bool" name="visible" class="Tunable" default="True" display="Visible" description="If this ensemble is visible and displays to the UI." group="General" />

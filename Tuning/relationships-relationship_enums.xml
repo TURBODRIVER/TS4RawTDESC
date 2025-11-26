@@ -24,14 +24,6 @@
             <EnumItem name="POSITIVE" enum_value="1" />
         </Class>
 
-        <Class name="SentimentDurationType" enum_bit_flag="False" enum_locked="False">
-            <EnumItem name="INVALID" enum_value="0" />
-
-            <EnumItem name="LONG" enum_value="1" />
-
-            <EnumItem name="SHORT" enum_value="2" />
-        </Class>
-
         <Class name="RelationshipType" enum_bit_flag="False" enum_locked="False">
             <EnumItem name="CHILD_IN_LAW" enum_value="23" />
 
@@ -69,5 +61,17 @@
 
             <EnumItem name="STEP_SIBLING" enum_value="19" />
         </Class>
+
+        <Class name="SentimentType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AGE_CHANGING" enum_value="3" />
+
+            <EnumItem name="INVALID" enum_value="0" />
+
+            <EnumItem name="LONG" enum_value="1" />
+
+            <EnumItem name="SHORT" enum_value="2" />
+        </Class>
     </Module>
+
+    
 </TuningRoot>

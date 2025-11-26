@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="custom_schedules.custom_schedule_outfit_tuning">
+        <Class name="CustomScheduleOutfitSetting" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CATEGORY" enum_value="1" />
+
+            <EnumItem name="NO_OUTFIT" enum_value="0" />
+
+            <EnumItem name="OVERRIDE" enum_value="3" />
+
+            <EnumItem name="STYLE_COLOR" enum_value="2" />
+        </Class>
+
+        <Class name="CustomScheduleOutfitTuning">
+            <TunableList name="OUTFIT_CATEGORY_MAPPING" class="TunableMapping" display="Outfit Category Mapping" mapping_key="key" mapping_value="value" description="Used to manually push sims into certain categories." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="OutfitCategory" name="key" class="TunableEnumEntry" default="EVERYDAY" display="Key" static_entries="sims-outfits-outfit_enums.OutfitCategory" group="General" />
+                    <TunableList name="value" class="TunableList" display="Value" description="A collection of testable generators used for generating outfits based on style and color." group="General">
+                        <TunableTuple class="TunableTuple" description="Set of outfit generator and tests that will be run on the sim to validate if the generator is valid for this outfit." group="General">
+                            <Tunable type="snippet" name="generator" class="TunableReference" display="Generator" description="A reference to a Outfit tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="Outfit" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Test set the sim will need to pass to be able to wear the outfit corresponding to the tuned tags. For a given category, the generator should include an 'OutfitCategory' in it's Tags to match the intent. NOTE: Using the additional 'OutfitCategory' tag will restrict acceptable CAS items. If you're unhappy with the generated outfits, you should consider testing for if a Style tag has been chosen and if so, using a generator without the specified OutfitCategory. This is more noticeable with less active packs." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

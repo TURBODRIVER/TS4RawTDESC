@@ -6,6 +6,10 @@
             <TunableList name="BROKEN_STATE_SET" class="TunableSet" display="Broken State Set" description="A set of state values that an object can be considered as broken (not usable) in the game." group="General" unique_entries="true">
                 <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" restrict="ObjectStateValue" />
             </TunableList>
+
+            <TunableList name="NON_SELLABLE_STATES" class="TunableSet" display="Non Sellable States" description="A set of state values specifying that an object cannot be sold." group="General" unique_entries="true">
+                <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+            </TunableList>
         </Class>
 
         <Class name="StateTriggerOperation" enum_bit_flag="False" enum_locked="False">

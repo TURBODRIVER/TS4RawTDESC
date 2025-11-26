@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="CustomScheduleAssignment" module="custom_schedules.custom_schedule_preset_tuning" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="default_behaviors" class="TunableSet" display="Default Behaviors" max="5" description="The default club rules associated with this assignment. These can be replaced by tuning the optional tunable in a given CustomSchedulePreset's Time Slot Assignment." group="General" unique_entries="true">
+            <Tunable type="club_interaction_group" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableVariant type="None" name="default_outfit" class="CustomScheduleOutfitVariant" default="no_outfit" display="Default Outfit" description="The outfit used for this Assignment. If No Outfit is specified, then no outfit change will be applied." group="General">
+            <TunableTuple name="no_outfit" class="TunableCustomScheduleNoOutfitSetting" display="No Outfit" description="If selected, the CustomScheduleAssignment will not make any changes to the default outfit for the assignment." group="General" />
+            <TunableTuple name="outfit_category" class="TunableCustomScheduleCategorySetting" display="Outfit Category" description="If selected, the CustomScheduleAssignment will force an outfit category. If the assignment's default outfit setting is 'Uniform', it will use the uniform's outfit category." group="General">
+                <TunableEnum type="OutfitCategory" name="outfit_category" class="TunableEnumEntry" default="EVERYDAY" display="Outfit Category" static_entries="sims-outfits-outfit_enums.OutfitCategory" description="The outfit category to use." group="General" invalid_entries="SITUATION,SMALL_BUSINESS" />
+            </TunableTuple>
+            <TunableTuple name="style_and_color" class="TunableCustomScheduleStyleAndColorSetting" display="Style And Color" description="If selected, the CustomScheduleAssignment will force a generated outfit based on tuned Style and Color tags." group="General">
+                <TunableVariant type="None" name="color" class="OptionalTunable" default="disabled" display="Color" description="The desired color tag for the outfit." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableEnum type="Tag" name="enabled" class="TunableEnumWithFilter" default="INVALID" display="Enabled" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A color tag used to find matching CAS parts." dynamic_entries_prefix="color" group="General" pack_safe="True" />
+                </TunableVariant>
+                <TunableVariant type="None" name="style" class="OptionalTunable" default="disabled" display="Style" description="The desired style tag for the outfit." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableEnum type="Tag" name="enabled" class="TunableEnumWithFilter" default="INVALID" display="Enabled" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A style tag used to find matching CAS parts." dynamic_entries_prefix="style" group="General" pack_safe="True" />
+                </TunableVariant>
+            </TunableTuple>
+            <TunableTuple name="uniform" class="TunableCustomScheduleUniformSetting" display="Uniform" description="If selected, the CustomScheduleAssignment will utilize a full assortment of outfits with optional overrides for each category." group="General">
+                <TunableVariant type="None" name="feminine_adult" class="OptionalTunable" default="disabled" display="Feminine Adult" description="A uniform for feminine TYAE in this time slot." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="ResourceKey" name="enabled" class="TunablePackSafeResourceKey" default="None" display="Enabled" description="A uniform for feminine TYAE in this time slot." group="General" pack_safe="True" resource_types="0x25ed6f4" />
+                </TunableVariant>
+                <TunableVariant type="None" name="feminine_child" class="OptionalTunable" default="disabled" display="Feminine Child" description="A uniform for feminine children in this time slot." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="ResourceKey" name="enabled" class="TunablePackSafeResourceKey" default="None" display="Enabled" description="A uniform for feminine children in this time slot." group="General" pack_safe="True" resource_types="0x25ed6f4" />
+                </TunableVariant>
+                <TunableVariant type="None" name="masculine_adult" class="OptionalTunable" default="disabled" display="Masculine Adult" description="A uniform for masculine TYAE in this time slot." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="ResourceKey" name="enabled" class="TunablePackSafeResourceKey" default="None" display="Enabled" description="A uniform for masculine TYAE in this time slot." group="General" pack_safe="True" resource_types="0x25ed6f4" />
+                </TunableVariant>
+                <TunableVariant type="None" name="masculine_child" class="OptionalTunable" default="disabled" display="Masculine Child" description="A uniform for masculine children in this time slot." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="ResourceKey" name="enabled" class="TunablePackSafeResourceKey" default="None" display="Enabled" description="A uniform for masculine children in this time slot." group="General" pack_safe="True" resource_types="0x25ed6f4" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="int" name="display_name" class="TunableLocalizedString" default="0x0" display="Display Name" description="This Custom Schedule Assignment's name." group="UI" />
+
+        <Tunable type="int" name="sim_count" class="TunableRange" default="0" display="Sim Count" min="0" max="8" description="The default number of sims required for this assignment." tuning_state="NeedsTuning" group="General" />
+
+        <TunableList name="sim_criteria" class="TunableSet" display="Sim Criteria" max="5" description="A set of criteria that all sims in this assignment must pass to be eligible." group="General" unique_entries="true">
+            <TunableVariant type="None" class="TunableVariant" default="skill" group="General">
+                <TunableTuple name="age" class="_SimAssignmentCriteria" display="Age" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaAge" display="Criteria" description="Age-based criteria." group="General">
+                        <TunableList name="ages" class="TunableEnumSet" display="Ages" description="In order to pass this criteria, the target Sim must be one of the specified ages." group="General" unique_entries="true">
+                            <TunableEnum type="Age" class="TunableEnumEntry" default="ADULT" static_entries="sims-sim_info_types.Age" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description="Check if you want the criterion to be required for sims in this CustomScheduleAssignment." group="General" />
+                </TunableTuple>
+                <TunableTuple name="career" class="_SimAssignmentCriteria" display="Career" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaCareer" display="Criteria" description="Career-based criteria." group="General">
+                        <TunableList name="careers" class="TunableList" display="Careers" min="1" description="In order to pass this criteria, the target Sim must have one of these Careers." group="General" unique_entries="true">
+                            <Tunable type="career" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Career" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description="Check if you want the criterion to be required for sims in this CustomScheduleAssignment." group="General" />
+                </TunableTuple>
+                <TunableTuple name="fame_rank" class="_SimAssignmentCriteria" display="Fame Rank" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaFameRank" display="Criteria" description="Fame based club rule criteria." group="General">
+                        <TunableList name="fame_rank_requirements" class="TunableEnumSet" display="Fame Rank Requirements" description="In order to pass this criteria, the Sim must have a fame rank that has been selected." group="General" unique_entries="true">
+                            <TunableEnum type="FameRank" class="TunableEnumEntry" default="FAME_RANK_1" dynamic_entries="clubs-club_tuning.FameRank._elements" static_entries="clubs-club_tuning.FameRank" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description="Check if you want the criterion to be required for sims in this CustomScheduleAssignment." group="General" />
+                </TunableTuple>
+                <TunableTuple name="gender" class="_SimAssignmentCriteria" display="Gender" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaGender" display="Criteria" description="Sim Gender criteria." group="General">
+                        <TunableEnum type="Gender" name="gender" class="TunableEnumEntry" default="MALE" display="Gender" static_entries="sims-sim_info_types.Gender" description="Gender a Sim must have in order to pass this criteria." group="General" />
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description="Check if you want the criterion to be required for sims in this CustomScheduleAssignment." group="General" />
+                </TunableTuple>
+                <TunableTuple name="occult_type" class="_SimAssignmentCriteria" display="Occult Type" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaOccultTrait" display="Criteria" group="General">
+                        <TunableList name="traits" class="TunableList" display="Traits" min="1" description="In order to pass this criteria, the target Sim must have one of these Traits." group="General" unique_entries="true">
+                            <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description="Check if you want the criterion to be required for sims in this CustomScheduleAssignment." group="General" />
+                </TunableTuple>
+                <TunableTuple name="region" class="_SimAssignmentCriteria" display="Region" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaRegion" display="Criteria" description="Sim Region-of-origin criteria." group="General">
+                        <TunableList name="regions" class="TunableList" display="Regions" min="1" description="In order to pass this criteria, the target Sim must be from one of these worlds." group="General" unique_entries="true">
+                            <Tunable type="region" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Region" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+                <TunableTuple name="relationship_status" class="_SimAssignmentCriteria" display="Relationship Status" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaRelationshipStatus" display="Criteria" description="Relationship status based criteria." group="General">
+                        <TunableEnum type="RelationshipStatus" name="relationship_status" class="TunableEnumEntry" default="SINGLE" display="Relationship Status" static_entries="clubs-club_tuning.RelationshipStatus" description="Relationship status a Sim must have in order to pass this criteria." group="General" />
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description="Check if you want the criterion to be required for sims in this CustomScheduleAssignment." group="General" />
+                </TunableTuple>
+                <TunableTuple name="skill" class="_SimAssignmentCriteria" display="Skill" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaSkill" display="Criteria" description="Skill-based criteria." group="General">
+                        <TunableList name="skills" class="TunableList" display="Skills" min="1" description="In order to pass this criteria, the target Sim must have one of these skills with a skill level of at least the value specified in MINIMUM_CRITERIA_SKILL_LEVEL." group="General" unique_entries="true">
+                            <Tunable type="statistic" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description="Check if you want the criterion to be required for sims in this CustomScheduleAssignment." group="General" />
+                </TunableTuple>
+                <TunableTuple name="trait" class="_SimAssignmentCriteria" display="Trait" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaTrait" display="Criteria" description="Trait-based criteria." group="General">
+                        <TunableList name="traits" class="TunableList" display="Traits" min="1" description="In order to pass this criteria, the target Sim must have one of these Traits." group="General" unique_entries="true">
+                            <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description="Check if you want the criterion to be required for sims in this CustomScheduleAssignment." group="General" />
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+    </Instance>
+
+    
+</TuningRoot>

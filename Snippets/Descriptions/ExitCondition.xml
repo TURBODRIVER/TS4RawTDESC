@@ -1075,6 +1075,29 @@
                                     <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
                                 </TunableVariant>
                             </TunableTuple>
+                            <TunableTuple name="childhood_inspiration" class="TunableChildhoodInspirationTest" display="Childhood Inspiration" description="A tunable test that tests on the Childhood Inspirations on a sim." group="General">
+                                <TunableEnum type="ParticipantTypeSingleSim" name="target" class="TunableEnumEntry" default="Actor" display="Target" static_entries="interactions.ParticipantTypeSingleSim" description="Who or what to apply this test to." group="General" />
+                                <TunableVariant type="None" name="test_behavior" class="TunableVariant" default="is_childhood_inspiration_full" display="Test Behavior" description="The type of test to run." group="General">
+                                    <TunableTuple name="is_childhood_inspiration_full" class="TunableChildhoodInspirationIsFullTest" display="Is Childhood Inspiration Full" description="Test that passes if active childhood inspiration is full." group="General">
+                                        <Tunable type="bool" name="invert" class="Tunable" default="False" display="Invert" description="If checked, the test will pass if active childhood inspiration is not full." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="is_in_suggested_inspiration_cooldown" class="TunableInspirationIsInCooldownTest" display="Is In Suggested Inspiration Cooldown" description="Checks whether the aspiration is in suggested aspiration's _cool_down_aspirations_dict." group="General">
+                                        <Tunable type="aspiration" name="aspiration_to_test" class="TunableReference" display="Aspiration To Test" description="Aspiration to test." allow_none="False" group="General" pack_safe="True" />
+                                        <Tunable type="bool" name="invert" class="Tunable" default="False" display="Invert" description="If checked, the test will pass if the inspiration is NOT under cooldown." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="is_in_suggested_inspiration_list" class="TunableSuggestedChildhoodInspirationsHasInspirationTest" display="Is In Suggested Inspiration List" description="Checks whether the input aspiration is in suggested aspiration list." group="General">
+                                        <Tunable type="aspiration" name="aspiration_to_test" class="TunableReference" display="Aspiration To Test" description="Aspiration to test." allow_none="False" group="General" pack_safe="True" />
+                                        <Tunable type="bool" name="invert" class="Tunable" default="False" display="Invert" description="If checked, the test will pass if the inspiration is NOT in the suggested aspiration list." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="is_suggested_childhood_inspiration_full" class="TunableSuggestedChildhoodInspirationIsFullTest" display="Is Suggested Childhood Inspiration Full" description="Test that passes if visible suggested childhood inspiration is full." group="General">
+                                        <Tunable type="bool" name="invert" class="Tunable" default="False" display="Invert" description="If checked, the test will pass if visible suggested childhood inspiration is not full." group="General" />
+                                    </TunableTuple>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                </TunableVariant>
+                            </TunableTuple>
                             <TunableTuple name="club_gathering_test" class="TunableClubGatheringTest" display="Club Gathering Test" description="A tunable factory that tests against Club Gatherings for the same club." group="General">
                                 <TunableVariant type="None" name="club" class="TunableVariant" default="use_club_from_resolver" display="Club" description="Define the Club to run this test against." group="General">
                                     <Tunable name="from_event_data" class="TunableExistance" display="From Event Data" />
@@ -1223,14 +1246,21 @@
                             </TunableTuple>
                             <TunableTuple name="collection_test" class="TunableCollectionThresholdTest" display="Collection Test" description="Tests for a provided amount of a given collection type." group="General">
                                 <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
-                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will override the threshold and check for collection completed" group="General" />
-                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection. When enabled both the Collection Type and Complete Collection tuning will be ignored." group="General">
+                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                     <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
                                         <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
                                     </TunableList>
                                 </TunableVariant>
-                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for which the Sim experiences motive failure" group="General">
+                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                </TunableVariant>
+                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
                                     <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
                                     <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
                                 </TunableTuple>
@@ -1238,7 +1268,7 @@
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                     <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
                                 </TunableVariant>
-                                <TunableEnum type="ParticipantType" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantType" description="Who or what to apply this test to" group="General" />
+                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
                             </TunableTuple>
                             <TunableTuple name="commodity_advertised" class="TunableCommodityAdvertisedTest" display="Commodity Advertised" description="Require the current lot to have some interaction advertising the specified commodities. example: You might not want the interaction to clean dishes to show up if there are no sinks around. The 'wash dishes' interaction on sinks advertises a 'Wash_Dishes' static commodity, so we can get this behavior by having the 'Clean Up' interaction on dishes test out if that static commodity is not being advertised." group="General">
                                 <Tunable type="bool" name="allow_targeted_objects" class="Tunable" default="False" display="Allow Targeted Objects" description="If enabled, objects targeted (ParticipantType.Object) by the interaction are allowed to pass this test. Typically, for cleaning up dishes, we disallow targeted objects because we don't want you to run the affordance on dishes you are carrying." group="General" />
@@ -1544,6 +1574,23 @@
                                     <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" description="If checked, the subject must have a custom name set. If unchecked, it cannot have a custom name set." group="General" />
                                 </TunableVariant>
                                 <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="The subject who is the object of this test." group="General" />
+                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                </TunableVariant>
+                            </TunableTuple>
+                            <TunableTuple name="custom_schedule_assignment_test" class="TunableCustomScheduleAssignmentTest" display="Custom Schedule Assignment Test" description="A collection of tests relating to CustomScheduleAssignments." group="General">
+                                <TunableVariant type="None" name="attire_selection" class="OptionalTunable" default="disabled" display="Attire Selection" description="If enabled, one of these tests will be used." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableVariant type="None" name="enabled" class="TunableVariant" default="style_or_color" display="Enabled" description="Define what attire selection matters for the test." group="General">
+                                        <TunableTuple name="color_picked" class="Tunable_ColorSelection" display="Color Picked" group="General" />
+                                        <TunableTuple name="style_and_color" class="Tunable_StyleAndColorSelection" display="Style And Color" group="General" />
+                                        <TunableTuple name="style_or_color" class="Tunable_StyleOrColorSelection" display="Style Or Color" group="General" />
+                                        <TunableTuple name="style_picked" class="Tunable_StyleSelection" display="Style Picked" group="General" />
+                                    </TunableVariant>
+                                </TunableVariant>
+                                <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="As long as there is an active schedule, negate the test result. If there is no active schedule, the test will always Fail." group="General" />
+                                <TunableEnum type="ParticipantTypeSingle" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantTypeSingle" description="The subject whose CustomScheduleAssignment to check." group="General" />
                                 <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                     <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
@@ -2181,6 +2228,12 @@
                                     <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
                                 </TunableVariant>
                             </TunableTuple>
+                            <TunableTuple name="getaway_is_affordance_encouraged" class="TunableGetawayIsAffordanceEncouragedTest" display="Getaway Is Affordance Encouraged" description="Test that checks if the affordance that sims is trying to perform is encouraged by the active getaway." group="General">
+                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                </TunableVariant>
+                            </TunableTuple>
                             <TunableTuple name="gig_preference" class="TunableGigPreferenceTest" display="Gig Preference" description="Test the preferences of a Sim's current Gig." group="General">
                                 <Tunable type="career" name="career" class="TunableReference" display="Career" description="The career to look at for gig preferences. As of now, this is only used for the Decorator career." allow_none="False" group="General" />
                                 <TunableVariant type="None" name="preference_test" class="TunableVariant" default="none" display="Preference Test" description="The type of test to run against the current Gig's preferences." group="General">
@@ -2657,6 +2710,29 @@
                                 <Tunable type="bool" name="use_part_owner" class="Tunable" default="False" display="Use Part Owner" description="If checked, the two subjects will compare based on the part owner if either are a part. " group="General" />
                                 <Tunable type="bool" name="use_value" class="Tunable" default="False" display="Use Value" description="If checked, the two subjects will only compare values instead of idenity. A long integer A and B will be equal in value but different in identity, check this if you only want to compare values." group="General" />
                             </TunableTuple>
+                            <TunableTuple name="imaginary_friend" class="TunableImaginaryFriendTest" display="Imaginary Friend" description="Tests for Imaginary Friends." group="General">
+                                <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="Returns the opposite of the test results." group="General" />
+                                <TunableEnum type="ParticipantTypeActorTargetSim" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantTypeActorTargetSim" description="The sim on whom the Imaginary Friend test will apply to." group="General" />
+                                <TunableVariant type="None" name="test_type" class="TunableVariant" default="none" display="Test Type" description="The type of Imaginary Friend test to run." group="General">
+                                    <TunableTuple name="imaginary_friend_doll" class="Tunable_ImaginaryFriendDollInstancedTest" display="Imaginary Friend Doll" description="Returns true if the Doll associated with the subject Sim's active Imaginary Friend (if there is one) is instanced in the zone." group="General" />
+                                    <TunableTuple name="imaginary_friend_exists" class="Tunable_ImaginaryFriendExistsTest" display="Imaginary Friend Exists" description="Returns True if the subject sim has an active Imaginary Friend." group="General">
+                                        <Tunable type="bool" name="include_inactive" class="Tunable" default="False" display="Include Inactive" description="If checked, also check if they have an inactive Imaginary Friend." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="imaginary_friend_instantiated" class="Tunable_ImaginaryFriendInstantiatedTest" display="Imaginary Friend Instantiated" description="Returns True if the subject sim has a currently instantiated Imaginary Friend." group="General" />
+                                    <TunableTuple name="imaginary_friend_ownership" class="Tunable_ImaginaryFriendOwnershipTest" display="Imaginary Friend Ownership" description="Returns True if the Sim stored on the target object (Imaginary Friend Doll) was created by the subject Sim." group="General">
+                                        <TunableEnum type="ParticipantTypeSingle" name="target" class="TunableEnumEntry" default="Object" display="Target" static_entries="interactions.ParticipantTypeSingle" description="The target of this Imaginary Friend test. This should be an object participant." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="imaginary_friend_status" class="Tunable_ImaginaryFriendStatusTest" display="Imaginary Friend Status" description="Returns True if the target (Imaginary Friend Doll) is linked to an Imaginary Friend Sim with the tuned Imaginary Friend status. The Imaginary Friend does not need to be instantiated for this test." group="General">
+                                        <TunableEnum type="ImaginaryFriendStatus" name="status" class="TunableEnumEntry" default="ACTIVE" display="Status" static_entries="imaginary_friends-imaginary_friend_enums.ImaginaryFriendStatus" description="The Imaginary Friend Status to test for." group="General" />
+                                        <TunableEnum type="ParticipantTypeSingle" name="target" class="TunableEnumEntry" default="Object" display="Target" static_entries="interactions.ParticipantTypeSingle" description="The target of this Imaginary Friend test. This should be an object participant." group="General" />
+                                    </TunableTuple>
+                                    <Tunable name="none" class="TunableExistance" display="None" />
+                                </TunableVariant>
+                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                </TunableVariant>
+                            </TunableTuple>
                             <TunableTuple name="in_footprint" class="TunableInFootprintTest" display="In Footprint" description="A tunable factory that runs a test checking if a Sim participant is in a footprint. NOTE: This is an expensive test, so do NOT tune it on autonomous interactions or other expensive operations." group="General">
                                 <TunableEnum type="ParticipantTypeSingleSim" name="actor" class="TunableEnumEntry" default="Actor" display="Actor" static_entries="interactions.ParticipantTypeSingleSim" description="The actor whose location will be used." group="General" />
                                 <TunableVariant type="None" name="footprint_names" class="OptionalTunable" default="disabled" display="Footprint Names" description="Specific footprints to check against. If left unspecified, we check against the object's default footprints (i.e. the ones enabled in Medator)." group="General">
@@ -2782,6 +2858,36 @@
                                     </TunableTuple>
                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                </TunableVariant>
+                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                </TunableTuple>
+                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                </TunableVariant>
+                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                            </TunableTuple>
+                                        </TunableList>
                                     </TunableTuple>
                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -5566,9 +5672,13 @@
                                 </TunableVariant>
                             </TunableTuple>
                             <TunableTuple name="skill_in_use" class="TunableSkillInUseTest" display="Skill In Use" description="A test requiring a participant to be actively progressing a skill." group="General">
-                                <TunableVariant type="None" name="skill" class="OptionalTunable" default="Any_Skill" display="Skill" description="Specify the skill to test against." group="General">
+                                <TunableVariant type="None" name="skill" class="OptionalTunable" default="Any_Skill" display="Skill" description="Specify the skill to test against. If no skill and skill tag specified, the test will pass. If both skill and skill tag are specified, test passes only if the current skill matches both." group="General">
                                     <Tunable name="Any_Skill" class="TunableExistance" display="Any Skill" />
                                     <Tunable type="statistic" name="Specified_Skill" class="TunableReference" display="Specified Skill" description="'The skill to test against." allow_none="False" group="General" restrict="Skill" />
+                                </TunableVariant>
+                                <TunableVariant type="None" name="skill_tag" class="OptionalTunable" default="Any_Skill" display="Skill Tag" description="Specify the skill tag to test against. If no skill and skill tag specified, the test will pass. If both skill and skill tag are specified, test passes only if the current skill matches both." group="General">
+                                    <Tunable name="Any_Skill" class="TunableExistance" display="Any Skill" />
+                                    <TunableEnum type="Tag" name="Specified_Skill_Tag" class="TunableEnumEntry" default="INVALID" display="Specified Skill Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The skill tag to test against." group="General" invalid_entries="INVALID" />
                                 </TunableVariant>
                                 <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
@@ -6239,6 +6349,7 @@
                                 </TunableVariant>
                             </TunableTuple>
                             <TunableTuple name="swim_location" class="TunableSwimLocationTest" display="Swim Location" description="Tests if a Sim is in a certain type of body of water (i.e. in a pool) given by the value of the test field." group="General">
+                                <Tunable type="bool" name="check_vehicle_surface" class="Tunable" default="False" display="Check Vehicle Surface" description="If True, and the Sim is in a vehicle, uses the vehicles routing surface instead." group="General" />
                                 <Tunable type="bool" name="invert" class="Tunable" default="False" display="Invert" description="Inverts the result of tuned test." group="General" />
                                 <TunableEnum type="ParticipantTypeSingle" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantTypeSingle" description="The subject to test to determine whether they are in a certain body of water" group="General" />
                                 <TunableVariant type="None" name="test" class="TunableVariant" default="swim_in_pool" display="Test" description="The type of body of water we are testing for" group="General">
@@ -6246,6 +6357,20 @@
                                     <Tunable name="swim_in_ocean" class="TunableExistance" display="Swim In Ocean" />
                                     <Tunable name="swim_in_pool" class="TunableExistance" display="Swim In Pool" />
                                 </TunableVariant>
+                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                </TunableVariant>
+                            </TunableTuple>
+                            <TunableTuple name="tagged_definition_test" class="TunableTaggedDefinitionTest" display="Tagged Definition Test" description="Performs tests on all definitions with the specified tags." group="General">
+                                <TunableList name="tag_set" class="TunableTags" display="Tag Set" group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A set of tags to test." group="General" invalid_entries="INVALID" pack_safe="True" />
+                                </TunableList>
+                                <Tunable type="snippet" name="test_set" class="TunableReference" display="Test Set" description="Tests to run for all definitions with those tags. An InteractionResolver will be used to run these tests, with the definitions to test as Picked Item Ids participant." allow_none="False" group="General" pack_safe="True" restrict="TestSetInstance" />
+                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Count the number of definitions that pass the test." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the passing definitions are compared against." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
                                 <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                     <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
@@ -6484,10 +6609,14 @@
                                         <Tunable type="bool" name="in_group" class="Tunable" default="True" display="In Group" description="If checked, this test will fail if the target participant is not in the travel group. If unchecked, this test will fail if the target is in the travel group." group="General" />
                                         <TunableEnum type="ParticipantType" name="target_participant" class="TunableEnumEntry" default="TargetSim" display="Target Participant" static_entries="interactions.ParticipantType" description="The participant to be tested." group="General" />
                                     </TunableTuple>
+                                    <TunableTuple name="is_getaway_schedule" class="Tunable_TravelGroupIsGetawaySchedule" display="Is Getaway Schedule" description="Use this option to check whether the participant is in a getaway based on the specified schedule." group="General">
+                                        <Tunable type="snippet" name="custom_schedule_preset" class="TunableReference" display="Custom Schedule Preset" description="A reference to a CustomSchedulePreset (Premade Getaway)." allow_none="False" group="General" restrict="CustomSchedulePreset" />
+                                    </TunableTuple>
                                     <TunableTuple name="participant" class="Tunable_TravelGroupAddParticipant" display="Participant" description="Use this option when you're testing a specific Sim being added to the travel group." group="General">
                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="TargetSim" display="Participant" static_entries="interactions.ParticipantType" description="The participant to be added." group="General" />
                                     </TunableTuple>
                                     <TunableTuple name="stayover_room" class="Tunable_TravelGroupRoomForStayover" display="Stayover Room" description="Use this option to check whether there is enough room on the participant's lot to host a stayover." group="General" />
+                                    <TunableTuple name="supports_manual_invites" class="Tunable_TravelGroupSupportsManualInvites" display="Supports Manual Invites" description="Use this option to check whether the participant is in a TravelGroup that supports inviting other sims into it outside of the creation flow." group="General" />
                                 </TunableVariant>
                                 <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />

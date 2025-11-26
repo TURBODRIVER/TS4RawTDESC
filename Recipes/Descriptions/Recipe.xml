@@ -12,6 +12,36 @@
                 <TunableTuple name="tests" class="TunableCraftingTestSet" display="Tests" description="A set of tests that all of them should pass so the attached phase will be the chosen as first phase." group="General">
                     <TunableList name="crafting_tests" class="TunableList" display="Crafting Tests" description="List of tests that all needs to pass for success. Test can be selected from a set of tests that is tailored for crafting use." group="General">
                         <TunableVariant type="None" class="TunableCraftingTestSetVariant" default="none" description="A test that can be used in various parts of the crafting. It can be selected from a pool of tests that are put together for crafting use." group="General">
+                            <TunableTuple name="buff" class="TunableBuffTest" display="Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                </TunableList>
+                                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                    </TunableList>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                    </TunableList>
+                                </TunableVariant>
+                            </TunableTuple>
                             <TunableTuple name="crafting_ingredients" class="TunableCraftingConsumedIngredientsTest" display="Crafting Ingredients" description="A test to check if ingredients in ingredient_list are used in the crafting process." group="General">
                                 <TunableList name="ingredient_list" class="TunableList" display="Ingredient List" description="List of ingredient requirements. Test will succeed if all listed ingredient were used in the crafting process." group="General">
                                     <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
@@ -79,6 +109,36 @@
                                     </TunableTuple>
                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                </TunableVariant>
+                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                </TunableTuple>
+                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                </TunableVariant>
+                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                            </TunableTuple>
+                                        </TunableList>
                                     </TunableTuple>
                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -1283,6 +1343,36 @@
                                 <TunableTuple name="tests" class="TunableCraftingTestSet" display="Tests" description="A set of tests that all of them should pass so the attached phase will be the chosen as first phase." group="General">
                                     <TunableList name="crafting_tests" class="TunableList" display="Crafting Tests" description="List of tests that all needs to pass for success. Test can be selected from a set of tests that is tailored for crafting use." group="General">
                                         <TunableVariant type="None" class="TunableCraftingTestSetVariant" default="none" description="A test that can be used in various parts of the crafting. It can be selected from a pool of tests that are put together for crafting use." group="General">
+                                            <TunableTuple name="buff" class="TunableBuffTest" display="Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                                                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                                                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                            </TunableTuple>
                                             <TunableTuple name="crafting_ingredients" class="TunableCraftingConsumedIngredientsTest" display="Crafting Ingredients" description="A test to check if ingredients in ingredient_list are used in the crafting process." group="General">
                                                 <TunableList name="ingredient_list" class="TunableList" display="Ingredient List" description="List of ingredient requirements. Test will succeed if all listed ingredient were used in the crafting process." group="General">
                                                     <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
@@ -1350,6 +1440,36 @@
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                                    </TunableList>
+                                                                </TunableVariant>
+                                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                                </TunableTuple>
+                                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                            </TunableTuple>
+                                                        </TunableList>
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -1495,6 +1615,36 @@
                                 <TunableTuple name="tests" class="TunableCraftingTestSet" display="Tests" description="A set of tests that all of them should pass so the attached phase will be the chosen as next phase." group="General">
                                     <TunableList name="crafting_tests" class="TunableList" display="Crafting Tests" description="List of tests that all needs to pass for success. Test can be selected from a set of tests that is tailored for crafting use." group="General">
                                         <TunableVariant type="None" class="TunableCraftingTestSetVariant" default="none" description="A test that can be used in various parts of the crafting. It can be selected from a pool of tests that are put together for crafting use." group="General">
+                                            <TunableTuple name="buff" class="TunableBuffTest" display="Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                                                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                                                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                            </TunableTuple>
                                             <TunableTuple name="crafting_ingredients" class="TunableCraftingConsumedIngredientsTest" display="Crafting Ingredients" description="A test to check if ingredients in ingredient_list are used in the crafting process." group="General">
                                                 <TunableList name="ingredient_list" class="TunableList" display="Ingredient List" description="List of ingredient requirements. Test will succeed if all listed ingredient were used in the crafting process." group="General">
                                                     <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
@@ -1562,6 +1712,36 @@
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                                    </TunableList>
+                                                                </TunableVariant>
+                                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                                </TunableTuple>
+                                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                            </TunableTuple>
+                                                        </TunableList>
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -2780,6 +2960,36 @@
                                 <TunableTuple name="tests" class="TunableCraftingTestSet" display="Tests" description="A set of tests that all of them should pass so the attached phase will be the chosen as first phase." group="General">
                                     <TunableList name="crafting_tests" class="TunableList" display="Crafting Tests" description="List of tests that all needs to pass for success. Test can be selected from a set of tests that is tailored for crafting use." group="General">
                                         <TunableVariant type="None" class="TunableCraftingTestSetVariant" default="none" description="A test that can be used in various parts of the crafting. It can be selected from a pool of tests that are put together for crafting use." group="General">
+                                            <TunableTuple name="buff" class="TunableBuffTest" display="Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                                                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                                                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                            </TunableTuple>
                                             <TunableTuple name="crafting_ingredients" class="TunableCraftingConsumedIngredientsTest" display="Crafting Ingredients" description="A test to check if ingredients in ingredient_list are used in the crafting process." group="General">
                                                 <TunableList name="ingredient_list" class="TunableList" display="Ingredient List" description="List of ingredient requirements. Test will succeed if all listed ingredient were used in the crafting process." group="General">
                                                     <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
@@ -2847,6 +3057,36 @@
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                                    </TunableList>
+                                                                </TunableVariant>
+                                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                                </TunableTuple>
+                                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                            </TunableTuple>
+                                                        </TunableList>
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -3005,6 +3245,36 @@
                                 <TunableTuple name="tests" class="TunableCraftingTestSet" display="Tests" description="A set of tests that all of them should pass so the attached phase will be the chosen as next phase." group="General">
                                     <TunableList name="crafting_tests" class="TunableList" display="Crafting Tests" description="List of tests that all needs to pass for success. Test can be selected from a set of tests that is tailored for crafting use." group="General">
                                         <TunableVariant type="None" class="TunableCraftingTestSetVariant" default="none" description="A test that can be used in various parts of the crafting. It can be selected from a pool of tests that are put together for crafting use." group="General">
+                                            <TunableTuple name="buff" class="TunableBuffTest" display="Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                                                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                                                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                            </TunableTuple>
                                             <TunableTuple name="crafting_ingredients" class="TunableCraftingConsumedIngredientsTest" display="Crafting Ingredients" description="A test to check if ingredients in ingredient_list are used in the crafting process." group="General">
                                                 <TunableList name="ingredient_list" class="TunableList" display="Ingredient List" description="List of ingredient requirements. Test will succeed if all listed ingredient were used in the crafting process." group="General">
                                                     <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
@@ -3072,6 +3342,36 @@
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                                    </TunableList>
+                                                                </TunableVariant>
+                                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                                </TunableTuple>
+                                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                            </TunableTuple>
+                                                        </TunableList>
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -4296,6 +4596,36 @@
                                 <TunableTuple name="tests" class="TunableCraftingTestSet" display="Tests" description="A set of tests that all of them should pass so the attached phase will be the chosen as first phase." group="General">
                                     <TunableList name="crafting_tests" class="TunableList" display="Crafting Tests" description="List of tests that all needs to pass for success. Test can be selected from a set of tests that is tailored for crafting use." group="General">
                                         <TunableVariant type="None" class="TunableCraftingTestSetVariant" default="none" description="A test that can be used in various parts of the crafting. It can be selected from a pool of tests that are put together for crafting use." group="General">
+                                            <TunableTuple name="buff" class="TunableBuffTest" display="Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                                                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                                                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                            </TunableTuple>
                                             <TunableTuple name="crafting_ingredients" class="TunableCraftingConsumedIngredientsTest" display="Crafting Ingredients" description="A test to check if ingredients in ingredient_list are used in the crafting process." group="General">
                                                 <TunableList name="ingredient_list" class="TunableList" display="Ingredient List" description="List of ingredient requirements. Test will succeed if all listed ingredient were used in the crafting process." group="General">
                                                     <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
@@ -4363,6 +4693,36 @@
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                                    </TunableList>
+                                                                </TunableVariant>
+                                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                                </TunableTuple>
+                                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                            </TunableTuple>
+                                                        </TunableList>
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -4480,6 +4840,36 @@
                                 <TunableTuple name="tests" class="TunableCraftingTestSet" display="Tests" description="A set of tests that all of them should pass so the attached phase will be the chosen as next phase." group="General">
                                     <TunableList name="crafting_tests" class="TunableList" display="Crafting Tests" description="List of tests that all needs to pass for success. Test can be selected from a set of tests that is tailored for crafting use." group="General">
                                         <TunableVariant type="None" class="TunableCraftingTestSetVariant" default="none" description="A test that can be used in various parts of the crafting. It can be selected from a pool of tests that are put together for crafting use." group="General">
+                                            <TunableTuple name="buff" class="TunableBuffTest" display="Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                                                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                                                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                            </TunableTuple>
                                             <TunableTuple name="crafting_ingredients" class="TunableCraftingConsumedIngredientsTest" display="Crafting Ingredients" description="A test to check if ingredients in ingredient_list are used in the crafting process." group="General">
                                                 <TunableList name="ingredient_list" class="TunableList" display="Ingredient List" description="List of ingredient requirements. Test will succeed if all listed ingredient were used in the crafting process." group="General">
                                                     <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
@@ -4547,6 +4937,36 @@
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                                    </TunableList>
+                                                                </TunableVariant>
+                                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                                </TunableTuple>
+                                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                            </TunableTuple>
+                                                        </TunableList>
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -5764,6 +6184,36 @@
                                 <TunableTuple name="tests" class="TunableCraftingTestSet" display="Tests" description="A set of tests that all of them should pass so the attached phase will be the chosen as first phase." group="General">
                                     <TunableList name="crafting_tests" class="TunableList" display="Crafting Tests" description="List of tests that all needs to pass for success. Test can be selected from a set of tests that is tailored for crafting use." group="General">
                                         <TunableVariant type="None" class="TunableCraftingTestSetVariant" default="none" description="A test that can be used in various parts of the crafting. It can be selected from a pool of tests that are put together for crafting use." group="General">
+                                            <TunableTuple name="buff" class="TunableBuffTest" display="Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                                                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                                                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                            </TunableTuple>
                                             <TunableTuple name="crafting_ingredients" class="TunableCraftingConsumedIngredientsTest" display="Crafting Ingredients" description="A test to check if ingredients in ingredient_list are used in the crafting process." group="General">
                                                 <TunableList name="ingredient_list" class="TunableList" display="Ingredient List" description="List of ingredient requirements. Test will succeed if all listed ingredient were used in the crafting process." group="General">
                                                     <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
@@ -5831,6 +6281,36 @@
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                                    </TunableList>
+                                                                </TunableVariant>
+                                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                                </TunableTuple>
+                                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                            </TunableTuple>
+                                                        </TunableList>
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -5961,6 +6441,36 @@
                                 <TunableTuple name="tests" class="TunableCraftingTestSet" display="Tests" description="A set of tests that all of them should pass so the attached phase will be the chosen as next phase." group="General">
                                     <TunableList name="crafting_tests" class="TunableList" display="Crafting Tests" description="List of tests that all needs to pass for success. Test can be selected from a set of tests that is tailored for crafting use." group="General">
                                         <TunableVariant type="None" class="TunableCraftingTestSetVariant" default="none" description="A test that can be used in various parts of the crafting. It can be selected from a pool of tests that are put together for crafting use." group="General">
+                                            <TunableTuple name="buff" class="TunableBuffTest" display="Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                                                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                                                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                            </TunableTuple>
                                             <TunableTuple name="crafting_ingredients" class="TunableCraftingConsumedIngredientsTest" display="Crafting Ingredients" description="A test to check if ingredients in ingredient_list are used in the crafting process." group="General">
                                                 <TunableList name="ingredient_list" class="TunableList" display="Ingredient List" description="List of ingredient requirements. Test will succeed if all listed ingredient were used in the crafting process." group="General">
                                                     <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
@@ -6028,6 +6538,36 @@
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                                    </TunableList>
+                                                                </TunableVariant>
+                                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                                </TunableTuple>
+                                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                                            </TunableTuple>
+                                                        </TunableList>
                                                     </TunableTuple>
                                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -7238,6 +7778,36 @@
                 <TunableTuple name="tests" class="TunableCraftingTestSet" display="Tests" description="A set of tests that all of them should pass to apply the buffs." group="General">
                     <TunableList name="crafting_tests" class="TunableList" display="Crafting Tests" description="List of tests that all needs to pass for success. Test can be selected from a set of tests that is tailored for crafting use." group="General">
                         <TunableVariant type="None" class="TunableCraftingTestSetVariant" default="none" description="A test that can be used in various parts of the crafting. It can be selected from a pool of tests that are put together for crafting use." group="General">
+                            <TunableTuple name="buff" class="TunableBuffTest" display="Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                </TunableList>
+                                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                    </TunableList>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                    </TunableList>
+                                </TunableVariant>
+                            </TunableTuple>
                             <TunableTuple name="crafting_ingredients" class="TunableCraftingConsumedIngredientsTest" display="Crafting Ingredients" description="A test to check if ingredients in ingredient_list are used in the crafting process." group="General">
                                 <TunableList name="ingredient_list" class="TunableList" display="Ingredient List" description="List of ingredient requirements. Test will succeed if all listed ingredient were used in the crafting process." group="General">
                                     <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
@@ -7305,6 +7875,36 @@
                                     </TunableTuple>
                                     <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
                                         <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="has_object_passing_collection_tests" class="TunableTuple" display="Has Object Passing Collection Tests" description="Check if an object passes the specified Collection Tests." group="General">
+                                        <TunableList name="object_collection_tests" class="TunableList" display="Object Collection Tests" group="General">
+                                            <TunableTuple class="TunableCollectionThresholdTest" description="Tests for a provided amount of a given collection type." group="General">
+                                                <TunableEnum type="CollectionIdentifier" name="collection_type" class="TunableEnumEntry" default="Unindentified" display="Collection Type" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="The collection we are checking on. If collection type is unidentified then we will look through all collections." group="General" />
+                                                <Tunable type="bool" name="complete_collection" class="Tunable" default="False" display="Complete Collection" description="Setting this to True (checked) will check for collection completed." group="General" />
+                                                <TunableEnum type="CollectionThresholdCountingMethod" name="counting_method" class="TunableEnumEntry" default="LEGACY" display="Counting Method" static_entries="event_testing-test_variants.CollectionThresholdCountingMethod" description="Specify what we're checking the collection threshold of. COLLECTION: Count number of collectables collected - specified by Collection Type (either a particular collection, or all collections) - specified by Specific Items or Specific Targeting (the collections of those items) DEFINITION: Check whether a definition id has been collected or not - specified by Specific Items or Specific Targeting LEGACY: Choose counting method automatically (not recommended). DEFINITION will be preferred when possible over COLLECTION." group="General" />
+                                                <Tunable type="bool" name="fail_if_potentially_invalid" class="Tunable" default="False" display="Fail If Potentially Invalid" description="Setting to True will cause this test to fail if any provided definition has any Collected Invalid States (from objects.collection_manager) tuned." group="General" />
+                                                <Tunable type="bool" name="incomplete_collection" class="Tunable" default="False" display="Incomplete Collection" description="Setting this to True (checked) will check for collection incomplete." group="General" />
+                                                <TunableVariant type="None" name="specific_items" class="OptionalTunable" default="disabled" display="Specific Items" description="If enabled then the collection threshold test will check for specific items within the collection." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of allowed objects within a collection that we want to check." group="General">
+                                                        <Tunable type="object" class="TunableReference" description="Object reference to each collectible object." allow_none="False" group="General" />
+                                                    </TunableList>
+                                                </TunableVariant>
+                                                <TunableVariant type="None" name="specific_targeting" class="OptionalTunable" default="disabled" display="Specific Targeting" description="If enabled then the collection threshold test will check the provided target definitions within the collection." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedItemId" display="Enabled" static_entries="interactions.ParticipantType" description="Definition IDs or objects to apply collection test to." group="General" />
+                                                </TunableVariant>
+                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold for the collection test." group="General">
+                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+                                                </TunableTuple>
+                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                </TunableVariant>
+                                                <TunableEnum type="ParticipantTypeSim" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantTypeSim" description="The sim whose household to test collection against." group="General" />
+                                            </TunableTuple>
+                                        </TunableList>
                                     </TunableTuple>
                                     <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
@@ -7899,6 +8499,31 @@
                                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                                 <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                             </TunableVariant>
+                                            <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                    <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                        <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                        <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                            <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                                <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                                <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                                <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                                <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableList>
+                                            </TunableVariant>
                                             <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                         </TunableTuple>
                                     </TunableVariant>
@@ -8006,6 +8631,31 @@
                                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                                 <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                             </TunableVariant>
+                                            <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                    <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                        <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                        <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                            <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                                <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                                <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                                <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                                <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableList>
+                                            </TunableVariant>
                                             <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                         </TunableTuple>
                                     </TunableVariant>
@@ -8070,6 +8720,9 @@
                                                         </TunableVariant>
                                                     </TunableTuple>
                                                     <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                                    <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                        <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                                    </TunableTuple>
                                                     <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                                     </TunableTuple>
@@ -8348,6 +9001,31 @@
                                             <TunableVariant type="None" name="ui_message_name" class="OptionalTunable" default="disabled" display="Ui Message Name" description="If set, this UI message will be used for SEND_UI_MESSAGE requests." group="General">
                                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                                 <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                    <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                        <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                        <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                            <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                                <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                                <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                                <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                                <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableList>
                                             </TunableVariant>
                                             <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                         </TunableTuple>
@@ -8924,6 +9602,31 @@
                                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                                 <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                             </TunableVariant>
+                                            <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                    <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                        <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                        <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                            <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                                <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                                <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                                <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                                <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableList>
+                                            </TunableVariant>
                                             <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                         </TunableTuple>
                                     </TunableVariant>
@@ -9031,6 +9734,31 @@
                                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                                 <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                             </TunableVariant>
+                                            <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                    <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                        <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                        <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                            <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                                <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                                <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                                <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                                <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableList>
+                                            </TunableVariant>
                                             <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                         </TunableTuple>
                                     </TunableVariant>
@@ -9095,6 +9823,9 @@
                                                         </TunableVariant>
                                                     </TunableTuple>
                                                     <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                                    <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                        <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                                    </TunableTuple>
                                                     <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                         <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                                     </TunableTuple>
@@ -9373,6 +10104,31 @@
                                             <TunableVariant type="None" name="ui_message_name" class="OptionalTunable" default="disabled" display="Ui Message Name" description="If set, this UI message will be used for SEND_UI_MESSAGE requests." group="General">
                                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                                 <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                    <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                        <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                        <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                            <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                                <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                                <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                                <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                                <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableList>
                                             </TunableVariant>
                                             <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                         </TunableTuple>

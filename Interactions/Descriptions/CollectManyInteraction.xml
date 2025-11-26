@@ -13,5 +13,9 @@
         <TunableEnum type="AggregateObjectOwnership" name="aggregate_object_owner" class="TunableEnumEntry" default="SAME_AS_TARGET" display="Aggregate Object Owner" static_entries="carry-put_down_interactions.AggregateObjectOwnership" description="Specify the owner of the newly created aggregate object." group="General" />
 
         <Tunable type="bool" name="destroy_original_object" class="Tunable" default="True" display="Destroy Original Object" description="If checked, the original object (the target of this interaction), will be destroyed and replaced with the specified aggregate object. If unchecked, the aggregate object will be created in the Sim's hand, but the original object will not be destroyed." group="General" />
+
+        <Deleted name="use_posture_object_as_created_target" />
     </Instance>
+
+    
 </TuningRoot>

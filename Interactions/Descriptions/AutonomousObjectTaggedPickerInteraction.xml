@@ -4,6 +4,8 @@
     <Instance instance_type="interaction" class="AutonomousObjectTaggedPickerInteraction" module="interactions.base.picker_interaction" description="Autonomous picker interaction that selects a random object with tag and within a radius" instance_needs_reference="True" instance_subclasses_only="False" parents="AutonomousObjectPickerInteraction, AutonomousPickerSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
         <Tunable type="bool" name="allow_different_level" class="Tunable" default="False" display="Allow Different Level" description="If checked then the picked object can be on a different level (floor) from the Sim doing the interaction." group="Picker Tuning" />
 
+        <Tunable type="bool" name="allow_unroutable" class="Tunable" default="False" display="Allow Unroutable" description="If checked, then the picked object does not need to be connected to the Sim doing the interaction." group="Picker Tuning" />
+
         <Deleted name="basic_content" />
 
         <TunableVariant type="None" name="blacklist_filter" class="OptionalTunable" default="disabled" display="Blacklist Filter" description="Either a list of tags or definitions that objects should be ignored." group="Picker Tuning">

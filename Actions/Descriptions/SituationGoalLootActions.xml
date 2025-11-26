@@ -305,6 +305,31 @@
                                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                             <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                         </TunableVariant>
+                                        <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                    <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                    <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                        <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                            <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                            <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                            <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                            <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                            <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                        </TunableTuple>
+                                                    </TunableVariant>
+                                                </TunableTuple>
+                                            </TunableList>
+                                        </TunableVariant>
                                         <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                     </TunableTuple>
                                 </TunableVariant>
@@ -412,6 +437,31 @@
                                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                             <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                         </TunableVariant>
+                                        <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                    <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                    <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                        <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                            <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                            <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                            <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                            <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                            <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                        </TunableTuple>
+                                                    </TunableVariant>
+                                                </TunableTuple>
+                                            </TunableList>
+                                        </TunableVariant>
                                         <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                     </TunableTuple>
                                 </TunableVariant>
@@ -476,6 +526,9 @@
                                                     </TunableVariant>
                                                 </TunableTuple>
                                                 <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                                <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                    <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                                </TunableTuple>
                                                 <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                     <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                                 </TunableTuple>
@@ -754,6 +807,31 @@
                                         <TunableVariant type="None" name="ui_message_name" class="OptionalTunable" default="disabled" display="Ui Message Name" description="If set, this UI message will be used for SEND_UI_MESSAGE requests." group="General">
                                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                             <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
+                                        </TunableVariant>
+                                        <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                    <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                    <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                        <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                            <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                            <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                            <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                            <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                            <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                        </TunableTuple>
+                                                    </TunableVariant>
+                                                </TunableTuple>
+                                            </TunableList>
                                         </TunableVariant>
                                         <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                     </TunableTuple>
@@ -1054,6 +1132,9 @@
                                                 </TunableVariant>
                                             </TunableTuple>
                                             <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                            <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                            </TunableTuple>
                                             <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                             </TunableTuple>
@@ -1333,6 +1414,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableList>
@@ -1582,6 +1688,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableVariant>
@@ -1689,6 +1820,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableVariant>
@@ -1737,6 +1893,9 @@
                                                 </TunableVariant>
                                             </TunableTuple>
                                             <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                            <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                            </TunableTuple>
                                             <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                             </TunableTuple>
@@ -2015,6 +2174,31 @@
                                     <TunableVariant type="None" name="ui_message_name" class="OptionalTunable" default="disabled" display="Ui Message Name" description="If set, this UI message will be used for SEND_UI_MESSAGE requests." group="General">
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
                                     </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
@@ -2284,6 +2468,9 @@
                                                 </TunableVariant>
                                             </TunableTuple>
                                             <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                            <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                            </TunableTuple>
                                             <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                             </TunableTuple>
@@ -2559,6 +2746,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableList>
@@ -2826,6 +3038,9 @@
                                                 </TunableVariant>
                                             </TunableTuple>
                                             <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                            <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                            </TunableTuple>
                                             <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                             </TunableTuple>
@@ -3105,6 +3320,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableList>
@@ -3352,6 +3592,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableVariant>
@@ -3459,6 +3724,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableVariant>
@@ -3523,6 +3813,9 @@
                                                 </TunableVariant>
                                             </TunableTuple>
                                             <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                            <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                            </TunableTuple>
                                             <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                             </TunableTuple>
@@ -3801,6 +4094,31 @@
                                     <TunableVariant type="None" name="ui_message_name" class="OptionalTunable" default="disabled" display="Ui Message Name" description="If set, this UI message will be used for SEND_UI_MESSAGE requests." group="General">
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
                                     </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
@@ -4079,6 +4397,9 @@
                                                 </TunableVariant>
                                             </TunableTuple>
                                             <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                            <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                            </TunableTuple>
                                             <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                             </TunableTuple>
@@ -4358,6 +4679,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableList>
@@ -4620,6 +4966,9 @@
                                                 </TunableVariant>
                                             </TunableTuple>
                                             <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                            <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                            </TunableTuple>
                                             <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                             </TunableTuple>
@@ -4895,6 +5244,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableList>
@@ -5138,6 +5512,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableVariant>
@@ -5245,6 +5644,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableVariant>
@@ -5293,6 +5717,9 @@
                                                 </TunableVariant>
                                             </TunableTuple>
                                             <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                            <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                            </TunableTuple>
                                             <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                             </TunableTuple>
@@ -5571,6 +5998,31 @@
                                     <TunableVariant type="None" name="ui_message_name" class="OptionalTunable" default="disabled" display="Ui Message Name" description="If set, this UI message will be used for SEND_UI_MESSAGE requests." group="General">
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
                                     </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
@@ -6010,6 +6462,31 @@
                                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                             <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                         </TunableVariant>
+                                        <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                    <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                    <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                        <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                            <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                            <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                            <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                            <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                            <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                        </TunableTuple>
+                                                    </TunableVariant>
+                                                </TunableTuple>
+                                            </TunableList>
+                                        </TunableVariant>
                                         <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                     </TunableTuple>
                                 </TunableVariant>
@@ -6117,6 +6594,31 @@
                                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                             <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                         </TunableVariant>
+                                        <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                    <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                    <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                        <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                            <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                            <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                            <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                            <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                            <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                        </TunableTuple>
+                                                    </TunableVariant>
+                                                </TunableTuple>
+                                            </TunableList>
+                                        </TunableVariant>
                                         <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                     </TunableTuple>
                                 </TunableVariant>
@@ -6181,6 +6683,9 @@
                                                     </TunableVariant>
                                                 </TunableTuple>
                                                 <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                                <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                    <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                                </TunableTuple>
                                                 <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                     <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                                 </TunableTuple>
@@ -6460,6 +6965,31 @@
                                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                             <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                         </TunableVariant>
+                                        <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                                <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                    <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                    <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                        <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                            <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                            <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                            <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                            <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                            <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                        </TunableTuple>
+                                                    </TunableVariant>
+                                                </TunableTuple>
+                                            </TunableList>
+                                        </TunableVariant>
                                         <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                     </TunableTuple>
                                 </TunableList>
@@ -6604,7 +7134,7 @@
                             <TunableTuple name="sentiments_by_type" class="TunableTunableSentimentTrackSelectionByType" display="Sentiments By Type" description="A TunableRelationshipTrackSelectionStrategyBase that will select sentiments that match the tuned values." group="General">
                                 <TunableVariant type="None" name="sentiment_duration" class="OptionalTunable" default="disabled" display="Sentiment Duration" description="If tuned, only sentiments with the tuned duration will be affected." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
-                                    <TunableEnum type="SentimentDurationType" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" static_entries="relationships-relationship_enums.SentimentDurationType" group="General" invalid_entries="INVALID" />
+                                    <TunableEnum type="SentimentType" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" static_entries="relationships-relationship_enums.SentimentType" group="General" invalid_entries="INVALID" />
                                 </TunableVariant>
                                 <TunableVariant type="None" name="sentiment_sign" class="OptionalTunable" default="disabled" display="Sentiment Sign" description="If tuned, only sentiments with the tuned sign will be affected." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
@@ -6963,7 +7493,7 @@
                             <TunableTuple name="sentiments_by_type" class="TunableTunableSentimentTrackSelectionByType" display="Sentiments By Type" description="A TunableRelationshipTrackSelectionStrategyBase that will select sentiments that match the tuned values." group="General">
                                 <TunableVariant type="None" name="sentiment_duration" class="OptionalTunable" default="disabled" display="Sentiment Duration" description="If tuned, only sentiments with the tuned duration will be affected." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
-                                    <TunableEnum type="SentimentDurationType" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" static_entries="relationships-relationship_enums.SentimentDurationType" group="General" invalid_entries="INVALID" />
+                                    <TunableEnum type="SentimentType" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" static_entries="relationships-relationship_enums.SentimentType" group="General" invalid_entries="INVALID" />
                                 </TunableVariant>
                                 <TunableVariant type="None" name="sentiment_sign" class="OptionalTunable" default="disabled" display="Sentiment Sign" description="If tuned, only sentiments with the tuned sign will be affected." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
@@ -7457,6 +7987,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableVariant>
@@ -7564,6 +8119,31 @@
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
                                     </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
                             </TunableVariant>
@@ -7628,6 +8208,9 @@
                                                 </TunableVariant>
                                             </TunableTuple>
                                             <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                            <TunableTuple name="custom_schedule_assignment" class="TunableTuple" display="Custom Schedule Assignment" description="Token for a sim's assignment preset display name." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description=", The participant who's assignment name we want to display." group="General" />
+                                            </TunableTuple>
                                             <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                                 <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
                                             </TunableTuple>
@@ -7906,6 +8489,31 @@
                                     <TunableVariant type="None" name="ui_message_name" class="OptionalTunable" default="disabled" display="Ui Message Name" description="If set, this UI message will be used for SEND_UI_MESSAGE requests." group="General">
                                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                                         <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="Name of a UI message to be sent." group="General" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="ui_message_tuned_args" class="OptionalTunable" default="disabled" display="Ui Message Tuned Args" description="(Requires Ui Message Name to be tuned.) If set, these message arguments will be used in SEND_UI_MESSAGE requests." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                            <TunableTuple class="TunableTuple" description="Arguments for the UI message." group="General">
+                                                <Tunable type="str" name="argument_name" class="Tunable" default="" display="Argument Name" description="The name of this argument." group="General" />
+                                                <TunableVariant type="None" name="argument_value" class="TunableVariant" default="bool_value" display="Argument Value" description="The value of this argument." group="General">
+                                                    <TunableTuple name="bool_value" class="TunableTuple" display="Bool Value" group="General">
+                                                        <Tunable type="bool" name="value" class="Tunable" default="False" display="Value" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="float_value" class="TunableTuple" display="Float Value" group="General">
+                                                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="int_value" class="TunableTuple" display="Int Value" group="General">
+                                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="resource_key_value" class="TunableTuple" display="Resource Key Value" group="General">
+                                                        <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" group="General" resource_types="" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="string_value" class="TunableTuple" display="String Value" group="General">
+                                                        <Tunable type="str" name="value" class="Tunable" default="" display="Value" allow_none="True" group="General" />
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                        </TunableList>
                                     </TunableVariant>
                                     <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                                 </TunableTuple>
