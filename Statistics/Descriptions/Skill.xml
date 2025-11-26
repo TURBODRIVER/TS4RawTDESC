@@ -6269,7 +6269,7 @@
                                 </TunableVariant>
                                 <TunableEnum type="ParticipantType" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantType" description="Who or what to apply this test to." group="General" />
                             </TunableTuple>
-                            <Tunable type="snippet" name="test_set_reference" class="TunableReference" display="Test Set Reference" allow_none="False" group="General" pack_safe="True" restrict="TestSetInstance" />
+                            <Tunable type="snippet" name="test_set_reference" class="TunableReference" display="Test Set Reference" description="NOTE: if this is a pack-specific test and the pack is unavailable, this test will not be considered. If this is used in a test set, this may default to a passing result, so please confirm intended behavior." allow_none="False" group="General" pack_safe="True" restrict="TestSetInstance" />
                             <TunableTuple name="time_until_festival" class="TunableTimeUntilFestivalTest" display="Time Until Festival" description="A test to check time until the specified festival." group="General">
                                 <TunableVariant type="None" name="drama_node" class="OptionalTunable" default="enabled" display="Drama Node" description="If enabled then we will check a specific type of festival drama node otherwise we will look at any of the festival drama nodes." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
@@ -8988,6 +8988,10 @@
 
         <TunableList name="next_level_teaser" class="TunableList" display="Next Level Teaser" description="Tooltip which describes what the next level entails." group="UI">
             <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may NOT require tokens." group="General" />
+        </TunableList>
+
+        <TunableList name="packs_needed_for_skill_picker_display" class="TunableList" display="Packs Needed For Skill Picker Display" description="Pack entitlement needed for this Skill to display in skill pickers." group="UI">
+            <TunableEnum type="Pack" class="TunableEnumEntry" default="BASE_GAME" static_entries="sims4-common.Pack" group="General" />
         </TunableList>
 
         <Tunable type="bool" name="persisted_tuning" class="Tunable" default="True" display="Persisted Tuning" description="Whether this statistic will persist when saving a Sim or an object. For example, a Sims's SI score statistic should never persist." group="Special Cases" />

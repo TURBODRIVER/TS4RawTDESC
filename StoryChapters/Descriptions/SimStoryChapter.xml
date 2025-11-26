@@ -123,6 +123,7 @@
                     </TunableVariant>
                 </TunableTuple>
                 <TunableTuple name="relationship_modified" class="TunableRelationshipModifiedStoryProgressionAction" display="Relationship Modified" description="Story Progression Action that stores information about a relationship between two Sims." group="General">
+                    <Tunable type="bool" name="ensure_romantic_compatibility" class="Tunable" default="False" display="Ensure Romantic Compatibility" description="If enabled, we will test that the sim's 'attracted genders' are compatible with each other." group="General" />
                     <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                         <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
@@ -158,4 +159,6 @@
             </TunableTuple>
         </TunableList>
     </Instance>
+
+    
 </TuningRoot>

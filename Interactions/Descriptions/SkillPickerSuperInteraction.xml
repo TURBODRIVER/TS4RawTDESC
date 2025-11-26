@@ -49,6 +49,8 @@
             <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" pack_safe="True" />
         </TunableList>
 
+        <Tunable type="bool" name="skills_tag_filter_use_or_logic" class="Tunable" default="False" display="Skills Tag Filter Use Or Logic" description="When true, the Skill Tags Filter will use OR logic instead of AND." group="Picker Tuning" />
+
         <TunableVariant type="None" name="stat_to_copy_value_to" class="OptionalTunable" default="disabled" display="Stat To Copy Value To" description="If tuned, the value of the picked statistic will be copied to this stat after picking." group="Picker Tuning">
             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
             <Tunable type="statistic" name="enabled" class="TunableReference" display="Enabled" description="If tuned, the value of the picked statistic will be copied to this stat after picking." allow_none="False" group="General" restrict="Skill" />

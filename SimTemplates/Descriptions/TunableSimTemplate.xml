@@ -121,6 +121,7 @@
                 <TunableEnum type="SimNameType" name="name_type" class="TunableEnumEntry" default="DEFAULT" display="Name Type" dynamic_entries="sims-sim_spawner_enums.SimNameType._elements" static_entries="sims-sim_spawner_enums.SimNameType" description="The sim name type to use when generating the Sims name randomly." group="General" />
             </TunableVariant>
             <TunableEnum type="Gender" name="gender" class="TunableEnumEntry" default="None" display="Gender" static_entries="sims-sim_info_types.Gender" description="The Sim's gender." group="General" />
+            <Tunable type="bool" name="pick_random_breed" class="Tunable" default="False" display="Pick Random Breed" description="Whether to pick a random breed for this sim, if this sim species has breeds." group="General" />
             <TunableVariant type="None" name="resource_key" class="OptionalTunable" default="disabled" display="Resource Key" description="If enabled, the Sim will be created using a saved SimInfo file." group="General">
                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                 <Tunable type="ResourceKey" name="enabled" class="TunableResourceKey" default="None" display="Enabled" description="The SimInfo file to use." group="General" resource_types="0x25ed6f4" />

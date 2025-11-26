@@ -1017,6 +1017,7 @@
                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                     <TunableEnum type="PostureTrack" name="enabled" class="TunableEnumEntry" default="RIGHT" display="Enabled" static_entries="postures.PostureTrack" group="General" />
                 </TunableVariant>
+                <Tunable type="bool" name="cas_unlock_check_sim_rewards" class="Tunable" default="False" display="Cas Unlock Check Sim Rewards" description="If checked, the CAS unlocks will check the crafter Sim's rewards inventory,. instead of the household reward inventory." group="General" />
                 <TunableList name="chef_loot_list" class="TunableList" display="Chef Loot List" description="A list of pre-defined loot operations to apply after crafting object creation on a restaurant lot by a chef." group="General">
                     <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
                 </TunableList>

@@ -32,6 +32,25 @@
                 </TunableTuple>
             </TunableList>
 
+            <TunableVariant type="None" name="DAYCARE_BUFF" class="OptionalTunable" default="disabled" display="Daycare Buff" description="If enabled then this buff will be applied when the sim is sent to daycare. " group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableTuple name="enabled" class="TunableBuffReference" display="Enabled" description="The buff given if this Sim is sent to daycare." group="General">
+                    <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                            <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                        </TunableVariant>
+                    </TunableVariant>
+                    <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+                </TunableTuple>
+            </TunableVariant>
+
             <Tunable type="trait" name="DAYCARE_TRAIT_ON_KIDS" class="TunableReference" display="Daycare Trait On Kids" description="The trait that indicates a baby is at daycare." allow_none="False" group="General" />
 
             <Tunable type="interaction" name="GO_TO_DAYCARE_INTERACTION" class="TunableReference" display="Go To Daycare Interaction" description="An interaction to push on instantiated Sims that need to go to Daycare." allow_none="False" group="General" />

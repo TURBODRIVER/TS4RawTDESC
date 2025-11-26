@@ -6509,7 +6509,7 @@
                                             </TunableTuple>
                                             <TunableEnum type="ParticipantType" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantType" description="Who or what to apply this test to." group="General" />
                                         </TunableTuple>
-                                        <Tunable type="snippet" name="test_set_reference" class="TunableReference" display="Test Set Reference" allow_none="False" group="General" pack_safe="True" restrict="TestSetInstance" />
+                                        <Tunable type="snippet" name="test_set_reference" class="TunableReference" display="Test Set Reference" description="NOTE: if this is a pack-specific test and the pack is unavailable, this test will not be considered. If this is used in a test set, this may default to a passing result, so please confirm intended behavior." allow_none="False" group="General" pack_safe="True" restrict="TestSetInstance" />
                                         <TunableTuple name="time_until_festival" class="TunableTimeUntilFestivalTest" display="Time Until Festival" description="A test to check time until the specified festival." group="General">
                                             <TunableVariant type="None" name="drama_node" class="OptionalTunable" default="enabled" display="Drama Node" description="If enabled then we will check a specific type of festival drama node otherwise we will look at any of the festival drama nodes." group="General">
                                                 <Tunable name="disabled" class="TunableExistance" display="Disabled" />

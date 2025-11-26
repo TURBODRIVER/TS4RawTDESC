@@ -21,6 +21,13 @@
             <Tunable type="float" name="enabled" class="Tunable" default="20" display="Enabled" description="Cost for how likely a sim puts the object in their inventory instead of putting it down." tuning_state="NeedsTuning" group="General" />
         </TunableVariant>
 
+        <TunableList name="inventory_type_costs" class="TunableMapping" display="Inventory Type Costs" mapping_key="key" mapping_value="value" description="Preferences for which inventory type to put this item down in. Can apply to sim or object inventories. Does not affect slot or world costs. Additive with other costs. Inventory costs may be positive (prefer this object less) or negative (prefer this object more)." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="InventoryType" name="key" class="TunableEnumEntry" default="UNDEFINED" display="Key" dynamic_entries="objects-components-inventory_enums.InventoryType._elements" static_entries="objects-components-inventory_enums.InventoryType" group="General" />
+                <Tunable type="float" name="value" class="Tunable" default="None" display="Value" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+
         <TunableVariant type="None" name="normal_slot_cost" class="OptionalTunable" default="enabled" display="Normal Slot Cost" description="Base score for a slot that this object does not prefer." group="General">
             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
             <Tunable type="float" name="enabled" class="Tunable" default="1" display="Enabled" description="Base score for a slot that this object does not prefer." tuning_state="NeedsTuning" group="General" />
