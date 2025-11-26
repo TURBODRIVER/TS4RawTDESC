@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="recipe" class="PaintingTexture" module="crafting.painting" description="A particular painting texture (image) that may be painted by a Sim on a canvas." instance_subclasses_only="False" path="Recipes\Descriptions" use_guid_for_reference="True">
+        <TunableList name="canvas_types" class="TunableEnumFlags" display="Canvas Types" description="The canvas types (generally, aspect ratios) with which this texture may be used." group="General" unique_entries="true">
+            <TunableEnum type="CanvasType" class="TunableEnumEntry" default="NONE" dynamic_entries="objects-components-canvas_component.CanvasType._elements" static_entries="objects-components-canvas_component.CanvasType" group="General" />
+        </TunableList>
+
+        <Tunable type="bool" name="for_puzzles" class="Tunable" default="False" display="For Puzzles" description="If True, use this texture for puzzles. This enables the use of 8 reveal state levels instead of 4." group="General" />
+
+        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+
+        <Tunable type="ResourceKey" name="texture" class="TunableResourceKey" default="None" display="Texture" allow_none="True" group="General" resource_types="0x2f7d0006" />
+    </Instance>
+</TuningRoot>

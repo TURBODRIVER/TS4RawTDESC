@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.phone_tuning">
+        <Class name="PhoneTuning">
+            <TunableList name="DISABLE_PHONE_TESTS" class="TunableList" display="Disable Phone Tests" description="List of tests and tooltip that when passed will disable opening the phone." group="General">
+                <TunableTuple class="TunableTuple" description="Test that should pass for the phone to be disabled and its tooltip to display to the player when he clicks on the phone." group="General">
+                    <TdescFragTag name="test" class="TunableTestVariantFrag" display="Test" description="A single tunable test." group="General" />
+                    <Tunable type="int" name="tooltip" class="TunableLocalizedString" default="0x0" display="Tooltip" description="A localized string that may use tokens." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="PHONE_BACKGROUND_COLOR_VARIATION_TUNING" class="TunableList" display="Phone Background Color Variation Tuning" description="A list of all of the different colors you can set the cell phone background to be." group="General">
+                <TunableTuple class="TunablePhoneBackgroundColorTuple" group="General">
+                    <Tunable type="ResourceKey" name="bg_image" class="TunableIcon" default="None" display="Bg Image" description="Image resource to display as UI phone panel background." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                    <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="Icon to display for phone color selector swatch." group="General" resource_types="0x2f7d0004" />
+                    <TunableList name="required_packs" class="TunableEnumSet" display="Required Packs" description="If any packs are tuned here, at least one of them must be present for this option to appear in the selector. If none are tuned, it will always appear." group="General" unique_entries="true">
+                        <TunableEnum type="Pack" class="TunableEnumEntry" default="BASE_GAME" static_entries="sims4-common.Pack" group="General" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="PHONE_CASE_VARIATION_TUNING" class="TunableList" display="Phone Case Variation Tuning" description="A list of all of the different cases you can set the cell phone cover to be." group="General">
+                <TunableTuple class="TunablePhoneCaseTuple" group="General">
+                    <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="Icon to display for phone color selector swatch." group="General" resource_types="0x2f7d0004" />
+                    <TunableList name="required_packs" class="TunableEnumSet" display="Required Packs" description="If any packs are tuned here, at least one of them must be present for this option to appear in the selector. If none are tuned, it will always appear." group="General" unique_entries="true">
+                        <TunableEnum type="Pack" class="TunableEnumEntry" default="BASE_GAME" static_entries="sims4-common.Pack" group="General" />
+                    </TunableList>
+                    <Tunable type="trait" name="trait" class="TunableReference" display="Trait" description="Trait associated with cell phone color." allow_none="True" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

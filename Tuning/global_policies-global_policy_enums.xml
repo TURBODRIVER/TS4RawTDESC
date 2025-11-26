@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="global_policies.global_policy_enums">
+        <Class name="GlobalPolicyProgressEnum" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="COMPLETE" enum_value="2" />
+
+            <EnumItem name="IN_PROGRESS" enum_value="1" />
+
+            <EnumItem name="NOT_STARTED" enum_value="0" />
+        </Class>
+
+        <Class name="GlobalPolicyTokenType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="NAME" enum_value="0" />
+
+            <EnumItem name="PROGRESS" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

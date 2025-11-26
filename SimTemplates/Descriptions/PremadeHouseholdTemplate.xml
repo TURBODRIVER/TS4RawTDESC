@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="sim_template" class="PremadeHouseholdTemplate" module="world.premade_household_template" description="A household template for creating premade households." instance_subclasses_only="False" parents="HouseholdTemplate" path="SimTemplates\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="_hidden" class="Tunable" default="False" display="Hidden" description="If enabled, the household is hidden from Manage Households, accessible from Managed Worlds." group="General" />
+
+        <TunableList name="_household_members" class="TunableList" display="Household Members" description="A list of sim templates that will make up the sims in this household." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="Tag" name="household_member_tag" class="TunableEnumWithFilter" default="INVALID" display="Household Member Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag to be used to create relationship between sim members. This does NOT have to be unique for all household templates. If you want to add more tags in the tag tuning just add with prefix of household_member.r." dynamic_entries_prefix="household_member" group="General" />
+                <Tunable type="sim_template" name="sim_template" class="TunableReference" display="Sim Template" description="A template to use for creating a household member. If this references a resource that is not installed, the household member is ignored and the family is going to be created without this individual." allow_none="False" group="General" restrict="PremadeSimTemplate" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="_townie_street" class="OptionalTunable" default="disabled" display="Townie Street" description="If enabled, this household is a townie household and is assigned to a street." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="worlddescription" name="enabled" class="TunableReference" display="Enabled" group="General" />
+        </TunableVariant>
+
+        <TunableList name="owned_residential_rental_lots" class="TunableList" display="Owned Residential Rental Lots" description="The lots owned by this household, if this is a Property Owner HH." group="General">
+            <Tunable type="lotdescription" class="TunableReference" group="General" />
+        </TunableList>
+    </Instance>
+
+    
+</TuningRoot>

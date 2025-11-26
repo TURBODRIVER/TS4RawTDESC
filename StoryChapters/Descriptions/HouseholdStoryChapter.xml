@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="story_chapter" class="HouseholdStoryChapter" module="story_progression.story_progression_chapter" description="A Story Chapter for Households." instance_needs_reference="True" instance_subclasses_only="False" parents="BaseStoryChapter" path="StoryChapters\Descriptions" use_guid_for_reference="True">
+        <TunableList name="actions" class="TunableList" display="Actions" description="The actions that will be taken when this chapter runs." group="General">
+            <TunableVariant type="None" class="TunableVariant" default="move_in" description="The action that will be taken when this chapter runs." group="General">
+                <TunableTuple name="move_in" class="TunableMoveInStoryProgressionAction" display="Move In" description="Story progression action that moves a household into a zone." group="General">
+                    <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_world_name_participant" class="OptionalTunable" default="disabled" display="Store World Name Participant" description="If enabled we will store off the target world name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_zone_participant" class="OptionalTunable" default="disabled" display="Store Zone Participant" description="If enabled we will store off the zone id participant for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionZone" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionZone1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionZone" description="The zone participant to save it into." group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="move_out" class="TunableMoveOutStoryProgressionAction" display="Move Out" description="Story progression action that adds a Sim to the family." group="General">
+                    <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_world_name_participant" class="OptionalTunable" default="disabled" display="Store World Name Participant" description="If enabled we will store off the target world name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TunableList name="linked_chapters" class="StoryProgressionLinkedChapters" display="Linked Chapters" description="A list of possible future chapters that are selected utilizing a weighted random with tests." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="story_chapter" name="possible_chapter" class="TunableReference" display="Possible Chapter" description="A possible future Chapter." allow_none="False" group="General" restrict="HouseholdStoryChapter" />
+                <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A weight with testable multipliers that is used to determine how likely this entry is to be picked when selecting randomly." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="IslandWelcomeWagon" module="situations.npc_hosted.island_welcome_wagon" description="Situation for the Island Welcome Wagon." instance_subclasses_only="False" parents="WelcomeWagon, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="situation_job" name="_lei_carrier_situation_job" class="TunableReference" display="Lei Carrier Situation Job" description="The job for the lei carrier." allow_none="False" group="General" />
+
+        <Deleted name="creation_ui_option" />
+
+        <Deleted name="exclusivity" />
+    </Instance>
+</TuningRoot>

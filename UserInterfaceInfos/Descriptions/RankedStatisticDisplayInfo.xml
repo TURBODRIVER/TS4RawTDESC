@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="user_interface_info" class="RankedStatisticDisplayInfo" module="statistics.ranked_statistic_display_info" description="Tuning information for ranked statistics that use the PerksPanel." instance_subclasses_only="False" path="UserInterfaceInfos\Descriptions" use_guid_for_reference="True">
+        <TunableList name="perks_panel_bucks_perk_info" class="TunableMapping" display="Perks Panel Bucks Perk Info" mapping_key="key" mapping_value="value" description="A mapping of bucks type to info for that bucks type." group="UI" mapping_class="RankedStatBucksToBucksInfoTuple">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="BucksType" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" description="The buck type this data corresponds to." group="General" />
+                <TunableTuple name="value" class="TunableRankedStatBucksInfoTuple" display="Value" description="Info used to display Bucks and BucksPerks in the Perks Panel." group="General">
+                    <TunableVariant type="None" name="bucks_text" class="OptionalTunable" default="disabled" display="Bucks Text" description="Text containing a currency type token, to display the bucks balance in the Perks Panel. If not present, the points balance for this buck type won't be shown in the Perks Panel." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Text containing a currency type token, to display the bucks balance in the Perks Panel. If not present, the points balance for this buck type won't be shown in the Perks Panel." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="bucks_tooltip" class="OptionalTunable" default="disabled" display="Bucks Tooltip" description="Tooltip on the 'Help' icon related for this buck type in the Perks Panel. Explains how this currency works. Can be none if no additional information is needed for this buck type. " group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Tooltip on the 'Help' icon related for this buck type in the Perks Panel. Explains how this currency works. Can be none if no additional information is needed for this buck type. " group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="perk_currency_label" class="OptionalTunable" default="disabled" display="Perk Currency Label" description="Title text to display currency type on the Motive Panel. Such as 'Power Points:' in 'Power Points: 10' Can be none if we don't need to show this buck's balance on the Motive Panel." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Title text to display currency type on the Motive Panel. Such as 'Power Points:' in 'Power Points: 10' Can be none if we don't need to show this buck's balance on the Motive Panel." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="perk_remove_tooltip" class="OptionalTunable" default="disabled" display="Perk Remove Tooltip" description="Tooltip on the removal button on the perk cell in the Perks Panel. Can be none if perks don't need a special removal tooltip." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Tooltip on the removal button on the perk cell in the Perks Panel. Can be none if perks don't need a special removal tooltip." group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="perks_panel_disabled_confirm_tooltip" class="OptionalTunable" default="disabled" display="Perks Panel Disabled Confirm Tooltip" description="If enabled, allows tuning the tooltip shown on the confirm button in the perks panel when it is disabled." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The tooltip shown on the confirm button in the perks panel when it is disabled." group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="perks_panel_revert_tooltip" class="OptionalTunable" default="disabled" display="Perks Panel Revert Tooltip" description="Tooltip shown on the revert button in the Perks Panel. If not present, the revert button is unused and hidden." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Tooltip shown on the revert button in the Perks Panel. If not present, the revert button is unused and hidden." group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="perks_panel_subtitle" class="OptionalTunable" default="disabled" display="Perks Panel Subtitle" description="If enabled, allows tuning the subtitle shown in the Perks Panel for this statistic." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The subtitle shown in the Perks Panel for this statistic." group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="perks_panel_title" class="OptionalTunable" default="disabled" display="Perks Panel Title" description="If enabled, allows tuning the title shown in the Perks Panel for this statistic." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The title shown in the Perks Panel for this statistic. " group="General" />
+        </TunableVariant>
+
+        <Tunable type="statistic" name="ranked_statistic_reference" class="TunableReference" display="Ranked Statistic Reference" description="The ranked statistic gameplay tuning reference ID." allow_none="False" group="UI" restrict="RankedStatistic" />
+
+        <TunableVariant type="None" name="sim_info_panel_icons" class="OptionalTunable" default="disabled" display="Sim Info Panel Icons" description="If enabled, allows tuning icons that will show on the Sim Info panel when there are changes in rank for this Ranked Statistic." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="SimInfoPanelIconsTuple" display="Enabled" description="The icons that will show on the Sim Info panel when there are changes in rank for this Ranked Statistic." group="General">
+                <Tunable type="ResourceKey" name="default_icon" class="TunableResourceKey" default="None" display="Default Icon" description="The icon to use on the Sim Info panel when there are changes to this Ranked Statistic." group="General" resource_types="0x2f7d0004" />
+                <Tunable type="ResourceKey" name="over_icon" class="TunableResourceKey" default="None" display="Over Icon" description="The icon to use on the Sim Info panel when there are changes to this Ranked Statistic and the mouse is over the button." group="General" resource_types="0x2f7d0004" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="sim_info_panel_icons_negative" class="OptionalTunable" default="disabled" display="Sim Info Panel Icons Negative" description="If enabled, allows tuning icons that will show on the Sim Info panel when there are negatives changes in rank for this Ranked Statistic. If there are positive changes in rank while this is enabled, Sim Info Panel Icons will be used. If this is disabled, Sim Info Panel Icons will be used for both positive and negative changes." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="SimInfoPanelIconsTuple" display="Enabled" description="The icons that will show on the Sim Info panel when there are negative changes in rank for this Ranked Statistic." group="General">
+                <Tunable type="ResourceKey" name="default_icon" class="TunableResourceKey" default="None" display="Default Icon" description="The icon to use on the Sim Info panel when there are changes to this Ranked Statistic." group="General" resource_types="0x2f7d0004" />
+                <Tunable type="ResourceKey" name="over_icon" class="TunableResourceKey" default="None" display="Over Icon" description="The icon to use on the Sim Info panel when there are changes to this Ranked Statistic and the mouse is over the button." group="General" resource_types="0x2f7d0004" />
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

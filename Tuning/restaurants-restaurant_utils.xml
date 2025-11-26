@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="restaurants.restaurant_utils">
+        <Class name="RestaurantUtils">
+            <TunableTuple name="MEAL_COST_MULTIPLIERS" class="TunableTunableMultiplier" display="Meal Cost Multipliers" description="Multipliers used to change the value of things in a menu and for the overall cost of the meal. If any member of the party meets the requirement of the multiplier then the multiplier is applied once. The benefit will not be applied for each Sim in the group that meets the multiplier tests." group="General">
+                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

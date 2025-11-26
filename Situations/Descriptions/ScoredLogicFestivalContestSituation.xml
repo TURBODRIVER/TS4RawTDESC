@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="ScoredLogicFestivalContestSituation" module="open_street_director.logic_festival" description="A Logic Festival Contest Situation that uses a score on the Sims to select a winner at the end of the" instance_subclasses_only="False" parents="LogicFestivalContestSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="action" name="bronze_prize" class="TunableReference" display="Bronze Prize" description="A reference to a loot that will be applied as the bronze prize." allow_none="False" group="General" restrict="LootActions" />
+
+        <Tunable type="statistic" name="contest_statistic" class="TunableReference" display="Contest Statistic" description="The statistic that we will use for scoring the Sims in the contest." allow_none="False" group="General" />
+
+        <Tunable type="action" name="gold_prize" class="TunableReference" display="Gold Prize" description="A reference to a loot that will be applied as the gold prize." allow_none="False" group="General" restrict="LootActions" />
+
+        <Tunable type="action" name="silver_prize" class="TunableReference" display="Silver Prize" description="A reference to a loot that will be applied as the silver prize." allow_none="False" group="General" restrict="LootActions" />
+    </Instance>
+</TuningRoot>

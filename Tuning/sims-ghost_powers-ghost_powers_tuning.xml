@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.ghost_powers.ghost_powers_tuning">
+        <Class name="GhostPowersTunables">
+            <Tunable type="ResourceKey" name="GHOST_POWERS_EVIL_ULTIMATE_ICON" class="TunablePackSafeResourceKey" default="None" display="Ghost Powers Evil Ultimate Icon" description="Icon to be displayed on the Evil Ultimate Icon Button on the Ghost Powers Perks Panel." group="UI" pack_safe="True" resource_types="0x2f7d0004" />
+
+            <Tunable type="statistic" name="GHOST_POWERS_EVIL_ULTIMATE_STATISTIC" class="TunableReference" display="Ghost Powers Evil Ultimate Statistic" description="The commodity that is to be used for tracking unlock progress for the ghost powers T5 evil ability." allow_none="False" group="General" pack_safe="True" restrict="Statistic" />
+
+            <Tunable type="ResourceKey" name="GHOST_POWERS_GOOD_ULTIMATE_ICON" class="TunablePackSafeResourceKey" default="None" display="Ghost Powers Good Ultimate Icon" description="Icon to be displayed on the Good Ultimate Icon Button on the Ghost Powers Perks Panel." group="UI" pack_safe="True" resource_types="0x2f7d0004" />
+
+            <Tunable type="statistic" name="GHOST_POWERS_GOOD_ULTIMATE_STATISTIC" class="TunableReference" display="Ghost Powers Good Ultimate Statistic" description="The commodity that is to be used for tracking unlock progress for the ghost powers T5 good ability." allow_none="False" group="General" pack_safe="True" restrict="Statistic" />
+
+            <Tunable type="statistic" name="GHOST_POWERS_MANA_COMMODITY" class="TunableReference" display="Ghost Powers Mana Commodity" description="The commodity that is to be used for tracking ghost powers mana/stamina." allow_none="False" group="General" pack_safe="True" restrict="Commodity" />
+
+            <TunableEnum type="BucksType" name="GHOST_POWERS_PERKS_BUCKS_TYPE" class="TunableEnumEntry" default="INVALID" display="Ghost Powers Perks Bucks Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" description="A reference to the bucks type used for Ghost Powers Perks." group="General" pack_safe="True" />
+
+            <Tunable type="statistic" name="GHOST_POWERS_RANKED_STATISTIC" class="TunableReference" display="Ghost Powers Ranked Statistic" description="The ranked statistic that is to be used for tracking ghost powers XP progress. This should not need to be tuned at all. If you think you need to tune this please speak with a GPE before doing so." allow_none="False" group="General" pack_safe="True" restrict="RankedStatistic" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

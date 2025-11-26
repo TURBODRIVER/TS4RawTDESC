@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="whims.whims_tracker">
+        <Class name="WhimType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CONFRONTATION" enum_value="4" />
+
+            <EnumItem name="INVALID" enum_value="0" />
+
+            <EnumItem name="LONG_TERM" enum_value="1" />
+
+            <EnumItem name="REACTIONARY" enum_value="3" />
+
+            <EnumItem name="SHORT_TERM" enum_value="2" />
+        </Class>
+
+        <Class name="WhimsTracker">
+            <TunableList name="CONSTANT_WHIM_SETS" class="TunableSet" display="Constant Whim Sets" description="A list of whim sets that will always be active." group="General" unique_entries="true">
+                <Tunable type="aspiration" class="TunableReference" description="A whim set that is always active." allow_none="False" group="General" restrict="ObjectivelessWhimSet" />
+            </TunableList>
+
+            <TunableList name="WHIM_SLOTS" class="TunableList" display="Whim Slots" description="A list of entries reserved, defined as what type of whim they should contain." group="General">
+                <TunableEnum type="WhimType" class="TunableEnumEntry" default="INVALID" static_entries="whims-whims_tracker.WhimType" description="The type of whim that the entry should contain." group="General" invalid_entries="INVALID" />
+            </TunableList>
+
+            <TunableList name="WHIM_TYPE_CONFIGURATION" class="TunableMapping" display="Whim Type Configuration" mapping_key="key" mapping_value="value" description="Configuration data for each whim type." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="WhimType" name="key" class="TunableEnumEntry" default="INVALID" display="Key" static_entries="whims-whims_tracker.WhimType" description="The type of whim we are configuring." group="General" invalid_entries="INVALID" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="The configuration for this whim type." group="General">
+                        <Tunable type="bool" name="can_be_locked" class="Tunable" default="True" display="Can Be Locked" description="Can this type of whim be locked?" group="General" />
+                        <Tunable type="float" name="chance_to_populate" class="TunablePercent" default="100" display="Chance To Populate" min="0" max="100" description="The chance that an empty slot of this type will be populated when we offer whims." group="General" />
+                        <TunableList name="fallback_types" class="TunableList" display="Fallback Types" description="When we are selecting a new whim for a slot of this type and we cannot find a valid whim of this type, what other types can we search for as a fallback? If none are found (or no types are added to this list) then the slot will remain empty. The fallback types are tried in the order listed here." group="General">
+                            <TunableEnum type="WhimType" class="TunableEnumEntry" default="INVALID" static_entries="whims-whims_tracker.WhimType" description="The fallback whim type." group="General" invalid_entries="INVALID" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

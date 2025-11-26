@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="statistics.trait_statistic_tracker">
+        <Class name="TraitStatisticTracker">
+            <TunableTuple name="END_OF_DAY_TIME" class="TunableTimeOfDay" display="End Of Day Time" description="The time of day in which we will consider the end of day for the trait statistic end of day behaviors: daily cap, neglect, etc." group="General">
+                <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TunableTuple name="PERIODIC_TEST_TIMER" class="TunableTimeSpan" display="Periodic Test Timer" description="A repeating time span of how often we will run the periodic tests on Trait Statistics." group="General">
+                <Tunable type="int" name="days" class="TunableRange" default="0" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="hours" class="TunableRange" default="0" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="float" name="PERIODIC_TEST_TIMER_RANDOMIZER" class="TunableSimMinute" default="30" display="Periodic Test Timer Randomizer" min="0" max="None" description="A random amount of time between 0 and this will be added to each Sim when setting up the initial alarm such that all of of the timers will not be triggered at once leading to a potential spike." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

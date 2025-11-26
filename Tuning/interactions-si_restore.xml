@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.si_restore">
+        <Class name="SuperInteractionRestorer">
+            <Tunable type="int" name="INTERACTION_SPINUP_TIMETIMEOUT_TIME" class="Tunable" default="10" display="Interaction Spinup Timetimeout Time" description="The maximum number of ticks that the server takes trying to restore SI's to restore staged interactions or run preroll autonomy." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="INTERACTION_SPINUP_TRANSITIONING_TIME" class="Tunable" default="10" display="Interaction Spinup Transitioning Time" description="The number of ticks that we take waiting for sims to get in transitioning interactions." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

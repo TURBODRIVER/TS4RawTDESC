@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.lighting_component">
+        <Class name="LightingComponent">
+            <Tunable type="statistic" name="LIGHT_STATE_STAT" class="TunableReference" display="Light State Stat" description="The stat name used to manipulate the lights' on and off states that control the effects they may or may not play" allow_none="False" group="General" />
+
+            <TunableEnum type="Tag" name="MANUAL_LIGHT_TAG" class="TunableEnumEntry" default="INVALID" display="Manual Light Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag that is used to mark lighting objects that do not have any automatic behavior such as following auto-light interactions." group="General" />
+
+            <TunableEnum type="Tag" name="NON_ELECTRIC_LIGHT_TAG" class="TunableEnumEntry" default="INVALID" display="Non Electric Light Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag that is used to determine if the lights goes off when the power is shut down." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

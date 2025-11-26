@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="casocculttuning" class="Client_CASOccultTuning" module="casocculttuning.Client_CASOccultTuning" description="To represent per occult parameter for CAS." path="Client_CASOccultTuning\Descriptions">
+        <TunableTuple name="AmbientEffects" class="Client_CASOccultTuning.AmbientEffectsTuple">
+            <TunableTuple name="BaseForm" class="Client_CASOccultTuning.AmbientEffectsTuple.AmbientEffectTuple">
+                <Tunable type="str" name="EffectName" class="Tunable" default="None" description="Effect Name." allow_none="True" />
+                <TunableTuple name="Position" class="TunableVector3" description="World Position.">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" description="X Position." />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" description="Y Position." />
+                    <Tunable type="float" name="z" class="Tunable" default="0.0" description="Z Position." />
+                </TunableTuple>
+            </TunableTuple>
+            <TunableTuple name="OccultForm" class="Client_CASOccultTuning.AmbientEffectsTuple.AmbientEffectTuple">
+                <Tunable type="str" name="EffectName" class="Tunable" default="None" description="Effect Name." allow_none="True" />
+                <TunableTuple name="Position" class="TunableVector3" description="World Position.">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" description="X Position." />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" description="Y Position." />
+                    <Tunable type="float" name="z" class="Tunable" default="0.0" description="Z Position." />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableTuple>
+
+        <Tunable type="str" name="CreationEffect" class="Tunable" default="None" description="Creation Effect Name." />
+
+        <TunableTuple name="DualFormThumbnailOffset" class="TunableVector3" description="Dual Form Thumbnail Offset.">
+            <Tunable type="float" name="x" class="Tunable" default="0.0" description="X Position." />
+            <Tunable type="float" name="y" class="Tunable" default="0.0" description="Y Position." />
+            <Tunable type="float" name="z" class="Tunable" default="0.0" description="Z Position." />
+        </TunableTuple>
+
+        <Tunable type="float" name="FormChangeModelSwapDelay" class="Tunable" default="0.0" min="0.0" max="10.0" description="Form Change Model Swap Delay" />
+
+        <TunableEnum type="OccultType" name="OccultType" class="TunableEnumEntry" default="HUMAN" display="Occult Type" static_entries="sims-occult-occult_enums.OccultType" description="Ocult type for which this tuning applies" />
+    </Instance>
+</TuningRoot>

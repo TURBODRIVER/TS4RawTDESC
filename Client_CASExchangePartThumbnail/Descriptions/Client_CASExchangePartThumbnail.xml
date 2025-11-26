@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="casexchangepartthumbnail" class="Client_CASExchangePartThumbnail" module="casexchangepartthumbnail.Client_CASExchangePartThumbnail" description="Defines the gallery parts configuration used in CAS thumbnail builds" path="Client_CASExchangePartThumbnail\Descriptions">
+        <TunableList name="BodyTypeMap" class="TunableMapping" display="BodyTypes" mapping_key="BodyType" mapping_value="BodyTypeConfigDataList" description="Configuration for each BodyType" mapping_class="Client_CASExchangePartThumbnail.BodyTypeMapEntry">
+            <TunableTuple name="BodyTypeMapEntry" class="Client_CASExchangePartThumbnail.BodyTypeMapEntry">
+                <TunableEnum type="BodyType" name="BodyType" class="TunableEnumEntry" default="NONE" display="Body Type" static_entries="sims-outfits-outfit_enums.BodyType" description="The CAS part type to be mapped." invalid_entries="NONE" />
+                <TunableList name="BodyTypeConfigDataList" class="TunableList" display="Camera/Pose Configuration" description="List of camera/pose for the Part.">
+                    <TunableTuple name="BodyTypeConfigData" class="Client_CASExchangePartThumbnail.BodyTypeConfigData">
+                        <TunableTuple name="CameraConfig" class="Client_CASExchangePartThumbnail.CameraConfig" display="Camera">
+                            <Tunable type="int" name="CameraFOV" class="Tunable" default="None" description="Camera field of view." category="Camera" />
+                            <TunableTuple name="CameraPosition" class="TunableVector3" description="Camera Position." category="Camera">
+                                <Tunable type="float" name="x" class="Tunable" default="0.0" description="X Position." />
+                                <Tunable type="float" name="y" class="Tunable" default="0.0" description="Y Position." />
+                                <Tunable type="float" name="z" class="Tunable" default="0.0" description="Z Position." />
+                            </TunableTuple>
+                            <TunableTuple name="TargetPosition" class="TunableVector3" description="Target Position." category="Camera">
+                                <Tunable type="float" name="x" class="Tunable" default="0.0" description="X Position." />
+                                <Tunable type="float" name="y" class="Tunable" default="0.0" description="Y Position." />
+                                <Tunable type="float" name="z" class="Tunable" default="0.0" description="Z Position." />
+                            </TunableTuple>
+                        </TunableTuple>
+                        <TunableTuple name="PoseConfig" class="Client_CASExchangePartThumbnail.PoseConfig" display="Pose">
+                            <Tunable type="ResourceKey" name="asm_key" class="TunableResourceKey" default="None" display="ASM Key" description="ASM holding thumbnail poses." category="ASM" resource_types="0x2d5df13" />
+                            <Tunable type="str" name="pose_name" class="Tunable" default="None" display="Pose" description="Thumbnail pose." category="ASM" choice_query="ASM:StateNames" choice_source="../asm_key" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

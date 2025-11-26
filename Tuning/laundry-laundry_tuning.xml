@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="laundry.laundry_tuning">
+        <Class name="LaundryTuning">
+            <TunableTuple name="GENERATE_CLOTHING_PILE" class="TunableTuple" display="Generate Clothing Pile" description="The tunable to generate clothing pile on the lot. This will be called when we find laundry hero objects on the lot and there is no hamper available." group="General">
+                <Tunable type="action" name="loot_to_apply" class="TunableReference" display="Loot To Apply" description="Loot to apply for generating clothing pile." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                <TunableList name="naked_outfit_category" class="TunableSet" display="Naked Outfit Category" description="Set of outfits categories which is considered naked. When Sim switches FROM these outfits, it won't generate the pile. When Sim switches TO these outfits, it won't apply laundry reward or punishment." group="General" unique_entries="true">
+                    <TunableEnum type="OutfitCategory" class="TunableEnumEntry" default="EVERYDAY" static_entries="sims-outfits-outfit_enums.OutfitCategory" group="General" invalid_entries="CURRENT_OUTFIT" />
+                </TunableList>
+                <TunableEnum type="Tag" name="no_pile_interaction_tag" class="TunableEnumWithFilter" default="INVALID" display="No Pile Interaction Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="If interaction does spin clothing change and has this tag, it will generate no clothing pile." dynamic_entries_prefix="interaction" group="General" />
+                <TunableList name="no_pile_outfit_category" class="TunableSet" display="No Pile Outfit Category" description="Set of outfits categories which will never generate the pile. When Sim switches FROM or TO these outfits, it won't generate the pile. Laundry reward or punishment will still be applied to the Sim when switching FROM or TO these outfits." group="General" unique_entries="true">
+                    <TunableEnum type="OutfitCategory" class="TunableEnumEntry" default="EVERYDAY" static_entries="sims-outfits-outfit_enums.OutfitCategory" group="General" invalid_entries="CURRENT_OUTFIT" />
+                </TunableList>
+            </TunableTuple>
+
+            <TunableList name="HAMPER_OBJECT_TAGS" class="TunableTags" display="Hamper Object Tags" group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that considered hamper objects." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableList>
+
+            <TunableList name="LAUNDRY_HERO_OBJECT_TAGS" class="TunableTags" display="Laundry Hero Object Tags" group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags of laundry hero objects. Placing any of these objects on the lot will cause the service to generate clothing pile for each Sims on the household after spin clothing change." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableList>
+
+            <TunableTuple name="NOT_DOING_LAUNDRY_PUNISHMENT" class="TunableTuple" display="Not Doing Laundry Punishment" description="If no Sim in the household unload completed laundry in specific amount of time, the negative loot will be applied to Sim household on spin clothing change to engage them doing laundry." group="General">
+                <Tunable type="action" name="loot_to_apply" class="TunableReference" display="Loot To Apply" description="Loot defined here will be applied to the Sim in the household on spin clothing change if they are not doing laundry for a while." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                <Tunable type="float" name="timeout" class="TunableSimMinute" default="2880" display="Timeout" min="1" max="None" description="The amount of time in Sim minutes, since the last time they're finishing laundry, before applying the loot." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TunableTuple name="PUT_AWAY_FINISHED_LAUNDRY" class="TunableTuple" display="Put Away Finished Laundry" description="The tunable to update laundry service on Put Away finished laundry interaction." group="General">
+                <TunableList name="conditions_and_rewards_map" class="TunableMapping" display="Conditions And Rewards Map" mapping_key="key" mapping_value="value" description="Mapping of laundry conditions and loot rewards." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="object_state" name="key" class="TunableReference" display="Key" allow_none="False" group="General" pack_safe="True" />
+                        <Tunable type="action" name="value" class="TunableReference" display="Value" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableEnum type="Tag" name="interaction_tag" class="TunableEnumWithFilter" default="INVALID" display="Interaction Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag that represent the put away finished laundry interaction which will update Laundry Service data." dynamic_entries_prefix="interaction" group="General" />
+                <TunableTuple name="laundry_condition_states" class="TunableTuple" display="Laundry Condition States" description="This is the state type of completed laundry object condition which will aggregate the data to the laundry service." group="General">
+                    <TunableList name="condition_states" class="TunableList" display="Condition States" description="A list of state types to be stored on laundry service." group="General" unique_entries="true">
+                        <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="ObjectState" />
+                    </TunableList>
+                    <TunableList name="excluded_states" class="TunableList" display="Excluded States" description="A list of state values of Condition States which will not be added to the laundry service." group="General" unique_entries="true">
+                        <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    </TunableList>
+                </TunableTuple>
+                <Tunable type="float" name="laundry_condition_timeout" class="TunableSimMinute" default="1440" display="Laundry Condition Timeout" min="0" max="None" description="The amount of time in Sim minutes that the individual laundry finished conditions will be kept in the laundry conditions aggregate data." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TunableTuple name="PUT_CLOTHING_PILE_ON_HAMPER" class="TunableTuple" display="Put Clothing Pile On Hamper" description="The Tunable to directly put generated clothing pile in the hamper." group="General">
+                <Tunable type="float" name="chance" class="TunablePercent" default="100" display="Chance" min="0" max="100" description="The chance that a clothing pile will be put directly in the hamper. Tune the value in case putting clothing pile in hamper every spin-outfit-change feeling excessive." group="General" />
+                <TunableTuple name="clothing_pile" class="TunableTuple" display="Clothing Pile" description="Clothing pile object that will be created and put into the hamper automatically. You won't see the object on the lot since it will go directly to the hamper. We create it because we need to transfer all of the commodities data and average the values into the hamper precisely." group="General">
+                    <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="Reference to clothing pile object definition." allow_none="False" group="General" pack_safe="True" />
+                    <TunableList name="initial_states" class="TunableList" display="Initial States" description="A list of states to apply to the clothing pile as soon as it is created." group="General">
+                        <TunableTuple class="TunableTuple" description="The state to apply and optional to decide if the state should be applied." group="General">
+                            <Tunable type="object_state" name="state" class="TunableReference" display="State" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <Tunable type="object_state" name="full_hamper_state" class="TunableReference" display="Full Hamper State" description="The state of full hamper which make the hamper is unavailable to add new clothing pile in it." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                <TunableList name="loots_to_apply" class="TunableList" display="Loots To Apply" description="Loots to apply to the hamper when clothing pile is being put." group="General">
+                    <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                </TunableList>
+                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The test to run on the Sim that must pass in order for putting clothing pile automatically to the hamper. These tests will only be run when we have available hamper on the lot." group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

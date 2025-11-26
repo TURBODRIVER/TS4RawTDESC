@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="club_interaction_group" class="ClubInteractionGroup" module="clubs.club_tuning" description="A tunable structure defining an interaction category for Club Rules." instance_subclasses_only="False" path="ClubInteractionGroups\Descriptions" use_guid_for_reference="True">
+        <TunableList name="affordance_lists" class="TunableSet" display="Affordance Lists" description=", A set of affordance lists associated with this interaction group." group="General" unique_entries="true">
+            <Tunable type="snippet" class="TunableReference" description="A reference to a AffordanceList tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="AffordanceList" />
+        </TunableList>
+
+        <TunableList name="affordances" class="TunableSet" display="Affordances" description="A set of affordances associated with this interaction group." group="General" unique_entries="true">
+            <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableEnum type="ClubInteractionGroupCategory" name="category" class="TunableEnumEntry" default="OTHER" display="Category" static_entries="clubs-club_tuning.ClubInteractionGroupCategory" description="The category this interaction group should be associated with when shown in the UI." group="General" />
+
+        <Tunable type="ResourceKey" name="category_icon" class="TunableIcon" default="None" display="Category Icon" description="The icon associated with this Interaction Group." allow_none="True" group="General" resource_types="0x2f7d0004" />
+
+        <Tunable type="bool" name="child_safe" class="Tunable" default="True" display="Child Safe" description="If checked, this interaction group can be associated with children when building ClubRules. If unchecked, we will disallow this." group="General" />
+
+        <Tunable type="int" name="club_bucks_reward" class="Tunable" default="1" display="Club Bucks Reward" description="The number of Club Bucks to reward a Sim following a rule that encourages this InteractionGroup whenever the timer goes off. The tuning for how often the timer goes off can be found in ClubTunables." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="bool" name="club_rule" class="Tunable" default="True" display="Club Rule" description="If checked, this interaction group can be used as a club rule for clubs." group="General" />
+
+        <Tunable type="bool" name="is_targeted" class="Tunable" default="True" display="Is Targeted" description="If checked, this interaction group contains interactions that target other Sims. If unchecked, this interaction group contains interactions that do not target other Sims." group="General" />
+
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name for this interaction group." group="UI" />
+
+        <Tunable type="bool" name="small_business_customer_rule" class="Tunable" default="True" display="Small Business Customer Rule" description="If checked, this interaction group can be used as a customer rule for a small business." group="General" />
+
+        <TunableList name="small_business_customer_tooltip" class="TunableMapping" display="Small Business Customer Tooltip" mapping_key="key" mapping_value="value" description="Mapping from the Pack to its associated small business customer tooltip strings." group="UI" mapping_class="RulesTooltipsStringsTuple">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="Pack" name="key" class="TunableEnumEntry" default="BASE_GAME" display="Key" static_entries="sims4-common.Pack" description="The pack containing the strings." group="General" />
+                <TunableList name="value" class="TunableList" display="Value" description="A list of tooltips for Small business customer rule for this interaction group. " group="General">
+                    <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may NOT require tokens." group="General" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="bool" name="small_business_employee_rule" class="Tunable" default="True" display="Small Business Employee Rule" description="If checked, this interaction group can be used as an employee rule for a small business." group="General" />
+
+        <TunableList name="small_business_employee_tooltip" class="TunableMapping" display="Small Business Employee Tooltip" mapping_key="key" mapping_value="value" description="Mapping from the Pack to its associated small business employee tooltip strings." group="UI" mapping_class="RulesTooltipsStringsTuple">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="Pack" name="key" class="TunableEnumEntry" default="BASE_GAME" display="Key" static_entries="sims4-common.Pack" description="The pack containing the strings." group="General" />
+                <TunableList name="value" class="TunableList" display="Value" description="A list of tooltips for Small business employee rule for this interaction group. " group="General">
+                    <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may NOT require tokens." group="General" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="bool" name="teen_safe" class="Tunable" default="True" display="Teen Safe" description="If checked, this interaction group can be associated with teens when building ClubRules. If unchecked, we will disallow this." group="General" />
+
+        <Tunable type="int" name="tooltip_template" class="TunableLocalizedString" default="0x0" display="Tooltip Template" description="A template for the compound string representation of an encouraged Club rule for this interaction group. e.g. Flirt with {1.String} -> Flirt with Adults" group="UI" />
+
+        <Tunable type="int" name="tooltip_template_negative" class="TunableLocalizedString" default="0x0" display="Tooltip Template Negative" description="A template for the compound string representation of a discouraged Club rule for this interaction group. e.g. Don't Use Alien Powers on {0.String} -> Don't Use Alien Powers on Teenagers" group="UI" />
+    </Instance>
+
+    
+</TuningRoot>

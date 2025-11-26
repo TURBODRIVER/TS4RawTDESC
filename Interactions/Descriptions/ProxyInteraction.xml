@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ProxyInteraction" module="objects.base_interactions" description="An interaction that fundamentally acts like another, arbitrary interaction, but wraps it so it can run some specific functionality. For example, consider a hypothetical cheat that disables autonomous interactions on an arbitrary object. We could define a NonAutonomousInteraction(ProxyInteraction) class, which overrides the allow_autonomous to always return False. The syntax NonAutonomousInteraction.generate(interaction) would return a class subtype of interaction, but that would always have allow_autonomous return False." instance_needs_reference="True" instance_subclasses_only="True" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True" />
+</TuningRoot>

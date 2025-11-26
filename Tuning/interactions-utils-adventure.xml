@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.utils.adventure">
+        <Class name="AdventureMoment">
+            <TunableTuple name="CHEAT_TEXT" class="TunableTuple" display="Cheat Text" description="Strings to be used for display text on cheat buttons to trigger all adventure moments. " group="General">
+                <Tunable type="int" name="next_display_text" class="TunableLocalizedString" default="0x0" display="Next Display Text" description="Text that will be displayed on next cheat button." group="General" />
+                <Tunable type="int" name="previous_display_text" class="TunableLocalizedString" default="0x0" display="Previous Display Text" description="Text that will be displayed on previous cheat button." group="General" />
+                <Tunable type="int" name="text_pattern" class="TunableLocalizedString" default="0x0" display="Text Pattern" description="Format for displaying next and previous buttons text including the progress." group="General" />
+                <Tunable type="int" name="tooltip" class="TunableLocalizedString" default="0x0" display="Tooltip" description="Tooltip to show when disabling previous or next button." group="General" />
+            </TunableTuple>
+
+            <Tunable type="int" name="LOOT_NOTIFICATION_TEXT" class="TunableLocalizedString" default="0x0" display="Loot Notification Text" description="A string used to recursively build loot notification text. It will be given two tokens: a loot display text string, if any, and the previously built LOOT_NOTIFICATION_TEXT string." group="General" />
+
+            <Tunable type="int" name="NOTIFICATION_TEXT" class="TunableLocalizedString" default="0x0" display="Notification Text" description="A string used to format notifications. It will be given two arguments: the notification text and the built version of LOOT_NOTIFICATION_TEXT, if not empty." group="General" />
+        </Class>
+
+        <Class name="AdventureMomentKey" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

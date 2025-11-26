@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="caslighting" class="Client_CASLightingTuning" module="caslighting.Client_CASLightingTuning" description="CAS lighting parameters" path="Client_CASLightingTuning\Descriptions">
+        <TunableTuple name="AmbientLight" class="Client_CASLightingTuning.AmbientLight" description="Parameters for ambient light.">
+            <Tunable type="float" name="IntensityMax" class="Tunable" default="None" description="Maximum ambient intensity value (controlled by ambient ramp texture)." />
+            <Tunable type="float" name="IntensityMin" class="Tunable" default="None" description="Minimum ambient intensity value (controlled by ambient ramp texture)." />
+        </TunableTuple>
+
+        <TunableTuple name="KeyLight0" class="Client_CASLightingTuning.KeyLight" description="Parameters for key light 0">
+            <Tunable type="float" name="Angle" class="Tunable" default="None" description="Orbital angle around the Y-axis (0 is toward the camera)." />
+            <TunableTuple name="Color" class="TunableVector3" description="Light color">
+                <Tunable type="float" name="x" class="Tunable" default="0.0" description="Red value" />
+                <Tunable type="float" name="y" class="Tunable" default="0.0" description="Green value" />
+                <Tunable type="float" name="z" class="Tunable" default="0.0" description="Blue value" />
+            </TunableTuple>
+            <Tunable type="bool" name="Enable" class="Tunable" default="True" description="Controls whether this light is enabled." />
+            <Tunable type="float" name="Height" class="Tunable" default="None" description="World space height relative to the base light height." />
+            <Tunable type="float" name="Intensity" class="Tunable" default="None" description="Multiplier on the light color." />
+            <Tunable type="float" name="SpecularIntensity" class="Tunable" default="None" description="Multiplier on the specular contribution." />
+        </TunableTuple>
+
+        <TunableTuple name="KeyLight1" class="Client_CASLightingTuning.KeyLight" description="Parameters for key light 1">
+            <Tunable type="float" name="Angle" class="Tunable" default="None" description="Orbital angle around the Y-axis (0 is toward the camera)." />
+            <TunableTuple name="Color" class="TunableVector3" description="Light color">
+                <Tunable type="float" name="x" class="Tunable" default="0.0" description="Red value" />
+                <Tunable type="float" name="y" class="Tunable" default="0.0" description="Green value" />
+                <Tunable type="float" name="z" class="Tunable" default="0.0" description="Blue value" />
+            </TunableTuple>
+            <Tunable type="bool" name="Enable" class="Tunable" default="True" description="Controls whether this light is enabled." />
+            <Tunable type="float" name="Height" class="Tunable" default="None" description="World space height relative to the base light height." />
+            <Tunable type="float" name="Intensity" class="Tunable" default="None" description="Multiplier on the light color." />
+            <Tunable type="float" name="SpecularIntensity" class="Tunable" default="None" description="Multiplier on the specular contribution." />
+        </TunableTuple>
+
+        <Tunable type="float" name="LightBaseHeight" class="Tunable" default="None" description="World space height of all lights relative to the Sim's root position." />
+
+        <TunableTuple name="RimLight0" class="Client_CASLightingTuning.RimLight" description="Parameters for rim light 0">
+            <TunableTuple name="Color" class="TunableVector3" description="Light color">
+                <Tunable type="float" name="x" class="Tunable" default="0.0" description="Red value" />
+                <Tunable type="float" name="y" class="Tunable" default="0.0" description="Green value" />
+                <Tunable type="float" name="z" class="Tunable" default="0.0" description="Blue value" />
+            </TunableTuple>
+            <Tunable type="bool" name="Enable" class="Tunable" default="True" description="Controls whether this light is enabled." />
+            <Tunable type="float" name="Falloff" class="Tunable" default="None" description="Controls the falloff of the rim light contribution at the silhouette edges." />
+            <Tunable type="float" name="Intensity" class="Tunable" default="None" description="Multiplier on the light color." />
+        </TunableTuple>
+
+        <TunableTuple name="RimLight1" class="Client_CASLightingTuning.RimLight" description="Parameters for rim light 1">
+            <TunableTuple name="Color" class="TunableVector3" description="Light color">
+                <Tunable type="float" name="x" class="Tunable" default="0.0" description="Red value" />
+                <Tunable type="float" name="y" class="Tunable" default="0.0" description="Green value" />
+                <Tunable type="float" name="z" class="Tunable" default="0.0" description="Blue value" />
+            </TunableTuple>
+            <Tunable type="bool" name="Enable" class="Tunable" default="True" description="Controls whether this light is enabled." />
+            <Tunable type="float" name="Falloff" class="Tunable" default="None" description="Controls the falloff of the rim light contribution at the silhouette edges." />
+            <Tunable type="float" name="Intensity" class="Tunable" default="None" description="Multiplier on the light color." />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

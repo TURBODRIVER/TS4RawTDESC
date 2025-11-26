@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="socials.group">
+        <Class name="SocialGroup">
+            <Tunable type="int" name="BOREDOM_QUEUE_SIZE" class="TunableRange" default="1" display="Boredom Queue Size" min="0" max="None" description="The number of different interactions that are memorized to calculate boredom. The larger the number, the easier it will be for Sims to be bored even if different affordance are used. e.g. If this number is 1, then boredom will apply to the last run interaction only. If the Sim runs X X X Y X, then X's boredom count is 1. e.g. If this number is 3, then boredom will apply to the last three run interactions. If the Sim runs X X Y Z Z X, the X's boredom count is 3, Y's i 1, and Z's is 2." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="object" name="CENTER_PLACEMENT_JIG_OBJECT_DEF" class="TunableReference" display="Center Placement Jig Object Def" description="Temporary object (jig) to be placed when computing position of a sim joining a social group." allow_none="False" group="General" />
+
+            <Tunable type="float" name="FACING_AWAY_PENALTY" class="Tunable" default="10" display="Facing Away Penalty" description="The number of meters to penalize destinations that involve facing away from the social group. This will be applied to destinations that violate the tuning for FACING_RANGE_IDEAL." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="FACING_RANGE_IDEAL" class="TunableAngle" default="90.0" display="Facing Range Ideal" min="0.0" max="360.0" description="The facing angle restriction on the ideal constraint for this group. A constraint with this facing restriction will be added to a constraint set where the constraint without this restriction gets the facing away penalty." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="FOCUS_LISTENER_SCORE" class="TunableRange" default="10" display="Focus Listener Score" min="0" max="None" description="Focus score assigned to the listeners in a social group. Higher numbers make Sims more likely to look at listeners." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="FOCUS_SPEAKER_SCORE" class="TunableRange" default="50" display="Focus Speaker Score" min="0" max="None" description="Focus score assigned to the speaker in a social group. Higher numbers make Sims more likely to look at the speaker." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="INCOMPATIBLE_OBJECT_REPOSITION_RADIUS" class="Tunable" default="3" display="Incompatible Object Reposition Radius" description="The distance to use when searching for a new social group focus position if the initial positition is invalidated by an incompatible object." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="MAXIMUM_NUMBER_OF_NON_ADJUSTABLE_SIMS" class="TunableRange" default="1" display="Maximum Number Of Non Adjustable Sims" min="0" max="None" description="The maximum number of entries in the list of non-adjustable Sims. Sims are placed in the list when they complete mobile posture transitions, and can be in the list more than once, thus occupying multiple spots." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MINIMUM_JIG_MOVE_EPSILON" class="TunableRange" default="0.01" display="Minimum Jig Move Epsilon" min="1.192092896e-07" max="None" description="A Sim will not adjust their position if the distance is smaller than this" tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MINIMUM_JIG_TURN_EPSILON" class="TunableRange" default="0.01" display="Minimum Jig Turn Epsilon" min="1.192092896e-07" max="None" description="A Sim will not adjust their position if the turning distance (arc in radians) is smaller than this" tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MOVE_CONSTRAINT_EPSILON_SQ" class="TunableDistanceSquared" default="1.0" display="Move Constraint Epsilon Sq" description="When the focal point of the group moves by more than this epsilon, attempt to re-center the social constraint." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MOVEMENT_COST_BASE" class="TunableRange" default="0.1" display="Movement Cost Base" min="0.0" max="None" description="Cost for moving at all when incrementally adjusting the position of a Sim" tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MOVEMENT_COST_MULTIPLIER" class="TunableRange" default="0.1" display="Movement Cost Multiplier" min="0.0" max="None" description="Multiplier on the cost of moving a given distance when adjusting the position of a Sim" tuning_state="NeedsTuning" group="General" />
+
+            <TunableTuple name="SETTLED_SOCIAL_ADJUSTMENT_DELAY" class="TunableTuple" display="Settled Social Adjustment Delay" description="Once a group has become stagnant, the amount of time in seconds to delay before performing a social adjustment attempt." group="General">
+                <Tunable type="float" name="lower_bound" class="TunableRealSecond" default="20" display="Lower Bound" min="None" max="None" description="Minimum amount of time, in seconds, to delay adjustment (when stagnant)." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="upper_bound" class="TunableRealSecond" default="30" display="Upper Bound" min="None" max="None" description="Maximum amount of time, in seconds, to delay adjustment (when stagnant)" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="interaction" name="SOCIAL_ADJUSTMENT_AFFORDANCE" class="TunableReference" display="Social Adjustment Affordance" description="The affordance to push when doing social adjustment." allow_none="False" group="General" />
+
+            <TunableTuple name="SOCIAL_ADJUSTMENT_DELAY" class="TunableTuple" display="Social Adjustment Delay" description="Amount of time, in seconds, to delay before the next social adjustment attempt." group="General">
+                <Tunable type="float" name="lower_bound" class="TunableRealSecond" default="2" display="Lower Bound" min="None" max="None" description="Minimum amount of time, in seconds, to delay adjustment." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="upper_bound" class="TunableRealSecond" default="16" display="Upper Bound" min="None" max="None" description="Maximum amount of time, in seconds, to delay adjustment" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="float" name="SOCIAL_GROUP_ARRANGEMENT_SETTLING_TIME" class="TunableSimMinute" default="10" display="Social Group Arrangement Settling Time" min="0" max="None" description="After the social geometry changes, we keep track of the time. Once SOCIAL_GROUP_ARRANGEMENT_SETTLING_TIME has elapsed, we attempt social adjustment less frequently (using SETTLED_SOCIAL_ADJUSTMENT_DELAY)." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="SOCIAL_GROUP_STAGNATION_TIME" class="TunableSimMinute" default="30" display="Social Group Stagnation Time" min="0" max="None" description="After a social adjustment occurs we keep track of the time. We will not clear out the list of Sims that cannot move in the group until SOCIAL_GROUP_STAGNATION_TIME Sim minutes have elapsed." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="WORST_PLACED_SIM_RANDOMNESS" class="Tunable" default="1.0" display="Worst Placed Sim Randomness" description="A floating point value that determines the randomness of the selection of the worst placed Sim. The worst placed Sim is given a chance to change position by social adjustment. Larger values are more random. A value of 0 means that there is no randomness, while a value of 1000 means the selection is almost completely random." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

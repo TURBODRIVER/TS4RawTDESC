@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="Privacy" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunablePrivacy" display="Value" description="Generate a privacy region for this object" group="General">
+            <TunableList name="additional_exit_offsets" class="TunableList" display="Additional Exit Offsets" description="If set, adds additional exit goals to add to the satisfy shoo constraint. For most cases this isn't needed, since most privacy situations may kick a player out of a room through a door and there are few exit options. However for open-space privacy areas, default behavior (using zone's corners) can cause a Sim to always attempt to exit the privacy area in a consistent and often not optimal route, (e.g. an open cross-shaped hall with 4 ways out, with default behavior the Sim could consistently choose to exit using the same route even though other routes would yield a shorter distance out of the privacy region)" group="General">
+                <TunableTuple class="TunableVector2" group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+            <Tunable type="float" name="boundary_epsilon" class="Tunable" default="0.01" display="Boundary Epsilon" description="The LOS origin is allowed to be outside of the boundary by this amount." tuning_state="NeedsTuning" group="General" />
+            <TunableVariant type="None" name="embarrassed_affordance" class="OptionalTunable" default="Use_Default" display="Embarrassed Affordance" description="If enabled, a specific affordance can be tuned for a Sim to play when walking into the privacy region. If disabled, the values tuned in the Privacy module tuning will be used." group="General">
+                <Tunable type="interaction" name="enabled" class="TunableReference" display="Enabled" description="The affordance a Sim will play when getting embarrassed by walking in on a privacy situation." allow_none="False" group="General" />
+                <Tunable name="Use_Default" class="TunableExistance" display="Use Default" />
+            </TunableVariant>
+            <Tunable type="float" name="facing_offset" class="Tunable" default="0.1" display="Facing Offset" description="The LOS origin is offset from the object origin by this amount (mainly to avoid intersecting walls)." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="map_divisions" class="Tunable" default="30" display="Map Divisions" description="The number of points around the object to check collision from. More points means higher accuracy." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="max_line_of_sight_radius" class="Tunable" default="5" display="Max Line Of Sight Radius" description="The maximum possible distance from this object than an interaction can reach." tuning_state="NeedsTuning" group="General" />
+            <TunableVariant type="None" name="min_room_area_for_discouragement" class="OptionalTunable" default="Use_Default" display="Min Room Area For Discouragement" description="The minimum allowed size in square meters for the room under which a discouragement area is not being created around the Sim. Note that for small room it is not really necessary to create a discouragement area as the Sims will be shooed anyway if they are closer than Shoo Constraint Radius to the Sim requesting Privacy. If disabled, the values tuned in the Privacy module tuning will be used." group="General">
+                <Tunable type="float" name="enabled" class="Tunable" default="10" display="Enabled" description="The area of the room" tuning_state="NeedsTuning" group="General" />
+                <Tunable name="Use_Default" class="TunableExistance" display="Use Default" />
+            </TunableVariant>
+            <TunableVariant type="None" name="post_route_affordance" class="OptionalTunable" default="disabled" display="Post Route Affordance" description="Optionally define an interaction that will run after the Sim routes away." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="interaction" name="enabled" class="TunableReference" display="Enabled" description="The affordance a Sim will play when getting embarrassed by walking in on a privacy situation." allow_none="False" group="General" />
+            </TunableVariant>
+            <TunableVariant type="None" name="privacy_cost_override" class="OptionalTunable" default="Use_Default" display="Privacy Cost Override" description="If set, override the cost of the privacy region." group="General">
+                <Tunable type="int" name="enabled" class="TunableRange" default="20" display="Enabled" min="1" max="None" tuning_state="NeedsTuning" group="General" />
+                <Tunable name="Use_Default" class="TunableExistance" display="Use Default" />
+            </TunableVariant>
+            <TunableList name="privacy_violators" class="TunableEnumFlags" default="SIM,VEHICLES" display="Privacy Violators" description="Defines violators of privacy: currently, only SIM and VEHICLES are suppported. for example: if PrivacyViolators.SIM is false , but PrivacyViolators.VEHICLES is enabled sims need not obey privacy rules for the object at hand." group="General" unique_entries="true">
+                <TunableEnum type="PrivacyViolators" class="TunableEnumEntry" default="SIM" static_entries="interactions-privacy.PrivacyViolators" group="General" />
+            </TunableList>
+            <TunableVariant type="None" name="reserved_surface_space" class="OptionalTunable" default="disabled" display="Reserved Surface Space" description="If enabled privacy will generate an additional footprint around the target object surface (if routing_surface_only is enabled then this will happen on the object routable surface). This footprint will affect any Sim from routing through for the duration of the interaction." group="General">
+                <TunableTuple name="define_blocking_area" class="TunableTuple" display="Define Blocking Area" description="Reserved space and blocking options for the created footprint." group="General">
+                    <Tunable type="bool" name="allow_routing" class="Tunable" default="True" display="Allow Routing" description="If True, then the footprint will only discourage routing, instead of blocking the whole area from being used." group="General" />
+                    <TunableTuple name="reserved_space" class="TunableReservedSpace" display="Reserved Space" description="Defined space to generate the Jig that will block the routable surface space.." group="General">
+                        <Tunable type="float" name="back" class="Tunable" default="1.0" display="Back" description="Space to be reserved in back of the actor." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="front" class="Tunable" default="1.0" display="Front" description="Space to be reserved in front of the actor." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="left" class="Tunable" default="1.0" display="Left" description="Space to be reserved to the left of the actor." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="right" class="Tunable" default="1.0" display="Right" description="Space to be reserved to the right of the actor." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            </TunableVariant>
+            <Tunable type="bool" name="routing_surface_only" class="Tunable" default="False" display="Routing Surface Only" description="If this is checked, then the privacy constraint is generated on the surface defined by the interaction's target. If the interaction has no target or the target does not provide a routable surface, no privacy is generated. Furthermore, privacy that is exclusive to routing surface will only shoo Sims that are on the routable surface. e.g. A Sim cleaning a counter needs to shoo cats on the counter. The default behavior is for privacy to be generated on the surface the Sim is on, and for it to apply to Sims on all surfaces. e.g. A Sim using the toilet would shoo cats within the privacy region that happen to be on routable surfaces, such as counters." group="General" />
+            <TunableVariant type="None" name="shoo_constraint_radius" class="OptionalTunable" default="Use_Default" display="Shoo Constraint Radius" description="If enabled, you can tune a specific radius for the shoo constraint. If disabled, the values tuned in the Privacy module tuning will be used." group="General">
+                <Tunable type="float" name="enabled" class="Tunable" default="2.5" display="Enabled" description="The radius of the constraint a Shooed Sim will attempt to route to." tuning_state="NeedsTuning" group="General" />
+                <Tunable name="Use_Default" class="TunableExistance" display="Use Default" />
+            </TunableVariant>
+            <TdescFragTag name="shoo_exempt_tests" class="TunableTestSet" display="Shoo Exempt Tests" description="Any violator who passes these tests will still be considered a violator, but ill be exempt from being shooed. i.e. A cat will get shooed when it breaks a privacy region, but cats will ignore the shoo behavior." group="General" />
+            <Tunable type="float" name="simplification_ratio" class="Tunable" default="0.25" display="Simplification Ratio" description="A factor determining how much to combine edges in the line of sight polygon." tuning_state="NeedsTuning" group="General" />
+            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Any Sim who passes these tests will be allowed to violate the privacy region." group="General" />
+            <TunableVariant type="None" name="unavailable_tooltip" class="OptionalTunable" default="Use_Default" display="Unavailable Tooltip" description="If enabled, allows a custom tool tip to be displayed when the player tries to run an interaction on an object inside the privacy region. If disabled, the values tuned in the Privacy module tuning will be used." group="General">
+                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Tool tip displayed when an object is not accessible due to being inside a privacy region." group="General" />
+                <Tunable name="Use_Default" class="TunableExistance" display="Use Default" />
+            </TunableVariant>
+            <TunableVariant type="None" name="vehicle_tests" class="OptionalTunable" default="disabled" display="Vehicle Tests" description="If enabled, vehicles that pass through this privacy region will be tested to see if the vehicle is allowed in the privacy region. Otherwise, the vehicle will always be affected by privacy. Note: The Object Routing Component specifies what happens when the drone enters a privacy region." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TdescFragTag name="enabled" class="TunableTestSet" display="Enabled" description="The tests that the vehicle must pass to be allowed in the privacy region. Note: The Object Routing Component specifies what happens when the drone enters a privacy region." group="General" />
+            </TunableVariant>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

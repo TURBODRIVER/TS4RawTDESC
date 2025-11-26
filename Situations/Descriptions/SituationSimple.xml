@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="SituationSimple" module="situations.situation_simple" description="Base class for Situations that will be constructed, primarily by designers, in the Object Editor. These situations are comprised of a linear sequence of phases of a fixed duration." instance_subclasses_only="False" parents="Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableList name="_exit_conditions" class="TunableList" display="Exit Conditions" description="A list of condition groups of which if any are satisfied, the group is satisfied." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableList name="conditions" class="TunableList" display="Conditions" description="A list of conditions that all must be satisfied for the group to be considered satisfied." group="General">
+                    <TunableVariant type="None" class="TunableSituationCondition" default="time_based" description="A condition for a situation or single phase." group="General">
+                        <TunableTuple name="event_based" class="TunableEventBasedCondition" display="Event Based" description="A condition that is satsified by some event" group="General">
+                            <TunableVariant type="None" name="event_custom_key" class="OptionalTunable" default="disabled" display="Event Custom Key" description="If enabled, only listen for events of the selected type when paired with this custom key." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableVariant type="None" name="enabled" class="EventConditionCustomKeyVariant" default="statistic" display="Enabled" description="When registering the event listener, it will only listen for events with this key." group="General">
+                                    <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic that the event must carry as custom key." allow_none="False" group="General" pack_safe="True" />
+                                </TunableVariant>
+                            </TunableVariant>
+                            <TunableEnum type="TestEvent" name="event_to_listen_for" class="TunableEnumEntry" default="Invalid" display="Event To Listen For" dynamic_entries="event_testing-test_events.TestEvent._elements" static_entries="event_testing-test_events.TestEvent" description="Event that this exit condition should listen for " group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="time_based" class="TunableTimeRangeCondition" display="Time Based" description="The minimum and maximum amount of time required to satisify this condition." group="General">
+                            <Tunable type="float" name="max_time" class="TunableSimMinute" default="None" display="Max Time" min="None" max="None" description="Maximum amount of time (in sim minutes) for this condition to be satisfied." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="min_time" class="TunableSimMinute" default="1" display="Min Time" min="None" max="None" description="Minimum amount of time (in sim minutes) for this condition to be satisfied." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="_phases" class="TunableList" display="Phases" group="General">
+            <TunableTuple class="TunableSituationPhase" description="Situation reference." group="General">
+                <Tunable type="float" name="duration" class="TunableSimMinute" default="60" display="Duration" min="None" max="None" description="How long the phase will last in sim minutes. 0 means forever, which should be used on the last phase of the situation." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="exit_conditions" class="TunableList" display="Exit Conditions" description="A list of condition groups of which if any are satisfied, the group is satisfied." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableList name="conditions" class="TunableList" display="Conditions" description="A list of conditions that all must be satisfied for the group to be considered satisfied." group="General">
+                            <TunableVariant type="None" class="TunableSituationCondition" default="time_based" description="A condition for a situation or single phase." group="General">
+                                <TunableTuple name="event_based" class="TunableEventBasedCondition" display="Event Based" description="A condition that is satsified by some event" group="General">
+                                    <TunableVariant type="None" name="event_custom_key" class="OptionalTunable" default="disabled" display="Event Custom Key" description="If enabled, only listen for events of the selected type when paired with this custom key." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableVariant type="None" name="enabled" class="EventConditionCustomKeyVariant" default="statistic" display="Enabled" description="When registering the event listener, it will only listen for events with this key." group="General">
+                                            <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic that the event must carry as custom key." allow_none="False" group="General" pack_safe="True" />
+                                        </TunableVariant>
+                                    </TunableVariant>
+                                    <TunableEnum type="TestEvent" name="event_to_listen_for" class="TunableEnumEntry" default="Invalid" display="Event To Listen For" dynamic_entries="event_testing-test_events.TestEvent._elements" static_entries="event_testing-test_events.TestEvent" description="Event that this exit condition should listen for " group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="time_based" class="TunableTimeRangeCondition" display="Time Based" description="The minimum and maximum amount of time required to satisify this condition." group="General">
+                                    <Tunable type="float" name="max_time" class="TunableSimMinute" default="None" display="Max Time" min="None" max="None" description="Maximum amount of time (in sim minutes) for this condition to be satisfied." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="float" name="min_time" class="TunableSimMinute" default="1" display="Min Time" min="None" max="None" description="Minimum amount of time (in sim minutes) for this condition to be satisfied." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableList>
+                <TunableList name="job_list" class="TunableMapping" display="Job List" mapping_key="job" mapping_value="role" description="A list of roles associated with the situation." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="situation_job" name="job" class="TunableReference" display="Job" description="Job reference" allow_none="False" group="General" />
+                        <Tunable type="role_state" name="role" class="TunableReference" display="Role" description="Role the job will perform" allow_none="False" group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

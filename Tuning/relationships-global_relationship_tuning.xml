@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="relationships.global_relationship_tuning">
+        <Class name="RelationshipGlobalTuning">
+            <Tunable type="relbit" name="CAREGIVER_RELATIONSHIP_BIT" class="TunableReference" display="Caregiver Relationship Bit" description="The relationship bit between a Sim and their caregiver, e.g. between a parent and a toddler." allow_none="False" group="General" />
+
+            <Tunable type="ResourceKey" name="DEFAULT_CUSTOM_RELATIONSHIP_LABEL_ICON" class="TunableResourceKey" default="None" display="Default Custom Relationship Label Icon" description="The icon to fallback to when the Custom Relationship Label Icon's save data is garbage data." group="General" resource_types="0x2f7d0004" />
+
+            <Tunable type="statistic" name="DEFAULT_PET_TO_PET_TRACK" class="TunableReference" display="Default Pet To Pet Track" description="This is the default relationship track for pet to pet relationships" allow_none="False" group="General" pack_safe="True" restrict="RelationshipTrack" />
+
+            <Tunable type="statistic" name="DEFAULT_PET_TO_SIM_TRACK" class="TunableReference" display="Default Pet To Sim Track" description="This is the default relationship track for pet to sim relationships" allow_none="False" group="General" pack_safe="True" restrict="RelationshipTrack" />
+
+            <Tunable type="float" name="DEFAULT_RELATIONSHIP_VALUE" class="Tunable" default="0" display="Default Relationship Value" description="The default value for relationship track scores." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="statistic" name="DEFAULT_SHORT_TERM_CONTEXT_TRACK" class="TunableReference" display="Default Short Term Context Track" description="If no short-term context tracks exist for a relationship, use this default as the prevailing track." allow_none="False" group="General" restrict="ShortTermContextRelationshipTrack" />
+
+            <Tunable type="int" name="DELAY_UNTIL_RELATIONSHIP_IS_CULLED" class="Tunable" default="10" display="Delay Until Relationship Is Culled" description="The amount of time, in sim minutes, that it takes before a relationship is culled once all of the tracks have reached convergence." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="relbit" name="ENGAGEMENT_RELATIONSHIP_BIT" class="TunableReference" display="Engagement Relationship Bit" description="The relationship bit between two Sims who have been engaged." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="FEUD_TARGET" class="TunableReference" display="Feud Target" description="A reference to the bit a Sim has with a Sim they are Feuding with." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="relbit" name="HAS_MET_RELATIONSHIP_BIT" class="TunableReference" display="Has Met Relationship Bit" description="The relationship bit between two Sims that have met each other." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="MARRIAGE_RELATIONSHIP_BIT" class="TunableReference" display="Marriage Relationship Bit" description="The marriage relationship bit. This tuning references the relationship bit signifying that the sim is a spouse to someone. Whenever this bit is added to a sim's relationship, it has the side effect of updating the spouse_sim_id on a sim's relationship tracker. If the bit goes away, the field is cleared. " allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="MATCHMAKING_RELATIONSHIP_BIT" class="TunableReference" display="Matchmaking Relationship Bit" description="The relationship bit automatically applied to sims who have met through the matchmaking app." allow_none="False" group="General" />
+
+            <Tunable type="float" name="MAX_RELATIONSHIP_VALUE" class="Tunable" default="100" display="Max Relationship Value" description="The maximum value any relationship can be." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="MEANINGFUL_RELATIONSHIP_BITS" class="TunableSet" display="Meaningful Relationship Bits" description="A set of relationship bits that represent a meaningful relationship." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A relationship bit that signifies that this is a meaningful relationship." allow_none="False" group="General" />
+            </TunableList>
+
+            <Tunable type="float" name="MIN_RELATIONSHIP_VALUE" class="Tunable" default="100" display="Min Relationship Value" description="The minimum value any relationship can be." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="relbit" name="MULTI_UNIT_NEIGHBOR_RELATIONSHIP_BIT" class="TunableReference" display="Multi Unit Neighbor Relationship Bit" description="The relationship bit automatically applied to sims who live in the same multi unit lot, but in different households." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="NEIGHBOR_GIVEN_KEY_RELATIONSHIP_BIT" class="TunableReference" display="Neighbor Given Key Relationship Bit" description="The relationship bit that signifies if you've given a key to someone." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="relbit" name="NEIGHBOR_RELATIONSHIP_BIT" class="TunableReference" display="Neighbor Relationship Bit" description="The relationship bit automatically applied to sims who live on the same street but in difference households." allow_none="False" group="General" />
+
+            <Tunable type="statistic" name="REL_INSPECTOR_TRACK" class="TunableReference" display="Rel Inspector Track" description="This is the track that the rel inspector follows. Any bits that are apart of this track should NOT be marked visible unless you want them showing up in both places." allow_none="False" group="General" restrict="RelationshipTrack" />
+
+            <Tunable type="relbit" name="ROMANCE_BIT_NOT_FOR_FAMILY" class="TunableReference" display="Romance Bit Not For Family" description="A reference to the romance bit that direct family members should avoid ." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableList name="SIGNIFICANT_OTHER_RELATIONSHIP_BITS" class="TunableList" display="Significant Other Relationship Bits" description="A list of relationship bits that mark the relationship as being between significant others. Only one of these bits is required for the sims to be considered significant others." group="General">
+                <Tunable type="relbit" class="TunableReference" description="A relationship bit that signifies that a sim is a significant other to someone else." allow_none="False" group="General" />
+            </TunableList>
+
+            <Tunable type="relbit" name="STEADY_RELATIONSHIP_BIT" class="TunableReference" display="Steady Relationship Bit" description="The relationship bit between two Sims who are dating." allow_none="False" group="General" />
+
+            <TunableList name="TRAITS_OF_INTEREST" class="TunableList" display="Traits Of Interest" description="Traits that telemetry is interested in upon relationship changes or certain interactions, e.g. the Grim Reaper trait. These traits should ideally be mutually exclusive." group="General">
+                <Tunable type="trait" class="TunableReference" description="A significant trait." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <Tunable type="relbit" name="WORKPLACE_RIVAL_RELATIONSHIP_BIT" class="TunableReference" display="Workplace Rival Relationship Bit" description="A reference to the bit a Sim has with another Sim who is in the same career to make them rivals. " allow_none="False" group="General" pack_safe="True" />
+        </Class>
+
+        <Class name="TropeGlobalTuning">
+            <TunableList name="RECIPROCAL_TROPES" class="TunableList" display="Reciprocal Tropes" description="A list of tuples that contain reciprocal unidirectional tropes, used by Client to correctly assign tropes to Sims in CAS." group="General">
+                <TunableTuple class="ReciprocalTropes" description="A tuple of reciprocal tropes." group="General">
+                    <Tunable type="relbit" name="authority_trope" class="TunableReference" display="Authority Trope" description="The authority trope that should be reciprocated." allow_none="False" group="General" pack_safe="True" />
+                    <Tunable type="relbit" name="subordinate_trope" class="TunableReference" display="Subordinate Trope" description="The subordinate trope that should be reciprocated." allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="RELATIONSHIP_TYPE_TO_AVAILABLE_ROMANCE_TROPES" class="TunableMapping" display="Relationship Type To Available Romance Tropes" mapping_key="RelationshipType" mapping_value="AvailableTropes" description="A mapping of relationship type to all romance tropes available for that relationship type." group="General" mapping_class="RelationshipTypeToAvailableTropes">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="AvailableTropes" class="TunableList" display="Availabletropes" description="A list of Tropes that are available to a Sim with this Relationship Type." group="General">
+                        <Tunable type="relbit" class="TunableReference" description="The Trope that is available to a Sim with this Relationship Type." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableEnum type="RelationshipType" name="RelationshipType" class="TunableEnumEntry" default="NONE" display="Relationshiptype" static_entries="relationships-relationship_enums.RelationshipType" binary_type="uint32" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="RELATIONSHIP_TYPE_TO_AVAILABLE_TROPES" class="TunableMapping" display="Relationship Type To Available Tropes" mapping_key="RelationshipType" mapping_value="AvailableTropes" description="A mapping of relationship type to all tropes available for that relationship type." group="General" mapping_class="RelationshipTypeToAvailableTropes">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="AvailableTropes" class="TunableList" display="Availabletropes" description="A list of Tropes that are available to a Sim with this Relationship Type." group="General">
+                        <Tunable type="relbit" class="TunableReference" description="The Trope that is available to a Sim with this Relationship Type." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableEnum type="RelationshipType" name="RelationshipType" class="TunableEnumEntry" default="NONE" display="Relationshiptype" static_entries="relationships-relationship_enums.RelationshipType" binary_type="uint32" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="RELATIONSHIP_TYPE_TO_BIT" class="TunableMapping" display="Relationship Type To Bit" mapping_key="RelationshipType" mapping_value="RelationshipBit" description="A mapping of relationship type to relationship bit." group="General" mapping_class="RelationshipTypeToBit">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="relbit" name="RelationshipBit" class="TunableReference" display="Relationshipbit" description="A relationship bit that maps to the specified relationship type." allow_none="False" group="General" pack_safe="True" />
+                    <TunableEnum type="RelationshipType" name="RelationshipType" class="TunableEnumEntry" default="NONE" display="Relationshiptype" static_entries="relationships-relationship_enums.RelationshipType" binary_type="uint32" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="ROMANCE_TROPES" class="TunableSet" display="Romance Tropes" description="A set of relationship bits that represent romance dynamics tropes." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A relationship bit that represents a romance dynamics trope." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <TunableList name="TROPES" class="TunableSet" display="Tropes" description="A set of relationship bits that represent family dynamics tropes." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A relationship bit that represents a family dynamics trope." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

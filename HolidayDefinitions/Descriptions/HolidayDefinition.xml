@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="holiday_definition" class="HolidayDefinition" module="holidays.holiday_definition" description="Tuning structure that contains all the data that describes a holiday." instance_needs_reference="True" instance_subclasses_only="False" path="HolidayDefinitions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="_display_data" class="OptionalTunable" default="disabled" display="Display Data" description="If enabled, specify display data for this instance." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="The instance's display data." group="General">
+                <TunableVariant type="None" name="instance_display_icon" class="OptionalTunable" default="enabled" display="Instance Display Icon" description="If enabled, specify a display icon for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="ResourceKey" name="enabled" class="TunableIcon" default="None" display="Enabled" description="The instance's icon." group="General" resource_types="0x2f7d0004" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_name" class="OptionalTunable" default="enabled" display="Instance Display Name" description="If enabled, specify a display name for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The instance's name." group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="ResourceKey" name="audio_sting" class="TunableResourceKey" default="None" display="Audio Sting" description="The sound to play." group="General" resource_types="0x39b2aa4a" />
+
+        <TunableVariant type="None" name="calendar_alert_description" class="OptionalTunable" default="disabled" display="Calendar Alert Description" description="If tuned, there will be a calendar alert description." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Description that shows up in the calendar alert. 0 - Holiday Name" group="General" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="can_be_modified" class="Tunable" default="False" display="Can Be Modified" description="If checked, this holiday can be modified by the player." group="General" />
+
+        <TunableVariant type="None" name="decoration_preset" class="OptionalTunable" default="disabled" display="Decoration Preset" description="The decoration preset that this holiday is set to by default. If disabled, this holiday does not do decorations." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="lot_decoration_preset" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="time_off_school" class="Tunable" default="False" display="Time Off School" description="If checked, Sims will have the day off from school for the holiday." group="General" />
+
+        <Tunable type="bool" name="time_off_work" class="Tunable" default="False" display="Time Off Work" description="If checked, Sims will have the day off from work, both part time and full time." group="General" />
+
+        <TunableList name="traditions" class="TunableList" display="Traditions" max="5" description="List of default traditions for this holiday." group="General" unique_entries="true">
+            <Tunable type="holiday_tradition" class="TunableReference" description="A default tradition for this holiday." allow_none="False" group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="cascameratuning" class="Client_CASCameraTuning" module="cascameratuning.Client_CASCameraTuning" description="CAS camera tuning." path="Client_CASCameraTuning\Descriptions">
+        <TunableList name="Ages" class="TunableSet" display="Ages" description="Trait allowed ages, empty set means not specified" group="General" unique_entries="true">
+            <TunableEnum type="Age" class="TunableEnumEntry" default="None" static_entries="sims-sim_info_types.Age" group="General" />
+        </TunableList>
+
+        <TunableList name="Cameras" class="TunableList" display="CameraList" description="List of CAS cameras.">
+            <TunableTuple name="CameraData" class="Client_CASCameraTuning.CameraData" description="Parameters for a CAS camera.">
+                <TunableEnum type="CASCameraRegion" name="CameraRegion" class="TunableEnumEntry" default="Invalid" display="Camera Region" dynamic_entries="cascameraregions.CASCameraRegion._elements" static_entries="cascameraregions.CASCameraRegion" description="The unique id of the camera region." group="General" />
+                <TunableTuple name="CameraTarget" class="TunableVector3" description="Camera Look-At Target.">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" description="X Position." group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" description="Y Position." group="General" />
+                    <Tunable type="float" name="z" class="Tunable" default="0.0" description="Z Position." group="General" />
+                </TunableTuple>
+                <Tunable type="float" name="Distance" class="Tunable" default="0.0" description="Distance from target." />
+                <Tunable type="float" name="FOV" class="Tunable" default="57.25" description="Field of view angle (degrees)." />
+                <Tunable type="float" name="OrbitalRotation" class="Tunable" default="0.0" description="Orbital rotation angle around target (degrees)." />
+                <Tunable type="float" name="Pitch" class="Tunable" default="0.0" description="Pitch angle (degrees)." />
+                <TunableList name="PoseOverrideCameras" class="TunableList" display="_Pose Overrides" description="List of CAS override cameras for specific poses.">
+                    <TunableTuple name="PoseOverrideCameraData" class="Client_CASCameraTuning.PoseOverrideCameraData" description="Override parameters for a CAS camera when on a specific pose.">
+                        <TunableTuple name="CameraTarget" class="TunableVector3" description="Camera Look-At Target.">
+                            <Tunable type="float" name="x" class="Tunable" default="0.0" description="X Position." group="General" />
+                            <Tunable type="float" name="y" class="Tunable" default="0.0" description="Y Position." group="General" />
+                            <Tunable type="float" name="z" class="Tunable" default="0.0" description="Z Position." group="General" />
+                        </TunableTuple>
+                        <Tunable type="float" name="Distance" class="Tunable" default="0.0" description="Distance from target." />
+                        <Tunable type="float" name="FOV" class="Tunable" default="57.25" description="Field of view angle (degrees)." />
+                        <Tunable type="float" name="OrbitalRotation" class="Tunable" default="0.0" description="Orbital rotation angle around target (degrees)." />
+                        <Tunable type="float" name="Pitch" class="Tunable" default="0.0" description="Pitch angle (degrees)." />
+                        <TunableEnum type="CASPaintPose" name="Pose" class="TunableEnumEntry" default="CASPaintPose.NONE" display=" Pose" static_entries="cas-cas_enums.CASPaintPose" description="The pose to override the camera data" group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="CASMode" class="TunableSet" display="CAS Modes" description="Allowed CAS modes" group="General" unique_entries="true">
+            <TunableEnum type="CASEditMode" class="TunableEnumEntry" default="None" static_entries="cas-cas_enums.CASEditMode" group="General" />
+        </TunableList>
+
+        <Tunable type="float" name="EaseInPt" class="Tunable" default="0.02" description="This is a 0-1 value along the camera rail where a lerp takes over for the velocity based camera to ease it into the final resting position furthest from the sim." group="Velocity Camera Controls" />
+
+        <Tunable type="float" name="EaseOutPt" class="Tunable" default="0.98" description="This is a 0-1 value along the camera rail where a lerp takes over for the velocity based camera to ease it into the final resting position (close to the sim)." group="Velocity Camera Controls" />
+
+        <Tunable type="float" name="KeyZoomSpeedLerp" class="Tunable" default="1.0" description="Zoom speed by key input for camera Lerp." group="Lerp Camera Controls" />
+
+        <Tunable type="float" name="KeyZoomSpeedVelocity" class="Tunable" default="1.0" description="Zoom speed by key input for velocity based camera movement." group="Velocity Camera Controls" />
+
+        <Tunable type="float" name="LateralLerpDuration" class="Tunable" default="1.0" description="The lateral lerp duration for camera adjusting sim position due to UI opening and closing panels." group="Velocity Camera Controls" />
+
+        <Tunable type="float" name="LateralLerpEaseInOut" class="Tunable" default="3.0" description="The ease in-out value for lateral lerp when adjusting for changed UI: higher values give slower start and finish." group="Velocity Camera Controls" />
+
+        <Tunable type="float" name="MouseWheelZoomSpeedLerp" class="Tunable" default="15.0" description="Mouse wheel zoom speed for camera Lerp." group="Lerp Camera Controls" />
+
+        <Tunable type="float" name="MouseWheelZoomSpeedVelocity" class="Tunable" default="15.0" description="Mouse wheel zoom speed for velocity based camera movement." group="Velocity Camera Controls" />
+
+        <TunableList name="Occult" class="TunableSet" display="Occult" description="Allowed occults" group="General" unique_entries="true">
+            <TunableEnum type="OccultType" class="TunableEnumEntry" default="None" static_entries="sims-occult-occult_enums.OccultType" group="General" />
+        </TunableList>
+
+        <TunableList name="Species" class="TunableSet" display="Species" description="Allowed species" group="General" unique_entries="true">
+            <TunableEnum type="SpeciesExtended" class="TunableEnumEntry" default="None" static_entries="sims-sim_info_types.SpeciesExtended" group="General" />
+        </TunableList>
+
+        <Tunable type="bool" name="UseLerpCamera" class="Tunable" default="False" description="Use the old camera LERP movement." group="Lerp Camera Controls" />
+
+        <Tunable type="float" name="VelocityCap" class="Tunable" default="2.5" description="Max speed for how fast our camera can zoom in/out" group="Velocity Camera Controls" />
+
+        <Tunable type="float" name="VelocityLossRate" class="Tunable" default="10.0" description="Dampening amount for velocity" group="Velocity Camera Controls" />
+    </Instance>
+</TuningRoot>

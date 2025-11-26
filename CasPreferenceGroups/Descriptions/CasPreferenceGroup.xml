@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="cas_preference_group" class="CasPreferenceGroup" module="cas.cas_preference_group" description="Tuning used by CAS to represent a group (tab) of preference categories." instance_needs_reference="True" instance_subclasses_only="False" path="CasPreferenceGroups\Descriptions" use_guid_for_reference="True">
+        <TunableList name="ages" class="TunableEnumSet" display="Ages" description="The allowed ages for this Preference Group." group="General" unique_entries="true">
+            <TunableEnum type="Age" class="TunableEnumEntry" default="BABY" static_entries="sims-sim_info_types.Age" group="General" />
+        </TunableList>
+
+        <Tunable type="int" name="capacity" class="TunableRange" default="15" display="Capacity" min="1" max="None" description="The number of preferences from this group that can be selected." tuning_state="NeedsTuning" group="General" />
+
+        <TunableList name="categories" class="TunableSet" display="Categories" description="The categories that are in this group." group="General" unique_entries="true">
+            <Tunable type="cas_preference_category" class="TunableReference" description=" " allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="int" name="counter_text" class="TunableLocalizedString" default="0x0" display="Counter Text" description="The text we want to use for this preference group to show the number of selected likes/dislikes for each category." group="General" />
+
+        <Tunable type="int" name="detailed_description" class="TunableLocalizedString" default="0x0" display="Detailed Description" description="A description used to help explain what this group represents. Used as a tooltip for the group's tab in CAS." group="General" />
+
+        <Tunable type="int" name="dislike_button_text" class="TunableLocalizedString" default="0x0" display="Dislike Button Text" description="The text we want to use for this preference group to select that the sim dislikes the category." group="General" />
+
+        <Tunable type="int" name="header_name" class="TunableLocalizedString" default="0x0" display="Header Name" description="The name of this group that we want to use in header contexts." group="General" />
+
+        <Tunable type="int" name="help_tooltip" class="TunableLocalizedString" default="0x0" display="Help Tooltip" description="The tooltip to use on the help icon in CAS when this group is selected. Parameters: 1. This group's capacity. 2. This group's name." group="General" />
+
+        <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="The icon that represents this group." group="General" resource_types="0x2f7d0004" />
+
+        <Tunable type="ResourceKey" name="icon_selected" class="TunableIcon" default="None" display="Icon Selected" description="The icon to show when this group is selected." group="General" resource_types="0x2f7d0004" />
+
+        <Tunable type="int" name="items_name_negative" class="TunableLocalizedString" default="0x0" display="Items Name Negative" description="The name of the 'negative' items for this group, such as 'Dislikes'. Should be plural." group="General" />
+
+        <Tunable type="int" name="items_name_negative_header_formatted" class="TunableLocalizedString" default="0x0" display="Items Name Negative Header Formatted" description="A version of Items Name Negative, formatted as a header." group="General" />
+
+        <Tunable type="int" name="items_name_positive" class="TunableLocalizedString" default="0x0" display="Items Name Positive" description="The name of the 'positive' items for this group, such as 'Likes'. Should be plural." group="General" />
+
+        <Tunable type="int" name="items_name_positive_header_formatted" class="TunableLocalizedString" default="0x0" display="Items Name Positive Header Formatted" description="A version of Items Name Positive, formatted as a header." group="General" />
+
+        <Tunable type="int" name="like_button_text" class="TunableLocalizedString" default="0x0" display="Like Button Text" description="The text we want to use for this preference group to select that the sim likes the category." group="General" />
+
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of this group." group="General" />
+
+        <Tunable type="int" name="none_selected_text" class="TunableLocalizedString" default="0x0" display="None Selected Text" description="The text we want to use for this preference group when a sim has not selected any items for this group." group="General" />
+
+        <Tunable type="int" name="randomization_minimum_required_dislikes" class="TunableRange" default="1" display="Randomization Minimum Required Dislikes" min="1" max="None" description="When randomizing, what are the minimum number of dislikes that must be selected?" tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="randomization_minimum_required_likes" class="TunableRange" default="1" display="Randomization Minimum Required Likes" min="1" max="None" description="When randomizing, what are the minimum number of likes that must be selected?" tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="bool" name="show_flair" class="Tunable" default="False" display="Show Flair" description="If checked, it will turn on a flair (glow) to call player's attention to that group" group="UI" />
+
+        <Tunable type="str" name="telemetry_name" class="Tunable" default="None" display="Telemetry Name" description="The telemetry name for this preference group. Defining this field will cause the number of traits on a given Sim to be counted for GAME:CASS:EXIT telemetry." group="General" />
+
+        <Tunable type="str" name="timeline_label_name" class="Tunable" default="preference" display="Timeline Label Name" description="The name of the label that we want to use for this preference group. This is used in several places in the UI." group="UI" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tutorial" class="Tutorial" module="tutorials.tutorial" description="Main container class that holds all data for a tutorial." instance_subclasses_only="False" path="Tutorials\Descriptions" use_guid_for_reference="True">
+        <Tunable type="tutorial" name="category" class="TunableReference" display="Category" description="The tutorial category in which this tutorial belongs. This field has been deprecated in favor of tags. Only used as a fallback if the tags collection is empty." allow_none="True" Deprecated="True" group="General" restrict="TutorialCategory" />
+
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="Name of the tutorial. i.e. if this is a tutorial about Build/Buy you might put 'Build Buy Mode'" group="General" />
+
+        <TunableList name="slides" class="TunableList" display="Slides" description="These are the slides (images with a description) that create the story for this tutorial. They will be shown in the order they are provided, so the first slide in this list will be the first slide of the tutorial." group="General">
+            <TunableTuple class="TunableTutorialSlideTuple" description="The text for this slide." group="General">
+                <Tunable type="ResourceKey" name="image" class="TunableResourceKey" default="None" display="Image" description="The image for this slide." group="General" resource_types="0x2f7d0004" />
+                <Tunable type="ResourceKey" name="image_console" class="TunableResourceKey" default="None" display="Image (Console)" description="The image for this slide on console. If unset the Image will be used as a fallback." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                <Tunable type="ResourceKey" name="image_console_jp" class="TunableResourceKey" default="None" display="Image (Console; JP)" description="The image for this slide on console for the JP SKU. Fallback order is: Image (Console), Image." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                <TunableEnum type="TutorialPlatformFilter" name="platform_filter" class="TunableEnumEntry" default="ALL_PLATFORMS" display="Platform Filter" static_entries="tutorials-tutorial.TutorialPlatformFilter" description="The platforms on which this slide is shown." group="General" />
+                <Tunable type="int" name="text" class="TunableLocalizedString" default="0x0" display="Text" description="A localized string that may NOT require tokens." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Set of lesson tags associated with this lesson." dynamic_entries_prefix="lesson" group="General" invalid_entries="INVALID" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="int" name="ui_sort_order" class="Tunable" default="0" display="Ui Sort Order" description="Order in which this lesson is sorted against other lessons or subcategories within the same category or subcategory. If two lessons within a sub/category have the same sort order, the ordering is undefined." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+</TuningRoot>

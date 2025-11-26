@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="small_business_seed" class="SmallBusinessSeed" module="small_business.small_business_seed" description="A tuning structure that specifies all the needed data to create a small business for a sim." instance_needs_reference="True" instance_subclasses_only="False" path="SmallBusinessSeeds\Descriptions" use_guid_for_reference="True">
+        <TunableList name="attendance_criteria" class="TunableList" display="Attendance Criteria" description="The list of rules that sims should match in order to visit this business." group="General">
+            <TunableVariant type="None" class="TunableVariant" default="skill" group="General">
+                <TunableTuple name="age" class="_AttendanceCriteriaEntry" display="Age" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaAge" display="Criteria" description="Age-based criteria." group="General">
+                        <TunableList name="ages" class="TunableEnumSet" display="Ages" description="In order to pass this criteria, the target Sim must be one of the specified ages." group="General" unique_entries="true">
+                            <TunableEnum type="Age" class="TunableEnumEntry" default="ADULT" static_entries="sims-sim_info_types.Age" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description=", Check if you want the rule the attendance sim is required to match." group="General" />
+                </TunableTuple>
+                <TunableTuple name="care_sim_type" class="_AttendanceCriteriaEntry" display="Care Sim Type" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaCareSimTypeSupervised" display="Criteria" description="Dependent sim rule criteria." group="General">
+                        <TunableList name="care_sim_type_requirements" class="TunableEnumSet" display="Care Sim Type Requirements" description="In order to pass this criteria, the Sim must have a specified type of dependent sim in their household" group="General" unique_entries="true">
+                            <TunableEnum type="CareSimType" class="TunableEnumEntry" default="CHILD" static_entries="clubs-club_tuning.CareSimType" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description=", Check if you want the rule the attendance sim is required to match." group="General" />
+                    <Tunable type="bool" name="criteria_supervised" class="Tunable" default="True" display="Criteria Supervised" description=", Check if you want the rule the attending sim that matches rule to be supervised." group="General" />
+                </TunableTuple>
+                <TunableTuple name="career" class="_AttendanceCriteriaEntry" display="Career" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaCareer" display="Criteria" description="Career-based criteria." group="General">
+                        <TunableList name="careers" class="TunableList" display="Careers" min="1" description="In order to pass this criteria, the target Sim must have one of these Careers." group="General" unique_entries="true">
+                            <Tunable type="career" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Career" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description=", Check if you want the rule the attendance sim is required to match." group="General" />
+                </TunableTuple>
+                <TunableTuple name="fame_rank" class="_AttendanceCriteriaEntry" display="Fame Rank" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaFameRank" display="Criteria" description="Fame based club rule criteria." group="General">
+                        <TunableList name="fame_rank_requirements" class="TunableEnumSet" display="Fame Rank Requirements" description="In order to pass this criteria, the Sim must have a fame rank that has been selected." group="General" unique_entries="true">
+                            <TunableEnum type="FameRank" class="TunableEnumEntry" default="FAME_RANK_1" dynamic_entries="clubs-club_tuning.FameRank._elements" static_entries="clubs-club_tuning.FameRank" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description=", Check if you want the rule the attendance sim is required to match." group="General" />
+                </TunableTuple>
+                <TunableTuple name="household_value" class="_AttendanceCriteriaEntry" display="Household Value" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaHouseholdValue" display="Criteria" description="Household value-based criteria." group="General">
+                        <TunableEnum type="HouseholdValueCategory" name="household_value" class="TunableEnumEntry" default="AVERAGE" display="Household Value" static_entries="clubs-club_tuning.HouseholdValueCategory" description="In order to pass this criteria, the target sim must have a household value in this enum value's associated interval." group="General" />
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description=", Check if you want the rule the attendance sim is required to match." group="General" />
+                </TunableTuple>
+                <TunableTuple name="relationship" class="_AttendanceCriteriaEntry" display="Relationship" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaRelationship" display="Criteria" description="Relationship-based criteria." group="General">
+                        <TunableEnum type="MaritalStatus" name="marital_status" class="TunableEnumEntry" default="MARRIED" display="Marital Status" static_entries="clubs-club_tuning.MaritalStatus" description="Marital status a Sim must have in order to pass this criteria." group="General" />
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description=", Check if you want the rule the attendance sim is required to match." group="General" />
+                </TunableTuple>
+                <TunableTuple name="skill" class="_AttendanceCriteriaEntry" display="Skill" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaSkill" display="Criteria" description="Skill-based criteria." group="General">
+                        <TunableList name="skills" class="TunableList" display="Skills" min="1" description="In order to pass this criteria, the target Sim must have one of these skills with a skill level of at least the value specified in MINIMUM_CRITERIA_SKILL_LEVEL." group="General" unique_entries="true">
+                            <Tunable type="statistic" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description=", Check if you want the rule the attendance sim is required to match." group="General" />
+                </TunableTuple>
+                <TunableTuple name="trait" class="_AttendanceCriteriaEntry" display="Trait" group="General">
+                    <TunableTuple name="criteria" class="TunableClubRuleCriteriaTrait" display="Criteria" description="Trait-based criteria." group="General">
+                        <TunableList name="traits" class="TunableList" display="Traits" min="1" description="In order to pass this criteria, the target Sim must have one of these Traits." group="General" unique_entries="true">
+                            <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="bool" name="criteria_required" class="Tunable" default="True" display="Criteria Required" description=", Check if you want the rule the attendance sim is required to match." group="General" />
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TunableEnum type="SmallBusinessAttendanceSaleMode" name="attendance_sale_mode" class="TunableEnumEntry" default="DISABLED" display="Attendance Sale Mode" static_entries="business-business_enums.SmallBusinessAttendanceSaleMode" description="Default sale mode when business is created." group="General" />
+
+        <Tunable type="int" name="business_description_key" class="TunableLocalizedString" default="0x0" display="Business Description Key" description="The description of business." group="General" />
+
+        <Tunable type="ResourceKey" name="business_icon" class="TunableIconAllPacks" default="None" display="Business Icon" description="The icon image to be displayed." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+
+        <Tunable type="int" name="business_name_key" class="TunableLocalizedString" default="0x0" display="Business Name Key" description="The localized name of the business." group="General" />
+
+        <TunableList name="business_perks" class="TunableList" display="Business Perks" description="A perks that will be added to business perks tracker." group="General">
+            <Tunable type="bucks_perk" class="TunableReference" allow_none="False" group="General" />
+        </TunableList>
+
+        <TunableList name="customer_rules" class="TunableList" display="Customer Rules" description="The list of rules that customers will follow." group="General">
+            <Tunable type="club_interaction_group" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="employee_data" class="TunableMapping" display="Employee Data" mapping_key="key" mapping_value="value" description="The rules that each employee will follow. Link a premade sim to be an employee and will follow specific rules." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="sim_template" name="key" class="TunableReference" display="Key" description="Premade sim template that will become the employee of this business." allow_none="False" group="General" pack_safe="True" restrict="PremadeSimTemplate" />
+                <TunableTuple name="value" class="TunableTuple" display="Value" group="General">
+                    <TunableList name="employee_rules" class="TunableList" display="Employee Rules" group="General">
+                        <Tunable type="club_interaction_group" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="float" name="markup_multiplier" class="Tunable" default="1.0" display="Markup Multiplier" description="Default markup multiplier when business is created." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+</TuningRoot>

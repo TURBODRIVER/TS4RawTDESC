@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="AutonomousObjectInSlotPickerInteraction" module="interactions.base.picker_interaction" description="Autonomous picker interaction that selects an object from a subject's children." instance_needs_reference="True" instance_subclasses_only="False" parents="AutonomousObjectPickerInteraction, AutonomousPickerSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TdescFragTag name="global_slot_obj_test" class="TunableGlobalTestSet" display="Global Slot Obj Test" description="A set of tests to run on each object in the parents slots before it will be shown in the picker dialog. Only tests with ParticipantType.Object will work. ALL tests must pass" group="Picker Tuning" />
+
+        <TunableVariant type="None" name="required_slot_types" class="OptionalTunable" default="disabled" display="Required Slot Types" description="If enabled, the child object must be in one of these slot types in order to show up in the picker." group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableSet" display="Enabled" min="1" description="The child object must be parented to one of these slots in order to show up in the picker." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableStringHash32" default="_ctnm_SimInteraction_" description="The hashed name of the slot." group="General" />
+            </TunableList>
+        </TunableVariant>
+
+        <TdescFragTag name="slot_obj_test" class="TunableTestSet" display="Slot Obj Test" description="A set of tests to run on each object in the parents slots before it will be shown in the picker dialog. Only tests with ParticipantType.Object will work. Only one test is required to pass" group="Picker Tuning" />
+
+        <TunableEnum type="ParticipantType" name="subject_with_slots" class="TunableEnumEntry" default="Object" display="Subject With Slots" static_entries="interactions.ParticipantType" description="Subject on which the slots exist." group="Picker Tuning" />
+    </Instance>
+</TuningRoot>

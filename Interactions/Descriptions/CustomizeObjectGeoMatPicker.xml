@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CustomizeObjectGeoMatPicker" module="interactions.picker.customize_object_picker_interactions" description="A picker interaction that builds a list of final objects based on object definition selected by player in CustomizeObjectDefinitionPicker and object geo/mat states combinations" instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="geo_mat_combinations" class="TunableMapping" display="Geo Mat Combinations" mapping_key="geometry_state" mapping_value="material_state_list" description="A mapping of geometry state to a list of material states. So we can use them to generate a list of different objects which have one object definition id and different geometry and material states." group="Picker Tuning">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="object_state" name="geometry_state" class="TunableReference" display="Geometry State" description="An object state that has geometry state to apply." allow_none="False" group="General" restrict="ObjectStateValue" />
+                <TunableList name="material_state_list" class="TunableList" display="Material State List" group="General">
+                    <Tunable type="object_state" class="TunableReference" description="An object state that has material state to apply." allow_none="False" group="General" restrict="ObjectStateValue" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

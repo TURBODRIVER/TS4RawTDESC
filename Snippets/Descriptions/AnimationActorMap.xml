@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="AnimationActorMap" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableAnimationActorMap" display="Value" description="Tunable mapping between animation actors and ParticipantTypes." group="General">
+            <TunableVariant type="None" name="carry_target" class="OptionalTunable" default="disabled" display="Carry Target" description="This must be specified for any interaction that involves carrying an object. The ParticipantType specified here will be used to find the participant in this interaction to set to the carry_target." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Object" display="Enabled" static_entries="interactions.ParticipantType" group="General" />
+            </TunableVariant>
+            <TunableVariant type="None" name="target_override" class="OptionalTunable" default="disabled" display="Target Override" description="If specified, we will attempt to set this interaction's target to the actor that matches the ParticipantType specified here." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Object" display="Enabled" static_entries="interactions.ParticipantType" group="General" />
+            </TunableVariant>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

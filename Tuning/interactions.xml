@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions">
+        <Class name="ParticipantTypeAnimation" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="AllSims" enum_value="6" />
+
+            <EnumItem name="Invalid" enum_value="0" />
+
+            <EnumItem name="Listeners" enum_value="4" />
+
+            <EnumItem name="TargetSim" enum_value="3" />
+        </Class>
+
+        <Class name="ParticipantTypeReactionlet" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="AllSimsInCurrentGame" enum_value="149" />
+
+            <EnumItem name="Invalid" enum_value="0" />
+
+            <EnumItem name="Listeners" enum_value="4" />
+
+            <EnumItem name="OtherSimsInCurrentGame" enum_value="150" />
+
+            <EnumItem name="TargetSim" enum_value="3" />
+        </Class>
+
+        <Class name="ParticipantTypeSavedActor" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="SavedActor1" enum_value="46" />
+
+            <EnumItem name="SavedActor2" enum_value="47" />
+
+            <EnumItem name="SavedActor3" enum_value="48" />
+
+            <EnumItem name="SavedActor4" enum_value="49" />
+        </Class>
+
+        <Class name="ParticipantTypeSituationSims" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="SituationParticipants1" enum_value="67" />
+
+            <EnumItem name="SituationParticipants2" enum_value="68" />
+
+            <EnumItem name="SituationParticipants3" enum_value="84" />
+        </Class>
+
+        <Class name="ParticipantTypeSingle" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ActiveHousehold" enum_value="40" />
+
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="ActorClanLeader" enum_value="120" />
+
+            <EnumItem name="ActorFiance" enum_value="81" />
+
+            <EnumItem name="ActorHousehold" enum_value="91" />
+
+            <EnumItem name="ActorPostureTarget" enum_value="41" />
+
+            <EnumItem name="AllSignificantOthersActor" enum_value="151" />
+
+            <EnumItem name="CarriedObject" enum_value="10" />
+
+            <EnumItem name="CarryCancellationOriginatorTarget" enum_value="127" />
+
+            <EnumItem name="CraftingObject" enum_value="15" />
+
+            <EnumItem name="CreatedObject" enum_value="19" />
+
+            <EnumItem name="CurrentlyOpenSmallBusinessOwner" enum_value="154" />
+
+            <EnumItem name="CurrentZoneId" enum_value="147" />
+
+            <EnumItem name="Familiar" enum_value="85" />
+
+            <EnumItem name="FamiliarOfTarget" enum_value="89" />
+
+            <EnumItem name="HeirloomCreatorSim" enum_value="153" />
+
+            <EnumItem name="Lot" enum_value="7" />
+
+            <EnumItem name="LotOwnerSingleAndInstanced" enum_value="50" />
+
+            <EnumItem name="MissingPet" enum_value="70" />
+
+            <EnumItem name="Object" enum_value="2" />
+
+            <EnumItem name="ObjectAnimalCost" enum_value="136" />
+
+            <EnumItem name="ObjectAnimalCurrentValue" enum_value="138" />
+
+            <EnumItem name="ObjectAnimalHome" enum_value="106" />
+
+            <EnumItem name="ObjectCrafter" enum_value="69" />
+
+            <EnumItem name="ObjectInventoryOwner" enum_value="79" />
+
+            <EnumItem name="ObjectParent" enum_value="26" />
+
+            <EnumItem name="ObjectProvidingTargetAffordance" enum_value="86" />
+
+            <EnumItem name="OwnerSim" enum_value="29" />
+
+            <EnumItem name="PickedObject" enum_value="22" />
+
+            <EnumItem name="PickedSim" enum_value="25" />
+
+            <EnumItem name="PickedStatistic" enum_value="90" />
+
+            <EnumItem name="PickedZoneId" enum_value="34" />
+
+            <EnumItem name="PregnancyPartnerActor" enum_value="36" />
+
+            <EnumItem name="PregnancyPartnerTargetSim" enum_value="37" />
+
+            <EnumItem name="RandomInventoryObject" enum_value="83" />
+
+            <EnumItem name="SavedActor1" enum_value="46" />
+
+            <EnumItem name="SavedActor2" enum_value="47" />
+
+            <EnumItem name="SavedActor3" enum_value="48" />
+
+            <EnumItem name="SavedActor4" enum_value="49" />
+
+            <EnumItem name="SignificantOtherActor" enum_value="27" />
+
+            <EnumItem name="SignificantOtherTargetSim" enum_value="28" />
+
+            <EnumItem name="SocialGroupAnchor" enum_value="38" />
+
+            <EnumItem name="StoredSim" enum_value="21" />
+
+            <EnumItem name="StoredSim2" enum_value="133" />
+
+            <EnumItem name="StoredSimOnActor" enum_value="30" />
+
+            <EnumItem name="StoredSimOnObjectProvidingTargetAffordance" enum_value="87" />
+
+            <EnumItem name="StoredSimOnPickedObject" enum_value="45" />
+
+            <EnumItem name="Street" enum_value="94" />
+
+            <EnumItem name="TargetClanLeader" enum_value="121" />
+
+            <EnumItem name="TargetFiance" enum_value="82" />
+
+            <EnumItem name="TargetHousehold" enum_value="92" />
+
+            <EnumItem name="TargetSim" enum_value="3" />
+
+            <EnumItem name="TargetSimBackCarriedSim" enum_value="129" />
+
+            <EnumItem name="TargetSimFrontCarriedSim" enum_value="128" />
+
+            <EnumItem name="VenuePolicyProvider" enum_value="95" />
+        </Class>
+
+        <Class name="ParticipantTypeResponse" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="AllOtherInstancedSims" enum_value="43" />
+
+            <EnumItem name="AllSims" enum_value="6" />
+
+            <EnumItem name="Invalid" enum_value="0" />
+
+            <EnumItem name="Listeners" enum_value="4" />
+
+            <EnumItem name="TargetSim" enum_value="3" />
+        </Class>
+
+        <Class name="ParticipantTypeSingleObject" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="CarriedObject" enum_value="10" />
+
+            <EnumItem name="CraftingObject" enum_value="15" />
+
+            <EnumItem name="CreatedObject" enum_value="19" />
+
+            <EnumItem name="Object" enum_value="2" />
+
+            <EnumItem name="ObjectParent" enum_value="26" />
+
+            <EnumItem name="PickedObject" enum_value="22" />
+
+            <EnumItem name="StoredSimOnPickedObject" enum_value="45" />
+        </Class>
+
+        <Class name="ParticipantTypeResponsePaired" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="TargetSim" enum_value="3" />
+        </Class>
+
+        <Class name="ParticipantTypeCASPart" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="StoredCASPartsOnObject" enum_value="99" />
+        </Class>
+
+        <Class name="TargetType" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ACTOR" enum_value="1" />
+
+            <EnumItem name="FILTERED_TARGET" enum_value="16" />
+
+            <EnumItem name="GROUP" enum_value="4" />
+
+            <EnumItem name="OBJECT" enum_value="8" />
+
+            <EnumItem name="TARGET" enum_value="2" />
+
+            <EnumItem name="TARGET_AND_GROUP" enum_value="6" />
+        </Class>
+
+        <Class name="MixerInteractionGroup" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+        </Class>
+
+        <Class name="ParticipantTypeSingleSim" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="ActorClanLeader" enum_value="120" />
+
+            <EnumItem name="ActorFiance" enum_value="81" />
+
+            <EnumItem name="ActorHouseholdMembers" enum_value="110" />
+
+            <EnumItem name="CarriedSim" enum_value="130" />
+
+            <EnumItem name="CurrentlyOpenSmallBusinessOwner" enum_value="154" />
+
+            <EnumItem name="HeirloomCreatorSim" enum_value="153" />
+
+            <EnumItem name="Invalid" enum_value="0" />
+
+            <EnumItem name="LotOwnerSingleAndInstanced" enum_value="50" />
+
+            <EnumItem name="ObjectCrafter" enum_value="69" />
+
+            <EnumItem name="PickedSim" enum_value="25" />
+
+            <EnumItem name="RoutingMaster" enum_value="65" />
+
+            <EnumItem name="SavedActor1" enum_value="46" />
+
+            <EnumItem name="SavedActor2" enum_value="47" />
+
+            <EnumItem name="SavedActor3" enum_value="48" />
+
+            <EnumItem name="SavedActor4" enum_value="49" />
+
+            <EnumItem name="SignificantOtherTargetSim" enum_value="28" />
+
+            <EnumItem name="StoredSim" enum_value="21" />
+
+            <EnumItem name="StoredSim2" enum_value="133" />
+
+            <EnumItem name="TargetClanLeader" enum_value="121" />
+
+            <EnumItem name="TargetFiance" enum_value="82" />
+
+            <EnumItem name="TargetSim" enum_value="3" />
+        </Class>
+
+        <Class name="ParticipantTypeActorTargetSim" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="TargetSim" enum_value="3" />
+        </Class>
+
+        <Class name="ParticipantTypeLot" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ActorLot" enum_value="96" />
+
+            <EnumItem name="Lot" enum_value="7" />
+
+            <EnumItem name="PickedZoneId" enum_value="34" />
+        </Class>
+
+        <Class name="ParticipantTypeZoneId" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ActorZoneId" enum_value="143" />
+
+            <EnumItem name="AllUnitZoneIds" enum_value="146" />
+
+            <EnumItem name="CurrentZoneId" enum_value="147" />
+
+            <EnumItem name="PickedZoneId" enum_value="34" />
+
+            <EnumItem name="RandomZoneId" enum_value="145" />
+
+            <EnumItem name="TargetSimZoneId" enum_value="144" />
+        </Class>
+
+        <Class name="ParticipantTypeLotLevel" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ActorLotLevel" enum_value="103" />
+
+            <EnumItem name="ObjectLotLevel" enum_value="104" />
+        </Class>
+
+        <Class name="ParticipantTypeObject" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="ActorSurface" enum_value="16" />
+
+            <EnumItem name="AnimalHomeAssignees" enum_value="107" />
+
+            <EnumItem name="CarriedObject" enum_value="10" />
+
+            <EnumItem name="CraftingObject" enum_value="15" />
+
+            <EnumItem name="CreatedObject" enum_value="19" />
+
+            <EnumItem name="CreatedObjectIngredients" enum_value="98" />
+
+            <EnumItem name="Object" enum_value="2" />
+
+            <EnumItem name="ObjectAnimalCost" enum_value="136" />
+
+            <EnumItem name="ObjectAnimalCurrentValue" enum_value="138" />
+
+            <EnumItem name="ObjectAnimalHome" enum_value="106" />
+
+            <EnumItem name="ObjectIngredients" enum_value="97" />
+
+            <EnumItem name="ObjectInventoryOwner" enum_value="79" />
+
+            <EnumItem name="ObjectTrendiOutfitTrend" enum_value="122" />
+
+            <EnumItem name="ObjectTrendiOutfitTrendTag" enum_value="123" />
+
+            <EnumItem name="PickedObject" enum_value="22" />
+
+            <EnumItem name="RandomInventoryObject" enum_value="83" />
+
+            <EnumItem name="SavedActor1" enum_value="46" />
+
+            <EnumItem name="SituationCraftingItem" enum_value="108" />
+
+            <EnumItem name="SocialGroupAnchor" enum_value="38" />
+        </Class>
+
+        <Class name="ParticipantTypeSim" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ActiveHousehold" enum_value="40" />
+
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="ActorClanLeader" enum_value="120" />
+
+            <EnumItem name="ActorDiningGroupMembers" enum_value="60" />
+
+            <EnumItem name="ActorEnsemble" enum_value="56" />
+
+            <EnumItem name="ActorEnsembleSansActor" enum_value="59" />
+
+            <EnumItem name="ActorFiance" enum_value="81" />
+
+            <EnumItem name="ActorHouseholdMembers" enum_value="110" />
+
+            <EnumItem name="ActorPropertyOwners" enum_value="139" />
+
+            <EnumItem name="ActorTenants" enum_value="141" />
+
+            <EnumItem name="AllInstancedActiveHouseholdSims" enum_value="93" />
+
+            <EnumItem name="AllInstancedSims" enum_value="76" />
+
+            <EnumItem name="AllOtherInstancedSims" enum_value="43" />
+
+            <EnumItem name="AllRelationships" enum_value="14" />
+
+            <EnumItem name="AllSignificantOthersActor" enum_value="151" />
+
+            <EnumItem name="AllSignificantOthersTargetSim" enum_value="152" />
+
+            <EnumItem name="AllSims" enum_value="6" />
+
+            <EnumItem name="AssociatedClubGatheringMembers" enum_value="55" />
+
+            <EnumItem name="AssociatedClubLeader" enum_value="54" />
+
+            <EnumItem name="AssociatedClubMembers" enum_value="53" />
+
+            <EnumItem name="CareerEventSim" enum_value="44" />
+
+            <EnumItem name="CurrentlyOpenSmallBusinessOwner" enum_value="154" />
+
+            <EnumItem name="CustomSim" enum_value="13" />
+
+            <EnumItem name="HeirloomCreatorSim" enum_value="153" />
+
+            <EnumItem name="JoinTarget" enum_value="9" />
+
+            <EnumItem name="LinkedPostureSim" enum_value="51" />
+
+            <EnumItem name="Listeners" enum_value="4" />
+
+            <EnumItem name="LotOwners" enum_value="18" />
+
+            <EnumItem name="LotOwnerSingleAndInstanced" enum_value="50" />
+
+            <EnumItem name="LotOwnersOrRenters" enum_value="80" />
+
+            <EnumItem name="MissingPet" enum_value="70" />
+
+            <EnumItem name="ObjectCrafter" enum_value="69" />
+
+            <EnumItem name="OtherSimsInteractingWithTarget" enum_value="24" />
+
+            <EnumItem name="OwnerSim" enum_value="29" />
+
+            <EnumItem name="PickedSim" enum_value="25" />
+
+            <EnumItem name="PregnancyPartnerActor" enum_value="36" />
+
+            <EnumItem name="PregnancyPartnerTargetSim" enum_value="37" />
+
+            <EnumItem name="RoutingMaster" enum_value="65" />
+
+            <EnumItem name="RoutingSlaves" enum_value="66" />
+
+            <EnumItem name="SavedActor1" enum_value="46" />
+
+            <EnumItem name="SavedActor2" enum_value="47" />
+
+            <EnumItem name="SavedActor3" enum_value="48" />
+
+            <EnumItem name="SavedActor4" enum_value="49" />
+
+            <EnumItem name="SignificantOtherActor" enum_value="27" />
+
+            <EnumItem name="SignificantOtherTargetSim" enum_value="28" />
+
+            <EnumItem name="SmallBusinessEmployees" enum_value="155" />
+
+            <EnumItem name="SocialGroup" enum_value="23" />
+
+            <EnumItem name="SocialGroupSims" enum_value="35" />
+
+            <EnumItem name="StoredSim" enum_value="21" />
+
+            <EnumItem name="StoredSim2" enum_value="133" />
+
+            <EnumItem name="StoredSimOnActor" enum_value="30" />
+
+            <EnumItem name="StoredSimOnPickedObject" enum_value="45" />
+
+            <EnumItem name="TableDiningGroupMembers" enum_value="61" />
+
+            <EnumItem name="TargetClanLeader" enum_value="121" />
+
+            <EnumItem name="TargetEnsemble" enum_value="57" />
+
+            <EnumItem name="TargetFiance" enum_value="82" />
+
+            <EnumItem name="TargetHouseholdMembers" enum_value="105" />
+
+            <EnumItem name="TargetSim" enum_value="3" />
+
+            <EnumItem name="TargetSimPostureTarget" enum_value="58" />
+        </Class>
+
+        <Class name="ParticipantTypeSavedStoryProgression" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="SavedStoryProgressionSim1" enum_value="111" />
+
+            <EnumItem name="SavedStoryProgressionSim2" enum_value="112" />
+
+            <EnumItem name="SavedStoryProgressionString1" enum_value="115" />
+
+            <EnumItem name="SavedStoryProgressionString2" enum_value="116" />
+
+            <EnumItem name="SavedStoryProgressionString3" enum_value="117" />
+
+            <EnumItem name="SavedStoryProgressionString4" enum_value="118" />
+
+            <EnumItem name="SavedStoryProgressionString5" enum_value="119" />
+
+            <EnumItem name="SavedStoryProgressionZone1" enum_value="113" />
+
+            <EnumItem name="SavedStoryProgressionZone2" enum_value="114" />
+        </Class>
+
+        <Class name="ParticipantTypeSavedStoryProgressionSim" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="SavedStoryProgressionSim1" enum_value="111" />
+
+            <EnumItem name="SavedStoryProgressionSim2" enum_value="112" />
+        </Class>
+
+        <Class name="ParticipantTypeSavedStoryProgressionZone" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="SavedStoryProgressionZone1" enum_value="113" />
+
+            <EnumItem name="SavedStoryProgressionZone2" enum_value="114" />
+        </Class>
+
+        <Class name="ParticipantTypeSavedStoryProgressionString" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="SavedStoryProgressionString1" enum_value="115" />
+
+            <EnumItem name="SavedStoryProgressionString2" enum_value="116" />
+
+            <EnumItem name="SavedStoryProgressionString3" enum_value="117" />
+
+            <EnumItem name="SavedStoryProgressionString4" enum_value="118" />
+
+            <EnumItem name="SavedStoryProgressionString5" enum_value="119" />
+        </Class>
+
+        <Class name="ParticipantType" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ActiveHousehold" enum_value="40" />
+
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="ActorBassinet" enum_value="134" />
+
+            <EnumItem name="ActorClanLeader" enum_value="120" />
+
+            <EnumItem name="ActorDiningGroupMembers" enum_value="60" />
+
+            <EnumItem name="ActorEnsemble" enum_value="56" />
+
+            <EnumItem name="ActorEnsembleSansActor" enum_value="59" />
+
+            <EnumItem name="ActorFeudTarget" enum_value="72" />
+
+            <EnumItem name="ActorFiance" enum_value="81" />
+
+            <EnumItem name="ActorHousehold" enum_value="91" />
+
+            <EnumItem name="ActorHouseholdMembers" enum_value="110" />
+
+            <EnumItem name="ActorLot" enum_value="96" />
+
+            <EnumItem name="ActorLotLevel" enum_value="103" />
+
+            <EnumItem name="ActorPostureTarget" enum_value="41" />
+
+            <EnumItem name="ActorPropertyOwnerHousehold" enum_value="140" />
+
+            <EnumItem name="ActorPropertyOwners" enum_value="139" />
+
+            <EnumItem name="ActorSquadMembers" enum_value="74" />
+
+            <EnumItem name="ActorSurface" enum_value="16" />
+
+            <EnumItem name="ActorTenantHouseholds" enum_value="142" />
+
+            <EnumItem name="ActorTenants" enum_value="141" />
+
+            <EnumItem name="ActorZoneId" enum_value="143" />
+
+            <EnumItem name="Affordance" enum_value="11" />
+
+            <EnumItem name="All" enum_value="5" />
+
+            <EnumItem name="AllInstancedActiveHouseholdSims" enum_value="93" />
+
+            <EnumItem name="AllInstancedSims" enum_value="76" />
+
+            <EnumItem name="AllOtherInstancedSims" enum_value="43" />
+
+            <EnumItem name="AllRelationships" enum_value="14" />
+
+            <EnumItem name="AllSignificantOthersActor" enum_value="151" />
+
+            <EnumItem name="AllSignificantOthersTargetSim" enum_value="152" />
+
+            <EnumItem name="AllSims" enum_value="6" />
+
+            <EnumItem name="AllSimsInCurrentGame" enum_value="149" />
+
+            <EnumItem name="AllUnitZoneIds" enum_value="146" />
+
+            <EnumItem name="AnimalHomeAssignees" enum_value="107" />
+
+            <EnumItem name="AssociatedClub" enum_value="52" />
+
+            <EnumItem name="AssociatedClubGatheringMembers" enum_value="55" />
+
+            <EnumItem name="AssociatedClubLeader" enum_value="54" />
+
+            <EnumItem name="AssociatedClubMembers" enum_value="53" />
+
+            <EnumItem name="CareerEventSim" enum_value="44" />
+
+            <EnumItem name="CarriedObject" enum_value="10" />
+
+            <EnumItem name="CarriedSim" enum_value="130" />
+
+            <EnumItem name="CarryCancellationOriginatorTarget" enum_value="127" />
+
+            <EnumItem name="CraftingObject" enum_value="15" />
+
+            <EnumItem name="CraftingProcess" enum_value="8" />
+
+            <EnumItem name="CreatedObject" enum_value="19" />
+
+            <EnumItem name="CreatedObjectIngredients" enum_value="98" />
+
+            <EnumItem name="CurrentlyOpenSmallBusinessOwner" enum_value="154" />
+
+            <EnumItem name="CurrentRegion" enum_value="102" />
+
+            <EnumItem name="CurrentZoneId" enum_value="147" />
+
+            <EnumItem name="CustomSim" enum_value="13" />
+
+            <EnumItem name="Familiar" enum_value="85" />
+
+            <EnumItem name="FamiliarOfTarget" enum_value="89" />
+
+            <EnumItem name="FashionTrends" enum_value="126" />
+
+            <EnumItem name="GraduatesCurrent" enum_value="124" />
+
+            <EnumItem name="GraduatesWaiting" enum_value="125" />
+
+            <EnumItem name="HeirloomCreatorSim" enum_value="153" />
+
+            <EnumItem name="InteractionContext" enum_value="12" />
+
+            <EnumItem name="Invalid" enum_value="0" />
+
+            <EnumItem name="InventoryObjectStack" enum_value="42" />
+
+            <EnumItem name="JoinTarget" enum_value="9" />
+
+            <EnumItem name="LinkedObjects" enum_value="64" />
+
+            <EnumItem name="LinkedPostureSim" enum_value="51" />
+
+            <EnumItem name="Listeners" enum_value="4" />
+
+            <EnumItem name="LiveDragActor" enum_value="32" />
+
+            <EnumItem name="LiveDragTarget" enum_value="33" />
+
+            <EnumItem name="Lot" enum_value="7" />
+
+            <EnumItem name="LotOwners" enum_value="18" />
+
+            <EnumItem name="LotOwnerSingleAndInstanced" enum_value="50" />
+
+            <EnumItem name="LotOwnersOrRenters" enum_value="80" />
+
+            <EnumItem name="MissingPet" enum_value="70" />
+
+            <EnumItem name="Object" enum_value="2" />
+
+            <EnumItem name="ObjectAnimalCost" enum_value="136" />
+
+            <EnumItem name="ObjectAnimalCurrentValue" enum_value="138" />
+
+            <EnumItem name="ObjectAnimalHome" enum_value="106" />
+
+            <EnumItem name="ObjectChildren" enum_value="17" />
+
+            <EnumItem name="ObjectCrafter" enum_value="69" />
+
+            <EnumItem name="ObjectIngredients" enum_value="97" />
+
+            <EnumItem name="ObjectInventoryOwner" enum_value="79" />
+
+            <EnumItem name="ObjectLotLevel" enum_value="104" />
+
+            <EnumItem name="ObjectParent" enum_value="26" />
+
+            <EnumItem name="ObjectProvidingTargetAffordance" enum_value="86" />
+
+            <EnumItem name="ObjectRelationshipsComponent" enum_value="109" />
+
+            <EnumItem name="ObjectTrendiOutfitTrend" enum_value="122" />
+
+            <EnumItem name="ObjectTrendiOutfitTrendTag" enum_value="123" />
+
+            <EnumItem name="OtherSimsInCurrentGame" enum_value="150" />
+
+            <EnumItem name="OtherSimsInteractingWithTarget" enum_value="24" />
+
+            <EnumItem name="OwnerSim" enum_value="29" />
+
+            <EnumItem name="PhotographyTargets" enum_value="88" />
+
+            <EnumItem name="PickedItemId" enum_value="20" />
+
+            <EnumItem name="PickedObject" enum_value="22" />
+
+            <EnumItem name="PickedSim" enum_value="25" />
+
+            <EnumItem name="PickedStatistic" enum_value="90" />
+
+            <EnumItem name="PickedZoneHouseholdSims" enum_value="148" />
+
+            <EnumItem name="PickedZoneId" enum_value="34" />
+
+            <EnumItem name="PregnancyPartnerActor" enum_value="36" />
+
+            <EnumItem name="PregnancyPartnerTargetSim" enum_value="37" />
+
+            <EnumItem name="PurchasedObject" enum_value="131" />
+
+            <EnumItem name="RandomInventoryObject" enum_value="83" />
+
+            <EnumItem name="RandomZoneId" enum_value="145" />
+
+            <EnumItem name="RoutingMaster" enum_value="65" />
+
+            <EnumItem name="RoutingOwner" enum_value="100" />
+
+            <EnumItem name="RoutingSlaves" enum_value="66" />
+
+            <EnumItem name="RoutingTarget" enum_value="101" />
+
+            <EnumItem name="SavedActor1" enum_value="46" />
+
+            <EnumItem name="SavedActor2" enum_value="47" />
+
+            <EnumItem name="SavedActor3" enum_value="48" />
+
+            <EnumItem name="SavedActor4" enum_value="49" />
+
+            <EnumItem name="SavedStoryProgressionSim1" enum_value="111" />
+
+            <EnumItem name="SavedStoryProgressionSim2" enum_value="112" />
+
+            <EnumItem name="SavedStoryProgressionString1" enum_value="115" />
+
+            <EnumItem name="SavedStoryProgressionString2" enum_value="116" />
+
+            <EnumItem name="SavedStoryProgressionString3" enum_value="117" />
+
+            <EnumItem name="SavedStoryProgressionString4" enum_value="118" />
+
+            <EnumItem name="SavedStoryProgressionString5" enum_value="119" />
+
+            <EnumItem name="SavedStoryProgressionZone1" enum_value="113" />
+
+            <EnumItem name="SavedStoryProgressionZone2" enum_value="114" />
+
+            <EnumItem name="SignificantOtherActor" enum_value="27" />
+
+            <EnumItem name="SignificantOtherTargetSim" enum_value="28" />
+
+            <EnumItem name="SituationCraftingItem" enum_value="108" />
+
+            <EnumItem name="SituationParticipants1" enum_value="67" />
+
+            <EnumItem name="SituationParticipants2" enum_value="68" />
+
+            <EnumItem name="SituationParticipants3" enum_value="84" />
+
+            <EnumItem name="SmallBusinessEmployees" enum_value="155" />
+
+            <EnumItem name="SocialGroup" enum_value="23" />
+
+            <EnumItem name="SocialGroupAnchor" enum_value="38" />
+
+            <EnumItem name="SocialGroupSims" enum_value="35" />
+
+            <EnumItem name="StoredCASPartsOnObject" enum_value="99" />
+
+            <EnumItem name="StoredObjectsOnActor" enum_value="77" />
+
+            <EnumItem name="StoredObjectsOnTarget" enum_value="78" />
+
+            <EnumItem name="StoredPickedTattooOnActor" enum_value="156" />
+
+            <EnumItem name="StoredPickedTattooOnTarget" enum_value="157" />
+
+            <EnumItem name="StoredSim" enum_value="21" />
+
+            <EnumItem name="StoredSim2" enum_value="133" />
+
+            <EnumItem name="StoredSimOnActor" enum_value="30" />
+
+            <EnumItem name="StoredSimOnObjectProvidingTargetAffordance" enum_value="87" />
+
+            <EnumItem name="StoredSimOnPickedObject" enum_value="45" />
+
+            <EnumItem name="StoredSimOrNameData" enum_value="62" />
+
+            <EnumItem name="StoredSimOrNameDataList" enum_value="132" />
+
+            <EnumItem name="Street" enum_value="94" />
+
+            <EnumItem name="TableDiningGroupMembers" enum_value="61" />
+
+            <EnumItem name="TargetBassinet" enum_value="135" />
+
+            <EnumItem name="TargetClanLeader" enum_value="121" />
+
+            <EnumItem name="TargetDiningGroupMembers" enum_value="63" />
+
+            <EnumItem name="TargetEnsemble" enum_value="57" />
+
+            <EnumItem name="TargetFeudTarget" enum_value="73" />
+
+            <EnumItem name="TargetFiance" enum_value="82" />
+
+            <EnumItem name="TargetHousehold" enum_value="92" />
+
+            <EnumItem name="TargetHouseholdMembers" enum_value="105" />
+
+            <EnumItem name="TargetObjectOfJoinedInteraction" enum_value="137" />
+
+            <EnumItem name="TargetSim" enum_value="3" />
+
+            <EnumItem name="TargetSimBackCarriedSim" enum_value="129" />
+
+            <EnumItem name="TargetSimFrontCarriedSim" enum_value="128" />
+
+            <EnumItem name="TargetSimPostureTarget" enum_value="58" />
+
+            <EnumItem name="TargetSimZoneId" enum_value="144" />
+
+            <EnumItem name="TargetSquadMembers" enum_value="75" />
+
+            <EnumItem name="TargetSurface" enum_value="39" />
+
+            <EnumItem name="TargetTeleportPortalObjectDestinations" enum_value="71" />
+
+            <EnumItem name="Unlockable" enum_value="31" />
+
+            <EnumItem name="VenuePolicyProvider" enum_value="95" />
+        </Class>
+
+        <Class name="ParticipantTypeReaction" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="AllSignificantOthersActor" enum_value="151" />
+
+            <EnumItem name="AllSignificantOthersTargetSim" enum_value="152" />
+
+            <EnumItem name="AllSims" enum_value="6" />
+
+            <EnumItem name="LinkedPostureSim" enum_value="51" />
+
+            <EnumItem name="Listeners" enum_value="4" />
+
+            <EnumItem name="Object" enum_value="2" />
+
+            <EnumItem name="OtherSimsInteractingWithTarget" enum_value="24" />
+
+            <EnumItem name="OwnerSim" enum_value="29" />
+
+            <EnumItem name="SignificantOtherActor" enum_value="27" />
+
+            <EnumItem name="SignificantOtherTargetSim" enum_value="28" />
+
+            <EnumItem name="SocialGroupSims" enum_value="35" />
+
+            <EnumItem name="TargetSim" enum_value="3" />
+        </Class>
+
+        <Class name="ParticipantTypeRoutingBehavior" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="AllInstancedActiveHouseholdSims" enum_value="93" />
+
+            <EnumItem name="AllInstancedSims" enum_value="76" />
+
+            <EnumItem name="Object" enum_value="2" />
+
+            <EnumItem name="ObjectAnimalHome" enum_value="106" />
+
+            <EnumItem name="ObjectChildren" enum_value="17" />
+
+            <EnumItem name="ObjectParent" enum_value="26" />
+
+            <EnumItem name="RoutingOwner" enum_value="100" />
+
+            <EnumItem name="RoutingTarget" enum_value="101" />
+        </Class>
+
+        <Class name="ParticipantTypeHousehold" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ActorHousehold" enum_value="91" />
+
+            <EnumItem name="TargetHousehold" enum_value="92" />
+        </Class>
+    </Module>
+</TuningRoot>

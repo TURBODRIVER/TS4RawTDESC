@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="developmental_milestones.developmental_milestone">
+        <Class name="DevelopmentalMilestoneCategory" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="-1" />
+        </Class>
+
+        <Class name="DevelopmentalMilestone">
+            <TunableList name="DEVELOPMENTAL_MILESTONE_CATEGORIES" class="TunableMapping" display="Developmental Milestone Categories" mapping_key="key" mapping_value="value" description="A mapping of developmental milestone categories enums to corresponding display data." group="General" mapping_class="DevelopmentalMilestoneCategoryMapping">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="DevelopmentalMilestoneCategory" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="developmental_milestones-developmental_milestone.DevelopmentalMilestoneCategory._elements" static_entries="developmental_milestones-developmental_milestone.DevelopmentalMilestoneCategory" description="The category type." binary_type="uint32" group="General" invalid_entries="INVALID" />
+                    <TunableTuple name="value" class="DevelopmentalMilestoneCategoryTuple" display="Value" description="Category display data." group="General">
+                        <TunableList name="ages" class="TunableSet" display="Ages" description="Ages valid for this category." group="General" unique_entries="true">
+                            <TunableEnum type="Age" class="TunableEnumEntry" default="ADULT" static_entries="sims-sim_info_types.Age" group="General" />
+                        </TunableList>
+                        <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="The icon to be displayed next to this category in the UI." group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of this Developmental Milestone." group="General" />
+                        <Tunable type="ResourceKey" name="sim_info_panel_default_icon" class="TunableResourceKey" default="None" display="Sim Info Panel Default Icon" description="The icon to use on the Sim Info panel when there are new Milestones displayed in this category." group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="ResourceKey" name="sim_info_panel_over_icon" class="TunableResourceKey" default="None" display="Sim Info Panel Over Icon" description="The icon to use on the Sim Info panel when there are new Milestones displayed in this category and the mouse is over the button." group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="int" name="tooltip" class="TunableLocalizedString" default="0x0" display="Tooltip" description="Hovertip text to show in the UI." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="DEVELOPMENTAL_MILESTONE_UNLOCK_OVERRIDES" class="TunableMapping" display="Developmental Milestone Unlock Overrides" mapping_key="key" mapping_value="value" description="A mapping between milestone and its data class. Useful if any event sequencing behavior needs to be specialized. Discuss with a GPE before tuning." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="developmental_milestone" name="key" class="TunableReference" display="Key" allow_none="False" group="General" pack_safe="True" />
+                    <TunableEnum type="MilestoneDataClass" name="value" class="TunableEnumEntry" default="DEFAULT" display="Value" static_entries="developmental_milestones-developmental_milestone_enums.MilestoneDataClass" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="LIFETIME_MILESTONE_PANEL_FILTERS" class="TunableList" display="Lifetime Milestone Panel Filters" description="Terms used to filter milestone categories shown in the Lifetime Milestone Panel." group="General">
+                <TunableTuple class="LifetimeMilestoneFilterTerm" group="General">
+                    <TunableList name="ages" class="TunableEnumSet" display="Ages" description="The ages used as filter terms for the filter button." group="General" unique_entries="true">
+                        <TunableEnum type="Age" class="TunableEnumEntry" default="INFANT" static_entries="sims-sim_info_types.Age" group="General" />
+                    </TunableList>
+                    <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="The icon of the filter button." group="General" resource_types="0x2f7d0004" />
+                    <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of the filter term for display in the UI. Example: 'Children and Teens'" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="RETROACTIVE_MILESTONES" class="TunableList" display="Retroactive Milestones" description="A list of loots to apply to the sim. The loot list will be applied to the Sim when: 1) the Sim is first initialized and the EP13 content is available. 2) EP13 is reinstalled 3) LOD update occurs" group="General">
+                <Tunable type="action" class="TunableReference" description="Loot applied to the sim to grant initial milestones." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableList>
+
+            <TunableList name="VIEW_MILESTONES_LOOT" class="TunableList" display="View Milestones Loot" description="A list of loots to apply to the active sim when the view milestones command is run from the UI." group="General">
+                <Tunable type="action" class="TunableReference" description="Loot applied to the active sim." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

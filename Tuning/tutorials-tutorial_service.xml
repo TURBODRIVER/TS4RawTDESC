@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="tutorials.tutorial_service">
+        <Class name="TutorialService">
+            <TunableVariant type="None" name="FALLBACK_RESTRICTED_AFFORDANCES" class="OptionalTunable" default="disabled" display="Fallback Restricted Affordances" description="If enabled, use this affordance restriction if we are in the tutorial mode and somehow no restriction has currently been specified by a tutorial tip. (There should always be a restriction.)" group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                    <TunableVariant type="None" name="enabled_affordances" class="TunableAffordanceFilterSnippet" default="literal" display="Enabled Affordances" description="The filter of visible affordances that are enabled. (This may be tuned in place here using 'literal' or as a reference to a AffordanceFilter tuning snippet.)" group="General">
+                        <TdescFragTag name="literal" class="_TunableAffordanceFilter" display="Literal" description="An affordance filter." group="General" />
+                        <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a AffordanceFilter tuning snippet." allow_none="False" group="General" restrict="AffordanceFilter" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Tooltip when interaction is disabled by tutorial restrictions If not specified, will use the default in the tutorial service tuning." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="visible_affordances" class="TunableAffordanceFilterSnippet" default="literal" display="Visible Affordances" description="The filter of affordances that are visible. (This may be tuned in place here using 'literal' or as a reference to a AffordanceFilter tuning snippet.)" group="General">
+                        <TdescFragTag name="literal" class="_TunableAffordanceFilter" display="Literal" description="An affordance filter." group="General" />
+                        <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a AffordanceFilter tuning snippet." allow_none="False" group="General" restrict="AffordanceFilter" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableVariant>
+
+            <Tunable type="int" name="INTERACTION_DISABLED_TOOLTIP" class="TunableLocalizedString" default="0x0" display="Interaction Disabled Tooltip" description="Default Tooltip for disabled interactions." group="General" />
+
+            <TunableList name="PIVOTAL_MOMENT_LIST" class="TunableList" display="Pivotal Moment List" description="List of all Pivotal Moments that should be available to all players. For A/B Testable Pivotal Moments, they must be set in experiment_service" group="General">
+                <Tunable type="snippet" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="PivotalMoment" />
+            </TunableList>
+
+            <Tunable type="drama_node" name="TUTORIAL_DRAMA_NODE" class="TunableReference" display="Tutorial Drama Node" description="The drama node that controls the tutorial." allow_none="False" group="General" restrict="TutorialDramaNode" />
+        </Class>
+    </Module>
+</TuningRoot>

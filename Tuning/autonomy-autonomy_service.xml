@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="autonomy.autonomy_service">
+        <Class name="AutonomyService">
+            <Tunable type="float" name="MAX_OPEN_STREET_ROUTE_DISTANCE_FOR_INITIATING_SOCIAL" class="Tunable" default="100" display="Max Open Street Route Distance For Initiating Social" description="When a sim considers another sim for socialization and they are both on the open street, this is maximum distance that the target sim's intended position can be from the actor sim's intended position. This keeps sims from routing across the world to talk with another sim. " tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MAX_OPEN_STREET_ROUTE_DISTANCE_FOR_SOCIAL_TARGET" class="Tunable" default="15" display="Max Open Street Route Distance For Social Target" description="When a sim considers another sim for socialization and they are both on the open street, this is maximum distance that the target sim can be routing in order to be valid as a social target. For example, if a sim is routing a really long distance, we don't want another sim to try and chase them down since they'll never reach them so we don't allow them as a target. If they're traveling a short distance, it won't matter." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MAX_SECONDS_PER_LOOP" class="TunableRealSecond" default="0.03333333333333333" display="Max Seconds Per Loop" min="None" max="None" description="Max amount of time to spend in the autonomy service before yielding to other systems." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="NUM_INTERACTIONS" class="Tunable" default="5" display="Num Interactions" description="Number of interactions to consider, from the top of the scored list." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

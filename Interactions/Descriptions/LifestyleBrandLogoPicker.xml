@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="LifestyleBrandLogoPicker" module="interactions.picker.lifestyle_brand_picker_interactions" description="A picker interaction that builds a list of logos that a Sim can choose from in the lifestyle brand settings." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="logos" class="TunableList" display="Logos" description="A list of all the tuning needed for the different target markets for the lifestyle brand Perk" group="Picker Tuning" unique_entries="true">
+            <TunableTuple class="TunableIconFactory" description="The icon image to be displayed." group="General">
+                <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

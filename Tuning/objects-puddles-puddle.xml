@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.puddles.puddle">
+        <Class name="Puddle">
+            <TunableList name="PLANT_DEFINITIONS" class="TunableDefinitionList" display="Plant Definitions" description="Possible plant objects which can be spawned by evaporation." group="General">
+                <Tunable type="object" class="TunableReference" description="The definition of the object." allow_none="False" group="General" />
+            </TunableList>
+
+            <TunableList name="WEED_DEFINITIONS" class="TunableDefinitionList" display="Weed Definitions" description="Possible weed objects which can be spawned by evaporation." group="General">
+                <Tunable type="object" class="TunableReference" description="The definition of the object." allow_none="False" group="General" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

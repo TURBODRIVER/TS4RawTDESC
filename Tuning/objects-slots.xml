@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.slots">
+        <Class name="PlacementHeight">
+            <TunableList name="RANGES" class="TunableList" display="Ranges" description="A sorted list of ranges defining placement height parameters for use in ASMs" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="str" name="parameter" class="Tunable" default="None" display="Parameter" description="The ASM parameter corresponding to this height range." group="General" />
+                    <Tunable type="float" name="upper_bound" class="Tunable" default="0" display="Upper Bound" description="The upper bound of the range defining this height interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+
+        <Class name="DecorativeSlotTuning">
+            <TunableList name="DECORATIVE_SLOT_TYPES" class="TunableList" display="Decorative Slot Types" description="The list of gameplay-only slot types. There must be an entry for each possible decorative slot size." group="General">
+                <Tunable type="slot_type" class="TunableReference" allow_none="False" group="General" />
+            </TunableList>
+        </Class>
+
+        <Class name="SlotTypeReferences">
+            <Tunable type="slot_type" name="SIT_EAT_SLOT" class="TunableReference" display="Sit Eat Slot" description="A reference to the SIT_EAT SlotType." allow_none="False" group="General" />
+        </Class>
+
+        <Class name="SlotHeight">
+            <TunableList name="RANGES" class="TunableList" display="Ranges" description="A sorted list of ranges defining surface height parameters for use in ASMs." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="str" name="parameter" class="Tunable" default="None" display="Parameter" description="The ASM parameter corresponding to this height range." group="General" />
+                    <Tunable type="float" name="upper_bound" class="Tunable" default="0" display="Upper Bound" description="The upper bound of the range defining this height interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

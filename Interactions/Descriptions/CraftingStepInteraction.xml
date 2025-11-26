@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CraftingStepInteraction" module="crafting.crafting_interactions" description="An interaction that performs one step of one phase of crafting a recipe." instance_needs_reference="True" instance_subclasses_only="False" parents="MixerInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="go_to_next_phase" class="Tunable" default="False" display="Go To Next Phase" description="Set to true if selecting this mixer interaction will push the next phase in the cooking process" group="General" />
+
+        <Tunable type="int" name="skill_offset" class="Tunable" default="0" display="Skill Offset" description="Skill offset for procedural animations. Used to determine which animations to pull from the recipe animation lists when procedural animations is selected." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+</TuningRoot>

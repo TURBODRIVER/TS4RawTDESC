@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="restaurants.chefs_choice">
+        <Class name="ChefsChoice">
+            <TunableEnum type="Tag" name="DESSERT_COURSE" class="TunableEnumWithFilter" default="INVALID" display="Dessert Course" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The dessert course so Sims can order dessert with their meals." dynamic_entries_prefix="recipe_course" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableEnum type="Tag" name="DRINK_COURSE" class="TunableEnumWithFilter" default="INVALID" display="Drink Course" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The drink course so Sims can order drinks with their meals." dynamic_entries_prefix="recipe_course" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableList name="FOOD_COURSES" class="TunableList" display="Food Courses" description="A List of all the courses to search through in order to find what an NPC will order." group="General">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A food course that an NPC can order." dynamic_entries_prefix="recipe_course" group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableList>
+
+            <TunableList name="NPC_ORDER_MAP" class="TunableMapping" display="Npc Order Map" mapping_key="key" mapping_value="value" description="A mapping of tags to weighted tests. If an item on the menu has the designated tag, it will start with the tuned base weight and then each passing test will add the tested-weight to the total weight for that food object. Once all food objects have been weighed for a given category (apps, entrees, etc.), a weighted random determines the winner." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Tag" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="If the food item has this tag, we will apply the corresponding base weight to it and the sum of the weights of any passing tests run on this object." group="General" invalid_entries="INVALID" pack_safe="True" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="The base weight and weighted tests to run." group="General">
+                        <Tunable type="float" name="base_weight" class="TunableRange" default="1.0" display="Base Weight" min="0" max="None" description="The base weight of this food object. Even if no tests pass, this weight will be applied for use with the weighted random selection." tuning_state="NeedsTuning" group="General" />
+                        <TunableList name="weighted_tests" class="TunableList" display="Weighted Tests" description="A list of tests and weights. For each passed test, the corresponding weight is added to the base weight of the food object." group="General">
+                            <TunableTuple class="TunableTuple" description="Tests and weights. If the test passes, the weight is added to the base weight of the food object." group="General">
+                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                                <Tunable type="float" name="weight" class="Tunable" default="1.0" display="Weight" description="The weight to add to the base weight of the food object if the corresponding tests pass. A negative value is valid." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="recipe" name="WATER_ORDER_FOR_BACKUP" class="TunableReference" display="Water Order For Backup" description="A reference to the water order that should be available when nothing else is available." allow_none="False" group="General" pack_safe="True" restrict="Recipe" />
+        </Class>
+    </Module>
+</TuningRoot>

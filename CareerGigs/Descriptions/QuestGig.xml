@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="career_gig" class="QuestGig" module="careers.missions.mission_gig" description="Tuning for a QuestGig. Like Missions, these Gigs have no deadline, and use dynamically chosen Objectives. However, objectives/tasks may be hidden from the player until activated." instance_subclasses_only="False" parents="MissionGig, HomeAssignmentGig, Gig" path="CareerGigs\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="hide_inactive_objectives" class="Tunable" default="False" display="Hide Inactive Objectives" description="If checked, any inactive objectives (including already-completed objectives and objectives that require the previous one to be complete) will not appear in the UI until activated." group="UI" />
+
+        <Deleted name="mission_reputation_text" />
+
+        <Tunable type="int" name="picker_description_text" class="TunableLocalizedString" default="0x0" display="Picker Description Text" description=" The concatenated text that will be used to be displayed as the Quest Gig description text in the Quest Picker. Combines the customer description text and the rewards text. Ex: {0.String} {1.String} " group="UI" />
+
+        <TunableVariant type="None" name="quest_rel_text" class="OptionalTunable" default="disabled" display="Quest Rel Text" description="If enabled, allows rel reward text to be displayed for the QuestGig in the Career Panel. The rel gain is with the Quest target sim. Ex: +Rel with {0.Name}" group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The rel reward text to be displayed in the QuestGig summary in the Career Panel." group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

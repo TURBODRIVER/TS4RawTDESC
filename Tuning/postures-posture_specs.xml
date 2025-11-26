@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="postures.posture_specs">
+        <Class name="PostureSpecVariable" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ANYTHING" enum_value="200" />
+
+            <EnumItem name="BODY_TARGET_FILTERED" enum_value="212" />
+
+            <EnumItem name="CARRY_TARGET" enum_value="302" />
+
+            <EnumItem name="CONTAINER_TARGET" enum_value="204" />
+
+            <EnumItem name="DESTINATION_FILTER" enum_value="211" />
+
+            <EnumItem name="HAND" enum_value="205" />
+
+            <EnumItem name="INTERACTION_TARGET" enum_value="201" />
+
+            <EnumItem name="POSTURE_TYPE_CARRY_NOTHING" enum_value="206" />
+
+            <EnumItem name="POSTURE_TYPE_CARRY_OBJECT" enum_value="207" />
+
+            <EnumItem name="SLOT" enum_value="208" />
+
+            <EnumItem name="SLOT_TARGET" enum_value="213" />
+
+            <EnumItem name="SLOT_TEST_DEFINITION" enum_value="209" />
+
+            <EnumItem name="SURFACE_TARGET" enum_value="203" />
+        </Class>
+
+        <Class name="PostureOperation">
+            <Tunable type="float" name="COST_NOMINAL" class="Tunable" default="0.1" display="Cost Nominal" description="A nominal cost to simple operations just to prevent them from being free." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="COST_STANDARD" class="Tunable" default="1.0" display="Cost Standard" description="A cost for standard posture operations (such as changing postures or targets)." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

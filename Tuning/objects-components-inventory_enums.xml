@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.inventory_enums">
+        <Class name="StackScheme" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEFINITION" enum_value="2" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="VARIANT_GROUP" enum_value="1" />
+        </Class>
+
+        <Class name="ObjectShareability" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="NOT_SHARED" enum_value="0" />
+
+            <EnumItem name="SHARED" enum_value="2" />
+
+            <EnumItem name="SHARED_IF_NOT_IN_APARTMENT" enum_value="1" />
+        </Class>
+
+        <Class name="InventoryType" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="AQUARIUM_STANDARD" enum_value="15" />
+
+            <EnumItem name="AUTOPETFEEDER" enum_value="23" />
+
+            <EnumItem name="BAKING_WARMINGRACK" enum_value="14" />
+
+            <EnumItem name="BOOKSHELF" enum_value="6" />
+
+            <EnumItem name="COLLECTION_ELEMENT_SHELVE" enum_value="11" />
+
+            <EnumItem name="COLLECTION_SKULL_DISPLAY" enum_value="17" />
+
+            <EnumItem name="COMPUTER" enum_value="8" />
+
+            <EnumItem name="CRAFT_SALES_TABLE_EP03" enum_value="18" />
+
+            <EnumItem name="CRAFT_SALES_TABLE_PAINTINGS_EP03" enum_value="19" />
+
+            <EnumItem name="FISHBOWL" enum_value="3" />
+
+            <EnumItem name="FRIDGE" enum_value="5" />
+
+            <EnumItem name="HIDDEN" enum_value="2" />
+
+            <EnumItem name="HIDINGSPOT_GP05" enum_value="21" />
+
+            <EnumItem name="LAUNDRY_STORAGE" enum_value="26" />
+
+            <EnumItem name="MAILBOX" enum_value="4" />
+
+            <EnumItem name="MEDICINESTATION" enum_value="24" />
+
+            <EnumItem name="PET_TOYBOX" enum_value="22" />
+
+            <EnumItem name="RETAIL_FRIDGE" enum_value="12" />
+
+            <EnumItem name="RETAIL_SHELF" enum_value="13" />
+
+            <EnumItem name="SACK_GP05" enum_value="20" />
+
+            <EnumItem name="SIM" enum_value="1" />
+
+            <EnumItem name="SINK" enum_value="10" />
+
+            <EnumItem name="STORAGE_CHEST" enum_value="16" />
+
+            <EnumItem name="TOYBOX" enum_value="7" />
+
+            <EnumItem name="TRASHCAN" enum_value="9" />
+
+            <EnumItem name="UNDEFINED" enum_value="0" />
+
+            <EnumItem name="VET_MEDICINE_VENDING_MACHINE" enum_value="25" />
+        </Class>
+    </Module>
+</TuningRoot>

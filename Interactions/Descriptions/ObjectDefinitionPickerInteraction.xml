@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ObjectDefinitionPickerInteraction" module="objects.definition_picker_interaction" description="Interaction that allows a player to pick an object based on tag/definition." instance_needs_reference="True" instance_subclasses_only="False" parents="ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="additional_object_tags_or_definition" class="TunableList" display="Additional Object Tags Or Definition" description="Like Object Tags or Definition, but is a list to allow for specifying more object tags and definitions." group="Picker Tuning">
+            <TunableVariant type="None" class="ObjectDefinitionPickerVariant" default="all_items" group="General">
+                <TunableTuple name="all_items" class="TunableDefinitionsFromTags" display="All Items" description="Look through all the items and populate any with these tags. This should be accompanied with specific filtering tags in Object Populate Filter to get a good result." group="General">
+                    <TunableVariant type="None" name="filter_tags" class="OptionalTunable" default="all_definitions" display="Filter Tags" description="An optional filter that if enabled will filter out the allowed items based on the filter." group="General">
+                        <Tunable name="all_definitions" class="TunableExistance" display="All Definitions" />
+                        <TunableList name="specific_definitions" class="TunableSet" display="Specific Definitions" min="1" description="A list of category tags to to search to build object picker list." group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="random_items" class="TunableDefinitionsRandom" display="Random Items" description="Randomly selects items based on a weighted list." group="General">
+                    <TunableList name="item_list" class="TunableList" display="Item List" min="1" description="The list of items available for purchase." group="General">
+                        <TunableTuple class="TunableTuple" description="A weighted list of items to be available." group="General">
+                            <Tunable type="object" name="item" class="TunableReference" display="Item" description="An item that is potentially available." allow_none="False" group="General" pack_safe="True" />
+                            <Tunable type="int" name="weight" class="TunableRange" default="1" display="Weight" min="1" max="None" description="How likely this item to be picked." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                    <Tunable type="int" name="items_avaiable" class="TunableRange" default="1" display="Items Avaiable" min="1" max="None" description="The number of items available." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableTuple name="specific_items" class="TunableDefinitionsExplicit" display="Specific Items" description="A list of specific items that is populated in this dialog." group="General">
+                    <TunableList name="item_list" class="TunableSet" display="Item List" min="0" description="The list of items available for purchase." group="General" unique_entries="true">
+                        <Tunable type="object" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="tested_items" class="TunableDefinitionsTested" display="Tested Items" description="Test items that are able to be displayed within the picker." group="General">
+                    <TunableList name="item_list" class="TunableList" display="Item List" min="1" description="The list of items available for purchase." group="General">
+                        <TunableTuple class="TunableTuple" description="A pair of items and tests to run in order to see if those items would be available." group="General">
+                            <Tunable type="object" name="item" class="TunableReference" display="Item" description="An item that is potentially available." allow_none="False" group="General" pack_safe="True" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A set of tests to run to see if this item would be available." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TunableList name="definition_to_loot" class="TunableList" display="Definition To Loot" description="Does a definition test to see loot should be applied to subjects." group="Picker Tuning">
+            <TunableTuple class="TunableTuple" description="Loot to apply if definition id passes." group="General">
+                <TunableTuple name="definition_id_test" class="TunableDefinitionIdFilter" display="Definition Id Test" description="Definition to test for." group="General">
+                    <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object must have this definition." allow_none="False" group="General" />
+                </TunableTuple>
+                <Tunable type="action" name="loot_to_apply" class="TunableReference" display="Loot To Apply" description="Loot to apply." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="object_tags_or_definition" class="ObjectDefinitionPickerVariant" default="all_items" display="Object Tags Or Definition" group="Picker Tuning">
+            <TunableTuple name="all_items" class="TunableDefinitionsFromTags" display="All Items" description="Look through all the items and populate any with these tags. This should be accompanied with specific filtering tags in Object Populate Filter to get a good result." group="General">
+                <TunableVariant type="None" name="filter_tags" class="OptionalTunable" default="all_definitions" display="Filter Tags" description="An optional filter that if enabled will filter out the allowed items based on the filter." group="General">
+                    <Tunable name="all_definitions" class="TunableExistance" display="All Definitions" />
+                    <TunableList name="specific_definitions" class="TunableSet" display="Specific Definitions" min="1" description="A list of category tags to to search to build object picker list." group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                    </TunableList>
+                </TunableVariant>
+            </TunableTuple>
+            <TunableTuple name="random_items" class="TunableDefinitionsRandom" display="Random Items" description="Randomly selects items based on a weighted list." group="General">
+                <TunableList name="item_list" class="TunableList" display="Item List" min="1" description="The list of items available for purchase." group="General">
+                    <TunableTuple class="TunableTuple" description="A weighted list of items to be available." group="General">
+                        <Tunable type="object" name="item" class="TunableReference" display="Item" description="An item that is potentially available." allow_none="False" group="General" pack_safe="True" />
+                        <Tunable type="int" name="weight" class="TunableRange" default="1" display="Weight" min="1" max="None" description="How likely this item to be picked." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="int" name="items_avaiable" class="TunableRange" default="1" display="Items Avaiable" min="1" max="None" description="The number of items available." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <TunableTuple name="specific_items" class="TunableDefinitionsExplicit" display="Specific Items" description="A list of specific items that is populated in this dialog." group="General">
+                <TunableList name="item_list" class="TunableSet" display="Item List" min="0" description="The list of items available for purchase." group="General" unique_entries="true">
+                    <Tunable type="object" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+            <TunableTuple name="tested_items" class="TunableDefinitionsTested" display="Tested Items" description="Test items that are able to be displayed within the picker." group="General">
+                <TunableList name="item_list" class="TunableList" display="Item List" min="1" description="The list of items available for purchase." group="General">
+                    <TunableTuple class="TunableTuple" description="A pair of items and tests to run in order to see if those items would be available." group="General">
+                        <Tunable type="object" name="item" class="TunableReference" display="Item" description="An item that is potentially available." allow_none="False" group="General" pack_safe="True" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A set of tests to run to see if this item would be available." group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

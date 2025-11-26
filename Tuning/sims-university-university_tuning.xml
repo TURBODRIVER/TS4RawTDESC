@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.university.university_tuning">
+        <Class name="University">
+            <TunableList name="ALL_DEGREES" class="TunableList" display="All Degrees" description="A list of all available degrees that will be available in all university." group="General" unique_entries="true">
+                <Tunable type="university_major" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <TunableList name="ALL_UNIVERSITIES" class="TunableList" display="All Universities" description="A list of all available universities in the game." group="General" unique_entries="true">
+                <Tunable type="university" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <TunableTuple name="COURSE_ELECTIVES" class="TunableTuple" display="Course Electives" description="Tuning structure holding all electives data." group="General">
+                <Tunable type="int" name="elective_change_frequency" class="TunableRange" default="1" display="Elective Change Frequency" min="1" max="50" description="The frequency, in Sim days, at which the electives option will regenerate." tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="elective_count" class="TunableInterval" display="Elective Count" description="The number of elective courses to choose for enrollment from the elective list. Random number will be chosen from the interval." group="General">
+                    <Tunable type="int" name="lower_bound" class="TunableRange" default="8" display="Lower Bound" min="1" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="upper_bound" class="TunableRange" default="10" display="Upper Bound" min="None" max="100" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableList name="electives" class="TunableList" display="Electives" description="A list of weighted elective courses that will be available in all university." group="General">
+                    <TunableTuple class="TunableTuple" description="Weighted elective course data." group="General">
+                        <Tunable type="university_course_data" name="elective" class="TunableReference" display="Elective" description="Elective course data." allow_none="False" group="General" pack_safe="True" />
+                        <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="The weight of this elective relative to other electives in this list." group="General">
+                            <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                            <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+
+            <TunableList name="PROFESSOR_ARCHETYPES" class="TunableMapping" display="Professor Archetypes" mapping_key="key" mapping_value="value" description="A mapping of school to professor archetypes so that we can get professors with the correct skill set for the college they will be teaching at." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="university" name="key" class="TunableReference" display="Key" description="The university that the professor archetype will belong to." allow_none="False" group="General" pack_safe="True" />
+                    <TunableList name="value" class="TunableList" display="Value" description="A list of Sim Filters used to find sims that match a certain archetype and make them a professor by giving them the correct trait." group="General">
+                        <Tunable type="sim_filter" class="TunableReference" description="A single Sim filter defining a professor archetype to search for. A search will be run using this filter as the archetype when creating a professor and if no Sims match or can be conformed to this filter then a new Sim will be created using the tuned Sim Template." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SKILL_TO_MAJOR_TUNING" class="TunableMapping" display="Skill To Major Tuning" mapping_key="key" mapping_value="value" description="A mapping of Skill -> Majors that we can use to determine what the appropriate major is for an existing Sim. Each Skill can be mapped to a list of Majors. If more than one is specified then a random major will be chosen if the Sim is being assigned a major based on that skill." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="statistic" name="key" class="TunableReference" display="Key" description="The skill being used to assign the major." allow_none="False" group="General" restrict="Skill" />
+                    <TunableList name="value" class="TunableList" display="Value" min="1" description="The set of majors to choose from when assigning a major based on the associated skill type. If this has more than one entry then one of the majors will be chosen at random." group="General" unique_entries="true">
+                        <Tunable type="university_major" class="TunableReference" description="The university major to enroll the Sim in." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

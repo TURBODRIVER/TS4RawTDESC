@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.utils.routing">
+        <Class name="FollowPath">
+            <Tunable type="float" name="DISTANCE_TO_RECHECK_INUSE" class="Tunable" default="5.0" display="Distance To Recheck Inuse" description="Distance at which a Sim will start checking their LoS and in use on the object they're routing to and cancel if it's taken." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="DISTANCE_TO_RECHECK_STAND_RESERVATION" class="Tunable" default="3.0" display="Distance To Recheck Stand Reservation" description="Distance at which a Sim will stop if there are still other Sims standing in the way." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

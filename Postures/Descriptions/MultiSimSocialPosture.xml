@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="posture" class="MultiSimSocialPosture" module="postures.base_postures" description="MultiSimPosture intended for use with JigGroup SuperSocialInteractions. Normally, MultiSimPostures require use of a container object and sims are assigned to parts. In this case, we instead use the JigGroups jig constraint to position sims and the multi-sim posture is containerless. Unlike MultiSimPosture, the target is always None, and the sim has to be manually set in the ASM." instance_subclasses_only="False" parents="MultiSimPosture, Posture" path="Postures\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_actor_b_required_part_definition" />
+
+        <Deleted name="_actor_required_part_definition" />
+
+        <Deleted name="jig" />
+
+        <Deleted name="unconstrained" />
+
+        <Deleted name="use_containment_slot_for_exit" />
+    </Instance>
+</TuningRoot>

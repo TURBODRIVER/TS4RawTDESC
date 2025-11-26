@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="PickServiceNpcSuperInteraction" module="situations.service_npcs.service_npc_interactions" description="A picker interaction that shows an object dialog that contains a list of service npcs that can be hired. Service npcs that can be recurring will get 2 entries in the dialog - a one time one and a recurring one." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="display_price_fee_and_hourly_cost" class="TunableLocalizedString" default="0x0" display="Display Price Fee And Hourly Cost" description="Formatting for cost of the service if it has an upfront cost AND an hourly cost Parameters: 0 is upfront cost of service. 1 is hourly cost of service" group="Picker Tuning" />
+
+        <Tunable type="int" name="display_price_flat_rate" class="TunableLocalizedString" default="0x0" display="Display Price Flat Rate" description="Formatting for cost of the service if it has just a one time flat fee. Parameters: 0 is flat rate cost of the service" group="Picker Tuning" />
+
+        <Tunable type="int" name="display_price_free" class="TunableLocalizedString" default="0x0" display="Display Price Free" description="Description text if the service has zero upfront cost and zero hourly cost." group="Picker Tuning" />
+
+        <Tunable type="int" name="display_price_hourly_cost" class="TunableLocalizedString" default="0x0" display="Display Price Hourly Cost" description="Formatting for cost of the service if it is purely hourly Parameters: 0 is hourly cost of the service" group="Picker Tuning" />
+
+        <TunableList name="non_service_npcs" class="TunableList" display="Non Service Npcs" description="A List of non service NPCs that can be hired using the 'Hire A Service' UI." group="General">
+            <TunableTuple class="TunableTuple" description="The Data needed to display the non service NPC in the 'Hire A Service' UI." group="General">
+                <TunableVariant type="None" name="cost_string" class="TunableVariant" default="disabled" display="Cost String" description="When enabled, the tuned string will be shown as the cost of hiring this NPC." group="General">
+                    <Tunable type="int" name="cost_amount" class="Tunable" default="0" display="Cost Amount" description=" " tuning_state="NeedsTuning" group="General" />
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="no_cost_string" class="TunableLocalizedString" default="0x0" display="No Cost String" description="The description to be used for this NPC in the if there isn't a cost associated with it" group="General" />
+                </TunableVariant>
+                <TunableList name="free_service_traits" class="TunableList" display="Free Service Traits" description="If any Sim in the household has one of these traits, the non service npc will be free." group="General" unique_entries="true">
+                    <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <Tunable type="interaction" name="hire_interaction" class="TunableReference" display="Hire Interaction" description="The affordance to push the sim making the call when hiring this service npc from a picker dialog from the phone." allow_none="False" group="General" pack_safe="True" />
+                <Tunable type="ResourceKey" name="icon" class="TunableIconAllPacks" default="None" display="Icon" description="The icon to be displayed in 'Hire a Service' UI" group="UI" pack_safe="True" resource_types="0x2f7d0004" />
+                <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name to be displayed for this NPC in the 'Hire a Service' UI." group="General" />
+                <TunableList name="tag_list" class="TunableList" display="Tag List" description="Tags to be filtered by." group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+                </TunableList>
+                <TdescFragTag name="tests" class="TunableGlobalTestSet" display="Tests" description="A set of global tests that are always run before other tests. All tests must pass in order for the interaction to run." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="service_npcs" class="TunableList" display="Service Npcs" description="A list of the service npcs that will show up in the dialog picker" group="Picker Tuning">
+            <TunableTuple class="TunableTuple" description="Tuple of service npcs data about those NPCs being pickable." group="General">
+                <Tunable type="int" name="already_hired_tooltip" class="TunableLocalizedString" default="0x0" display="Already Hired Tooltip" description="Tooltip that displays if the service has already been hired." group="General" />
+                <Tunable type="service_npc" name="service_npc" class="TunableReference" display="Service Npc" description="The service npcs that will show up in the picker." allow_none="False" group="General" pack_safe="True" restrict="ServiceNpcHireable" />
+                <TunableList name="tag_list" class="TunableList" display="Tag List" description="Tags to be filtered by." group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+                </TunableList>
+                <TdescFragTag name="tests" class="TunableGlobalTestSet" display="Tests" description="A set of tests that determine if this service npc will show up as available or greyed out in the picker." group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

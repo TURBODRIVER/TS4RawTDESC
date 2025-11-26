@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="OneStateFestivalAttendeeWithObjectsSituation" module="open_street_director.festival_situations" description="A one state festival situation that has the ability to spawn objects into the festival goer's inventory (and not leak them)." instance_subclasses_only="False" parents="GenericOneStateFestivalAttendeeSituation, BaseGenericFestivalSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableList name="objects_to_create" class="TunableTestedList" display="Objects To Create" description="A tested list of objects to create into the Sims inventory when they are added to the situation." group="General">
+            <TunableTuple class="TunableTuple" description="An entry in this tested list." group="General">
+                <TunableTuple name="item" class="TunableTuple" display="Item" description="Data used for the creation of these objects." group="General">
+                    <TunableVariant type="None" name="creation_data" class="TunableObjectCreationDataVariant" default="definition" display="Creation Data" group="General">
+                        <TunableTuple name="clone_object" class="Tunable_CloneObject" display="Clone Object" description="Specify an object to be cloned." group="General">
+                            <TunableVariant type="None" name="definition_override" class="OptionalTunable" default="disabled" display="Definition Override" description="Override to specify a different definition than that of the object being cloned." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="object" name="enabled" class="TunableReference" display="Enabled" description="The definition of the object that is created." allow_none="False" group="General" />
+                            </TunableVariant>
+                            <TunableVariant type="None" name="source_object" class="TunableVariant" default="slotted_to_participant" display="Source Object" description="Where the object to be cloned can be found." group="General">
+                                <TunableTuple name="is_participant" class="Tunable_ParticipantObject" display="Is Participant" description="The object is a participant." group="General">
+                                    <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Used to clone a participant object." group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="slotted_to_participant" class="Tunable_SlottedObject" display="Slotted To Participant" description="The object is one slotted on a participant." group="General">
+                                    <TunableTuple name="slotted_to_participant" class="TunableTuple" display="Slotted To Participant" description="Used to clone an object slotted to a participant." group="General">
+                                        <TunableEnum type="ParticipantType" name="parent_object_participant" class="TunableEnumEntry" default="Object" display="Parent Object Participant" static_entries="interactions.ParticipantType" description="The participant object which will contain the specified slot where the object to be cloned is slotted." group="General" />
+                                        <Tunable type="slot_type" name="parent_slot_type" class="TunableReference" display="Parent Slot Type" description="A particular slot type where the cloned object can be found. The first slot of this type found on the source_object will be used." allow_none="False" group="General" />
+                                    </TunableTuple>
+                                </TunableTuple>
+                            </TunableVariant>
+                        </TunableTuple>
+                        <TunableTuple name="create_photo_object" class="Tunable_CreatePhotoObject" display="Create Photo Object" description="Create a photo object based on the participant target." group="General">
+                            <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="Used to create photo of a participant object." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="definition" class="Tunable_ObjectDefinition" display="Definition" description="Specify an object definition." group="General">
+                            <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The definition of the object that is created." allow_none="False" group="General" pack_safe="True" />
+                        </TunableTuple>
+                        <TunableTuple name="definition_tested" class="Tunable_ObjectDefinitionTested" display="Definition Tested" description="Specify an object definition based on tests." group="General">
+                            <TunableList name="definitions" class="TunableList" display="Definitions" description="A list of potential object definitions to use." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The definition of the object to be created." allow_none="False" group="General" pack_safe="True" />
+                                    <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="The weight of this definition relative to other definitions in this list." group="General">
+                                        <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                        <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                            <TunableTuple class="TunableTuple" group="General">
+                                                <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableTuple>
+                            </TunableList>
+                            <Tunable type="object" name="fallback_definition" class="TunableReference" display="Fallback Definition" description="Should no test pass, use this definition." allow_none="True" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="from_fishing_data" class="Tunable_CreateObjectFromFishingData" display="From Fishing Data" description="Create a fish object from the tuned participant fishing data." group="General">
+                            <TunableVariant type="None" name="source" class="TunableFishingDataTargetVariant" default="participant" display="Source" description="Source on which we will get the fishing data information " group="General">
+                                <TunableTuple name="participant" class="Tunable_FishingDataFromParticipant" display="Participant" description="The fishing data is from tuned participant." group="General">
+                                    <TunableVariant type="None" name="luck_config" class="OptionalTunable" default="disabled" display="Luck Config" description="If enabled, Luck will influence which fish is selected." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableTuple name="enabled" class="TunableLuckConfig" display="Enabled" description="Tuning that users provide to Luck Service in order to appropriately use Luck." group="General">
+                                            <TunableList name="loot_actions" class="TunableList" display="Loot Actions" description="Loots that are applied when luck has an impact in this context. If you want a loot to apply when luck has an impact even outside of this context, use the luck module tuning instead." group="General">
+                                                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+                                            </TunableList>
+                                            <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant whose luck we want to check when calculating luck options." group="General" />
+                                        </TunableTuple>
+                                    </TunableVariant>
+                                    <TunableEnum type="ParticipantTypeObject" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantTypeObject" description="Participant on which we will get the fishing data information " group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="reference" class="Tunable_FishingDataFromReference" display="Reference" description="The fishing data is from tuned reference." group="General">
+                                    <Tunable type="snippet" name="fishing_data" class="TunableReference" display="Fishing Data" description="Fishing data reference." allow_none="False" group="General" restrict="FishingData" />
+                                    <TunableVariant type="None" name="luck_config" class="OptionalTunable" default="disabled" display="Luck Config" description="If enabled, Luck will influence which fish is selected." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableTuple name="enabled" class="TunableLuckConfig" display="Enabled" description="Tuning that users provide to Luck Service in order to appropriately use Luck." group="General">
+                                            <TunableList name="loot_actions" class="TunableList" display="Loot Actions" description="Loots that are applied when luck has an impact in this context. If you want a loot to apply when luck has an impact even outside of this context, use the luck module tuning instead." group="General">
+                                                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+                                            </TunableList>
+                                            <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant whose luck we want to check when calculating luck options." group="General" />
+                                        </TunableTuple>
+                                    </TunableVariant>
+                                </TunableTuple>
+                            </TunableVariant>
+                        </TunableTuple>
+                        <TunableTuple name="from_participant" class="Tunable_FromParticipant" display="From Participant" description="Specify a participant to create an instance of." group="General">
+                            <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="PickedObject" display="Participant" static_entries="interactions.ParticipantType" description="The participant object we would like to create an instance of." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="from_stored_object_info" class="Tunable_CreateObjectFromStoredObjectInfo" display="From Stored Object Info" description="Create an object using info stored on the source participant." group="General">
+                            <TunableEnum type="ParticipantTypeSingleSim" name="stored_object_info_participant" class="TunableEnumEntry" default="Actor" display="Stored Object Info Participant" static_entries="interactions.ParticipantTypeSingleSim" description="The Sim participant of this interaction which contains the stored object info that is used to create this object." group="General" />
+                            <TunableEnum type="StoredObjectType" name="stored_object_type" class="TunableEnumEntry" default="INVALID" display="Stored Object Type" dynamic_entries="objects-components-stored_object_info_tuning.StoredObjectType._elements" static_entries="objects-components-stored_object_info_tuning.StoredObjectType" description="The type of object being stored. This will be used to retrieve the stored object from the Stored Object Info Component of the target." group="General" invalid_entries="INVALID" />
+                        </TunableTuple>
+                        <TunableTuple name="random_by_tags" class="Tunable_RandomFromTags" display="Random By Tags" description="Specify a tag which will randomly choose an object that has been marked with that tag and create it." group="General">
+                            <TunableList name="filter_tags" class="TunableTags" display="Filter Tags" min="1" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Define tags to try and create the object. Picks randomly from objects with these tags." group="General" invalid_entries="INVALID" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="random_recipe" class="Tunable_RandomWeightedRecipe" display="Random Recipe" description="Specify a weighted list of recipes that can be available for recipe creation." group="General">
+                            <TunableList name="weighted_recipes" class="TunableList" display="Weighted Recipes" min="1" description="A list of weighted list of recipes that can be available for recipe creation." group="General">
+                                <TunableTuple class="TunableTuple" description="The weighted recipe." group="General">
+                                    <TunableTuple name="recipe" class="Tunable_RecipeDefinition" display="Recipe" description="Specify a recipe. The final product's definition is used as a definition." group="General">
+                                        <Tunable type="recipe" name="recipe" class="TunableReference" display="Recipe" description="The recipe to use to create the object." allow_none="False" group="General" pack_safe="True" />
+                                        <Tunable type="bool" name="show_crafted_by_text" class="Tunable" default="True" display="Show Crafted By Text" description="Show crafted by text on the tooltip of item created by this recipe. Will not be visible if crafter is not a sim." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A construct that determines a total multiplier value based on tunable tests." group="General">
+                                        <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                        <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                            <TunableTuple class="TunableTuple" group="General">
+                                                <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="random_recipe_by_tags" class="Tunable_RandomWeightedTaggedRecipe" display="Random Recipe By Tags" description="Specify a weighted list of recipes tags that can be available for recipe creation." group="General">
+                            <TunableList name="weighted_recipe_tags" class="TunableList" display="Weighted Recipe Tags" min="1" description="A list of weighted list of recipe tags that can be available for recipe creation." group="General">
+                                <TunableTuple class="TunableTuple" description="The weighted recipe tag." group="General">
+                                    <TunableTuple name="recipe_tag" class="Tunable_RecipeByTag" display="Recipe Tag" description="Specify a recipe tag. The final product's definition is used as a definition." group="General">
+                                        <TunableEnum type="Tag" name="recipe_tag" class="TunableTag" default="INVALID" display="Recipe Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The recipe tag to use to create the object." dynamic_entries_prefix="Recipe" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                        <Tunable type="bool" name="show_crafted_by_text" class="Tunable" default="True" display="Show Crafted By Text" description="Show crafted by text on the tooltip of item created by this recipe. Will not be visible if crafter is not a sim." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A construct that determines a total multiplier value based on tunable tests." group="General">
+                                        <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                        <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                            <TunableTuple class="TunableTuple" group="General">
+                                                <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="recipe" class="Tunable_RecipeDefinition" display="Recipe" description="Specify a recipe. The final product's definition is used as a definition." group="General">
+                            <Tunable type="recipe" name="recipe" class="TunableReference" display="Recipe" description="The recipe to use to create the object." allow_none="False" group="General" />
+                            <Tunable type="bool" name="show_crafted_by_text" class="Tunable" default="True" display="Show Crafted By Text" description="Show crafted by text on the tooltip of item created by this recipe. Will not be visible if crafter is not a sim." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="recipe_by_tag" class="Tunable_RecipeByTag" display="Recipe By Tag" description="Specify a recipe tag. The final product's definition is used as a definition." group="General">
+                            <TunableEnum type="Tag" name="recipe_tag" class="TunableTag" default="INVALID" display="Recipe Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The recipe tag to use to create the object." dynamic_entries_prefix="Recipe" group="General" invalid_entries="INVALID" />
+                            <Tunable type="bool" name="show_crafted_by_text" class="Tunable" default="True" display="Show Crafted By Text" description="Show crafted by text on the tooltip of item created by this recipe. Will not be visible if crafter is not a sim." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="serving" class="Tunable_CraftableServing" display="Serving" description="Create an object that is a serving of the specified crafted object. This loot can be used to create an object outside of the GrabServingInteraction flow, which requires the Sim to go into carry posture. Use cases: - For cases where we want to get more than one serving at a time in a single interaction, we don't want to run the grab serving more than once. e.g. cauldron bottle up all servings of a potion. - For cases where we don't even want to run a carry at all. e.g. cauldron drink from cauldron, we want to drink directly from the cauldron (no carry), but create a hidden object we can run a custom consume on." group="General">
+                            <TunableEnum type="ParticipantType" name="serving_source" class="TunableEnumEntry" default="Object" display="Serving Source" static_entries="interactions.ParticipantType" description="The source of the " group="General" />
+                            <TunableList name="transferred_states" class="TunableList" display="Transferred States" description="A list of states to be copied over to the created object." group="General">
+                                <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                            <TunableList name="transferred_stats" class="TunableList" display="Transferred Stats" description="A list of stats to be copied over to the created object." group="General">
+                                <Tunable type="statistic" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                            <Tunable type="bool" name="use_base_recipe_on_setup" class="Tunable" default="True" display="Use Base Recipe On Setup" description="If enabled, the created serving will use the Base Object when being set up. Otherwise, the recipe tuning will be used. In general, this should stay checked. Unchecking this is useful for objects like the Pit BBQ where a group serving is being pulled from another group serving. The 'Call to Meal' interactions will be forwarded correctly." group="General" />
+                            <Tunable type="bool" name="use_linked_recipe_mapping" class="Tunable" default="False" display="Use Linked Recipe Mapping" description="If enabled, when creating the recipe, instead of using the base recipe it will look into the recipe linked recipe tuning and find what recipes it can generate. This is used to support multiple recipes generated from the same multiserve. i.e. Ice cream carton can generate bowls, milkshakes and cones." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="urnstone_definition_tested" class="Tunable_UrnstoneDefinitionTested" display="Urnstone Definition Tested" description="Specify an urnstone definition based on a series of tests, first checking for an urnstone specified in will and then using fallback_definition is none is found." group="General">
+                            <TunableList name="definitions" class="TunableList" display="Definitions" description="A list of potential object definitions to use." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The definition of the object to be created." allow_none="False" group="General" pack_safe="True" />
+                                    <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="The weight of this definition relative to other definitions in this list." group="General">
+                                        <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                        <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                            <TunableTuple class="TunableTuple" group="General">
+                                                <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableTuple>
+                            </TunableList>
+                            <Tunable type="object" name="fallback_definition" class="TunableReference" display="Fallback Definition" description="Should no test pass, use this definition." allow_none="True" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableList name="initial_states" class="TunableList" display="Initial States" description="A list of states to apply on the object when they are first created." group="General">
+                        <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" restrict="ObjectStateValue" />
+                    </TunableList>
+                </TunableTuple>
+                <Tunable type="bool" name="stop_processing" class="Tunable" default="False" display="Stop Processing" description="If checked, no other element from this list is considered if this element passes its associated test." group="General" />
+                <TdescFragTag name="test" class="TunableTestSet" display="Test" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

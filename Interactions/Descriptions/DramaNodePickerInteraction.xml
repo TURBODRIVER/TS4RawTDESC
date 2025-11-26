@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="DramaNodePickerInteraction" module="drama_scheduler.drama_node_picker_interaction" description="Interaction that allows a player to pick a drama node that is scheduled. One use of this is to schedule another linked drama node. NOTE: This interaction will be deprecated. Instead, please use GigPickerInteraction." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="buckets" class="OptionalTunable" default="disabled" display="Buckets" description="If enabled, we only return nodes from these buckets. Drama nodes with no buckets are rejected. The order in which buckets are tuned here will determine the order in which buckets are shown in the picker. Gigs from the first bucket will appear at the top of the picker and so on." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableList" display="Enabled" group="General" unique_entries="true">
+                <TunableEnum type="DramaNodeScoringBucket" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="drama_scheduler-drama_enums.DramaNodeScoringBucket._elements" static_entries="drama_scheduler-drama_enums.DramaNodeScoringBucket" description="Bucket to test against." group="General" />
+            </TunableList>
+        </TunableVariant>
+
+        <Tunable type="bool" name="disable_row_if_visibily_tests_fail" class="Tunable" default="False" display="Disable Row If Visibily Tests Fail" description="If checked, we will grey out any row if the corresponding drama node failed its visibility testing. If not checked, the row won't be shown." group="General" />
+
+        <TunableVariant type="None" name="loot_when_empty" class="OptionalTunable" default="disabled" display="Loot When Empty" description="If enabled, we run this loot when picker is empty and don't display the empty picker. If disabled, picker will appear empty." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableList" display="Enabled" description="Loot applied if the picker is going to be empty." group="General">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableList>
+        </TunableVariant>
+
+        <Tunable type="bool" name="run_visibility_tests" class="Tunable" default="True" display="Run Visibility Tests" description="If checked, This picker will run visibility tests on a drama node to decide whether it should be shown. Otherwise, all picker drama nodes will be available." group="General" />
+
+        <Tunable type="bool" name="use_only_scheduled" class="Tunable" default="True" display="Use Only Scheduled" description="If checked, this picker will only consider drama nodes that have been scheduled by the drama scheduler service. This is usually the desired behavior except in special circumstances like debugging." group="General" />
+    </Instance>
+</TuningRoot>

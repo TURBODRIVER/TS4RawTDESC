@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="socials.clustering">
+        <Class name="SocialGroupClusterService">
+            <TunableTuple name="CLUSTER_REQUEST" class="TunableObjectClusterRequest" display="Cluster Request" description="Specify how social clusters are generated." group="General">
+                <Tunable type="float" name="density_epsilon" class="TunableDistanceSquared" default="2.82" display="Density Epsilon" description="A constant that defines whether or not two objects are reachable." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="facing_angle" class="OptionalTunable" default="disabled" display="Facing Angle" description="If set, then objects in a cluster must satisfy facing requirements." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="float" name="enabled" class="TunableAngle" default="180.0" display="Enabled" min="0.0" max="360.0" description="An angle that defines the facing requirements for the purposes of clustering and centroid facing." tuning_state="NeedsTuning" group="General" />
+                </TunableVariant>
+                <TunableTuple name="line_of_sight_constraint" class="TunableLineOfSightData" display="Line Of Sight Constraint" description="The line of sight parameters for generated clusters." group="General">
+                    <Tunable type="float" name="boundary_epsilon" class="Tunable" default="0.01" display="Boundary Epsilon" description="The LOS origin is allowed to be outside of the boundary by this amount." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="facing_offset" class="Tunable" default="0.1" display="Facing Offset" description="The LOS origin is offset from the object origin by this amount (mainly to avoid intersecting walls)." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="map_divisions" class="Tunable" default="30" display="Map Divisions" description="The number of points around the object to check collision from. More points means higher accuracy." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="max_line_of_sight_radius" class="Tunable" default="10" display="Max Line Of Sight Radius" description="The maximum possible distance from this object than an interaction can reach." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="override_los_component" class="Tunable" default="False" display="Override Los Component" description="If set to true, this temporary LOS overrides the object's LOS component if it has one (this is useful if we want to temporarily increase an object's LOS radius, etc)." group="General" />
+                    <Tunable type="float" name="simplification_ratio" class="Tunable" default="0.35" display="Simplification Ratio" description="A factor determining how much to combine edges in the line of sight polygon." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <Tunable type="int" name="minimum_size" class="TunableRange" default="3" display="Minimum Size" min="2" max="None" description="The minimum required size for clusters. Group of objects less than this constant will not form clusters." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="radius_buffer" class="TunableRange" default="0.5" display="Radius Buffer" min="0" max="None" description="An additional distance (in meters) that will be added to the radius of a cluster. The size of a cluster is based on the objects in it. We need to add an additional amount to ensure that the object is included in the (non-exact) circle constraint." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

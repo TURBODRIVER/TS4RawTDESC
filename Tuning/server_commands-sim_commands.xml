@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="server_commands.sim_commands">
+        <Class name="CommandTuning">
+            <Tunable type="interaction" name="TERRAIN_GOHERE_AFFORDANCE" class="TunableReference" display="Terrain Gohere Affordance" description="The affordance used by the command sims.gohere to make the sim go to a specific position." allow_none="False" group="General" />
+
+            <Tunable type="interaction" name="TERRAIN_SWIMHERE_AFFORDANCE" class="TunableReference" display="Terrain Swimhere Affordance" description="The affordance used by the command sims.swimhere to make the sim swim to a specific position." allow_none="False" group="General" />
+
+            <Tunable type="interaction" name="TERRAIN_TELEPORT_AFFORDANCE" class="TunableReference" display="Terrain Teleport Affordance" description="The affordance used by the command sims.teleport to teleport the sim. This command is used during GUI Smoke as well. " allow_none="False" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

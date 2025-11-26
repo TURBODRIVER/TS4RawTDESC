@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CraftingPhaseCreateCarriedObjectSuperInteraction" module="crafting.crafting_interactions" description="The Sim creates a carried object as part of a crafting process." instance_needs_reference="True" instance_subclasses_only="False" parents="CraftingPhaseCreateObjectSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="carry_track_override" class="OptionalTunable" default="disabled" display="Carry Track Override" description="If enabled, specify which hand the Sim must use to carry the created object." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableEnum type="PostureTrack" name="enabled" class="TunableEnumEntry" default="RIGHT" display="Enabled" static_entries="postures.PostureTrack" description="Which hand to carry the object in." group="General" />
+        </TunableVariant>
+
+        <Tunable type="posture" name="posture_type" class="TunableReference" display="Posture Type" description="Posture to use to carry the object." allow_none="True" group="General" />
+    </Instance>
+</TuningRoot>

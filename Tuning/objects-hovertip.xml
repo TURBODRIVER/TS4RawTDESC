@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.hovertip">
+        <Class name="HovertipStyle" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="HOVER_TIP_COLLECTION" enum_value="4" />
+
+            <EnumItem name="HOVER_TIP_CONSUMABLE_CRAFTABLE" enum_value="2" />
+
+            <EnumItem name="HOVER_TIP_CUSTOM_OBJECT" enum_value="5" />
+
+            <EnumItem name="HOVER_TIP_DEFAULT" enum_value="1" />
+
+            <EnumItem name="HOVER_TIP_DISABLED" enum_value="0" />
+
+            <EnumItem name="HOVER_TIP_GARDENING" enum_value="3" />
+
+            <EnumItem name="HOVER_TIP_HEIRLOOM_OBJECT" enum_value="8" />
+
+            <EnumItem name="HOVER_TIP_ICON_TITLE_DESCRIPTION" enum_value="6" />
+
+            <EnumItem name="HOVER_TIP_OBJECT_RELATIONSHIP" enum_value="7" />
+        </Class>
+
+        <Class name="TooltipFields" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="active_seasons_text" enum_value="48" />
+
+            <EnumItem name="crafted_by_text" enum_value="8" />
+
+            <EnumItem name="footer_text" enum_value="41" />
+
+            <EnumItem name="header" enum_value="6" />
+
+            <EnumItem name="header_status" enum_value="29" />
+
+            <EnumItem name="header_subtext" enum_value="28" />
+
+            <EnumItem name="object_timers" enum_value="40" />
+
+            <EnumItem name="percentage_left" enum_value="3" />
+
+            <EnumItem name="quality_description" enum_value="5" />
+
+            <EnumItem name="rarity_text" enum_value="9" />
+
+            <EnumItem name="recipe_description" enum_value="1" />
+
+            <EnumItem name="recipe_name" enum_value="0" />
+
+            <EnumItem name="rel_override_id" enum_value="25" />
+
+            <EnumItem name="relic_description" enum_value="22" />
+
+            <EnumItem name="season_text" enum_value="23" />
+
+            <EnumItem name="simoleon_custom_text" enum_value="27" />
+
+            <EnumItem name="simoleon_text" enum_value="10" />
+
+            <EnumItem name="spoiled_time_text" enum_value="24" />
+
+            <EnumItem name="style_name" enum_value="4" />
+
+            <EnumItem name="subtext" enum_value="7" />
+        </Class>
+
+        <Class name="TooltipFieldConcatenationType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CONCATENATE_AFTER" enum_value="1" />
+
+            <EnumItem name="CONCATENATE_BEFORE" enum_value="0" />
+        </Class>
+
+        <Class name="HovertipTuning">
+            <TunableList name="HOVERTIP_RESTRICTIONS" class="TunableList" display="Hovertip Restrictions" description="List of skill dependencies for tooltip fields. This will show the tagged fields only if the selected sim matches the skill requirement tuned. e.g. Only sims with gardening level 2 can see all the sub_icon data of a plant. PS: This tunable is on expert mode since on field_name refers to field names on a protobuff, this should only be tuned by a GPE or with a GPE help. " group="General">
+                <TunableTuple class="TunableHovertipTuple" group="General">
+                    <Tunable type="str" name="field_name" class="Tunable" default="" display="Field Name" description="This field refers to the field name of the protobuff which should only be showed on a tooltip if the skill requirements are met." group="General" />
+                    <TunableEnum type="HovertipStyle" name="hovertip_style" class="TunableEnumEntry" default="HOVER_TIP_DEFAULT" display="Hovertip Style" static_entries="objects-hovertip.HovertipStyle" description="Style of the hovertip that will apply this restriction." group="General" />
+                    <Tunable type="int" name="index" class="Tunable" default="0" display="Index" description="Index of field_name to hide. If field name to hide is a list. Passing an index will cause the hovertip to hide this index value out of that list. e.g. Gardening icons will always send 4 icons which some are only visible depending ont he skill level." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="statistic" name="skill" class="TunableReference" display="Skill" description="What skill (Reference) to test for" allow_none="False" group="General" />
+                    <Tunable type="int" name="skill_points" class="Tunable" default="0" display="Skill Points" description="Skill points to test for. If the skill_point is tuned to 0, no skill test will be run, it will just test that the Sim has the skill." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

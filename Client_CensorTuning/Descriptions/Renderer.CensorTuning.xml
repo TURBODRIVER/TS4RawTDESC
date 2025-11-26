@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="Renderer_CensorTuning" class="Renderer.CensorTuning" module="Renderer" description="Global tuning parameters for the censor effect on the client." path="Client_CensorTuning\Descriptions">
+        <TunableList name="CensorModes" class="TunableList" display="Censor modes" description="Specifies the different ways a censor can be applied, like full body, torso only, etc.">
+            <TunableTuple class="Renderer.CensorModeData">
+                <TunableList name="Bones" class="TunableList" display="Bone list" description="List of rig bones to cover with the censor. If empty, the entire object or sim is censored.">
+                    <TunableTuple class="Renderer.CensorBoneData">
+                        <Tunable type="str" name="BoneName" class="Tunable" default="None" display="Bone name" description="Rig bone to cover with the censor. Ex: '_b__Pelvis__'. The censor area is expanded to include all geometry influenced by this bone. If the bone is missing, the entire sim will be censored as a safety fallback." binary_type="hashedstring8" />
+                        <TunableTuple name="Padding" class="TunableVector3" description="Padding in meters, in bone space, to add to the bone bounds.">
+                            <Tunable type="float" name="x" class="Tunable" default="0" />
+                            <Tunable type="float" name="y" class="Tunable" default="0" />
+                            <Tunable type="float" name="z" class="Tunable" default="0" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="str" name="ModeName" class="Tunable" default="None" display="Mode name" description="Name used to select the mode. NOTE: Changing this will break the censor unless the code is updated to use the new mode name!" binary_type="hashedstring8" />
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="float" name="DistanceMax" class="Tunable" default="1000" display="Tile max distance" description="Upper bound on the view distance used for determining tile size, in meters. Use this to prevent the censor tiles from getting smaller on screen than at a certain distance." />
+
+        <Tunable type="float" name="DistanceMin" class="Tunable" default="0" display="Tile min distance" description="Lower bound on the view distance used for determining tile size, in meters. Use this to prevent the censor tiles from getting bigger on screen than at a certain distance." />
+
+        <Tunable type="float" name="TileWidthMeters" class="Tunable" default="0.15" display="Tile width" description="Size, in meters, of a mosaic tile. The tiles in the censor effect will be sized to match this distance in the world, between the min and max distances." />
+    </Instance>
+</TuningRoot>

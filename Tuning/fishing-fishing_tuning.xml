@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="fishing.fishing_tuning">
+        <Class name="FishingTuning">
+            <TunableList name="BAIT_TAG_DATA_MAP" class="TunableMapping" display="Bait Tag Data Map" mapping_key="Bait Tag" mapping_value="Bait Data" description="Mapping between fishing bait tag and fishing bait data." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="snippet" name="Bait Data" class="TunableReference" display="Bait Data" description="The bait data." allow_none="False" group="General" pack_safe="True" restrict="FishingBait" />
+                    <TunableEnum type="Tag" name="Bait Tag" class="TunableTag" default="INVALID" display="Bait Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The bait tag to which we want to map a bait data." dynamic_entries_prefix="func_bait" group="General" invalid_entries="INVALID" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.animals.animal_service">
+        <Class name="AnimalService">
+            <Tunable type="statistic" name="AGING_STATISTIC" class="TunableReference" display="Aging Statistic" description="The statistic we are operating on." allow_none="False" group="General" pack_safe="True" restrict="Commodity" />
+
+            <TunableList name="AUTO_ASSIGN_NEW_INHABITANTS" class="TunableList" display="Auto Assign New Inhabitants" description="On a schedule, automatically assigns new animals to existing homes that have vacancy. The assignment will try to assign existing homeless animals before creating new animals. " group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="CreatureType" name="animal_type" class="TunableEnumEntry" default="Rabbit" display="Animal Type" static_entries="animation-animation_constants.CreatureType" description="The animal home type to scan for on the existing lot." group="General" />
+                    <TunableTuple name="max_homes_to_assign" class="TunableInterval" display="Max Homes To Assign" description="When auto-assignment triggers, this is the maximum number of homes to randomly pick. Homes at max capacity are excluded. The value is a random number between the lower and upper bounds, inclusively. For example: The value is randomly 3. 15 homes are on the lot (10 empty or partially full, 5 full) From the 10 homes, 3 are randomly picked for auto-assignment." group="General">
+                        <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="num_assignments_per_home" class="TunableInterval" display="Num Assignments Per Home" description="The number of auto-assignments per home. The value is a random number between the lower and upper bounds, inclusively." group="General">
+                        <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Conditional tests to determine if auto-assignment occurs." group="General" />
+                    <TunableTuple name="weekly_schedule" class="TunableWeeklySchedule" display="Weekly Schedule" description="Determines when to trigger the auto-assignment." group="General">
+                        <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                            <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                                <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                                    <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                                    <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                                    <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                                    <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                                    <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                                    <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                                    <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                                </TunableTuple>
+                                <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                                <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                                <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                                    <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="GARDENING_HELP_ANIMAL_STATES" class="TunableList" display="Gardening Help Animal States" description="For animals with gardening help enabled, these are the states that an animal will transition from/to whenever the plant's state changes. The order of these lists is the preference in the animal to pick." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="CreatureType" name="animal_type" class="TunableEnumEntry" default="Rabbit" display="Animal Type" static_entries="animation-animation_constants.CreatureType" group="General" invalid_entries="Invalid" />
+                    <TunableList name="states" class="TunableList" display="States" group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="object_state" name="from_state" class="TunableReference" display="From State" allow_none="False" group="General" restrict="ObjectStateValue" />
+                            <Tunable type="object_state" name="to_state" class="TunableReference" display="To State" allow_none="False" group="General" restrict="ObjectStateValue" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="object_state" name="GARDENING_HELP_STATE" class="TunableReference" display="Gardening Help State" description="The gardening help state that animals have when gardening help is enabled." allow_none="False" group="General" restrict="ObjectStateValue" />
+
+            <TunableList name="GARDENING_HELP_WEED_STATES" class="TunableList" display="Gardening Help Weed States" description="For animals with gardening help enabled, these are the relevant weed states on plants to watch for. " group="General">
+                <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" restrict="ObjectStateValue" />
+            </TunableList>
+
+            <TunableTuple name="MAX_EMPTY_HOMES_TO_POPULATE" class="TunableTuple" display="Max Empty Homes To Populate" description="Some Animal Home Component objects are configured to populate empty homes for the following conditions. These settings configure the maximum number of empty homes that can be populated at one time." group="General">
+                <Tunable type="int" name="on_new_homes" class="TunableRange" default="5" display="On New Homes" min="0" max="5" description="The limit on number of new homes to populate if placed during Build/Buy." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="on_zone_load" class="TunableRange" default="5" display="On Zone Load" min="0" max="5" description="The limit on number of empty homes to populate after zone load." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

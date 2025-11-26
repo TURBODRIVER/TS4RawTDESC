@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="notebook_entry" class="NotebookEntry" module="notebook.notebook_entry" description="Notebook entry to unlock on the notebook UI." instance_subclasses_only="False" path="NotebookEntrys\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="NotebookCategories" name="category_id" class="TunableEnumEntry" default="INVALID" display="Category Id" dynamic_entries="ui-notebook_tuning.NotebookCategories._elements" static_entries="ui-notebook_tuning.NotebookCategories" description="Category type which will define the format the UI will use to display the information." group="General" />
+
+        <TunableVariant type="None" name="entry_icon" class="OptionalTunable" default="disabled" display="Entry Icon" description="Optional icon to be displayed with the entry text." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="ResourceKey" name="enabled" class="TunableIcon" default="None" display="Enabled" description="Optional icon to be displayed with the entry text." group="General" resource_types="0x2f7d0004" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="entry_sublist" class="OptionalTunable" default="disabled" display="Entry Sublist" description="List of objects linked to a notebook entry. i.e. Ingredient objects attached to a serum or to a recipe." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableList" display="Enabled" description="List of objects linked to a notebook entry. i.e. Ingredient objects attached to a serum or to a recipe." group="General">
+                <TunableTuple class="TunableTuple" description="Pair of object definitions and amount of objects needed to " group="General">
+                    <Tunable type="int" name="num_objects_required" class="Tunable" default="0" display="Num Objects Required" description="Number of objects required on this field. This will be displayed next to the current value of objects found in the inventory. Example: Serums will displayed <current_objects_held / num_objects_required>" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="object" name="object_definition" class="TunableReference" display="Object Definition" description="Reference to ingredient object." allow_none="False" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="entry_sublist_is_sortable" class="OptionalTunable" default="disabled" display="Entry Sublist Is Sortable" description="If enabled, entry sublist will be presented sorted alphabetically." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="bool" name="include_new_entry" class="Tunable" default="False" display="Include New Entry" description="If checked, the new entry in entry sublist will be sorted." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="int" name="entry_text" class="TunableLocalizedString" default="0x0" display="Entry Text" description="Text to be displayed on the notebook entry. " group="General" />
+
+        <TunableVariant type="None" name="entry_text_description" class="OptionalTunable" default="disabled" display="Entry Text Description" description="Optional Text Description to be displayed on the notebook entry. " group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Optional Text Description to be displayed on the notebook entry. " group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="entry_tooltip" class="OptionalTunable" default="disabled" display="Entry Tooltip" description="Text to be displayed when the player hovers this entry." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Text to be displayed when the player hovers this entry." group="General">
+                <TunableList name="tooltip_fields" class="TunableMapping" display="Tooltip Fields" mapping_key="key" mapping_value="value" description="Mapping of tooltip fields to its localized values. Since this fields are created from a system originally created for recipes, all of them may be tuned, but these are the most common fields to show on a tooltip: - recipe_name = This is the actual title of the tooltip. This is the main text - recipe_description = This description refers to the main text that will show below the title - header = Smaller text that will show just above the title - subtext = Smaller text that will show just bellow the title" group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="TooltipFields" name="key" class="TunableEnumEntry" default="recipe_name" display="Key" static_entries="objects-hovertip.TooltipFields" description="Fields to be populated in the tooltip. These fields will be populated with the text and tokens tuned." group="General" />
+                        <Tunable type="int" name="value" class="TunableLocalizedString" default="0x0" display="Value" description="A localized string that may NOT require tokens." group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableEnum type="HovertipStyle" name="tooltip_style" class="TunableEnumEntry" default="HOVER_TIP_DEFAULT" display="Tooltip Style" static_entries="objects-hovertip.HovertipStyle" description="Types of possible tooltips that can be displayed for an entry. " group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableEnum type="NotebookSubCategories" name="subcategory_id" class="TunableEnumEntry" default="INVALID" display="Subcategory Id" dynamic_entries="ui-notebook_tuning.NotebookSubCategories._elements" static_entries="ui-notebook_tuning.NotebookSubCategories" description="Subcategory type which will define the format the UI will use to display the information." group="General" />
+    </Instance>
+</TuningRoot>

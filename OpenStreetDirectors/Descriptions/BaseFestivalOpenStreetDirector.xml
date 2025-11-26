@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="open_street_director" class="BaseFestivalOpenStreetDirector" module="open_street_director.festival_open_street_director" description="An Open Street Director that runs a Festival. A Festival Open Street Director is a state machine where the different States control different aspects of the festival." instance_needs_reference="True" instance_subclasses_only="True" parents="OpenStreetDirectorBase" path="OpenStreetDirectors\Descriptions" use_guid_for_reference="True">
+        <TunableList name="cleanup_situation_tags" class="TunableSet" display="Cleanup Situation Tags" description="A set of tags that we will destroy all situations with at the end of the festival." group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag that we will destroy all situations with." group="General" invalid_entries="INVALID" />
+        </TunableList>
+
+        <TunableVariant type="None" name="reactionary_whim_set" class="OptionalTunable" default="disabled" display="Reactionary Whim Set" description="If enabled then this open street director will offer a whimset to the sim when the sim is within the restricted autonomy zone of the director." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="aspiration" name="enabled" class="TunableReference" display="Enabled" description="A whim set that is active when this open street director is running AND the player sim is within the restricted autonomy zone of the director." allow_none="False" group="General" restrict="ObjectivelessWhimSet" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

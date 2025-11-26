@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="gameplay_scenarios.scenario_enums">
+        <Class name="ScenarioDifficultyCategory" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="ScenarioEntryMethod" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="EXISTING_HOUSEHOLD" enum_value="2" />
+
+            <EnumItem name="NEW_HOUSEHOLD" enum_value="1" />
+        </Class>
+
+        <Class name="ScenarioCategory" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="ScenarioProperties" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ONBOARDING" enum_value="1" />
+        </Class>
+
+        <Class name="ScenarioTheme" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="FanMeetAndGreetSituation" module="celebrity_fans.fan_meet_and_greet_situation" instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="bartender" class="TunableSituationJobAndRoleState" display="Bartender" description="The job and role of the bartender of the event." group="Roles">
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="celebrity" class="TunableSituationJobAndRoleState" display="Celebrity" description="The job and role of the main celebrity of the event." group="Roles">
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="fan" class="TunableSituationJobAndRoleState" display="Fan" description="The job and role of the fans of the event." group="Roles">
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" />
+        </TunableTuple>
+
+        <Tunable type="statistic" name="fan_count_statistic" class="TunableReference" display="Fan Count Statistic" description="The ranked statistic that we will use in order to determine how many fans we want to invite to the event at minimum." allow_none="False" group="Roles" restrict="RankedStatistic" />
+
+        <TunableList name="rank_to_fan_count" class="TunableMapping" display="Rank To Fan Count" mapping_key="key" mapping_value="value" description="A mapping between the rank level of the Fan Count Statistic and the number of fans that we want at minimum." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="int" name="key" class="TunableRange" default="0" display="Key" min="0" max="None" description="The statistic rank of the celebrity Sim." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="value" class="TunableRange" default="0" display="Value" min="0" max="None" description="The minimum number of fans we want to have based on the rank level." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <Deleted name="venue_invitation_message" />
+
+        <Deleted name="venue_situation_player_job" />
+    </Instance>
+</TuningRoot>

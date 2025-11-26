@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="narrative.narrative_commands">
+        <Class name="EP07NarrativeCommands">
+            <Tunable type="action" name="CONSERVATION_FINAL_STAGE_LOOT" class="TunableReference" display="Conservation Final Stage Loot" description="The loot we will apply if the player runs the narrative.set_stage_final_conservation_narrative cheat." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+
+            <Tunable type="action" name="CONSERVATION_INTERMEDIATE_STAGE_LOOT" class="TunableReference" display="Conservation Intermediate Stage Loot" description="The loot we will apply if the player runs the narrative.set_stage_intermediate_conservation_narrative cheat." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+
+            <Tunable type="narrative" name="CONSERVATION_NARRATIVE_FINAL_STAGE" class="TunableReference" display="Conservation Narrative Final Stage" description="The final island narrative stage. Used for locking narrative stages based on cheats." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="narrative" name="CONSERVATION_NARRATIVE_INTERMEDIATE_STAGE" class="TunableReference" display="Conservation Narrative Intermediate Stage" description="The intermediate island narrative stage. Used for locking narrative stages based on cheats." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="narrative" name="CONSERVATION_NARRATIVE_START_STAGE" class="TunableReference" display="Conservation Narrative Start Stage" description="The least conserved island narrative stage. Used for locking narrative stages based on cheats." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="action" name="CONSERVATION_START_STAGE_LOOT" class="TunableReference" display="Conservation Start Stage Loot" description="The loot we will apply if the player runs the narrative.restart_conservation_narrative cheat." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+        </Class>
+    </Module>
+</TuningRoot>

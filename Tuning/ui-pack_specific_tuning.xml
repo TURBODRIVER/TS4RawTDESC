@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="ui.pack_specific_tuning">
+        <Class name="PackSpecificTuning">
+            <TunableList name="VENUE_PACK_TUNING" class="TunableMapping" display="Venue Pack Tuning" mapping_key="venue_id" mapping_value="data" description="Venue tuning that is needed by UI when that venue's pack is not installed." group="General" mapping_class="VenuePackTuning">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableTuple name="data" class="VenueDataTuple" display="Data" description="Venue data that is shown in the UI when this venue's pack is not installed." group="General">
+                        <TunableVariant type="None" name="gallery_download_venue" class="OptionalTunable" default="disabled" display="Gallery Download Venue" description="If tuned, the tuned venue tuning will be substituted if this venue is downloaded from the gallery by a player who is not entitled to it. The default behavior is to substitute the generic venue. This tuned venue will also determine download compatibility (for instance, only residential venues can be downloaded to owned residential venues)." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="venue" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" />
+                        </TunableVariant>
+                        <TunableList name="venue_flags" class="TunableEnumFlags" display="Venue Flags" description="Venue flags used to mark a venue with specific properties." group="General" unique_entries="true">
+                            <TunableEnum type="VenueFlags" class="TunableEnumEntry" default="NONE" static_entries="venues-venue_enums.VenueFlags" group="General" />
+                        </TunableList>
+                        <Tunable type="int" name="venue_name" class="TunableLocalizedString" default="0x0" display="Venue Name" description="Name that will be displayed for the venue when the pack containing that venue is not installed" group="General" />
+                    </TunableTuple>
+                    <Tunable type="venue" name="venue_id" class="TunableReference" display="Venue Id" description="Reference to the venue that this data represents" allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

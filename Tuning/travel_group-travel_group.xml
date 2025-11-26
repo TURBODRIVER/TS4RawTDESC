@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="travel_group.travel_group">
+        <Class name="TravelGroup">
+            <TunableList name="ON_LEAVE_TRAVEL_GROUP_LOOT" class="TunableList" display="On Leave Travel Group Loot" description="A list of loot to apply to a Sim when they leave a travel group." group="General">
+                <Tunable type="action" class="TunableReference" description="The loot to apply when the Sim leaves a travel group." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.complex.bowling_venue">
+        <Class name="BowlingVenueMixin">
+            <TunableList name="BOWLING_LANE_OBJECT_TAGS" class="TunableTags" display="Bowling Lane Object Tags" group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that considered bowling lane objects." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableList>
+
+            <Tunable type="int" name="MAX_SIMS_ON_VENUE" class="TunableRange" default="4" display="Max Sims On Venue" min="1" max="None" description="The maximum number of the Sims can be spawned in all bowling situations combined in the venue." tuning_state="NeedsTuning" group="General" />
+
+            <TunableTuple name="MOONLIGHT_AFFORDANCES" class="TunableTuple" display="Moonlight Affordances" description="Super affordances to set moonlight bowling lane when they are turned on and turned off." group="General">
+                <Tunable type="interaction" name="moonlight_off" class="TunableReference" display="Moonlight Off" description="A super affordance when the moonlight is turned off." allow_none="False" group="General" pack_safe="True" restrict="SwitchLightAndStateImmediateInteraction" />
+                <Tunable type="interaction" name="moonlight_on" class="TunableReference" display="Moonlight On" description="A super affordance when the moonlight is turned on." allow_none="False" group="General" pack_safe="True" restrict="SwitchLightAndStateImmediateInteraction" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

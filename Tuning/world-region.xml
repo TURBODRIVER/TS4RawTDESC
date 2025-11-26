@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="world.region">
+        <Class name="RegionType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="REGIONTYPE_DESTINATION" enum_value="2" />
+
+            <EnumItem name="REGIONTYPE_NONE" enum_value="0" />
+
+            <EnumItem name="REGIONTYPE_RESIDENTIAL" enum_value="1" />
+        </Class>
+
+        <Class name="Region">
+            <TunableList name="REGION_DESCRIPTION_TUNING_MAP" class="TunableMapping" display="Region Description Tuning Map" mapping_key="RegionDescription" mapping_value="Region" description="A mapping between Catalog region description and tuning instance. This way we can find out what region description the current zone belongs to at runtime then grab its tuning instance." group="General" mapping_class="RegionDescriptionMappingTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="region" name="Region" class="TunableReference" display="Region" description="Region Tuning instance. This is retrieved at runtime based on what the active zone's region description is." allow_none="False" group="General" pack_safe="True" />
+                    <Tunable type="regiondescription" name="RegionDescription" class="TunableReference" display="Regiondescription" description="Catalog-side Region Description." group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="CafeZoneDirector" module="venues.cafe_venue.cafe_zone_director" description="Zone Director for the Cafe." instance_needs_reference="True" instance_subclasses_only="False" parents="SchedulingZoneDirector, ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <Tunable type="situation" name="cafe_generic_arrival_situation" class="TunableReference" display="Cafe Generic Arrival Situation" description="The situation that is always runnning at the Cafe to make sure any Sims that show up beyond the schedule tuning will get coffee. These could be Sims the player invites, the player themselves, and clique Sims. Note, the situation that this points to will be a very generic situation that spins up a CafeGenericSimSituation for that individual Sim. This is so that Sims can get coffee on their own autonomy and be independent of one another." allow_none="False" group="General" restrict="CafeGenericBackgroundSituation" />
+    </Instance>
+</TuningRoot>

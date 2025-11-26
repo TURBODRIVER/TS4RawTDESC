@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="RemixTrackMixerInteraction" module="interactions.music_production_station_interactions" description="An Interaction that generates all Mixers for remixing a track at a music production station." instance_needs_reference="True" instance_subclasses_only="False" parents="MixerInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="remix_track_event" class="OptionalTunable" default="Run_Content_Immediately" display="Remix Track Event" description="If enabled, The script event to listen for from animation so we know when to mute/unmute a specific channel on the propx. If disabled, the interaction will mute/unmute channels immediately on run. " group="General">
+            <Tunable name="Run_Content_Immediately" class="TunableExistance" display="Run Content Immediately" />
+            <Tunable type="int" name="Set_Script_Event" class="Tunable" default="522" display="Set Script Event" description="The remix track event to listen for." tuning_state="NeedsTuning" group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

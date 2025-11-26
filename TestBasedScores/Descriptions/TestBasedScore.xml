@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="test_based_score" class="TestBasedScore" module="event_testing.test_based_score" description="A custom test that has a sequential list of tests that can provide some score when they succeed." instance_needs_reference="True" instance_subclasses_only="False" path="TestBasedScores\Descriptions" use_guid_for_reference="True">
+        <TunableList name="_batch_test_scores" class="TunableList" display="Batch Test Scores" description="A list of tuned tests that are able to return a numeric test result, we will add result values of all passed tests to the total score. Supported tests: Social Context, Relationship Test Based Score" group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableVariant type="None" name="test" class="TunableTestBasedScoreTestVariant" default="none" display="Test" description="If this test passes and returns a numeric test result, we will add its result value to the score." group="General">
+                    <Tunable name="none" class="TunableExistance" display="None" />
+                    <TunableTuple name="relationship_test_based_score" class="TunableRelationshipTestBasedScore" display="Relationship Test Based Score" description="A relationship test that returns a numeric result with the test based score." group="General">
+                        <TunableList name="subject" class="TunableEnumFlags" default="Actor" display="Subject" description="Owner(s) of the relationship. If there are multiple Subjects/Targets, the score is cumulative." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantTypeSingleSim" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantTypeSingleSim" group="General" />
+                        </TunableList>
+                        <TunableList name="target_sim" class="TunableEnumFlags" default="TargetSim" display="Target Sim" description="Target(s) of the relationship. If there are multiple Subjects/Targets, the score is cumulative." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantTypeSingleSim" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantTypeSingleSim" group="General" />
+                        </TunableList>
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                        <TunableList name="track_score_mappings" class="TunableList" display="Track Score Mappings" description="Mappings of relationship track scores to test based scores." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <TunableList name="score_mappings" class="TunableList" display="Score Mappings" group="General">
+                                    <TunableTuple class="TunableTuple" group="General">
+                                        <TunableTuple name="rel_score_interval" class="TunableInterval" display="Rel Score Interval" description="If the relationship score is within in this range, the test based score will be added to the total score. Min inclusive, max exclusive." group="General">
+                                            <Tunable type="float" name="lower_bound" class="TunableRange" default="-100.0" display="Lower Bound" min="-100.0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                            <Tunable type="float" name="upper_bound" class="TunableRange" default="100.0" display="Upper Bound" min="None" max="100.0" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                        </TunableTuple>
+                                        <Tunable type="float" name="test_based_score" class="Tunable" default="1" display="Test Based Score" tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                                <Tunable type="statistic" name="track" class="TunableReference" display="Track" description="The relationship track that we are getting rel score from." allow_none="False" group="General" pack_safe="True" restrict="RelationshipTrack" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="social_context" class="TunableSocialContextTest" display="Social Context" description="Test the Social Context of the specified participant." group="General">
+                        <TunableList name="context_score_mappings" class="TunableMapping" display="Context Score Mappings" mapping_key="key" mapping_value="value" description="A mapping of social contexts and their scores. If this is not empty, and all other tests passed, we will test if any context is in this mapping and include its score in a numeric test result. This won't affect True/False of the test result. " group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="relbit" name="key" class="TunableReference" display="Key" allow_none="False" group="General" pack_safe="True" />
+                                <Tunable type="float" name="value" class="Tunable" default="1" display="Value" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant against which to test social context." group="General" />
+                        <TunableList name="prohibited_set" class="TunableSet" display="Prohibited Set" description="A set of contexts that are prohibited. The test will fail if the participant's social context is one of these entries." group="General" unique_entries="true">
+                            <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableList name="required_set" class="TunableSet" display="Required Set" description="A set of contexts that are required. If any context is specified, the test will fail if the participant's social context is not one of these entries." group="General" unique_entries="true">
+                            <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableEnum type="ParticipantType" name="target_subject" class="TunableEnumEntry" default="TargetSim" display="Target Subject" static_entries="interactions.ParticipantType" description="The participant that must be included in participant's social group in order for this test to rely solely on the participant's current STC. If target_subject is not in any of participant's social groups, then the STC test will only consider the prevailing STC between participant and target_subject." group="General" />
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="_scores" class="TunableList" display="Scores" description="A list of tuned tests and accompanied scores. All successful tests add the scores to an effective score. The effective score is used by threshold tests." group="General">
+            <TunableTuple class="TunableTuple" description="A test and score." group="General">
+                <Tunable type="float" name="score" class="Tunable" default="1" display="Score" description="Score you get for passing the test." tuning_state="NeedsTuning" group="General" />
+                <TdescFragTag name="test" class="TunableTestVariantFrag" display="Test" description="Pass this test to get the accompanied score." group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+
+    
+</TuningRoot>

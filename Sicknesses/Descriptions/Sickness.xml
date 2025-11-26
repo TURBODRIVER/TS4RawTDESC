@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="sickness" class="Sickness" module="sickness.sickness" description="Sickness tunable resource." instance_subclasses_only="False" path="Sicknesses\Descriptions" use_guid_for_reference="True">
+        <TunableList name="associated_buffs" class="TunableSet" display="Associated Buffs" description="The associated buffs that will be added to the Sim when the sickness is applied, and removed when the sickness is removed." group="General" unique_entries="true">
+            <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="associated_statistics" class="TunableSet" display="Associated Statistics" description="The associated stats that will be added to the Sim when the sickness is applied, and removed when the sickness is removed. These are added at the statistic's default value." group="General" unique_entries="true">
+            <Tunable type="statistic" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="available_treatment_lists" class="TunableSet" display="Available Treatment Lists" description="Treatments that are available for this sickness." group="General" unique_entries="true">
+            <Tunable type="snippet" class="TunableReference" description="A reference to a AffordanceList tuning snippet." allow_none="False" group="General" restrict="AffordanceList" />
+        </TunableList>
+
+        <TunableList name="available_treatments" class="TunableSet" display="Available Treatments" description="Treatments that are available for this sickness." group="General" unique_entries="true">
+            <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="bool" name="considered_sick" class="Tunable" default="True" display="Considered Sick" description="Considered as sickness. Most sickness should have this tuned. Examinations, which are pseudo-sicknesses will have this tuned false. If this is checked, the sickness will pass is_sick tests." group="General" />
+
+        <TunableList name="correct_treatments" class="TunableSet" display="Correct Treatments" description="Treatments that can cure this sickness. These sicknesses will never be ruled out as exams are performed." group="General" unique_entries="true">
+            <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="statistic" name="diagnosis_stat" class="TunableReference" display="Diagnosis Stat" description="Statistic we are using to track diagnostic progress for this sickness. This is used for the threshold actions checks." allow_none="False" group="General" />
+
+        <Tunable type="float" name="difficulty_rating" class="TunableRange" default="5" display="Difficulty Rating" min="0" max="10" description="The difficulty rating for treating this sickness." tuning_state="NeedsTuning" group="UI" />
+
+        <Tunable type="int" name="display_name" class="TunableLocalizedString" default="0x0" display="Display Name" description="The sickness's display name. This string is provided with the owning Sim as its only token." group="UI" />
+
+        <Tunable type="bool" name="distribute_manually" class="Tunable" default="False" display="Distribute Manually" description="If checked, this is not distributed by the sickness service, and must be done by a game system or loot." group="General" />
+
+        <TunableList name="examination_loots" class="TunableMapping" display="Examination Loots" mapping_key="key" mapping_value="value" description="Mapping of examination result types to loots to apply as a result of the interaction." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="DiagnosticActionResultType" name="key" class="TunableEnumEntry" default="DEFAULT" display="Key" dynamic_entries="sickness-sickness_enums.DiagnosticActionResultType._elements" static_entries="sickness-sickness_enums.DiagnosticActionResultType" group="General" />
+                <TunableTuple name="value" class="Tunable_DiagnosticActionLoots" display="Value" description="Loots that will get awarded when a diagnostic interaction occurs." group="General">
+                    <TunableList name="default_loots" class="TunableSet" display="Default Loots" description="Default loots to apply." group="General" unique_entries="true">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="interaction_overrides" class="TunableMapping" display="Interaction Overrides" mapping_key="key" mapping_value="value" description="Overrides by specific interaction. This can be used to adjust loots depending on a treatment or examination as it applies to a sickness." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="interaction" name="key" class="TunableReference" display="Key" allow_none="False" group="General" pack_safe="True" />
+                            <TunableList name="value" class="TunableSet" display="Value" group="General" unique_entries="true">
+                                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TdescFragTag name="restrictions" class="TunableTestSet" display="Restrictions" description="Test set specifying whether or not this sickness can be applied. One set of tests must pass in order for the sickness to be valid. (This is an OR of ANDS.)" group="General" />
+
+        <TunableList name="sickness_tags" class="TunableTags" display="Sickness Tags" group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that help categorize this sickness." dynamic_entries_prefix="Sickness" group="General" invalid_entries="INVALID" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="symptoms" class="TunableSet" display="Symptoms" description="Symptoms associated with this sickness. When the sickness is applied to a Sim, all symptoms are applied." group="General" unique_entries="true">
+            <Tunable type="sickness" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Symptom" />
+        </TunableList>
+
+        <TunableList name="threshold_actions" class="TunableMapping" display="Threshold Actions" mapping_key="key" mapping_value="value" description="After passing specific values of the diagnosis stat, perform the appropriate actions." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="int" name="key" class="Tunable" default="None" display="Key" tuning_state="NeedsTuning" group="General" />
+                <TunableList name="value" class="TunableList" display="Value" description="List of actions to process when this threshold is reached or passed." group="General">
+                    <TunableVariant type="None" class="_DiagnosticThresholdActions" default="discover_symptom" group="General">
+                        <TunableTuple name="apply_loots" class="Tunable_ApplyLootThresholdAction" display="Apply Loots" description="This action applies a specific set of loots to the patient. This can be used in threshold actions so we can apply loots at specific thresholds. For the loots, the patient Sim will be TargetSim." group="General">
+                            <TunableList name="loots_to_apply" class="TunableSet" display="Loots To Apply" description="The loots to apply." group="General" unique_entries="true">
+                                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="discover_sickness" class="Tunable_DiscoverSicknessThresholdAction" display="Discover Sickness" description="This action discovers the sickness." group="General" />
+                        <TunableTuple name="discover_symptom" class="Tunable_DiscoverSymptomThresholdAction" display="Discover Symptom" description="This action discovers a specific symptom of this sickness." group="General">
+                            <Tunable type="sickness" name="symptom" class="TunableReference" display="Symptom" description="Symptom discovered by this threshold action." allow_none="False" group="General" pack_safe="True" restrict="Symptom" />
+                        </TunableTuple>
+                        <TunableTuple name="rule_out_treatment" class="Tunable_RuleOutTreatmentThresholdAction" display="Rule Out Treatment" description="This action rules out a treatment for this sickness. It will only rule out treatments that haven't been performed, ruled out, and will never rule out a treatment that can cure the sickness. If any tags are specified, it will only rule out treatments that contain any of the specified tags, otherwise it will rule out treatments based on the interaction category tags of the exam performed." group="General">
+                            <TunableVariant type="None" name="rule_out_reason" class="OptionalTunable" default="interaction_tags" display="Rule Out Reason" description="The reason based on which treatments are ruled out. By default, it will rule out treatments that contain any of the interaction category tags of the exam that was performed. This can be overridden to rule out treatments with specific tags." group="General">
+                                <Tunable name="interaction_tags" class="TunableExistance" display="Interaction Tags" />
+                                <TunableList name="specified_tags" class="TunableTags" display="Specified Tags" group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Only rule out treatments with one of the specified tags." group="General" invalid_entries="INVALID" pack_safe="True" />
+                                </TunableList>
+                            </TunableVariant>
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="bool" name="track_in_history" class="Tunable" default="True" display="Track In History" description="If checked, this is tracked in sickness history." group="General" />
+
+        <TunableList name="treatment_loots" class="TunableMapping" display="Treatment Loots" mapping_key="key" mapping_value="value" description="Mapping of treatment result types to loots to apply as a result of the interaction." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="DiagnosticActionResultType" name="key" class="TunableEnumEntry" default="DEFAULT" display="Key" dynamic_entries="sickness-sickness_enums.DiagnosticActionResultType._elements" static_entries="sickness-sickness_enums.DiagnosticActionResultType" group="General" />
+                <TunableTuple name="value" class="Tunable_DiagnosticActionLoots" display="Value" description="Loots that will get awarded when a diagnostic interaction occurs." group="General">
+                    <TunableList name="default_loots" class="TunableSet" display="Default Loots" description="Default loots to apply." group="General" unique_entries="true">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="interaction_overrides" class="TunableMapping" display="Interaction Overrides" mapping_key="key" mapping_value="value" description="Overrides by specific interaction. This can be used to adjust loots depending on a treatment or examination as it applies to a sickness." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="interaction" name="key" class="TunableReference" display="Key" allow_none="False" group="General" pack_safe="True" />
+                            <TunableList name="value" class="TunableSet" display="Value" group="General" unique_entries="true">
+                                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableTuple name="weight" class="TunableTestedSum" display="Weight" description="Weighted value of this sickness versus other valid sicknesses that are possible for the Sim to apply a sickness to. Tests, if defined here, may adjust the weight in addition to the tuned base value." group="General">
+            <Tunable type="float" name="base_value" class="Tunable" default="0" display="Base Value" description="The basic value to return if no modifiers are applied." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="modifiers" class="TunableList" display="Modifiers" description="A list of modifiers to add to Base Value." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="float" name="modifier" class="Tunable" default="0" display="Modifier" description="The value to apply add to Base Value if the associated tests pass. Can be negative" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="multiply_by_count" class="Tunable" default="False" display="Multiply By Count" description="If enabled, will multiply the final test result in tests by the numeric result of the test if the tests pass. This only applies for tests that return a count. If you aren't sure if your test returns a count, ask your GPE and they can tell you. Note: This only works on the last test in the test list. If you aren't sure if your tuning is correct, please try it out in game to verify that it behaves correctly." group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for the modifier to be applied." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

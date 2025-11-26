@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="careers.career_enums">
+        <Class name="CareerCategory" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AdultPartTime" enum_value="5" />
+
+            <EnumItem name="Invalid" enum_value="0" />
+
+            <EnumItem name="School" enum_value="2" />
+
+            <EnumItem name="TeenPartTime" enum_value="3" />
+
+            <EnumItem name="TeenSideHustle" enum_value="7" />
+
+            <EnumItem name="UniversityCourse" enum_value="6" />
+
+            <EnumItem name="Volunteer" enum_value="4" />
+
+            <EnumItem name="Work" enum_value="1" />
+
+            <EnumItem name="WorkFromHome" enum_value="8" />
+        </Class>
+
+        <Class name="CareerSelectorTypes" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACTIVE" enum_value="1" />
+
+            <EnumItem name="ADULT_PARTTIME" enum_value="4" />
+
+            <EnumItem name="ALL" enum_value="0" />
+
+            <EnumItem name="VOLUNTEER" enum_value="3" />
+
+            <EnumItem name="WORK" enum_value="2" />
+
+            <EnumItem name="WORK_FROM_HOME" enum_value="5" />
+        </Class>
+
+        <Class name="CareerPanelType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACTIVE_GIG_BASED_CAREER" enum_value="7" />
+
+            <EnumItem name="AGENT_BASED_CAREER" enum_value="1" />
+
+            <EnumItem name="FREELANCE_CAREER" enum_value="2" />
+
+            <EnumItem name="MISSIONS_CAREER" enum_value="5" />
+
+            <EnumItem name="NORMAL_CAREER" enum_value="0" />
+
+            <EnumItem name="ODD_JOB_CAREER" enum_value="3" />
+
+            <EnumItem name="PARANORMAL_INVESTIGATOR_CAREER" enum_value="6" />
+
+            <EnumItem name="QUEST_CAREER" enum_value="8" />
+
+            <EnumItem name="SMALL_BUSINESS_CAREER" enum_value="9" />
+
+            <EnumItem name="UNIVERSITY_COURSE" enum_value="4" />
+        </Class>
+
+        <Class name="GigResult" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CANCELED" enum_value="4" />
+
+            <EnumItem name="CRITICAL_FAILURE" enum_value="3" />
+
+            <EnumItem name="FAILURE" enum_value="2" />
+
+            <EnumItem name="GREAT_SUCCESS" enum_value="0" />
+
+            <EnumItem name="SUCCESS" enum_value="1" />
+        </Class>
+
+        <Class name="CareerOutfitGenerationType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CAREER_TUNING" enum_value="0" />
+
+            <EnumItem name="ZONE_DIRECTOR" enum_value="1" />
+        </Class>
+
+        <Class name="CareerShiftType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALL_DAY" enum_value="0" />
+
+            <EnumItem name="EVENING" enum_value="2" />
+
+            <EnumItem name="MORNING" enum_value="1" />
+        </Class>
+
+        <Class name="ReceiveDailyHomeworkHelp" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CHECKED_NO_HELP" enum_value="2" />
+
+            <EnumItem name="CHECKED_RECEIVE_HELP" enum_value="1" />
+
+            <EnumItem name="UNCHECKED" enum_value="0" />
+        </Class>
+
+        <Class name="CareerEventDeclineOptions" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CANCEL_CURRENT_GIG" enum_value="1" />
+
+            <EnumItem name="CAREER_RABBITHOLE" enum_value="0" />
+
+            <EnumItem name="DO_NOTHING" enum_value="3" />
+
+            <EnumItem name="WORK_ASSIGNMENTS" enum_value="2" />
+        </Class>
+
+        <Class name="DecoratorGigType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="LEVEL_ADDITION" enum_value="4" />
+
+            <EnumItem name="LEVEL_RENOVATION" enum_value="3" />
+
+            <EnumItem name="ROOM_ADDITION" enum_value="2" />
+
+            <EnumItem name="ROOM_RENOVATION" enum_value="1" />
+        </Class>
+
+        <Class name="DecoratorGigLotType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="COMMERCIAL" enum_value="2" />
+
+            <EnumItem name="RESIDENTIAL" enum_value="1" />
+        </Class>
+
+        <Class name="TestEventCareersOrigin" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CHANGE_CAREER_LEVEL_IN_TRACK" enum_value="4" />
+
+            <EnumItem name="DEATH" enum_value="9" />
+
+            <EnumItem name="FIRED" enum_value="7" />
+
+            <EnumItem name="INVALID_SIM_CAREER" enum_value="11" />
+
+            <EnumItem name="JOIN_CAREER" enum_value="1" />
+
+            <EnumItem name="LAY_OFF" enum_value="8" />
+
+            <EnumItem name="NEW_CAREER_TRACK" enum_value="3" />
+
+            <EnumItem name="PROMOTION" enum_value="5" />
+
+            <EnumItem name="QUIT_CAREER" enum_value="6" />
+
+            <EnumItem name="REMOVE_CAREER" enum_value="2" />
+
+            <EnumItem name="RETIRE_CAREER" enum_value="10" />
+
+            <EnumItem name="UNSPECIFIED" enum_value="0" />
+        </Class>
+
+        <Class name="GigScoringBucket" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

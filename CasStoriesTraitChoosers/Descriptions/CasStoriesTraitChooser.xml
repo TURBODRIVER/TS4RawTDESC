@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="cas_stories_trait_chooser" class="CasStoriesTraitChooser" module="cas.cas_stories_trait_chooser" description="A mapping which allows a single trait to be selected given a weighting value. Used by CAS Stories." instance_needs_reference="True" instance_subclasses_only="False" path="CasStoriesTraitChoosers\Descriptions" use_guid_for_reference="True">
+        <TunableList name="traits" class="TunableMapping" display="Traits" min="1" mapping_key="weighting_threshold" mapping_value="trait_to_assign" description="A mapping between the weighting value and the trait that will be assigned. The keys of this map are thresholds. Example: if the desired behavior would be to assign trait_a if the weighting w is between 0.0 and 1.0 and trait_b if w > 1.0, then this map should have two entries: (0.0, trait_a), (1.0, trait_b). The weighting of the lowest weighted trait should always be 0.0, and a weighting of 0.0 will always select the lowest trait by convention (although the thresholds are otherwise non-inclusive)." group="General" mapping_class="CasStoriesTraitChooserThresholds">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="trait" name="trait_to_assign" class="TunableReference" display="Trait To Assign" allow_none="False" group="General" restrict="Trait" />
+                <Tunable type="float" name="weighting_threshold" class="Tunable" default="None" display="Weighting Threshold" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

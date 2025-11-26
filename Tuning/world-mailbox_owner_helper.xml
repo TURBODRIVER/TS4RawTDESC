@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="world.mailbox_owner_helper">
+        <Class name="MailboxOwnerHelper">
+            <TunableList name="MAILBOX_TAGS" class="TunableSet" display="Mailbox Tags" description="Tags that considered mailboxes." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="func" group="General" />
+            </TunableList>
+
+            <TunableList name="OWNER_STATES" class="TunableList" display="Owner States" description="A list of items and states used for setting ownership states of plex mailboxes. This is contained within a list to protect against pack safe references." group="General">
+                <TunableTuple class="TunableTuple" description="A set of states that will be set depending on whether the active household is the owner of a mailbox or not." group="General">
+                    <Tunable type="object_state" name="active_state_value" class="TunableReference" display="Active State Value" description="State to use when owned by active household." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <Tunable type="object_state" name="default_state_value" class="TunableReference" display="Default State Value" description="Default state of mailbox, used if not owned by active household." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <TunableList name="definitions" class="TunableList" display="Definitions" description="Only items with the specified definition(s) will have their states updated." group="General">
+                        <Tunable type="object" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

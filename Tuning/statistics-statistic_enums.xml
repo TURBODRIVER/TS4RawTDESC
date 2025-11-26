@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="statistics.statistic_enums">
+        <Class name="PeriodicStatisticBehavior" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="APPLY_AT_INTERVAL_ONLY" enum_value="2" />
+
+            <EnumItem name="APPLY_AT_START_ONLY" enum_value="0" />
+
+            <EnumItem name="RETEST_ON_INTERVAL" enum_value="1" />
+        </Class>
+
+        <Class name="StatisticLockAction" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DO_NOT_CHANGE_VALUE" enum_value="0" />
+
+            <EnumItem name="USE_BEST_VALUE_TUNING" enum_value="3" />
+
+            <EnumItem name="USE_MAX_VALUE_TUNING" enum_value="2" />
+
+            <EnumItem name="USE_MIN_VALUE_TUNING" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

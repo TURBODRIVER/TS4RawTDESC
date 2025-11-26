@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="TraitTypePickerSuperInteraction" module="traits.trait_type_picker_interaction" description="An interaction that displays a picker of traits of a specific type. Any traits that are already equipped are displayed as selected in the picker. On accepting the picker, previously equipped traits that were unselected are removed from the Sim and newly selected traits are added." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="disabled_row_tooltip" class="OptionalTunable" default="disabled" display="Disabled Row Tooltip" description="If enabled, the tooltip to display if the row is disabled." group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+        </TunableVariant>
+
+        <TunableEnum type="TraitType" name="trait_type" class="TunableEnumEntry" default="PERSONALITY" display="Trait Type" static_entries="traits-trait_type.TraitType" description="The type of traits to display in this picker." group="Picker Tuning" />
+
+        <TunableEnum type="TraitsToShow" name="traits_to_show" class="TunableEnumEntry" default="ALL_TRAITS" display="Traits To Show" static_entries="traits-trait_type_picker_interaction.TraitsToShow" description="Which traits should be shown in the picker." group="Picker Tuning" />
+    </Instance>
+</TuningRoot>

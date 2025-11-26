@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="venues.venue_tuning">
+        <Class name="Venue">
+            <Tunable type="small_business_seed" name="DEFAULT_FALLBACK_SMALL_BUSINESS_SEED" class="TunableReference" display="Default Fallback Small Business Seed" description="The default pre-made small business that will be applied if venue tuning has no specific one and auto generate was checked in the venue purchase dialog.." allow_none="True" group="General" pack_safe="True" />
+
+            <TunableList name="NEW_VENUE_DIALOG_SPECIAL_CASES" class="TunableList" display="New Venue Dialog Special Cases" description="A list of venues that will always be eligible for the new venue dialog, even if they aren't compatible with the region, or displayed in the UI. Currently both of those things need to be true in order to see the New Venue Dialog for a venue. Additions to this list will show up without meeting those requirements. Example: High School isn't compatible with any regions and doesn't show up in the UI because we don't want players creating their own high school lots. You need to edit the existing high school lot instead. Adding the High School venue to this list will allow the New Venue Dialog to be displayed from any region." group="General">
+                <Tunable type="venue" class="TunableReference" description="A reference to the venue that you would like to be able to see the New Venue Dialog for from any region, regardless of visibility in the UI or compatability with the current region." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

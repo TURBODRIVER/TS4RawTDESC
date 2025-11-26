@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="relationships.relationship_tracker_tuning">
+        <Class name="DefaultGenealogyLink" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="FamilyMember" enum_value="1" />
+
+            <EnumItem name="Fiance" enum_value="3" />
+
+            <EnumItem name="Roommate" enum_value="0" />
+
+            <EnumItem name="Spouse" enum_value="2" />
+
+            <EnumItem name="Steady" enum_value="4" />
+        </Class>
+
+        <Class name="DefaultRelationshipInHousehold">
+            <TunableList name="RelationshipSetupMap" class="TunableMapping" display="Relationshipsetupmap" mapping_key="Family Link" mapping_value="Default Relationship Setup" description="A mapping of the possible genealogy links in a family to the default relationship values that we want to start our household members. " group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="Default Relationship Setup" class="TunableTestedList" display="Default Relationship Setup" description="A list of relationship actions to apply." group="General">
+                        <TunableTuple class="TunableTuple" description="An entry in this tested list." group="General">
+                            <TunableTuple name="item" class="TunableDefaultRelationship" display="Item" description="A tuning structure that represents a collection of default relationship settings that can be applied to sims in a household." group="General">
+                                <Tunable type="bool" name="_apply_in_both_directions" class="Tunable" default="False" display="Apply In Both Directions" description="If enabled, will apply these defaults to both sims in the relationship. Enable this if you have unidirectional bits or tracks that need to show up on both sims." group="General" />
+                                <TunableList name="_loots" class="TunableList" display="Loots" description="A list of loot actions that will be applied to the actor and target sim, after everything else is applied. If 'apply in both directions' is checked, all loots will be applied to actor, and then all loots will be applied to target." group="General">
+                                    <Tunable type="action" class="TunableReference" description="A loot to apply to the actor and target sim." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                                </TunableList>
+                                <TunableList name="random_relationship_bits" class="TunableList" display="Random Relationship Bits" description="A list of random relationship bits that can be applied." group="General">
+                                    <TunableList class="TunableList" description="A list of relationship bits and weights that that relationship bit can be chosen to add." group="General">
+                                        <TunableTuple class="TunableTuple" description="A number of weighted relationship bits that have a chance of being applied." group="General">
+                                            <Tunable type="relbit" name="bit" class="TunableReference" display="Bit" allow_none="False" group="General" pack_safe="True" restrict="RelationshipBit" />
+                                            <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A tunable list of tests and multipliers to apply to the weight of this relationship bit being applied." group="General">
+                                                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                                    <TunableTuple class="TunableTuple" group="General">
+                                                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                                    </TunableTuple>
+                                                </TunableList>
+                                            </TunableTuple>
+                                        </TunableTuple>
+                                    </TunableList>
+                                </TunableList>
+                                <TunableList name="relationship_bits" class="TunableSet" display="Relationship Bits" description="A set of untracked relationship bits that are applied to the relationship between the two sims. These are bits that are provided outside of the relationship_track being set. E.g. everyone in the household should have the Has Met bit and the spouse should have the First Kiss bit." group="General" unique_entries="true">
+                                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="RelationshipBit" />
+                                </TunableList>
+                                <TunableList name="relationship_tracks" class="TunableList" display="Relationship Tracks" description="A list of relationship track and value pairs. E.g. a spouse has Romantic relationship track value of 75." group="General">
+                                    <TunableTuple class="TunableTuple" group="General">
+                                        <Tunable type="statistic" name="track" class="TunableReference" display="Track" description="The relationship track that is added to the relationship between the two sims." allow_none="False" group="General" pack_safe="True" restrict="RelationshipTrack" />
+                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" description="The relationship track is set to this value." tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableTuple>
+                            <Tunable type="bool" name="stop_processing" class="Tunable" default="False" display="Stop Processing" description="If checked, no other element from this list is considered if this element passes its associated test." group="General" />
+                            <TdescFragTag name="test" class="TunableTestSet" display="Test" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableEnum type="DefaultGenealogyLink" name="Family Link" class="TunableEnumEntry" default="Roommate" display="Family Link" dynamic_entries="relationships-relationship_tracker_tuning.DefaultGenealogyLink._elements" static_entries="relationships-relationship_tracker_tuning.DefaultGenealogyLink" description="A genealogy link between the two Sims in the household." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SPECIES_TO_FAMILY_MEMBER_LINK" class="TunableList" display="Species To Family Member Link" description="Define what the 'family member' relationship, i.e. two Sims related by blood or marriage within the same household translates to. For instance, humans would use the regular 'FamilyMember' link, but dogs would use a dog specific link. It's assumed that the two sims involved are the same species." group="General">
+                <TunableTuple class="TunableTuple" description="An entry that defines the 'family member' mapping for two Sims." group="General">
+                    <TunableEnum type="DefaultGenealogyLink" name="genealogy_link" class="TunableEnumEntry" default="FamilyMember" display="Genealogy Link" dynamic_entries="relationships-relationship_tracker_tuning.DefaultGenealogyLink._elements" static_entries="relationships-relationship_tracker_tuning.DefaultGenealogyLink" description="The default genealogy link to create between two Sims of the specified species." group="General" />
+                    <TunableEnum type="Species" name="species" class="TunableEnumEntry" default="HUMAN" display="Species" static_entries="sims-sim_info_types.Species" description="The species of the family members." group="General" invalid_entries="INVALID" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SPECIES_TO_ROOMATE_LINK" class="TunableList" display="Species To Roomate Link" description="Define what the 'roommate' relationship, i.e. two Sims unrelated by blood or marriage within the same household translates to. For instance, two humans would use the regular 'Roommate' link, but a human and a dog would use an 'owner/pet' link." group="General">
+                <TunableTuple class="TunableTuple" description="An entry that defines the 'roommate' mapping for two Sims." group="General">
+                    <TunableEnum type="DefaultGenealogyLink" name="genealogy_link" class="TunableEnumEntry" default="Roommate" display="Genealogy Link" dynamic_entries="relationships-relationship_tracker_tuning.DefaultGenealogyLink._elements" static_entries="relationships-relationship_tracker_tuning.DefaultGenealogyLink" description="The default genealogy link to create between two Sims of the specified species." group="General" />
+                    <TunableEnum type="Species" name="species_actor" class="TunableEnumEntry" default="HUMAN" display="Species Actor" static_entries="sims-sim_info_types.Species" description="The species of the actor Sim, i.e. the Sim that is going to own any applied bits." group="General" invalid_entries="INVALID" />
+                    <TunableEnum type="Species" name="species_target" class="TunableEnumEntry" default="HUMAN" display="Species Target" static_entries="sims-sim_info_types.Species" description="The species of the target Sim, i.e. the Sim that is going to be the target of any bit applied to the actor." group="General" invalid_entries="INVALID" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

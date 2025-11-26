@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="services.object_routing_service">
+        <Class name="ObjectRoutingService">
+            <Tunable type="float" name="CACHE_INVALIDATION_TIME" class="TunableSimMinute" default="15" display="Cache Invalidation Time" min="1" max="None" description="The interval used to clear the cache The cache is used to store valid targets when calling ObjectRouteFromTargetObject _find_target by tuning object type (cleaner, fixer, gardening, party bots for example)" tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="OBJECT_ROUTING_HARD_CAP" class="Tunable" default="30" display="Object Routing Hard Cap" description="Hard cap defining how many objects can be routing simultaneously." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="OBJECT_ROUTING_SOFT_CAP_THRESHOLD" class="Tunable" default="5" display="Object Routing Soft Cap Threshold" description="Used to determine the SoftCap for how many objects can be routing simultaneously. SoftCap = SimCap - SimsInZone + OBJECT_ROUTING_SOFT_CAP_THRESHOLD. Only CRITICAL priority ObjectRoutingBehaviors can bypass this soft cap." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="PROMOTION_WAIT_DURATION" class="TunableSimMinute" default="5" display="Promotion Wait Duration" min="1" max="None" description="When an ObjectRoutingBehavior is blocked from routing due to being at the routing SoftCap, how many sim minutes to wait before promoting the behavior's priority." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="ROUTE_WAIT_DURATION" class="TunableSimMinute" default="1" display="Route Wait Duration" min="1" max="None" description="When an ObjectRoutingBehavior is blocked from routing due to being at the routing SoftCap, how many sim minutes to wait before trying again." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

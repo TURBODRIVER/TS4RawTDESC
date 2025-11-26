@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="ZoneDirectorResidentialSwitch" module="venues.zone_director_residential" description="A ZoneDirector class to tune on normal world residential lots that will determine which subclass of ZoneDirector needs to be instantiated." instance_needs_reference="True" instance_subclasses_only="False" parents="SchedulingZoneDirector, ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="apartment_npc" class="OptionalTunable" default="disabled" display="Apartment Npc" description="If enabled and the zone is an apartment, this zone director will be invoked if the active zone is owned by an NPC household." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="zone_director" name="enabled" class="TunableReference" display="Enabled" description="The residential ZoneDirector type for apartments owned by an NPC household." allow_none="False" group="General" pack_safe="True" restrict="ZoneDirectorBase" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="apartment_player" class="OptionalTunable" default="disabled" display="Apartment Player" description="If enabled and the zone is an apartment, this zone director will be invoked if the active zone is owned by the active household." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="zone_director" name="enabled" class="TunableReference" display="Enabled" description="The residential ZoneDirector type for apartments owned by the active household." allow_none="False" group="General" pack_safe="True" restrict="ZoneDirectorBase" />
+        </TunableVariant>
+
+        <Tunable type="zone_director" name="npc" class="TunableReference" display="Npc" description="The residential ZoneDirector type for lots owned by an NPC household." allow_none="False" group="General" restrict="ZoneDirectorBase" />
+
+        <TunableVariant type="None" name="penthouse_npc" class="OptionalTunable" default="disabled" display="Penthouse Npc" description="If enabled and the zone is a penthouse, this zone director will be invoked if the active zone is owned by an NPC household." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="zone_director" name="enabled" class="TunableReference" display="Enabled" description="The residential ZoneDirector type for penthouses owned by an NPC household." allow_none="False" group="General" pack_safe="True" restrict="ZoneDirectorBase" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="penthouse_player" class="OptionalTunable" default="disabled" display="Penthouse Player" description="If enabled and the zone is a penthouse, this zone director will be invoked if the active zone is owned by the active household." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="zone_director" name="enabled" class="TunableReference" display="Enabled" description="The residential ZoneDirector type for penthouses owned by the active household." allow_none="False" group="General" pack_safe="True" restrict="ZoneDirectorBase" />
+        </TunableVariant>
+
+        <Tunable type="zone_director" name="player" class="TunableReference" display="Player" description="The residential ZoneDirector type for lots owned by the active household." allow_none="False" group="General" restrict="ZoneDirectorBase" />
+    </Instance>
+</TuningRoot>

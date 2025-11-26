@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.spawner_component_enums">
+        <Class name="SpawnerType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="GROUND" enum_value="0" />
+
+            <EnumItem name="INTERACTION" enum_value="2" />
+
+            <EnumItem name="SLOT" enum_value="1" />
+        </Class>
+
+        <Class name="SpawnLocation" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="PORTAL" enum_value="1" />
+
+            <EnumItem name="SPAWNER" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

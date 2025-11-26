@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.lighting.lighting_interactions">
+        <Class name="LightColorTuning">
+            <TunableList name="LIGHT_COLOR_VARIATION_TUNING" class="TunableList" display="Light Color Variation Tuning" max="18" description="A list of all of the different colors you can set the lights to be." group="General">
+                <TunableTuple class="TunableLightTuple" group="General">
+                    <TunableTuple name="color" class="TunableColorRGBA" display="Color" description="Tunable RGBA values used to set the color of a light. Tuning the A value will not do anything as it is not used." group="General">
+                        <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of the color that appears when you mouse over it." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

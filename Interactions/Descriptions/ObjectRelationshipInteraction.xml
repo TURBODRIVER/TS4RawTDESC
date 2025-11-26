@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ObjectRelationshipInteraction" module="relationships.object_relationship_interactions" description="Interaction that lists all of the object relationship names (if set) for the available object relationship tracks, and pushes the associated interaction when the selected name is chosen." instance_needs_reference="True" instance_subclasses_only="False" parents="ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="custom_name_string_wrapper" class="OptionalTunable" default="disabled" display="Custom Name String Wrapper" description="If tuned, if the object relationship name has been set with the name component, then the display name of the interaction will be wrapped into this string. It should be written like this, with the object name token indexed at 0: 'Summon 0.String' " group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+        </TunableVariant>
+
+        <TunableList name="object_variant_mapping" class="TunableMapping" display="Object Variant Mapping" mapping_key="key" mapping_value="value" description="Map of the possible object relationship tracks, each representing an object, and the associated interaction that will be pushed when selected." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="statistic" name="key" class="TunableReference" display="Key" allow_none="False" group="General" pack_safe="True" restrict="ObjectRelationshipTrack" />
+                <Tunable type="interaction" name="value" class="TunableReference" display="Value" allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

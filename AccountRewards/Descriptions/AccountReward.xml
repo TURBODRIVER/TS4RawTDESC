@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="account_reward" class="AccountReward" module="account_rewards.account_reward_tuning" description="Tuning data for an account reward. Additionally includes data for the game items claimed via this reward." instance_needs_reference="True" instance_subclasses_only="False" path="AccountRewards\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="category" class="TunableLocalizedString" default="0x0" display="Category" description="Category associated with the reward item(s). e.g. Fridge, Hair, Table" group="UI" />
+
+        <Tunable type="ResourceKey" name="image" class="TunableResourceKey" default="None" display="Image" description="Reward preview image." group="UI" resource_types="0x2f7d0004" />
+
+        <TunableList name="items" class="TunableList" display="Items" description="List of items that are claimed via this reward." group="General">
+            <TunableVariant type="None" class="TunableVariant" default="build_buy_item" description="The type of AccountRewardItem." group="General">
+                <TunableTuple name="aspiration_track_item" class="Tunable_AspirationTrackAccountRewardItem" display="Aspiration Track Item" description="Aspiration Track reward item." group="General">
+                    <Tunable type="aspiration_track" name="item_resource" class="TunableReference" display="Item Resource" description="Reference aspiration track for this item." allow_none="False" group="General" />
+                </TunableTuple>
+                <TunableTuple name="build_buy_item" class="Tunable_BuildBuyAccountRewardItem" display="Build Buy Item" description="Build Buy reward item." group="General">
+                    <Tunable type="object" name="item_resource" class="TunableReference" display="Item Resource" description="Reference object definition for this item." allow_none="False" group="General" />
+                </TunableTuple>
+                <TunableTuple name="cas_item" class="Tunable_CASAccountRewardItem" display="Cas Item" description="Create-A-Sim reward item." group="General">
+                    <Tunable type="caspart" name="item_resource" class="TunableReference" display="Item Resource" description="CAS Part resource for this item." group="General" />
+                </TunableTuple>
+                <TunableTuple name="catalog_product_floor_pattern_item" class="Tunable_CatalogProductFloorPatternAccountRewardItem" display="Catalog Product Floor Pattern Item" description="Floor Pattern catalog product item." group="General">
+                    <Tunable type="floorpattern" name="item_resource" class="TunableReference" display="Item Resource" description="Floor Pattern resource for this item." group="General" />
+                </TunableTuple>
+                <TunableTuple name="catalog_product_wall_pattern_item" class="Tunable_CatalogProductWallPatternAccountRewardItem" display="Catalog Product Wall Pattern Item" description="Wall Pattern catalog product item." group="General">
+                    <Tunable type="wallpattern" name="item_resource" class="TunableReference" display="Item Resource" description="Wall Pattern resource for this item." group="General" />
+                </TunableTuple>
+                <TunableTuple name="consumable_item" class="Tunable_ConsumableAccountRewardItem" display="Consumable Item" description="Consumable reward item." group="General">
+                    <Tunable type="action" name="item_resource" class="TunableReference" display="Item Resource" description="Reference consumable for this item." allow_none="False" group="General" />
+                </TunableTuple>
+                <TunableTuple name="lot_trait_item" class="Tunable_LotTraitAccountRewardItem" display="Lot Trait Item" description="Lot Trait reward item." group="General">
+                    <Tunable type="zone_modifier" name="item_resource" class="TunableReference" display="Item Resource" description="Reference lot trait for this item." allow_none="False" group="General" />
+                </TunableTuple>
+                <TunableTuple name="radio_song_item" class="Tunable_RadioSongAccountRewardItem" display="Radio Song Item" description="Radio Song reward item." group="General">
+                    <Tunable type="str" name="item_resource" class="TunableStringHash64" default="" display="Item Resource" description="Song ID for this item." binary_type="hashcode64" group="General" />
+                </TunableTuple>
+                <TunableTuple name="radio_station_item" class="Tunable_RadioStationAccountRewardItem" display="Radio Station Item" description="Radio Station reward item." group="General">
+                    <Tunable type="str" name="genre_id" class="TunableStringHash64" default="" display="Genre Id" description="Reference to Genre Identifier string used to identify a radio station. This needs to correspond to the 'Genre' identifier used MusicData.trax data file. Since there are multiple Stereo Channels per Genre, this only needs to be set in once place." allow_none="True" binary_type="hashcode64" group="General" />
+                    <Tunable type="object_state" name="item_resource" class="TunableReference" display="Item Resource" description="Reference to a Radio Station object state value for this item." allow_none="False" group="General" restrict="AudioChannel" />
+                </TunableTuple>
+                <TunableTuple name="recipe_item" class="Tunable_RecipeAccountRewardItem" display="Recipe Item" description="Recipe reward item." group="General">
+                    <Tunable type="recipe" name="item_resource" class="TunableReference" display="Item Resource" description="Reference recipe for this item." allow_none="False" group="General" />
+                </TunableTuple>
+                <TunableTuple name="trait_item" class="Tunable_TraitAccountRewardItem" display="Trait Item" description="Trait reward item." group="General">
+                    <Tunable type="trait" name="item_resource" class="TunableReference" display="Item Resource" description="Reference trait for this item." allow_none="False" group="General" />
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <Tunable type="int" name="location_tip" class="TunableLocalizedString" default="0x0" display="Location Tip" description="Where you can find the reward item(s) in game. e.g. CAS Summer Outfits, BB under Tables" group="UI" />
+
+        <Tunable type="int" name="reward_description" class="TunableLocalizedString" default="0x0" display="Reward Description" description="Reward description." group="UI" />
+
+        <Tunable type="int" name="reward_name" class="TunableLocalizedString" default="0x0" display="Reward Name" description="Reward name." group="UI" />
+
+        <Tunable type="ResourceKey" name="reward_thumbnail_image" class="TunableResourceKey" default="None" display="Reward Thumbnail Image" description="Image to show in the thumbnail on the FSI." group="UI" resource_types="0x2f7d0004" />
+
+        <TunableVariant type="None" name="reward_timeline_image" class="TunableVariant" default="none" display="Reward Timeline Image" description="Image to show in the cell on the Timeline (progression)." group="UI">
+            <Tunable type="ResourceKey" name="large_image" class="TunableResourceKey" default="None" display="Large Image" description="Large image variant." group="General" resource_types="0x2f7d0004" />
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <Tunable type="ResourceKey" name="small_image" class="TunableResourceKey" default="None" display="Small Image" description="Small image variant." group="General" resource_types="0x2f7d0004" />
+        </TunableVariant>
+
+        <Tunable type="ResourceKey" name="small_image" class="TunableResourceKey" default="None" display="Small Image" description="Image to show in the cell on the Timeline (progression)." Deprecated="True" group="UI" resource_types="0x2f7d0004" />
+    </Instance>
+
+    
+</TuningRoot>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="ui.ui_dialog_picker">
+        <Class name="UiObjectPicker">
+            <Class name="UiObjectPickerObjectPickerType" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="INTERACTION" enum_value="2" />
+
+                <EnumItem name="LARGE_TEXT_FLAIR" enum_value="17" />
+
+                <EnumItem name="OBJECT" enum_value="4" />
+
+                <EnumItem name="OBJECT_CAS_ICON" enum_value="26" />
+
+                <EnumItem name="OBJECT_EXPANDED_INFO" enum_value="25" />
+
+                <EnumItem name="OBJECT_LARGE" enum_value="12" />
+
+                <EnumItem name="OBJECT_SQUARE" enum_value="14" />
+
+                <EnumItem name="OBJECT_TEXT" enum_value="21" />
+
+                <EnumItem name="OBJECT_TEXT_ADD" enum_value="22" />
+
+                <EnumItem name="PHOTO" enum_value="20" />
+
+                <EnumItem name="PIE_MENU" enum_value="5" />
+
+                <EnumItem name="RELATIONSHIP" enum_value="24" />
+            </Class>
+        </Class>
+
+        <Class name="ObjectPickerTuningFlags" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ALL" enum_value="67371007" />
+
+            <EnumItem name="APARTMENT" enum_value="1024" />
+
+            <EnumItem name="CAREER" enum_value="32" />
+
+            <EnumItem name="DROPDOWN" enum_value="4096" />
+
+            <EnumItem name="FAMILY_RECIPE" enum_value="131072" />
+
+            <EnumItem name="FASHION_PURCHASE" enum_value="16384" />
+
+            <EnumItem name="INTERACTION" enum_value="2" />
+
+            <EnumItem name="ITEM" enum_value="2048" />
+
+            <EnumItem name="JEWELRY" enum_value="65536" />
+
+            <EnumItem name="LOT" enum_value="256" />
+
+            <EnumItem name="MAP_VIEW" enum_value="512" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="OBJECT" enum_value="8" />
+
+            <EnumItem name="OBJECT_CAS_ICON" enum_value="67108864" />
+
+            <EnumItem name="OUTFIT" enum_value="64" />
+
+            <EnumItem name="PIE_MENU" enum_value="16" />
+
+            <EnumItem name="PURCHASE" enum_value="128" />
+
+            <EnumItem name="RECIPE" enum_value="1" />
+
+            <EnumItem name="SELL" enum_value="8192" />
+
+            <EnumItem name="SIM" enum_value="4" />
+
+            <EnumItem name="SKILLS_SIM" enum_value="32768" />
+        </Class>
+
+        <Class name="ControlIdType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="SELECTION_SEQUENCE" enum_value="1" />
+
+            <EnumItem name="UNUSED" enum_value="0" />
+        </Class>
+
+        <Class name="SimPickerCellType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ADOPTION" enum_value="2" />
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="HOUSEHOLD" enum_value="6" />
+
+            <EnumItem name="SELL_SIM" enum_value="4" />
+
+            <EnumItem name="SIM_REL_SKILLS" enum_value="7" />
+
+            <EnumItem name="SIM_SKILLS" enum_value="5" />
+
+            <EnumItem name="SITUATION" enum_value="1" />
+
+            <EnumItem name="SOCIAL_MEDIA" enum_value="3" />
+        </Class>
+
+        <Class name="RowMapType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ICON" enum_value="1" />
+
+            <EnumItem name="INGREDIENTS" enum_value="4" />
+
+            <EnumItem name="LOCKED_IN_CAS" enum_value="5" />
+
+            <EnumItem name="NAME" enum_value="0" />
+
+            <EnumItem name="PRICE" enum_value="3" />
+
+            <EnumItem name="SKILL_LEVEL" enum_value="2" />
+        </Class>
+
+        <Class name="ObjectPickerStyle" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="DELETE" enum_value="2" />
+
+            <EnumItem name="NUMBERED" enum_value="1" />
+        </Class>
+
+        <Class name="UiDialogObjectPicker">
+            <Class name="DialogDescriptionDisplay" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="DEFAULT" enum_value="0" />
+
+                <EnumItem name="FULL_DESCRIPTION" enum_value="2" />
+
+                <EnumItem name="NO_DESCRIPTION" enum_value="1" />
+
+                <EnumItem name="SINGLE_LINE_DESCRIPTION" enum_value="3" />
+            </Class>
+        </Class>
+
+        <Class name="PickerColumn">
+            <Class name="ColumnType" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="ICON" enum_value="2" />
+
+                <EnumItem name="ICON_AND_TEXT" enum_value="3" />
+
+                <EnumItem name="INGREDIENT_LIST" enum_value="4" />
+
+                <EnumItem name="TEXT" enum_value="1" />
+            </Class>
+        </Class>
+
+        <Class name="UiOddJobPicker">
+            <Class name="UiOddJobPickerType" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="MISSIONS" enum_value="16" />
+
+                <EnumItem name="ODD_JOBS" enum_value="15" />
+
+                <EnumItem name="QUESTS" enum_value="19" />
+            </Class>
+        </Class>
+
+        <Class name="UiOutfitPicker">
+            <Class name="_OutftiPickerThumbnailType" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="MANNEQUIN" enum_value="2" />
+
+                <EnumItem name="SIM_INFO" enum_value="1" />
+            </Class>
+        </Class>
+
+        <Class name="UiMapViewPicker">
+            <Class name="MapViewMode" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="CHANGE_VENUE" enum_value="3" />
+
+                <EnumItem name="PURCHASE" enum_value="2" />
+
+                <EnumItem name="TRAVEL" enum_value="0" />
+
+                <EnumItem name="VACATION" enum_value="1" />
+            </Class>
+        </Class>
+
+        <Class name="UiDropdownPicker">
+            <Class name="DropdownOptions" enum_bit_flag="True" enum_locked="False">
+                <EnumItem name="HIDE_ICON_UNLESS_SELECTED" enum_value="1" />
+
+                <EnumItem name="NONE" enum_value="0" />
+            </Class>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

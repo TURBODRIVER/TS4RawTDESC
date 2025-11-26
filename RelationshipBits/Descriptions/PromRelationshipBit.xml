@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="relbit" class="PromRelationshipBit" module="services.prom_service" description="A relationship bit that helps determine if a sim is attending prom with another sim or not." instance_needs_reference="True" instance_subclasses_only="False" parents="RelationshipBit" path="RelationshipBits\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="PromRelationshipBitType" name="bit_type" class="TunableEnumEntry" default="INVITED" display="Bit Type" static_entries="services-prom_service.PromRelationshipBitType" description="The type of prom rel bit. This will determine the effects that will be applied to the sim when the prom situatioin starts." group="General" />
+    </Instance>
+</TuningRoot>

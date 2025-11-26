@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="career" class="UniversityCourseCareerSlot" module="sims.university.university_career_tuning" description="University Course 'Career' analog" instance_subclasses_only="False" parents="Career" path="Careers\Descriptions" use_guid_for_reference="True">
+        <Deleted name="active_career_type" />
+
+        <Deleted name="available_for_club_criteria" />
+
+        <Deleted name="can_be_fired" />
+
+        <Deleted name="career_availablity_tests" />
+
+        <Deleted name="career_story_progression" />
+
+        <Tunable type="action" name="caught_cheating_loot" class="TunableReference" display="Caught Cheating Loot" description="Loot action applied on a sim who has been caught cheating on homework. It is applied at the time that homework is processed." allow_none="False" group="General" />
+
+        <Deleted name="days_to_level_loss" />
+
+        <Deleted name="demotion_buff" />
+
+        <Deleted name="demotion_chance_modifiers" />
+
+        <Deleted name="disable_pto" />
+
+        <Deleted name="early_promotion_chance" />
+
+        <Deleted name="early_promotion_modifiers" />
+
+        <Tunable type="action" name="end_of_course_loot" class="TunableReference" display="End Of Course Loot" description="Loot action applied on a sim when all work has been completed for a course. " allow_none="False" group="General" />
+
+        <Deleted name="fired_buff" />
+
+        <Deleted name="initial_pto" />
+
+        <Deleted name="levels_lost_on_leave" />
+
+        <TunableVariant type="None" name="prelecture_affordance" class="OptionalTunable" default="disabled" display="Prelecture Affordance" description="The affordance that is pushed onto the Sim prior to going to class." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="interaction" name="enabled" class="TunableReference" display="Enabled" description="The affordance that is pushed onto the Sim prior to going to class." allow_none="False" group="General" />
+        </TunableVariant>
+
+        <Deleted name="promotion_buff" />
+
+        <Deleted name="quittable_data" />
+
+        <Deleted name="show_career_in_join_career_picker" />
+
+        <Deleted name="start_level_modifiers" />
+
+        <Tunable type="action" name="successful_cheating_loot" class="TunableReference" display="Successful Cheating Loot" description="Loot action applied on a sim who has cheated on homework but was not caught. It is applied at the time that homework is processed." allow_none="False" group="General" />
+
+        <TunableVariant type="None" name="work_early_affordance" class="OptionalTunable" default="disabled" display="Work Early Affordance" description="The affordance that is pushed onto the Sim when the user clicks the go to work button between start of work and early warning." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="interaction" name="enabled" class="TunableReference" display="Enabled" description="The affordance that is pushed onto the Sim when the user clicks the go to work button between start of work and early warning." allow_none="False" group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

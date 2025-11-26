@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ReincarnationTraitPickerSuperInteraction" module="traits.trait_tracker" instance_needs_reference="True" instance_subclasses_only="False" parents="TraitPickerSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Deleted name="already_equipped_tooltip" />
+
+        <Tunable type="int" name="conflict_trait_tooltip" class="TunableLocalizedString" default="0x0" display="Conflict Trait Tooltip" description="Tooltip to display if the trait is conflict with any other trait that is already equipped on sim." group="Picker Tuning" />
+
+        <Tunable type="int" name="existing_trait_tooltip" class="TunableLocalizedString" default="0x0" display="Existing Trait Tooltip" description="Tooltip to display if the trait is already exist on sim. " group="Picker Tuning" />
+
+        <Tunable type="int" name="invalid_trait_tooltip" class="TunableLocalizedString" default="0x0" display="Invalid Trait Tooltip" description="Tooltip to display if the trait is conflict with sim's age or gender." group="Picker Tuning" />
+
+        <Deleted name="is_add" />
+    </Instance>
+
+    
+</TuningRoot>

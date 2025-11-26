@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="LifestyleBrandTargetMarketPicker" module="interactions.picker.lifestyle_brand_picker_interactions" description="A picker interaction that builds a list of target markets that a Sim can choose from in the lifestyle brand settings." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="target_markets" class="TunableList" display="Target Markets" description="A list of all the tuning needed for the different target markets for the lifestyle brand Perk" group="Picker Tuning">
+            <TunableTuple class="TunableTuple" description="A Target Market consists of a type, name, and icon to be displayed." group="General">
+                <TunableTuple name="icon" class="TunableIconFactory" display="Icon" description="The icon image to be displayed." group="General">
+                    <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                </TunableTuple>
+                <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of the target market that is displayed in the picker." group="General" />
+                <TunableEnum type="LifestyleBrandTargetMarket" name="target_type" class="TunableEnumEntry" default="INVALID" display="Target Type" dynamic_entries="fame-fame_tuning.LifestyleBrandTargetMarket._elements" static_entries="fame-fame_tuning.LifestyleBrandTargetMarket" description="The type of target market this is associated with." group="General" invalid_entries="INVALID" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

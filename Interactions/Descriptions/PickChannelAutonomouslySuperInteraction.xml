@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="PickChannelAutonomouslySuperInteraction" module="objects.electronics.pick_channel" description="Interaction for a Sim to autonomously pick a channel to watch." instance_needs_reference="True" instance_subclasses_only="False" parents="AutonomousPickerSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="push_additional_affordances" class="Tunable" default="True" display="Push Additional Affordances" description="Whether to push affordances specified by the channel. This is used for stereo's turn on and listen to... interaction." group="General" />
+
+        <Tunable type="object_state" name="state" class="TunableReference" display="State" description="The state used in the interaction." allow_none="False" group="General" restrict="ObjectState" />
+    </Instance>
+</TuningRoot>

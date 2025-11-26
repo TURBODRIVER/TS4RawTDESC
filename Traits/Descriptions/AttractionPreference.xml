@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="trait" class="AttractionPreference" module="traits.attraction_preference" description="Attraction Preferences are traits that represent a sim's preferences which influence attraction towards other sims." instance_subclasses_only="False" parents="Preference, BasePreference, Trait" path="Traits\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="attraction_modifier" class="TunableTestedSum" display="Attraction Modifier" description="A tested sum that will be applied towards the actor sim's attraction towards the target sim." group="General">
+            <Tunable type="float" name="base_value" class="Tunable" default="0" display="Base Value" description="The basic value to return if no modifiers are applied." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="modifiers" class="TunableList" display="Modifiers" description="A list of modifiers to add to Base Value." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="float" name="modifier" class="Tunable" default="0" display="Modifier" description="The value to apply add to Base Value if the associated tests pass. Can be negative" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="multiply_by_count" class="Tunable" default="False" display="Multiply By Count" description="If enabled, will multiply the final test result in tests by the numeric result of the test if the tests pass. This only applies for tests that return a count. If you aren't sure if your test returns a count, ask your GPE and they can tell you. Note: This only works on the last test in the test list. If you aren't sure if your tuning is correct, please try it out in game to verify that it behaves correctly." group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for the modifier to be applied." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

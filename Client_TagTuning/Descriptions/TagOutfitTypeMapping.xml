@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tagtuning" class="TagOutfitTypeMapping" module="tagtuning.TagOutfitTypeMapping" description="Mapping between outfit types and outfit appropriateness tags." path="Client_TagTuning\Descriptions">
+        <TunableList name="OutfitTypes" class="TunableList" display="OutfitTypes" description="List of outfit type mappings.">
+            <TunableTuple name="OutfitTypeToTag" class="TagOutfitTypeMapping.OutfitTypeToTag" description="Mapping from outfit type to the corresponding outfit appropriateness tag.">
+                <TunableEnum type="OutfitType" name="OutfitType" class="TunableEnumEntry" default="EVERYDAY" display="OutfitType" static_entries="sims-outfits-outfit_enums.OutfitCategory" description="The outfit type to be mapped." />
+                <TunableEnum type="Tag" name="Tag" class="TunableEnumEntry" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Outfit appropriateness tag for this outfit type." />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

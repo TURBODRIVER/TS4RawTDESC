@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="venues.venue_object_test">
+        <Class name="VenueObjectTestTag" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="VenueObjectTestType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="INVALID" enum_value="0" />
+
+            <EnumItem name="OBJECT" enum_value="1" />
+
+            <EnumItem name="POOL" enum_value="2" />
+
+            <EnumItem name="TILE" enum_value="3" />
+        </Class>
+
+        <Class name="VenueObjectFlag" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="NO_FLAG" enum_value="0" />
+
+            <EnumItem name="SMALL_BUSINESS" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

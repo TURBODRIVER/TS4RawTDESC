@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CraftingPhaseServeObjectSuperInteraction" module="crafting.serving_interactions" description="A Super Interaction to serve an object. This interaction assumes the final product has already been created at this point in the crafting process." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Deleted name="allow_autonomous" />
+
+        <Deleted name="allow_user_directed" />
+
+        <Tunable type="recipe" name="crafting_type_requirement" class="TunableReference" display="Crafting Type Requirement" description="This specifies the crafting object type that is required for this interaction to work.This allows the crafting system to know what type of object the SI was expecting when it can't find that SI." allow_none="True" group="General" restrict="CraftingObjectType" />
+
+        <Tunable type="bool" name="destroy_ico_object_if_reset" class="Tunable" default="False" display="Destroy Ico Object If Reset" description="If this is enabled and the sim is reset while they are performing this interaction, we will destroy the ico object and end the crafting process. We should use this in cases where the ICO object cannot be safely reset. This will also refund the household." group="General" />
+
+        <Deleted name="display_name" />
+
+        <Deleted name="display_name_overrides" />
+
+        <Tunable type="bool" name="force_final_product" class="Tunable" default="False" display="Force Final Product" description="Whether or not to force the final product to set as a result of this interaction completing. Normally this is governed by the phase when a crafting process is transferred to an ICO or creation of the final product. Set this to true in cases where this doesn't make sense. e.g. Crafting on a cauldron places the process early on the cauldron which starts out as an ICO, but at the completion of the last crafting SI, the cauldron itself 'becomes' a the final product." group="General" />
+
+        <Tunable type="bool" name="stop_other_sims_crafting" class="Tunable" default="False" display="Stop Other Sims Crafting" description="If this crafting interaction is being run as part of group crafting then we will inform the situation that we would like the helping crafters to stop. Example: When the sim transitions off the counter to putting the items in the stove the other sims helping craft should no longer be running interactions on the counters chopping food." group="General" />
+    </Instance>
+</TuningRoot>

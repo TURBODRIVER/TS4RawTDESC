@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="casmodifiertuning" class="Client_CASModifierPartGenderDmaps" module="casmodifiertuning.Client_CASModifierPartGenderDmaps" description="Defines special d-maps that should be applied to sims only when the sim has CasParts of a specific gender applied" group="Mapped Modifiers" path="Client_CASModifierTuning\Descriptions">
+        <Tunable type="bool" name="ActiveIfSimDoesntHaveBreasts" class="Tunable" default="true" description="Defines whether this tuning is applied for sims that don't have breasts" group="General" />
+
+        <Tunable type="bool" name="ActiveIfSimHasBreasts" class="Tunable" default="true" description="Defines whether this tuning is applied for sims that have breasts" group="General" />
+
+        <TunableEnum type="Age" name="Age" class="TunableEnumEntry" default="None" display="Age" static_entries="sims-sim_info_types.Age" description="Age this applies to." group="General" />
+
+        <Tunable type="int" name="ConditionalCasPartBodyType" class="Tunable" default="0" display="Body Type" description="This tuning applies only to sims wearing a CASPart of this BodyType and Gender" group="Conditional CASPart" />
+
+        <TunableEnum type="Gender" name="ConditionalCasPartGender" class="TunableEnumEntry" default="None" display="Part's Gender" static_entries="sims-sim_info_types.Gender" description="This tuning applies only to sims wearing a CASPart of this BodyType and Gender" group="Conditional CASPart" />
+
+        <Tunable type="str" name="FallbackDmapName" class="Tunable" default="dmap_name" display="DmapName" description="Dmap name. If specified, this dmap will be applied if none of the modifiers in the list above are present on the sim" binary_type="HashCode64" group="Dmap Applied If No Mapped Modifiers Present On Sim" />
+
+        <Tunable type="float" name="FallbackDmapValue" class="Tunable" default="0.0" display="Value" description="The value at which the fallback dmap will be applied, if there is a fallback dmap specified. Use 0 if no fallback dmap" group="Dmap Applied If No Mapped Modifiers Present On Sim" />
+
+        <TunableEnum type="Gender" name="Gender" class="TunableEnumEntry" default="None" display="Gender" static_entries="sims-sim_info_types.Gender" description="Gender this applies to." group="General" />
+
+        <TunableList name="ModifierDmapConversionList" class="TunableList" display="Dmap Conversions" description="Modifier To Dmap Conversion Data">
+            <TunableTuple name="ModifierPartGenderDmap" class="Client_CASModifierPartGenderDmaps.ModifierPartGenderDmap" description="Modifier To Dmap Conversion Data">
+                <Tunable type="str" name="DmapName" class="Tunable" default="dmap_name" description="Dmap name" binary_type="HashCode64" />
+                <Tunable type="float" name="MaxValueMapping" class="Tunable" default="1.0" description="When the modifier specified is present at 1, the dmap specified will be applied at this value" />
+                <Tunable type="float" name="MinValueMapping" class="Tunable" default="0.0" description="When the modifier specified is present at near 0, the dmap specified will be applied at this value" />
+                <Tunable type="str" name="Modifier" class="Tunable" default="modifier_name" description="Modifier name." binary_type="HashCode64" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableEnum type="OccultType" name="OccultType" class="TunableEnumEntry" default="HUMAN" display="Occult Type" static_entries="sims-occult-occult_enums.OccultType" description="The occult type this tuning is specific to." group="General" />
+    </Instance>
+</TuningRoot>

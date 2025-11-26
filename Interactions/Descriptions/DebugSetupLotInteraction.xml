@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="DebugSetupLotInteraction" module="objects.terrain" description="Debug interaction on the ground to create a defined set of objects for smoke testing." instance_needs_reference="True" instance_subclasses_only="False" parents="TerrainImmediateSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="setup_lot_destroy_old_objects" class="Tunable" default="False" display="Setup Lot Destroy Old Objects" description="Destroy objects previously created by this interaction." group="General" />
+
+        <TunableList name="setup_lot_objects" class="TunableList" display="Setup Lot Objects" group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="int" name="angle" class="TunableRange" default="0" display="Angle" min="-360" max="360" tuning_state="NeedsTuning" group="General" />
+                <TunableList name="children" class="TunableList" display="Children" group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableVariant type="None" name="bone_name" class="OptionalTunable" default="disabled" display="Bone Name" description="If specified, restrict slot selection to one with this exact bone name." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="str" name="enabled" class="Tunable" default="_ctnm_chr_" display="Enabled" description="If specified, restrict slot selection to one with this exact bone name." group="General" />
+                        </TunableVariant>
+                        <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The child object to create. It will appear in the first available slot in which it fits, subject to additional restrictions specified in the other values of this tuning." allow_none="False" group="General" />
+                        <TunableList name="init_state_values" class="TunableList" display="Init State Values" description="List of states the children object will be set to." group="General">
+                            <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" restrict="ObjectStateValue" />
+                        </TunableList>
+                        <TunableVariant type="None" name="part_index" class="OptionalTunable" default="disabled" display="Part Index" description="If specified, restrict slot selection to the given part index." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="Tunable" default="0" display="Enabled" description="If specified, restrict slot selection to the given part index." tuning_state="NeedsTuning" group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="slot_type" class="OptionalTunable" default="disabled" display="Slot Type" description="If specified, restrict slot selection to ones that support this type of slot." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="slot_type" name="enabled" class="TunableReference" display="Enabled" description="If specified, restrict slot selection to ones that support this type of slot." allow_none="False" group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
+                <TunableList name="init_state_values" class="TunableList" display="Init State Values" description="List of states the created object will be pushed to." group="General">
+                    <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" restrict="ObjectStateValue" />
+                </TunableList>
+                <TunableTuple name="position" class="TunableVector2" display="Position" group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

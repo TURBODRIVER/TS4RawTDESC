@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="drama_scheduler.drama_enums">
+        <Class name="DramaNodeUiDisplayType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALERTS_ONLY" enum_value="4" />
+
+            <EnumItem name="EVENT" enum_value="1" />
+
+            <EnumItem name="FESTIVAL" enum_value="6" />
+
+            <EnumItem name="FUNERAL" enum_value="10" />
+
+            <EnumItem name="HOLIDAY" enum_value="3" />
+
+            <EnumItem name="NO_UI" enum_value="0" />
+
+            <EnumItem name="POP_UP_HOLIDAY" enum_value="2" />
+
+            <EnumItem name="STAYOVER" enum_value="9" />
+
+            <EnumItem name="VACATION" enum_value="5" />
+
+            <EnumItem name="WEDDING" enum_value="7" />
+
+            <EnumItem name="WORK_EVENT" enum_value="8" />
+        </Class>
+
+        <Class name="DramaNodeScoringBucket" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+        </Class>
+
+        <Class name="WeeklySchedulingGroup" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+        </Class>
+
+        <Class name="DramaNodeParticipantOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DRAMA_PARTICIPANT_OPTION_FILTER" enum_value="2" />
+
+            <EnumItem name="DRAMA_PARTICIPANT_OPTION_MATCHING_FILTER" enum_value="3" />
+
+            <EnumItem name="DRAMA_PARTICIPANT_OPTION_NONE" enum_value="0" />
+
+            <EnumItem name="DRAMA_PARTICIPANT_OPTION_PARTICIPANT_TYPE" enum_value="1" />
+        </Class>
+
+        <Class name="TimeSelectionOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="SCHEDULE" enum_value="0" />
+
+            <EnumItem name="SINGLE_TIME" enum_value="1" />
+        </Class>
+
+        <Class name="CooldownOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ON_DIALOG_RESPONSE" enum_value="1" />
+
+            <EnumItem name="ON_RUN" enum_value="0" />
+
+            <EnumItem name="ON_SCHEDULE" enum_value="2" />
+        </Class>
+
+        <Class name="CooldownGroup" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="SenderSimInfoType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="INSTANCED_ALLOWED" enum_value="1" />
+
+            <EnumItem name="UNINSTANCED_ONLY" enum_value="0" />
+        </Class>
+
+        <Class name="MultiUnitEventOutcome" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="FAILURE" enum_value="2" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="SUCCESS" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

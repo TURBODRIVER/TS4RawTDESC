@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.collection_manager_enums">
+        <Class name="ObjectCollectionRarity" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="COMMON" enum_value="1" />
+
+            <EnumItem name="RARE" enum_value="3" />
+
+            <EnumItem name="UNCOMMON" enum_value="2" />
+        </Class>
+
+        <Class name="CollectionIdentifier" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="Aliens" enum_value="11" />
+
+            <EnumItem name="Crystals" enum_value="5" />
+
+            <EnumItem name="Fish" enum_value="13" />
+
+            <EnumItem name="Fossils" enum_value="8" />
+
+            <EnumItem name="Frogs" enum_value="2" />
+
+            <EnumItem name="Gardening" enum_value="1" />
+
+            <EnumItem name="Metals" enum_value="4" />
+
+            <EnumItem name="Microscope" enum_value="9" />
+
+            <EnumItem name="MySims" enum_value="3" />
+
+            <EnumItem name="NatureElements" enum_value="6" />
+
+            <EnumItem name="Postcards" enum_value="7" />
+
+            <EnumItem name="SpaceRocks" enum_value="12" />
+
+            <EnumItem name="Telescope" enum_value="10" />
+
+            <EnumItem name="Unindentified" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.ui_manager">
+        <Class name="InteractionInfo">
+            <TunableTuple name="ROUTING_DATA" class="TunableTuple" display="Routing Data" description="Display Name and icon that will be displayed in the posture area in the interaction queue while an interaction is transitioning." group="General">
+                <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="Icon to display in posture slot in UI while interaction is transitioning." group="General" resource_types="0x2f7d0004" />
+                <Tunable type="int" name="routing_name" class="TunableLocalizedString" default="0x0" display="Routing Name" description="Display name for icon when routing icon appears in posture slot of UI" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

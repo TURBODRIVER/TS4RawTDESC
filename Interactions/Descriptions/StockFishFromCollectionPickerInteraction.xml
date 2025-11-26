@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="StockFishFromCollectionPickerInteraction" module="interactions.collection_interactions" description="Stock a target with fish from the actor's fish collection data and the currently stocked fish, with the latter preselected. If a fish is deselected, it will be removed from the target's fishing data." instance_needs_reference="True" instance_subclasses_only="False" parents="ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Deleted name="collection_type" />
+
+        <Deleted name="continuation" />
+    </Instance>
+</TuningRoot>

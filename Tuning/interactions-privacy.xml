@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.privacy">
+        <Class name="Privacy">
+            <Tunable type="interaction" name="_EMBARRASSED_AFFORDANCE" class="TunableReference" display="Embarrassed Affordance" description="The affordance a Sim will play when getting embarrassed by walking in on a privacy situation." allow_none="False" group="General" />
+
+            <Tunable type="float" name="_MIN_ROOM_AREA_FOR_DISCOURAGEMENT" class="Tunable" default="10" display="Min Room Area For Discouragement" description="The minimum allowed size for the room in square meters under which a discouragement area is not being created around the Sim. Note that for small room it is not really necessary to create a discouragement area as the sims will be shooed anyway if they are closer than SHOO_CONSTRAINT_RADIUS to the Sim requesting Privacy." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="_SHOO_CONSTRAINT_RADIUS" class="Tunable" default="2.5" display="Shoo Constraint Radius" description="The radius of the constraint a Shooed Sim will attempt to route to." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="_UNAVAILABLE_TOOLTIP" class="TunableLocalizedString" default="0x0" display="Unavailable Tooltip" description="Tooltip displayed when an object is not accessible due to being inside a privacy region." group="General" />
+        </Class>
+
+        <Class name="PrivacyViolators" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="SIM" enum_value="1" />
+
+            <EnumItem name="VEHICLES" enum_value="2" />
+        </Class>
+    </Module>
+</TuningRoot>

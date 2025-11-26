@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.university.university_enums">
+        <Class name="Grade" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="UNKNOWN" enum_value="0" />
+        </Class>
+
+        <Class name="FinalCourseRequirement" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EXAM" enum_value="1" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="PAPER" enum_value="2" />
+
+            <EnumItem name="PRESENTATION" enum_value="3" />
+        </Class>
+
+        <Class name="EnrollmentStatus" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DROPOUT" enum_value="5" />
+
+            <EnumItem name="ENROLLED" enum_value="1" />
+
+            <EnumItem name="GRADUATED" enum_value="6" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="NOT_ENROLLED" enum_value="2" />
+
+            <EnumItem name="PROBATION" enum_value="3" />
+
+            <EnumItem name="SUSPENDED" enum_value="4" />
+        </Class>
+
+        <Class name="UniversityHousingKickOutReason" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BABY" enum_value="7" />
+
+            <EnumItem name="DROPOUT" enum_value="3" />
+
+            <EnumItem name="GRADUATED" enum_value="1" />
+
+            <EnumItem name="MOVED" enum_value="4" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="NOT_ENROLLED" enum_value="5" />
+
+            <EnumItem name="PREGNANT" enum_value="6" />
+
+            <EnumItem name="SUSPENDED" enum_value="2" />
+        </Class>
+
+        <Class name="UniversityHousingRoommateRequirementCriteria" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CLUB" enum_value="4" />
+
+            <EnumItem name="GENDER" enum_value="2" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="ORGANIZATION" enum_value="3" />
+
+            <EnumItem name="UNIVERSITY" enum_value="1" />
+        </Class>
+
+        <Class name="UniversityInfoType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="INVALID" enum_value="0" />
+
+            <EnumItem name="NON_PRESTIGE_DEGREES" enum_value="2" />
+
+            <EnumItem name="ORGANIZATIONS" enum_value="3" />
+
+            <EnumItem name="PRESTIGE_DEGREES" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

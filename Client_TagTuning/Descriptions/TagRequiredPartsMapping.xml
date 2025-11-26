@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tagtuning" class="TagRequiredPartsMapping" module="tagtuning.TagRequiredPartsMapping" description="Mapping between trait tags and required CAS parts." path="Client_TagTuning\Descriptions">
+        <TunableList name="RequiredParts" class="TunableList" display="RequiredParts" description="List of required parts mappings.">
+            <TunableTuple name="TraitAndTagPartList" class="TagRequiredPartsMapping.TraitAndTagPartList" description="Mapping of traits and list of trait tags and required parts.">
+                <TunableList name="TagToPartTypeList" class="TunableList" display="TagToPartTypeList" description="List of gender, tag, and part type combinations.">
+                    <TunableTuple name="TagToPartType" class="TagRequiredPartsMapping.TagToPartType" description="Mapping from outfit type to the corresponding outfit appropriateness tag.">
+                        <TunableEnum type="CASPartType" name="CASPartType" class="TunableEnumEntry" default="UPPER_BODY" display="CASPartType" static_entries="sims-outfits-outfit_enums.BodyType" description="The body type to be restricted." />
+                        <TunableEnum type="Gender" name="Gender" class="TunableEnumEntry" default="FEMALE" display="Gender" static_entries="sims-sim_info_types.Gender" description="Gender this applies to." />
+                        <Tunable type="bool" name="GenderSpecific" class="Tunable" default="False" display="GenderSpecific" description="If checked, part restriction will be specific to gender, if unchecked part restriction will be applied to all genders." />
+                        <TunableEnum type="Tag" name="Tag" class="TunableEnumEntry" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Outfit appropriateness tag for this outfit type." />
+                    </TunableTuple>
+                </TunableList>
+                <TunableEnum type="TraitType" name="Trait" class="TunableEnumEntry" default="AGENT" display="Trait" static_entries="traits-trait_type.TraitType" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

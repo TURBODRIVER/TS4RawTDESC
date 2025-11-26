@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="ui.ui_dialog">
+        <Class name="PhoneRingType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALARM" enum_value="3" />
+
+            <EnumItem name="BUZZ" enum_value="1" />
+
+            <EnumItem name="NO_RING" enum_value="0" />
+
+            <EnumItem name="PIVOTAL_MOMENT" enum_value="4" />
+
+            <EnumItem name="RING" enum_value="2" />
+        </Class>
+
+        <Class name="CustomButtonType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DIALOG_RESPONSE_CUSTOM_1" enum_value="10004" />
+
+            <EnumItem name="DIALOG_RESPONSE_CUSTOM_2" enum_value="10005" />
+
+            <EnumItem name="DIALOG_RESPONSE_CUSTOM_3" enum_value="10006" />
+        </Class>
+
+        <Class name="FooterType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AUTOMATIC" enum_value="0" />
+
+            <EnumItem name="YES_BUTTONS_FOOTER" enum_value="1" />
+
+            <EnumItem name="YES_NO_FOOTER" enum_value="2" />
+        </Class>
+
+        <Class name="ButtonType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DIALOG_RESPONSE_CANCEL" enum_value="10002" />
+
+            <EnumItem name="DIALOG_RESPONSE_CLOSED" enum_value="-1" />
+
+            <EnumItem name="DIALOG_RESPONSE_CUSTOM_1" enum_value="10004" />
+
+            <EnumItem name="DIALOG_RESPONSE_CUSTOM_2" enum_value="10005" />
+
+            <EnumItem name="DIALOG_RESPONSE_CUSTOM_3" enum_value="10006" />
+
+            <EnumItem name="DIALOG_RESPONSE_NO_RESPONSE" enum_value="10000" />
+
+            <EnumItem name="DIALOG_RESPONSE_OK" enum_value="10001" />
+
+            <EnumItem name="DIALOG_RESPONSE_OK_ALT" enum_value="10003" />
+        </Class>
+
+        <Class name="UiDialogResponse">
+            <Class name="UiDialogUiRequest" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="CAREER_CALL_IN_SICK" enum_value="28" />
+
+                <EnumItem name="CAREER_GO_TO_WORK" enum_value="25" />
+
+                <EnumItem name="CAREER_TAKE_PTO" enum_value="27" />
+
+                <EnumItem name="CAREER_WORK_FROM_HOME" enum_value="26" />
+
+                <EnumItem name="NO_REQUEST" enum_value="0" />
+
+                <EnumItem name="PIVOTAL_MOMENT_ASK_LATER" enum_value="33" />
+
+                <EnumItem name="SEND_COMMAND" enum_value="24" />
+
+                <EnumItem name="SEND_UI_MESSAGE" enum_value="32" />
+
+                <EnumItem name="SHOW_ACHIEVEMENTS" enum_value="2" />
+
+                <EnumItem name="SHOW_ASPIRATION_PANEL" enum_value="7" />
+
+                <EnumItem name="SHOW_ASPIRATION_SELECTOR" enum_value="21" />
+
+                <EnumItem name="SHOW_ASPIRATION_UI" enum_value="8" />
+
+                <EnumItem name="SHOW_BUILD_BUY_WITH_FILTER" enum_value="37" />
+
+                <EnumItem name="SHOW_CAREER_PANEL" enum_value="10" />
+
+                <EnumItem name="SHOW_CAREER_UI" enum_value="17" />
+
+                <EnumItem name="SHOW_COLLECTIBLES" enum_value="16" />
+
+                <EnumItem name="SHOW_EVENT_UI" enum_value="9" />
+
+                <EnumItem name="SHOW_FACTION_REP_PANEL" enum_value="31" />
+
+                <EnumItem name="SHOW_FAME_PERKS_PANEL" enum_value="30" />
+
+                <EnumItem name="SHOW_FAMILY_INVENTORY" enum_value="4" />
+
+                <EnumItem name="SHOW_GALLERY" enum_value="3" />
+
+                <EnumItem name="SHOW_GHOST_POWERS_PERKS_PANEL" enum_value="34" />
+
+                <EnumItem name="SHOW_LESSONS" enum_value="1" />
+
+                <EnumItem name="SHOW_MOTIVE_PANEL" enum_value="14" />
+
+                <EnumItem name="SHOW_NOTEBOOK" enum_value="23" />
+
+                <EnumItem name="SHOW_OCCULT_POWERS_PANEL" enum_value="29" />
+
+                <EnumItem name="SHOW_RELATIONSHIP_PANEL" enum_value="11" />
+
+                <EnumItem name="SHOW_REWARD_STORE" enum_value="13" />
+
+                <EnumItem name="SHOW_SHARE_PLAYER_PROFILE" enum_value="20" />
+
+                <EnumItem name="SHOW_SIM_INVENTORY" enum_value="12" />
+
+                <EnumItem name="SHOW_SKILL_PANEL" enum_value="5" />
+
+                <EnumItem name="SHOW_SMALL_BUSINESS_CONFIGURATOR" enum_value="38" />
+
+                <EnumItem name="SHOW_SMALL_BUSINESS_PANEL" enum_value="36" />
+
+                <EnumItem name="SHOW_SMALL_BUSINESS_PERKS_PANEL" enum_value="35" />
+
+                <EnumItem name="SHOW_STATS" enum_value="15" />
+
+                <EnumItem name="SHOW_SUMMARY_PANEL" enum_value="6" />
+
+                <EnumItem name="TRANSITION_TO_MAIN_MENU_NO_SAVE" enum_value="19" />
+
+                <EnumItem name="TRANSITION_TO_NEIGHBORHOOD_SAVE" enum_value="18" />
+            </Class>
+        </Class>
+
+        <Class name="UiDialogStyle" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CELEBRATION" enum_value="2" />
+
+            <EnumItem name="CHANCE_CARD" enum_value="1" />
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="DYNAMIC_SIGN" enum_value="13" />
+
+            <EnumItem name="GEMSTONE_CUTTING" enum_value="15" />
+
+            <EnumItem name="GUIDANCE_WARNING" enum_value="11" />
+
+            <EnumItem name="ICON_SWAP" enum_value="12" />
+
+            <EnumItem name="JEWELRY_CRAFTING" enum_value="14" />
+
+            <EnumItem name="LARGE_ICON" enum_value="4" />
+
+            <EnumItem name="LARGE_ICON_TEXT_HORIZONTAL" enum_value="7" />
+
+            <EnumItem name="LARGE_ICON_WIDE" enum_value="9" />
+
+            <EnumItem name="LIFESTYLE_BRAND" enum_value="6" />
+
+            <EnumItem name="LIFESTYLE_TRAITS" enum_value="8" />
+
+            <EnumItem name="NPC_DISPLAY" enum_value="10" />
+
+            <EnumItem name="TRAIT_REASSIGNMENT" enum_value="5" />
+
+            <EnumItem name="VET_CHECK_IN" enum_value="3" />
+        </Class>
+
+        <Class name="UiDialogBGStyle" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BG_CAKE_TOPPER" enum_value="12" />
+
+            <EnumItem name="BG_CELEBRATION" enum_value="2" />
+
+            <EnumItem name="BG_CELEBRATION_LARGE" enum_value="4" />
+
+            <EnumItem name="BG_CHANCE_CARD" enum_value="1" />
+
+            <EnumItem name="BG_CHANCE_CARDS_HAUNTED" enum_value="8" />
+
+            <EnumItem name="BG_DEATH" enum_value="16" />
+
+            <EnumItem name="BG_DEFAULT" enum_value="0" />
+
+            <EnumItem name="BG_DROIDS" enum_value="6" />
+
+            <EnumItem name="BG_DYNAMIC_IMAGE" enum_value="10" />
+
+            <EnumItem name="BG_FOOD_RECIPE_PICKER_ONLY" enum_value="15" />
+
+            <EnumItem name="BG_GUIDANCE" enum_value="14" />
+
+            <EnumItem name="BG_LIFESTYLE_BRAND" enum_value="3" />
+
+            <EnumItem name="BG_MANI_PEDI" enum_value="11" />
+
+            <EnumItem name="BG_MUSIC_FESTIVAL" enum_value="9" />
+
+            <EnumItem name="BG_TAROT" enum_value="17" />
+
+            <EnumItem name="BG_TRENDI" enum_value="13" />
+
+            <EnumItem name="BG_UNIVERSITY" enum_value="5" />
+
+            <EnumItem name="BG_VENDORS" enum_value="7" />
+        </Class>
+
+        <Class name="UiMessageArgType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="TYPE_BOOL" enum_value="3" />
+
+            <EnumItem name="TYPE_FLOAT" enum_value="1" />
+
+            <EnumItem name="TYPE_INT" enum_value="0" />
+
+            <EnumItem name="TYPE_RESOURCE_KEY" enum_value="4" />
+
+            <EnumItem name="TYPE_STRING" enum_value="2" />
+        </Class>
+
+        <Class name="CommandArgType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ARG_TYPE_BOOL" enum_value="0" />
+
+            <EnumItem name="ARG_TYPE_FLOAT" enum_value="2" />
+
+            <EnumItem name="ARG_TYPE_INT" enum_value="3" />
+
+            <EnumItem name="ARG_TYPE_RESOLVED" enum_value="5" />
+
+            <EnumItem name="ARG_TYPE_SPECIAL" enum_value="4" />
+
+            <EnumItem name="ARG_TYPE_STRING" enum_value="1" />
+        </Class>
+
+        <Class name="UiResponseParticipant" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="Actor" enum_value="1" />
+
+            <EnumItem name="Object" enum_value="2" />
+
+            <EnumItem name="ObjectParent" enum_value="26" />
+
+            <EnumItem name="SavedActor1" enum_value="46" />
+
+            <EnumItem name="TargetSim" enum_value="3" />
+        </Class>
+
+        <Class name="UiDialogOption" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="DISABLE_CLOSE_BUTTON" enum_value="1" />
+
+            <EnumItem name="DISABLE_PICKER_CLOSE_BUTTON" enum_value="8" />
+
+            <EnumItem name="SMALL_TITLE" enum_value="2" />
+
+            <EnumItem name="VERTICAL_NOTIFICATION_BUTTONS" enum_value="16" />
+        </Class>
+
+        <Class name="UiDialogOk">
+            <Tunable type="ResourceKey" name="OK_BUTTON_ICON" class="TunableResourceKey" default="None" display="Ok Button Icon" description="The default icon for this OK Button." group="General" resource_types="0x2f7d0004" />
+        </Class>
+    </Module>
+</TuningRoot>

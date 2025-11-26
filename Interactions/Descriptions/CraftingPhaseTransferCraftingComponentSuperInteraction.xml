@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CraftingPhaseTransferCraftingComponentSuperInteraction" module="crafting.crafting_interactions" description="The Sim performs a crafting interaction that transfers the crafting process to a specified participant." instance_needs_reference="True" instance_subclasses_only="False" parents="CraftingPhaseStagingSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="ParticipantType" name="crafting_component_recipient" class="TunableEnumEntry" default="Object" display="Crafting Component Recipient" static_entries="interactions.ParticipantType" description="The participant of this interaction to which the Crafting process is transferred." group="General" />
+
+        <Tunable type="bool" name="override_crafting_process" class="Tunable" default="False" display="Override Crafting Process" description="If set to True, when crafting component is added to object, set the crafting process even if the object already had a crafting component." group="General" />
+    </Instance>
+</TuningRoot>

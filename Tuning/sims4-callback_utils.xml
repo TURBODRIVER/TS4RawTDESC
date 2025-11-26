@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims4.callback_utils">
+        <Class name="CallbackEvent" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="AUTONOMY_PING_ENTER" enum_value="2" />
+
+            <EnumItem name="AUTONOMY_PING_EXIT" enum_value="4" />
+
+            <EnumItem name="CONTENT_SET_GENERATE_ENTER" enum_value="32" />
+
+            <EnumItem name="CONTENT_SET_GENERATE_EXIT" enum_value="64" />
+
+            <EnumItem name="ENTER_CONTENT_SET_GEN_OR_PROCESS_HOUSEHOLD_EVENTS" enum_value="160" />
+
+            <EnumItem name="EXIT_CONTENT_SET_GEN_OR_PROCESS_HOUSEHOLD_EVENTS" enum_value="320" />
+
+            <EnumItem name="POSTURE_GRAPH_BUILD_ENTER" enum_value="8" />
+
+            <EnumItem name="POSTURE_GRAPH_BUILD_EXIT" enum_value="16" />
+
+            <EnumItem name="PROCESS_EVENTS_FOR_HOUSEHOLD_ENTER" enum_value="128" />
+
+            <EnumItem name="PROCESS_EVENTS_FOR_HOUSEHOLD_EXIT" enum_value="256" />
+
+            <EnumItem name="TRANSITION_SEQUENCE_ENTER" enum_value="512" />
+
+            <EnumItem name="TRANSITION_SEQUENCE_EXIT" enum_value="1024" />
+
+            <EnumItem name="TUNING_CODE_RELOAD" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

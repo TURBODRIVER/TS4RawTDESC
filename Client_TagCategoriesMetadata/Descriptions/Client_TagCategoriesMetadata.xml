@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tagcategoriesmetadata" class="Client_TagCategoriesMetadata" module="tagcategoriesmetadata.Client_TagCategoriesMetadata" description="Metadata to expose Tag Categories in UI." path="Client_TagsMetadata\Descriptions">
+        <TunableList name="tagcategories_to_metadata_map" class="TunableMapping" display="Metadata" mapping_key="key_tagcategory" mapping_value="value_metadatatuple" description="TagCategories Metadata" mapping_class="Client_TagCategoriesMetadata.MapEntry">
+            <TunableTuple name="MapEntry" class="Client_TagCategoriesMetadata.MapEntry">
+                <TunableEnum type="TagCategory" name="key_tagcategory" class="TunableEnumEntry" default="INVALID" display="Category" dynamic_entries="tag.TagCategory._elements" static_entries="tag.TagCategory" description="TagCategory" />
+                <TunableTuple name="value_metadatatuple" class="Client_TagCategoriesMetadata.MetadataValue" display="TagCategory Metadata" description="Tunable tuple for unit testing.">
+                    <Tunable type="float" name="DisplayIndex" class="Tunable" default="1.1" display="Display Index" />
+                    <Tunable type="ResourceKey" name="Icon" class="TunableResourceKey" default="None" display="Icon" description="Icon representing the TagCategory." allow_none="True" resource_types="0x2f7d0004" />
+                    <Tunable type="int" name="TagCategoryLocalizedName" class="TunableLocalizedString" default="0x47b43883" display="TagCategory Name" />
+                    <Tunable type="int" name="TagCategoryLocalizedTitle" class="TunableLocalizedString" default="0x47b43883" display="TagCategory Title, may be different from Name" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

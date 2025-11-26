@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.pregnancy.pregnancy_tuning">
+        <Class name="PregnancyTuning">
+            <TunableList name="PREGNANCY_DATA" class="TunableMapping" display="Pregnancy Data" mapping_key="key" mapping_value="value" description="A mapping of species to pregnancy data." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Species" name="key" class="TunableEnumEntry" default="HUMAN" display="Key" static_entries="sims-sim_info_types.Species" description="The newborn's species." group="General" invalid_entries="INVALID" />
+                    <Tunable type="snippet" name="value" class="TunableReference" display="Value" description="A reference to a Pregnancy tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="Pregnancy" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

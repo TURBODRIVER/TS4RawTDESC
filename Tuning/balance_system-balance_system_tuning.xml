@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="balance_system.balance_system_tuning">
+        <Class name="BalanceSystemTuning">
+            <Tunable type="float" name="BALANCE_MAX_VALUE" class="Tunable" default="100" display="Balance Max Value" description="The maximum value in which the Balance System Commodity is in the Balance state. This should the the same as the maximum value of the Balance System Commodity." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="BALANCE_MIN_VALUE" class="Tunable" default="50" display="Balance Min Value" description="The minimum value in which the Balance System Commodity is in the Balance state." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="statistic" name="BALANCE_SYSTEM_COMMODITY" class="TunableReference" display="Balance System Commodity" description="The commodity that tracks the current Balance System value for a given actor." allow_none="False" group="General" pack_safe="True" restrict="Commodity" />
+
+            <Tunable type="float" name="MAJOR_IMBALANCE_MIN_VALUE" class="Tunable" default="-100" display="Major Imbalance Min Value" description="The minimum value in which the Balance System Commodity is in the Major Imbalance state. This should the the same as the minimum value of the Balance System Commodity." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MINOR_IMBALANCE_MIN_VALUE" class="Tunable" default="-50" display="Minor Imbalance Min Value" description="The minimum value in which the Balance System Commodity is in the Minor Imbalance state." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="VISIBILITY_UI_DESCRIPTIONS" class="TunableList" display="Visibility Ui Descriptions" description="The possible descriptions in the visibility UI for the Balance System. Descriptions are set when their associated buff is added to the actor. If the buff is later removed from the actor without another Balance System buff on the actor, the description will be set based on the current state of the Balance System Commodity." group="General">
+                <TunableTuple class="TunableVisibilityUIDescription" group="General">
+                    <Tunable type="int" name="buff_description" class="TunableLocalizedString" default="0x0" display="Buff Description" description="The description to show in the UI." group="General" />
+                    <Tunable type="buff" name="buff_reference" class="TunableReference" display="Buff Reference" description="The buff associated with this description." allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

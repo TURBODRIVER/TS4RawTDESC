@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="element_utils">
+        <Class name="CleanupType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="NotCritical" enum_value="0" />
+
+            <EnumItem name="OnCancel" enum_value="1" />
+
+            <EnumItem name="OnCancelOrException" enum_value="2" />
+
+            <EnumItem name="RunAll" enum_value="3" />
+        </Class>
+    </Module>
+</TuningRoot>

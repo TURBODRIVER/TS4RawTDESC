@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="posture" class="MultiSimPostureWithGenericObject" module="postures.base_postures" description="MultiSimPostureWithGenericObject was specifically created for Spooky WooHoo (Ghost Possession WooHoo). We have an interaction with two sims and an object, but the object is generic and can't provide a posture itself. Thus the interaction needs a posture and social group, like MultiSimSocialPosture; however, it still has a target (object). The posture also stores its own exit constraints for target and actor, instead of relying on containment slots, which are usually supplied by the (non-generic) object." instance_subclasses_only="False" parents="MultiSimPosture, Posture" path="Postures\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_actor_b_required_part_definition" />
+
+        <Deleted name="_actor_required_part_definition" />
+
+        <TunableEnum type="ParticipantTypeSingle" name="generic_object_participant" class="TunableEnumEntry" default="Object" display="Generic Object Participant" static_entries="interactions.ParticipantTypeSingle" description="Specify the single participant from the owning super interaction that we will set as the AnimationParticipant.BASE_OBJECT." group="Animation" />
+
+        <Deleted name="jig" />
+
+        <Deleted name="unconstrained" />
+
+        <Deleted name="use_containment_slot_for_exit" />
+    </Instance>
+
+    
+</TuningRoot>

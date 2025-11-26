@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ChooseDeliverySuperInteraction" module="crafting.serving_interactions" instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Deleted name="allow_autonomous" />
+
+        <Deleted name="allow_user_directed" />
+
+        <Deleted name="basic_content" />
+
+        <TunableVariant type="None" name="consume_affordance_override" class="OptionalTunable" default="disabled" display="Consume Affordance Override" description="If tuned, this will forward a consume affordance override to the serving interactions instead of getting the consume affordance from the object's consumable component. Useful if we want the Sim to do something instead of consume the object after it has been served." group="Serving Tunings">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="interaction" name="enabled" class="TunableReference" display="Enabled" description="Affordance override for when we want to push a consume." allow_none="False" group="General" restrict="SuperInteraction" />
+        </TunableVariant>
+
+        <Tunable type="recipe" name="crafting_type_requirement" class="TunableReference" display="Crafting Type Requirement" description="This specifies the crafting object type that is required for this interaction to work.This allows the crafting system to know what type of object the SI was expecting when it can't find that SI." allow_none="True" group="General" restrict="CraftingObjectType" />
+
+        <Tunable type="bool" name="destroy_ico_object_if_reset" class="Tunable" default="False" display="Destroy Ico Object If Reset" description="If this is enabled and the sim is reset while they are performing this interaction, we will destroy the ico object and end the crafting process. We should use this in cases where the ICO object cannot be safely reset. This will also refund the household." group="General" />
+
+        <Deleted name="display_name" />
+
+        <Deleted name="display_name_overrides" />
+
+        <Tunable type="bool" name="force_final_product" class="Tunable" default="False" display="Force Final Product" description="Whether or not to force the final product to set as a result of this interaction completing. Normally this is governed by the phase when a crafting process is transferred to an ICO or creation of the final product. Set this to true in cases where this doesn't make sense. e.g. Crafting on a cauldron places the process early on the cauldron which starts out as an ICO, but at the completion of the last crafting SI, the cauldron itself 'becomes' a the final product." group="General" />
+
+        <TunableVariant type="None" name="serve_target_override" class="OptionalTunable" default="disabled" display="Serve Target Override" description="An optional target override for the Serve interactions that are pushed during this one. Example: This interaction is tuned on the Espresso Machine because you don't need an Espresso Bar to make drinks, but we need to be able to serve to an Espresso bar underneath using the same recipe." group="Serving Tunings">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Object" display="Enabled" static_entries="interactions.ParticipantType" description="The participant type to use as the target of the serve interactions." group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="serve_to_sit_slot_affordance" class="OptionalTunable" default="disabled" display="Serve To Sit Slot Affordance" description="If tuned, the Sim has the ability to serve to a slot on a surface that the ordering Sim is sitting at." group="Serving Tunings">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="interaction" name="enabled" class="TunableReference" display="Enabled" description="Affordance used to serve an object to a slot on a Surface that a Sim is sitting at." allow_none="False" group="General" restrict="ServeToSitSlotSuperInteraction,CreateAndServeToSitSlotSuperInteraction" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="serve_to_slot_affordance" class="OptionalTunable" default="disabled" display="Serve To Slot Affordance" description="If tuned, the Sim has the ability to serve to a slot on a surface." group="Serving Tunings">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="interaction" name="enabled" class="TunableReference" display="Enabled" description="Affordance used to serve an object to a slot, if the ordering Sim is not at a surface." allow_none="False" group="General" restrict="ServeToSlotSuperInteraction,CreateAndServeToSlotSuperInteraction" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="skip_serve_if_crafter_is_orderer" class="Tunable" default="False" display="Skip Serve If Crafter Is Orderer" description="If true, and the crafter is the orderer, we will use Consume Affordance Override or get the consume affordance on the object, and push that instead of serve to self. NOTE: This will only work if the final product has already been created as part of the crafting process before this affordance is run." group="Serving Tunings" />
+
+        <Tunable type="bool" name="stop_other_sims_crafting" class="Tunable" default="False" display="Stop Other Sims Crafting" description="If this crafting interaction is being run as part of group crafting then we will inform the situation that we would like the helping crafters to stop. Example: When the sim transitions off the counter to putting the items in the stove the other sims helping craft should no longer be running interactions on the counters chopping food." group="General" />
+    </Instance>
+</TuningRoot>

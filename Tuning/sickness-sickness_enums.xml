@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sickness.sickness_enums">
+        <Class name="SicknessDiagnosticActionType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EXAM" enum_value="0" />
+
+            <EnumItem name="TREATMENT" enum_value="1" />
+        </Class>
+
+        <Class name="DiagnosticActionResultType" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="CORRECT_TREATMENT" enum_value="1" />
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="FAILED_TOO_STRESSED" enum_value="3" />
+
+            <EnumItem name="INCORRECT_TREATMENT" enum_value="2" />
+        </Class>
+    </Module>
+</TuningRoot>

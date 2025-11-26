@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ClubPickerSuperInteraction" module="clubs.club_picker_interactions" description="An interaction that displays Club data and runs specific behavior." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="club_actions" class="TunableList" display="Club Actions" description="A list of actions to perform, in order, on the selected Club." group="Picker Tuning">
+            <TunableVariant type="None" class="TunableVariant" default="challenge" description="An action to execute on the specified club." group="General">
+                <TunableTuple name="challenge" class="Tunable_ClubPickerActionChallenge" display="Challenge" description="Run interaction to convey the idea that the selected Club has been challenged: * Run a specific interaction on the Club leader * Run specific interaction to Sims not participating in the challenge." group="General">
+                    <Tunable type="game_ruleset" name="challenge_game" class="TunableReference" display="Challenge Game" description="The game that the club is being challenged at. This is used to determine how many Sims are required, per team." allow_none="False" group="General" restrict="GameRules" />
+                    <Tunable type="interaction" name="challenge_interaction" class="TunableReference" display="Challenge Interaction" description="The interaction to push on the Sims being challenged." allow_none="False" group="General" restrict="SuperInteraction" />
+                    <Tunable type="interaction" name="challenge_social_interaction" class="TunableReference" display="Challenge Social Interaction" description="Specify an interaction that the challenging Sim runs on a Sim in the challenged club (usually the leader). Once this interaction completes, the challenge executes." allow_none="False" group="General" restrict="SocialSuperInteraction" />
+                </TunableTuple>
+                <TunableTuple name="lock_portal" class="Tunable_ClubPickerActionLockPortal" display="Lock Portal" description="Lock the target portal of this interaction for non-members of the selected Club." group="General">
+                    <TunableEnum type="ClearLock" name="clear_existing_locks" class="TunableEnumEntry" default="CLEAR_ALL" display="Clear Existing Locks" static_entries="objects-components-portal_locking_enums.ClearLock" description="Which existing locks should be cleared before adding the new Club lock." group="General" />
+                    <TunableTuple name="club_lock" class="TunableLockAllWithClubException" display="Club Lock" description="The Club lock to apply to the target portal." group="General">
+                        <TunableList name="except_club_seeds" class="TunableList" display="Except Club Seeds" description="Sims that are members of these Clubs are exempted from being locked by the object." group="General">
+                            <Tunable type="club_seed" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableEnum type="LockPriority" name="lock_priority" class="TunableEnumEntry" default="SYSTEM_LOCK" display="Lock Priority" static_entries="objects-components-portal_locking_enums.LockPriority" description="The priority of this lock data. Used in comparison between multiple lock datas on the lock component test." group="General" />
+                        <TunableEnum type="LockSide" name="lock_sides" class="TunableEnumEntry" default="LOCK_BOTH" display="Lock Sides" static_entries="objects-components-portal_locking_enums.LockSide" description="Which side or both this lock data will lock." group="General" />
+                        <Tunable type="bool" name="should_persist" class="Tunable" default="True" display="Should Persist" description="If checked, this lock data will be persisted." group="General" />
+                    </TunableTuple>
+                    <Tunable type="bool" name="replace_lock_type" class="Tunable" default="True" display="Replace Lock Type" description="If checked, then the specified Club lock replaces any existing Club lock, i.e. the only allowed Club is the new Club. If unchecked, then the operation is additive: any Clubs specified for this lock are also allowed, alongside any Clubs previously allowed." group="General" />
+                </TunableTuple>
+                <TunableTuple name="npc_summon" class="Tunable_ClubPickerActionSummon" display="Npc Summon" description="Summon all members of the picked Club to the current lot." group="General">
+                    <TunableEnum type="NPCSummoningPurpose" name="purpose" class="TunableEnumEntry" default="DEFAULT" display="Purpose" dynamic_entries="venues-venue_constants.NPCSummoningPurpose._elements" static_entries="venues-venue_constants.NPCSummoningPurpose" description="The purpose/reason the NPC is being summoned." group="General" />
+                </TunableTuple>
+                <TunableTuple name="push_interaction" class="Tunable_ClubPickerActionPushInteraction" display="Push Interaction" description="Push a Club super interaction associated with the selected Club." group="General">
+                    <TunableList name="continuation" class="TunableContinuation" display="Continuation" description="The interaction to push." group="General">
+                        <TunableTuple class="TunableTuple" description="A continuation entry." group="General">
+                            <TunableEnum type="ParticipantType" name="actor" class="TunableEnumEntry" default="Actor" display="Actor" static_entries="interactions.ParticipantType" description="The Sim on which the affordance is pushed." group="General" />
+                            <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The affordance to push as a continuation on the specified actor Sim." allow_none="False" group="General" pack_safe="True" restrict="ClubSuperInteraction" />
+                            <TunableVariant type="None" name="carry_target" class="OptionalTunable" default="disabled" display="Carry Target" description="If enabled, specify a carry target for this continuation." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Object" display="Enabled" static_entries="interactions.ParticipantType" description="The participant the affordance will set as a carry target." group="General" />
+                            </TunableVariant>
+                            <TunableVariant type="None" name="inventory_carry_target" class="TunableVariant" default="None" display="Inventory Carry Target" description="Item in inventory (of continuations actor) to use as carry target for continuation if carry target is None" group="General">
+                                <Tunable name="None" class="TunableExistance" display="None" />
+                                <TunableTuple name="object_with_base_definition" class="TunableTuple" display="Object With Base Definition" group="General">
+                                    <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The base definition to look for inside inventory. Objects that redirect (like counters) will match if base definition is the same." allow_none="False" group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="object_with_definition" class="TunableTuple" display="Object With Definition" group="General">
+                                    <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The exact object definition to look for inside inventory." allow_none="False" group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="object_with_tag" class="CraftTaggedItemFactory" display="Object With Tag" description="This option tests crafted item's tags against a list of possible tags" group="General">
+                                    <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tag of objects we want to test ownership of" group="General" unique_entries="true">
+                                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" pack_safe="True" />
+                                    </TunableList>
+                                    <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                            <Tunable type="bool" name="preserve_preferred_object" class="Tunable" default="True" display="Preserve Preferred Object" description="If checked, the pushed interaction's preferred objects are determined by the current preferred objects. If unchecked, the transition sequence would not award bonuses to any specific part." group="General" />
+                            <Tunable type="bool" name="preserve_target_part" class="Tunable" default="False" display="Preserve Target Part" description="If checked, the pushed interaction will use the same target part if applicable. Defaults to false because typically we will want to let the transition select which part to use." group="General" />
+                            <Tunable type="interaction" name="si_affordance_override" class="TunableReference" display="Si Affordance Override" description="When the tuned affordance is a mixer for a different SI, use this to specify the mixer's appropriate SI. This is useful for pushing socials." allow_none="True" group="General" />
+                            <TunableEnum type="ParticipantType" name="target" class="TunableEnumEntry" default="Object" display="Target" static_entries="interactions.ParticipantType" description="The participant the affordance will target." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TunableVariant type="None" name="club_generator" class="TunableVariant" default="from_participant" display="Club Generator" description="Define which Clubs are generated for this picker interaction." group="Picker Tuning">
+            <TunableTuple name="from_gatherings" class="Tunable_ClubGeneratorFromGatherings" display="From Gatherings" description="Generate all Clubs with an ongoing Club gathering except that Club whose gathering the Sim is a member of. Return no Clubs if the Sim is not actively participating in a Club gathering." group="General" />
+            <TunableTuple name="from_participant" class="Tunable_ClubGenerateFromParticipant" display="From Participant" description="Generate clubs based on participants' membership." group="General">
+                <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="TargetSim" display="Subject" static_entries="interactions.ParticipantType" description="All Clubs this Sim is a member of will be generated, provided they don't conflict with the tuned blacklist." group="General" />
+                <TunableVariant type="None" name="subject_blacklist" class="OptionalTunable" default="disabled" display="Subject Blacklist" description="If specified, some Clubs will not be generated." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Actor" display="Enabled" static_entries="interactions.ParticipantType" description="No Clubs this Sim is a member of will be generated, even if the specified subject is a member." group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <Deleted name="picker_dialog" />
+
+        <TunableTuple name="pie_menu_option" class="_TunablePieMenuOptionTuple" display="Pie Menu Option" group="Picker Tuning">
+            <Tunable type="bool" name="force_pie_menu_category" class="Tunable" default="False" display="Force Pie Menu Category" description="If enabled, we will use the pie_menu_category tuned here even if the row_data (for instance, recipes) of this picker normally specify their own picker categories. This can be useful when re-using row data in a new pie menu picker with a different intended category." group="General" />
+            <Tunable type="pie_menu_category" name="pie_menu_category" class="TunableReference" display="Pie Menu Category" description="If set, then the generated Pie Menu interaction will be categorized under this Pie Menu category, as opposed to using the interaction's Pie Menu category." allow_none="True" group="UI" />
+            <Tunable type="int" name="pie_menu_name" class="TunableLocalizedString" default="0x0" display="Pie Menu Name" description="The localized name for the pie menu item. The content should always have {2.String} to wrap picker row data's name." group="General" />
+            <Tunable type="bool" name="show_disabled_item" class="Tunable" default="False" display="Show Disabled Item" description="If checked, the disabled item will show as disabled in the Pie Menu with a greyed-out tooltip. Otherwise the disabled item will not show up in the pie menu." group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

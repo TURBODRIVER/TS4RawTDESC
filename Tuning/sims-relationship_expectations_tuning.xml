@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.relationship_expectations_tuning">
+        <Class name="RelationshipExpectationType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EMOTIONAL" enum_value="1" />
+
+            <EnumItem name="OPEN_TO_CHANGE" enum_value="2" />
+
+            <EnumItem name="PHYSICAL" enum_value="0" />
+
+            <EnumItem name="WOOHOO" enum_value="3" />
+        </Class>
+
+        <Class name="RelationshipExpectationsTuning">
+            <TunableList name="RELATIONSHIP_EXPECTATIONS" class="TunableMapping" display="Relationship Expectations" mapping_key="key" mapping_value="value" description="A mapping between the Relationship Expectation Type, Relationship Expectation Status and the corresponding traits and weights for easy lookup." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="RelationshipExpectationType" name="key" class="TunableEnumEntry" default="PHYSICAL" display="Key" static_entries="sims-relationship_expectations_tuning.RelationshipExpectationType" description="The Relationship Expectation Type to index the Relationship Expectation Status to." group="General" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="A tuple of the corresponding trait and random weighted choice for generated sims, via sim template, to exist with the corresponding trait." group="General">
+                        <Tunable type="trait" name="no_trait" class="TunableReference" display="No Trait" description="Reference to the trait that denotes that the Sim has this Relationship Expectation Type and Status." allow_none="False" group="General" />
+                        <Tunable type="trait" name="yes_trait" class="TunableReference" display="Yes Trait" description="Reference to the trait that denotes that the Sim has this Relationship Expectation Type and Status." allow_none="False" group="General" />
+                        <Tunable type="int" name="yes_trait_generation_chance" class="Tunable" default="100" display="Yes Trait Generation Chance" description="The chance to denote the percentage of generated sims, via sim template, we want to exist with the yes trait." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

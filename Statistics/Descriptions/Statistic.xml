@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="statistic" class="Statistic" module="statistics.statistic" description="A numerical attribute that can represent a wide variety of statistics." instance_needs_reference="True" instance_subclasses_only="False" path="Statistics\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="apply_value_to_object_cost" class="Tunable" default="False" display="Apply Value To Object Cost" description="Whether the value of this statistic should be added to the value of the owner of statistic. Affects the price when sold." group="General" />
+
+        <TunableEnum type="GalleryLoadBehavior" name="gallery_load_behavior" class="TunableEnumEntry" default="LOAD_ONLY_FOR_SIM" display="Gallery Load Behavior" static_entries="statistics-base_statistic.GalleryLoadBehavior" description="When owner of commodity is loaded from the gallery, tune this to determine if commodity should be loaded or not. DONT_LOAD = Don't load statistic when owner is coming from gallery LOAD_ONLY_FOR_OBJECT = Load only if statistic is being added to an object. If this statistic is tuned as a linked stat to a state, make sure the state is also marked as gallery persisted. i.e. Statistics like fish_freshness or gardening_groth. Switching on this bit has performance implications when downloading a lot from the gallery. Please discuss with a GPE when setting this tunable. LOAD_ONLY_FOR_SIM = Load only if statistic is being added to a sim. LOAD_FOR_ALL = Always load commodity. This has the same ramifications as LOAD_ONLY_FOR_OBJECT if owner is an object." group="General" />
+
+        <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="Icon to be displayed for the Statistic." allow_none="True" group="General" resource_types="0x2f7d0004" />
+
+        <TunableTuple name="initial_tuning" class="TunableTuple" display="Initial Tuning" description="The Initial value for this statistic. Can either be a single value, range, or use auto satisfy curve to determine initial value. Range value will take precedence over single value range." group="General">
+            <Tunable type="int" name="_initial_value" class="Tunable" default="0" display="Initial Value" description="The initial value for this stat." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="bool" name="_use_stat_value_on_init" class="Tunable" default="False" display="Use Stat Value On Init" description="If enabled, we will use the initial tuning to set the statistic in the place of other systems (like states). Otherwise, those states or systems will set the initial value of the statistic (a state linked to this stat for example, will set the statistic to whatever default tuning is on the state). TLDR: If checked, the statistic sets the state. Otherwise, the state sets up this statistic. Note: If unchecked, we error if any initial values are tuned as they imply that we want to use them." group="General" />
+            <TunableVariant type="None" name="_value_range" class="OptionalTunable" default="disabled" display="Value Range" description="If enabled then when we first add this statistic to an object, the initial value of the statistic will be set to a random value within this interval." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="An interval that will be used for the initial value of this statistic." group="General">
+                    <Tunable type="int" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="upper_bound" class="TunableRange" default="100" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableVariant>
+        </TunableTuple>
+
+        <Tunable type="int" name="max_value_tuning" class="Tunable" default="100" display="Max Value Tuning" description="The maximum value that this statistic can reach." tuning_state="NeedsTuning" group="General" />
+
+        <TunableEnum type="SimInfoLODLevel" name="min_lod_value" class="TunableEnumEntry" default="BACKGROUND" display="Min Lod Value" static_entries="sims-sim_info_lod.SimInfoLODLevel" description="The minimum Sim info LOD necessary for this information to persist on the sim info. e.g. A statistic tuned to FULL will not persist on sims that are lower than FULL. LOD order, high to low, is FULL, INTERACTED, BASE, BACKGROUND, MINIMUM." group="General" />
+
+        <Tunable type="int" name="min_value_tuning" class="Tunable" default="0" display="Min Value Tuning" description="The minimum value that this statistic can reach." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="bool" name="persisted_tuning" class="Tunable" default="True" display="Persisted Tuning" description="Whether this statistic will persist when saving a Sim or an object. For example, a Sims's SI score statistic should never persist." group="General" />
+
+        <Tunable type="bool" name="respect_lod_on_add" class="Tunable" default="False" display="Respect Lod On Add" description="If enabled then we will not add the statistic if the LOD value of the Sim is lower than the required LOD of the statistic. Otherwise instanced Sims will be allowed to get statistics of higher LOD values." group="General" />
+
+        <TunableTuple name="stat_asm_param" class="TunableTunableStatAsmParam" display="Stat Asm Param" description="Tuning that defines how this skill and the various skill levels are set on animations played by the Sim. If an animator wants to play different clips to indicate skill progression, use this tuning to pass that data to the ASM. If the clips are part of an interaction ASM, you can tune the 'Animation Stat' field on the SI to determine which skill is used to represent progression. If the clips are part of various types of ASMs, such as posture transitions or 'Get/Put' animations, check the 'Always Apply' checkbox, which will always set the paramter on all animations played by the Sim. If doing so, ensure the parameter name is unique, i.e. includes the skill's name." group="General">
+            <Tunable type="bool" name="always_apply" class="Tunable" default="False" display="Always Apply" description="If checked, this parameter is always applied on any ASM involving the owning Sim." group="General" />
+            <Tunable type="str" name="asm_param_name" class="Tunable" default="statLevel" display="Asm Param Name" description="The asm param name." group="General" />
+            <TunableList name="level_ranges" class="TunableMapping" display="Level Ranges" mapping_key="key" mapping_value="value" description="The value mapping of the stat range to stat value or user value. If use_user_value is True, the range should be user value, otherwise stat value." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="str" name="key" class="Tunable" default="None" display="Key" description="The asm parameter for Sim's stat level." choice_query="SwingSupport:EnumNames(statLevel)" group="General" />
+                    <TunableTuple name="value" class="TunableInterval" display="Value" description="Stat value fall into the range (inclusive)." group="General">
+                        <Tunable type="float" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+            <Tunable type="bool" name="use_user_value" class="Tunable" default="True" display="Use User Value" description="Whether use the user value or stat value to decide the asm_param." group="General" />
+        </TunableTuple>
+
+        <Tunable type="int" name="stat_name" class="TunableLocalizedString" default="0x0" display="Stat Name" description="Localized name of this statistic." allow_none="True" group="General" />
+
+        <Tunable type="bool" name="telemetry" class="Tunable" default="False" display="Telemetry" description="If enabled then we will support telemetry (GAME:STAT:CHNG) for when statistic is changed. For continuous statistics, will be sent when statistic gets updated." group="General" />
+    </Instance>
+</TuningRoot>

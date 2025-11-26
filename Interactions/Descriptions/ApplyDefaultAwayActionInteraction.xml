@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ApplyDefaultAwayActionInteraction" module="away_actions.away_actions_interactions" description="Interaction that applies the default away action on the sim." instance_needs_reference="True" instance_subclasses_only="False" parents="ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TdescFragTag name="away_action_sim_info_test" class="TunableTestSet" display="Away Action Sim Info Test" description="A set of tests that will be run on the sim info that is trying to run the set default away action interaction." group="~Core~" />
+
+        <Deleted name="simless" />
+
+        <Deleted name="tests" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="away_action" class="AwayAction" module="away_actions.away_actions" description="AwayAction Tuning." instance_needs_reference="True" instance_subclasses_only="False" path="AwayActions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="_apply_on_load_tags" class="TunableSet" display="Apply On Load Tags" description="A set of tags that are are compared to interaction tags that the sim was running when they became uninstantiated. If there are any matching tags then this away action will be applied automatically to that sim rather than the default away action." group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A single tag that will be compared to the interaction tags." group="General" />
+        </TunableList>
+
+        <Tunable type="bool" name="_available_when_instanced" class="Tunable" default="False" display="Available When Instanced" description="If this away action is able to be applied when the sim is still instanced. If the sim becomes instanced while the away action is running we will not stop running it. This should only be true in special cases such as with careers. PLEASE ASK A GPE ABOUT MAKING THIS TRUE BEFORE DOING SO. YOU PROBABLY DON'T WANT THIS." group="General" />
+
+        <TdescFragTag name="_disable_away_action" class="TunableTestSetWithTooltip" display="Disable Away Action" description="The availability of this away action based on tests." group="General" />
+
+        <TunableVariant type="None" name="_disabled_when_running" class="OptionalTunable" default="available_when_running" display="Disabled When Running" description="The availability of this away action when it is already the active away action on the sim." group="General">
+            <Tunable name="available_when_running" class="TunableExistance" display="Available When Running" />
+            <Tunable type="int" name="disabled_when_running" class="TunableLocalizedString" default="0x0" display="Disabled When Running" description="The text that displays in the tooltip string when this away action is not available because it is already the active away action." group="General" />
+        </TunableVariant>
+
+        <Tunable type="int" name="_display_name" class="TunableLocalizedString" default="0x0" display="Display Name" description="The name given to the away action when the user sees it in the pie menu." allow_none="True" group="UI" />
+
+        <TunableTuple name="_display_name_text_tokens" class="TunableLocalizationTokens" display="Display Name Text Tokens" description="Localization tokens to be passed into 'display_name'. For example, you could use a participant or you could also pass in statistic and commodity values" group="UI">
+            <TunableList name="tokens" class="TunableList" display="Tokens" description="A list of tokens that will be returned by this factory. Any string that uses this token will have token '0' be set to the first element, '1' to the second element, and so on. Do not let the list inheritance values confuse you; regardless of what the list element index is, the first element will always be 0, the second element 1, and so on." group="General">
+                <TunableVariant type="None" class="TunableVariant" default="participant_type" description="Define what the token at the specified index is." group="General">
+                    <Tunable name="active_holiday" class="TunableExistance" display="Active Holiday" />
+                    <TunableTuple name="animal_home" class="TunableTuple" display="Animal Home" description="Tokens for the animal home." group="General">
+                        <TunableVariant type="None" name="animal_home_data" class="TunableVariant" default="max_capacity" display="Animal Home Data" description="Data you'd like to fetch about the animal home." group="General">
+                            <Tunable name="current_occupancy" class="TunableExistance" display="Current Occupancy" />
+                            <Tunable name="max_capacity" class="TunableExistance" display="Max Capacity" />
+                        </TunableVariant>
+                        <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Object" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant from whom we will fetch specified data. This is expected to resolve to an Animal Home." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="associated_club" class="TunableTuple" display="Associated Club" description="The token is a stored 'associated_club' on this interaction. Only works with ClubMixerInteractions or ClubSuperInteractions." group="General" />
+                    <TunableTuple name="buck_amount" class="TunableTuple" display="Buck Amount" description="The token is a number repesenting the amount of the specified buck type the specified participant has." group="General">
+                        <TunableEnum type="BucksType" name="bucks_type" class="TunableEnumEntry" default="INVALID" display="Bucks Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" group="General" />
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant from whom we will fetch the specified statistic's value." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="buff_duration_remaining" class="TunableTuple" display="Buff Duration Remaining" description="Tokens for the remaining duration of a buff" group="General">
+                        <Tunable type="buff" name="buff" class="TunableReference" display="Buff" description="The buff whose duration we want to fetch." allow_none="False" group="General" />
+                        <TunableEnum type="ParticipantTypeSingleSim" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingleSim" description="The participant from whom we will fetch the specified buff duration." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="career_data" class="TunableTuple" display="Career Data" description="The token is a localized string, number, or Sim, representing the specified career data for the specified participant." group="General">
+                        <TunableVariant type="None" name="career_data" class="TunableVariant" default="current_level_name" display="Career Data" description="The piece of data to fetch." group="General">
+                            <Tunable name="current_level_name" class="TunableExistance" display="Current Level Name" />
+                            <Tunable name="current_level_salary" class="TunableExistance" display="Current Level Salary" />
+                            <Tunable name="next_level_name" class="TunableExistance" display="Next Level Name" />
+                            <Tunable name="next_level_salary" class="TunableExistance" display="Next Level Salary" />
+                            <Tunable name="previous_level_name" class="TunableExistance" display="Previous Level Name" />
+                            <Tunable name="previous_level_salary" class="TunableExistance" display="Previous Level Salary" />
+                        </TunableVariant>
+                        <Tunable type="career" name="career_type" class="TunableReference" display="Career Type" description="The career we care about." allow_none="False" group="General" />
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant's whose career data we care about." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="civic_policy" class="TunableTuple" display="Civic Policy" description="Tokens for the Civic Policy system." group="General">
+                        <TunableVariant type="None" name="civic_policy_data" class="TunableVariant" default="voting_start_time" display="Civic Policy Data" description="The specific value to display." group="General">
+                            <Tunable name="voting_end_time" class="TunableExistance" display="Voting End Time" />
+                            <Tunable name="voting_start_time" class="TunableExistance" display="Voting Start Time" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                    <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
+                        <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="game_component_data" class="TunableTuple" display="Game Component Data" description="The token is a localized number or Sim representing the specified game component data from game component." group="General">
+                        <TunableVariant type="None" name="game_component_data" class="TunableVariant" default="high_score" display="Game Component Data" description="The piece of data to fetch." group="General">
+                            <Tunable name="high_score" class="TunableExistance" display="High Score" />
+                            <Tunable name="high_score_sim" class="TunableExistance" display="High Score Sim" />
+                        </TunableVariant>
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="The participant's from whom the game component data we want to fetch." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="gig_history" class="TunableTuple" display="Gig History" description="The token used to display data from gig history." group="General">
+                        <TunableVariant type="None" name="customer_participant" class="OptionalTunable" default="disabled" display="Customer Participant" description="If enabled, this is the participant representing the customer in gig history. If disabled, falls back to searching for any valid gig in history." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="TargetSim" display="Enabled" static_entries="interactions.ParticipantType" description="TargetSim searches for provided customer sim. Lot will search for the current lot." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="gig_history_data" class="TunableVariant" default="gig_customer_name" display="Gig History Data" description="The piece of data to fetch." group="General">
+                            <Tunable name="gig_customer_name" class="TunableExistance" display="Gig Customer Name" />
+                            <Tunable name="gig_project_title" class="TunableExistance" display="Gig Project Title" />
+                        </TunableVariant>
+                        <TunableEnum type="GigResult" name="max_gig_result" class="TunableEnumEntry" default="GREAT_SUCCESS" display="Max Gig Result" static_entries="careers-career_enums.GigResult" description="The worst acceptable gig result to find." group="General" />
+                        <TunableEnum type="GigResult" name="min_gig_result" class="TunableEnumEntry" default="CRITICAL_FAILURE" display="Min Gig Result" static_entries="careers-career_enums.GigResult" description="The worst acceptable gig result to find." group="General" />
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant whose gig history we will search." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="global_policy" class="TunableTuple" display="Global Policy" description="The token used to display data from the tuned global policy." group="General">
+                        <Tunable type="snippet" name="global_policy" class="TunableReference" display="Global Policy" description="The global policy from which data is displayed." allow_none="False" group="General" restrict="GlobalPolicy" />
+                        <TunableEnum type="GlobalPolicyTokenType" name="token_property" class="TunableEnumEntry" default="NAME" display="Token Property" static_entries="global_policies-global_policy_enums.GlobalPolicyTokenType" description="Which property from the Global Policy Token to use. NAME will use the policy's display name, PROGRESS will use the progress made over the max progress value. " group="General" />
+                    </TunableTuple>
+                    <Tunable name="interaction_cost" class="TunableExistance" display="Interaction Cost" />
+                    <Tunable name="interaction_payout" class="TunableExistance" display="Interaction Payout" />
+                    <TunableTuple name="lifestyle_brand" class="TunableTuple" display="Lifestyle Brand" description="The token used to display the name of a Lifestyle Brand owned by a Sim." group="General">
+                        <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.TargetSim" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant who owns the lifestyle brand." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="luck" class="TunableTuple" display="Luck" description="Token for a sim's Luck level." group="General">
+                        <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant who's luck level we want to display." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="money_amount" class="TunableTuple" display="Money Amount" description="The token is a number representing the amount of Simoleons that were awarded in loot to the specified participant." group="General">
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant for whom we fetch the earned amount of money." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="object_fashion_marketplace" class="TunableTuple" display="Object Fashion Marketplace" description="Tokens for the object fashion marketplace component and fashion marketplace system." group="General">
+                        <TunableVariant type="None" name="object_fashion_marketplace_data" class="TunableVariant" default="expiration_time" display="Object Fashion Marketplace Data" description="Please select what value you would like to use." group="General">
+                            <Tunable name="buyer_name" class="TunableExistance" display="Buyer Name" />
+                            <Tunable name="expiration_time" class="TunableExistance" display="Expiration Time" />
+                            <Tunable name="sale_price" class="TunableExistance" display="Sale Price" />
+                            <Tunable name="suggested_sale_price" class="TunableExistance" display="Suggested Sale Price" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="object_marketplace" class="TunableTuple" display="Object Marketplace" description="Tokens for the object marketplace component and marketplace system." group="General">
+                        <TunableVariant type="None" name="object_marketplace_data" class="TunableVariant" default="expiration_time" display="Object Marketplace Data" description="Please select what value you would like to use." group="General">
+                            <Tunable name="buyer_name" class="TunableExistance" display="Buyer Name" />
+                            <Tunable name="expiration_time" class="TunableExistance" display="Expiration Time" />
+                            <Tunable name="sale_price" class="TunableExistance" display="Sale Price" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="object_property" class="TunableTuple" display="Object Property" description="The token is a property of a game object. This could be catalog properties like its price or its rarity which is a property given by a component." group="General">
+                        <TunableEnum type="GameObjectProperty" name="obj_property" class="TunableEnumEntry" default="CATALOG_PRICE" display="Obj Property" static_entries="objects-game_object_properties.GameObjectProperty" description="The property of the object that we will request." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="object_state_value" class="TunableTuple" display="Object State Value" description="The token is a string representing the value of a specific state from the selected participant." group="General">
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="The participant from whom we will fetch the specified state's value." group="General" />
+                        <Tunable type="object_state" name="state" class="TunableReference" display="State" description="The state's whose value we want to fetch." allow_none="False" group="General" restrict="ObjectState" />
+                    </TunableTuple>
+                    <TunableTuple name="participant_count" class="TunableTuple" display="Participant Count" description="The number of participants of the specified type." group="General">
+                        <TunableVariant type="None" name="objects" class="TunableObjectGeneratorVariant" default="from_participant" display="Objects" group="General">
+                            <TunableTuple name="from_gardening" class="Tunable_ObjectGeneratorFromGardening" display="From Gardening" description="The generated objects are those gardening objects that are within the specified distance from the tuned participant." group="General">
+                                <Tunable type="float" name="distance" class="TunableRange" default="4" display="Distance" min="1.192092896e-07" max="None" description="The distance used to determine which objects are generated." tuning_state="NeedsTuning" group="General" />
+                                <TunableVariant type="None" name="object_type" class="TunableVariant" default="plants" display="Object Type" description="The type of gardening object to return." group="General">
+                                    <TunableTuple name="harvestables" class="Tunable_ObjectTypeHarvestable" display="Harvestables" description="Return all harvestables, i.e. all fruits/flowers parented to plants." group="General" />
+                                    <TunableTuple name="plants" class="Tunable_ObjectTypePlant" display="Plants" description="Return all plants." group="General" />
+                                </TunableVariant>
+                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The object used as a center point for distance calculations." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="from_participant" class="Tunable_ObjectGeneratorFromParticipant" display="From Participant" description="Specify a participant type to generate objects based on this interaction." group="General">
+                                <TunableVariant type="None" name="in_slot" class="TunableVariant" default="use_participant" display="In Slot" description="slots of the participant object from which the target objects should be pulled." group="General">
+                                    <Tunable type="str" name="by_name" class="Tunable" default="_ctnm_" display="By Name" description="The exact name of a slot on the parent object in which the object should be. " group="General" />
+                                    <Tunable type="slot_type" name="by_reference" class="TunableReference" display="By Reference" description="A particular slot type in which the object should be." allow_none="False" group="General" />
+                                    <TunableList name="by_set_of_references" class="TunableSet" display="By Set Of References" description="A set of references that the objects should be in." group="General" unique_entries="true">
+                                        <Tunable type="slot_type" class="TunableReference" allow_none="False" group="General" />
+                                    </TunableList>
+                                    <Tunable name="use_participant" class="TunableExistance" display="Use Participant" />
+                                </TunableVariant>
+                                <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="ObjectChildren" display="Participant" static_entries="interactions.ParticipantType" description="The participant determining which objects are to be generated." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="from_stored_object_component" class="Tunable_ObjectGeneratorFromStoredObjectComponent" display="From Stored Object Component" description="Return the stored object of the specified type from the stored object component of the specified participant.S" group="General">
+                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant from which the stored object is returned." group="General" />
+                                <TunableEnum type="StoredObjectType" name="stored_object_type" class="TunableEnumEntry" default="INVALID" display="Stored Object Type" dynamic_entries="objects-components-stored_object_info_tuning.StoredObjectType._elements" static_entries="objects-components-stored_object_info_tuning.StoredObjectType" description="The type of object to apply loot actions to." group="General" invalid_entries="INVALID" />
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="participant_type" class="TunableTuple" display="Participant Type" description="The token is a Sim or object participant from the interaction." group="General">
+                        <TunableVariant type="None" name="formatter" class="TunableObjectLocalizationTokenFormatterVariant" default="single" display="Formatter" description="Define the format for this token." group="General">
+                            <TunableTuple name="bullet_list" class="Tunable_TunableObjectLocalizationTokenFormatterBulletList" display="Bullet List" description="The token is a string, which is a formatted bullet point list. Objects are grouped by definition. The text for each item must be specified." group="General">
+                                <Tunable type="int" name="bullet_text" class="TunableLocalizedString" default="0x0" display="Bullet Text" description="The text for the bullet entry. The string is provided the following tokens, in this order: 0 An object representitive of the group 1 The number of objects in the group" group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="single" class="Tunable_TunableObjectLocalizationTokenFormatterSingle" display="Single" description="The token is a single object name. If multiple participants are returned, an arbitrary one is used. That is, unless the mismatch key is specified. In that case, the string is used unless all of the participants' definitions match." group="General">
+                                <TunableVariant type="None" name="mismatch_name" class="OptionalTunable" default="disabled" display="Mismatch Name" description="If enabled, this is the object name to use when using a multi- object participant yielding definitions with different names." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." allow_catalog_name="True" group="General" />
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="objects" class="TunableObjectGeneratorVariant" default="from_participant" display="Objects" group="General">
+                            <TunableTuple name="from_gardening" class="Tunable_ObjectGeneratorFromGardening" display="From Gardening" description="The generated objects are those gardening objects that are within the specified distance from the tuned participant." group="General">
+                                <Tunable type="float" name="distance" class="TunableRange" default="4" display="Distance" min="1.192092896e-07" max="None" description="The distance used to determine which objects are generated." tuning_state="NeedsTuning" group="General" />
+                                <TunableVariant type="None" name="object_type" class="TunableVariant" default="plants" display="Object Type" description="The type of gardening object to return." group="General">
+                                    <TunableTuple name="harvestables" class="Tunable_ObjectTypeHarvestable" display="Harvestables" description="Return all harvestables, i.e. all fruits/flowers parented to plants." group="General" />
+                                    <TunableTuple name="plants" class="Tunable_ObjectTypePlant" display="Plants" description="Return all plants." group="General" />
+                                </TunableVariant>
+                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The object used as a center point for distance calculations." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="from_participant" class="Tunable_ObjectGeneratorFromParticipant" display="From Participant" description="Specify a participant type to generate objects based on this interaction." group="General">
+                                <TunableVariant type="None" name="in_slot" class="TunableVariant" default="use_participant" display="In Slot" description="slots of the participant object from which the target objects should be pulled." group="General">
+                                    <Tunable type="str" name="by_name" class="Tunable" default="_ctnm_" display="By Name" description="The exact name of a slot on the parent object in which the object should be. " group="General" />
+                                    <Tunable type="slot_type" name="by_reference" class="TunableReference" display="By Reference" description="A particular slot type in which the object should be." allow_none="False" group="General" />
+                                    <TunableList name="by_set_of_references" class="TunableSet" display="By Set Of References" description="A set of references that the objects should be in." group="General" unique_entries="true">
+                                        <Tunable type="slot_type" class="TunableReference" allow_none="False" group="General" />
+                                    </TunableList>
+                                    <Tunable name="use_participant" class="TunableExistance" display="Use Participant" />
+                                </TunableVariant>
+                                <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant determining which objects are to be generated." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="from_stored_object_component" class="Tunable_ObjectGeneratorFromStoredObjectComponent" display="From Stored Object Component" description="Return the stored object of the specified type from the stored object component of the specified participant.S" group="General">
+                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant from which the stored object is returned." group="General" />
+                                <TunableEnum type="StoredObjectType" name="stored_object_type" class="TunableEnumEntry" default="INVALID" display="Stored Object Type" dynamic_entries="objects-components-stored_object_info_tuning.StoredObjectType._elements" static_entries="objects-components-stored_object_info_tuning.StoredObjectType" description="The type of object to apply loot actions to." group="General" invalid_entries="INVALID" />
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="participant_type_special" class="TunableTuple" display="Participant Type Special" description="The token is a specified string grabbed from a supported participant type that requires special handling. Currently supported are: I. Participants that resolve into households 1. Household Name 2. Household Description 2. Participants that resolve into zone ids 1. Lot Name 2. Lot Description 3. Name of household that lives there 4. Description of household that lives there." group="General">
+                        <TunableVariant type="None" name="participant_type" class="_SpecialParticipantTokenVariant" default="household" display="Participant Type" group="General">
+                            <TunableTuple name="household" class="Tunable_FromHouseholdParticipant" display="Household" description="Helper class used to support participants that resolve into households." group="General">
+                                <TunableVariant type="None" name="attribute" class="TunableVariant" default="name" display="Attribute" description="Which string we are interested in." group="General">
+                                    <Tunable name="description" class="TunableExistance" display="Description" />
+                                    <Tunable name="name" class="TunableExistance" display="Name" />
+                                </TunableVariant>
+                                <TunableEnum type="ParticipantTypeHousehold" name="participant" class="TunableEnumEntry" default="TargetHousehold" display="Participant" static_entries="interactions.ParticipantTypeHousehold" description="Participant that resolves to a household." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="zone" class="Tunable_FromZone" display="Zone" description="Helper class used to support participants that resolve into zone ids." group="General">
+                                <TunableVariant type="None" name="attribute" class="TunableVariant" default="zone_name" display="Attribute" description="Which string we are interested in." group="General">
+                                    <Tunable name="occupant_household_description" class="TunableExistance" display="Occupant Household Description" />
+                                    <Tunable name="occupant_household_name" class="TunableExistance" display="Occupant Household Name" />
+                                    <Tunable name="zone_description" class="TunableExistance" display="Zone Description" />
+                                    <Tunable name="zone_name" class="TunableExistance" display="Zone Name" />
+                                </TunableVariant>
+                                <TunableEnum type="ParticipantTypeZoneId" name="participant" class="TunableEnumEntry" default="PickedZoneId" display="Participant" static_entries="interactions.ParticipantTypeZoneId" description="Participant that resolves to zone id of a multi unit business." group="General" invalid_entries="AllUnitZoneIds" />
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="picked_part" class="TunableTuple" display="Picked Part" description="The token used to display the name of a picked part." group="General" />
+                    <TunableTuple name="scholarship_letter_component_data" class="TunableTuple" display="Scholarship Letter Component Data" description="The token can be used to get strings representing scholarship information from the scholarship letter component of an object." group="General">
+                        <TunableEnum type="ParticipantTypeObject" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantTypeObject" description="The participant from whom to get the scholarship letter component data." group="General" />
+                        <TunableVariant type="None" name="scholarship_letter_component_data" class="TunableVariant" default="applicant_name" display="Scholarship Letter Component Data" description="The piece of data to fetch." group="General">
+                            <Tunable name="applicant_name" class="TunableExistance" display="Applicant Name" />
+                            <Tunable name="scholarship_amount" class="TunableExistance" display="Scholarship Amount" />
+                            <Tunable name="scholarship_description" class="TunableExistance" display="Scholarship Description" />
+                            <Tunable name="scholarship_name" class="TunableExistance" display="Scholarship Name" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="sickness" class="TunableTuple" display="Sickness" description="The token is the name of the sickness on the specified Sim." group="General">
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="TargetSim" display="Participant" static_entries="interactions.ParticipantType" description="The participant who is sick." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="small_business" class="TunableTuple" display="Small Business" description="The token is the name of the small business owned by specified Sim." group="General">
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant who has small business." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="statistic_value" class="TunableTuple" display="Statistic Value" description="The token is a number representing the value of a specific statistic from the selected participant." group="General">
+                        <Tunable type="bool" name="clamp_value_to_floor" class="Tunable" default="False" display="Clamp Value To Floor" description="If True, the value will be clamped to its floor." group="General" />
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant from whom we will fetch the specified statistic's value." group="General" />
+                        <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic's whose value we want to fetch." allow_none="False" group="General" />
+                        <Tunable type="bool" name="use_statistic_name" class="Tunable" default="False" display="Use Statistic Name" description="If True, the value will be the name of the statistic." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="street" class="TunableTuple" display="Street" description=" " group="General">
+                        <TunableTuple name="street" class="TunableTunableLocalizationStreetSelector" display="Street" description="Using the Street Selector tuning, provide a token localization appropriate street selection." group="General">
+                            <TunableVariant type="None" name="street" class="TunableVariant" default="literal" display="Street" description="Select what street to test." group="General">
+                                <Tunable type="street" name="literal" class="TunableReference" display="Literal" description="Identify a specific Street." allow_none="False" group="General" pack_safe="True" />
+                                <TunableTuple name="via_street_participant" class="TunableStreetParticipant" display="Via Street Participant" description="Get the street participant." group="General" />
+                                <TunableVariant type="None" name="via_zone_source" class="TunableVariant" default="use_current_zone" display="Via Zone Source" description="Select the street to use by specifying a Zone Source." group="General">
+                                    <TunableTuple name="use_current_zone" class="TunableActiveZone" display="Use Current Zone" description="Get the active zone." group="General" />
+                                    <TunableTuple name="use_participant_home_zone" class="TunableParticipantHomeZone" display="Use Participant Home Zone" description="Get a participant's home zone. Can be None if they don't have one." group="General">
+                                        <TunableEnum type="ParticipantTypeSingleSim" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingleSim" description="Test against the participant's home zone. Townies' home zone will be None." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="use_pick_info" class="TunablePickInfoZone" display="Use Pick Info" description="Get the zone of the lot the user clicked on." group="General" />
+                                    <TunableTuple name="use_picked_zone_ids" class="TunablePickedZoneIds" display="Use Picked Zone Ids" description="Get the zone from the interaction's picked_zone_ids participant. Usually comes from a picker." group="General" />
+                                </TunableVariant>
+                            </TunableVariant>
+                        </TunableTuple>
+                        <TunableVariant type="None" name="street_data" class="TunableVariant" default="policy_up_for_repeal" display="Street Data" description="The piece of data to fetch." group="General">
+                            <Tunable name="policy_up_for_repeal" class="TunableExistance" display="Policy Up For Repeal" />
+                            <Tunable name="random_losing_balloted_policy" class="TunableExistance" display="Random Losing Balloted Policy" />
+                            <Tunable name="winning_balloted_policy" class="TunableExistance" display="Winning Balloted Policy" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="venue" class="TunableTuple" display="Venue" description=" " group="General">
+                        <TunableVariant type="None" name="venue_data" class="TunableVariant" default="active_venue" display="Venue Data" description=" " group="General">
+                            <Tunable name="active_venue" class="TunableExistance" display="Active Venue" />
+                            <Tunable name="source_venue" class="TunableExistance" display="Source Venue" />
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableList>
+        </TunableTuple>
+
+        <TunableList name="_exit_conditions" class="TunableList" display="Exit Conditions" description="A list of exit conditions for this away action. When met will, apply a SimInfo.DEFAULT_AWAY_ACTION or, if tuned, the override default away action." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableList name="conditions" class="TunableList" display="Conditions" description="A list of conditions that all must be satisfied for the group to be considered satisfied." group="General">
+                    <TunableVariant type="None" class="TunableAwayActionCondition" default="stat_based" description="A condition for an away action." group="General">
+                        <TunableTuple name="stat_based" class="TunableStatisticCondition" display="Stat Based" group="General">
+                            <Tunable type="bool" name="absolute" class="Tunable" default="True" display="Absolute" description="True = treat the threshold value as an absolute commodity value. Otherwise, it is relative to the Sim's start value." group="General" />
+                            <Tunable type="statistic" name="stat" class="TunableReference" display="Stat" description="The commodity we are gaining." allow_none="False" group="General" />
+                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="A commodity value and comparison that defines the exit condition hits (or hit commodity.maximum)." group="General">
+                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                            <TunableEnum type="ParticipantType" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantType" description="Who or what to apply this test to" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="time_based" class="TunableTimeRangeCondition" display="Time Based" description="The minimum and maximum amount of time required to satisfy this condition." group="General">
+                            <Tunable type="float" name="max_time" class="TunableSimMinute" default="None" display="Max Time" min="None" max="None" description="Maximum amount of time (in sim minutes) for this condition to be satisfied." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="min_time" class="TunableSimMinute" default="1" display="Min Time" min="None" max="None" description="Minimum amount of time (in sim minutes) for this condition to be satisfied." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableTuple name="_periodic_stat_changes" class="TunablePeriodicStatisticChange" display="Periodic Stat Changes" description="Periodic stat changes that this away action applies while it is active." group="General">
+            <TunableList name="operations" class="TunableList" display="Operations" description="A list of statistic operations that occur at each interval." group="General">
+                <TunableVariant type="None" class="TunableVariant" default="none" group="General">
+                    <TunableTuple name="dynamic_skill" class="TunableDynamicSkillLootOp" display="Dynamic Skill" description="Dynamically adds to the defined skill." group="General">
+                        <TunableTuple name="skill_loot_data_override" class="TunableSkillLootData" display="Skill Loot Data Override" description="This data will override loot data in the interaction. In interaction, tuning field 'skill_loot_data' is used to determine skill loot data." group="General">
+                            <TunableEnum type="SkillEffectiveness" name="effectiveness" class="TunableEnumEntry" default="None" display="Effectiveness" dynamic_entries="statistics-skill_loot_data.SkillEffectiveness._elements" static_entries="statistics-skill_loot_data.SkillEffectiveness" description="Enum to determine which curve to use when giving points to sim." tuning_state="NeedsTuning" group="General" />
+                            <TunableVariant type="None" name="level_range" class="OptionalTunable" default="disabled" display="Level Range" description="Interval is used to clamp the sim's user facing skill level to determine how many point to give. If disabled, level passed to the dynamic skill loot will always be the current user facing skill level of sim. Example: if sim is level 7 in fitness but interaction skill level is only for 1 to 5 give the dynamic skill amount as if sim is level 5." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="Interval is used to clamp the sim's user facing skill level to determine how many point to give. If disabled, level passed to the dynamic skill loot will always be the current user facing skill level of sim. Example: if sim is level 7 in fitness but interaction skill level is only for 1 to 5 give the dynamic skill amount as if sim is level 5." group="General">
+                                    <Tunable type="int" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                            <Tunable type="statistic" name="stat" class="TunableReference" display="Stat" description="The statistic we are operating on." allow_none="True" group="General" pack_safe="True" restrict="Skill" />
+                        </TunableTuple>
+                        <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The sim(s) the operation is applied to." group="General" />
+                        <TdescFragTag name="subject_filter_tests" class="TunableTestSet" display="Subject Filter Tests" description="These tests will be run once per subject. If the subject participant of this loot action resolves to multiple objects, each of those objects will be tested individually. Any subject that fails this test will be ignored by this loot. This will have no effect on whether we consider the loot to have passed testing on on other subjects or targets. We can use this in cases where we want to give loot based on some criteria like 'All active household members that are dogs get this loot'. These tests will have no effect on 'run tests first' as they are only used for participant filtering and not to determine loot success. The resolver used for these tests is a SingleObjectResolver based on subject sim. This means that test should generally be testing against 'Actor' and should not assume the presence of additional participants that may be present in the containing loot. Ask a GPE if you have questions." group="General" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The test to decide whether the loot action can be applied." group="General" />
+                        <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                            <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                            <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                            <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="dynamic_variant_skill" class="TunableDynamicVariantSkillLootOp" display="Dynamic Variant Skill" description="Grabs a skill from another source of tuning and dynamically adds to it." group="General">
+                        <TunableTuple name="skill_loot_data" class="TunableVariantSkillLootData" display="Skill Loot Data" description="The reference to the skill data." group="General">
+                            <TunableEnum type="SkillEffectiveness" name="effectiveness" class="TunableEnumEntry" default="None" display="Effectiveness" dynamic_entries="statistics-skill_loot_data.SkillEffectiveness._elements" static_entries="statistics-skill_loot_data.SkillEffectiveness" description="Enum to determine which curve to use when giving points to sim." tuning_state="NeedsTuning" group="General" />
+                            <TunableVariant type="None" name="level_range" class="OptionalTunable" default="disabled" display="Level Range" description="Interval is used to clamp the sim's user facing skill level to determine how many point to give. If disabled, level passed to the dynamic skill loot will always be the current user facing skill level of sim. Example: if sim is level 7 in fitness but interaction skill level is only for 1 to 5 give the dynamic skill amount as if sim is level 5." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="Interval is used to clamp the sim's user facing skill level to determine how many point to give. If disabled, level passed to the dynamic skill loot will always be the current user facing skill level of sim. Example: if sim is level 7 in fitness but interaction skill level is only for 1 to 5 give the dynamic skill amount as if sim is level 5." group="General">
+                                    <Tunable type="int" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                            <TunableVariant type="None" name="stat" class="TunableVariant" default="from_career" display="Stat" description="Where to obtain the statistic we are operating on." group="General">
+                                <TunableTuple name="from_career" class="TunableCareerSkillLootData" display="From Career" description="TunableFactory for specifying the career to get the statistic from for the TunableSkillLootData" group="General">
+                                    <Tunable type="career" name="career" class="TunableReference" display="Career" description="The career to reference a statistic from." allow_none="False" group="General" pack_safe="True" restrict="UniversityCourseCareerSlot" />
+                                </TunableTuple>
+                                <TunableTuple name="from_picked" class="TunablePickedStatReference" display="From Picked" description="TunableFactory for getting the picked statistic from the TunableSkillLootData" group="General" />
+                            </TunableVariant>
+                        </TunableTuple>
+                        <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The sim(s) the operation is applied to." group="General" />
+                        <TdescFragTag name="subject_filter_tests" class="TunableTestSet" display="Subject Filter Tests" description="These tests will be run once per subject. If the subject participant of this loot action resolves to multiple objects, each of those objects will be tested individually. Any subject that fails this test will be ignored by this loot. This will have no effect on whether we consider the loot to have passed testing on on other subjects or targets. We can use this in cases where we want to give loot based on some criteria like 'All active household members that are dogs get this loot'. These tests will have no effect on 'run tests first' as they are only used for participant filtering and not to determine loot success. The resolver used for these tests is a SingleObjectResolver based on subject sim. This means that test should generally be testing against 'Actor' and should not assume the presence of additional participants that may be present in the containing loot. Ask a GPE if you have questions." group="General" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The test to decide whether the loot action can be applied." group="General" />
+                        <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                            <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                            <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                            <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <Tunable name="none" class="TunableExistance" display="None" />
+                    <TunableTuple name="relationship_change" class="TunableStatisticAddRelationship" display="Relationship Change" description="Adds to the relationship score statistic for this Super Interaction" group="General">
+                        <Tunable type="bool" name="add_track_if_not_present" class="Tunable" default="True" display="Add Track If Not Present" description="When changing the value of a track, add the track if it's not already present. False means if the track is not already present, the operation is skipped" group="General" />
+                        <Tunable type="bool" name="advertise" class="Tunable" default="True" display="Advertise" description="This statistic operation should advertise to autonomy. This only advertises if the statistic operation is used as part of Periodic Statistic Change." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="amount" class="TunableRate" default="0" display="Rate" description="The gain, per interval for this operation." tuning_state="NeedsTuning" group="General" rate_description="per Sim minute" />
+                        <TunableVariant type="None" name="headline_icon_modifier" class="OptionalTunable" default="disabled" display="Headline Icon Modifier" description="If enabled then when updating the relationship track we will use an icon modifier when sending the headline." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="ResourceKey" name="enabled" class="TunableIcon" default="None" display="Enabled" description="The icon that we will use as a modifier to the headline." group="General" resource_types="0x2f7d0004" />
+                        </TunableVariant>
+                        <Tunable type="bool" name="hide_relationship" class="Tunable" default="False" display="Hide Relationship" description="Sets the relationship's hidden property to this value after a successful interaction." group="General" />
+                        <TunableVariant type="None" name="relationship_multiplier" class="OptionalTunable" default="disabled" display="Relationship Multiplier" description="A multiplier made for relationship operations." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableTunableMultiplier" display="Enabled" description="A construct that determines a total multiplier value based on tunable tests." group="General">
+                                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                    <TunableTuple class="TunableTuple" group="General">
+                                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableList name="subject" class="TunableEnumFlags" default="Actor" display="Subject" description="The owner Sim for this relationship change. Relationship is updated between the participant sim and the target objects as defined by the object relationship track." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                        <TdescFragTag name="subject_filter_tests" class="TunableTestSet" display="Subject Filter Tests" description="These tests will be run once per subject. If the subject participant of this loot action resolves to multiple objects, each of those objects will be tested individually. Any subject that fails this test will be ignored by this loot. This will have no effect on whether we consider the loot to have passed testing on on other subjects or targets. We can use this in cases where we want to give loot based on some criteria like 'All active household members that are dogs get this loot'. These tests will have no effect on 'run tests first' as they are only used for participant filtering and not to determine loot success. The resolver used for these tests is a SingleObjectResolver based on subject sim. This means that test should generally be testing against 'Actor' and should not assume the presence of additional participants that may be present in the containing loot. Ask a GPE if you have questions." group="General" />
+                        <TdescFragTag name="target_filter_tests" class="TunableTestSet" display="Target Filter Tests" description="As subject filter tests, except per target object. See description of subject filter tests." group="General" />
+                        <TunableList name="target_participant_type" class="TunableEnumFlags" display="Target Participant Type" description="The target Sim for this relationship change. Any relationship that would be given to 'self' is discarded." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" invalid_entries="Invalid" />
+                        </TunableList>
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The test to decide whether the loot action can be applied." group="General" />
+                        <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                            <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                            <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                            <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                        </TunableVariant>
+                        <Tunable type="statistic" name="track" class="TunableReference" display="Track" description="The track to be manipulated." allow_none="False" group="General" restrict="RelationshipTrack" />
+                        <TunableTuple name="track_range" class="TunableInterval" display="Track Range" description="The relationship track must > lower_bound and <= upper_bound for the operation to apply." group="General">
+                            <Tunable type="float" name="lower_bound" class="TunableRange" default="-101" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="upper_bound" class="TunableRange" default="100" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                    <TunableTuple name="statistic_change" class="TunableStatisticChangeOp" display="Statistic Change" description="Modify the value of a statistic." group="General">
+                        <Tunable type="float" name="amount" class="TunableRate" default="0" display="Rate" description="The gain, per interval for this operation." tuning_state="NeedsTuning" group="General" rate_description="per Sim minute" />
+                        <TunableVariant type="None" name="maximum" class="TunableVariant" default="no_max" display="Maximum" description="A variant containing the different ways you can cap the max amount a statistic reaches as result of a change." group="General">
+                            <Tunable name="no_max" class="TunableExistance" display="No Max" />
+                            <TunableTuple name="points" class="TunableMaxPoints" display="Points" description="The max amount of points that a stat can achieve after an increase." group="General">
+                                <Tunable type="int" name="max_points" class="Tunable" default="0" display="Max Points" description="The point total that a stat cannot go above when increasing. If the increase would go above this point total, instead it will just be equal to this point total." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="rank" class="TunableMaxRank" display="Rank" description="The max rank a stat can achieve after an increase." group="General">
+                                <Tunable type="int" name="max_rank" class="TunableRange" default="0" display="Max Rank" min="0" max="None" description="The rank that a stat cannot go beyond when increasing. If the increase would go beyond achieving this rank, instead it will be set to the min points required to meet this rank. This will prevent any gains toward the next rank from occurring. NOTE: Must be used with a RankedStatistic or it will return 0 as the max." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="object_cost_multiplier" class="OptionalTunable" default="disabled" display="Object Cost Multiplier" description="When enabled allows you to multiply the stat gain amount based on the value of the object specified." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableTunableObjectCostModifierCurve" display="Enabled" description="A construct that determines a multiplier based on the value/cost of an object." group="General">
+                                <TunableList name="multiplier_curve" class="TunableCurve" display="Multiplier Curve" description="The multiplier will be determined by interpolating against a curve. The value of the subject in simoleons is used. This means that a curve for cost should have value at its x-axis." group="General">
+                                    <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                                        <Tunable type="float" name="x" class="Tunable" default="0.0" display="x: Value" description="x component" tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="float" name="y" class="Tunable" default="0.0" display="y: Multiplier" description="y component" tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                                <TunableEnum type="ParticipantTypeSingle" name="subject" class="TunableEnumEntry" default="Object" display="Subject" static_entries="interactions.ParticipantTypeSingle" description="The object whose cost you want to base the multiplier on." group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableEnum type="PeriodicStatisticBehavior" name="periodic_change_behavior" class="TunableEnumEntry" default="APPLY_AT_START_ONLY" display="Periodic Change Behavior" static_entries="statistics-statistic_enums.PeriodicStatisticBehavior" description="When applying this change operation at the beginning of an interaction as part of a periodic statistic change and statistic is a continuous statistic, tune the behavior of this operation when interaction begins. Terminology: BaseBehavior: For change operations that succeed chance and test or if chance is 100% or no tests, the statistic stores the start time and when interaction ends determine how much time is passed and multiply amount. Continuous statistic WILL NOT decay with this behavior. This is for better performance. IntervalBehavior: If continuous statistic is using interval behavior. the amount tuned will be given at specified interval if chance and tests succeeds. Continuous statistics WILL decay between interval time. Tuning Behavior APPLY_AT_START_ONLY: If chance and tests for change operation is successful, periodic update will occur and follow BaseBehavior. If either fail, change operation is not given at any point. RETEST_ON_INTERVAL: If test and chance succeeds, then this will follow BaseBehavior. If test or chance fails, this operation will follow interval behavior. APPLY_AT_INTERVAL_ONLY: This will strictly follow Interval Behavior." group="General" />
+                        <Tunable type="statistic" name="stat" class="TunableReference" display="Stat" description="The statistic we are operating on." allow_none="False" group="General" pack_safe="True" restrict="Commodity,Statistic,Skill,LifeSkillStatistic,RankedStatistic,TraitStatistic" />
+                        <TunableList name="statistic_multipliers" class="TunableList" display="Statistic Multipliers" description="Tunables for adding statistic based multipliers to the payout in the format: amount *= statistic.value" group="General">
+                            <TunableTuple class="TunableTunableStatisticModifierCurve" description="A construct that determines a multiplier based on a statistical value." group="General">
+                                <TunableVariant type="None" name="multiplier" class="TunableVariant" default="raw_value" display="Multiplier" description="Define how the multiplier will be applied." group="General">
+                                    <Tunable name="raw_value" class="TunableExistance" display="Raw Value" />
+                                    <TunableList name="value_curve" class="TunableCurve" display="Value Curve" description="The multiplier will be determined by interpolating against a curve. The user-value is used. This means that a curve for skills should have levels as its x-axis." group="General">
+                                        <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                                            <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                                            <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                                        </TunableTuple>
+                                    </TunableList>
+                                </TunableVariant>
+                                <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The payout amount will be multiplied by this statistic's value." allow_none="False" group="General" pack_safe="True" />
+                                <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The participant to look for the specified statistic on." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                        <TunableList name="subject" class="TunableEnumFlags" default="Actor" display="Subject" description="The owner of the stat that we are operating on." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" invalid_entries="Invalid" />
+                        </TunableList>
+                        <TdescFragTag name="subject_filter_tests" class="TunableTestSet" display="Subject Filter Tests" description="These tests will be run once per subject. If the subject participant of this loot action resolves to multiple objects, each of those objects will be tested individually. Any subject that fails this test will be ignored by this loot. This will have no effect on whether we consider the loot to have passed testing on on other subjects or targets. We can use this in cases where we want to give loot based on some criteria like 'All active household members that are dogs get this loot'. These tests will have no effect on 'run tests first' as they are only used for participant filtering and not to determine loot success. The resolver used for these tests is a SingleObjectResolver based on subject sim. This means that test should generally be testing against 'Actor' and should not assume the presence of additional participants that may be present in the containing loot. Ask a GPE if you have questions." group="General" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The test to decide whether the loot action can be applied." group="General" />
+                        <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                            <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                            <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                            <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                        </TunableVariant>
+                        <TunableList name="tunable_multipliers" class="TunableList" display="Tunable Multipliers" description="List of multipliers to be applied when gaining amount" group="General">
+                            <TunableTuple class="TunableTunableMultiplier" description="A construct that determines a total multiplier value based on tunable tests." group="General">
+                                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                    <TunableTuple class="TunableTuple" group="General">
+                                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="statistic_change_by_category" class="TunableChangeStatisticByCategory" display="Statistic Change By Category" description="Change value of all statistics of a specific category." group="General">
+                        <TunableVariant type="None" name="change" class="TunableVariant" default="none" display="Change" group="General">
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                            <TunableTuple name="percent_change" class="TunablePercentChangeAmountFactory" display="Percent Change" group="General">
+                                <Tunable type="float" name="percent_change_amount" class="TunablePercent" default="-50" display="Percent Change Amount" min="-100" max="100" description="Percent of current value of statistic should amount be changed. If you want to decrease the amount by 50% enter -50% into the tuning field." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="stat_change" class="TunableChangeAmountFactory" display="Stat Change" group="General">
+                                <Tunable type="float" name="change_amout" class="Tunable" default="0" display="Change Amout" description="Amount of change to be applied to statistics that match category." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableEnum type="StatisticCategory" name="statistic_category" class="TunableEnumEntry" default="INVALID" display="Statistic Category" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="The category of commodity to remove." group="General" />
+                        <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The sim(s) the operation is applied to." group="General" />
+                        <TdescFragTag name="subject_filter_tests" class="TunableTestSet" display="Subject Filter Tests" description="These tests will be run once per subject. If the subject participant of this loot action resolves to multiple objects, each of those objects will be tested individually. Any subject that fails this test will be ignored by this loot. This will have no effect on whether we consider the loot to have passed testing on on other subjects or targets. We can use this in cases where we want to give loot based on some criteria like 'All active household members that are dogs get this loot'. These tests will have no effect on 'run tests first' as they are only used for participant filtering and not to determine loot success. The resolver used for these tests is a SingleObjectResolver based on subject sim. This means that test should generally be testing against 'Actor' and should not assume the presence of additional participants that may be present in the containing loot. Ask a GPE if you have questions." group="General" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The test to decide whether the loot action can be applied." group="General" />
+                        <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                            <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                            <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                            <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableList>
+        </TunableTuple>
+
+        <TunableList name="_preroll_commodities" class="TunableList" display="Preroll Commodities" description="A list of commodities that will be used to run preroll if the sim loaded with this away action." group="General">
+            <Tunable type="statistic" class="TunableReference" description="The commodity that is used to solve for preroll if the sim had this away action on them when they are being loaded. This is used to help preserve the fiction of what that sim was doing when the player returns to the lot. EX: make the sim garden if they were using the gardening away action. " allow_none="False" group="General" />
+        </TunableList>
+
+        <TunableList name="_preroll_static_commodities" class="TunableList" display="Preroll Static Commodities" description="A list of static commodities that will be used to run preroll if the sim loaded with this away action." group="General">
+            <Tunable type="scommodity" class="TunableReference" description="The static commodity that is used to solve for preroll if the sim had this away action on them when they are being loaded. This is used to help preserve the fiction of what that sim was doing when the player returns to the lot. EX: make the sim garden if they were using the gardening away action. " allow_none="False" group="General" restrict="StaticCommodity" />
+        </TunableList>
+
+        <TdescFragTag name="_tests" class="TunableTestSet" display="Tests" description="Tests that determine if this away action is applicable. These tests do not ensure that the conditions are still met throughout the duration that the away action is applied." group="General" />
+
+        <TunableVariant type="None" name="icon_data" class="OptionalTunable" default="enabled" display="Icon Data" description="When enabled, the icon and tooltip that represents the away action on the sim skewer." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="The icon and tooltip that represents the away action on the sim skewer." group="General">
+                <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="Icon that represents the away action on the sim skewer." group="General" resource_types="0x2f7d0004" />
+                <Tunable type="int" name="tooltip" class="TunableLocalizedString" default="0x0" display="Tooltip" description="The tooltip shown on the icon that represents the away action." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="mood_list" class="TunableList" display="Mood List" description="A list of possible moods this AwayAction may associate with." group="General">
+            <Tunable type="mood" class="TunableReference" description="A mood associated with this AwayAction." allow_none="False" group="General" />
+        </TunableList>
+
+        <TunableVariant type="None" name="override_default_away_action" class="OptionalTunable" default="use_sim_info_default_away_action" display="Override Default Away Action" description="If enabled, this away action will override the returned action, if any, from the SimInfo.DEFAULT_AWAY_ACTION mapping. If no override is specified, and an exit condition is tuned, you have to add or ensure that the sim will fall into one of the mappings in SimInfo.DEFAULT_AWAY_ACTION, else the away action UI will disappear when the exit condition is satisfied. " group="General">
+            <Tunable type="away_action" name="use_override" class="TunableReference" display="Use Override" description="The away action to run. " allow_none="False" group="General" pack_safe="True" />
+            <Tunable name="use_sim_info_default_away_action" class="TunableExistance" display="Use Sim Info Default Away Action" />
+        </TunableVariant>
+
+        <Tunable type="int" name="pie_menu_tooltip" class="TunableLocalizedString" default="0x0" display="Pie Menu Tooltip" description="The tooltip shown in the pie menu for this away action." allow_none="True" group="UI" />
+    </Instance>
+
+    
+</TuningRoot>

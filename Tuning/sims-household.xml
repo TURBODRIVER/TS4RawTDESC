@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.household">
+        <Class name="Household">
+            <Tunable type="int" name="ANCESTRY_PURGE_DEPTH" class="TunableRange" default="3" display="Ancestry Purge Depth" min="1" max="None" description="The maximum number of links that living Sims can have with an ancestor before the ancestor is purged." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="MAXIMUM_SIZE" class="Tunable" default="8" display="Maximum Size" description="Maximum number of Sims you can have in a household at a time." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="NPC_HOUSEHOLD_DEFAULT_FUNDS" class="TunableRange" default="20000" display="Npc Household Default Funds" min="0" max="None" description="The default amount of funds an NPC household will have. This will determine how much money an NPC sims brings with them when you invite to household." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="SIM_SPAWN_RADIUS" class="Tunable" default="2" display="Sim Spawn Radius" description="Radius of the circle around which other family members will be spawned." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="SIM_TRANSFER_BUFFS" class="TunableList" display="Sim Transfer Buffs" description="Buffs to add for Sims that are transferred to another household through gameplay." group="General">
+                <TunableTuple class="TunableBuffReference" description="The buff to add to the transferred Sim." group="General">
+                    <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                            <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                        </TunableVariant>
+                    </TunableVariant>
+                    <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="SPECIAL_FIXES" class="TunableTuple" display="Special Fixes" description="Special Case tuning to fix up bad save data" group="General">
+                <TunableTuple name="pet_relbits" class="TunableTuple" display="Pet Relbits" description="Not all sims in a household with a pet have the correct pet ownership relbits. If this is the case, we will fix this for the active household on load." group="General">
+                    <Tunable type="action" name="loot_for_pets" class="TunableReference" display="Loot For Pets" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                </TunableTuple>
+            </TunableTuple>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="relationships.sentiment_track_tracker">
+        <Class name="SentimentTrackTracker">
+            <TunableTuple name="BALLOON_DATA" class="TunableTuple" display="Balloon Data" description="Information that will be used to create a balloon when a sentiment gets added to a sim." group="General">
+                <Tunable type="int" name="balloon_stack_window_seconds" class="TunableRange" default="10" display="Balloon Stack Window Seconds" min="10" max="None" description="The delay in seconds that a sentiment bubble should wait and see if similar sentiments on the same sim is triggered (generally towards multiple other sims). If similar sentiments are detected within the time window, they will be condensed into a 'multi-sentiment' visual treatment. Numbers are in sim seconds " tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="balloon_types" class="TunableTuple" display="Balloon Types" description="The Visual Style of the balloon background." group="General">
+                    <TunableEnum type="BalloonTypeEnum" name="default_type" class="TunableEnumEntry" default="SENTIMENT" display="Default Type" static_entries="balloon-balloon_enums.BalloonTypeEnum" description="The default visual style of the balloon background." group="General" />
+                    <TunableEnum type="BalloonTypeEnum" name="infant_type" class="TunableEnumEntry" default="SENTIMENT_INFANT" display="Infant Type" static_entries="balloon-balloon_enums.BalloonTypeEnum" description="The infant's visual style of the balloon background." group="General" />
+                </TunableTuple>
+                <TunableTuple name="balloon_view_offsets" class="TunableTuple" display="Balloon View Offsets" description="The Vector3 offsets from the balloon bone to the thought balloon. " group="General">
+                    <TunableTuple name="default_offset" class="TunableVector3" display="Default Offset" description="The default Vector3 offset from the balloon bone to the thought balloon. " group="General">
+                        <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="infant_offset" class="TunableVector3" display="Infant Offset" description="The infant Vector3 offset from the balloon bone to the thought balloon. " group="General">
+                        <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+                <Tunable type="float" name="duration" class="TunableRange" default="3.0" display="Duration" min="0.0" max="None" description="The duration, in seconds, that a balloon should last." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="icon" class="TunableIconVariant" default="resource_key" display="Icon" description="The Icon that will be showed within the balloon." group="General">
+                    <TunableTuple name="career_icon_override" class="TunableCareerIconOverrideIconFactory" display="Career Icon Override" group="General">
+                        <Tunable type="career" name="career_reference" class="TunableReference" display="Career Reference" description="The Career to override the icon." allow_none="False" group="General" pack_safe="True" />
+                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the career." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
+                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="participant" class="TunableParticipantTypeIconFactory" display="Participant" description="The Sim who's thumbnail will be used." group="General">
+                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                    <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
+                        <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                    </TunableTuple>
+                    <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
+                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="tradition" class="TunableHolidayIconFactory" display="Tradition" group="General">
+                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="We use this participant's holiday tracker to get the icon." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableVariant>
+                <Tunable type="ResourceKey" name="multi_sim_icon" class="TunableResourceKey" default="None" display="Multi Sim Icon" description="The Icon that will be showed within the balloon for sentiments towards multiple sims." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                <Tunable type="ResourceKey" name="overlay" class="TunableResourceKey" default="None" display="Overlay" description="The overlay for the balloon, if present." allow_none="True" group="General" resource_types="0x2f7d0004" />
+            </TunableTuple>
+
+            <Tunable type="int" name="LONG_TERM_PRIORITY_VALUE_THRESHOLD" class="Tunable" default="1" display="Long Term Priority Value Threshold" description="The SentimentTrack value below which a lower priority long-term SentimentTrack can replace a higher priority long-term SentimentTrack." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="LONG_TERM_VALUE_ADJUSTMENT" class="Tunable" default="1" display="Long Term Value Adjustment" description="When failing to add a positive long-term SentimentTrack. This will be a whole number value added to the negative long term SentimentTrack value." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="NEGATIVE_LONG_TERM_VALUE_THRESHOLD" class="Tunable" default="1" display="Negative Long Term Value Threshold" description="The SentimentTrack value below which a positive long-term SentimentTrack can replace a negative long-term SentimentTrack" tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="NEGATIVE_SHORT_TERM_VALUE_THRESHOLD" class="Tunable" default="1" display="Negative Short Term Value Threshold" description="SentimentTrack value below which a positive short-term SentimentTrack can replace all negative short-term SentimentTracks" tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="PRIORITY_VALUE_ADJUSTMENT" class="Tunable" default="0" display="Priority Value Adjustment" description="When failing to add an opposite sign long-term SentimentTrack due to existing having higher priority, This will be a whole number value added to the existing long term SentimentTrack value." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="PROXIMITY_LOOT_COOLDOWN" class="TunableSimMinute" default="100" display="Proximity Loot Cooldown" min="0" max="None" description="The number of seconds until a sim is allowed to attempt to roll to get a buff from a SentimentTrack that they have towards a specific sim." tuning_state="NeedsTuning" group="General" />
+
+            <TunableTuple name="PROXIMITY_NO_LOOT_CHANCE_WEIGHT" class="TunableTunableMultiplier" display="Proximity No Loot Chance Weight" description="The weighted chance that a sim may roll to not get a loot when coming in proximity of a sim that they have a sentiment towards." group="General">
+                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+
+            <Tunable type="int" name="SENTIMENT_CAP" class="TunableRange" default="4" display="Sentiment Cap" min="1" max="4" description="Maximum amount of sentiments that one sim can have towards another individual sim. If someone wants to make this a value higher than 4, please sync up with a GPE lead first." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="SHORT_TERM_VALUE_ADJUSTMENT" class="Tunable" default="1" display="Short Term Value Adjustment" description="When failing to add a positive short-term SentimentTrack. This will be a whole number value added to the existing negative short term SentimentTrack values." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

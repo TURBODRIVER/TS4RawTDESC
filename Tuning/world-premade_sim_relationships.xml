@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="world.premade_sim_relationships">
+        <Class name="PremadeSimRelationships">
+            <TunableList name="RELATIONSHIP_MAP" class="TunableList" display="Relationship Map" description="Relationship to give between premade Sims in different households." group="General">
+                <TunableTuple class="TunableTuple" description="Two Sims and a loot. The two Sims must be in different premade households, and there can only be one entry per pair of Sims." group="General">
+                    <Tunable type="action" name="relationship_loot" class="TunableReference" display="Relationship Loot" description="Loot that contains relationship to add between the two Sims. Sim A is Actor and Sim B is TargetSim." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                    <Tunable type="sim_template" name="sim_a" class="TunableReference" display="Sim A" description="Relationship Loot uses this Sim as Actor." allow_none="False" group="General" pack_safe="True" restrict="PremadeSimTemplate" />
+                    <Tunable type="sim_template" name="sim_b" class="TunableReference" display="Sim B" description="Relationship Loot uses this Sim as TargetSim." allow_none="False" group="General" pack_safe="True" restrict="PremadeSimTemplate" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

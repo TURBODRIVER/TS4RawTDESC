@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="carry.carry_tuning">
+        <Class name="CarryPostureStaticTuning">
+            <Tunable type="posture" name="POSTURE_CARRY_NOTHING" class="TunableReference" display="Posture Carry Nothing" description="Reference to the posture that represents carrying nothing" allow_none="False" group="General" restrict="CarryingNothing" />
+
+            <Tunable type="posture" name="POSTURE_CARRY_OBJECT" class="TunableReference" display="Posture Carry Object" description="Reference to the posture that represents carrying an Object" allow_none="False" group="General" restrict="CarryingObject" />
+        </Class>
+
+        <Class name="CarryTuning">
+            <Tunable type="interaction" name="CARRIED_SIM_PROXY_AFFORDANCE" class="TunableReference" display="Carried Sim Proxy Affordance" description="The CarriedSimProxyInteraction a carried sim plays when a carrier requests them via link_carried_sims in a paired interaction. Used to link the carrier and carried sim so that cancelling either the original interaction or the proxy will cancel the other, and otherwise last for an equivalent lifetime." allow_none="False" group="General" />
+
+            <TunableTuple name="CARRY_PATH_CONSTRAINT_RULES" class="TunableTuple" display="Carry Path Constraint Rules" description="Global rules related to Carry Path Constraint." group="General">
+                <Tunable type="float" name="min_carry_distance" class="Tunable" default="1" display="Min Carry Distance" description="Only initiate carry if the carryable sim's route distance is larger than this min distance. " tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TunableTuple name="CARRYABLE_SIMS_FIXUP_RULES" class="TunableTuple" display="Carryable Sims Fixup Rules" description="Fixup rules for carryable sims in different scenarios (such as after travel, moving into a lot, being adopted) We use these rules to carry sims (especially infants) immediately in those scenarios so they won't look bad laying on the ground. Note that this takes higher precedence than PERSIST_CARRIED_SIMS_FIXUP_RULES, which is only used so that sims that were already being carried look like they're being carried by the same carriers after travel." group="General">
+                <TunableList name="carry_hand_affordance_mappings" class="TunableMapping" display="Carry Hand Affordance Mappings" mapping_key="key" mapping_value="value" description="A mapping of carry hand to carry rules. Usually each hand can carry one carryable sim." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="PostureTrack" name="key" class="TunableEnumEntry" default="RIGHT" display="Key" static_entries="postures.PostureTrack" description="The carrying sim's carry hand." group="General" />
+                        <TunableList name="value" class="TunableList" display="Value" description="Carry owning affordances and corresponding joint for the carry hand." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="interaction" name="owning_affordance" class="TunableReference" display="Owning Affordance" description="The affordance to push a Sim to carry the carryable sim. We run affordance tests against the carryable sim, if all affordances in the list fails we will skip that sim and try the next carryable sim." allow_none="False" group="General" pack_safe="True" />
+                                <Tunable type="str" name="parenting_joint" class="TunableStringHash32" default="None" display="Parenting Joint" description="The joint of the carrier sim to parent the carryable sim to." group="General" />
+                                <Tunable type="str" name="parenting_joint_pet" class="TunableStringHash32" default="None" display="Parenting Joint Pet" description="The joint of the carrier sim to parent the carryable pet to." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableList>
+                <TdescFragTag name="carryable_sim_eligibility_tests" class="TunableTestSet" display="Carryable Sim Eligibility Tests" description="Tunable tests that run on carryable sims to check if we should carry them at all." group="General" />
+                <TdescFragTag name="carrying_sim_eligibility_tests" class="TunableTestSet" display="Carrying Sim Eligibility Tests" description="Tunable tests that run on carrying sims to check eligibility for carrying any sim." group="General" />
+                <TunableTuple name="priority_test_sums" class="TunableTestedSum" display="Priority Test Sums" description="Tested sums to create a priority list for carryable sims. We will try to carry sims who has highest scores first." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="0" display="Base Value" description="The basic value to return if no modifiers are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="modifiers" class="TunableList" display="Modifiers" description="A list of modifiers to add to Base Value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="modifier" class="Tunable" default="0" display="Modifier" description="The value to apply add to Base Value if the associated tests pass. Can be negative" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="bool" name="multiply_by_count" class="Tunable" default="False" display="Multiply By Count" description="If enabled, will multiply the final test result in tests by the numeric result of the test if the tests pass. This only applies for tests that return a count. If you aren't sure if your test returns a count, ask your GPE and they can tell you. Note: This only works on the last test in the test list. If you aren't sure if your tuning is correct, please try it out in game to verify that it behaves correctly." group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for the modifier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+
+            <TunableTuple name="FAIRY_SIM_CARRYING_PORTAL_FLAGS" class="TunableTuple" display="Fairy Sim Carrying Portal Flags" description="Override PortalFlags bits on a fairy Sim's routing context when the fairy Sim is carrying another Sim." group="General">
+                <Tunable type="bool" name="apply_to_back_carries" class="Tunable" default="False" display="Apply To Back Carries" description="If true, the Fairy Sim Carrying Portal Flags tuning will apply to fairies performing back carries with another Sim. Not affected by object carries." group="General" />
+                <Tunable type="bool" name="apply_to_front_carries" class="Tunable" default="False" display="Apply To Front Carries" description="If true, the Fairy Sim Carrying Portal Flags tuning will apply to fairies performing front carries with another Sim. Not affected by object carries." group="General" />
+                <Tunable type="trait" name="flying_walkstyle_trait" class="TunableReference" display="Flying Walkstyle Trait" description="Only fairy Sims with this walkstyle trait will have their portal flags changed by this tuning." allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                <TunableVariant type="None" name="set_flags" class="OptionalTunable" default="disabled" display="Set Flags" description="Tuple of allowance, discouragement, and exclusion flags that will be set on the fairy Sim's routing context for the duration of the carry posture." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Tuple of allowance, discouragement, and exclusion flags that will be set on the fairy Sim's routing context for the duration of the carry posture." group="General">
+                        <TunableList name="portal_allowance_flags" class="TunableEnumFlags" display="Portal Allowance Flags" description="Bits tuned here will be set on the fairy Sim's allowed portal flags. When the fairy Sim is no longer carrying another Sim, the tuned bits will be unset. NOTE: This functionality does not care what the existing value of the bits are, and this will do exactly what it says, overwriting any previous value." group="General" unique_entries="true">
+                            <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+                        </TunableList>
+                        <TunableList name="portal_discouragement_flags" class="TunableEnumFlags" display="Portal Discouragement Flags" description="Bits tuned here will be set on the fairy Sim's discouragement portal flags. When the fairy Sim is no longer carrying another Sim, the tuned bits will be unset. NOTE: This functionality does not care what the existing value of the bits are, and this will do exactly what it says, overwriting any previous value." group="General" unique_entries="true">
+                            <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+                        </TunableList>
+                        <TunableList name="portal_exclusion_flags" class="TunableEnumFlags" display="Portal Exclusion Flags" description="Bits tuned here will be set on the fairy Sim's exclusion portal flags. When the fairy Sim is no longer carrying another Sim, the tuned bits will be unset. NOTE: This functionality does not care what the existing value of the bits are, and this will do exactly what it says, overwriting any previous value." group="General" unique_entries="true">
+                            <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableVariant>
+                <TunableVariant type="None" name="unset_flags" class="OptionalTunable" default="disabled" display="Unset Flags" description="Tuple of allowance, discouragement, and exclusion flags to be removed from the fairy Sim's routing context for the duration of the carry posture." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Tuple of allowance, discouragement, and exclusion flags to be removed from the fairy Sim's routing context for the duration of the carry posture." group="General">
+                        <TunableList name="portal_allowance_flags" class="TunableEnumFlags" display="Portal Allowance Flags" description="Bits tuned here will be unset on the fairy Sim's allowed portal flags. When the fairy Sim is no longer carrying another Sim, the tuned bits will be set. NOTE: This functionality does not care what the existing value of the bits are, and this will do exactly what it says, overwriting any previous value." group="General" unique_entries="true">
+                            <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+                        </TunableList>
+                        <TunableList name="portal_discouragement_flags" class="TunableEnumFlags" display="Portal Discouragement Flags" description="Bits tuned here will be unset on the fairy Sim's discouragement portal flags. When the fairy Sim is no longer carrying another Sim, the tuned bits will be set. NOTE: This functionality does not care what the existing value of the bits are, and this will do exactly what it says, overwriting any previous value." group="General" unique_entries="true">
+                            <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+                        </TunableList>
+                        <TunableList name="portal_exclusion_flags" class="TunableEnumFlags" display="Portal Exclusion Flags" description="Bits tuned here will be unset on the fairy Sim's exclusion portal flags. When the fairy Sim is no longer carrying another Sim, the tuned bits will be set. NOTE: This functionality does not care what the existing value of the bits are, and this will do exactly what it says, overwriting any previous value." group="General" unique_entries="true">
+                            <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+
+            <Tunable type="interaction" name="HORSE_SATISFY_CONSTRAINTS_INTERACTION" class="TunableReference" display="Horse Satisfy Constraints Interaction" description="The HorseSatisfyConstraintSuperInteraction is used by the transition sequence to route a horse closer before attempting to dismount in the event that dismount is no longer required after routing." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="int" name="MAXIMUM_PUTDOWN_DERAILMENT" class="TunableRange" default="1" display="Maximum Putdown Derailment" min="1" max="None" description="The maximum putdown derailment request for each interaction. An interaction will request putdown derailment to wait for the carried sim to be putdown somewwhere. After the initial putdown, the interaction may keep requesting putdown derailment if the new location still doesn't satisfy the constraint (either due to bugs or as designed). To prevent them from getting into this pickup-putdown loop, we added this constant to restrict the maximum derailment request." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="PERSIST_CARRIED_SIMS_FIXUP_RULES" class="TunableMapping" display="Persist Carried Sims Fixup Rules" mapping_key="species" mapping_value="carry_rules" description="Mapping of species to fixup rules for persisting certain carried sims after travel. Used to match carried sims to their carriers so that they look like they've been carried through travel. Note that this takes lower precedence than CARRYABLE_SIMS_FIXUP_RULES, which attaches carryable sims to carriers regardless of whether they were being carried before travel." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableTuple name="carry_rules" class="TunableTuple" display="Carry Rules" group="General">
+                        <TunableEnum type="PostureTrack" name="carry_track_hand" class="TunableEnumEntry" default="RIGHT" display="Carry Track Hand" static_entries="postures.PostureTrack" description="The carrying sim's carry hand." group="General" />
+                        <TdescFragTag name="eligibility_tests" class="TunableTestSet" display="Eligibility Tests" description="Tunable tests that run on carrying sims to check eligibility for persisting carry after travel. If passed, will try to restore their current carrying state after travel." group="General" />
+                        <Tunable type="interaction" name="owning_affordance" class="TunableReference" display="Owning Affordance" description="The affordance to push a Sim to carry the carryable sim. This is a direct species mapping for now, and is limited to carrying one sim on the specified carry track hand." allow_none="False" group="General" pack_safe="True" />
+                        <Tunable type="str" name="parenting_joint" class="TunableStringHash32" default="None" display="Parenting Joint" description="The joint of the carrier sim to parent the carryable sim to." group="General" />
+                    </TunableTuple>
+                    <TunableEnum type="SpeciesExtended" name="species" class="TunableEnumEntry" default="HUMAN" display="Species" static_entries="sims-sim_info_types.SpeciesExtended" description="The extended species that these rules run for." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="PUTDOWN_DERAILMENT_INTERACTION_MAP" class="TunableMapping" display="Putdown Derailment Interaction Map" mapping_key="key" mapping_value="value" description="Mapping of specific interactions to a maximum putdown derailment request count. The values tuned here will override the MAXIMUM_PUTDOWN_DERAILMENT tuned value ONLY for the interactions tuned here." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="interaction" name="key" class="TunableReference" display="Key" description="The interaction requesting putdown derailments." allow_none="False" group="General" pack_safe="True" />
+                    <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="1" max="None" description="The maximum putdown derailment request count for this interaction." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="RALLY_INTERACTION_CARRY_RULES" class="TunableTuple" display="Rally Interaction Carry Rules" description="Global rules related to carry while running rally interactions." group="General">
+                <Tunable type="float" name="min_carry_distance" class="Tunable" default="1" display="Min Carry Distance" description="Only initiate carry if the carryable sim's route distance is larger than this min distance. " tuning_state="NeedsTuning" group="General" />
+                <Tunable type="interaction" name="wait_to_carry_affordance" class="TunableReference" display="Wait To Carry Affordance" description="The affordance to push to a carrying sim while they are waiting the carryable sim to drag them into carry. This affordance is just for the player UI feedback purpose, should do nothing but show an icon in the interaction queue indicating the sim is doing something." allow_none="False" group="General" />
+            </TunableTuple>
+        </Class>
+
+        <Class name="CarryTransitionState" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="FINISHED" enum_value="2" />
+
+            <EnumItem name="LOCKED" enum_value="3" />
+
+            <EnumItem name="NOT_STARTED" enum_value="0" />
+
+            <EnumItem name="WAITING" enum_value="1" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

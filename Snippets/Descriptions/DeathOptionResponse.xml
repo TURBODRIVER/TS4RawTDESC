@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="DeathOptionResponse" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableTunableDeathOptionResponse" display="Value" description="Tuning for defining a response for the death option dialog." group="General">
+            <TunableVariant type="None" name="disabled_text" class="TunableTestedVariant" default="single" display="Disabled Text" description="Tooltip text when disabled: Single string or List of tested strings that will use first one that passes." group="General">
+                <TunableTuple name="single" class="Tunable_NonCallableItem" display="Single" description="Wrapper for non-callables used in TunableTestVariant, which will eat additional args and kwargs (resolver, etc) that aren't needed when we are using items such as reference types and other non-callable items." group="General">
+                    <Tunable type="int" name="item" class="TunableLocalizedString" default="0x0" display="Item" description="A localized string that may use tokens." group="General" />
+                </TunableTuple>
+                <TunableTuple name="tested" class="Tunable_TestedSelector" display="Tested" group="General">
+                    <TunableList name="records" class="TunableList" display="Records" group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="int" name="item" class="TunableLocalizedString" default="0x0" display="Item" description="A localized string that may use tokens." group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+            <TdescFragTag name="enabled_test" class="TunableTestSet" display="Enabled Test" description="Test for when this option should be enabled." group="General" />
+            <TunableList name="loot" class="TunableList" display="Loot" description="A list of loot that will be applied when the player selects this response." group="General">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+            </TunableList>
+            <TunableEnum type="DeathOption" name="response_type" class="TunableEnumEntry" default="PLAYER_GHOST" display="Response Type" static_entries="interactions-utils-death.DeathOption" description="What this response does" group="General" />
+            <TunableVariant type="None" name="text" class="TunableTestedVariant" default="single" display="Text" description="Text for this response: Single string or List of tested strings that will use first one that passes." group="General">
+                <TunableTuple name="single" class="Tunable_NonCallableItem" display="Single" description="Wrapper for non-callables used in TunableTestVariant, which will eat additional args and kwargs (resolver, etc) that aren't needed when we are using items such as reference types and other non-callable items." group="General">
+                    <Tunable type="int" name="item" class="TunableLocalizedString" default="0x0" display="Item" description="A localized string that may use tokens." group="General" />
+                </TunableTuple>
+                <TunableTuple name="tested" class="Tunable_TestedSelector" display="Tested" group="General">
+                    <TunableList name="records" class="TunableList" display="Records" group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="int" name="item" class="TunableLocalizedString" default="0x0" display="Item" description="A localized string that may use tokens." group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+            <TunableVariant type="None" name="tooltip_text" class="TunableTestedVariant" default="single" display="Tooltip Text" description="Tooltip text when enabled: Single string or List of tested strings that will use first one that passes." group="General">
+                <TunableTuple name="single" class="Tunable_NonCallableItem" display="Single" description="Wrapper for non-callables used in TunableTestVariant, which will eat additional args and kwargs (resolver, etc) that aren't needed when we are using items such as reference types and other non-callable items." group="General">
+                    <Tunable type="int" name="item" class="TunableLocalizedString" default="0x0" display="Item" description="A localized string that may use tokens." group="General" />
+                </TunableTuple>
+                <TunableTuple name="tested" class="Tunable_TestedSelector" display="Tested" group="General">
+                    <TunableList name="records" class="TunableList" display="Records" group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="int" name="item" class="TunableLocalizedString" default="0x0" display="Item" description="A localized string that may use tokens." group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+            <TdescFragTag name="visible_test" class="TunableTestSet" display="Visible Test" description="Test for when this option should be visible." group="General" />
+        </TunableTuple>
+    </Instance>
+
+    
+</TuningRoot>

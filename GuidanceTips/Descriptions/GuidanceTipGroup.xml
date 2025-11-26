@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="guidance_tip" class="GuidanceTipGroup" module="guidance.guidance_tip" description="Information about a group of guidance tips." instance_subclasses_only="False" path="GuidanceTips\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="GuidanceTipGroupConditionType" name="group_condition" class="TunableEnumEntry" default="AND" display="Group Condition" static_entries="guidance-guidance_tip_enums.GuidanceTipGroupConditionType" description="The condition for completing this tip group. OR means any of the items in this group need to be completed for the group to be considered complete. AND means all of the items in this group need to be completed for the group to be considered complete." group="General" />
+
+        <TunableList name="items" class="TunableList" display="Items" description="The items that are associated with this group." group="General">
+            <Tunable type="guidance_tip" class="TunableReference" allow_none="False" group="General" restrict="GuidanceTip" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

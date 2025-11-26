@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="satisfaction.satisfaction_tracker">
+        <Class name="SatisfactionTracker">
+            <Tunable type="int" name="MAX_POINTS" class="TunableRange" default="2147483647" display="Max Points" min="1" max="None" description="The maximum number of points a sim can have. " tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="SATISFACTION_STORE_ITEMS" class="TunableMapping" display="Satisfaction Store Items" mapping_key="key" mapping_value="value" description="A list of Sim based Tunable Rewards offered from the Satisfaction Store." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="reward" name="key" class="TunableReference" display="Key" description="The reward to offer." allow_none="False" group="General" pack_safe="True" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="A collection of data about this reward." group="General">
+                        <TunableEnum type="SatisfactionAwardTypes" name="award_type" class="TunableEnumEntry" default="MONEY" display="Award Type" static_entries="satisfaction-satisfaction_tracker.SatisfactionTracker.SatisfactionAwardTypes" description="The type of the award." group="General" />
+                        <Tunable type="int" name="cost" class="Tunable" default="100" display="Cost" description="The cost to purchase the reward." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <Class name="SatisfactionAwardTypes" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="BUFF" enum_value="1" />
+
+                <EnumItem name="CASPART" enum_value="4" />
+
+                <EnumItem name="MONEY" enum_value="0" />
+
+                <EnumItem name="OBJECT" enum_value="2" />
+
+                <EnumItem name="TRAIT" enum_value="3" />
+            </Class>
+        </Class>
+    </Module>
+</TuningRoot>

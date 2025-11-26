@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="HorseCompetitionCategory" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableHorseCompetitionCategory" display="Value" group="General">
+            <TunableList name="competitions" class="TunableList" display="Competitions" description="Competitions that are in this category." group="General">
+                <Tunable type="snippet" class="TunableReference" description="A competition in this category." allow_none="False" group="General" restrict="HorseCompetition" />
+            </TunableList>
+            <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of this competition category." group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

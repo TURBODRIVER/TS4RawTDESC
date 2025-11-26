@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="StayTheNightSituation" module="situations.visiting.stay_the_night_situation" instance_subclasses_only="False" parents="VisitingNPCSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_implies_greeted_status" />
+
+        <Deleted name="creation_ui_option" />
+
+        <Deleted name="duration" />
+
+        <Deleted name="exclusivity" />
+
+        <TunableTuple name="invited_job" class="TunableTuple" display="Invited Job" group="General">
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The situation job for the sim spending the night." allow_none="False" group="General" restrict="SituationJob" />
+            <Tunable type="role_state" name="staying_role_state" class="TunableReference" display="Staying Role State" description="The role state for the sim spending the night." allow_none="False" group="General" restrict="RoleState" />
+        </TunableTuple>
+
+        <TunableTuple name="when_to_leave" class="TunableTimeOfDay" display="When To Leave" description="The time of day for the invited sim to leave." group="General">
+            <Tunable type="int" name="hour" class="TunableRange" default="7" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

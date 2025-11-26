@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="drama_node" class="PickerDramaNode" module="drama_scheduler.picker_drama_node" description="A drama node which is meant to be chosen from a drama node picker interaction. This allows us to use the drama scheduler to generate content for picker interactions." instance_subclasses_only="False" parents="BaseDramaNode" path="DramaNodes\Descriptions" use_guid_for_reference="True">
+        <Deleted name="allow_during_work_hours" />
+
+        <TunableVariant type="None" name="associated_sim_filter" class="OptionalTunable" default="disabled" display="Associated Sim Filter" description="If tuned, will associate a sim with this drama node. Because they do not have receivers or senders, picker drama nodes do not support the normal flow for non-simless drama nodes." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="sim_filter" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="associated_sim_name_override" class="OptionalTunable" default="disabled" display="Associated Sim Name Override" description="If enabled and tuned, this string will be used for the name of the associated Sim. " group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The string to use in place of the associated Sim's name. This is currently only supported by Mission Gigs." group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="associated_sim_thumbnail_background" class="OptionalTunable" default="disabled" display="Associated Sim Thumbnail Background" description="If enabled, the background behind the Associated Sim's thumbnail, or the thumbnail override, will use this image." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="ResourceKey" name="enabled" class="TunableResourceKey" default="None" display="Enabled" description="The image to use for the Associated Sim's background." group="General" resource_types="0x2f7d0004" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="associated_sim_thumbnail_override" class="OptionalTunable" default="disabled" display="Associated Sim Thumbnail Override" description="If enabled, an override thumbnail can be used in place of the tuned Associated Sim Filter." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="ResourceKey" name="enabled" class="TunableResourceKey" default="None" display="Enabled" description="The image to use for the Associated Sim's thumbnail." group="General" resource_types="0x2f7d0004" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="behavior" class="TunableVariant" default="none" display="Behavior" group="General">
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableTuple name="schedule_career_gig" class="Tunable_ScheduleCareerGigPickerBehavior" display="Schedule Career Gig" description="A gig to schedule should the player pick this to run." group="General">
+                <Tunable type="bool" name="allow_add_career" class="Tunable" default="False" display="Allow Add Career" description="If tuned, picking this drama node will add the required career if the sim doesn't already have it. If not tuned, trying to add a gig for a career the sim doesn't have will throw an error." group="General" />
+                <Tunable type="career_gig" name="career_gig" class="TunableReference" display="Career Gig" description="Career gig to schedule." allow_none="False" group="General" restrict="Gig" />
+            </TunableTuple>
+            <TunableTuple name="schedule_decorator_gig" class="Tunable_ScheduleDecoratorCareerGigPickerBehavior" display="Schedule Decorator Gig" description="A decorator gig to schedule should the player pick this to run." group="General">
+                <Tunable type="bool" name="allow_add_career" class="Tunable" default="False" display="Allow Add Career" description="If tuned, picking this drama node will add the required career if the sim doesn't already have it. If not tuned, trying to add a gig for a career the sim doesn't have will throw an error." group="General" />
+                <Tunable type="career_gig" name="career_gig" class="TunableReference" display="Career Gig" description="Career gig to schedule." allow_none="False" group="General" restrict="Gig" />
+            </TunableTuple>
+            <TunableTuple name="schedule_drama_node" class="Tunable_ScheduleDramaNodePickerBehavior" display="Schedule Drama Node" description="Drama node to schedule should the player pick this to run." group="General">
+                <Tunable type="drama_node" name="drama_node" class="TunableReference" display="Drama Node" description="Drama node to schedule." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="bool" name="disable_if_visibility_tests_fail_with_tooltip" class="Tunable" default="False" display="Disable If Visibility Tests Fail With Tooltip" description="If checked, when the Visibility Tests fail and a tooltip is provided, this entry will show in the picker but be disabled. This tuning works independently of the Disable Row If Visibility Tests Fail tunable in Drama Node Picker Interaction." group="General" />
+
+        <TunableEnum type="PickBehavior" name="on_pick_behavior" class="TunableEnumEntry" default="DO_NOTHING" display="On Pick Behavior" static_entries="drama_scheduler-picker_drama_node.PickBehavior" description="Determines what happens to this PickerDramaNode if it is picked in a picker. " group="General" />
+
+        <Deleted name="picked_sim_info" />
+
+        <Deleted name="receiver_sim" />
+
+        <Tunable type="bool" name="replace_if_removed" class="Tunable" default="False" display="Replace If Removed" description="If True, whenever we remove this node because it was selected in a picker, we will replace it with a new valid node from the same bucket." group="General" />
+
+        <Deleted name="sender_sim_info" />
+
+        <TdescFragTag name="visibility_tests" class="TunableTestSetWithTooltip" display="Visibility Tests" description="Tests that will be run on the picker owner of this PickerDramaNode to determine if this node should appear in a picker." group="General" />
+    </Instance>
+</TuningRoot>

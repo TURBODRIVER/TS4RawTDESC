@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.situation_job">
+        <Class name="JobLootTargetChoice" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALL_SIMS_IN_JOB" enum_value="2" />
+
+            <EnumItem name="RANDOM_SIM" enum_value="0" />
+        </Class>
+
+        <Class name="SituationJob">
+            <TunableTuple name="ALTERNATIVE_SPAWN_BEHAVIOR" class="TunableTuple" display="Alternative Spawn Behavior" group="General">
+                <TunableList name="alternative_spawn_behaviors" class="TunableList" display="Alternative Spawn Behaviors" description="A list of (whitelist, spawn_action_list) pairs. The whitelist defines which situation jobs are allowed to run spawn actions from the spawn action list." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableList name="spawn_action_list" class="TunableList" display="Spawn Action List" description="The list of (spawn_action, weight) pairs." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <TunableVariant type="None" name="spawn_action" class="TunableSpawnActionVariant" default="fade_in" display="Spawn Action" description="A spawn action." group="General">
+                                    <TunableTuple name="affordance" class="TunableSpawnActionAffordance" display="Affordance" description="The Sim will run an interaction that will make it visible." group="General">
+                                        <Tunable type="interaction" name="spawn_affordance" class="TunableReference" display="Spawn Affordance" description="The affordance that is pushed on the Sim as soon as they are spawned on the lot." allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+                                    </TunableTuple>
+                                    <Tunable name="do_nothing" class="TunableExistance" display="Do Nothing" />
+                                    <Tunable name="fade_in" class="TunableExistance" display="Fade In" />
+                                    <TunableTuple name="vehicle" class="TunableSpawnOnVehicleActionAffordance" display="Vehicle" group="General">
+                                        <Tunable type="object" name="fallback_vehicle_def" class="TunableReference" display="Fallback Vehicle Def" description="The definition of the vehicle to spawn if the sim doesn't have a favorite vehicle." allow_none="False" group="General" pack_safe="True" />
+                                        <TunableEnum type="Tag" name="vehicle_obj_tag" class="TunableTag" default="INVALID" display="Vehicle Obj Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag to use to look up if the sim has a favorite vehicle to use for the spawn action." dynamic_entries_prefix="Func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                    </TunableTuple>
+                                </TunableVariant>
+                                <Tunable type="float" name="weight" class="Tunable" default="1" display="Weight" description="The chance that this spawn action will be chosen relative to other alternative spawn actions that are available for a given situation job." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                        <TunableList name="whitelist" class="TunableList" display="Whitelist" description="The situation jobs which are allowed to run spawn actions from the spawn action list." group="General">
+                            <Tunable type="situation_job" class="TunableReference" description="A situation job." allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="float" name="chance_of_using_instance_spawn_action" class="TunablePercent" default="90" display="Chance Of Using Instance Spawn Action" min="0" max="100" description="The percent chance to use the instance defined spawn_action as opposed to an alternative spawn action defined here." group="General" />
+            </TunableTuple>
+
+            <TunableEnum type="Tag" name="BLACKLIST_FROM_ALL_JOBS_TAG" class="TunableEnumEntry" default="INVALID" display="Blacklist From All Jobs Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag that is used to blacklist sims from all job types." group="General" />
+
+            <Tunable type="interaction" name="CHANGE_OUTFIT_INTERACTION" class="TunableReference" display="Change Outfit Interaction" description="A reference that should be tuned to an interaction that will just set sim to their default outfit." allow_none="False" group="General" restrict="SuperInteraction" />
+        </Class>
+    </Module>
+</TuningRoot>

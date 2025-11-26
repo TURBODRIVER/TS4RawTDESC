@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="ZoneDirectorRentablePlayer" module="venues.zone_director_residential" description="For vacation venues rented by the active household." instance_needs_reference="True" instance_subclasses_only="False" parents="ZoneDirectorResidentialBase, SchedulingZoneDirector, ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="situation_to_create_on_travel_group_changed" class="OptionalTunable" default="disabled" display="Situation To Create On Travel Group Changed" description="If enabled then when the zone loads, if the travel group changed then we will create this situation as a non-user facing situation." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="situation" name="enabled" class="TunableReference" display="Enabled" description="The situation that will be created as a non-user facing situation when the zone loads and the situation" allow_none="False" group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.utils.line_utils">
+        <Class name="LineUtils">
+            <Tunable type="interaction" name="ROUTE_TO_WAITING_IN_LINE" class="TunableReference" display="Route To Waiting In Line" description="A reference to the interaction used for getting Sims to route closer to the target before running the wait in line interaction." allow_none="False" group="General" />
+
+            <Tunable type="interaction" name="WAIT_IN_LINE_TOGETHER_ROUTING_FORMATION" class="TunableReference" display="Wait In Line Together Routing Formation" description="A reference to the interaction used for getting an interaction's 'wait in line with participant' to wait near a sim in line. " allow_none="False" group="General" />
+
+            <Tunable type="situation" name="WAIT_IN_LINE_TOGETHER_SITUATION" class="TunableReference" display="Wait In Line Together Situation" description="The situation that will be initiated when a sim joins a line if there are any sims that should wait nearby." allow_none="False" group="General" restrict="WaitInLineTogether" />
+        </Class>
+
+        <Class name="LineUpdateTiming" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="PATH_PLANNED" enum_value="2" />
+
+            <EnumItem name="STAND_SLOT_RELEASED" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

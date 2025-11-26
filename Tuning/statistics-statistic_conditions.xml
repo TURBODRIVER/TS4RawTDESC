@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="statistics.statistic_conditions">
+        <Class name="BuffCondition">
+            <Class name="Timing" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="HAS_BUFF" enum_value="2" />
+
+                <EnumItem name="NOT_HAS_BUFF" enum_value="3" />
+
+                <EnumItem name="ON_ADD" enum_value="0" />
+
+                <EnumItem name="ON_REMOVE" enum_value="1" />
+            </Class>
+        </Class>
+
+        <Class name="HiddenOrShownCondition">
+            <Class name="Timing" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="IS_HIDDEN" enum_value="2" />
+
+                <EnumItem name="NOT_HIDDEN" enum_value="3" />
+
+                <EnumItem name="ON_HIDDEN" enum_value="0" />
+
+                <EnumItem name="ON_SHOWN" enum_value="1" />
+            </Class>
+        </Class>
+
+        <Class name="SituationCondition">
+            <Class name="Timing" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="NOT_RUNNING" enum_value="2" />
+
+                <EnumItem name="ON_END" enum_value="0" />
+
+                <EnumItem name="RUNNING" enum_value="1" />
+            </Class>
+        </Class>
+    </Module>
+</TuningRoot>

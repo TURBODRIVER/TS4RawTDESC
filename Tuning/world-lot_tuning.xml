@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="world.lot_tuning">
+        <Class name="LotTuningMaps">
+            <TunableList name="LOT_TO_LOTTUNING_MAP" class="TunableMapping" display="Lot To Lottuning Map" mapping_key="Lot Description ID" mapping_value="Lot Tuning" description="Mapping of Lot Description ID to lot tuning. This is a reference to a specific lot in one of our regions. e.g. Goth's mansion lot." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="lotdescription" name="Lot Description ID" class="TunableReference" display="Lot Description Id" group="General" pack_safe="True" />
+                    <Tunable type="lot_tuning" name="Lot Tuning" class="TunableReference" display="Lot Tuning" allow_none="False" group="General" pack_safe="True" restrict="LotTuning" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="REGION_TO_LOTTUNING_MAP" class="TunableMapping" display="Region To Lottuning Map" mapping_key="Region Description ID" mapping_value="Lot Tuning" description="Mapping of Region Description ID to spawner tuning. Region and neighborhood are analogous terms. e.g. Garden District. This represents the tuning for all lots in the region that does not have a specific LotTuning specified for itself in either the LOT_TO_LOTTUNING_MAP or via STREET_TO_LOTTUNING_MAP." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="lot_tuning" name="Lot Tuning" class="TunableReference" display="Lot Tuning" allow_none="False" group="General" pack_safe="True" restrict="LotTuning" />
+                    <Tunable type="regiondescription" name="Region Description ID" class="TunableReference" display="Region Description Id" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="STREET_TO_LOTTUNING_MAP" class="TunableMapping" display="Street To Lottuning Map" mapping_key="Street Description ID" mapping_value="Lot Tuning" description="Mapping of Street Description ID to lot tuning. Street and world are analogous terms. e.g. suburbs street in Garden District. This represents the tuning for all lots within this street that does not have a specific LotTuning specified for itself in the LOT_TO_LOTTUNING_MAP." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="lot_tuning" name="Lot Tuning" class="TunableReference" display="Lot Tuning" allow_none="False" group="General" pack_safe="True" restrict="LotTuning" />
+                    <Tunable type="worlddescription" name="Street Description ID" class="TunableReference" display="Street Description Id" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+
+        <Class name="GlobalLotTuningAndCleanup">
+            <TunableList name="OBJECT_CLEANUP_TUNING" class="TunableList" display="Object Cleanup Tuning" description="A list of actions to take when spinning up a zone in order to fix it up based on statistic values that the lot has." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableVariant type="None" name="count" class="TunableVariant" default="all_items" display="Count" description="The maximum number of items that will have the action run on them. " group="General">
+                        <TunableTuple name="all_items" class="AllItems" display="All Items" description="Process all of the objects on the lot." group="General" />
+                        <TunableTuple name="statistic_difference" class="StatisticDifference" display="Statistic Difference" description="Return the difference between two different statistics and use that as the amount of objects to process. If the statistics cannot be found the value 0 is used instead." group="General">
+                            <Tunable type="statistic" name="statistic_1" class="TunableReference" display="Statistic 1" description="The first statistic that will be used with the second statistic in order to discover the number of objects on the lot to process. If the statistic is not found then the number 0 is use instead." allow_none="False" group="General" />
+                            <Tunable type="statistic" name="statistic_2" class="TunableReference" display="Statistic 2" description="The second statistic that will be used with the first statistic in order to discover the number of objects on the lot to process. If the statistic is not found then the number 0 is use instead." allow_none="False" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="statistic_value" class="StatisticValue" display="Statistic Value" description="Return the value of a statistic on the lot. If the statistic is not found then the number 0 is used instead." group="General">
+                            <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic on the lot that will be used to determine the number of objects to process. If the statistic is not found then the number 0 is used instead." allow_none="False" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableList name="possible_actions" class="TunableList" display="Possible Actions" description="The different possible actions that can be taken on objects on the lot if tests pass." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <TunableList name="actions" class="TunableList" display="Actions" description="A group of actions to be taken on the object." group="General">
+                                <TunableVariant type="None" class="TunableVariant" default="set_state" description="The actual action that will be performed on the object if test passes." group="General">
+                                    <TunableTuple name="cleanup_vehicle" class="CleanupVehicle" display="Cleanup Vehicle" description="Cleanup a vehicle that isn't being used by destroying it." group="General" />
+                                    <TunableTuple name="destroy_object" class="DestroyObject" display="Destroy Object" description="Destroy the object." group="General" />
+                                    <TunableTuple name="set_state" class="SetState" display="Set State" description="Change the state of an object to the tuned state." group="General">
+                                        <Tunable type="object_state" name="state" class="TunableReference" display="State" description="An state that we want to set the object to." allow_none="False" group="General" restrict="ObjectStateValue" />
+                                    </TunableTuple>
+                                    <TunableTuple name="statistic_change" class="StatisticChange" display="Statistic Change" description="Modify the statistic value of an object." group="General">
+                                        <TunableVariant type="None" name="amount" class="TunableVariant" default="none" display="Amount" description="The amount to modify the statistic by." group="General">
+                                            <TunableTuple name="constant" class="ConstantAmount" display="Constant" description="A constant amount." group="General">
+                                                <Tunable type="float" name="amount" class="Tunable" default="0.0" display="Amount" description="A constant amount to change the statistic by." tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                            <Tunable name="none" class="TunableExistance" display="None" />
+                                            <TunableTuple name="statistic_based" class="StatisticBased" display="Statistic Based" description="An amount that is based on the statistic value of a statistic on the lot." group="General">
+                                                <Tunable type="float" name="multiplier" class="Tunable" default="1.0" display="Multiplier" description="A multiplier on the statistic value of the statistic on the lot." tuning_state="NeedsTuning" group="General" />
+                                                <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="A statistic on the lot who's value will be used as the amount to modify a statistic. If no value is found the number 0 is used." allow_none="False" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                        <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic to be changed on the object." allow_none="False" group="General" />
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableList>
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that if they pass the object will be under consideration for this action being done on them." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="OBJECT_COUNT_TUNING" class="TunableMapping" display="Object Count Tuning" mapping_key="key" mapping_value="value" description="Mapping between statistic and a set of tests that are run over the objects on the lot on save. The value of the statistic is set to the number of objects that pass the tests." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="statistic" name="key" class="TunableReference" display="Key" description="The statistic on the lot that will be set the value of the number of objects that pass the test set that it is mapped to." allow_none="False" group="General" pack_safe="True" />
+                    <TdescFragTag name="value" class="TunableTestSet" display="Value" description="Test set that will be run on all objects on the lot to determine what the value of the key statistic should be set to." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SET_STATISTIC_TUNING" class="TunableList" display="Set Statistic Tuning" description="A list of statistics and values that they will be set to on the lot while saving it when the lot was running. These values are set before counting by tests on objects." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="float" name="amount" class="Tunable" default="0.0" display="Amount" description="The value that the statistic will be set to." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic that will have its value set." allow_none="False" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

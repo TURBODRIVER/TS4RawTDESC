@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.ambient.wildlife_encounter_director">
+        <Class name="WildlifeEncounterGroups" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="WildlifeEncounterDirectorMixin">
+            <Tunable type="object_state" name="ACTIVE_STATE" class="TunableReference" display="Active State" description="State to set wildlife broadcasters when active" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <TunableTuple name="DAILY_ROLL_TIME" class="TunableTimeOfDay" display="Daily Roll Time" description="The time each day to re-roll the encounters for the day" group="General">
+                <Tunable type="int" name="hour" class="TunableRange" default="4" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="object_state" name="INACTIVE_STATE" class="TunableReference" display="Inactive State" description="State to set wildlife broadcasters when inactive" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <TunableList name="WILDLIFE_ENCOUNTER_GROUPS" class="TunableMapping" display="Wildlife Encounter Groups" mapping_key="key" mapping_value="value" description="Mapping of Group enum to max instances of active broadcasters per group" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="WildlifeEncounterGroups" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="situations-ambient-wildlife_encounter_director.WildlifeEncounterGroups._elements" static_entries="situations-ambient-wildlife_encounter_director.WildlifeEncounterGroups" group="General" invalid_entries="INVALID" />
+                    <Tunable type="int" name="value" class="TunableRange" default="1" display="max_active_instances" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

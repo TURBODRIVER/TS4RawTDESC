@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="cas_preference_item" class="StylePreferenceItem" module="cas.cas_preference_item" description="A PreferenceItem subtype that uses the object's style's tags to define the preference." instance_needs_reference="True" instance_subclasses_only="False" parents="CasPreferenceItem" path="CasPreferenceItems\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="style_tags" class="TunableObjectTagFactory" display="Style Tags" description="Validate the tags of the style of the target object against. Style tags can be found in the catalog here: Styles-> Object Styles-> Tags." group="General">
+            <TunableList name="tag_set" class="TunableSet" display="Tag Set" group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for." group="General" pack_safe="True" />
+            </TunableList>
+            <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

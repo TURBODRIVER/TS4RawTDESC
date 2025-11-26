@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="time_service">
+        <Class name="TimeService">
+            <TunableVariant type="None" name="MAX_TIME_SLICE_MILLISECONDS" class="OptionalTunable" default="disabled" display="Max Time Slice Milliseconds" description="If enabled, script-side time slicing will be enabled and the provided tuning will be the maximum time allowed in milliseconds." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="int" name="enabled" class="Tunable" default="50" display="Enabled" description="The maximum alloted time for the script-side time slice in milliseconds." tuning_state="NeedsTuning" group="General" />
+            </TunableVariant>
+        </Class>
+    </Module>
+</TuningRoot>

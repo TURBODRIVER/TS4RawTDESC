@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="TestSetInstance" module="event_testing.tests" description="Allow a test set to be referenced. This is a full test set that is reference-able in OE, allowing a test set to be a single entry in a test set. Unlike the rest of the test variants, which are instantiated at time of use, this one is still a class at the time of use. This is why we're using __new__(). This allows us to call this like a function and still get the desired results." instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="invert_test" class="OptionalTunable" default="disabled" display="Invert Test" description="If enabled, the results of running the test(s) will be negated" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Properties that are only used if the results of the test are inverted" group="General">
+                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="If enabled, the provided tooltip will be the failure message in the case where the test set passes, but inversion is enabled, so the end result is failure. We do not propagate a tooltip when tests pass, only failed tests" group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Tooltip to show when a test passes, but has been inverted to fail" group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TdescFragTag name="test" class="TunableTestSetWithTooltip" display="Test" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+    </Instance>
+</TuningRoot>

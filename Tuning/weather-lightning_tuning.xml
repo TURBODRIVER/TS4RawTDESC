@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="weather.lightning_tuning">
+        <Class name="LightningTuning">
+            <TunableTuple name="ACTIVE_LIGHTNING" class="TunableTuple" display="Active Lightning" description="Active Lightning Tuning" group="General">
+                <TunableTuple name="weights" class="TunableTuple" display="Weights" description="Weights for striking various objects." group="General">
+                    <Tunable type="float" name="weight_object" class="TunableRange" default="1.0" display="Weight Object" min="0.0" max="None" description="Weighted chance of striking non-Sim objects versus other locations." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="weight_sim" class="TunableRange" default="1.0" display="Weight Sim" min="0.0" max="None" description="Weighted chance of striking Sims versus other locations." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="weight_terrain" class="TunableRange" default="1.0" display="Weight Terrain" min="0.0" max="None" description="Weighted chance of striking terrain versus other locations." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+
+            <TunableTuple name="STRIKE_OBJECT_TUNING" class="TunableTuple" display="Strike Object Tuning" description="Tuning for when we want a lightning bolt to strike an object. For an object to be considered for a lightning strike, it must have one of the tags tuned here. We will increase its chance based on lightning multiplier tuning on it's Weather Aware Component if it has one, and apply both the generic loot tuned here, as well as any loot that is registered for Struck By Lightning." group="General">
+                <TunableTuple name="broadcaster" class="TunableBroadcasterRequest" display="Broadcaster" description="The broadcaster we want to fire when a lightning bolt strikes an object." group="General">
+                    <TunableList name="broadcaster_types" class="TunableTestedList" display="Broadcaster Types" description="A list of broadcasters to request." group="General">
+                        <TunableTuple class="TunableTuple" description="An entry in this tested list." group="General">
+                            <Tunable type="broadcaster" name="item" class="TunableReference" display="Item" description="The broadcasters to request." allow_none="False" group="General" pack_safe="True" />
+                            <Tunable type="bool" name="stop_processing" class="Tunable" default="False" display="Stop Processing" description="If checked, no other element from this list is considered if this element passes its associated test." group="General" />
+                            <TdescFragTag name="test" class="TunableTestSet" display="Test" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableVariant type="None" name="offset_time" class="OptionalTunable" default="disabled" display="Offset Time" description="If enabled, the interaction will wait this amount of time after the beginning before running the broadcaster." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunableSimMinute" default="2" display="Enabled" min="None" max="None" description="The interaction will wait this amount of time after the beginning before running the broadcaster." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant to which the broadcaster(s) will be attached." group="General" />
+                </TunableTuple>
+                <TunableTuple name="effect" class="TunablePlayEffect" display="Effect" description="The effect we want to spawn at the object's location." group="General">
+                    <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+                    <TunableVariant type="None" name="joint_name" class="OptionalTunable" default="Slot" display="Joint Name" description="Specify if the visual effect is attached to a slot and, if so, which slot." group="General">
+                        <Tunable name="Current_Position" class="TunableExistance" display="Current Position" />
+                        <Tunable type="str" name="Slot" class="TunableStringHash32" default="_FX_" display="Slot" description="The name of the slot this effect is attached to." group="General" />
+                    </TunableVariant>
+                    <Tunable type="bool" name="play_immediate" class="Tunable" default="False" display="Play Immediate" description="If checked, this effect will be triggered immediately, nothing will block. ex. VFX will be played immediately while the Sim is routing or animating." group="General" />
+                </TunableTuple>
+                <TunableList name="generic_loot_on_strike" class="TunableList" display="Generic Loot On Strike" description="Loot to apply to all objects when struck by lightning. Objects that have a weather aware component can tune loot when listening for Struck By Lightning." group="General">
+                    <Tunable type="action" class="TunableReference" description="A loot action to apply to the object struck by lightning." allow_none="False" group="General" />
+                </TunableList>
+                <Tunable type="float" name="scorch_mark_delay" class="TunableRealSecond" default="0" display="Scorch Mark Delay" min="None" max="None" description="The delay, in real seconds, before we place a scorch mark for on- lot lightning strikes." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A set of tags that determine if an object can be struck by lightning. Each object has a weight of 1 to be struck by lightning, but can be multiplied in the weather aware component to give preference to electronics, etc." group="General" invalid_entries="INVALID" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+
+            <TunableTuple name="STRIKE_SIM_TUNING" class="TunableTuple" display="Strike Sim Tuning" description="Tuning for when we want a lightning bolt to strike a Sim." group="General">
+                <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The interaction to push on a Sim that is struck by lightning." allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+
+            <TunableTuple name="STRIKE_TERRAIN_TUNING" class="TunableTuple" display="Strike Terrain Tuning" description="Tuning for when we want a lightning bolt to strike the ground." group="General">
+                <TunableTuple name="broadcaster" class="TunableBroadcasterRequest" display="Broadcaster" description="The broadcaster we want to fire when a lightning bolt strikes the terrain." group="General">
+                    <TunableList name="broadcaster_types" class="TunableTestedList" display="Broadcaster Types" description="A list of broadcasters to request." group="General">
+                        <TunableTuple class="TunableTuple" description="An entry in this tested list." group="General">
+                            <Tunable type="broadcaster" name="item" class="TunableReference" display="Item" description="The broadcasters to request." allow_none="False" group="General" pack_safe="True" />
+                            <Tunable type="bool" name="stop_processing" class="Tunable" default="False" display="Stop Processing" description="If checked, no other element from this list is considered if this element passes its associated test." group="General" />
+                            <TdescFragTag name="test" class="TunableTestSet" display="Test" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableVariant type="None" name="offset_time" class="OptionalTunable" default="disabled" display="Offset Time" description="If enabled, the interaction will wait this amount of time after the beginning before running the broadcaster." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunableSimMinute" default="2" display="Enabled" min="None" max="None" description="The interaction will wait this amount of time after the beginning before running the broadcaster." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant to which the broadcaster(s) will be attached." group="General" />
+                </TunableTuple>
+                <TunableTuple name="create_object_tuning" class="TunableTuple" display="Create Object Tuning" description="Tuning related to creating objects when lightning strikes the ground." group="General">
+                    <Tunable type="float" name="chance" class="TunablePercent" default="10" display="Chance" min="0" max="100" description="Chance to spawn one of the objects tuned here when lightning strikes the terrain." group="General" />
+                    <TunableList name="definition_weights" class="TunableList" display="Definition Weights" description="List of definitions and their weighted chance of being created at the location of the lightning strike." group="General">
+                        <TunableTuple class="TunableTuple" description="The object definition and weighted chance of it being created." group="General">
+                            <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object we want to create at the strike location." allow_none="False" group="General" />
+                            <Tunable type="float" name="weight" class="TunableRange" default="1.0" display="Weight" min="0.0" max="None" description="The weighted chance of creating this object." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="effect_off_lot" class="TunablePlayEffect" display="Effect Off Lot" description="The effect we want to spawn at the terrain location if it is off lot." group="General">
+                    <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+                    <TunableVariant type="None" name="joint_name" class="OptionalTunable" default="Slot" display="Joint Name" description="Specify if the visual effect is attached to a slot and, if so, which slot." group="General">
+                        <Tunable name="Current_Position" class="TunableExistance" display="Current Position" />
+                        <Tunable type="str" name="Slot" class="TunableStringHash32" default="_FX_" display="Slot" description="The name of the slot this effect is attached to." group="General" />
+                    </TunableVariant>
+                    <Tunable type="bool" name="play_immediate" class="Tunable" default="False" display="Play Immediate" description="If checked, this effect will be triggered immediately, nothing will block. ex. VFX will be played immediately while the Sim is routing or animating." group="General" />
+                </TunableTuple>
+                <TunableTuple name="effect_on_lot" class="TunablePlayEffect" display="Effect On Lot" description="The effect we want to spawn at the object's location if it is on lot. This will also have a scorch mark associated with it." group="General">
+                    <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+                    <TunableVariant type="None" name="joint_name" class="OptionalTunable" default="Slot" display="Joint Name" description="Specify if the visual effect is attached to a slot and, if so, which slot." group="General">
+                        <Tunable name="Current_Position" class="TunableExistance" display="Current Position" />
+                        <Tunable type="str" name="Slot" class="TunableStringHash32" default="_FX_" display="Slot" description="The name of the slot this effect is attached to." group="General" />
+                    </TunableVariant>
+                    <Tunable type="bool" name="play_immediate" class="Tunable" default="False" display="Play Immediate" description="If checked, this effect will be triggered immediately, nothing will block. ex. VFX will be played immediately while the Sim is routing or animating." group="General" />
+                </TunableTuple>
+                <Tunable type="float" name="scorch_mark_delay" class="TunableRealSecond" default="0" display="Scorch Mark Delay" min="None" max="None" description="The delay, in real seconds, before we place a scorch mark for on- lot lightning strikes." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

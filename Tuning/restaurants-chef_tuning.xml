@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="restaurants.chef_tuning">
+        <Class name="ChefTuning">
+            <Tunable type="action" name="CHEF_COMPLIMENT_LOOT" class="TunableReference" display="Chef Compliment Loot" description="The loot action to trigger when a customer compliments a chef. This won't happen until the waitstaff deliver the compliment. The customer Sim will be the Actor and the Chef will be TargetSim." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+
+            <Tunable type="buff" name="CHEF_HAS_ORDER_BUFF" class="TunableReference" display="Chef Has Order Buff" description="The buff a chef should get when they have an order. This should drive them to do the active cooking animations." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="action" name="CHEF_INSULT_LOOT" class="TunableReference" display="Chef Insult Loot" description="The loot action to trigger when a customer insults a chef. This won't happen until the waitstaff deliver the insult. The customer Sim will be the Actor and the Chef will be TargetSim." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+
+            <Tunable type="object" name="CHEF_STATION_CUTTING_BOARD_OBJECT" class="TunableReference" display="Chef Station Cutting Board Object" description="The cutting board object to create at the chef's station." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="str" name="CHEF_STATION_CUTTING_BOARD_SLOT" class="Tunable" default="_ctnm_SimInteraction_4" display="Chef Station Cutting Board Slot" description="The name of the slot in which the cutting board object should be placed." group="General" />
+
+            <Tunable type="object" name="CHEF_STATION_PAN_OBJECT" class="TunableReference" display="Chef Station Pan Object" description="The pan object to create at the chef's station." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="str" name="CHEF_STATION_PAN_SLOT" class="Tunable" default="_ctnm_SimInteraction_1" display="Chef Station Pan Slot" description="The name of the slot in which the pan object should be placed." group="General" />
+
+            <Tunable type="object" name="CHEF_STATION_POT_OBJECT" class="TunableReference" display="Chef Station Pot Object" description="The pot object to create at the chef's station." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="str" name="CHEF_STATION_POT_SLOT" class="Tunable" default="_ctnm_SimInteraction_2" display="Chef Station Pot Slot" description="The name of the slot in which the pot object should be placed." group="General" />
+
+            <Tunable type="slot_type" name="CHEF_STATION_SERVE_SLOT_TYPE" class="TunableReference" display="Chef Station Serve Slot Type" description="The slot type of the serve slots on the chef station." allow_none="False" group="General" />
+
+            <Tunable type="object" name="CHEF_STATION_SERVING_PLATTER_OBJECT" class="TunableReference" display="Chef Station Serving Platter Object" description="The serving platter object the chef will create and place when they're done cooking an order." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="interaction" name="PICK_UP_ORDER_INTERACTION" class="TunableReference" display="Pick Up Order Interaction" description="The interaction the sim will run when they pick their order up from the Chef Station. This is only used when a Sim places an order directly at the chef station." allow_none="False" group="General" pack_safe="True" />
+        </Class>
+    </Module>
+</TuningRoot>

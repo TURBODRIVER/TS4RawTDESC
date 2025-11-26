@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="routing.portals.portal_tuning">
+        <Class name="PortalTuning">
+            <Tunable type="float" name="SURFACE_PORTAL_HEIGH_OFFSET" class="TunableRange" default="0.2" display="Surface Portal Heigh Offset" min="0" max="None" description="A height offset on meters increase the height of the raycast test to consider two connecting portals valid over an objects footprint. For example this height is high enough so two portals on counters pass a raycast test over a stove or a sink (low objects), but is not high enough to pass over a microwave (which would cause our sims to clip through the object when transitioning through the portal." tuning_state="NeedsTuning" group="General" />
+        </Class>
+
+        <Class name="PortalFlags" enum_bit_flag="True" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="AGE_CHILD" enum_value="4096" />
+
+            <EnumItem name="AGE_INFANT" enum_value="1024" />
+
+            <EnumItem name="AGE_TODDLER" enum_value="2048" />
+
+            <EnumItem name="AGE_TYAE" enum_value="8192" />
+
+            <EnumItem name="BUSINESS_EMPLOYEE_AREA" enum_value="131072" />
+
+            <EnumItem name="BUSINESS_PRIVATE_AREA" enum_value="262144" />
+
+            <EnumItem name="CLEARANCE_HIGH" enum_value="16384" />
+
+            <EnumItem name="CLEARANCE_LOW" enum_value="65536" />
+
+            <EnumItem name="CLEARANCE_MEDIUM" enum_value="32768" />
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="REQUIRE_NO_CARRY" enum_value="1" />
+
+            <EnumItem name="REQUIRE_NO_CARRY_BACK" enum_value="2" />
+
+            <EnumItem name="SPECIES_CAT" enum_value="64" />
+
+            <EnumItem name="SPECIES_DOG" enum_value="32" />
+
+            <EnumItem name="SPECIES_FOX" enum_value="256" />
+
+            <EnumItem name="SPECIES_HORSE" enum_value="512" />
+
+            <EnumItem name="SPECIES_HUMAN" enum_value="16" />
+
+            <EnumItem name="SPECIES_SMALLDOG" enum_value="128" />
+
+            <EnumItem name="STAIRS_PORTAL_LONG" enum_value="4" />
+
+            <EnumItem name="STAIRS_PORTAL_SHORT" enum_value="8" />
+        </Class>
+    </Module>
+</TuningRoot>

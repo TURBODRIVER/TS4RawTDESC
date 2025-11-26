@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="GenericOneStateMusicPerformanceSituation" module="situations.complex.music_performance_situation" description="A simple one-state situation that grabs festival goer sims after the musical performances." instance_subclasses_only="False" parents="GenericOneStateFestivalAttendeeSituation, BaseGenericFestivalSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="job_and_role" class="TunableSituationJobAndRoleState" display="Job And Role" description="The default job and role." group="General">
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

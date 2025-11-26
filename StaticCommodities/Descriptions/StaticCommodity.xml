@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="scommodity" class="StaticCommodity" module="statistics.static_commodity" description="Represents an existential insatiable commodity. This commodity does not decay and merely represents a static desire to fulfill something. This allows the creation of fake commodities that are still scored by autonomy but are never actually satisfied." instance_needs_reference="True" instance_subclasses_only="False" path="StaticCommodities\Descriptions" use_guid_for_reference="True">
+        <Tunable type="float" name="ad_data" class="Tunable" default="0" display="Ad Data" description="Autonomous desire to fulfill this static commodity. This is analogous to the returned ad curve value of regular commodities and should generally be between 0 and 1. If a Sim has this static commodity, they will always desire it at this value." tuning_state="NeedsTuning" group="General" />
+
+        <TunableEnum type="SimInfoLODLevel" name="min_lod_value" class="TunableEnumEntry" default="BACKGROUND" display="Min Lod Value" static_entries="sims-sim_info_lod.SimInfoLODLevel" description="The minimum Sim info LOD necessary for this information to persist on the sim info. e.g. A statistic tuned to FULL will not persist on sims that are lower than FULL. LOD order, high to low, is FULL, INTERACTED, BASE, BACKGROUND, MINIMUM." group="General" />
+
+        <Tunable type="bool" name="respect_lod_on_add" class="Tunable" default="False" display="Respect Lod On Add" description="If enabled then we will not add the statistic if the LOD value of the Sim is lower than the required LOD of the statistic. Otherwise instanced Sims will be allowed to get statistics of higher LOD values." group="General" />
+
+        <Tunable type="bool" name="telemetry" class="Tunable" default="False" display="Telemetry" description="If enabled then we will support telemetry (GAME:STAT:CHNG) for when statistic is changed. For continuous statistics, will be sent when statistic gets updated." group="General" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="cas_preference_item" class="CharacteristicPreferenceItem" module="cas.cas_preference_item" description="A PreferenceItem subtype that represents a Sim Characteristic preference, using traits, activities, and lifestyles to define the preference. This subtype will be used to calculate the compatibility between 2 Sims." instance_needs_reference="True" instance_subclasses_only="False" parents="CasPreferenceItem" path="CasPreferenceItems\Descriptions" use_guid_for_reference="True">
+        <TunableList name="trait_map" class="TunableMapping" display="Trait Map" mapping_key="key" mapping_value="value" description="A mapping of the desired traits associated with this PreferenceItem, and the corresponding scores. " group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="trait" name="key" class="TunableReference" display="Key" description="The desired trait. This could be a standard trait, an activity like/dislike trait, or a lifestyle trait." allow_none="False" group="General" pack_safe="True" />
+                <Tunable type="float" name="value" class="TunableRange" default="1.0" display="Value" min="None" max="None" description="The score associated with this trait. If there's a match, this value gets added to the overall compatibility score." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

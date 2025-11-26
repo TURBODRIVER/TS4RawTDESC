@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation_goal" class="SituationGoalMultipleSimsInRelationship" module="situations.SituationGoalMultipleSimsInRelationship" description="Situation goal that completes when multiple sims of interest have a tuned relbit toward one another. Sims of interest is a concept that depends on the type of object this SituationGoal is attached to. For example, this can be all sims in a situation if this is attached to a situation. Or this can be all sims in a scenario if this SituationGoal is attached to a scenario." instance_needs_reference="True" instance_subclasses_only="False" parents="SituationGoal" path="SituationGoals\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_iterations" />
+
+        <TunableVariant type="None" name="rel_bit_count_strategy" class="TunableVariant" default="all_possible" display="Rel Bit Count" description="The number of relbits we're looking for. All Possible: This will test against every sim having the relbit with every other sim. Tuned Literal: This will test a tuned number of sims having the relbit with one another." group="General">
+            <TunableTuple name="all_possible" class="Tunable_AllRelationships" display="All Possible" description="Counting strategy that tests against all sims of interest having a given relationship with one another." group="General">
+                <TunableList name="allowed_species" class="TunableEnumSet" default="HUMAN" display="Allowed Species" description="Only relationships with sims of these species are considered for the goal. For example, if the goal is testing that all sims in the household are friends with each other, we would want to constrain this to be HUMAN only because dogs and cats use a different set of relationship bits." group="General" unique_entries="true">
+                    <TunableEnum type="Species" class="TunableEnumEntry" default="HUMAN" static_entries="sims-sim_info_types.Species" group="General" />
+                </TunableList>
+                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the target relationship count." group="General" />
+                <TunableList name="rel_bits" class="TunableList" display="Rel Bits" description="A list of Rel Bit entries." group="General">
+                    <TunableTuple class="TunableTuple" description="Tuning for a single Rel Bit and whether we require it to be present or absent in the target relationships." group="General">
+                        <TunableVariant type="None" name="action" class="TunableVariant" default="require" display="Action" description="Whether we are checking for the presence or absence of the tuned Rel Bit. Require - We are checking for the presence of this Rel Bit. Prohibit - We are checking for the absence of this Rel Bit." group="General">
+                            <Tunable name="prohibit" class="TunableExistance" display="Prohibit" />
+                            <Tunable name="require" class="TunableExistance" display="Require" />
+                        </TunableVariant>
+                        <Tunable type="relbit" name="rel_bit" class="TunableReference" display="Rel Bit" description="The type of relationship we're looking for. In other words, we're looking for any relationship with this Rel Bit." allow_none="False" group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+            <TunableTuple name="tuned_literal" class="Tunable_TunedNumberOfRelationships" display="Tuned Literal" description="Counting strategy that tests against some tuned number of sims of interest having a given relationship with one another." group="General">
+                <Tunable type="int" name="_target_relationship_bit_count" class="TunableRange" default="1" display="Target Relationship Bit Count" min="0" max="None" description="The number of relationship bits that this goal is testing against." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="allowed_species" class="TunableEnumSet" default="HUMAN" display="Allowed Species" description="Only relationships with sims of these species are considered for the goal. For example, if the goal is testing that all sims in the household are friends with each other, we would want to constrain this to be HUMAN only because dogs and cats use a different set of relationship bits." group="General" unique_entries="true">
+                    <TunableEnum type="Species" class="TunableEnumEntry" default="HUMAN" static_entries="sims-sim_info_types.Species" group="General" />
+                </TunableList>
+                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the target relationship count." group="General" />
+                <TunableList name="rel_bits" class="TunableList" display="Rel Bits" description="A list of Rel Bit entries." group="General">
+                    <TunableTuple class="TunableTuple" description="Tuning for a single Rel Bit and whether we require it to be present or absent in the target relationships." group="General">
+                        <TunableVariant type="None" name="action" class="TunableVariant" default="require" display="Action" description="Whether we are checking for the presence or absence of the tuned Rel Bit. Require - We are checking for the presence of this Rel Bit. Prohibit - We are checking for the absence of this Rel Bit." group="General">
+                            <Tunable name="prohibit" class="TunableExistance" display="Prohibit" />
+                            <Tunable name="require" class="TunableExistance" display="Require" />
+                        </TunableVariant>
+                        <Tunable type="relbit" name="rel_bit" class="TunableReference" display="Rel Bit" description="The type of relationship we're looking for. In other words, we're looking for any relationship with this Rel Bit." allow_none="False" group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

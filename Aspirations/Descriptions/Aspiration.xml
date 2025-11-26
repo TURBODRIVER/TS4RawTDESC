@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="aspiration" class="Aspiration" module="aspirations.aspiration_tuning" description="A Basic Aspiration that can be displayed to the UI. This is used for both Aspirations that display in the UI within the Aspiration panel and for Aspirations that exist in the background." instance_subclasses_only="False" parents="AspirationBasic" path="Aspirations\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="AspirationValidAgeType" name="aspiration_valid_age_type" class="TunableEnumEntry" default="INVALID" display="Aspiration Valid Age Type" static_entries="aspirations-aspiration_tuning.AspirationValidAgeType" description="Valid age type for this aspiration. For example, if CHILD_ONLY is selected, this aspiration can only be completed by a child and sim will not be considered complete even if all of the objectives are completed as a non-child. Note: Teen can complete both teen and YAE aspiration but YAE can not complete teen aspiration. TODDLER_ONLY aspiration will not shown in UI as toddlers can not select their aspirations. " binary_type="uint32" group="Special Cases" invalid_entries="INVALID" />
+
+        <Tunable type="int" name="descriptive_text" class="TunableLocalizedString" default="0x0" display="Descriptive Text" description="Description for this aspiration" allow_none="True" group="UI" />
+
+        <Tunable type="int" name="display_name" class="TunableLocalizedString" default="0x0" display="Display Name" description="Display name for this aspiration" allow_none="True" group="UI" />
+
+        <Tunable type="bool" name="is_child_aspiration" class="Tunable" default="False" display="Is Child Aspiration" description="This tuning is DEPRECATED, use aspiration_valid_age_type instead. If checked then this aspiration can only be completed by a child Sim and will not be considered complete even if all of the Objectives are complete as a non-child." group="XXX Deprecated" />
+
+        <Tunable type="bool" name="is_teen_aspiration" class="Tunable" default="False" display="Is Teen Aspiration" description="This tuning is DEPRECATED, use aspiration_valid_age_type instead. If checked then this aspiration can only be completed by a teen Sim and will not be considered complete even if all of the Objectives are complete as a non-teen." group="XXX Deprecated" />
+
+        <TunableList name="on_complete_loot_actions" class="TunableList" display="On Complete Loot Actions" description="List of loots operations that will be awarded when this aspiration completes." group="Rewards">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+        </TunableList>
+
+        <Tunable type="reward" name="reward" class="TunableReference" display="Reward" description="The reward given when this Aspiration is completed." allow_none="True" group="Rewards" />
+    </Instance>
+</TuningRoot>

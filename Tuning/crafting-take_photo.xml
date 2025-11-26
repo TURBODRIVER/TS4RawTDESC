@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="crafting.take_photo">
+        <Class name="_SimPhotoMode">
+            <TunableList name="DEFAULT_MOOD_CATEGORIES" class="TunableList" display="Default Mood Categories" description="These mood categories will always be available for photography modes that support mood categories. Additional mood categories can be specified in the Take Photo tuning." group="General">
+                <TunableTuple class="Tunable_MoodCategory" description="Mood categories are selectable in the photography UI for certain photo modes. When a player selects a mood category, one of the mood param values associated with it is passed to the pose asm as the mood param value." group="General">
+                    <TdescFragTag name="actor_tests_pass_all" class="TunableTestSet" display="Actor Tests Pass All" description="A set of tests which will be run on the actor when there are no target Sims (such as 1 Sim selfies). " group="General" />
+                    <TunableTuple name="icon_tuning" class="TunableTuple" display="Icon Tuning" description="A set of icons to associate with this mood category. Different icons are for different states of the mood category's button in the UI." group="General">
+                        <Tunable type="ResourceKey" name="down_icon" class="TunableIconAllPacks" default="None" display="Down Icon" description="The icon image to be displayed." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                        <Tunable type="ResourceKey" name="over_icon" class="TunableIconAllPacks" default="None" display="Over Icon" description="The icon image to be displayed." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                        <Tunable type="ResourceKey" name="up_icon" class="TunableIconAllPacks" default="None" display="Up Icon" description="The icon image to be displayed." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                    </TunableTuple>
+                    <TunableList name="mood_param_values" class="TunableList" display="Mood Param Values" min="1" description="A list of mood param values (strings). One of these will be selected at random if a player selects this category in the UI." group="General">
+                        <Tunable type="str" class="Tunable" default="None" group="General" />
+                    </TunableList>
+                    <TdescFragTag name="target_tests_pass_all" class="TunableTestSet" display="Target Tests Pass All" description="A set of tests which will be run on every photo target. The target will be the Target Participant and the photographer will be the Actor participant. These tests must pass for all targets for this mood category to be included. These will only run for multi-Sim photos." group="General" />
+                    <TdescFragTag name="target_tests_pass_one" class="TunableTestSet" display="Target Tests Pass One" description="A set of tests which will be run on every photo target. The target will be the Target Participant and the photographer will be the Actor participant. These tests must pass for at least one target for this mood category to be included. These will only run for multi-Sim photos." group="General" />
+                    <Tunable type="bool" name="test_for_incest" class="Tunable" default="False" display="Test For Incest" description="If checked, this mood category will be disabled if any pair of targets fails the incest test." group="General" />
+                    <Tunable type="int" name="tooltip" class="TunableLocalizedString" default="0x0" display="Tooltip" description="The tooltip for this category in the photography UI." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+
+        <Class name="_TripodPhotoMode">
+            <TunableList name="CLIP_INDEX_VALUES" class="TunableList" display="Clip Index Values" description="When we pose sims during tripod photography sessions, we don't want two sims to choose the same pose clip. To avoid this, client assigns a unique value to each actor's ClipIndex parameter. This is a list of all valid ClipIndex values from which a unique element will be assigned to each actor being posed. Note: Gameplay needs to make sure this list is kept in-sync with the ClipIndex animation parameter." group="General">
+                <Tunable type="str" class="Tunable" default="None" group="General" />
+            </TunableList>
+        </Class>
+
+        <Class name="_SelfiePhotoMode">
+            <TunableList name="CLIP_INDEX_VALUES" class="TunableList" display="Clip Index Values" description="When we pose Sims during selfie photography sessions, we don't want the Sim to choose the same pose clip in a row. To avoid this, client assigns a unique value to each actor's ClipIndex parameter. This is a list of all valid ClipIndex values from which a unique element will be assigned to the actor being posed. Note: Gameplay needs to make sure this list is kept in-sync with the ClipIndex animation parameter." group="General">
+                <Tunable type="str" class="Tunable" default="None" group="General" />
+            </TunableList>
+        </Class>
+
+        <Class name="_TwoSimSelfiePhotoMode">
+            <TunableList name="CLIP_INDEX_VALUES" class="TunableList" display="Clip Index Values" description="When we pose Sims during selfie photography sessions, we don't want the Sim to choose the same pose clip in a row. To avoid this, client assigns a unique value to each actor's ClipIndex parameter. This is a list of all valid ClipIndex values from which a unique element will be assigned to the actor being posed. Note: Gameplay needs to make sure this list is kept in-sync with the ClipIndex animation parameter." group="General">
+                <Tunable type="str" class="Tunable" default="None" group="General" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tutorial_tip" class="TutorialTipGroup" module="tutorials.tutorial_tip" description="Information about a group of tutorial tips." instance_subclasses_only="False" path="TutorialTips\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="TutorialTipGroupRequirementType" name="group_requirement" class="TunableEnumEntry" default="ALL" display="Group Requirement" static_entries="tutorials-tutorial_tip_enums.TutorialTipGroupRequirementType" description="The requirement for completing this tip group. ANY means any of the tips in this group need to be completed for the group to be considered complete. ALL means all of the tips in this group need to be completed for the group to be considered complete." group="General" />
+
+        <TunableList name="tips" class="TunableList" display="Tips" description="The tips that are associated with this tip group." group="General">
+            <Tunable type="tutorial_tip" class="TunableReference" allow_none="False" group="General" restrict="TutorialTip" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

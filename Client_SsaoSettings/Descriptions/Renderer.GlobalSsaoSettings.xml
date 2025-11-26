@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="Renderer_GlobalSsaoSettings" class="Renderer.GlobalSsaoSettings" module="client.renderer" description="" path="Client_GlobalSsaoSettings\Descriptions">
+        <Tunable type="float" name="ApplyQuadraticLevel" class="Tunable" default="None" display="Apply QuadraticLevel" min="0.000" max="1.000" description="When applying the SSAO, the used level will be interpolated between the read value and its squared value.." />
+
+        <Tunable type="float" name="DropShadowAttLevelInSsao" class="Tunable" default="None" display="Drop Shadow Attenuation Level In Ssao Zone" min="0.000" max="2.000" description="When applying the drop shadow attenuation on a pre-ssao-attenuated pixel, use this value in place of the drop shadow generated value." />
+
+        <Tunable type="float" name="ExpansionFactor" class="Tunable" default="None" display="Ssao Expansion Factor" min="0.000" max="1.000" description="After filtering, a purely 2D expansion pass is possible if this value is non zero, then the larger it is, the wider it expands." />
+
+        <Tunable type="float" name="Max_Distance_0" class="Tunable" default="None" display="Max Distance Near" min="0.000" max="300.000" description="Max Near distance (camera to character)" />
+
+        <Tunable type="float" name="Max_Distance_1" class="Tunable" default="None" display="Max Distance Middle" min="0.000" max="300.000" description="Max Middle distance (character to middle range)" />
+
+        <Tunable type="float" name="Max_Distance_2" class="Tunable" default="None" display="Max Distance Far" min="0.000" max="300.000" description="Max Far distance (background)" />
+
+        <Tunable type="float" name="Max_DistToTarget" class="Tunable" default="None" display="Max Dist To Target" min="0.000" max="1e+07" description="When the distance between camera and shadow target is greater or equal to that value, the above 'Max' tuning values will be used." />
+
+        <Tunable type="float" name="Max_Falloff_0" class="Tunable" default="None" display="Max Falloff Near" min="0.001" max="100.000" description="Max Near Falloff (camera to character)" />
+
+        <Tunable type="float" name="Max_Falloff_1" class="Tunable" default="None" display="Max Falloff Middle" min="0.001" max="100.000" description="Max Middle Falloff (character to middle range)" />
+
+        <Tunable type="float" name="Max_Falloff_2" class="Tunable" default="None" display="Max Falloff Far" min="0.001" max="100.000" description="Max Far Falloff (background)" />
+
+        <Tunable type="float" name="Max_FilterSize_0" class="Tunable" default="None" display="Max New Filter Size Near" min="0.000" max="12.000" description="Max Near new distance based filter size (camera to character)" />
+
+        <Tunable type="float" name="Max_FilterSize_1" class="Tunable" default="None" display="Max New Filter Size Middle" min="0.000" max="12.000" description="Max Middle new distance based filter size (character to middle range)" />
+
+        <Tunable type="float" name="Max_FilterSize_2" class="Tunable" default="None" display="Max New Filter Size Far" min="0.000" max="12.000" description="Max Far new distance based filter size (background)" />
+
+        <Tunable type="float" name="Max_Intensity_0" class="Tunable" default="None" display="Max Intensity Near" min="0.000" max="2.000" description="Max Near Intensity (camera to character)" />
+
+        <Tunable type="float" name="Max_Intensity_1" class="Tunable" default="None" display="Max Intensity Middle" min="0.000" max="2.000" description="Max Middle Intensity (character to middle range)" />
+
+        <Tunable type="float" name="Max_Intensity_2" class="Tunable" default="None" display="Max Intensity Far" min="0.000" max="2.000" description="Max Far Intensity (background)" />
+
+        <Tunable type="float" name="Max_MaxIntensity" class="Tunable" default="None" display="Max Apply Range Max" min="-1.000" max="4.000" description="Max Final ssao intensity range max, controls the ssao being applied to the lighting" />
+
+        <Tunable type="float" name="Max_MaxIntensityExteriorFloor" class="Tunable" default="None" display="Max Apply Range Max Exterior Floor" min="-1.000" max="4.000" description="Final ssao intensity range max, controls the ssao being applied to the lighting of exterior floors" />
+
+        <Tunable type="float" name="Max_MaxIntensityExteriorWall" class="Tunable" default="None" display="Max Apply Range Max Exterior Wall" min="-1.000" max="4.000" description="Final ssao intensity range max, controls the ssao being applied to the lighting of exterior walls" />
+
+        <Tunable type="float" name="Max_MaxIntensityInteriorFloor" class="Tunable" default="None" display="Max Apply Range Max Interior Floor" min="-1.000" max="4.000" description="Final ssao intensity range max, controls the ssao being applied to the lighting of interior floors" />
+
+        <Tunable type="float" name="Max_MaxIntensityInteriorWall" class="Tunable" default="None" display="Max Apply Range Max Interior Wall" min="-1.000" max="4.000" description="Final ssao intensity range max, controls the ssao being applied to the lighting of interior walls" />
+
+        <Tunable type="float" name="Max_MinIntensity" class="Tunable" default="None" display="Max Apply Range Min" min="-1.000" max="4.000" description="Max Final ssao intensity range min, controls the ssao being applied to the lighting" />
+
+        <Tunable type="float" name="Max_MinIntensityExteriorFloor" class="Tunable" default="None" display="Max Apply Range Min Exterior Floor" min="-1.000" max="1.000" description="Final ssao intensity range min, controls the ssao being applied to the lighting of exterior floors" />
+
+        <Tunable type="float" name="Max_MinIntensityExteriorWall" class="Tunable" default="None" display="Max Apply Range Min Exterior Wall" min="-1.000" max="1.000" description="Final ssao intensity range min, controls the ssao being applied to the lighting of exterior walls" />
+
+        <Tunable type="float" name="Max_MinIntensityInteriorFloor" class="Tunable" default="None" display="Max Apply Range Min Interior Floor" min="-1.000" max="1.000" description="Final ssao intensity range min, controls the ssao being applied to the lighting of interior floors" />
+
+        <Tunable type="float" name="Max_MinIntensityInteriorWall" class="Tunable" default="None" display="Max Apply Range Min Interior Wall" min="-1.000" max="1.000" description="Final ssao intensity range min, controls the ssao being applied to the lighting of interior walls" />
+
+        <Tunable type="float" name="Max_Radius_0" class="Tunable" default="None" display="Max Radius Near" min="0.010" max="3.000" description="Max Near radius (camera to character)" />
+
+        <Tunable type="float" name="Max_Radius_1" class="Tunable" default="None" display="Max Radius Middle" min="0.010" max="3.000" description="Max Middle radius (character to middle range)" />
+
+        <Tunable type="float" name="Max_Radius_2" class="Tunable" default="None" display="Max Radius Far" min="0.010" max="3.000" description="Max Far radius (background)" />
+
+        <Tunable type="float" name="Max_SubIntensity" class="Tunable" default="None" display="Max Sub Intensity" min="0.001" max="10.000" description="Max Sub Intensity scaler" />
+
+        <Tunable type="float" name="Max_SubScale" class="Tunable" default="None" display="Max Sub Scale" min="0.001" max="10.000" description="Max Sub Radius scaler" />
+
+        <Tunable type="float" name="Min_Distance_0" class="Tunable" default="None" display="Min Distance Near" min="0.000" max="300.000" description="Near distance (camera to character)" />
+
+        <Tunable type="float" name="Min_Distance_1" class="Tunable" default="None" display="Min Distance Middle" min="0.000" max="300.000" description="Middle distance (character to middle range)" />
+
+        <Tunable type="float" name="Min_Distance_2" class="Tunable" default="None" display="Min Distance Far" min="0.000" max="300.000" description="Far distance (background)" />
+
+        <Tunable type="float" name="Min_DistToTarget" class="Tunable" default="None" display="Min Dist To Target" min="0.000" max="1000.000" description="When the distance between camera and target is less or equal to that value, the above 'Min' tuning values will be used. If that distance is between 'Min Dist to target' and 'Max Dist to target', interpolated between 'Min' and 'Max' tuning values will be used" />
+
+        <Tunable type="float" name="Min_Falloff_0" class="Tunable" default="None" display="Min Falloff Near" min="0.001" max="100.000" description="Near Falloff (camera to character)" />
+
+        <Tunable type="float" name="Min_Falloff_1" class="Tunable" default="None" display="Min Falloff Middle" min="0.001" max="100.000" description="Middle Falloff (character to middle range)" />
+
+        <Tunable type="float" name="Min_Falloff_2" class="Tunable" default="None" display="Min Falloff Far" min="0.001" max="100.000" description="Far Falloff (background)" />
+
+        <Tunable type="float" name="Min_FilterSize_0" class="Tunable" default="None" display="Min New Filter Size Near" min="0.000" max="12.000" description="Near new distance based filter size (camera to character)" />
+
+        <Tunable type="float" name="Min_FilterSize_1" class="Tunable" default="None" display="Min New Filter Size Middle" min="0.000" max="12.000" description="Middle new distance based filter size (character to middle range)" />
+
+        <Tunable type="float" name="Min_FilterSize_2" class="Tunable" default="None" display="Min New Filter Size Far" min="0.000" max="12.000" description="Far new distance based filter size (background)" />
+
+        <Tunable type="float" name="Min_Intensity_0" class="Tunable" default="None" display="Min Intensity Near" min="0.000" max="2.000" description="Near Intensity (camera to character)" />
+
+        <Tunable type="float" name="Min_Intensity_1" class="Tunable" default="None" display="Min Intensity Middle" min="0.000" max="2.000" description="Middle Intensity (character to middle range)" />
+
+        <Tunable type="float" name="Min_Intensity_2" class="Tunable" default="None" display="Min Intensity Far" min="0.000" max="2.000" description="Far Intensity (background)" />
+
+        <Tunable type="float" name="Min_MaxIntensity" class="Tunable" default="None" display="Min Apply Range Max" min="-1.000" max="4.000" description="Final ssao intensity range max, controls the ssao being applied to the lighting" />
+
+        <Tunable type="float" name="Min_MaxIntensityExteriorFloor" class="Tunable" default="None" display="Min Apply Range Max Exterior Floor" min="-1.000" max="4.000" description="Final ssao intensity range max, controls the ssao being applied to the lighting of exterior floors" />
+
+        <Tunable type="float" name="Min_MaxIntensityExteriorWall" class="Tunable" default="None" display="Min Apply Range Max Exterior Wall" min="-1.000" max="4.000" description="Final ssao intensity range max, controls the ssao being applied to the lighting of exterior walls" />
+
+        <Tunable type="float" name="Min_MaxIntensityInteriorFloor" class="Tunable" default="None" display="Min Apply Range Max Interior Floor" min="-1.000" max="4.000" description="Final ssao intensity range max, controls the ssao being applied to the lighting of interior floors" />
+
+        <Tunable type="float" name="Min_MaxIntensityInteriorWall" class="Tunable" default="None" display="Min Apply Range Max Interior Wall" min="-1.000" max="4.000" description="Final ssao intensity range max, controls the ssao being applied to the lighting of interior walls" />
+
+        <Tunable type="float" name="Min_MinIntensity" class="Tunable" default="None" display="Min Apply Range Min" min="-1.000" max="4.000" description="Final ssao intensity range min, controls the ssao being applied to the lighting" />
+
+        <Tunable type="float" name="Min_MinIntensityExteriorFloor" class="Tunable" default="None" display="Min Apply Range Min Exterior Floor" min="-1.000" max="1.000" description="Final ssao intensity range min, controls the ssao being applied to the lighting of exterior floors" />
+
+        <Tunable type="float" name="Min_MinIntensityExteriorWall" class="Tunable" default="None" display="Min Apply Range Min Exterior Wall" min="-1.000" max="1.000" description="Final ssao intensity range min, controls the ssao being applied to the lighting of exterior walls" />
+
+        <Tunable type="float" name="Min_MinIntensityInteriorFloor" class="Tunable" default="None" display="Min Apply Range Min Interior Floor" min="-1.000" max="1.000" description="Final ssao intensity range min, controls the ssao being applied to the lighting of interior floors" />
+
+        <Tunable type="float" name="Min_MinIntensityInteriorWall" class="Tunable" default="None" display="Min Apply Range Min Interior Wall" min="-1.000" max="1.000" description="Final ssao intensity range min, controls the ssao being applied to the lighting of interior walls" />
+
+        <Tunable type="float" name="Min_Radius_0" class="Tunable" default="None" display="Min Radius Near" min="0.010" max="3.000" description="Near radius (camera to character)" />
+
+        <Tunable type="float" name="Min_Radius_1" class="Tunable" default="None" display="Min Radius Middle" min="0.010" max="3.000" description="Middle radius (character to middle range)" />
+
+        <Tunable type="float" name="Min_Radius_2" class="Tunable" default="None" display="Min Radius Far" min="0.010" max="3.000" description="Far radius (background)" />
+
+        <Tunable type="float" name="Min_SubIntensity" class="Tunable" default="None" display="Min SubIntensity" min="0.001" max="10.000" description="Sub Intensity scaler" />
+
+        <Tunable type="float" name="Min_SubScale" class="Tunable" default="None" display="Min SubScale" min="0.001" max="10.000" description="Sub Radius scaler" />
+
+        <Tunable type="float" name="NewExpansionFactor1" class="Tunable" default="None" display="New Filter Expansion Factor1" min="0.000" max="1.000" description="In distance based filtering, a purely 2D expansion pass is possible if this value is non zero, then the larger it is, the wider it expands." />
+
+        <Tunable type="float" name="NewExpansionFactor2" class="Tunable" default="None" display="New Filter Expansion Factor2" min="0.000" max="1.000" description="In distance based filtering, if >=0, a second filtering pass is performed. Then, this acts as the above field, for that second pass." />
+
+        <Tunable type="bool" name="UseDistanceBasedSsaoFiltering" class="Tunable" default="None" display="Use New Distance Based Ssao Filtering" description="Turn on the new distance based filtering passes in place of the regular filtering + optional expansion pass" />
+
+        <Tunable type="bool" name="UseSmallSizeForSsao" class="Tunable" default="None" display="Use Small Size For Ssao" description="Use a fixed size to render the SSAO texture (instead of a half viewport size, so the ssao looks the same at all game resolution. It won't visibly shrink when the resolution increases but won't be more accurate either." />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.object_tests">
+        <Class name="StateTestType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CONTAINS_ALL_STATES_IN_SET" enum_value="2" />
+
+            <EnumItem name="CONTAINS_ANY_STATE_IN_SET" enum_value="1" />
+
+            <EnumItem name="CONTAINS_NO_STATE_IN_SET" enum_value="3" />
+        </Class>
+
+        <Class name="ObjectCriteriaTestEvents" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AllObjectEvents" enum_value="0" />
+
+            <EnumItem name="ItemCrafted" enum_value="5" />
+
+            <EnumItem name="ObjectStateChange" enum_value="39" />
+
+            <EnumItem name="OnExitBuildBuy" enum_value="46" />
+
+            <EnumItem name="OnInventoryChanged" enum_value="54" />
+        </Class>
+
+        <Class name="ObjectLocation" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AllSpaces" enum_value="2" />
+
+            <EnumItem name="PrivateSpaceOnly" enum_value="1" />
+
+            <EnumItem name="SharedSpaceOnly" enum_value="0" />
+        </Class>
+
+        <Class name="InventoryTest">
+            <Class name="TestHiddenInventories" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="ANY" enum_value="0" />
+
+                <EnumItem name="HIDDEN_ONLY" enum_value="1" />
+
+                <EnumItem name="NON_HIDDEN_ONLY" enum_value="2" />
+            </Class>
+        </Class>
+
+        <Class name="InUseTest">
+            <Class name="Candidates" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="NON_ACTOR_HOUSEHOLD_MEMBERS" enum_value="1" />
+
+                <EnumItem name="NON_ACTOR_NON_HOUSEHOLD_MEMBERS" enum_value="2" />
+
+                <EnumItem name="NON_ACTORS" enum_value="0" />
+
+                <EnumItem name="NOT_ACTORS_OR_ENSEMBLE" enum_value="4" />
+
+                <EnumItem name="PICKED_SIM" enum_value="3" />
+            </Class>
+        </Class>
+
+        <Class name="ActiveRoutingObjectsTest">
+            <TunableList name="MAX_OBJECTS_PER_CATEGORY" class="TunableMapping" display="Max Objects Per Category" mapping_key="key" mapping_value="value" description="Mapping tracking category to maximum number of simultaneous active objects." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="ObjectRoutingBehaviorTrackingCategory" name="key" class="TunableEnumEntry" default="NONE" display="Key" dynamic_entries="objects-object_enums.ObjectRoutingBehaviorTrackingCategory._elements" static_entries="objects-object_enums.ObjectRoutingBehaviorTrackingCategory" description="Category to test against." group="General" />
+                    <Tunable type="int" name="value" class="Tunable" default="0" display="Value" description="The maximum number of simultaneous routing objects of this category. If set to 0 or omitted, no maximum will be enforced." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

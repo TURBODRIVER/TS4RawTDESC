@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="sim_filter" class="TunableAggregateFilter" module="filters.tunable" instance_needs_reference="True" instance_subclasses_only="False" path="SimFilters\Descriptions" use_guid_for_reference="True">
+        <TunableList name="filters" class="TunableList" display="Filters" description="List of filters for the sims to be included in the group." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="sim_filter" name="filter" class="TunableReference" display="Filter" allow_none="False" group="General" restrict="TunableSimFilter" />
+                <Tunable type="bool" name="optional" class="Tunable" default="True" display="Optional" description="Whether or not this filter is required for the filter to be considered successful." group="General" />
+                <TunableEnum type="FilterTermTag" name="tag" class="TunableEnumEntry" default="NO_TAG" display="Tag" dynamic_entries="filters-tunable.FilterTermTag._elements" static_entries="filters-tunable.FilterTermTag" description="Tag associated with the filter which allows for specific filters to be associated with specific things, like which job to apply to the Sim with that filter." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableTuple name="leader_filter" class="TunableTuple" display="Leader Filter" group="General">
+            <Tunable type="sim_filter" name="filter" class="TunableReference" display="Filter" description="Sim filter that is used as the leader of the group. All relationships will use this sim as the reference point." allow_none="False" group="General" restrict="TunableSimFilter" />
+            <TunableEnum type="FilterTermTag" name="tag" class="TunableEnumEntry" default="NO_TAG" display="Tag" dynamic_entries="filters-tunable.FilterTermTag._elements" static_entries="filters-tunable.FilterTermTag" description="Tag associated with the filter which allows for specific filters to be associated with specific things, like which job to apply to the Sim with that filter." group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

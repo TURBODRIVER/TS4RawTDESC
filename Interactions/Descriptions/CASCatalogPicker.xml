@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CASCatalogPicker" module="interactions.base.cas_catalog_picker" description="This picker will allow the player to select a cas part filtered by the selected body part" instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="body_type_tag_map" class="TunableMapping" display="Body Type Tag Map" mapping_key="key" mapping_value="value" description="Map between body types and tags to be used in filters. As Picker filters are using tags to filter but we don't want CAS artists to add the tag to all catalog files, we added this correlation between tag and body type." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="BodyType" name="key" class="TunableEnumEntry" default="NONE" display="Key" static_entries="sims-outfits-outfit_enums.BodyType" description="Body type." group="General" invalid_entries="NONE" />
+                <TunableEnum type="Tag" name="value" class="TunableTag" default="INVALID" display="Value" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag." dynamic_entries_prefix="" group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="body_types" class="TunableList" display="Body Types" description="The body types to filter by" group="General">
+            <TunableEnum type="BodyType" class="TunableEnumEntry" default="NONE" static_entries="sims-outfits-outfit_enums.BodyType" group="Picker Tuning" />
+        </TunableList>
+
+        <TunableEnum type="ParticipantTypeSingle" name="catalog_participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Catalog Participant" static_entries="interactions.ParticipantTypeSingle" description="From which participant are we getting the catalog" group="Picker Tuning" />
+
+        <TunableVariant type="None" name="cell_enabled_tests" class="OptionalTunable" default="disabled" display="Cell Enabled Tests" description="Test to see if the cell should be enabled or not. If it does not pass, it will disable the cell and optionally override the tooltip. A string tuned for Tooltip here will use tokens from the interaction's tuned Display Names Text Tokens. For example, a tooltip string containing '{0.ObjectName}' would use the first entry tuned there." group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TdescFragTag name="enabled" class="TunableTestSetWithTooltip" display="Enabled" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="continuation" class="OptionalTunable" default="disabled" display="Continuation" description="If enabled, you can tune a continuation to be pushed. PickedObject will be the object that was selected" group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableContinuation" display="Enabled" description="If specified, a continuation to push on the chosen object." group="General">
+                <TunableTuple class="TunableTuple" description="A continuation entry." group="General">
+                    <TunableEnum type="ParticipantType" name="actor" class="TunableEnumEntry" default="Actor" display="Actor" static_entries="interactions.ParticipantType" description="The Sim on which the affordance is pushed." group="General" />
+                    <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The affordance to push as a continuation on the specified actor Sim." allow_none="False" group="General" pack_safe="True" />
+                    <TunableVariant type="None" name="carry_target" class="OptionalTunable" default="disabled" display="Carry Target" description="If enabled, specify a carry target for this continuation." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Object" display="Enabled" static_entries="interactions.ParticipantType" description="The participant the affordance will set as a carry target." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="inventory_carry_target" class="TunableVariant" default="None" display="Inventory Carry Target" description="Item in inventory (of continuations actor) to use as carry target for continuation if carry target is None" group="General">
+                        <Tunable name="None" class="TunableExistance" display="None" />
+                        <TunableTuple name="object_with_base_definition" class="TunableTuple" display="Object With Base Definition" group="General">
+                            <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The base definition to look for inside inventory. Objects that redirect (like counters) will match if base definition is the same." allow_none="False" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="object_with_definition" class="TunableTuple" display="Object With Definition" group="General">
+                            <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The exact object definition to look for inside inventory." allow_none="False" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="object_with_tag" class="CraftTaggedItemFactory" display="Object With Tag" description="This option tests crafted item's tags against a list of possible tags" group="General">
+                            <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tag of objects we want to test ownership of" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" pack_safe="True" />
+                            </TunableList>
+                            <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <Tunable type="bool" name="preserve_preferred_object" class="Tunable" default="True" display="Preserve Preferred Object" description="If checked, the pushed interaction's preferred objects are determined by the current preferred objects. If unchecked, the transition sequence would not award bonuses to any specific part." group="General" />
+                    <Tunable type="bool" name="preserve_target_part" class="Tunable" default="False" display="Preserve Target Part" description="If checked, the pushed interaction will use the same target part if applicable. Defaults to false because typically we will want to let the transition select which part to use." group="General" />
+                    <Tunable type="interaction" name="si_affordance_override" class="TunableReference" display="Si Affordance Override" description="When the tuned affordance is a mixer for a different SI, use this to specify the mixer's appropriate SI. This is useful for pushing socials." allow_none="True" group="General" />
+                    <TunableEnum type="ParticipantType" name="target" class="TunableEnumEntry" default="Object" display="Target" static_entries="interactions.ParticipantType" description="The participant the affordance will target." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableVariant>
+
+        <TunableList name="exclude_tags" class="TunableTags" display="Exclude Tags" group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Exclude objects with these tags if defined " group="Picker Tuning" invalid_entries="INVALID" pack_safe="True" />
+        </TunableList>
+
+        <TunableVariant type="None" name="fallback_continuation" class="OptionalTunable" default="disabled" display="Fallback Continuation" description="If enabled, you can tune a continuation to be pushed when all tests for continuations fail." group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableContinuation" display="Enabled" description="If specified, a fallback continuation to push on the chosen object." group="General">
+                <TunableTuple class="TunableTuple" description="A continuation entry." group="General">
+                    <TunableEnum type="ParticipantType" name="actor" class="TunableEnumEntry" default="Actor" display="Actor" static_entries="interactions.ParticipantType" description="The Sim on which the affordance is pushed." group="General" />
+                    <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The affordance to push as a continuation on the specified actor Sim." allow_none="False" group="General" pack_safe="True" />
+                    <TunableVariant type="None" name="carry_target" class="OptionalTunable" default="disabled" display="Carry Target" description="If enabled, specify a carry target for this continuation." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Object" display="Enabled" static_entries="interactions.ParticipantType" description="The participant the affordance will set as a carry target." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="inventory_carry_target" class="TunableVariant" default="None" display="Inventory Carry Target" description="Item in inventory (of continuations actor) to use as carry target for continuation if carry target is None" group="General">
+                        <Tunable name="None" class="TunableExistance" display="None" />
+                        <TunableTuple name="object_with_base_definition" class="TunableTuple" display="Object With Base Definition" group="General">
+                            <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The base definition to look for inside inventory. Objects that redirect (like counters) will match if base definition is the same." allow_none="False" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="object_with_definition" class="TunableTuple" display="Object With Definition" group="General">
+                            <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The exact object definition to look for inside inventory." allow_none="False" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="object_with_tag" class="CraftTaggedItemFactory" display="Object With Tag" description="This option tests crafted item's tags against a list of possible tags" group="General">
+                            <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tag of objects we want to test ownership of" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" pack_safe="True" />
+                            </TunableList>
+                            <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <Tunable type="bool" name="preserve_preferred_object" class="Tunable" default="True" display="Preserve Preferred Object" description="If checked, the pushed interaction's preferred objects are determined by the current preferred objects. If unchecked, the transition sequence would not award bonuses to any specific part." group="General" />
+                    <Tunable type="bool" name="preserve_target_part" class="Tunable" default="False" display="Preserve Target Part" description="If checked, the pushed interaction will use the same target part if applicable. Defaults to false because typically we will want to let the transition select which part to use." group="General" />
+                    <Tunable type="interaction" name="si_affordance_override" class="TunableReference" display="Si Affordance Override" description="When the tuned affordance is a mixer for a different SI, use this to specify the mixer's appropriate SI. This is useful for pushing socials." allow_none="True" group="General" />
+                    <TunableEnum type="ParticipantType" name="target" class="TunableEnumEntry" default="Object" display="Target" static_entries="interactions.ParticipantType" description="The participant the affordance will target." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableVariant>
+
+        <TunableList name="include_tags" class="TunableTags" display="Include Tags" group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Only get object with these tags if defined" group="Picker Tuning" invalid_entries="INVALID" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="bool" name="show_all_variants" class="Tunable" default="False" display="Show All Variants" description="If true, show all color variants" group="General" />
+
+        <Tunable type="bool" name="single_push_continuation" class="Tunable" default="False" display="Single Push Continuation" description="If enabled, only the first continuation that can be successfully pushed will run. Otherwise, all continuations are pushed such that they run in order." group="Picker Tuning" />
+
+        <TunableEnum type="ParticipantTypeSingle" name="thumbnail_participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Thumbnail Participant" static_entries="interactions.ParticipantTypeSingle" description="From which participant are we getting the catalog" group="Picker Tuning" />
+    </Instance>
+
+    
+</TuningRoot>

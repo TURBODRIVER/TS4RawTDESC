@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="clan_value" class="ClanValue" module="clans.clan_tuning" description="Tuning that represents a clan value." instance_needs_reference="True" instance_subclasses_only="False" path="ClanValues\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="_display_data" class="OptionalTunable" default="optional_display_mixin" display="Display Data" description="If enabled, specify display data for this instance." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="optional_display_mixin" class="OptionalDisplayMixinTunable" display="Optional Display Mixin" description="The instance's display data." group="General">
+                <TunableVariant type="None" name="instance_display_description" class="OptionalTunable" default="enabled_display_description" display="Instance Display Description" description="If enabled, specify a display description for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled_display_description" class="TunableLocalizedString" default="0x0" display="Enabled Display Description" description="The instance's description. " group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_icon" class="OptionalTunable" default="enabled_display_icon" display="Instance Display Icon" description="If enabled, specify a display icon for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="ResourceKey" name="enabled_display_icon" class="TunableIcon" default="None" display="Enabled Display Icon" description="The instance's icon." group="General" resource_types="0x2f7d0004" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_name" class="OptionalTunable" default="enabled_display_name" display="Instance Display Name" description="If enabled, specify a display name for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled_display_name" class="TunableLocalizedString" default="0x0" display="Enabled Display Name" description="The instance's name." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_secondary_icon" class="OptionalTunable" default="disabled" display="Instance Display Secondary Icon" description="If enabled, specify a secondary display icon for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="ResourceKey" name="enabled_display_secondary_icon" class="TunableIcon" default="None" display="Enabled Display Secondary Icon" description="The instance's icon." group="General" resource_types="0x2f7d0004" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_tooltip" class="OptionalTunable" default="enabled_display_tooltip" display="Instance Display Tooltip" description="If enabled, specify a display tooltip for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled_display_tooltip" class="TunableLocalizedString" default="0x0" display="Enabled Display Tooltip" description="The instance's tooltip. " group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="statistic" name="discipline_ranked_stat" class="TunableReference" display="Discipline Ranked Stat" description="The ranked statistic representing how well a Sim is following this clan value." allow_none="False" group="General" restrict="RankedStatistic" />
+    </Instance>
+</TuningRoot>

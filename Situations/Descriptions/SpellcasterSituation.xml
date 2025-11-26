@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="SpellcasterSituation" module="situations.complex.spellcaster_situation" description="A situation for Spellcasters. They only have one job but need a wand set as their favorite object." instance_subclasses_only="False" parents="SingleJobSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableList name="_favorite_objects" class="TunableList" display="Favorite Objects" description="A list of favorites objects to give to Sims when they enter this situation. These favorites will be removed from the Sim when the situation ends." group="Situation">
+            <TunableTuple class="TunableTuple" description="Favorite data to add to the Sim." group="General">
+                <TunableEnum type="Tag" name="favorite_tag" class="TunableTag" default="INVALID" display="Favorite Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag for this favorite object." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                <TunableList name="potential_favorites" class="TunableSet" display="Potential Favorites" min="1" description="A set of potential objects. One of these will be chosen at random." group="General" unique_entries="true">
+                    <Tunable type="object" class="TunableReference" description="The definition of the favorite object." allow_none="False" group="General" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

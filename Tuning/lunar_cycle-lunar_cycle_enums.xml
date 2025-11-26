@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="lunar_cycle.lunar_cycle_enums">
+        <Class name="LunarPhaseType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="FIRST_QUARTER" enum_value="2" />
+
+            <EnumItem name="FULL_MOON" enum_value="4" />
+
+            <EnumItem name="NEW_MOON" enum_value="0" />
+
+            <EnumItem name="THIRD_QUARTER" enum_value="6" />
+
+            <EnumItem name="WANING_CRESCENT" enum_value="7" />
+
+            <EnumItem name="WANING_GIBBOUS" enum_value="5" />
+
+            <EnumItem name="WAXING_CRESCENT" enum_value="1" />
+
+            <EnumItem name="WAXING_GIBBOUS" enum_value="3" />
+        </Class>
+
+        <Class name="LunarCycleLengthOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DOUBLE_LENGTH" enum_value="3" />
+
+            <EnumItem name="FOUR_DAY" enum_value="1" />
+
+            <EnumItem name="FULL_LENGTH" enum_value="2" />
+
+            <EnumItem name="TRIPLE_LENGTH" enum_value="4" />
+
+            <EnumItem name="TWO_DAY" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

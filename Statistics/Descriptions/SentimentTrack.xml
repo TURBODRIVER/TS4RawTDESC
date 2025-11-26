@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="statistic" class="SentimentTrack" module="relationships.sentiment_track" description="Represents a single sentiment track." instance_needs_reference="True" instance_subclasses_only="False" parents="RelationshipTrack" path="Statistics\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_add_bit_on_threshold" />
+
+        <Tunable type="int" name="archetype_name" class="TunableLocalizedString" default="0x0" display="Archetype Name" description="The localized archetype name for this sentiment. Eg: hurt/ecstatic/glad " group="General" />
+
+        <Deleted name="bit_data_tuning" />
+
+        <Deleted name="display_priority" />
+
+        <TunableEnum type="SentimentDurationType" name="duration" class="TunableEnumEntry" default="INVALID" display="Duration" static_entries="relationships-relationship_enums.SentimentDurationType" description="The duration of this sentiment. Must be either long or short type. " group="General" invalid_entries="INVALID" />
+
+        <TunableVariant type="None" name="long_term_priority" class="OptionalTunable" default="disabled" display="Long Term Priority" description="Priority for long term sentiments. Long term sentiment with higher priority will always replace existing sentiment with lower (or No) priority. Long term sentiment with lower (or No) priority will only replace existing sentiment with higher priority if existing sentiments remaining duration is shorter than the long term priority value threshold in sentiment track tracker module tuning. (NOte: 0 priority beats No priority)" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableRange" default="0" display="Enabled" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+        </TunableVariant>
+
+        <TunableList name="loot_on_proximity" class="TunableList" display="Loot On Proximity" description="A list of loot actions that will be applied to the subject Sim if the subject sim comes in proximity of the target sim, and the subject sim is not in a cooldown period for the target sim. Resolver Participants: actor - sim owning the sentiment target - target of the sentiment" group="General">
+            <Tunable type="action" class="TunableReference" description="A loot action applied to the subject Sim." allow_none="False" group="Sentiment Loot" restrict="LootActions,RandomWeightedLoot" />
+        </TunableList>
+
+        <TunableTuple name="proximity_loot_chance_weight" class="TunableTunableMultiplier" display="Proximity Loot Chance Weight" description="The random weight for this loot to be applied when in proximity of a sim that this sim has a sentiment towards. Resolver Participants: actor - sim owning the sentiment target - target of the sentiment" group="Sentiment Loot">
+            <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+
+        <Tunable type="bool" name="should_proximity_loot_include_bassinet" class="Tunable" default="False" display="Should Proximity Loot Include Bassinet" description="If True, we will apply the proximity loot if target sim is a bassinet. If False, we won't apply the proximity loot if target sim is a bassinet. For example, we want to set this to True on sentimentTrack_Bitter_ST_SiblingJealousy, so the sim will feel jealousy when near the bassinet baby." group="Sentiment Loot" />
+
+        <TunableEnum type="SentimentSignType" name="sign" class="TunableEnumEntry" default="INVALID" display="Sign" static_entries="relationships-relationship_enums.SentimentSignType" description="The sign of this sentiment. Must be either positive or negative type. " group="General" invalid_entries="SentimentDurationType.INVALID" />
+    </Instance>
+</TuningRoot>

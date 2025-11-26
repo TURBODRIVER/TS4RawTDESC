@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="drama_node" class="ClubInviteRequestDramaNode" module="drama_scheduler.club_invite_drama_node" description="A Drama Node that asks a player-controlled Sim for an NPC Sim to be invited to a Club." instance_subclasses_only="False" parents="ClubInviteBaseDramaNode, BaseDramaNode" path="DramaNodes\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="invite_only" class="OptionalTunable" default="disabled" display="Invite Only" description="If specified, then only Clubs of the appropriate invite exclusivity type are valid for this Drama Node." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" description="If checked, only invite-only Clubs are valid. If unchecked, only open membership Clubs are valid." group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

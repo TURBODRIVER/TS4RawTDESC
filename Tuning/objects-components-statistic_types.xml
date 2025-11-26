@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.statistic_types">
+        <Class name="StatisticComponentGlobalTuning">
+            <Tunable type="float" name="DEFAULT_OFF_LOT_TOLERANCE" class="Tunable" default="5" display="Default Off Lot Tolerance" description="The tolerance for when a Sim is considered off the lot. If a Sim is off the lot but within this tolerance, he will be considered on the lot from autonomy's perspective. Note that this only effects autonomy, nothing else. " tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="DEFAULT_RADIUS_TO_CONSIDER_OFF_LOT_OBJECTS" class="Tunable" default="20" display="Default Radius To Consider Off Lot Objects" description="The radius from the Sim that an off-lot object must be for a Sim to consider it. If the object is not on the active lot and outside of this radius, the Sim will ignore it." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

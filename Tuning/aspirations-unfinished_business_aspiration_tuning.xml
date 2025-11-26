@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="aspirations.unfinished_business_aspiration_tuning">
+        <Class name="UnfinishedBusiness">
+            <Tunable type="aspiration_track" name="GLOBAL_UNFINISHED_BUSINESS_ASPIRATION_TRACK" class="TunableReference" display="Global Unfinished Business Aspiration Track" description="The Aspiration within the track that is associated with this level." allow_none="False" group="General" pack_safe="True" restrict="AspirationTrack" />
+
+            <TunableList name="UNFINISHED_BUSINESS_CATEGORIES" class="TunableEnumSet" display="Unfinished Business Categories" description="A set of Category Types that are associated with Unfinished Business" group="General" unique_entries="true">
+                <TunableEnum type="ObjectiveCategoryType" class="TunableEnumEntry" default="NO_CATEGORY_TYPE" dynamic_entries="event_testing-objective_enums.ObjectiveCategoryType._elements" static_entries="event_testing-objective_enums.ObjectiveCategoryType" group="General" />
+            </TunableList>
+
+            <Tunable type="statistic" name="UNFINISHED_BUSINESS_STAT" class="TunableReference" display="Unfinished Business Stat" description="The statistic representing Unfinished Business progress." allow_none="False" group="General" pack_safe="True" restrict="RankedStatistic" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

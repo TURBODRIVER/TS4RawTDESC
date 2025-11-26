@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="developmental_milestones.developmental_milestone_enums">
+        <Class name="DevelopmentalMilestoneStates" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACTIVE" enum_value="0" />
+
+            <EnumItem name="LOCKED" enum_value="-1" />
+
+            <EnumItem name="UNLOCKED" enum_value="1" />
+        </Class>
+
+        <Class name="MilestoneDataClass" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="HAD_CHILD" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

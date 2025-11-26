@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="broadcaster" class="Broadcaster" module="broadcasters.broadcaster" description="A construct that applies certain effects on Sims within a certain geometric constraint." instance_needs_reference="True" instance_subclasses_only="False" path="Broadcasters\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="allow_objects" class="TunableVariant" default="disallow" display="Allow Objects" description="If enabled, then in addition to all instantiated Sims, some objects will be affected by this broadcaster. Some tuned effects might still only apply to Sims (e.g. affordance pushing). Setting this tuning field has serious performance repercussions. Its indiscriminate use could undermine our ability to meet Minspec goals. Please use this sparingly." group="General">
+            <TunableTuple name="disallow" class="Tunable_BroadcasterObjectFilterNone" display="Disallow" description="Allow no objects, other than Sims, to be affected by this broadcaster." group="General" />
+            <TunableTuple name="from_flammable" class="Tunable_BroadcasterObjectFilterFlammable" display="From Flammable" description="Allow objects to be affected by this broadcaster if they are flammable." group="General" />
+            <TunableTuple name="from_tags" class="Tunable_BroadcasterObjectFilterTags" display="From Tags" description="Allow objects to be affected by this broadcaster based on tags." group="General">
+                <TunableList name="tags" class="TunableSet" display="Tags" description="An object with any tag in this set can be affected by the broadcaster." group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag." group="General" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="allow_sim_test" class="OptionalTunable" default="disabled" display="Allow Sim Test" description="If enabled, allows for a top level test set to determine which sims can be affected by the broadcaster at all." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TdescFragTag name="enabled" class="TunableTestSet" display="Enabled" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="allow_sims" class="Tunable" default="True" display="Allow Sims" description="If checked then this broadcaster will consider Sims. This is on by default. If neither allow_objects or allow_sims is checked that will result in a tuning error." group="General" />
+
+        <TunableEnum type="BroadcasterClockType" name="clock_type" class="TunableEnumEntry" default="GAME_TIME" display="Clock Type" static_entries="broadcasters-broadcaster_utils.BroadcasterClockType" description="Denotes whether broadcasters of this type are managed in real time or game time. Most broadcasters should be managed in Game Time because they will update with the speed of the game, including performance dips, and speed changes. However, Real Time broadcasters are more performant because they will only update based on the frequency of real time. You should use real time updates if the broadcaster is enabled for the lifetime of the object, there are a lot of that type, or timing doesn't matter as much. One Shot Interaction broadcasters should always be Game Time. Environment Score broadcasters should be in Real Time. Consult an engineer if you have questions." group="General" />
+
+        <TunableVariant type="None" name="clustering" class="OptionalTunable" default="enabled" display="Clustering" description="If set, then similar broadcasters, i.e. broadcasters of the same instance, will be clustered together if their broadcasting objects are close by. This improves performance and avoids having Sims react multiple times to similar broadcasters. When broadcasters are clustered together, there is no guarantee as to what object will be used for testing purposes. e.g. Stinky food reactions are clustered together. A test on the broadcaster should not, for example, differentiate between a stinky lobster and a stinky steak, because the broadcasting object is arbitrary and undefined. e.g. Jealousy reactions are not clustered together. A test on the broadcaster considers the relationship between two Sims. Therefore, it would be unwise to consider an arbitrary Sim if two jealousy broadcasters are close to each other." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableObjectClusterRequest" display="Enabled" description="Specify how clusters for this particular broadcaster are formed." group="General">
+                <Tunable type="float" name="density_epsilon" class="TunableDistanceSquared" default="2.82" display="Density Epsilon" description="A constant that defines whether or not two objects are reachable." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="facing_angle" class="OptionalTunable" default="disabled" display="Facing Angle" description="If set, then objects in a cluster must satisfy facing requirements." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="float" name="enabled" class="TunableAngle" default="180.0" display="Enabled" min="0.0" max="360.0" description="An angle that defines the facing requirements for the purposes of clustering and centroid facing." tuning_state="NeedsTuning" group="General" />
+                </TunableVariant>
+                <TunableTuple name="line_of_sight_constraint" class="TunableLineOfSightData" display="Line Of Sight Constraint" description="The line of sight parameters for generated clusters." group="General">
+                    <Tunable type="float" name="boundary_epsilon" class="Tunable" default="0.01" display="Boundary Epsilon" description="The LOS origin is allowed to be outside of the boundary by this amount." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="facing_offset" class="Tunable" default="0.1" display="Facing Offset" description="The LOS origin is offset from the object origin by this amount (mainly to avoid intersecting walls)." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="map_divisions" class="Tunable" default="30" display="Map Divisions" description="The number of points around the object to check collision from. More points means higher accuracy." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="max_line_of_sight_radius" class="Tunable" default="10" display="Max Line Of Sight Radius" description="The maximum possible distance from this object than an interaction can reach." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="override_los_component" class="Tunable" default="False" display="Override Los Component" description="If set to true, this temporary LOS overrides the object's LOS component if it has one (this is useful if we want to temporarily increase an object's LOS radius, etc)." group="General" />
+                    <Tunable type="float" name="simplification_ratio" class="Tunable" default="0.35" display="Simplification Ratio" description="A factor determining how much to combine edges in the line of sight polygon." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <Tunable type="float" name="radius_buffer" class="TunableRange" default="0.5" display="Radius Buffer" min="0" max="None" description="An additional distance (in meters) that will be added to the radius of a cluster. The size of a cluster is based on the objects in it. We need to add an additional amount to ensure that the object is included in the (non-exact) circle constraint." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="constraints" class="TunableList" display="Constraints" min="1" description="A list of constraints that define the area of influence of this broadcaster. It is required that at least one constraint be defined." group="General">
+            <TunableVariant type="None" class="TunableGeometricConstraintVariant" default="circle" group="General">
+                <TunableTuple name="circle" class="TunableCircle" display="Circle" description="The relative circle geometry required for a sim/posture to use the object." group="General">
+                    <Tunable type="bool" name="enables_height_scoring" class="Tunable" default="False" display="Enables Height Scoring" description="If enabled, this constraint will score goals using the height of the surface. The higher the goal the cheaper it is." group="General" />
+                    <Tunable type="float" name="ideal_radius" class="Tunable" default="None" display="Ideal Radius" description="Ideal distance for this circle constraint, points closer to the ideal distance will score higher." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="ideal_radius_width" class="Tunable" default="0" display="Ideal Radius Width" description="This creates a band around the ideal_radius that also costs 0 instead of rising in cost. ex: If you have a circle of radius 5, with an ideal_radius of 2.5, and a ideal_radius_width of 0.5, all goals in the radius 2 to radius 3 range will score optimially." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="radial_cost_weight" class="TunableRange" default="2.25" display="Radial Cost Weight" min="0" max="None" description="The importance of the radial cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="radius" class="Tunable" default="1" display="Radius" description="Circle radius" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableTuple name="cone" class="TunableCone" display="Cone" description="The relative cone geometry required for a sim/posture to use the object." group="General">
+                    <Tunable type="float" name="angle" class="TunableAngle" default="180.0" display="Angle" min="0.0" max="360.0" description="The cone angle in degrees." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="angular_cost_weight" class="TunableRange" default="2.25" display="Angular Cost Weight" min="0" max="None" description="The importance of the angular cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="apply_offset_on_cost" class="Tunable" default="False" display="Apply Offset On Cost" description="If checked, the offset defined above will affect how the constraint cost is calculated. " group="General" />
+                    <Tunable type="bool" name="enables_height_scoring" class="Tunable" default="False" display="Enables Height Scoring" description="If enabled, this constraint will score goals using the height of the surface. The higher the goal the cheaper it is." group="General" />
+                    <Tunable type="float" name="ideal_angle" class="TunableRange" default="0.25" display="Ideal Angle" min="0" max="1" description="The angular extents of an ideal region as a fraction of angle." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="ideal_radius_max" class="TunableRange" default="0.75" display="Ideal Radius Max" min="0" max="1" description="The radial upper bound of an ideal region as a fraction of the difference between max_radius and min_radius." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="ideal_radius_min" class="TunableRange" default="0.25" display="Ideal Radius Min" min="0" max="1" description="The radial lower bound of an ideal region as a fraction of the difference between max_radius and min_radius." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="max_radius" class="Tunable" default="1" display="Max Radius" description="The maximum cone radius." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="min_radius" class="Tunable" default="0" display="Min Radius" description="The minimum cone radius." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="offset" class="TunableAngle" default="0.0" display="Offset" min="0.0" max="360.0" description="An offset (rotation) in degrees. By default the cone will face the forward vector of the object. Use an offset to rotate the cone to face a different direction. " tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="radial_cost_weight" class="TunableRange" default="2.25" display="Radial Cost Weight" min="0" max="None" description="The importance of the radial cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="require_los" class="Tunable" default="True" display="Require Los" description="If checked, the Sim will require line of sight to the actor. Positions where a Sim can't see the actor (e.g. there's a wall in the way) won't be valid. NOTE: This will NOT work on a constraint that is not used to generate routing goals such as broadcasters and reactions, use a Line Of Sight Constraint instead. This will work on constraints used to keep Sims in an interaction." group="General" />
+                </TunableTuple>
+                <TunableTuple name="facing" class="TunableFacing" display="Facing" description="Existential tunable that requires the sim to face the object." group="General">
+                    <Tunable type="float" name="inner_radius" class="Tunable" default="0.0" display="Inner Radius" description="A radius around the center of the constraint that defines an area in which the Sim's facing is unrestricted." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="invert" class="Tunable" default="False" display="Invert" description="If set then the facing constraint will have a requirement of facing away from the object instead of towards the object. This will not work if inner_radius is tuned to something other than 0 (actually > EPSILON because RelativeFacingWithCircle doesn't support invert." group="General" />
+                    <Tunable type="float" name="range" class="TunableAngle" default="90.0" display="Range" min="0.0" max="360.0" description="The size of the angle-range that sims should use when determining facing constraints." tuning_state="NeedsTuning" group="General" />
+                    <TunableVariant type="None" name="subroot_index" class="OptionalTunable" default="disabled" display="Subroot Index" description="An optional subroot to use for facing." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="Tunable" default="0" display="Enabled" tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="line_of_sight" class="TunableLineOfSight" display="Line Of Sight" description="Existential tunable that creates a line of sight constraint." group="General">
+                    <TunableVariant type="None" name="temporary_los" class="OptionalTunable" default="disabled" display="Temporary Los" description="If enabled, a Line of Sight component will be temporarily created when constraints are needed. This should be used if the affordance requires LOS on an object that doesn't have an LOS component, or if we want to temporarily override the tuning on the default LOS component of the object (ie. If an object has a LOS component with default radius being 10 and we want to temporarily increase it to 20)." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableTuple name="enabled" class="TunableLineOfSightData" display="Enabled" group="General">
+                            <Tunable type="float" name="boundary_epsilon" class="Tunable" default="0.01" display="Boundary Epsilon" description="The LOS origin is allowed to be outside of the boundary by this amount." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="facing_offset" class="Tunable" default="0.1" display="Facing Offset" description="The LOS origin is offset from the object origin by this amount (mainly to avoid intersecting walls)." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="map_divisions" class="Tunable" default="30" display="Map Divisions" description="The number of points around the object to check collision from. More points means higher accuracy." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="max_line_of_sight_radius" class="Tunable" default="10" display="Max Line Of Sight Radius" description="The maximum possible distance from this object than an interaction can reach." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="bool" name="override_los_component" class="Tunable" default="False" display="Override Los Component" description="If set to true, this temporary LOS overrides the object's LOS component if it has one (this is useful if we want to temporarily increase an object's LOS radius, etc)." group="General" />
+                            <Tunable type="float" name="simplification_ratio" class="Tunable" default="0.35" display="Simplification Ratio" description="A factor determining how much to combine edges in the line of sight polygon." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="ocean_loc" class="TunableOceanStartLocationConstraint" display="Ocean Loc" description="The circle geometry relative to the nearest ocean locator." group="General">
+                    <Tunable type="bool" name="enables_height_scoring" class="Tunable" default="False" display="Enables Height Scoring" description="If enabled, this constraint will score goals using the height of the surface. The higher the goal the cheaper it is." group="General" />
+                    <Tunable type="float" name="ideal_radius" class="Tunable" default="None" display="Ideal Radius" description="Ideal distance for this circle constraint, points closer to the ideal distance will score higher." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="ideal_radius_width" class="Tunable" default="0" display="Ideal Radius Width" description="This creates a band around the ideal_radius that also costs 0 instead of rising in cost. ex: If you have a circle of radius 5, with an ideal_radius of 2.5, and a ideal_radius_width of 0.5, all goals in the radius 2 to radius 3 range will score optimially." tuning_state="NeedsTuning" group="General" />
+                    <TunableEnum type="WaterDepthIntervals" name="interval" class="TunableEnumEntry" default="WET" display="Interval" static_entries="interactions-constraints.WaterDepthIntervals" description="Select the depth for the Sim based on the water height offset at a target location and the Sim's wading interval data." group="General" />
+                    <Tunable type="float" name="radial_cost_weight" class="TunableRange" default="2.25" display="Radial Cost Weight" min="0" max="None" description="The importance of the radial cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="radius" class="Tunable" default="1" display="Radius" description="Circle radius" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableTuple name="portal" class="TunablePortalConstraint" display="Portal" description="A constraint that is relative to the location of a portal. " group="General">
+                    <TunableList name="portals" class="TunableList" display="Portals" description="List of portal data to be used in this constraint." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <TunableVariant type="None" name="portal_direction" class="TunableVariant" default="there" display="Portal Direction" description="Choose between the There and Back of the portal. This will not work properly if the portal is missing a Back and Back is specified here." group="General">
+                                <Tunable name="back" class="TunableExistance" display="Back" />
+                                <Tunable name="there" class="TunableExistance" display="There" />
+                            </TunableVariant>
+                            <TunableVariant type="None" name="portal_location" class="TunableVariant" default="entry" display="Portal Location" description="Choose between the entry and exit of a portal direction." group="General">
+                                <Tunable name="entry" class="TunableExistance" display="Entry" />
+                                <Tunable name="exit" class="TunableExistance" display="Exit" />
+                            </TunableVariant>
+                            <Tunable type="snippet" name="portal_type" class="TunableReference" display="Portal Type" description="A reference to the type of portal to use for the constraint." allow_none="False" group="General" restrict="PortalData" />
+                            <Tunable type="bool" name="require_position_los" class="Tunable" default="True" display="Require Position Los" description="If checked, the Sim will require line of sight to the portal location for a Position constraint. Positions where a Sim can't see the portal (e.g. there's a wall in the way) won't be valid. This value won't be used for any tuned sub constraints." group="General" />
+                            <TunableVariant type="None" name="sub_constraint" class="OptionalTunable" default="disabled" display="Sub Constraint" description="If enabled, specify a specific type of constraint to create at the location of the portal. If disabled then the constraint will just be a location constraint at the location of the portal." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableVariant type="None" name="enabled" class="TunableVariant" default="circle" display="Enabled" description="The types of constraints that can be created at the location of the portal." group="General">
+                                    <TunableTuple name="circle" class="TunableCircle" display="Circle" description="A circle constraint that is created at the location of the portal." group="General">
+                                        <Tunable type="bool" name="enables_height_scoring" class="Tunable" default="False" display="Enables Height Scoring" description="If enabled, this constraint will score goals using the height of the surface. The higher the goal the cheaper it is." group="General" />
+                                        <Tunable type="float" name="ideal_radius" class="Tunable" default="None" display="Ideal Radius" description="Ideal distance for this circle constraint, points closer to the ideal distance will score higher." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="float" name="ideal_radius_width" class="Tunable" default="0" display="Ideal Radius Width" description="This creates a band around the ideal_radius that also costs 0 instead of rising in cost. ex: If you have a circle of radius 5, with an ideal_radius of 2.5, and a ideal_radius_width of 0.5, all goals in the radius 2 to radius 3 range will score optimially." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="bool" name="multi_surface" class="Tunable" default="False" display="Multi Surface" description="If enabled, this constraint will be considered for multiple surfaces. Example: You want a circle constraint that can be both inside and outside of a pool." group="General" />
+                                        <Tunable type="float" name="radial_cost_weight" class="TunableRange" default="2.25" display="Radial Cost Weight" min="0" max="None" description="The importance of the radial cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="float" name="radius" class="Tunable" default="3" display="Radius" description="Circle radius" tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="bool" name="require_los" class="Tunable" default="True" display="Require Los" description="If checked, the Sim will require line of sight to the actor. Positions where a Sim can't see the actor (e.g. there's a wall in the way) won't be valid. NOTE: This will NOT work on a constraint that is not used to generate routing goals such as broadcasters and reactions, use a Line Of Sight Constraint instead. This will work on constraints used to keep Sims in an interaction." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="cone" class="TunableCone" display="Cone" description="A cone constraint that is created at the location of the portal." group="General">
+                                        <Tunable type="float" name="angle" class="TunableAngle" default="180.0" display="Angle" min="0.0" max="360.0" description="The cone angle in degrees." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="float" name="angular_cost_weight" class="TunableRange" default="2.25" display="Angular Cost Weight" min="0" max="None" description="The importance of the angular cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="bool" name="apply_offset_on_cost" class="Tunable" default="False" display="Apply Offset On Cost" description="If checked, the offset defined above will affect how the constraint cost is calculated. " group="General" />
+                                        <Tunable type="bool" name="enables_height_scoring" class="Tunable" default="False" display="Enables Height Scoring" description="If enabled, this constraint will score goals using the height of the surface. The higher the goal the cheaper it is." group="General" />
+                                        <Tunable type="float" name="ideal_angle" class="TunableRange" default="0.25" display="Ideal Angle" min="0" max="1" description="The angular extents of an ideal region as a fraction of angle." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="float" name="ideal_radius_max" class="TunableRange" default="0.75" display="Ideal Radius Max" min="0" max="1" description="The radial upper bound of an ideal region as a fraction of the difference between max_radius and min_radius." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="float" name="ideal_radius_min" class="TunableRange" default="0.25" display="Ideal Radius Min" min="0" max="1" description="The radial lower bound of an ideal region as a fraction of the difference between max_radius and min_radius." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="float" name="max_radius" class="Tunable" default="1" display="Max Radius" description="The maximum cone radius." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="float" name="min_radius" class="Tunable" default="0" display="Min Radius" description="The minimum cone radius." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="bool" name="multi_surface" class="Tunable" default="False" display="Multi Surface" description="If enabled, this constraint will be considered for multiple surfaces. Example: You want a circle constraint that can be both inside and outside of a pool." group="General" />
+                                        <Tunable type="float" name="offset" class="TunableAngle" default="0.0" display="Offset" min="0.0" max="360.0" description="An offset (rotation) in degrees. By default the cone will face the forward vector of the object. Use an offset to rotate the cone to face a different direction. " tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="float" name="radial_cost_weight" class="TunableRange" default="2.25" display="Radial Cost Weight" min="0" max="None" description="The importance of the radial cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="bool" name="require_los" class="Tunable" default="True" display="Require Los" description="If checked, the Sim will require line of sight to the actor. Positions where a Sim can't see the actor (e.g. there's a wall in the way) won't be valid. NOTE: This will NOT work on a constraint that is not used to generate routing goals such as broadcasters and reactions, use a Line Of Sight Constraint instead. This will work on constraints used to keep Sims in an interaction." group="General" />
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableVariant>
+                            <TunableTuple name="sub_constraint_offset" class="TunableVector3" display="Sub Constraint Offset" description="Translation offset applied to the sub constraint, relative to the target object." group="General">
+                                <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="position" class="TunablePosition" display="Position" description="The relative position geometry required for a sim/posture to use the object." group="General">
+                    <TunableTuple name="relative_position" class="TunableVector3" display="Relative Position" description="Position" group="General">
+                        <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+                <TunableTuple name="relative_circle" class="TunableRelativeCircleConstraint" display="Relative Circle" description="A circle constraint whose size is dependent on the size of the target object." group="General">
+                    <Tunable type="bool" name="enables_height_scoring" class="Tunable" default="False" display="Enables Height Scoring" description="If enabled, this constraint will score goals using the height of the surface. The higher the goal the cheaper it is." group="General" />
+                    <TunableVariant type="None" name="maximum_radius" class="OptionalTunable" default="disabled" display="Maximum Radius" description="If enabled, the generated constraint will have a radius no larger that the specified amount." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunableRange" default="1" display="Enabled" min="0" max="None" description="The constraint's maximum radius." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="minimum_radius" class="OptionalTunable" default="disabled" display="Minimum Radius" description="If enabled, the generated constraint will have a radius no smaller than the specified amount." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunableRange" default="1" display="Enabled" min="0" max="None" description="The constraint's minimum radius." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="relative_ideal_radius" class="OptionalTunable" default="disabled" display="Relative Ideal Radius" description="If enabled, specify an ideal radius relative to the constraint's radius. " group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Ideal radius data." group="General">
+                            <Tunable type="float" name="radius" class="TunableRange" default="1" display="Radius" min="0" max="1" description="The constraint's relative ideal radius. A value of 1 would mean the ideal location is on the outskirt of the constraint; values towards 0 approach the constraint's center." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="width" class="Tunable" default="0" display="Width" description="This creates a band around the ideal_radius that also scores to 1 instead of starting to fall off to 0 in scoring. ex: If you have a circle of radius 5, with an ideal_radius of 2.5, and a ideal_radius_width of 0.5, any goals in the radius 2 to radius 3 range will all score optimially." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <Tunable type="float" name="relative_radius" class="TunableRange" default="1" display="Relative Radius" min="1" max="None" description="The constraint's radius relative to the size of the object. This is a simple multiplier applied to the area generated by the object's footprint" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableTuple name="spawn_points_with_backup" class="TunableSpawnPointWithBackup" display="Spawn Points With Backup" group="General">
+                    <TunableVariant type="None" name="backup_tags" class="OptionalTunable" default="Spawn_Point_Tags" display="Backup Tags" description="A constraint that represents primary spawn points with backup secondary ones." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="Spawn_Point_Tags" class="TunableSet" display="Spawn Point Tags" min="1" group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="Spawn" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <TunableEnum type="SpawnPointRequestReason" name="spawn_point_request_reason" class="TunableEnumEntry" default="DEFAULT" display="Spawn Point Request Reason" static_entries="world-spawn_point_enums.SpawnPointRequestReason" description="The reason why we want the spawn point. Certain spawn points are only available for specific reasons, such as specific spawn points for leaving or for spawning at." group="General" />
+                    <TunableVariant type="None" name="spawn_point_tags" class="TunableVariant" default="none" display="Spawn Point Tags" description="Tags that specify the primary spawnpoints or where to get them." group="General">
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                        <TunableTuple name="tags" class="Tunable_Tags" display="Tags" description="Tags are specified straight out." group="General">
+                            <TunableList name="tags" class="TunableSet" display="Tags" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="Spawn" group="General" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="university_based" class="TunableUniversitySpecificSpawnPointTags" display="University Based" description="Tags are specified right here (on a per university basis) " group="General">
+                            <TunableList name="spawn_point_tags" class="TunableMapping" display="Spawn Point Tags" mapping_key="key" mapping_value="value" description="University specific classroom tags." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="university" name="key" class="TunableReference" display="Key" allow_none="False" group="General" />
+                                    <TunableList name="value" class="TunableSet" display="Value" min="1" group="General" unique_entries="true">
+                                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="Spawn" group="General" />
+                                    </TunableList>
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="university_course_slot_career_si" class="TunableUniversityCourseCareerSISpawnPointTags" display="University Course Slot Career Si" description="Tags are pulled via the associated career interaction for a university course. " group="General" />
+                        <TunableTuple name="university_course_slot_participant" class="TunableUniversityCourseParticipantSpawnPointTags" display="University Course Slot Participant" description="Tags are pulled via the specified participant holding the id of a university course." group="General">
+                            <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="PickedItemId" display="Participant" static_entries="interactions.ParticipantType" description="The participant from which the career ID will be obtained. Typically should be PickedItemId if this interaction comes via a CareerPickerSuperInteraction." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="university_course_slot_reference" class="TunableUniversityCourseReferenceSpawnPointTags" display="University Course Slot Reference" description="Tags are pulled via the specified university course slot." group="General">
+                            <Tunable type="career" name="_course_slot" class="TunableReference" display="Course Slot" description="Course slot from which to pull the spawn point tags." allow_none="False" group="General" restrict="UniversityCourseCareerSlot" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <Tunable type="bool" name="use_lot_id_for_backup" class="Tunable" default="True" display="Use Lot Id For Backup" description="If checked then we will use the current lot id to limit spawn points that are linked to lots to the current lot if we fall back to the backup tags." group="General" />
+                </TunableTuple>
+                <TunableTuple name="terrain_material" class="TunableTerrainMaterialConstraint" display="Terrain Material" description="A water depth constraint which defines only the terrain materials required." group="General">
+                    <TunableVariant type="None" name="terrain_tags" class="OptionalTunable" default="disabled" display="Terrain Tags" description="If enabled, a set of allowed terrain tags. At least one tag must match the terrain under each vertex of the footprint of the supplied object." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumSet" display="Enabled" group="General" unique_entries="true">
+                            <TunableEnum type="TerrainTag" class="TunableEnumEntry" default="INVALID" static_entries="world-terrain_enums.TerrainTag" group="General" invalid_entries="INVALID" />
+                        </TunableList>
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="water_depth" class="TunableWaterDepthConstraint" display="Water Depth" description="A water depth constraint which defines only the ocean water depth required." group="General">
+                    <TunableVariant type="None" name="max_water_depth" class="OptionalTunable" default="disabled" display="Max Water Depth" description="(float) If provided, each vertex of the test polygon along with its centroid will be tested to determine whether the ocean water at the test location is at most this deep. Values <= 0 indicate placement in ocean is invalid." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="Tunable" default="1000.0" display="Enabled" description="Value of the max water depth allowed." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="min_water_depth" class="OptionalTunable" default="disabled" display="Min Water Depth" description="(float) If provided, each vertex of the test polygon along with its centroid will be tested to determine whether the ocean water at the test location is at least this deep. Values <= 0 indicate placement on land is valid." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="Tunable" default="-1.0" display="Enabled" description="Value of the min water depth allowed." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="water_depth_interval" class="TunableWaterDepthIntervalConstraint" display="Water Depth Interval" description="A water depth constraint which defines only the ocean water depth required." group="General">
+                    <TunableEnum type="WaterDepthIntervals" name="interval" class="TunableEnumEntry" default="WALK" display="Interval" static_entries="interactions-constraints.WaterDepthIntervals" description="Test if a Sim should be walking, wading or swimming based on the water height offset at a target location and the Sim's wading interval data." group="General" />
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TunableList name="effects" class="TunableList" display="Effects" description="A list of effects that are applied to Sims and objects affected by this broadcaster." group="General">
+            <TunableVariant type="None" class="TunableBroadcasterEffectVariant" default="none" group="General">
+                <TunableTuple name="affordance" class="TunableBroadcasterEffectAffordance" display="Affordance" description="A broadcaster effect that pushes an interaction on a Sim that is being affected." group="General">
+                    <Tunable type="bool" name="actor_can_violate_privacy_from_owning_interaction" class="Tunable" default="True" display="Actor Can Violate Privacy From Owning Interaction" description="If enabled, the actor of the pushed affordance will be allowed to violate the privacy region from the owning interaction. If disabled, the actor of the pushed affordance will not be able to violate the privacy region created by the owning interaction." group="General" />
+                    <TunableVariant type="None" name="affected_object_cap" class="OptionalTunable" default="disabled" display="Affected Object Cap" description="If enabled, specify the maximum number of objects that can be affected by this particular effect, per broadcaster. This is a soft- cap, since the data does not persist across multiple broadcaster requests nor save games." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableRange" default="1" display="Enabled" min="1" max="None" description="The maximum number of objects that can be affected by this broadcaster." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <Tunable type="bool" name="affordance_must_run_next" class="Tunable" default="False" display="Affordance Must Run Next" description="If set, the affordance will be inserted at the beginning of the Sim's queue." group="General" />
+                    <TunableEnum type="Priority" name="affordance_priority" class="TunableEnumEntry" default="Low" display="Affordance Priority" static_entries="interactions-priority.Priority" description="The priority at which the specified affordance is to be pushed." group="General" />
+                    <TunableVariant type="None" name="affordance_run_priority" class="OptionalTunable" default="disabled" display="Affordance Run Priority" description="If enabled, specify the priority at which the affordance runs. This may be different than 'affordance_priority'. For example. you might want an affordance to push at high priority such that it cancels existing interactions, but it runs at a lower priority such that it can be more easily canceled." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="Priority" name="enabled" class="TunableEnumEntry" default="Low" display="Enabled" static_entries="interactions-priority.Priority" description="The run priority for the specified affordance." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="affordance_target" class="OptionalTunable" default="enabled" display="Affordance Target" description="If enabled, the pushed interaction will target a specified participant." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Object" display="Enabled" static_entries="interactions.ParticipantType" description="The participant to be targeted by the pushed interaction." group="General" />
+                    </TunableVariant>
+                    <TunableList name="affordances" class="TunableList" display="Affordances" description="A list of affordances to choose from to push as a result of the broadcaster." group="General">
+                        <TunableTuple class="TunableTuple" description="A tuple of affordance to push and weight for how likely the affordance is to be picked." group="General">
+                            <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The affordance to push on Sims affected by the broadcaster." allow_none="False" group="General" pack_safe="True" />
+                            <Tunable type="int" name="weight" class="TunableRange" default="1" display="Weight" min="1" max="None" description="How likely this affordance is to be picked." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+                </TunableTuple>
+                <TunableTuple name="buff" class="TunableBroadcasterEffectBuff" display="Buff" description="A broadcaster effect that adds a buff while an object is being affected." group="General">
+                    <TunableTuple name="buff" class="TunableBuffReference" display="Buff" description="The buff to apply while the broadcaster actively affects the Sim." group="General">
+                        <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                                <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                                <Tunable name="none" class="TunableExistance" display="None" />
+                            </TunableVariant>
+                        </TunableVariant>
+                        <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+                    </TunableTuple>
+                    <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <Tunable type="bool" name="remove_buff" class="Tunable" default="True" display="Remove Buff" description="If enabled, the buff is automatically cleared on broadcaster ends. If disabled, the buff will remain." group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+                </TunableTuple>
+                <TunableTuple name="loot" class="TunableBroadcasterEffectLoot" display="Loot" description="A broadcaster effect to apply loot to the Sim reacting to the broadcaster." group="General">
+                    <TunableVariant type="None" name="affected_object_cap" class="OptionalTunable" default="disabled" display="Affected Object Cap" description="If enabled, specify the maximum number of objects that can be affected by this particular effect, per broadcaster. This is a soft- cap, since the data does not persist across multiple broadcaster requests nor save games." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableRange" default="1" display="Enabled" min="1" max="None" description="The maximum number of objects that can be affected by this broadcaster." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <TunableList name="loot_list" class="TunableList" display="Loot List" description="A list of loot operations." group="General">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                    </TunableList>
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+                </TunableTuple>
+                <Tunable name="none" class="TunableExistance" display="None" />
+                <TunableTuple name="self_buff" class="TunableBroadcasterEffectSelfBuff" display="Self Buff" description="A broadcaster effect which gives a buff to the broadcasting object if the number of objects within the broadcaster is inside an interval." group="General">
+                    <TunableTuple name="broadcastee_count_interval" class="TunableInterval" display="Broadcastee Count Interval" description="If the number of objects within this broadcaster is in this interval, the buff will be applied. Includes lower and upper." group="General">
+                        <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="1" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="upper_bound" class="TunableRange" default="2" display="Upper Bound" min="None" max="20" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="buff" class="TunableBuffReference" display="Buff" description="The buff to apply" group="General">
+                        <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                                <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                                <Tunable name="none" class="TunableExistance" display="None" />
+                            </TunableVariant>
+                        </TunableVariant>
+                        <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+                    </TunableTuple>
+                    <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+                </TunableTuple>
+                <TunableTuple name="self_loot" class="TunableBroadcasterEffectSelfLoot" display="Self Loot" description="A broadcaster effect which gives loot to the broadcasting object upon the broadcaster stopping, if the number of objects found in the broadcaster duration is inside an interval." group="General">
+                    <Tunable type="bool" name="apply_loot_on_remove" class="Tunable" default="True" display="Apply Loot On Remove" description="If enabled, determine whether or not we want to apply this broadcaster's loot when the broadcaster is removed. True means we will apply the loot on removal of the broadcaster False means we will apply the loot as soon as enough sims enter the constraint" group="General" />
+                    <TunableTuple name="broadcastee_count_interval" class="TunableInterval" display="Broadcastee Count Interval" description="If the number of objects within this broadcaster is in this interval, loot will be awarded. Includes lower and upper." group="General">
+                        <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="upper_bound" class="TunableRange" default="2" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <TunableList name="loot_list" class="TunableList" display="Loot List" description="A list of loot operations." group="General">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                    </TunableList>
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+                </TunableTuple>
+                <TunableTuple name="self_state_change" class="TunableBroadcasterEffectSelfStateChange" display="Self State Change" description="A broadcaster effect that changes the state of the controlling object when first object enters and last object leaves" group="General">
+                    <Tunable type="object_state" name="enter_state_value" class="TunableReference" display="Enter State Value" description="The state value to enter when first object gets close." allow_none="False" group="General" restrict="ObjectStateValue" />
+                    <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <Tunable type="object_state" name="exit_state_value" class="TunableReference" display="Exit State Value" description="The state value to enter when last object leaves." allow_none="False" group="General" restrict="ObjectStateValue" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+                </TunableTuple>
+                <TunableTuple name="start_fire" class="TunableBroadcasterEffectStartFire" display="Start Fire" description="A broadcaster effect to start a fire at the location of the object reacting to the broadcaster" group="General">
+                    <TunableVariant type="None" name="affected_object_cap" class="OptionalTunable" default="disabled" display="Affected Object Cap" description="If enabled, specify the maximum number of objects that can be affected by this particular effect, per broadcaster. This is a soft- cap, since the data does not persist across multiple broadcaster requests nor save games." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableRange" default="1" display="Enabled" min="1" max="None" description="The maximum number of objects that can be affected by this broadcaster." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <Tunable type="float" name="percent_chance" class="TunablePercent" default="50" display="Percent Chance" min="0" max="100" description="A value between 0 - 100 which represents the percent chance to start a fire when reacting to the broadcaster." group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+                </TunableTuple>
+                <TunableTuple name="state" class="TunableBroadcasterEffectStateChange" display="State" description="A broadcaster effect that applies a state change, from a list of states, for the duration of the object being affected. If multiple state values are tuned in the list, they will be randomized. Also, each pulse of the broadcaster will re-randomize the state applied to the affected object." group="General">
+                    <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <TunableList name="state_change_on_enter" class="TunableList" display="State Change On Enter" min="1" description="A list of states to randomize between every time an object enters the broadcaster, or the broadcaster pulses." group="General">
+                        <Tunable type="object_state" class="TunableReference" description="A state value to randomly consider setting on objects that enter this broadcaster." allow_none="False" group="General" restrict="ObjectStateValue" />
+                    </TunableList>
+                    <Tunable type="object_state" name="state_change_on_exit" class="TunableReference" display="State Change On Exit" description="The state change to apply the the object stops being affected." allow_none="False" group="General" restrict="ObjectStateValue" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+                </TunableTuple>
+                <TunableTuple name="state_value_buff" class="TunableBroadcasterEffectStateBuff" display="State Value Buff" description="Broadcaster effect that adds a buff based on the broadcaster owner states" group="General">
+                    <TunableTuple name="buff" class="TunableBuffReference" display="Buff" description="The buff to apply while the broadcaster actively affects the Sim." group="General">
+                        <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                                <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                                <Tunable name="none" class="TunableExistance" display="None" />
+                            </TunableVariant>
+                        </TunableVariant>
+                        <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+                    </TunableTuple>
+                    <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <Tunable type="bool" name="remove_buff" class="Tunable" default="True" display="Remove Buff" description="If enabled, the buff is automatically cleared on broadcaster ends. If disabled, the buff will remain." group="General" />
+                    <Tunable type="object_state" name="state" class="TunableReference" display="State" description="State to check" allow_none="False" group="General" restrict="ObjectState" />
+                    <TunableList name="state_value_buff_map" class="TunableMapping" display="State Value Buff Map" mapping_key="state_value" mapping_value="buff" description="Map that defines which buff will be applied depending on the state state_value Key: state_value: state_value Value: buff" group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <TunableTuple name="buff" class="TunableBuffReference" display="Buff" description="The buff to apply while the broadcaster actively affects the Sim." group="General">
+                                <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                                </TunableVariant>
+                                <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                        <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                                        <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                                        <Tunable name="none" class="TunableExistance" display="None" />
+                                    </TunableVariant>
+                                </TunableVariant>
+                                <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+                            </TunableTuple>
+                            <Tunable type="object_state" name="state_value" class="TunableReference" display="State Value" description="State value" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                        </TunableTuple>
+                    </TunableList>
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+                </TunableTuple>
+                <TunableTuple name="statistic_modifier" class="TunableBroadcasterEffectStatisticModifier" display="Statistic Modifier" description="A broadcaster effect that starts a statistic modifier on an object." group="General">
+                    <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableVariant>
+                    <Tunable type="float" name="modifier" class="Tunable" default="0" display="Modifier" description="The modifier to apply to the tuned statistic." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic to be affected by the modifier." allow_none="False" group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TunableVariant type="None" name="frequency" class="TunableVariant" default="on_pulse" display="Frequency" description="Define in what instances and how often this broadcaster affects Sims and objects in its area of influence." group="General">
+            <TunableTuple name="on_enter" class="TunableTuple" display="On Enter" description="Sims and objects are affected by this broadcaster when they enter in its area of influence, or when the broadcaster is created." group="General">
+                <Tunable type="bool" name="allow_multiple" class="Tunable" default="False" display="Allow Multiple" description="If checked, then Sims may react multiple times if they re- enter the broadcaster's area of influence. If unchecked, then Sims will only react to the broadcaster once." group="General" />
+            </TunableTuple>
+            <TunableTuple name="on_pulse" class="TunableTuple" display="On Pulse" description="Sims and objects are constantly affected by this broadcaster while they are in its area of influence." group="General">
+                <Tunable type="float" name="cooldown_time" class="TunableSimMinute" default="8" display="Cooldown Time" min="None" max="None" description="The time interval between broadcaster pulses. Sims would not react to the broadcaster for at least this amount of time while in its area of influence." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="bool" name="immediate" class="Tunable" default="False" display="Immediate" description="If checked, this broadcaster will trigger a broadcaster update when added to the service. This adds a performance cost so please use this sparingly. This can be used for one-shot interactions that generate broadcasters because the update interval might be excluded in the interaction duration." group="General" />
+
+        <Tunable type="bool" name="register_state_changed" class="Tunable" default="False" display="Register State Changed" description="If checked, broadcaster will register for object's state callback. Check this if you are going to use the BroadcasterEffectStateBuff" group="General" />
+
+        <TunableList name="route_events" class="TunableList" display="Route Events" description="Specify any route events that are triggered when the Sim follows a path that has points within this broadcaster's constraints." group="General">
+            <Tunable type="snippet" class="TunableReference" description="A Route Event that is to be played when a Sim plans a route through this broadcaster." allow_none="False" group="General" pack_safe="True" restrict="RouteEvent" />
+        </TunableList>
+    </Instance>
+
+    
+</TuningRoot>

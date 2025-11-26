@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="story_progression.story_progression_action_relationship_culling">
+        <Class name="StoryProgressionRelationshipCulling">
+            <Tunable type="int" name="CULLING_BUFFER_AMOUNT" class="Tunable" default="5" display="Culling Buffer Amount" description="When relationships are culled from an NPC relationship tracker due to the number of relationships exceeding the cap, this is how much below the cap the number of relationships will be after the culling." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="PLAYED_NPC_REL_DEPTH_CULLING_THRESHOLD" class="Tunable" default="30" display="Played Npc Rel Depth Culling Threshold" description="The relationship depth below which an NPC relationship will be culled. This is for sims that have been played in the past, but are not part of the active household now, and only operates on relationships with other NPCs." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="PLAYED_NPC_TO_PLAYED_NPC_MAX_RELATIONSHIPS" class="Tunable" default="20" display="Played Npc To Played Npc Max Relationships" description="The max number of relationships that a played NPC is allowed to have with other NPCs. This is for sims that have been played in the past, but are not part of the active household now, and only operates on relationships with other NPCs." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

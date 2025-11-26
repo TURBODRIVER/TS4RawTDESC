@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.sim_spawner">
+        <Class name="Language" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="ENGLISH" enum_value="0" />
+        </Class>
+
+        <Class name="SimSpawner">
+            <TunableList name="LOCALE_MAPPING" class="TunableMapping" display="Locale Mapping" mapping_key="locale_string" mapping_value="language" description="A mapping of locale in terms of string to a sim name language in the Language enum. This allows us to use the same random sim name list for multiple locales. You can add new Language enum entries in sims.sim_spawner's Language" group="General" mapping_class="TunableLocaleMappingTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Language" name="language" class="TunableEnumEntry" default="ENGLISH" display="Language" dynamic_entries="sims-sim_spawner.Language._elements" static_entries="sims-sim_spawner.Language" group="General" />
+                    <Tunable type="str" name="locale_string" class="Tunable" default="None" display="Locale String" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="NAME_TYPES_WITH_OPTIONAL_NAMES" class="TunableSet" display="Name Types With Optional Names" description="A set of name types with optional last names, along with a percentage chance to actually assign a last name instead of leaving it blank. " group="General" unique_entries="true">
+                <TunableTuple class="TunableRandomNameEntryTuple" description="Pairing of SimNameType that has an optional name with a percentage chance they actually have the optional name instead of just having nothing. Example: When a random name is assigned, if the name type is in this list, there will be a percentage chance that the name being assigned will have a last name if there are choices to choose from." group="General">
+                    <Tunable type="int" name="chance_of_random_last_name" class="TunableRange" default="0" display="Chance Of Random Last Name" min="0" max="100" description="Percent chance that a Sim with an optional name receives that optional name instead of just not having a name at all." tuning_state="NeedsTuning" group="General" />
+                    <TunableEnum type="SimNameType" name="name_type" class="TunableEnumEntry" default="DEFAULT" display="Name Type" dynamic_entries="sims-sim_spawner_enums.SimNameType._elements" static_entries="sims-sim_spawner_enums.SimNameType" binary_type="uint32" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="RANDOM_NAME_TUNING" class="TunableMapping" display="Random Name Tuning" mapping_key="language" mapping_value="random_name_tuning" description="A mapping of sim name language to lists of random family name and first names appropriate for that language. This is used to generate random sim names appropriate for each account's specified locale." group="General" mapping_class="TunableRandomNameMappingTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Language" name="language" class="TunableEnumEntry" default="ENGLISH" display="Language" dynamic_entries="sims-sim_spawner.Language._elements" static_entries="sims-sim_spawner.Language" group="General" />
+                    <TunableTuple name="random_name_tuning" class="TunableRandomNamesForLanguage" display="Random Name Tuning" description="A list of random names to be used for a specific language." group="General">
+                        <TunableList name="female_first_names" class="TunableList" display="Female First Names" description="A list of the random female first names that can be assigned in CAS or to randomly generated NPCs." group="General" unique_entries="true">
+                            <Tunable type="str" class="Tunable" default="" description="A random female first name." group="General" />
+                        </TunableList>
+                        <TunableList name="female_last_names" class="TunableList" display="Female Last Names" description="If the specified languages differentiate last names according to gender, this list has to be non-empty. For every last name specified in the 'last_names' list, there must be a corresponding last name in this list. Randomly generated NPCs and NPC offspring will select the corresponding female version if necessary." group="General" unique_entries="true">
+                            <Tunable type="str" class="Tunable" default="" description="The female version of the last name at the corresponding index in the 'last_name' list." group="General" />
+                        </TunableList>
+                        <TunableList name="last_names" class="TunableList" display="Last Names" description="A list of the random last names that can be assigned in CAS or to randomly generated NPCs." group="General" unique_entries="true">
+                            <Tunable type="str" class="Tunable" default="" description="A random last name." group="General" />
+                        </TunableList>
+                        <TunableList name="male_first_names" class="TunableList" display="Male First Names" description="A list of the random male first names that can be assigned in CAS or to randomly generated NPCs." group="General" unique_entries="true">
+                            <Tunable type="str" class="Tunable" default="" description="A random male first name." group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SIM_NAME_TYPE_TO_LOCALE_NAMES" class="TunableMapping" display="Sim Name Type To Locale Names" mapping_key="name_type" mapping_value="name_type_random_names" description="A mapping of SimNameType to locale-specific names. Normally, Sims pull from Random Name Tuning. But if specified with a SimNameType, they will instead pull from this mapping of names." group="General" mapping_class="TunableNameTypeToRandomNamesMappingTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="SimNameType" name="name_type" class="TunableEnumEntry" default="DEFAULT" display="Name Type" dynamic_entries="sims-sim_spawner_enums.SimNameType._elements" static_entries="sims-sim_spawner_enums.SimNameType" binary_type="uint32" group="General" invalid_entries="DEFAULT" />
+                    <TunableList name="name_type_random_names" class="TunableMapping" display="Name Type Random Names" mapping_key="language" mapping_value="random_name_tuning" group="General" mapping_class="TunableRandomNameMappingTuple">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <TunableEnum type="Language" name="language" class="TunableEnumEntry" default="ENGLISH" display="Language" dynamic_entries="sims-sim_spawner.Language._elements" static_entries="sims-sim_spawner.Language" group="General" />
+                            <TunableTuple name="random_name_tuning" class="TunableRandomNamesForLanguage" display="Random Name Tuning" description="A list of random names to be used for a specific language." group="General">
+                                <TunableList name="female_first_names" class="TunableList" display="Female First Names" description="A list of the random female first names that can be assigned in CAS or to randomly generated NPCs." group="General" unique_entries="true">
+                                    <Tunable type="str" class="Tunable" default="" description="A random female first name." group="General" />
+                                </TunableList>
+                                <TunableList name="female_last_names" class="TunableList" display="Female Last Names" description="If the specified languages differentiate last names according to gender, this list has to be non-empty. For every last name specified in the 'last_names' list, there must be a corresponding last name in this list. Randomly generated NPCs and NPC offspring will select the corresponding female version if necessary." group="General" unique_entries="true">
+                                    <Tunable type="str" class="Tunable" default="" description="The female version of the last name at the corresponding index in the 'last_name' list." group="General" />
+                                </TunableList>
+                                <TunableList name="last_names" class="TunableList" display="Last Names" description="A list of the random last names that can be assigned in CAS or to randomly generated NPCs." group="General" unique_entries="true">
+                                    <Tunable type="str" class="Tunable" default="" description="A random last name." group="General" />
+                                </TunableList>
+                                <TunableList name="male_first_names" class="TunableList" display="Male First Names" description="A list of the random male first names that can be assigned in CAS or to randomly generated NPCs." group="General" unique_entries="true">
+                                    <Tunable type="str" class="Tunable" default="" description="A random male first name." group="General" />
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SPECIES_TO_NAME_TYPE" class="TunableMapping" display="Species To Name Type" mapping_key="species" mapping_value="species_name_type" description="A mapping of species type to the type of names to use for that species. " group="General" mapping_class="TunableSpeciesToNameTypeMappingTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="SpeciesExtended" name="species" class="TunableEnumEntry" default="HUMAN" display="Species" static_entries="sims-sim_info_types.SpeciesExtended" binary_type="uint32" group="General" invalid_entries="INVALID" />
+                    <TunableEnum type="SimNameType" name="species_name_type" class="TunableEnumEntry" default="DEFAULT" display="Species Name Type" dynamic_entries="sims-sim_spawner_enums.SimNameType._elements" static_entries="sims-sim_spawner_enums.SimNameType" binary_type="uint32" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

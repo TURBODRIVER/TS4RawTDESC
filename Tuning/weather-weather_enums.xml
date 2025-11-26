@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="weather.weather_enums">
+        <Class name="PrecipitationType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="RAIN" enum_value="1000" />
+
+            <EnumItem name="SNOW" enum_value="1001" />
+        </Class>
+
+        <Class name="Temperature" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BURNING" enum_value="2" />
+
+            <EnumItem name="COLD" enum_value="-2" />
+
+            <EnumItem name="COOL" enum_value="-1" />
+
+            <EnumItem name="FREEZING" enum_value="-3" />
+
+            <EnumItem name="HOT" enum_value="1" />
+
+            <EnumItem name="WARM" enum_value="0" />
+        </Class>
+
+        <Class name="WeatherTypeGroup" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="TEMPERATURE" enum_value="2" />
+
+            <EnumItem name="UNGROUPED" enum_value="0" />
+
+            <EnumItem name="WEATHER" enum_value="1" />
+        </Class>
+
+        <Class name="CloudType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CLEAR" enum_value="2001" />
+
+            <EnumItem name="CLOUDY" enum_value="2006" />
+
+            <EnumItem name="DARK_RAINCLOUDS" enum_value="2003" />
+
+            <EnumItem name="DARK_SNOWCLOUDS" enum_value="2005" />
+
+            <EnumItem name="HEATWAVE" enum_value="2007" />
+
+            <EnumItem name="LIGHT_RAINCLOUDS" enum_value="2002" />
+
+            <EnumItem name="LIGHT_SNOWCLOUDS" enum_value="2004" />
+
+            <EnumItem name="PARTLY_CLOUDY" enum_value="2000" />
+
+            <EnumItem name="SKYBOX_INDUSTRIAL" enum_value="2010" />
+
+            <EnumItem name="STRANGE" enum_value="2008" />
+
+            <EnumItem name="VERY_STRANGE" enum_value="2009" />
+        </Class>
+
+        <Class name="WeatherEffectType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACID_RAIN" enum_value="1013" />
+
+            <EnumItem name="ECO_FOOTPRINT" enum_value="1012" />
+
+            <EnumItem name="LIGHTNING" enum_value="1009" />
+
+            <EnumItem name="SNOW_FRESHNESS" enum_value="1010" />
+
+            <EnumItem name="SNOW_ICINESS" enum_value="1016" />
+
+            <EnumItem name="STARWARS_FIRST_ORDER" enum_value="1015" />
+
+            <EnumItem name="STARWARS_RESISTANCE" enum_value="1014" />
+
+            <EnumItem name="STRANGERVILLE_ACT" enum_value="1011" />
+
+            <EnumItem name="TEMPERATURE" enum_value="1007" />
+
+            <EnumItem name="THUNDER" enum_value="1008" />
+
+            <EnumItem name="WATER_FROZEN" enum_value="1005" />
+
+            <EnumItem name="WIND" enum_value="1006" />
+
+            <EnumItem name="WINDOW_FROST" enum_value="1004" />
+        </Class>
+
+        <Class name="GroundCoverType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="RAIN_ACCUMULATION" enum_value="1002" />
+
+            <EnumItem name="SNOW_ACCUMULATION" enum_value="1003" />
+        </Class>
+
+        <Class name="WeatherOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DISABLE_STORMS" enum_value="1" />
+
+            <EnumItem name="WEATHER_DISABLED" enum_value="2" />
+
+            <EnumItem name="WEATHER_ENABLED" enum_value="0" />
+        </Class>
+
+        <Class name="WeatherType" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="AnyLightning" enum_value="15" />
+
+            <EnumItem name="AnyRain" enum_value="12" />
+
+            <EnumItem name="AnySnow" enum_value="11" />
+
+            <EnumItem name="Burning" enum_value="2" />
+
+            <EnumItem name="Cold" enum_value="-2" />
+
+            <EnumItem name="Cool" enum_value="-1" />
+
+            <EnumItem name="Freezing" enum_value="-3" />
+
+            <EnumItem name="Hot" enum_value="1" />
+
+            <EnumItem name="Max_Rain_Accumulation" enum_value="14" />
+
+            <EnumItem name="Max_Snow_Accumulation" enum_value="13" />
+
+            <EnumItem name="StruckByLightning" enum_value="16" />
+
+            <EnumItem name="UNDEFINED" enum_value="10" />
+
+            <EnumItem name="Warm" enum_value="0" />
+        </Class>
+
+        <Class name="SnowBehavior" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACCUMULATE" enum_value="1" />
+
+            <EnumItem name="NO_SNOW" enum_value="0" />
+
+            <EnumItem name="PERMANENT" enum_value="2" />
+        </Class>
+    </Module>
+</TuningRoot>

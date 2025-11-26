@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="WeatherSeasonalForecasts" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="value" class="TunableMapping" display="Value" mapping_key="key" mapping_value="value" group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="SeasonSegment" name="key" class="TunableEnumEntry" default="MID" display="Key" static_entries="seasons-seasons_enums.SeasonSegment" description="The part of the season." group="General" />
+                <Tunable type="snippet" name="value" class="TunableReference" display="Value" description="Potential forecasts for this part of the season." allow_none="False" group="General" pack_safe="True" restrict="WeatherForcastList" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

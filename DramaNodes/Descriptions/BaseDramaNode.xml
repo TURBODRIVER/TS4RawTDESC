@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="drama_node" class="BaseDramaNode" module="drama_scheduler.drama_node" description="The base DramaNode. This drama node handles all the functionality of scheduling the node and provides the interface for running it. To Define your own DramaNode inherit from BaseDramaNode and override the run() to run your own custom behavior." instance_subclasses_only="True" path="DramaNodes\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="additional_pack" class="OptionalTunable" default="disabled" display="Additional Pack" description="If enabled, this drama node is only available if you have a specific pack. This should only be used if two packs are required to see the content and to have it actually function." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableEnum type="Pack" name="enabled" class="TunableEnumEntry" default="BASE_GAME" display="Enabled" static_entries="sims4-common.Pack" description="Pack required for this drama node to run." group="General" />
+        </TunableVariant>
+
+        <TunableList name="additional_parameters" class="TunableSet" display="Additional Parameters" description="Additional parameters to cache, used if this drama node wants to cache any parameters from the instigator of this drama node. For example if this drama node is applied as a loot of an interaction, you can cache parameters of that interaction." group="Participant" unique_entries="true">
+            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantType" description="The participant type to cache." group="General" />
+        </TunableList>
+
+        <Tunable type="bool" name="allow_during_work_hours" class="Tunable" default="True" display="Allow During Work Hours" description="If this node can be scheduled during a Sim's work hours." group="Time" />
+
+        <TunableVariant type="None" name="cooldown_data" class="TunableVariant" default="none" display="Cooldown Data" description="The different types of cooldowns that can be applied to this drama node." group="General">
+            <TunableTuple name="group_cooldown" class="TunableTuple" display="Group Cooldown" description="Put the drama node on cooldown based on a group." group="General">
+                <TunableEnum type="CooldownGroup" name="group" class="TunableEnumEntry" default="INVALID" display="Group" dynamic_entries="drama_scheduler-drama_enums.CooldownGroup._elements" static_entries="drama_scheduler-drama_enums.CooldownGroup" description="The cooldown group that this drama node is a part of." group="General" invalid_entries="INVALID" />
+            </TunableTuple>
+            <TunableTuple name="node_cooldown" class="_DramaNodeCooldown" display="Node Cooldown" description="Put the drama node on cooldown for itself." group="General">
+                <TunableEnum type="CooldownOption" name="cooldown_option" class="TunableEnumEntry" default="ON_RUN" display="Cooldown Option" static_entries="drama_scheduler-drama_enums.CooldownOption" description="When this drama node should be put on cooldown." group="General" />
+                <TunableVariant type="None" name="duration" class="OptionalTunable" default="duration" display="Duration" description="If this drama node will be put on cooldown for a duration or put on cooldown permanently." group="General">
+                    <Tunable type="float" name="duration" class="TunableRange" default="1" display="Duration" min="0" max="None" description="The amount of time in hours after being given this node from scoring that it will not be chosen." tuning_state="NeedsTuning" group="General" />
+                    <Tunable name="permanent" class="TunableExistance" display="Permanent" />
+                </TunableVariant>
+            </TunableTuple>
+            <Tunable name="none" class="TunableExistance" display="None" />
+        </TunableVariant>
+
+        <TunableTuple name="min_and_max_times" class="TunableInterval" display="Min And Max Times" description="The minimum and maximum times in hours that this node will run from the point that it is scheduled. A random value between them, that's also valid for Time Option is needed for it to be scheduled. For example: Minimum time 5 - Maximum time 12. 5 hours after the node is scheduled (at 3 am), there will be a 7 hour window in which the node can be started. Our time option sets up a window of 8 hours after 9 am. So, our valid window is between 9 am, and 3pm, since that's the only range valid for both tunables." group="Time">
+            <Tunable type="float" name="lower_bound" class="TunableRange" default="1.0" display="Lower Bound" min="0.0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="upper_bound" class="TunableRange" default="2.0" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <Tunable type="bool" name="override_picked_sim_info_resolver" class="Tunable" default="False" display="Override Picked Sim Info Resolver" description="If true, override the resolver used when determining the Picked Sim Info to be a DoubleSimResolver where the Actor is the Receiver Sim Info, and the TargetSim is the Sender Sim Info. This should be used if the Picked Sim Info needs to be determined based on the result of the Receiver Sim Info or Sender Sim Info, instead of the active Sim. e.g. a phone call drama node that says 'Hey, should I ask <Sender's friend's Sim name> out on a date?'." group="Participant" />
+
+        <TunableVariant type="None" name="picked_sim_info" class="_DramaParticipant" default="no_participant" display="Picked Sim Info" description="An optional Sim that acts as ParticipantType.PickedSim if supplied. Useful for if a third Sim is involved, e.g. a text message drama node that says 'Hey, my sister <Sender's sister's Sim name> likes your hair!'" group="Participant">
+            <TunableTuple name="no_participant" class="TunableTuple" display="No Participant" description=", There is no participant for this drama participant." group="General" />
+            <TunableTuple name="participant_type" class="TunableTuple" display="Participant Type" description="Use a specific participant type from the system that called this drama node to resolve this drama participant." group="General">
+                <TunableEnum type="ParticipantType" name="participant_type" class="TunableEnumEntry" default="Actor" display="Participant Type" static_entries="interactions.ParticipantType" description="The participant type to use to resolve the drama node's participant." group="General" />
+            </TunableTuple>
+            <TunableTuple name="sim_filter" class="TunableTuple" display="Sim Filter" description="Use a sim filter relative to specific participant of the system that called this drama node. Usually this participant type will be the same as the participant that is used for the receiving sim, but there can be exceptions. Ex. If a sim dies you might want a sim who is a friend of the person who died to send the message rather than a person who is a friend of the player sim that will receive this message. " group="General">
+                <TunableList name="blacklist_participants" class="TunableList" display="Blacklist Participants" description="A list of participants that will be blacklisted from the filter." group="General">
+                    <TunableEnum type="ParticipantTypeSim" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSim" description="The participant type to blacklist for the filter." group="General" />
+                </TunableList>
+                <TunableVariant type="None" name="constrained_sims" class="OptionalTunable" default="disabled" display="Constrained Sims" description="If enabled then we will also constrain the filter being run to the Sims within this participant." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableEnum type="ParticipantTypeSim" name="enabled" class="TunableEnumEntry" default="Actor" display="Enabled" static_entries="interactions.ParticipantTypeSim" description="The participant that will be used as the constrained Sims." group="General" />
+                </TunableVariant>
+                <TunableEnum type="ParticipantType" name="participant_type" class="TunableEnumEntry" default="Actor" display="Participant Type" static_entries="interactions.ParticipantType" description="The participant type to use to request the filter." group="General" />
+                <Tunable type="sim_filter" name="sim_filter" class="TunableReference" display="Sim Filter" description="The sim filter that we will use to find the sim that will be used for this drama node's participant." allow_none="False" group="General" />
+            </TunableTuple>
+            <TunableTuple name="specific_sim_filter" class="TunableTuple" display="Specific Sim Filter" description="Use a sim filter relative to specific participant of the system that called this drama node. This variant of the filter will create or conform a sim_info if there are no sims available that match the filter. THIS CAN RESULT IN SIM INFO BLOAT IN A SAVE! Consult a GPE if you need to use it." group="General">
+                <TunableEnum type="ParticipantType" name="participant_type" class="TunableEnumEntry" default="Actor" display="Participant Type" static_entries="interactions.ParticipantType" description="The participant type to use to request the filter." group="General" />
+                <Tunable type="sim_filter" name="sim_filter" class="TunableReference" display="Sim Filter" description="The sim filter that we will use to find the sim that will be used for this drama node's participant." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TdescFragTag name="pretests" class="TunableTestSet" display="Pretests" description="A set of specific tests that will run on the target Sim to see if they are valid for this DramaNode. These tests will be run both when scheduling the drama node and when it is about to be run." group="General" />
+
+        <TunableEnum type="ParticipantType" name="receiver_sim" class="TunableEnumEntry" default="Actor" display="Receiver Sim" static_entries="interactions.ParticipantType" description="The participant type to use to find who will be the receiving Sim for this DramaNode. The receiving Sim will be the one that receives the DramaNode." group="Participant" />
+
+        <TdescFragTag name="receiver_sim_pretests" class="TunableTestSet" display="Receiver Sim Pretests" description="A set of tests to run on the receiving Sim before attempting to even setup the drama node." group="General" />
+
+        <TunableVariant type="None" name="reschedule_on_failed_tests" class="OptionalTunable" default="do_not_reschedule" display="Reschedule On Failed Tests" description="If this node should be rescheduled to be attempted to run again if the drama node fails to run due to failed tests. This will use a seperate min and max time." group="General">
+            <Tunable name="do_not_reschedule" class="TunableExistance" display="Do Not Reschedule" />
+            <TunableTuple name="reschedule" class="TunableInterval" display="Reschedule" description="The minimum and maximum times for rescheduling this node. A random valid time between these two values will be selected for the actual time that this node is rescheduled." group="General">
+                <Tunable type="float" name="lower_bound" class="TunableRange" default="1.0" display="Lower Bound" min="0.0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="upper_bound" class="TunableRange" default="2.0" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TdescFragTag name="run_tests" class="TunableTestSet" display="Run Tests" description="A set of specific tests that will run on the target Sim to see if they are valid for this DramaNode. These tests will only be run when the drama node is about to be run. " group="General" />
+
+        <TunableVariant type="None" name="scoring" class="OptionalTunable" default="disabled" display="Scoring" description="If enabled this DramaNode will be scored and chosen by the drama service. If there are multiple nodes for the same scoring bucket, they will be scored relative to each other. If obtained through loot or any other systems this should be disabled. If this is scheduled by another drama node, it needs to use the special scoring bucket. Ask your GPE partner if you have any questions if scoring should be enabled or not." group="Scoring">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Data related to scoring this DramaNode." group="General">
+                <Tunable type="int" name="base_score" class="TunableRange" default="1" display="Base Score" min="1" max="None" description="The base score of this drama node. This score will be multiplied by the score of the different filter results used to find the Sims for this DramaNode to find the final result." tuning_state="NeedsTuning" group="General" />
+                <TunableEnum type="DramaNodeScoringBucket" name="bucket" class="TunableEnumEntry" default="DEFAULT" display="Bucket" dynamic_entries="drama_scheduler-drama_enums.DramaNodeScoringBucket._elements" static_entries="drama_scheduler-drama_enums.DramaNodeScoringBucket" description="Which scoring bucket should these drama nodes be scored as part of. Only Nodes in the same bucket are scored against each other. Change different bucket settings within the Drama Node's module tuning." group="General" />
+                <TunableVariant type="None" name="receiving_sim_scoring_filter" class="OptionalTunable" default="disabled" display="Receiving Sim Scoring Filter" description="If enabled then we will generate a score for for the receiving Sim to be factored into the scoring of this DramaNode." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="sim_filter" name="enabled" class="TunableReference" display="Enabled" description="The filter that we will use to generate a score for the receiving Sim." allow_none="False" group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="sender_sim_info" class="_DramaParticipant" default="participant_type" display="Sender Sim Info" description="Tuning for selecting the sending Sim. The sending Sim is considered the Sim who will be sending this DramaNode." group="Participant">
+            <TunableTuple name="no_participant" class="TunableTuple" display="No Participant" description=", There is no participant for this drama participant." group="General" />
+            <TunableTuple name="participant_type" class="TunableTuple" display="Participant Type" description="Use a specific participant type from the system that called this drama node to resolve this drama participant." group="General">
+                <TunableEnum type="ParticipantType" name="participant_type" class="TunableEnumEntry" default="Actor" display="Participant Type" static_entries="interactions.ParticipantType" description="The participant type to use to resolve the drama node's participant." group="General" />
+            </TunableTuple>
+            <TunableTuple name="sim_filter" class="TunableTuple" display="Sim Filter" description="Use a sim filter relative to specific participant of the system that called this drama node. Usually this participant type will be the same as the participant that is used for the receiving sim, but there can be exceptions. Ex. If a sim dies you might want a sim who is a friend of the person who died to send the message rather than a person who is a friend of the player sim that will receive this message. " group="General">
+                <TunableList name="blacklist_participants" class="TunableList" display="Blacklist Participants" description="A list of participants that will be blacklisted from the filter." group="General">
+                    <TunableEnum type="ParticipantTypeSim" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSim" description="The participant type to blacklist for the filter." group="General" />
+                </TunableList>
+                <TunableVariant type="None" name="constrained_sims" class="OptionalTunable" default="disabled" display="Constrained Sims" description="If enabled then we will also constrain the filter being run to the Sims within this participant." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableEnum type="ParticipantTypeSim" name="enabled" class="TunableEnumEntry" default="Actor" display="Enabled" static_entries="interactions.ParticipantTypeSim" description="The participant that will be used as the constrained Sims." group="General" />
+                </TunableVariant>
+                <TunableEnum type="ParticipantType" name="participant_type" class="TunableEnumEntry" default="Actor" display="Participant Type" static_entries="interactions.ParticipantType" description="The participant type to use to request the filter." group="General" />
+                <Tunable type="sim_filter" name="sim_filter" class="TunableReference" display="Sim Filter" description="The sim filter that we will use to find the sim that will be used for this drama node's participant." allow_none="False" group="General" />
+            </TunableTuple>
+            <TunableTuple name="specific_sim_filter" class="TunableTuple" display="Specific Sim Filter" description="Use a sim filter relative to specific participant of the system that called this drama node. This variant of the filter will create or conform a sim_info if there are no sims available that match the filter. THIS CAN RESULT IN SIM INFO BLOAT IN A SAVE! Consult a GPE if you need to use it." group="General">
+                <TunableEnum type="ParticipantType" name="participant_type" class="TunableEnumEntry" default="Actor" display="Participant Type" static_entries="interactions.ParticipantType" description="The participant type to use to request the filter." group="General" />
+                <Tunable type="sim_filter" name="sim_filter" class="TunableReference" display="Sim Filter" description="The sim filter that we will use to find the sim that will be used for this drama node's participant." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableEnum type="SenderSimInfoType" name="sender_sim_info_type" class="TunableEnumEntry" default="UNINSTANCED_ONLY" display="Sender Sim Info Type" static_entries="drama_scheduler-drama_enums.SenderSimInfoType" description="The type of sender sim info allowed for the drama node." group="Participant" />
+
+        <TunableList name="tests_failed_loot" class="TunableList" display="Tests Failed Loot" description="A list of loot actions to apply if the tests that run when the drama node is about to be run fail. This includes both the tuned run_tests as well as any tests in the code." group="General">
+            <Tunable type="action" class="TunableReference" description="Loot action to apply if the run tests fail." allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+
+        <TunableVariant type="None" name="time_option" class="TunableVariant" default="schedule" display="Time Option" description="How we want to try and schedule this drama node based on time. Look at Min and Max times for more information on how a valid time is chosen." group="Time">
+            <TunableTuple name="schedule" class="TunableTuple" display="Schedule" description="Schedule this node based on a schedule. We will pick any time valid within the schedule. The time picked also needs to be valid for the range defined in min and max times." group="General">
+                <TunableList name="valid_times" class="TunableList" display="Valid Times" description="The valid times that this node can be scheduled." group="General">
+                    <TunableTuple class="TunableTuple" description="The days, start time, and duration that this node is valid." group="General">
+                        <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                            <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                            <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                            <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                            <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                            <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                            <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                            <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                        </TunableTuple>
+                        <Tunable type="float" name="duration" class="TunableRange" default="1" display="Duration" min="0" max="None" description="The duration that this this node is available in hours." tuning_state="NeedsTuning" group="General" />
+                        <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                            <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+            <TunableTuple name="single_time" class="TunableTuple" display="Single Time" description="Only a single possible time can be selected. The time picked also needs to be valid for the range defined in min and max times." group="General">
+                <TunableTuple name="valid_time" class="TunableTimeOfWeek" display="Valid Time" description="A single time of the week that this drama node will be available." group="General">
+                    <TunableEnum type="Days" name="day" class="TunableEnumEntry" default="SUNDAY" display="Day" static_entries="tunable_time.Days" description="Day of the week" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="ui_display_data" class="OptionalTunable" default="disabled" display="Ui Display Data" description="Information for what should show up on the calendar" group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="A localized string that may NOT require tokens." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableEnum type="DramaNodeUiDisplayType" name="ui_display_type" class="TunableEnumEntry" default="NO_UI" display="Ui Display Type" static_entries="drama_scheduler-drama_enums.DramaNodeUiDisplayType" description="How Calendar should display this type of drama node." group="UI" />
+
+        <TunableVariant type="None" name="weekly_scheduling_rules" class="OptionalTunable" default="disabled" display="Weekly Scheduling Rules" description="If enabled this DramaNode will be scheduled in a weekly basis. This scheduler is separate from scoring hence will ignore scoring rules, mix max times, cooldowns etc. We are planning to eventually obsolete scoring and use weekly scheduler instead for nodes like festivals. " group="Time">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Data related to scheduling this DramaNode weekly." group="General">
+                <TunableEnum type="WeeklySchedulingGroup" name="scheduling_group" class="TunableEnumEntry" default="DEFAULT" display="Scheduling Group" dynamic_entries="drama_scheduler-drama_enums.WeeklySchedulingGroup._elements" static_entries="drama_scheduler-drama_enums.WeeklySchedulingGroup" description="Which weekly scoring group should these drama nodes be in. Nodes in a same group will be scheduled weekly and rotationally using the rule defined on that group. Change different group settings within the drama_scheduler module tuning." group="General" />
+                <Tunable type="int" name="weight" class="TunableRange" default="1" display="Weight" min="1" max="None" description="Since we are scheduling nodes rotationally so each node will be scheduled sooner or later. But nodes with higher weight will be scheduled first at the beginning of the game." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

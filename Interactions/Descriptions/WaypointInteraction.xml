@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="WaypointInteraction" module="interactions.jog_interaction" description="An interaction that has a series of waypoints the the actor routes to for the run of the interaction." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="max_goal_clipping_score_override" class="OptionalTunable" default="disabled" display="Max Goal Clipping Score Override" description="If enabled, this override for the max goal clipping score on the routing context is used when generating goals." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="float" name="enabled" class="TunableRange" default="60.0" display="Enabled" min="0" max="60.0" tuning_state="NeedsTuning" group="General" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="waypoint_clear_locomotion_mask" class="Tunable" default="False" display="Waypoint Clear Locomotion Mask" description="If enabled, override the locomotion queue mask. This mask controls which Animation Requests and XEvents get blocked during locomotion. By default, the mask blocks everything. If cleared, it blocks nothing. It also lowers the animation track used by locomotion to 9,999 from the default of 10,000. Use with care, ask your GPE." group="Routing" />
+
+        <TunableVariant type="None" name="waypoint_constraint" class="TunableWaypointGeneratorVariant" default="spawn_points" display="Waypoint Constraint" description="Define how the waypoints are generated." group="Routing">
+            <TunableTuple name="connected_points" class="Tunable_WaypointGeneratorConnectedPoints" display="Connected Points" description="The waypoints are generated based on a predefined graph defined using locators. Will attempt to avoid backtracking. Can specify either an ending waypoint, a maximum number of waypoints to traverse, or both." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="ending_waypoint" class="TunableTunableWaypointWeightedSet" display="Ending Waypoint" description="Waypoint for the generator to end at (will choose one based on the tests/weights)." group="General">
+                    <TunableList name="connections" class="TunableList" display="Connections" description="List of connected waypoints." group="General">
+                        <TunableTuple class="TunableTuple" description="Pair of waypoint and a tested weight." group="General">
+                            <Tunable type="locator" name="connected_waypoint" class="TunableReference" display="Connected Waypoint" description="Waypoint reference." group="General" />
+                            <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A weight with testable multipliers that is used to determine how likely this entry is to be picked when selecting randomly." group="General">
+                                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                    <TunableTuple class="TunableTuple" group="General">
+                                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <Tunable type="int" name="max_waypoints" class="TunableRange" default="0" display="Max Waypoints" min="0" max="100" description="The maximum number of waypoints to visit. Set to 0 to keep going until ending_waypoint is reached." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <TunableTuple name="starting_waypoint" class="TunableTunableWaypointWeightedSet" display="Starting Waypoint" description="Waypoint for the generator to start at (will choose one based on the tests/weights)." group="General">
+                    <TunableList name="connections" class="TunableList" display="Connections" description="List of connected waypoints." group="General">
+                        <TunableTuple class="TunableTuple" description="Pair of waypoint and a tested weight." group="General">
+                            <Tunable type="locator" name="connected_waypoint" class="TunableReference" display="Connected Waypoint" description="Waypoint reference." group="General" />
+                            <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A weight with testable multipliers that is used to determine how likely this entry is to be picked when selecting randomly." group="General">
+                                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                    <TunableTuple class="TunableTuple" group="General">
+                                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+                <TunableVariant type="None" name="waypoint_graph" class="TunableWaypointGraphSnippet" default="literal" display="Waypoint Graph" description="Defines the waypoints and connections between them. (This may be tuned in place here using 'literal' or as a reference to a WaypointGraph tuning snippet.)" group="General">
+                    <TunableTuple name="literal" class="TunableTunableWaypointGraph" display="Literal" description="Tuning for defining a graph of connected waypoints (locators)." group="General">
+                        <TunableList name="connections" class="TunableMapping" display="Connections" mapping_key="waypoint" mapping_value="connections" description="Defines the connections between waypoints in this graph." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <TunableTuple name="connections" class="TunableTunableWaypointWeightedSet" display="Connections" description="Tuning for a weighted list of connections (linked waypoint locators)." group="General">
+                                    <TunableList name="connections" class="TunableList" display="Connections" description="List of connected waypoints." group="General">
+                                        <TunableTuple class="TunableTuple" description="Pair of waypoint and a tested weight." group="General">
+                                            <Tunable type="locator" name="connected_waypoint" class="TunableReference" display="Connected Waypoint" description="Waypoint reference." group="General" />
+                                            <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A weight with testable multipliers that is used to determine how likely this entry is to be picked when selecting randomly." group="General">
+                                                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                                    <TunableTuple class="TunableTuple" group="General">
+                                                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                                    </TunableTuple>
+                                                </TunableList>
+                                            </TunableTuple>
+                                        </TunableTuple>
+                                    </TunableList>
+                                </TunableTuple>
+                                <Tunable type="locator" name="waypoint" class="TunableReference" display="Waypoint" description="Waypoint reference." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                        <Tunable type="float" name="constraint_radius" class="TunableRange" default="1.5" display="Constraint Radius" min="0" max="None" description="The radius, in meters, for each of the generated waypoint constraints." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a WaypointGraph tuning snippet." allow_none="False" group="General" restrict="WaypointGraph" />
+                </TunableVariant>
+            </TunableTuple>
+            <TunableTuple name="ellipse" class="Tunable_WaypointGeneratorEllipse" display="Ellipse" description="The waypoints are generated on an ellipse." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <TunableTuple name="offset" class="TunableVector3" display="Offset" description="The offset of the ellipse relative to the target's position." group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <Tunable type="float" name="orientation" class="TunableAngle" default="0.0" display="Orientation" min="0.0" max="360.0" description="The orientation of the ellipse relative to the target's orientation. The major axis is X if the angle is 0. If the angle is 90 degrees, then the major axis is Z." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+                <TunableTuple name="x_radius_interval" class="TunableInterval" display="X Radius Interval" description="The min and max radius of the x axis. Make the interval 0 to get rid of variance." group="General">
+                    <Tunable type="float" name="lower_bound" class="TunableRange" default="1.0" display="Lower Bound" min="1.0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="upper_bound" class="TunableRange" default="1.0" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableTuple name="z_radius_interval" class="TunableInterval" display="Z Radius Interval" description="The min and max radius of the z axis. Make the interval 0 to get rid of variance." group="General">
+                    <Tunable type="float" name="lower_bound" class="TunableRange" default="1.0" display="Lower Bound" min="1.0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="upper_bound" class="TunableRange" default="1.0" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+            <TunableTuple name="footprint" class="Tunable_WaypointGeneratorFootprint" display="Footprint" description="The waypoints are generated on the bounds of the target's footprint." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="corner_radius" class="TunableRange" default="1.0" display="Corner Radius" min="0" max="None" description="The min and max radius of the corner. This determines how tight the corners are." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <Tunable type="float" name="offset_size" class="Tunable" default="0.0" display="Offset Size" description="The offset of the footprint. positive means we enlarge the footprint, negative means we shrink it." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+            </TunableTuple>
+            <TunableTuple name="gig_objects" class="Tunable_WaypointGeneratorMultipleGigObjects" display="Gig Objects" description="The waypoints are generated based on the possible objects added during the gig. As of 2/23/21, this is only supported by the GP10 Interior Decorator Gig, pulling objects stored by the client-side Gig Object Tracker." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="constrain_radius" class="TunableRange" default="5" display="Constrain Radius" min="0" max="None" description="The radius of the circle that will be generated around the objects where the waypoints will be generated." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="career" name="gig_career" class="TunableReference" display="Gig Career" allow_none="False" group="General" pack_safe="True" />
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <Tunable type="float" name="object_max_distance" class="TunableDistanceSquared" default="5" display="Object Max Distance" description="The maximum distance to check for an object as the next target of our waypoint interaction." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="object_search_strategy" class="TunableVariant" default="default_waypoints" display="Object Search Strategy" description="Search strategies to find and soft the possible objects where the waypoints will be generated." group="General">
+                    <TunableTuple name="default_waypoints" class="Tunable_WaypointObjectDefaultStrategy" display="Default Waypoints" description="Default waypoint object selection strategy, will leave the list as it came from the object manager." group="General" />
+                    <TunableTuple name="sorted_by_distance" class="Tunable_WaypointObjectSortedDistanceStrategy" display="Sorted By Distance" description="Sorted by distance object selection strategy, will sort using just the x position of each object." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="placement_restriction" class="OptionalTunable" default="no_restrictions" display="Placement Restriction" description="If enabled the objects where the waypoints will be generated will be restricted to either the inside of outside." group="General">
+                    <Tunable type="bool" name="inside_only" class="Tunable" default="True" display="Inside Only" description="If checked objects will be restricted to the inside the house, otherwise only objects outside will be considered." group="General" />
+                    <Tunable name="no_restrictions" class="TunableExistance" display="No Restrictions" />
+                </TunableVariant>
+                <Tunable type="bool" name="randomize_order" class="Tunable" default="False" display="Randomize Order" description="If checked, the waypoints will be shuffled into a random order each time the route is generated. If not they will be the same (but still non-deterministic) order each time, for a given run." group="General" />
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+            </TunableTuple>
+            <TunableTuple name="lot_points" class="Tunable_WaypointGeneratorLotPoints" display="Lot Points" description="The waypoints are random points on the lot." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="constraint_parameters" class="TunableTuple" display="Constraint Parameters" description="Parameters used to generate the constraints that will be used to generate waypoints." group="General">
+                    <TunableVariant type="None" name="max_water_depth" class="OptionalTunable" default="disabled" display="Max Water Depth" description="If enabled, generate waypoints at locations that are at most this deep." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunableRange" default="1000.0" display="Enabled" min="0" max="1000.0" description="The maximum water depth allowed for each waypoint." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="min_water_depth" class="OptionalTunable" default="disabled" display="Min Water Depth" description="If enabled, generate waypoints at locations that are at least this deep." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunableRange" default="0" display="Enabled" min="0" max="None" description="The minimum water depth allowed for each waypoint." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <Tunable type="float" name="constraint_radius" class="TunableRange" default="2" display="Constraint Radius" min="0" max="None" description="The radius, in meters, for each of the generated waypoint constraints." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <TunableVariant type="None" name="object_tag_generator" class="OptionalTunable" default="disabled" display="Object Tag Generator" description="If enabled, in addition to generating random points on the lot, this generator also ensures that all constraints that would be generated by the Tag generator are also hit. This gets you a very specific behavior: apparent randomness but the guarantee that all objects with specific tags are route to." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableTuple name="enabled" class="Tunable_WaypointGeneratorMultipleObjectByTag" display="Enabled" description="The waypoints are generated based on the possible objects that match the tuned tags." group="General">
+                        <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="constrain_radius" class="TunableRange" default="5" display="Constrain Radius" min="0" max="None" description="The radius of the circle that will be generated around the objects where the waypoints will be generated." tuning_state="NeedsTuning" group="General" />
+                        <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                        </TunableVariant>
+                        <Tunable type="float" name="object_max_distance" class="TunableDistanceSquared" default="5" display="Object Max Distance" description="The maximum distance to check for an object as the next target of our waypoint interaction." tuning_state="NeedsTuning" group="General" />
+                        <TunableVariant type="None" name="object_search_strategy" class="TunableVariant" default="default_waypoints" display="Object Search Strategy" description="Search strategies to find and soft the possible objects where the waypoints will be generated." group="General">
+                            <TunableTuple name="default_waypoints" class="Tunable_WaypointObjectDefaultStrategy" display="Default Waypoints" description="Default waypoint object selection strategy, will leave the list as it came from the object manager." group="General" />
+                            <TunableTuple name="sorted_by_distance" class="Tunable_WaypointObjectSortedDistanceStrategy" display="Sorted By Distance" description="Sorted by distance object selection strategy, will sort using just the x position of each object." group="General" />
+                        </TunableVariant>
+                        <TunableList name="object_tags" class="TunableTags" display="Object Tags" group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Find all of the objects based on these tags." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                        </TunableList>
+                        <TunableVariant type="None" name="placement_restriction" class="OptionalTunable" default="no_restrictions" display="Placement Restriction" description="If enabled the objects where the waypoints will be generated will be restricted to either the inside of outside." group="General">
+                            <Tunable type="bool" name="inside_only" class="Tunable" default="True" display="Inside Only" description="If checked objects will be restricted to the inside the house, otherwise only objects outside will be considered." group="General" />
+                            <Tunable name="no_restrictions" class="TunableExistance" display="No Restrictions" />
+                        </TunableVariant>
+                        <Tunable type="bool" name="randomize_order" class="Tunable" default="False" display="Randomize Order" description="If checked, the waypoints will be shuffled into a random order each time the route is generated. If not they will be the same (but still non-deterministic) order each time, for a given run." group="General" />
+                        <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+                <Tunable type="bool" name="waypoints_outside_only" class="Tunable" default="False" display="Waypoints Outside Only" description="If enabled, only waypoints outside of a block will be generated." group="General" />
+            </TunableTuple>
+            <TunableTuple name="multiple_objects_by_tag" class="Tunable_WaypointGeneratorMultipleObjectByTag" display="Multiple Objects By Tag" description="The waypoints are generated based on the possible objects that match the tuned tags." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="constrain_radius" class="TunableRange" default="5" display="Constrain Radius" min="0" max="None" description="The radius of the circle that will be generated around the objects where the waypoints will be generated." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <Tunable type="float" name="object_max_distance" class="TunableDistanceSquared" default="5" display="Object Max Distance" description="The maximum distance to check for an object as the next target of our waypoint interaction." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="object_search_strategy" class="TunableVariant" default="default_waypoints" display="Object Search Strategy" description="Search strategies to find and soft the possible objects where the waypoints will be generated." group="General">
+                    <TunableTuple name="default_waypoints" class="Tunable_WaypointObjectDefaultStrategy" display="Default Waypoints" description="Default waypoint object selection strategy, will leave the list as it came from the object manager." group="General" />
+                    <TunableTuple name="sorted_by_distance" class="Tunable_WaypointObjectSortedDistanceStrategy" display="Sorted By Distance" description="Sorted by distance object selection strategy, will sort using just the x position of each object." group="General" />
+                </TunableVariant>
+                <TunableList name="object_tags" class="TunableTags" display="Object Tags" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Find all of the objects based on these tags." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                </TunableList>
+                <TunableVariant type="None" name="placement_restriction" class="OptionalTunable" default="no_restrictions" display="Placement Restriction" description="If enabled the objects where the waypoints will be generated will be restricted to either the inside of outside." group="General">
+                    <Tunable type="bool" name="inside_only" class="Tunable" default="True" display="Inside Only" description="If checked objects will be restricted to the inside the house, otherwise only objects outside will be considered." group="General" />
+                    <Tunable name="no_restrictions" class="TunableExistance" display="No Restrictions" />
+                </TunableVariant>
+                <Tunable type="bool" name="randomize_order" class="Tunable" default="False" display="Randomize Order" description="If checked, the waypoints will be shuffled into a random order each time the route is generated. If not they will be the same (but still non-deterministic) order each time, for a given run." group="General" />
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+            </TunableTuple>
+            <TunableTuple name="object_points" class="Tunable_WaypointGeneratorObjectPoints" display="Object Points" description="The waypoints are generated based on a constraint around the target object. Waypoints will consist of a waypoint at the target object and a random one inside the object constraint raidus to have the Sim move back and forward around the object." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <Tunable type="float" name="object_constraint_radius" class="TunableRange" default="3" display="Object Constraint Radius" min="0" max="None" description="The radius, in meters, of the generated constraint around the target object where the waypoints will be generated." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+                <Tunable type="float" name="waypoint_constraint_radius" class="TunableRange" default="1" display="Waypoint Constraint Radius" min="1" max="None" description="The radius, in meters, for each generated waypoint inside the object constraint radius for the Sim to route to." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <TunableTuple name="pacing" class="Tunable_WaypointGeneratorPacing" display="Pacing" description="The waypoints are generated based on a constraint around the target object. Waypoints will consist of a waypoint at the target object and a random one inside the object constraint raidus to have the Sim move back and forward around the object." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="constraint_parameters" class="TunableTuple" display="Constraint Parameters" description="Parameters used to generate the constraints that will be used to generate waypoints." group="General">
+                    <TunableVariant type="None" name="max_water_depth" class="OptionalTunable" default="disabled" display="Max Water Depth" description="If enabled, generate waypoints at locations that are at most this deep." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunableRange" default="1000.0" display="Enabled" min="0" max="1000.0" description="The maximum water depth allowed for each waypoint." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="min_water_depth" class="OptionalTunable" default="disabled" display="Min Water Depth" description="If enabled, generate waypoints at locations that are at least this deep." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunableRange" default="0" display="Enabled" min="0" max="None" description="The minimum water depth allowed for each waypoint." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <Tunable type="float" name="object_constraint_radius" class="TunableRange" default="2" display="Object Constraint Radius" min="0" max="None" description="The radius, in meters, of the generated constraint around the target object where the waypoints will be generated." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="waypoint_constraint_radius" class="TunableRange" default="1" display="Waypoint Constraint Radius" min="0.1" max="None" description="The radius, in meters, for each generated waypoint inside the object constraint radius for the Sim to route to." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <Tunable type="bool" name="outside_only" class="Tunable" default="False" display="Outside Only" description="If enabled, we will attempt to place a jig outside to find a starting location, then validate all goals in the constraint radius to ensure they are outside. Otherwise, we will route fail. Note: This will generate points on the world routing surface." group="General" />
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+                <Tunable type="float" name="waypoint_min_distance" class="TunableDistanceSquared" default="1" display="Waypoint Min Distance" description="Minimum distance between the waypoints. We want to space them out as much as possible. If after several tries we still cannot get a waypoint that satisfies this min distance, we pick the furthest. " tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <TunableTuple name="pool_laps" class="Tunable_WaypointGeneratorPool" display="Pool Laps" description="The waypoints are generated within a pool. Sims appear to swim laps." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="constraint_width" class="TunableRange" default="1.5" display="Constraint Width" min="0" max="None" description="The width of the constraint created around the edge of the pool." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="keep_away_from_edges" class="OptionalTunable" default="disabled" display="Keep Away From Edges" description="If enabled, turns on a constraint that forces sims away from the pool edges by a tuned distance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="float" name="enabled" class="Tunable" default="0.25" display="Enabled" description="The distance from the pool edge." tuning_state="NeedsTuning" group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <Tunable type="float" name="ocean_constraint_distance_past_swim_portal" class="TunableRange" default="0" display="Ocean Constraint Distance Past Swim Portal" min="0" max="None" description="When in the ocean, an offset away from the nearest swim portal to center the area to generate waypoints." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="ocean_constraint_radius" class="TunableRange" default="30" display="Ocean Constraint Radius" min="0" max="1000" description="When in the ocean, the radius of the area around the nearest swim portal to generate waypoints." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="ocean_unique_goal_count" class="TunableRange" default="10" display="Ocean Unique Goal Count" min="0" max="None" description="When in the ocean, the number of unique waypoints to generate." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="bool" name="shuffle_waypoints" class="Tunable" default="True" display="Shuffle Waypoints" description="If true, pool edge waypoint constraints will be shuffled and traversed in a random order. If false, pool edge waypoint constraints will be traversed in counter-clockwise order. " group="General" />
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+            </TunableTuple>
+            <TunableTuple name="spawn_points" class="Tunable_WaypointGeneratorSpawnPoints" display="Spawn Points" description="The waypoints are generated based on spawn points in the world. Sims are forced to be in the open streets before routing through all the waypoints." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="constraint_radius" class="TunableRange" default="6" display="Constraint Radius" min="0" max="None" description="The radius, in meters, for each of the generated waypoint constraints." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <TunableVariant type="None" name="spawn_point_tags" class="OptionalTunable" default="disabled" display="Spawn Point Tags" description="Controls which spawn points can be used as waypoints." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableList name="enabled" class="TunableSet" display="Enabled" group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="Spawn" group="General" />
+                    </TunableList>
+                </TunableVariant>
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+            </TunableTuple>
+            <TunableTuple name="unobstructed_line" class="Tunable_WaypointGeneratorUnobstructedLine" display="Unobstructed Line" description="A waypoint generator that builds a series of waypoints in a line and also makes the area around those waypoints unroutable for the duration of the interaction with an update to the navmesh. The line will always begin on the routing sim." group="General">
+                <Tunable type="int" name="_loops" class="TunableRange" default="1" display="Loops" min="1" max="None" description="The number of loops we want to perform per route." tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="fgl_parameters" class="TunableTuple" display="Fgl Parameters" description="Arguments that will affect the FGL." group="General">
+                    <TunableVariant type="None" name="max_water_depth" class="OptionalTunable" default="disabled" display="Max Water Depth" description="(float) If provided, each vertex of the line polygon along with its centroid will be tested to determine whether the ocean water at the test location is at most this deep. To disallow water placement, set to 0." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunableRange" default="1000.0" display="Enabled" min="0" max="1000.0" description="Value of the max water depth allowed." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="min_water_depth" class="OptionalTunable" default="disabled" display="Min Water Depth" description="(float) If provided, each vertex of the line polygon along with its centroid will be tested to determine whether the ocean water at the test location is at least this deep. 0 indicates that all water placement is valid. To allow land placement, leave untuned." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunableRange" default="0" display="Enabled" min="0" max="None" description="Value of the min water depth allowed." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <Tunable type="float" name="line_length" class="TunableRange" default="3" display="Line Length" min="0" max="None" description="The radius, in meters, of the generated constraint around the target object where the waypoints will be generated." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="mobile_posture_override" class="OptionalTunable" default="disabled" display="Mobile Posture Override" description="If enabled, the mobile posture specified would require the sim to be in this posture to begin the route. This allows us to make the Sim Swim or Ice Skate instead of walk/run." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="posture" name="enabled" class="TunableReference" display="Enabled" description="The mobile posture we want to use." allow_none="False" group="General" restrict="MobilePosture" />
+                </TunableVariant>
+                <Tunable type="bool" name="use_provided_routing_surface" class="Tunable" default="False" display="Use Provided Routing Surface" description="If enabled, we will use the target's provided routing surface if it has one." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="int" name="waypoint_count" class="TunableRange" default="2" display="Waypoint Count" min="2" max="None" description="The number of waypoints to select, from spawn points in the zone, to visit for a Jog prior to returning to the original location." tuning_state="NeedsTuning" group="Routing" />
+
+        <TunableVariant type="None" name="waypoint_override_agent_radius" class="OptionalTunable" default="disabled" display="Waypoint Override Agent Radius" description="If enabled, use the specified value as the agent radius when generating goals for the waypoints. The agent radius is restored for the actual route." group="Routing">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="float" name="enabled" class="TunableRange" default="0.123" display="Enabled" min="0" max="1.0" description="The value to use as the agent radius when generating goals. " tuning_state="NeedsTuning" group="General" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="waypoint_randomize_orientation" class="Tunable" default="False" display="Waypoint Randomize Orientation" description="Make Waypoint orientation random. Default is velocity aligned." group="Routing" />
+
+        <TunableVariant type="None" name="waypoint_route_fail_balloon" class="OptionalTunable" default="disabled" display="Waypoint Route Fail Balloon" description="Tuning for balloon to show when failing to plan a aroute for this waypoint interaction. " group="Routing">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableBalloon" display="Enabled" group="General">
+                <TunableList name="balloon_choices" class="TunableList" display="Balloon Choices" description="A list of the balloons and balloon categories" group="General">
+                    <TunableTuple class="TunableBalloonVariant" description="A variant of either a single icon or a category of icons. Optionally, test whether this element should be available." group="General">
+                        <TunableVariant type="None" name="item" class="TunableVariant" default="balloon_icon" display="Item" group="General">
+                            <Tunable type="balloon" name="balloon_category" class="TunableReference" display="Balloon Category" allow_none="False" group="General" pack_safe="True" />
+                            <TunableTuple name="balloon_icon" class="TunableBalloonIcon" display="Balloon Icon" description="The tuning for the actual balloon icon." group="General">
+                                <TunableEnum type="BalloonTypeEnum" name="balloon_type" class="TunableEnumEntry" default="THOUGHT" display="Balloon Type" static_entries="balloon-balloon_enums.BalloonTypeEnum" description="The visual style of the balloon background. For example if it is a speech balloon or a thought balloon." group="General" />
+                                <TunableVariant type="None" name="category_icon" class="OptionalTunable" default="no_category_icon" display="Category Icon" description="If enabled balloon will display an additional category icon." group="General">
+                                    <Tunable name="no_category_icon" class="TunableExistance" display="No Category Icon" />
+                                    <TunableVariant type="None" name="show_category_icon" class="TunableIconVariant" default="resource_key" display="Show Category Icon" description="The Icon that will be showed within the balloon." group="General">
+                                        <TunableTuple name="career_icon_override" class="TunableCareerIconOverrideIconFactory" display="Career Icon Override" group="General">
+                                            <Tunable type="career" name="career_reference" class="TunableReference" display="Career Reference" description="The Career to override the icon." allow_none="False" group="General" pack_safe="True" />
+                                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the career." group="General" unique_entries="true">
+                                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                            </TunableList>
+                                        </TunableTuple>
+                                        <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
+                                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
+                                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                            </TunableList>
+                                        </TunableTuple>
+                                        <TunableTuple name="participant" class="TunableParticipantTypeIconFactory" display="Participant" description="The Sim who's thumbnail will be used." group="General">
+                                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" group="General" unique_entries="true">
+                                                <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                                            </TunableList>
+                                        </TunableTuple>
+                                        <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                                        <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
+                                            <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                                        </TunableTuple>
+                                        <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
+                                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                            </TunableList>
+                                        </TunableTuple>
+                                        <TunableTuple name="tradition" class="TunableHolidayIconFactory" display="Tradition" group="General">
+                                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="We use this participant's holiday tracker to get the icon." group="General" unique_entries="true">
+                                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                            </TunableList>
+                                        </TunableTuple>
+                                    </TunableVariant>
+                                </TunableVariant>
+                                <Tunable type="ResourceKey" name="debug_overlay_override" class="TunableResourceKey" default="None" display="Debug Overlay Override" description="The overlay for the balloon in debug, if present. This overlay will be placed on the balloon instead of overlay in debug only." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                                <TunableVariant type="None" name="icon" class="TunableIconVariant" default="resource_key" display="Icon" description="The Icon that will be showed within the balloon." group="General">
+                                    <TunableTuple name="career_icon_override" class="TunableCareerIconOverrideIconFactory" display="Career Icon Override" group="General">
+                                        <Tunable type="career" name="career_reference" class="TunableReference" display="Career Reference" description="The Career to override the icon." allow_none="False" group="General" pack_safe="True" />
+                                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the career." group="General" unique_entries="true">
+                                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                    <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
+                                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
+                                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                    <TunableTuple name="participant" class="TunableParticipantTypeIconFactory" display="Participant" description="The Sim who's thumbnail will be used." group="General">
+                                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" group="General" unique_entries="true">
+                                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                    <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                                    <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
+                                        <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                                    </TunableTuple>
+                                    <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
+                                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                    <TunableTuple name="tradition" class="TunableHolidayIconFactory" display="Tradition" group="General">
+                                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="We use this participant's holiday tracker to get the icon." group="General" unique_entries="true">
+                                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableVariant>
+                                <Tunable type="ResourceKey" name="overlay" class="TunableResourceKey" default="None" display="Overlay" description="The overlay for the balloon, if present." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="float" name="weight" class="TunableRange" default="1" display="Weight" min="1" max="None" description="The weight to assign to this balloon." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A set of tests that are run when selecting the balloon icon. If the tests do not pass then this balloon icon will not be selected." group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableList name="balloon_target" class="TunableEnumFlags" display="Balloon Target" min="1" description="Who to play balloons over relative to the interaction. Generally, balloon tuning will use either balloon_animation_target or balloon_target." group="General" unique_entries="true">
+                    <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" invalid_entries="Invalid" />
+                </TunableList>
+                <TunableVariant type="None" name="balloon_view_offset" class="OptionalTunable" default="disabled" display="Balloon View Offset" description="If enabled, the Vector3 offset from the balloon bone to the thought balloon. " group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableTuple name="enabled" class="TunableVector3" display="Enabled" group="General">
+                        <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="waypoint_stitching" class="WaypointStitchingVariant" default="none" display="Waypoint Stitching" group="Routing">
+            <TunableTuple name="none" class="Tunable_WaypointStitchingNone" display="None" description="Routes are generated without waypoints. Each generated location involves a single route. Use this option when the expectation is that routes are generally long (e.g. walkbys). The Sim will route to a waypoint, stop, and then plan for the next waypoint. This looks worse than default stitching, but is more performant." group="General" />
+            <TunableTuple name="waypoints" class="Tunable_WaypointStitchingWaypoints" display="Waypoints" description="Routes are stitched together using waypoints as long as they are not too long or complex. Use this option when the expectation is that this interaction is confined to a small space and involves short routes. The Sim will route seamlessly through the various waypoints." group="General">
+                <Tunable type="float" name="max_distance" class="TunableDistanceSquared" default="500" display="Max Distance" description="If the route's cumulative distance is more than this value, the route is split." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="max_goals" class="TunableRange" default="200" display="Max Goals" min="0" max="None" description="If the route has more than this number of goals, the route is split." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableTuple name="waypoint_walk_style" class="TunableWalkStyleRequest" display="Waypoint Walk Style" description="The walkstyle to use when routing between waypoints." group="Routing">
+            <Tunable type="bool" name="can_replace_with_short_walkstyle" class="Tunable" default="True" display="Can Replace With Short Walkstyle" description="If checked, this walkstyle can be replaced with the short walkstyle tuned on the routing component if the path distance is shorter than the short walkstyle distance (also tuned on the routing component). Note that if you never want a certain walkstyle to be replaced by the default short walkstyle, you can use the 'short walkstyle map' (also on the routing component) to override it. Also note that if this walkstyle ends up being replaced via 'Combo Walktyle Replacements' (also on the routing component), the replaced walkstyle will not adhere to this tuning. " group="General" />
+            <TunableEnum type="WalkStylePriority" name="priority" class="TunableEnumEntry" default="INVALID" display="Priority" dynamic_entries="routing-walkstyle-walkstyle_enums.WalkStylePriority._elements" static_entries="routing-walkstyle-walkstyle_enums.WalkStylePriority" description="The priority of the walkstyle. Higher priority walkstyles will take precedence over lower priority. Equal priority will favor recent requests." group="General" invalid_entries="INVALID" />
+            <Tunable type="ResourceKey" name="walkstyle" class="TunableWalkstyle" default="None" display="Walkstyle" description="The locomotion resource (i.e. walkstyle) to request. Depending on the tuned priority and other requests active on the Sim, this may or may not apply immediately." group="General" pack_safe="True" resource_types="0x27c01d95" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

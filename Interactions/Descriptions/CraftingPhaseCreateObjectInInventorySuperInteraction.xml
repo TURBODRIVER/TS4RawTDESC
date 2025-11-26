@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CraftingPhaseCreateObjectInInventorySuperInteraction" module="crafting.crafting_interactions" description="The Sim creates an object in an inventory as part of a crafting process." instance_needs_reference="True" instance_subclasses_only="False" parents="CraftingPhaseCreateObjectSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="ParticipantType" name="inventory_participant" class="TunableEnumEntry" default="Actor" display="Inventory Participant" static_entries="interactions.ParticipantType" description="The participant type who has the inventory for the created target to go into." group="General" />
+
+        <Tunable type="bool" name="use_family_inventory" class="Tunable" default="False" display="Use Family Inventory" description="If checked, this object will be added to the family inventory of the tuned sim participant. If the participant is not a sim, this tunable will be ignored." group="General" />
+    </Instance>
+</TuningRoot>

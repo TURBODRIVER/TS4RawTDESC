@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="jewelry_crafting.jewelry_crafting_tuning">
+        <Class name="JewelryCraftingTuning">
+            <TunableTuple name="JEWELRY_DATA" class="TunableTuple" display="Jewelry Data" description="Jewelry config data" group="General">
+                <Tunable type="object_state" name="bad_energy_state_value" class="TunableReference" display="Bad Energy State Value" description="Bad energy state value that will be used in Jewelry Component to check if the tense buff will be added or not" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                <TunableList name="crystal_definition_effects_strings_map" class="TunableMapping" display="Crystal Definition Effects Strings Map" mapping_key="crystal" mapping_value="strings" description="Map that defines which the strings to show in the UI picker Key: crystal: definition Value: List of strings" group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="object" name="crystal" class="TunableReference" display="Crystal" description="Crystal" allow_none="False" group="General" pack_safe="True" />
+                        <TunableList name="strings" class="TunableList" display="Strings" description="List of effect strings" group="General">
+                            <TunableVariant type="None" class="TunableLocalizedStringSnippet" default="literal" description="This may be tuned in place here using 'literal' or as a reference to a LocalizedString tuning snippet." group="General">
+                                <Tunable type="int" name="literal" class="TunableLocalizedString" default="0x0" display="Literal" description="A localized string that may use tokens." group="General" />
+                                <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a LocalizedString tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="LocalizedString" />
+                            </TunableVariant>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="object_state" name="crystal_state" class="TunableReference" display="Crystal State" description="Crystal state that will be used to get which metal state value the object is in" allow_none="False" group="General" pack_safe="True" restrict="ObjectState" />
+                <TunableList name="crystal_state_buff_map" class="TunableMapping" display="Crystal State Buff Map" mapping_key="crystal states" mapping_value="buff" description="Map that defines which buff will be applied depending on the crystal state Key: crystal: Crystal State Value: buff" group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableTuple name="buff" class="TunableBuffReference" display="Buff" description="Buff that will be applied." group="General">
+                            <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                            </TunableVariant>
+                            <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                    <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                                    <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                                    <Tunable name="none" class="TunableExistance" display="None" />
+                                </TunableVariant>
+                            </TunableVariant>
+                            <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" pack_safe="True" />
+                        </TunableTuple>
+                        <Tunable type="object_state" name="crystal states" class="TunableReference" display="Crystal States" description="Crystal state" allow_none="False" group="General" pack_safe="True" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableTuple name="drained_buff" class="TunableBuffReference" display="Drained Buff" description="Buff that gets added to the sims when they are wearing drained jewelry " group="General">
+                    <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                            <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                        </TunableVariant>
+                    </TunableVariant>
+                    <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="True" group="General" pack_safe="True" />
+                </TunableTuple>
+                <Tunable type="object_state" name="drained_state_value" class="TunableReference" display="Drained State Value" description="Jewelry drained state that will be used in Jewelry Component to check if the buff will be added or not" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                <Tunable type="object_state" name="draining_state_value" class="TunableReference" display="Draining State Value" description="Jewelry draining state that will be used in Chargeable Component to update the tooltip accordingly" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                <TunableList name="gemstone_cutting_recipes" class="TunableList" display="Gemstone Cutting Recipes" description="The recipes to display in the gemstone cutting picker dialog" group="General">
+                    <Tunable type="recipe" class="TunableReference" description="Recipe to craft." allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="jewelry_recipes" class="TunableList" display="Jewelry Recipes" description="The recipes to display in the jewelry picker dialog" group="General">
+                    <Tunable type="recipe" class="TunableReference" description="Recipe to craft." allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableTuple name="material_picker_tooltip" class="TunableTuple" display="Material Picker Tooltip" description="Values to use when setting up the tooltips for the materials pickers" group="General">
+                    <TunableVariant type="None" name="cost_color" class="TunableColor" default="none" display="Cost Color" description="Color for cost" group="General">
+                        <TunableTuple name="hex" class="TunableColorHex" display="Hex" description="A color." group="General">
+                            <Tunable type="str" name="hex_code" class="Tunable" default="#FFFFFFFF" display="Hex Code" description="An ARGB color in hex, same as one would use in HTML. A leading '0x' or '#' is allowed but not required. You can omit the alpha, in which case opaque is assumed." group="General" />
+                        </TunableTuple>
+                        <TunableEnum type="Color" name="name" class="TunableEnumEntry" default="WHITE" display="Name" static_entries="sims4-color.Color" group="General" />
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                        <TunableTuple name="rgb" class="TunableColorRGBA" display="Rgb" description="A color." group="General">
+                            <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <Tunable type="int" name="design_without_crystal_text" class="TunableLocalizedString" default="0x0" display="Design Without Crystal Text" description="Design without crystal text" group="General" />
+                    <TunableVariant type="None" name="effects_color" class="TunableColor" default="none" display="Effects Color" description="Color of crystal effects" group="General">
+                        <TunableTuple name="hex" class="TunableColorHex" display="Hex" description="A color." group="General">
+                            <Tunable type="str" name="hex_code" class="Tunable" default="#FFFFFFFF" display="Hex Code" description="An ARGB color in hex, same as one would use in HTML. A leading '0x' or '#' is allowed but not required. You can omit the alpha, in which case opaque is assumed." group="General" />
+                        </TunableTuple>
+                        <TunableEnum type="Color" name="name" class="TunableEnumEntry" default="WHITE" display="Name" static_entries="sims4-color.Color" group="General" />
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                        <TunableTuple name="rgb" class="TunableColorRGBA" display="Rgb" description="A color." group="General">
+                            <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <Tunable type="int" name="if_charged_text" class="TunableLocalizedString" default="0x0" display="If Charged Text" description="If charged... text" group="General" />
+                    <Tunable type="int" name="not_purchasable_crystal_text" class="TunableLocalizedString" default="0x0" display="Not Purchasable Crystal Text" description="Not purchasable crystal text" group="General" />
+                    <Tunable type="int" name="not_purchasable_design_text" class="TunableLocalizedString" default="0x0" display="Not Purchasable Design Text" description="Not purchasable shape/gemstone text. Must contain {0.Number} to show the unlock level" group="General" />
+                    <Tunable type="int" name="not_purchasable_metal_text" class="TunableLocalizedString" default="0x0" display="Not Purchasable Metal Text" description="Not purchasable metal text" group="General" />
+                    <TunableVariant type="None" name="rarity_color" class="TunableColor" default="none" display="Rarity Color" description="Color for rarity" group="General">
+                        <TunableTuple name="hex" class="TunableColorHex" display="Hex" description="A color." group="General">
+                            <Tunable type="str" name="hex_code" class="Tunable" default="#FFFFFFFF" display="Hex Code" description="An ARGB color in hex, same as one would use in HTML. A leading '0x' or '#' is allowed but not required. You can omit the alpha, in which case opaque is assumed." group="General" />
+                        </TunableTuple>
+                        <TunableEnum type="Color" name="name" class="TunableEnumEntry" default="WHITE" display="Name" static_entries="sims4-color.Color" group="General" />
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                        <TunableTuple name="rgb" class="TunableColorRGBA" display="Rgb" description="A color." group="General">
+                            <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableTuple>
+                <Tunable type="object_state" name="metal_state" class="TunableReference" display="Metal State" description="Metal state that will be used to get which metal state value the object is in" allow_none="False" group="General" pack_safe="True" restrict="ObjectState" />
+                <TunableList name="non_purchasable_crystals" class="TunableList" display="Non Purchasable Crystals" description=", List of crystals to be used in recipes that CAN'T be purchased if the user doesn't have them in the inventory " group="General">
+                    <Tunable type="object" class="TunableReference" description="Crystal definition" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="non_purchasable_metals" class="TunableList" display="Non Purchasable Metals" description=", List of metals to be used in recipes that CAN'T be purchased if the user doesn't have them in the inventory " group="General">
+                    <Tunable type="object" class="TunableReference" description="Metal definition" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="purchasable_crystals" class="TunableList" display="Purchasable Crystals" description=", List of crystals to be used in recipes that can be purchased if the user doesn't have them in the inventory " group="General">
+                    <Tunable type="object" class="TunableReference" description="Crystal definition" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="purchasable_metals" class="TunableList" display="Purchasable Metals" description=", List of metals to be used in recipes that can be purchased if the user doesn't have them in the inventory " group="General">
+                    <Tunable type="object" class="TunableReference" description="Metal definition" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <Tunable type="float" name="purchase_multiplier" class="Tunable" default="1" display="Purchase Multiplier" description="Price multiplier to be applied when purchasing " tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="wearing_states" class="TunableTuple" display="Wearing States" description="States related to wear status of jewelry" group="General">
+                    <Tunable type="object_state" name="not_worn" class="TunableReference" display="Not Worn" description="Not worn" allow_none="False" group="General" restrict="ObjectStateValue" />
+                    <Tunable type="object_state" name="worn_in_current_outfit" class="TunableReference" display="Worn In Current Outfit" description="Worn in current outfit" allow_none="False" group="General" restrict="ObjectStateValue" />
+                    <Tunable type="object_state" name="worn_in_other_outfit" class="TunableReference" display="Worn In Other Outfit" description="Worn in outfits which are no the current one" allow_none="False" group="General" restrict="ObjectStateValue" />
+                </TunableTuple>
+            </TunableTuple>
+
+            <TunableEnum type="Tag" name="JEWELRY_NO_CRYSTAL_NEEDED_TAG" class="TunableEnumEntry" default="INVALID" display="Jewelry No Crystal Needed Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="' Tag to see if the jewelry needs a crystal." group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableEnum type="Tag" name="MATERIAL_IN_INVENTORY_TAG" class="TunableEnumEntry" default="INVALID" display="Material In Inventory Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="' Tag to see if the material is in the inventory." group="General" invalid_entries="INVALID" pack_safe="True" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

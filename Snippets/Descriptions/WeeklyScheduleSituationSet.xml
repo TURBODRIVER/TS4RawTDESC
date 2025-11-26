@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="WeeklyScheduleSituationSet" module="venues.weekly_schedule_zone_director" description="Structure containing a set of situation datas for a period of time." instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="random_situations" class="TunableList" display="Random Situations" description="Situations in which remaining instantiated sims will attempt to be placed" group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="snippet" name="situation_data" class="TunableReference" display="Situation Data" description="The situation data to run." allow_none="False" group="General" restrict="WeeklyScheduleSituationData" />
+                <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="Weight for this situation. Used for random selection until all available sims are used." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="required_situations" class="TunableList" display="Required Situations" description="Situations that will always attempt to run as long as required jobs are sufficiently filled." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableVariant type="None" name="max_created" class="OptionalTunable" default="limited" display="Max Created" description="Maximum number of this situation to create." group="General">
+                    <TunableTuple name="limited" class="TunableTuple" display="Limited" group="General">
+                        <Tunable type="int" name="count" class="TunableRange" default="1" display="Count" min="1" max="None" description="Maximum number of this situation to create." tuning_state="NeedsTuning" group="General" />
+                        <TunableList name="count_modifiers" class="TunableList" display="Count Modifiers" description="Reduce number of situations by 1 for every sim previously assigned (in this time period) to specified situation/job." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="situation_job" name="job" class="TunableReference" display="Job" description="The situation job. " allow_none="False" group="General" />
+                                <Tunable type="situation" name="situation" class="TunableReference" display="Situation" description="The Situation." allow_none="False" group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable name="unlimited" class="TunableExistance" display="Unlimited" />
+                </TunableVariant>
+                <Tunable type="snippet" name="situation_data" class="TunableReference" display="Situation Data" description="The situation data to run." allow_none="False" group="General" restrict="WeeklyScheduleSituationData" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="start_any_time_loot" class="TunableList" display="Start Any Time Loot" description="A list of loot operations that will be given when this situation set starts regardless of whether it's at the start. (i.e. Even if user travelled to the lot mid period.)" group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+        </TunableList>
+
+        <TunableList name="start_on_time_loot" class="TunableList" display="Start On Time Loot" description="A list of loot operations that will be given if the situation set starts at the beginning of it's scheduled time. (i.e. Didn't travel to the lot mid period.)" group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

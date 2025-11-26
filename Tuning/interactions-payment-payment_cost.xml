@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.payment.payment_cost">
+        <Class name="PaymentMultiServingType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AllServings" enum_value="1" />
+
+            <EnumItem name="OneServing" enum_value="2" />
+
+            <EnumItem name="RemainingServings" enum_value="3" />
+
+            <EnumItem name="RemainingServingsMinusOne" enum_value="4" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="gameplay_scenarios.scenario">
+        <Class name="Scenario">
+            <TunableTuple name="RECOMMENDED_SCENARIOS" class="RecommendedScenariosData" display="Recommended Scenarios" description="Data associated with scenarios recommended to players." group="General">
+                <TunableList name="recommended_scenarios_for_playstyles" class="TunableMapping" display="Recommended Scenarios For Playstyles" mapping_key="playstyle" mapping_value="recommended_scenarios" description="A mapping from playstyle to list of scenarios recommended for that playstyle." group="General" mapping_class="PlaystyleRecommendedScenariosData">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="Playstyle" name="playstyle" class="TunableEnumEntry" default="INVALID" display="Playstyle" dynamic_entries="playstyles-playstyle_enums.Playstyle._elements" static_entries="playstyles-playstyle_enums.Playstyle" description="A playstyle." group="General" invalid_entries="INVALID" />
+                        <TunableList name="recommended_scenarios" class="TunableList" display="Recommended Scenarios" description="A list of scenarios recommended for players that match this playstyle." group="General">
+                            <Tunable type="snippet" class="TunableReference" description="A scenario." allow_none="False" group="General" restrict="Scenario" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableList>
+                <TunableList name="recommended_scenarios_no_playstyle" class="TunableList" display="Recommended Scenarios No Playstyle" description="A list of scenarios recommended for new players for whom we don't have playstyle data yet." group="General">
+                    <Tunable type="snippet" class="TunableReference" description="A scenario." allow_none="False" group="General" restrict="Scenario" />
+                </TunableList>
+            </TunableTuple>
+
+            <TunableList name="SCENARIO_CATEGORIES" class="TunableMapping" display="Scenario Categories" mapping_key="key" mapping_value="value" description="A mapping from category to category data." group="General" mapping_class="CategoryData">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="ScenarioCategory" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="gameplay_scenarios-scenario_enums.ScenarioCategory._elements" static_entries="gameplay_scenarios-scenario_enums.ScenarioCategory" description="The scenario category." group="General" invalid_entries="INVALID" />
+                    <TunableTuple name="value" class="CategoryDataTuple" display="Value" description="Data associated with the scenario category." group="General">
+                        <Tunable type="int" name="category_description" class="TunableLocalizedString" default="0x0" display="Category Description" description="The player facing description for this scenario category." group="General" />
+                        <Tunable type="int" name="category_name" class="TunableLocalizedString" default="0x0" display="Category Name" description="The player facing name for this scenario category." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SCENARIO_DIFFICULTY_CATEGORIES" class="TunableMapping" display="Scenario Difficulty Categories" mapping_key="key" mapping_value="value" description="A mapping from difficulty category to difficulty data." group="General" mapping_class="DifficultyCategoryData">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="ScenarioDifficultyCategory" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="gameplay_scenarios-scenario_enums.ScenarioDifficultyCategory._elements" static_entries="gameplay_scenarios-scenario_enums.ScenarioDifficultyCategory" description="The difficulty category." group="General" invalid_entries="INVALID" />
+                    <TunableTuple name="value" class="DifficultyCategoryDataTuple" display="Value" description="Data associated with the difficulty category." group="General">
+                        <Tunable type="int" name="player_facing_name" class="TunableLocalizedString" default="0x0" display="Player Facing Name" description="The player facing name for this difficulty category." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

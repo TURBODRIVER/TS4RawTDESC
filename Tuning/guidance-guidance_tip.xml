@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="guidance.guidance_tip">
+        <Class name="GuidanceTipTuning">
+            <TunableList name="RELAUNCH_CATEGORY_DATA" class="TunableMapping" display="Relaunch Category Data" mapping_key="category_enum_key" mapping_value="category_title" description="A mapping of guidance tip relaunch category to the localized string key to display for the category." group="General" mapping_class="GuidanceTipsRelaunchCategoryEntry">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="GuidanceTipRelaunchCategory" name="category_enum_key" class="TunableEnumEntry" default="UNCATEGORIZED" display="Category Enum Key" dynamic_entries="guidance-guidance_tip_enums.GuidanceTipRelaunchCategory._elements" static_entries="guidance-guidance_tip_enums.GuidanceTipRelaunchCategory" binary_type="uint32" group="General" />
+                    <Tunable type="int" name="category_title" class="TunableLocalizedString" default="0x0" display="Category Title" description="The title string to use for the relaunch category." allow_none="True" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

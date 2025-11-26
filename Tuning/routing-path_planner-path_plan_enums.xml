@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="routing.path_planner.path_plan_enums">
+        <Class name="AllowedHeightsFootprintKeyMaskBits" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="FLOATING" enum_value="2048" />
+
+            <EnumItem name="LARGE_HEIGHT" enum_value="64" />
+
+            <EnumItem name="LOW_HEIGHT" enum_value="512" />
+
+            <EnumItem name="MEDIUM_HEIGHT" enum_value="1024" />
+
+            <EnumItem name="SMALL_HEIGHT" enum_value="16" />
+
+            <EnumItem name="TINY_HEIGHT" enum_value="32" />
+        </Class>
+
+        <Class name="WadingFootprintKeyMaskBits" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="WADING_DEEP" enum_value="4096" />
+
+            <EnumItem name="WADING_MEDIUM" enum_value="8192" />
+
+            <EnumItem name="WADING_SHALLOW" enum_value="16384" />
+
+            <EnumItem name="WADING_VERY_SHALLOW" enum_value="32768" />
+        </Class>
+    </Module>
+</TuningRoot>

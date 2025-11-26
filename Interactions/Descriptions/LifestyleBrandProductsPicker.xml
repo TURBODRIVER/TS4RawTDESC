@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="LifestyleBrandProductsPicker" module="interactions.picker.lifestyle_brand_picker_interactions" description="A picker interaction that builds a list of products a Sim can choose from in their lifestyle brand setup." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="products" class="TunableList" display="Products" description="A list of the type of products that a lifestyle brand can be selling." group="Picker Tuning" unique_entries="true">
+            <TunableTuple class="TunableTuple" description="A product is represented by a type, name, description, and icon." group="General">
+                <Tunable type="int" name="description_text" class="TunableLocalizedString" default="0x0" display="Description Text" description="The description for the product that is displayed in the picker." group="General" />
+                <TunableTuple name="icon" class="TunableIconFactory" display="Icon" description="The icon image to be displayed." group="General">
+                    <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                </TunableTuple>
+                <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name that is displayed in the picker for the products." group="General" />
+                <TunableEnum type="LifestyleBrandProduct" name="product_type" class="TunableEnumEntry" default="INVALID" display="Product Type" dynamic_entries="fame-fame_tuning.LifestyleBrandProduct._elements" static_entries="fame-fame_tuning.LifestyleBrandProduct" description="The enum entry that identifies what type of product this is. This will be used with the target market to determine the payout curve of the lifestyle brand." group="General" invalid_entries="INVALID" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

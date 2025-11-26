@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="Renderer_GlobalHighlightSettings" class="Renderer.GlobalHighlightSettings" module="client.renderer" description="" path="Client_GlobalHighlightSettings\Descriptions">
+        <TunableTuple name="HighlightBoostColor" class="TunableVector3" display="Highlight Boost Color" description="Highlight outline color at mouse click on object.">
+            <Tunable type="float" name="x" class="Tunable" default="None" />
+            <Tunable type="float" name="y" class="Tunable" default="None" />
+            <Tunable type="float" name="z" class="Tunable" default="None" />
+        </TunableTuple>
+
+        <Tunable type="float" name="HighlightBoostOpacity" class="Tunable" default="None" display="Highlight Boost Opacity" description="Outline opacity at mouse click on object." />
+
+        <TunableTuple name="HighlightBuildBuyColor" class="TunableVector3" display="Highlight Build Buy Color" description="Highlight color in build buy for objects with stand-in models.">
+            <Tunable type="float" name="x" class="Tunable" default="None" />
+            <Tunable type="float" name="y" class="Tunable" default="None" />
+            <Tunable type="float" name="z" class="Tunable" default="None" />
+        </TunableTuple>
+
+        <Tunable type="float" name="HighlightBuildBuyOpacity" class="Tunable" default="None" display="Highlight BuildBuy Opacity" description="Opacity in BuildBuy for objects with stand-in models" />
+
+        <TunableTuple name="HighlightColor" class="TunableVector3" display="Highlight Color" description="Highlight outline color at mouse over on object.">
+            <Tunable type="float" name="x" class="Tunable" default="None" />
+            <Tunable type="float" name="y" class="Tunable" default="None" />
+            <Tunable type="float" name="z" class="Tunable" default="None" />
+        </TunableTuple>
+
+        <Tunable type="float" name="HighlightOpacity" class="Tunable" default="None" display="Highlight Opacity" description="Outline opacity at mouse over on object." />
+
+        <TunableTuple name="HighlightTintColor" class="TunableVector3" display="Outline highlight Color" description="Outline highlight color at mouse over on object.">
+            <Tunable type="float" name="x" class="Tunable" default="None" />
+            <Tunable type="float" name="y" class="Tunable" default="None" />
+            <Tunable type="float" name="z" class="Tunable" default="None" />
+        </TunableTuple>
+
+        <Tunable type="float" name="HighlightTintOpacity" class="Tunable" default="None" display="Outline highlight Opacity" description="Outline highlight opacity at mouse over on object." />
+
+        <TunableTuple name="TintHighlightColor" class="TunableVector3" display="Tint highlight Color" description="Tint highlight color by UseTintHighlight medator option at mouse over on object.">
+            <Tunable type="float" name="x" class="Tunable" default="None" />
+            <Tunable type="float" name="y" class="Tunable" default="None" />
+            <Tunable type="float" name="z" class="Tunable" default="None" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

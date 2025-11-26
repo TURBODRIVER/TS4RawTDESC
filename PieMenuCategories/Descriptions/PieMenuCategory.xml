@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="pie_menu_category" class="PieMenuCategory" module="interactions.pie_menu_category" description="Base tunable class for Pie Menu Categories" instance_needs_reference="True" instance_subclasses_only="False" path="PieMenuCategories\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="_collapsible" class="Tunable" default="True" display="Collapsible" description="If enabled, when this category only has one item inside, that item will show on the pie menu without going through this category. If disabled, the user will always go through this category, regardless of the number of entries within." group="General" />
+
+        <Tunable type="int" name="_display_name" class="TunableLocalizedString" default="0x0" display="Display Name" description="Localized name of this category" group="General" />
+
+        <Tunable type="int" name="_display_priority" class="Tunable" default="1" display="Display Priority" description="The display priority of this category." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="ResourceKey" name="_icon" class="TunableResourceKey" default="None" display="Icon" description="Icon to be displayed in the pie menu" allow_none="True" group="General" resource_types="0x2f7d0004" />
+
+        <Tunable type="pie_menu_category" name="_parent" class="TunableReference" display="Parent" description="Parent category." allow_none="True" group="General" />
+
+        <TunableEnum type="SpecialPieMenuCategoryType" name="_special_category" class="TunableEnumEntry" default="NO_CATEGORY" display="Special Category" static_entries="interactions-pie_menu_category.SpecialPieMenuCategoryType" description="Designate this category as a special category. Most will be NO_CATEGORY." group="General" />
+
+        <Tunable type="bool" name="always_show_disabled_interactions" class="Tunable" default="False" display="Always Show Disabled Interactions" description="If enabled, display all disabled interactions under this category, even if they all have the same disabled tooltip." group="General" />
+
+        <TunableList name="mood_overrides" class="TunableMapping" display="Mood Overrides" mapping_key="mood" mapping_value="override_data" description="If sim matches mood, tooltip and display name of category will be updated with tuned values." group="General" mapping_class="mood_to_override_data">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="mood" name="mood" class="TunableReference" display="Mood" allow_none="False" group="General" />
+                <TunableTuple name="override_data" class="text_overrides" display="Override Data" group="General">
+                    <Tunable type="int" name="name_override" class="TunableLocalizedString" default="0x0" display="Name Override" description="Localized name of this category" allow_none="True" group="General" />
+                    <Tunable type="int" name="tooltip" class="TunableLocalizedString" default="0x0" display="Tooltip" description="Tooltip for the new category." allow_none="True" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

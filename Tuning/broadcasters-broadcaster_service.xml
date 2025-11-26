@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="broadcasters.broadcaster_service">
+        <Class name="BroadcasterService">
+            <Tunable type="float" name="INTERVAL" class="TunableRealSecond" default="5" display="Interval" min="None" max="None" description="The time between broadcaster pulses. A lower number will impact performance." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

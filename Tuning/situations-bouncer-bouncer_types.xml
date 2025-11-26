@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.bouncer.bouncer_types">
+        <Class name="BouncerRequestPriority" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BACKGROUND_HIGH" enum_value="5" />
+
+            <EnumItem name="BACKGROUND_LOW" enum_value="7" />
+
+            <EnumItem name="BACKGROUND_MEDIUM" enum_value="6" />
+
+            <EnumItem name="EVENT_AUTO_FILL" enum_value="4" />
+
+            <EnumItem name="EVENT_DEFAULT_JOB" enum_value="8" />
+
+            <EnumItem name="EVENT_HOSTING" enum_value="2" />
+
+            <EnumItem name="EVENT_VIP" enum_value="1" />
+
+            <EnumItem name="GAME_BREAKER" enum_value="0" />
+
+            <EnumItem name="LEAVE" enum_value="9" />
+
+            <EnumItem name="VENUE_REQUIRED" enum_value="3" />
+        </Class>
+
+        <Class name="RequestSpawningOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CANNOT_SPAWN" enum_value="2" />
+
+            <EnumItem name="DONT_CARE" enum_value="3" />
+
+            <EnumItem name="MUST_SPAWN" enum_value="1" />
+        </Class>
+
+        <Class name="BouncerExclusivityOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALREADY_ASSIGNED" enum_value="3" />
+
+            <EnumItem name="ERROR" enum_value="2" />
+
+            <EnumItem name="EXPECTATION_PREFERENCE" enum_value="1" />
+
+            <EnumItem name="NONE" enum_value="0" />
+        </Class>
+
+        <Class name="BouncerExclusivityCategory" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="CAREGIVER" enum_value="131072" />
+
+            <EnumItem name="CLUB_GATHERING" enum_value="8192" />
+
+            <EnumItem name="DATE" enum_value="1073741824" />
+
+            <EnumItem name="FESTIVAL_BACKGROUND" enum_value="16384" />
+
+            <EnumItem name="FESTIVAL_EMPLOYEE" enum_value="268435456" />
+
+            <EnumItem name="FESTIVAL_GOER" enum_value="32768" />
+
+            <EnumItem name="FESTIVAL_GOER_SNATCHER" enum_value="134217728" />
+
+            <EnumItem name="FIRE" enum_value="262144" />
+
+            <EnumItem name="FIRE_BRIGADE" enum_value="67108864" />
+
+            <EnumItem name="HOBBY_CLASS" enum_value="4294967296" />
+
+            <EnumItem name="INFECTED" enum_value="4194304" />
+
+            <EnumItem name="INSTRUCTED_CLASS" enum_value="536870912" />
+
+            <EnumItem name="LEAVE" enum_value="2" />
+
+            <EnumItem name="LEAVE_NOW" enum_value="64" />
+
+            <EnumItem name="NEUTRAL" enum_value="1024" />
+
+            <EnumItem name="NEUTRAL_UNPOSSESSABLE" enum_value="8388608" />
+
+            <EnumItem name="NON_WALKBY_BACKGROUND" enum_value="524288" />
+
+            <EnumItem name="NORMAL" enum_value="4" />
+
+            <EnumItem name="NORMAL_UNPOSSESSABLE" enum_value="16777216" />
+
+            <EnumItem name="PRE_VISIT" enum_value="256" />
+
+            <EnumItem name="RESTAURANT" enum_value="2147483648" />
+
+            <EnumItem name="ROOMMATE" enum_value="33554432" />
+
+            <EnumItem name="SERVICE" enum_value="16" />
+
+            <EnumItem name="SQUAD" enum_value="2097152" />
+
+            <EnumItem name="UNGREETED" enum_value="128" />
+
+            <EnumItem name="VENUE_BACKGROUND" enum_value="4096" />
+
+            <EnumItem name="VENUE_EMPLOYEE" enum_value="2048" />
+
+            <EnumItem name="VENUE_GOER" enum_value="1048576" />
+
+            <EnumItem name="VISIT" enum_value="32" />
+
+            <EnumItem name="WALKBY" enum_value="8" />
+
+            <EnumItem name="WALKBY_SNATCHER" enum_value="65536" />
+
+            <EnumItem name="WORKER" enum_value="512" />
+        </Class>
+    </Module>
+</TuningRoot>

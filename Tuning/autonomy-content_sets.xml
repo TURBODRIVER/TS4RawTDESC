@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="autonomy.content_sets">
+        <Class name="ContentSetTuning">
+            <Tunable type="float" name="POSTURE_PENALTY_MULTIPLIER" class="TunableRange" default="0.5" display="Posture Penalty Multiplier" min="None" max="1" description="Multiplier applied to content score if sim will be removed from posture." tuning_state="NeedsTuning" group="General" />
+        </Class>
+
+        <Class name="SuccessChanceTuning">
+            <TunableList name="SCORE_CURVE" class="TunableCurve" display="Score Curve" description="A curve of score (X value) to percent chance of success (Y value). Percent chance should be in the range 0-1, while score is unbounded and may be negative." group="General">
+                <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

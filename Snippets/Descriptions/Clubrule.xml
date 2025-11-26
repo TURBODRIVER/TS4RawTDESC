@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="Clubrule" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableClubRule" display="Value" description="A tuning structure that defines a single club rule." group="General">
+            <Tunable type="club_interaction_group" name="action" class="TunableReference" display="1. Action" description="The ClubInteractionGroup that this rule applies to." allow_none="False" group="General" />
+            <TunableVariant type="None" name="restriction" class="TunableVariant" default="Encouraged" display="3. Restriction" description="Whether this rule encourages or discourages its action." group="General">
+                <Tunable name="Discouraged" class="TunableExistance" display="Discouraged" />
+                <Tunable name="Encouraged" class="TunableExistance" display="Encouraged" />
+            </TunableVariant>
+            <TunableVariant type="None" name="with_whom" class="OptionalTunable" default="disabled" display="2. With Whom" description="If specified, this rule will only apply to cases where the actions set in '1_action' are targeting a Sim that matches these criteria." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableVariant type="None" name="enabled" class="TunableClubRuleCriteriaVariant" default="skill" display="Enabled" description="If specified, this rule will only apply to cases where the actions set in '1_action' are targeting a Sim that matches these criteria." group="General">
+                    <TunableTuple name="age" class="TunableClubRuleCriteriaAge" display="Age" description="Age-based criteria." group="General">
+                        <TunableList name="ages" class="TunableEnumSet" display="Ages" description="In order to pass this criteria, the target Sim must be one of the specified ages." group="General" unique_entries="true">
+                            <TunableEnum type="Age" class="TunableEnumEntry" default="ADULT" static_entries="sims-sim_info_types.Age" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="career" class="TunableClubRuleCriteriaCareer" display="Career" description="Career-based criteria." group="General">
+                        <TunableList name="careers" class="TunableList" display="Careers" min="1" description="In order to pass this criteria, the target Sim must have one of these Careers." group="General" unique_entries="true">
+                            <Tunable type="career" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Career" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="club_membership" class="TunableClubRuleCriteriaClubMembership" display="Club Membership" description="Club membership-based criteria." group="General">
+                        <TunableList name="required_club_seeds" class="TunableSet" display="Required Club Seeds" description="In order to pass this criteria, the target Sim must be a member of one the specified Clubs." group="General" unique_entries="true">
+                            <Tunable type="club_seed" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="fame_rank" class="TunableClubRuleCriteriaFameRank" display="Fame Rank" description="Fame based club rule criteria." group="General">
+                        <TunableList name="fame_rank_requirements" class="TunableEnumSet" display="Fame Rank Requirements" description="In order to pass this criteria, the Sim must have a fame rank that has been selected." group="General" unique_entries="true">
+                            <TunableEnum type="FameRank" class="TunableEnumEntry" default="FAME_RANK_1" dynamic_entries="clubs-club_tuning.FameRank._elements" static_entries="clubs-club_tuning.FameRank" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="household_value" class="TunableClubRuleCriteriaHouseholdValue" display="Household Value" description="Household value-based criteria." group="General">
+                        <TunableEnum type="HouseholdValueCategory" name="household_value" class="TunableEnumEntry" default="AVERAGE" display="Household Value" static_entries="clubs-club_tuning.HouseholdValueCategory" description="In order to pass this criteria, the target sim must have a household value in this enum value's associated interval." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="relationship" class="TunableClubRuleCriteriaRelationship" display="Relationship" description="Relationship-based criteria." group="General">
+                        <TunableEnum type="MaritalStatus" name="marital_status" class="TunableEnumEntry" default="MARRIED" display="Marital Status" static_entries="clubs-club_tuning.MaritalStatus" description="Marital status a Sim must have in order to pass this criteria." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="skill" class="TunableClubRuleCriteriaSkill" display="Skill" description="Skill-based criteria." group="General">
+                        <TunableList name="skills" class="TunableList" display="Skills" min="1" description="In order to pass this criteria, the target Sim must have one of these skills with a skill level of at least the value specified in MINIMUM_CRITERIA_SKILL_LEVEL." group="General" unique_entries="true">
+                            <Tunable type="statistic" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="trait" class="TunableClubRuleCriteriaTrait" display="Trait" description="Trait-based criteria." group="General">
+                        <TunableList name="traits" class="TunableList" display="Traits" min="1" description="In order to pass this criteria, the target Sim must have one of these Traits." group="General" unique_entries="true">
+                            <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableVariant>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

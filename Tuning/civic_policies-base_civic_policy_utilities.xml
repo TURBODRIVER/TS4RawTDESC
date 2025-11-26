@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="civic_policies.base_civic_policy_utilities">
+        <Class name="CivicPolicyProviderListSelector" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="All" enum_value="0" />
+
+            <EnumItem name="Balloted" enum_value="1" />
+
+            <EnumItem name="Dormant" enum_value="4" />
+
+            <EnumItem name="Enacted" enum_value="2" />
+
+            <EnumItem name="UpForRepeal" enum_value="3" />
+        </Class>
+    </Module>
+</TuningRoot>

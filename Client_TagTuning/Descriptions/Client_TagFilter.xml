@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tagtuning" class="Client_TagFilter" module="tagtuning.Client_TagFilter" description="Tags to be filtered" path="Client_TagTuning\Descriptions">
+        <TunableEnum type="Pack" name="pack" class="TunableEnumEntry" default="BASE_GAME" display="Pack" static_entries="sims4-common.Pack" description="The pack to associate these tags with." group="General" />
+
+        <TunableList name="Tags" class="TunableList" display="Tags" description="The list of tags to filter." group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" invalid_entries="INVALID" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

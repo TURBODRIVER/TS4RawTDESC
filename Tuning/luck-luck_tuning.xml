@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="luck.luck_tuning">
+        <Class name="LuckTuning">
+            <TunableList name="LUCK_LEVELS" class="TunableList" display="Luck Levels" description="The levels of luck that an actor can have. If an actor's luck falls within multiple levels' intervals, the first interval in the list will be chosen." group="General">
+                <TunableTuple class="TunableLuckLevel" description="Tuning for a single luck level." group="General">
+                    <Tunable type="ResourceKey" name="background" class="TunableResourceKey" default="None" display="Background" description="The background we should use in the UI for this level." group="UI" resource_types="0x2f7d0004" />
+                    <Tunable type="int" name="description_text" class="TunableLocalizedString" default="0x0" display="Description Text" description="The description of this level to show in UI." group="UI" />
+                    <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="The icon image representing this level." group="UI" resource_types="0x2f7d0004" />
+                    <Tunable type="action" name="impact_loot" class="TunableReference" display="Impact Loot" description="When this loot has an impact on a decision, apply this loot." allow_none="False" group="General" pack_safe="True" />
+                    <TunableTuple name="interval" class="TunableInterval" display="Interval" description="The interval that this level should be active for. Both ends of this interval are treated as inclusive. Uses the value from the luck stat." group="General">
+                        <Tunable type="float" name="lower_bound" class="TunableRange" default="-100" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="upper_bound" class="TunableRange" default="100" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableList name="loot_on_enter" class="TunableList" display="Loot On Enter" description="Loot that will be applied when sim enters this luck level." group="General">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+                    </TunableList>
+                    <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of this level." group="UI" />
+                    <Tunable type="float" name="perceived_value_bias" class="Tunable" default="1" display="Perceived Value Bias" description="When calculating the impact of luck, we will multiply the typical weight of each option with the perceived value to the player, and finally by this multiplier. We can use this multiplier to bias the options towards certain perceived values. For example, if we want this luck level to select options that are perceived as negative, we can tune this multiplier to -1 to 'flip' the weights. For another example, if we want this luck level to bias towards amazing outcomes rather than just okay outcomes, we can tune this multiplier to 5, to emphasize the magnitude of the various options." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="should_show_impacts" class="Tunable" default="True" display="Should Show Impacts" description="Should we show any impacts of luck if this is the sim's luck level?" group="General" />
+                    <Tunable type="bool" name="should_use_luck" class="Tunable" default="True" display="Should Use Luck" description="Should we use Luck at all if this is the sim's luck level?" group="General" />
+                    <Tunable type="int" name="tooltip" class="TunableLocalizedString" default="0x0" display="Tooltip" description="The tooltip associated with this level." group="UI" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="LUCK_MODIFIERS" class="TunableTestedSum" display="Luck Modifiers" description="If we, for some reason, want to add modifiers to the luck stat, without actually modifying the luck stat itself, we can do so here. For example, if we want lucky charms that increase luck when nearby, we can put those proximity checks in here." group="General">
+                <Tunable type="float" name="base_value" class="Tunable" default="0" display="Base Value" description="The basic value to return if no modifiers are applied." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="modifiers" class="TunableList" display="Modifiers" description="A list of modifiers to add to Base Value." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="float" name="modifier" class="Tunable" default="0" display="Modifier" description="The value to apply add to Base Value if the associated tests pass. Can be negative" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="bool" name="multiply_by_count" class="Tunable" default="False" display="Multiply By Count" description="If enabled, will multiply the final test result in tests by the numeric result of the test if the tests pass. This only applies for tests that return a count. If you aren't sure if your test returns a count, ask your GPE and they can tell you. Note: This only works on the last test in the test list. If you aren't sure if your tuning is correct, please try it out in game to verify that it behaves correctly." group="General" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for the modifier to be applied." group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+
+            <TunableTuple name="LUCK_REFRESH_SCHEDULE" class="TunableWeeklySchedule" display="Luck Refresh Schedule" description="The schedule on which to refresh an individual sim's luck." group="General">
+                <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                    <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                        <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                            <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                            <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                            <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                            <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                            <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                            <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                            <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                        </TunableTuple>
+                        <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                        <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                        <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                            <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+
+            <Tunable type="statistic" name="LUCK_STAT" class="TunableReference" display="Luck Stat" description="The statistic that tracks the current luck for a given actor." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableTuple name="NORMALIZED_LUCK_WEIGHT_RANGE" class="TunableInterval" display="Normalized Luck Weight Range" description="When we apply luck to weights, we want to do a variety of math operations to the passed in weight to scale it to luck, which can make those weights go wildly out of scale. This tuning brings those values back into a human readable range. Note that any weights <=0 are skipped, so keep both ends of this range above 0." group="General">
+                <Tunable type="float" name="lower_bound" class="TunableRange" default="0.01" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TdescFragTag name="SHOULD_HAVE_LUCK_TESTS" class="TunableTestSet" display="Should Have Luck Tests" description="Tests to verify if the given Actor should have Luck. Note: this should not include whether Luck is enabled or not. That is handled separately." group="General" />
+
+            <Tunable type="ResourceKey" name="SIM_INFO_TRAY_HOVER_ICON" class="TunableResourceKey" default="None" display="Sim Info Tray Hover Icon" description="The icon to show in the SimInfoTray when Luck Changes and the player hovers over the button." group="UI" resource_types="0x2f7d0004" />
+
+            <Tunable type="ResourceKey" name="SIM_INFO_TRAY_ICON" class="TunableResourceKey" default="None" display="Sim Info Tray Icon" description="The icon to show in the SimInfoTray when Luck Changes." group="UI" resource_types="0x2f7d0004" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

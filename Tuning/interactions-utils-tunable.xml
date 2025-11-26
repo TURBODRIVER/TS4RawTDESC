@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.utils.tunable">
+        <Class name="GameSpeedLiability">
+            <TunableList name="GLOBAL_EXEMPT_SIM_BUFFS" class="TunableSet" display="Global Exempt Sim Buffs" description="Set of buffs that will be added to the Sims that are considered exempt from triggering SS3. This buffs are usually autonomy modifiers so they stop doing specific behaviors due the fact that SS3 is triggered and these Sims may still try to do something (like autonomy)." group="General" unique_entries="true">
+                <Tunable type="buff" class="TunableReference" description="Buff that gets added to the Sim." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <TdescFragTag name="GLOBAL_EXEMPT_SIM_TESTS" class="TunableTestSet" display="Global Exempt Sim Tests" description="Set of tests that, if passes (using single sim resolver), Sim will not attempt to push SS3, but can have SS3 interactions (and buff) pushed on them." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

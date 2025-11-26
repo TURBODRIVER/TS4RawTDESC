@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="vet.vet_clinic_tuning">
+        <Class name="VetClinicTuning">
+            <Tunable type="int" name="DEFAULT_PROFIT_PER_TREATMENT_FOR_OFF_LOT_SIMULATION" class="TunableRange" default="20" display="Default Profit Per Treatment For Off Lot Simulation" min="1" max="None" description="This is used as the default profit for a treatment for off-lot simulation. Once enough actual treatments have been performed, this value becomes irrelevant and the MAX_COUNT_FOR_OFF_LOT_PROFIT_PER_TREATMENT tunable comes into use. " tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="DIFFICULTY_BONUS_PAYMENT" class="TunableList" display="Difficulty Bonus Payment" description="When an NPC or player Sim treats an NPC Sim, they can get a difficulty bonus depending on the difficulty of the sickness (if it is the correct and ideal treatment for the sickness). Order is important. The list is processed in reverse order. The first threshold that passes returns the amount associated with it. Because of this, optimal order is thresholds is ordered from lesser to greater threshold values. If no thresholds pass, returned bonus amount is 0." group="General">
+                <TunableTuple class="TunableTuple" description="A pair of payment amount and threshold that the payment applies to." group="General">
+                    <Tunable type="int" name="bonus_amount" class="TunableRange" default="100" display="Bonus Amount" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Value/comparison pair used to define a Threshold." group="General">
+                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                        <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="MAX_COUNT_FOR_OFF_LOT_PROFIT_PER_TREATMENT" class="TunableRange" default="10" display="Max Count For Off Lot Profit Per Treatment" min="2" max="None" description="The number of treatments to keep a running average of for the profit per treatment calculations during off lot simulations." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="ResourceKey" name="UNIFORM_EMPLOYEE_FEMALE" class="TunablePackSafeResourceKey" default="None" display="Uniform Employee Female" description="The SimInfo file to use to edit female employee uniforms." group="General" pack_safe="True" resource_types="0x25ed6f4" />
+
+            <Tunable type="ResourceKey" name="UNIFORM_EMPLOYEE_MALE" class="TunablePackSafeResourceKey" default="None" display="Uniform Employee Male" description="The SimInfo file to use to edit male employee uniforms." group="General" pack_safe="True" resource_types="0x25ed6f4" />
+
+            <TunableList name="VALUE_OF_SERVICE_AWARDS" class="TunableList" display="Value Of Service Awards" description="A threshold matrix that maps buffs to level of markup and vet skill. Order is important. The list is processed in reverse order. The first threshold that passes returns the amount associated with it. Because of this, optimal order is thresholds is ordered from lesser to greater threshold values." group="General">
+                <TunableTuple class="TunableTuple" description="A pair of markup threshold and skill threshold-to-buff list." group="General">
+                    <TunableTuple name="markup_threshold" class="TunableThreshold" display="Markup Threshold" description="The threshold at which this item will match." group="General">
+                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                        <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableList name="skill_to_buffs" class="TunableList" display="Skill To Buffs" description="Mapping of skill threshold to the value of service that is applied. Order is important. The list is processed in reverse order. The first threshold that passes returns the amount associated with it. Because of this, optimal order is thresholds is ordered from lesser to greater threshold values." group="General">
+                        <TunableTuple class="TunableTuple" description="A pair of skill threshold to the buff that will apply if this threshold is met when the patient is billed for a vet's services." group="General">
+                            <TunableTuple name="skill_range" class="TunableSkillRangeTest" display="Skill Range" description="A test requiring a Sim to have a skill that is either above a threshold or within an interval." group="General">
+                                <TunableTuple name="skill_range" class="TunableSkillThreshold" display="Skill Range" description="A TunableThreshold that is specifically used in Skill Range Tests to determine if a skill meets the required skill level.' " group="General">
+                                    <TunableTuple name="skill_threshold" class="TunableThreshold" display="Skill Threshold" description="The Threshold for the skill level to be valid." group="General">
+                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                        <Tunable type="int" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableTuple>
+                                <Tunable type="bool" name="use_effective_skill_level" class="Tunable" default="False" display="Use Effective Skill Level" description="If checked, then instead of using the skill's actual level, the test will use the skill's effective level for the purpose of satisfying the specified criteria." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                            <Tunable type="buff" name="value_of_service_buff" class="TunableReference" display="Value Of Service Buff" allow_none="False" group="General" pack_safe="True" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="venue" name="VET_CLINIC_VENUE" class="TunableReference" display="Vet Clinic Venue" description="This is a tunable reference to the type of this Venue." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="statistic" name="VET_SKILL" class="TunableReference" display="Vet Skill" description="The vet skill for reference in code. This can resolve to None if the pack providing the skill is not installed, so beware." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+        </Class>
+    </Module>
+</TuningRoot>

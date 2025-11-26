@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="statistic" class="ModifiableStatistic" module="statistics.modifiable_statistic" description="A statistic that can be modified with addends and multipliers. Currently only used when selling horses." instance_needs_reference="True" instance_subclasses_only="False" parents="Statistic" path="Statistics\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="tunable_addends" class="TunableTestedSum" display="Tunable Addends" description="List of modifiers that add to the Sim's base value. Applied before multipliers." group="General">
+            <Tunable type="float" name="base_value" class="Tunable" default="0" display="Base Value" description="The basic value to return if no modifiers are applied." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="modifiers" class="TunableList" display="Modifiers" description="A list of modifiers to add to Base Value." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="float" name="modifier" class="Tunable" default="0" display="Modifier" description="The value to apply add to Base Value if the associated tests pass. Can be negative" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="multiply_by_count" class="Tunable" default="False" display="Multiply By Count" description="If enabled, will multiply the final test result in tests by the numeric result of the test if the tests pass. This only applies for tests that return a count. If you aren't sure if your test returns a count, ask your GPE and they can tell you. Note: This only works on the last test in the test list. If you aren't sure if your tuning is correct, please try it out in game to verify that it behaves correctly." group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for the modifier to be applied." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+
+        <TunableTuple name="tunable_multipliers" class="TunableTunableMultiplier" display="Tunable Multipliers" description="List of modifiers that multiply the total of the Sim's base and added values. Applied after addends." group="General">
+            <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

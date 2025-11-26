@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="GoHomeTravelInteraction" module="sims.self_interactions" description="Interaction that sends an Sim back to its home lot. This has limited support for NPCs. You may want to use NPCLeaveLotInteraction for NPCs." instance_needs_reference="True" instance_subclasses_only="False" parents="TravelInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="attend_career" class="Tunable" default="False" display="Attend Career" description="If set, Sim will automatically go to work after going home." group="General" />
+
+        <Deleted name="fade_sim_out" />
+
+        <Tunable type="bool" name="force_allow_autonomous_travel" class="Tunable" default="False" display="Force Allow Autonomous Travel" description="In most cases we don't want household sims traveling home autonomously. If checked, this override will allow it for certain edge cases, such as for sending household children home for the ClothingOptional lot trait." group="General" />
+
+        <TunableTuple name="front_door_constraint" class="TunableWelcomeConstraint" display="Front Door Constraint" description="The Front Door Constraint for when the active lot is the Sim's home lot." group="Travel">
+            <Tunable type="bool" name="find_front_door" class="Tunable" default="True" display="Find Front Door" description="If True the constraint will try and locate the front door on the lot and use that location before using the spawn points. If False the spawn points will always be used. The tuning for the spawn tags is in sim_info_types.tuning." group="General" />
+            <Tunable type="float" name="ideal_radius" class="Tunable" default="None" display="Ideal Radius" description="ideal distance for this front door constraint, points closer to the ideal distance will score higher." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="radius" class="Tunable" default="5.0" display="Radius" description="Circle radius" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="home_spawn_point_constraint" class="TunableSpawnPoint" display="Home Spawn Point Constraint" group="Travel">
+            <TunableEnum type="SpawnPointRequestReason" name="spawn_point_request_reason" class="TunableEnumEntry" default="DEFAULT" display="Spawn Point Request Reason" static_entries="world-spawn_point_enums.SpawnPointRequestReason" description="The reason why we want the spawn point. Certain spawn points are only available for specific reasons, such as specific spawn points for leaving or for spawning at." group="General" />
+            <TunableVariant type="None" name="tags" class="OptionalTunable" default="Spawn_Point_Tags" display="Tags" description="This is the Spawn Point Constraint for when the Sim's home lot is on the current street, but is not active. We should be tuning the Arrival Spawner Tag(s) here." group="General">
+                <TunableList name="Spawn_Point_Tags" class="TunableSet" display="Spawn Point Tags" min="1" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="Spawn" group="General" />
+                </TunableList>
+                <Tunable name="Use_Saved_Spawn_Point_Options" class="TunableExistance" display="Use Saved Spawn Point Options" />
+            </TunableVariant>
+            <Tunable type="bool" name="use_lot_id" class="Tunable" default="True" display="Use Lot Id" description="If checked then we will use the current lot id to limit spawn points that are linked to lots to the current lot. Otherwise we will get spawn points of the given type that are potenially not linked to the current lot." group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="street_spawn_point_constraint" class="TunableSpawnPoint" display="Street Spawn Point Constraint" group="Travel">
+            <TunableEnum type="SpawnPointRequestReason" name="spawn_point_request_reason" class="TunableEnumEntry" default="DEFAULT" display="Spawn Point Request Reason" static_entries="world-spawn_point_enums.SpawnPointRequestReason" description="The reason why we want the spawn point. Certain spawn points are only available for specific reasons, such as specific spawn points for leaving or for spawning at." group="General" />
+            <TunableVariant type="None" name="tags" class="OptionalTunable" default="Spawn_Point_Tags" display="Tags" description="This is the Spawn Point Constraint for when the Sim's home lot is not on the current street. We should likely be tuning Walkby Spawner Tags here." group="General">
+                <TunableList name="Spawn_Point_Tags" class="TunableSet" display="Spawn Point Tags" min="1" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="Spawn" group="General" />
+                </TunableList>
+                <Tunable name="Use_Saved_Spawn_Point_Options" class="TunableExistance" display="Use Saved Spawn Point Options" />
+            </TunableVariant>
+            <Tunable type="bool" name="use_lot_id" class="Tunable" default="True" display="Use Lot Id" description="If checked then we will use the current lot id to limit spawn points that are linked to lots to the current lot. Otherwise we will get spawn points of the given type that are potenially not linked to the current lot." group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

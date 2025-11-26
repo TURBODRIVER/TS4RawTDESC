@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="organizations.organization_enums">
+        <Class name="OrganizationStatusEnum" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="ACTIVE" enum_value="0" />
+
+            <EnumItem name="INACTIVE" enum_value="1" />
+
+            <EnumItem name="NONMEMBER" enum_value="2" />
+        </Class>
+
+        <Class name="OrganizationMembershipActionEnum" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="JOIN" enum_value="0" />
+
+            <EnumItem name="LEAVE" enum_value="1" />
+
+            <EnumItem name="UPDATE" enum_value="2" />
+        </Class>
+    </Module>
+</TuningRoot>

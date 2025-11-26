@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation_goal" class="SituationGoalSimoleonsCollected" module="situations.situation_goal_simoleons_collected" description="Situation Goal for collecting Simoleons from a situation." instance_needs_reference="True" instance_subclasses_only="False" parents="SituationGoal" path="SituationGoals\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_post_tests" />
+
+        <Tunable type="int" name="amount_to_collect" class="TunableRange" default="100" display="Amount To Collect" min="1" max="None" description="The amount of Simoleons collected from all relevant activities for this goal to pass." tuning_state="NeedsTuning" group="General" />
+
+        <TunableList name="test_events_to_collect" class="TunableMapping" display="Test Events To Collect" mapping_key="key" mapping_value="value" description="A mapping of test event -> score achieved when successfully ran." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="TestEvent" name="key" class="TunableEnumEntry" default="Invalid" display="Key" dynamic_entries="event_testing-test_events.TestEvent._elements" static_entries="event_testing-test_events.TestEvent" description="The event to listen to for goal completion." group="General" />
+                <TunableTuple name="value" class="TunableTuple" display="Value" description="A tuple of the Simoleon amount to increment and other checks to make on the event before it satisfies the goal." group="General">
+                    <Tunable type="bool" name="custom_simoleons" class="TunableRange" default="False" display="Custom Simoleons" min="None" max="None" description="If true we will get the simoleons earned from the test event instead of the simoleons tunable." group="General" />
+                    <TunableVariant type="None" name="interaction" class="OptionalTunable" default="disabled" display="Interaction" description="When enabled, there will be a test to verify that the interaction sending the associated test event is the same as the tuned interaction." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="interaction" name="enabled" class="TunableReference" display="Enabled" description="The interaction to require the event to come from in order for it to satisfy the goal." allow_none="False" group="General" />
+                    </TunableVariant>
+                    <Tunable type="int" name="simoleons" class="TunableRange" default="1" display="Simoleons" min="1" max="None" description="The Simoleon amount the interaction results when completed." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

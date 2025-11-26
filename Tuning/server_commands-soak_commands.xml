@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="server_commands.soak_commands">
+        <Class name="SoakCommandsTuning">
+            <Tunable type="float" name="SOAK_HANDYMAN_COOLDOWN" class="TunableSimMinute" default="1020" display="Soak Handyman Cooldown" min="None" max="None" description="Time in sim minutes between the start of one soak handman situation and the next." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="service_npc" name="SOAK_HANDYMAN_SERVICE_NPC" class="TunableReference" display="Soak Handyman Service Npc" description="The handyman/repairman service NPC that creates the handyman situation to repair items in your house." allow_none="False" group="General" />
+
+            <Tunable type="float" name="SOAK_MAID_COOLDOWN" class="TunableSimMinute" default="1140" display="Soak Maid Cooldown" min="None" max="None" description="Time in sim minutes between the start of one soak maid situation and the next." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="service_npc" name="SOAK_MAID_SERVICE_NPC" class="TunableReference" display="Soak Maid Service Npc" description="The maid service NPC that creates the maid situation to clean your house." allow_none="False" group="General" />
+
+            <Tunable type="float" name="SOAK_PARTY_COOLDOWN" class="TunableSimMinute" default="1380" display="Soak Party Cooldown" min="None" max="None" description="Time in sim minutes between the start of one soak party situation and the next." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="situation" name="SOAK_PARTY_SITUATION" class="TunableReference" display="Soak Party Situation" description="A party that stress the soak system." allow_none="False" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="animation" class="ObjectAnimationElement" module="animation.object_animation" instance_needs_reference="True" instance_subclasses_only="False" path="Animations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="str" name="actor_name" class="Tunable" default="None" display="Actor Name" description="The name of the actor in the ASM." choice_query="ASM:ActorNames" choice_source="../asm_key" group="General" />
+
+        <TunableVariant type="None" name="animation_walkstyle_override" class="OptionalTunable" default="disabled" display="Animation Walkstyle Override" description="If enabled, we will send this walkstyle for the walkstyle and walkstyle_override parameter on the actor in the ASM." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableVariant type="None" name="enabled" class="TunableTestedVariant" default="single" display="Enabled" description="Specify the single walkstyle to use, or a suite of tests to decide which walkstyle to use for the animation." group="General">
+                <TunableTuple name="single" class="Tunable_NonCallableItem" display="Single" description="Wrapper for non-callables used in TunableTestVariant, which will eat additional args and kwargs (resolver, etc) that aren't needed when we are using items such as reference types and other non-callable items." group="General">
+                    <Tunable type="ResourceKey" name="item" class="TunableWalkstyle" default="None" display="Item" description="The walkstyle override to use." group="General" resource_types="0x27c01d95" />
+                </TunableTuple>
+                <TunableTuple name="tested" class="Tunable_TestedSelector" display="Tested" group="General">
+                    <TunableList name="records" class="TunableList" display="Records" group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="ResourceKey" name="item" class="TunableWalkstyle" default="None" display="Item" description="The walkstyle override to use." group="General" resource_types="0x27c01d95" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableVariant>
+
+        <Tunable type="ResourceKey" name="asm_key" class="TunableInteractionAsmResourceKey" default="None" display="Asm Key" description="The ASM to use." category="asm" group="General" resource_types="0x2d5df13" />
+
+        <TunableTuple name="balloon_tuning" class="TunableTuple" display="Balloon Tuning" group="General">
+            <Tunable type="float" name="balloon_delay" class="Tunable" default="0" display="Balloon Delay" description="The number of seconds after the start of the animation to trigger the balloon. A negative number will count backwards from the end of the animation." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="balloon_delay_random_offset" class="Tunable" default="0" display="Balloon Delay Random Offset" description="A random time offset added to balloon requests. Will always offset the delay time later and requires the delay time be set to a number. A value of 0 has no randomization." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="balloons" class="TunableList" display="Balloons" description="A list of possible balloons to show." group="General">
+                <TunableTuple class="TunableBalloonVariant" description="A variant of either a single icon or a category of icons. Optionally, test whether this element should be available." group="General">
+                    <TunableVariant type="None" name="item" class="TunableVariant" default="balloon_icon" display="Item" group="General">
+                        <Tunable type="balloon" name="balloon_category" class="TunableReference" display="Balloon Category" allow_none="False" group="General" pack_safe="True" />
+                        <TunableTuple name="balloon_icon" class="TunableBalloonIcon" display="Balloon Icon" description="The tuning for the actual balloon icon." group="General">
+                            <TunableEnum type="BalloonTypeEnum" name="balloon_type" class="TunableEnumEntry" default="THOUGHT" display="Balloon Type" static_entries="balloon-balloon_enums.BalloonTypeEnum" description="The visual style of the balloon background. For example if it is a speech balloon or a thought balloon." group="General" />
+                            <TunableVariant type="None" name="category_icon" class="OptionalTunable" default="no_category_icon" display="Category Icon" description="If enabled balloon will display an additional category icon." group="General">
+                                <Tunable name="no_category_icon" class="TunableExistance" display="No Category Icon" />
+                                <TunableVariant type="None" name="show_category_icon" class="TunableIconVariant" default="resource_key" display="Show Category Icon" description="The Icon that will be showed within the balloon." group="General">
+                                    <TunableTuple name="career_icon_override" class="TunableCareerIconOverrideIconFactory" display="Career Icon Override" group="General">
+                                        <Tunable type="career" name="career_reference" class="TunableReference" display="Career Reference" description="The Career to override the icon." allow_none="False" group="General" pack_safe="True" />
+                                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the career." group="General" unique_entries="true">
+                                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                    <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
+                                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
+                                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                    <TunableTuple name="participant" class="TunableParticipantTypeIconFactory" display="Participant" description="The Sim who's thumbnail will be used." group="General">
+                                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" group="General" unique_entries="true">
+                                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                    <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                                    <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
+                                        <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                                    </TunableTuple>
+                                    <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
+                                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                    <TunableTuple name="tradition" class="TunableHolidayIconFactory" display="Tradition" group="General">
+                                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="We use this participant's holiday tracker to get the icon." group="General" unique_entries="true">
+                                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableVariant>
+                            <Tunable type="ResourceKey" name="debug_overlay_override" class="TunableResourceKey" default="None" display="Debug Overlay Override" description="The overlay for the balloon in debug, if present. This overlay will be placed on the balloon instead of overlay in debug only." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                            <TunableVariant type="None" name="icon" class="TunableIconVariant" default="resource_key" display="Icon" description="The Icon that will be showed within the balloon." group="General">
+                                <TunableTuple name="career_icon_override" class="TunableCareerIconOverrideIconFactory" display="Career Icon Override" group="General">
+                                    <Tunable type="career" name="career_reference" class="TunableReference" display="Career Reference" description="The Career to override the icon." allow_none="False" group="General" pack_safe="True" />
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the career." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                    </TunableList>
+                                </TunableTuple>
+                                <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                    </TunableList>
+                                </TunableTuple>
+                                <TunableTuple name="participant" class="TunableParticipantTypeIconFactory" display="Participant" description="The Sim who's thumbnail will be used." group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                                    </TunableList>
+                                </TunableTuple>
+                                <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                                <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
+                                    <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                                </TunableTuple>
+                                <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                    </TunableList>
+                                </TunableTuple>
+                                <TunableTuple name="tradition" class="TunableHolidayIconFactory" display="Tradition" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="We use this participant's holiday tracker to get the icon." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                    </TunableList>
+                                </TunableTuple>
+                            </TunableVariant>
+                            <Tunable type="ResourceKey" name="overlay" class="TunableResourceKey" default="None" display="Overlay" description="The overlay for the balloon, if present." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                            <Tunable type="float" name="weight" class="TunableRange" default="1" display="Weight" min="1" max="None" description="The weight to assign to this balloon." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A set of tests that are run when selecting the balloon icon. If the tests do not pass then this balloon icon will not be selected." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+
+        <TunableList name="begin_states" class="TunableList" display="Begin States" description="A list of states to play." group="General">
+            <Tunable type="str" class="Tunable" default="None" choice_query="ASM:StateNames" choice_source="../../asm_key" group="General" />
+        </TunableList>
+
+        <TunableList name="end_states" class="TunableList" display="End States" description="A list of states to play after looping." group="General">
+            <Tunable type="str" class="Tunable" default="None" choice_query="ASM:StateNames" choice_source="../../asm_key" group="General" />
+        </TunableList>
+
+        <Tunable type="bool" name="include_object_children_in_fade" class="Tunable" default="False" display="Include Object Children In Fade" description="If True, fade events on the object will apply to the object's children. If False, only the object is affected by the fade event." group="General" />
+
+        <TunableVariant type="None" name="initial_state" class="OptionalTunable" default="use_default" display="Initial State" description="The name of the initial state in the ASM you expect your actor to be in when running this AnimationElement. If you do not tune this we will use the entry state which is usually what you want." group="General">
+            <Tunable type="str" name="custom_state_name" class="Tunable" default="None" display="Custom State Name" choice_query="ASM:StateNames" choice_source="../../asm_key" group="General" />
+            <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="repeat" class="Tunable" default="False" display="Repeat" description="If this is checked, then the begin_states will loop until the controlling sequence (e.g. state change on idle component) ends. At that point, end_states will play. This tunable allows you to create looping one-shot states. The effects of this tunable on already looping states is undefined." group="General" />
+
+        <TunableVariant type="None" name="target_name" class="OptionalTunable" default="disabled" display="Target Name" description="If enabled, some portion of this object animation expects the actor to interact with another object. The object must be set by whatever system uses the ASM. In and of itself, the Idle component never sets this actor." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="str" name="enabled" class="Tunable" default="None" display="Enabled" choice_query="ASM:ActorNames" choice_source="../../asm_key" group="General" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="use_surface_height" class="Tunable" default="False" display="Use Surface Height" description="If checked, the asm will be provided with the surfaceHeight global parameter, which uses slot height tuning to resolve the height of the target object to a parameter value. " group="General" />
+    </Instance>
+</TuningRoot>

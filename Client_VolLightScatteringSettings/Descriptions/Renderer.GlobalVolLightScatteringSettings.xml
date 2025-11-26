@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="Renderer_GlobalVolLightScatteringSettings" class="Renderer.GlobalVolLightScatteringSettings" module="client.renderer" description="" path="Client_GlobalVolLightScatteringSettings\Descriptions">
+        <Tunable type="bool" name="mbCleanBorderPixelBeforeBlur" class="Tunable" default="None" display=" Clear Pixel Border" description="Allows to clear the border pixel of the generated intensity mask before blurring it. Can change how the edge will be blurred" />
+
+        <Tunable type="bool" name="mbEnabled" class="Tunable" default="None" display=" Enabled" description="Turn On or Off the whole effect" />
+
+        <Tunable type="float" name="mBlurSize" class="Tunable" default="None" display="Blur Radius Size" min="0.0" max="200.0" description="Defines the size of the radial blur kernel." />
+
+        <Tunable type="bool" name="mbPaddingBool" class="Tunable" default="None" display=" Not Used - Ignore me" description="This field is not used for anything at the moment." />
+
+        <Tunable type="bool" name="mbUseRawSunDir" class="Tunable" default="None" display=" Use Unadjusted Sun position" description="The sun position might be different from the 'adjusted' one used by the lighting manager. This option allows to pick the one to use for the ray's origin." />
+
+        <Tunable type="float" name="mContribution_Blue" class="Tunable" default="None" display="Contribution from Blue" min="0.0" max="2.0" description="How much the blue channel of the sky pixel matters to the ray intensity computation." />
+
+        <Tunable type="float" name="mContribution_Green" class="Tunable" default="None" display="Contribution from Green" min="0.0" max="2.0" description="How much the green channel of the sky pixel matters to the ray intensity computation." />
+
+        <Tunable type="float" name="mContribution_Red" class="Tunable" default="None" display="Contribution from Red " min="0.0" max="2.0" description="How much the red channel of the sky pixel matters to the ray intensity computation." />
+
+        <Tunable type="float" name="mHorizonZLimit" class="Tunable" default="None" display="Horizon Z Limit" min="0.0" max="5000.0" description="Defines the Z distance from the camera limit such that anything farther is considered part of the sky." />
+
+        <Tunable type="float" name="mIntensity" class="Tunable" default="None" display="Intensity Factor" min="0.0" max="1.0" description="How overall the sky pixel color contributes overall the ray intensity computation." />
+
+        <Tunable type="float" name="mMaxDistToSun" class="Tunable" default="None" display="Distance To Sun Max" min="0.0" max="2.0" description="Defines the maximal distance to the sun at which intensity will reach 0." />
+
+        <Tunable type="float" name="mMinDistToSun" class="Tunable" default="None" display="Distance To Sun Min" min="0.0" max="1.0" description="Defines the minimal distance to the sun at which intensity will reach its max." />
+
+        <Tunable type="int" name="mNumRadialBlurPasses" class="Tunable" default="None" display="Blur Number Passes" min="0" max="32" description="Defines how many radial blur passes to perform." />
+
+        <Tunable type="float" name="mPower" class="Tunable" default="None" display="Intensity Exponent" min="0.0" max="64.0" description="Defines the a power exponent to apply to the computed intensity before blurring it." />
+
+        <Tunable type="float" name="mRayColor_Blue" class="Tunable" default="None" display="Ray Factor - Blue" min="0.0" max="2.0" description="Defines the blue scaler for the color of the ray when applying it." />
+
+        <Tunable type="float" name="mRayColor_Green" class="Tunable" default="None" display="Ray Factor - Green" min="0.0" max="2.0" description="Defines the green scaler for the color of the ray when applying it." />
+
+        <Tunable type="float" name="mRayColor_Red" class="Tunable" default="None" display="Ray Factor - Red" min="0.0" max="2.0" description="Defines the red scaler for the color of the ray when applying it." />
+    </Instance>
+</TuningRoot>

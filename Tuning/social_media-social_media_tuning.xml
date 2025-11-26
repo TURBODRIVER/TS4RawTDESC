@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="social_media.social_media_tuning">
+        <Class name="SocialMediaTunables">
+            <Tunable type="int" name="FEED_POSTS_NUMBER_CAP" class="TunableRange" default="30" display="Feed Posts Number Cap" min="0" max="None" description="Cap for how many posts the Feed will show and the service will save." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="FOLLOWERS_CONTEXTUAL_POST_BASE_STAT" class="TunableRange" default="50" display="Followers Contextual Post Base Stat" min="0" max="None" description="How many followers will be gained by making a contextual post." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="FOLLOWERS_NPC_REACTION_GAIN" class="TunableRange" default="10" display="Followers Npc Reaction Gain" min="0" max="None" description="Number of followers that will be gained by an NPC reaction to a player's post." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="FOLLOWERS_PERCENTAGE_LOST_PER_DAY" class="TunableRange" default="1" display="Followers Percentage Lost Per Day" min="0" max="100" description="Percentage of followers lost per day from current follower count." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="FOLLOWERS_POSTING_MODIFIER" class="TunableList" display="Followers Posting Modifier" description="Modifiers for followers calculation." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="max" class="TunableRange" default="0" display="Max" min="0" max="None" description="Max of the post range for this modifier." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="min" class="TunableRange" default="0" display="Min" min="0" max="None" description="Min of the post range for this modifier." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="modifier" class="TunableRange" default="1.0" display="Modifier" min="None" max="None" description="Modifier to be applied for followers calculation." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="FOLLOWERS_RECOUNT_TIME_OF_DAY" class="TunableTimeOfDay" display="Followers Recount Time Of Day" description="The time of day in hours to calculate current followers." group="General">
+                <Tunable type="int" name="hour" class="TunableRange" default="6" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="int" name="FOLLOWERS_REGULAR_POST_BASE_STAT" class="TunableRange" default="50" display="Followers Regular Post Base Stat" min="0" max="None" description="How many followers will be gained by making a regular post." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="statistic" name="FOLLOWERS_TRACKING_COMMODITY" class="TunableReference" display="Followers Tracking Commodity" description="Commodity to assign for tracking Social Media followers." allow_none="False" group="General" restrict="Commodity" />
+
+            <Tunable type="interaction" name="NEW_DIRECT_MESSAGE_PICKER_INTERACTION" class="TunableReference" display="New Direct Message Picker Interaction" description="The interaction to bring a new direct message picker up." allow_none="False" group="General" />
+
+            <Tunable type="interaction" name="NEW_EVENT_POST_PICKER_INTERACTION" class="TunableReference" display="New Event Post Picker Interaction" description="The interaction to bring a new post picker up." allow_none="False" group="General" />
+
+            <Tunable type="interaction" name="NEW_FRIEND_PICKER_INTERACTION" class="TunableReference" display="New Friend Picker Interaction" description="The interaction to bring a new Sim friend picker up." allow_none="False" group="General" />
+
+            <Tunable type="interaction" name="NEW_MESSAGE_TYPE_PICKER_INTERACTION" class="TunableReference" display="New Message Type Picker Interaction" description="The interaction to bring a new type of message picker up." allow_none="False" group="General" />
+
+            <Tunable type="interaction" name="NEW_POST_PICKER_INTERACTION" class="TunableReference" display="New Post Picker Interaction" description="The interaction to bring a new post picker up." allow_none="False" group="General" />
+
+            <Tunable type="statistic" name="NPC_POSTING_COMMODITY" class="TunableReference" display="Npc Posting Commodity" description="Commodity to assign to NPC friends for Social Media posting." allow_none="False" group="General" restrict="Commodity" />
+
+            <Tunable type="interaction" name="OPEN_SOCIAL_MEDIA_PHONE_INTERACTION" class="TunableReference" display="Open Social Media Phone Interaction" description="The phone interaction to open the social media dialog. Used to infer which interaction to badge." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="int" name="REACTIONS_PER_POST_NUMBER_CAP" class="TunableRange" default="10" display="Reactions Per Post Number Cap" min="0" max="None" description="Cap for how many reactions each post can have." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="SOCIAL_MEDIA_FRIENDS_NUMBER_CAP" class="TunableRange" default="30" display="Social Media Friends Number Cap" min="0" max="None" description="Cap for how many Social Media Friends a sim can have." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="SOCIAL_MEDIA_NARRATIVE_TUNING" class="TunableList" display="Social Media Narrative Tuning" description="Tuning to show the narratives in a picker." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="blacklist_rel_bit" class="TunableList" display="Blacklist Rel Bit" description="The relationship bits that will be blacklisted for this narrative." group="General">
+                        <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" restrict="RelationshipBit" />
+                    </TunableList>
+                    <TunableEnum type="SocialMediaNarrative" name="narrative" class="TunableEnumEntry" default="FRIENDLY" display="Narrative" static_entries="social_media.SocialMediaNarrative" description="A SocialMediaNarrative enum entry." group="General" />
+                    <Tunable type="int" name="picker_description" class="TunableLocalizedString" default="0x0" display="Picker Description" description="The description used in the picker for this narrative." group="General" />
+                    <TunableVariant type="None" name="picker_icon" class="TunableIconVariant" default="resource_key" display="Picker Icon" description="The icon used in the picker for this narrative." group="General">
+                        <TunableTuple name="career_icon_override" class="TunableCareerIconOverrideIconFactory" display="Career Icon Override" group="General">
+                            <Tunable type="career" name="career_reference" class="TunableReference" display="Career Reference" description="The Career to override the icon." allow_none="False" group="General" pack_safe="True" />
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the career." group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="participant" class="TunableParticipantTypeIconFactory" display="Participant" description="The Sim who's thumbnail will be used." group="General">
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                        <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
+                            <Tunable type="ResourceKey" name="key" class="TunableIconAllPacks" default="None" display="Key" description="The icon image to be displayed." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                        </TunableTuple>
+                        <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="tradition" class="TunableHolidayIconFactory" display="Tradition" group="General">
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="We use this participant's holiday tracker to get the icon." group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableVariant>
+                    <Tunable type="int" name="picker_name" class="TunableLocalizedString" default="0x0" display="Picker Name" description="The name used in the picker for this narrative." group="General" />
+                    <Tunable type="int" name="picker_tooltip" class="TunableLocalizedString" default="0x0" display="Picker Tooltip" description="The tooltip used in the picker for this narrative." group="General" />
+                    <TdescFragTag name="targeted_availability_tests" class="TunableTestSet" display="Targeted Availability Tests" description="A set of tests that must pass in order for this narrative to be available. These tests will only be run when there is an Actor and a Target Sim." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SOCIAL_MEDIA_POST_REACTIONS" class="TunableList" display="Social Media Post Reactions" description="A set of Reactions for Social Media Posts." group="General">
+                <TunableTuple class="SocialMediaPostReactionsList" group="General">
+                    <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="The icon to associate with this reaction." group="General" resource_types="0x2f7d0004" />
+                    <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name to associate with this reaction." group="General" />
+                    <TunableEnum type="SocialMediaNarrative" name="narrative" class="TunableEnumEntry" default="FRIENDLY" display="Narrative" static_entries="social_media.SocialMediaNarrative" description="A SocialMediaNarrative enum entry." group="General" />
+                    <TunableEnum type="SocialMediaPolarity" name="polarity" class="TunableEnumEntry" default="POSITIVE" display="Polarity" static_entries="social_media.SocialMediaPolarity" description="A SocialMediaPolarity enum entry." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SOCIAL_MEDIA_REACTIONS_OUTCOMES" class="TunableList" display="Social Media Reactions Outcomes" description="A set of Reactions for Social Media Posts." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="loots_on_reaction" class="TunableList" display="Loots On Reaction" description="Loots applied when the reaction is made." group="General">
+                        <Tunable type="action" class="TunableReference" description="A loot applied when the reaction is made." allow_none="False" group="General" restrict="LootActions" />
+                    </TunableList>
+                    <TunableEnum type="SocialMediaPolarity" name="post_polarity" class="TunableEnumEntry" default="POSITIVE" display="Post Polarity" static_entries="social_media.SocialMediaPolarity" description="The SocialMediaPolarity to match in the post." group="General" />
+                    <TunableEnum type="SocialMediaNarrative" name="reaction_narrative" class="TunableEnumEntry" default="FRIENDLY" display="Reaction Narrative" static_entries="social_media.SocialMediaNarrative" description="The SocialMediaNarrative to match in the reaction." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="relbit" name="SOCIAL_MEDIA_REL_BIT" class="TunableReference" display="Social Media Rel Bit" description="The relationship bit that will be used to track Social Media friends." allow_none="False" group="General" restrict="RelationshipBit" />
+
+            <TunableList name="TYPES_OF_POSTS" class="TunableList" display="Types Of Posts" description="A set of the different Posts that can be made in Social Media." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="content" class="TunableList" display="Content" description="The list of strings that can be randomly used for this post." group="General">
+                        <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may NOT require tokens." group="General" />
+                    </TunableList>
+                    <TunableVariant type="None" name="context_post" class="OptionalTunable" default="disabled" display="Context Post" description="The Buff that will allow for this contextual post to be made." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="buff" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" pack_safe="True" restrict="Buff" />
+                    </TunableVariant>
+                    <TunableList name="loots_on_post" class="TunableList" display="Loots On Post" description="Loots applied to the actor when the post is made." group="General">
+                        <Tunable type="action" class="TunableReference" description="A loot applied to the actor when the post is made." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                    </TunableList>
+                    <TunableEnum type="SocialMediaNarrative" name="narrative" class="TunableEnumEntry" default="FRIENDLY" display="Narrative" static_entries="social_media.SocialMediaNarrative" description="A SocialMediaNarrative enum entry." group="General" />
+                    <TunableEnum type="SocialMediaPolarity" name="polarity" class="TunableEnumEntry" default="POSITIVE" display="Polarity" static_entries="social_media.SocialMediaPolarity" description="A SocialMediaPolarity enum entry." group="General" />
+                    <TunableEnum type="SocialMediaPostType" name="post_type" class="TunableEnumEntry" default="DEFAULT" display="Post Type" static_entries="social_media.SocialMediaPostType" description="A SocialMediaPostType enum entry." group="General" />
+                    <TunableList name="target_loots_on_post" class="TunableList" display="Target Loots On Post" description="Loots applied to the target when the post is made." group="General">
+                        <Tunable type="action" class="TunableReference" description="A loot applied to the target when the post is made." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

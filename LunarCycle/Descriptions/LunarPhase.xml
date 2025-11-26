@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="lunar_cycle" class="LunarPhase" module="lunar_cycle.lunar_phase" description="The definition of content of a lunar phase." instance_base_game_only="True" instance_needs_reference="True" instance_subclasses_only="False" path="LunarCycle\Descriptions" use_guid_for_reference="True">
+        <TunableList name="effects_by_hour_offset" class="TunableMapping" display="Effects By Hour Offset" mapping_key="key" mapping_value="value" description="A mapping of hour into the current phase to effects that will be applied at that hour of the phase. This is relative to the lunar cycle 'Phase Change Time of Day' tuning." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="int" name="key" class="TunableRange" default="0" display="Key" min="0" max="23" description="Hour offset into the current phase." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="value" class="TunableList" display="Value" description="Effects to apply at the given hour offset." group="General">
+                    <Tunable type="lunar_cycle" class="TunableReference" description="Lunar Effect" allow_none="False" group="General" pack_safe="True" restrict="LunarPhaseEffect" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="length_option_duration_map" class="TunableMapping" display="Length Option Duration Map" mapping_key="key" mapping_value="value" description="A mapping of how long this phase is when a specific length option is set." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="LunarCycleLengthOption" name="key" class="TunableEnumEntry" default="FULL_LENGTH" display="Key" static_entries="lunar_cycle-lunar_cycle_enums.LunarCycleLengthOption" description="The length option." group="General" />
+                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" description="The length of this phase (in Sim days) for the given option." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="locked_phase_content" class="TunableMapping" display="Locked Phase Content" mapping_key="key" mapping_value="value" description="The list of festivals/events to trigger during this LOCKED lunar phase. The values on the right are a Time of Day to schedule the event." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="drama_node" name="key" class="TunableReference" display="Key" description="The festivals/events to trigger." allow_none="False" group="General" pack_safe="True" />
+                <TunableTuple name="value" class="TunableTuple" display="Value" description="The days, and start time that this node will be scheduled for." group="General">
+                    <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                        <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                        <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                        <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                        <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                        <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                        <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                        <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="start_time" class="TunableTimeSpan" display="Start Time" description="A duration that may be specified in weeks/days/hours/minutes." group="General">
+                        <Tunable type="int" name="hours" class="TunableRange" default="19" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="phase_length_content" class="TunableMapping" display="Phase Length Content" mapping_key="key" mapping_value="value" description="The list of festivals/events to trigger during this lunar phase. The values on the right are a time offset from the Phase Change Time of Day." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="LunarCycleLengthOption" name="key" class="TunableEnumEntry" default="FULL_LENGTH" display="Key" static_entries="lunar_cycle-lunar_cycle_enums.LunarCycleLengthOption" group="General" />
+                <TunableList name="value" class="TunableMapping" display="Value" mapping_key="key" mapping_value="value" description="Event content of a lunar phase." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="drama_node" name="key" class="TunableReference" display="Key" description="The festivals/events to trigger during this lunar phase." allow_none="False" group="General" pack_safe="True" />
+                        <TunableList name="value" class="TunableList" display="Value" group="General">
+                            <TunableTuple class="TunableTimeSpan" description="The length of time after the Phase Change Time of Day at which this node can be scheduled for." group="General">
+                                <Tunable type="int" name="days" class="TunableRange" default="0" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="hours" class="TunableRange" default="12" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="pre_phase_effects_by_hour_offset" class="TunableMapping" display="Pre Phase Effects By Hour Offset" mapping_key="key" mapping_value="value" description="A mapping of hour into the current phase to effects that will be applied at that hour of the phase. This is relative to the lunar cycle 'Phase Change Time of Day' tuning. This list of effects affect the phase IMMEDIATELY PRECEDING this tuned phase, if this content is not the active phase yet but will be within the next 24 hours. e.g. these effects are tuned on FULL_MOON, they apply if today is WAXING_GIBBOUS, which is the phase preceding the FULL_MOON phase. This can be used for effects such as popping a TNS noting there is an upcoming full moon coming tomorrow night. " group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="int" name="key" class="TunableRange" default="0" display="Key" min="0" max="23" description="Hour offset into the current phase." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="value" class="TunableList" display="Value" description="Effects to apply at the given hour offset." group="General">
+                    <Tunable type="lunar_cycle" class="TunableReference" description="Lunar Effect" allow_none="False" group="General" pack_safe="True" restrict="LunarPhaseEffect" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

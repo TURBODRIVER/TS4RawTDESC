@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.situation">
+        <Class name="Situation">
+            <TunableList name="NPC_HOSTED_SITUATION_AGE_WEIGHTING" class="TunableMapping" display="Npc Hosted Situation Age Weighting" mapping_key="age" mapping_value="weight" description="A map of ages to weights when determining which sim in the household will be selected to receive an invitation." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Age" name="age" class="TunableEnumEntry" default="ADULT" display="Age" static_entries="sims-sim_info_types.Age" description="The age of a possible invitee that will be mapped to a weight." group="General" />
+                    <Tunable type="int" name="weight" class="TunableRange" default="1" display="Weight" min="1" max="None" description="The weight a sim of this age will be chosen to have an event run on them." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="buffs.memory">
+        <Class name="MemoryUid" enum_bit_flag="False" enum_locked="True" enum_sorted="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="Invalid" enum_value="0" />
+        </Class>
+
+        <Class name="Memory">
+            <TunableList name="MEMORIES" class="TunableMapping" display="Memories" mapping_key="key" mapping_value="value" group="General" mapping_class="MemoryMappingTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="MemoryUid" name="key" class="TunableEnumEntry" default="Invalid" display="Key" dynamic_entries="buffs-memory.MemoryUid._elements" static_entries="buffs-memory.MemoryUid" description="The Type of Memory. Should be unique. Defined in MemoryUid." group="General" />
+                    <TunableTuple name="value" class="TunableMemoryTuple" display="Value" group="General">
+                        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="Localization String for the kind of memory." group="General" />
+                        <Tunable type="interaction" name="reminisce_affordance" class="TunableReference" display="Reminisce Affordance" description="The interaction that is pushed on the Sim when they Reminisce about this Memory. Should most often be from the Reminisce Prototype." allow_none="False" group="General" restrict="SuperInteraction" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

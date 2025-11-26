@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.water_terrain_objects">
+        <Class name="WaterTerrainObjectCache">
+            <TunableTuple name="OBJECT_SQ_DISTANCE_THRESHOLD" class="TunableThreshold" display="Object Sq Distance Threshold" description="The distance threshold between the user's click on water and objects in the world that have WATER_TERRAIN_TAGS. If the user picks water, we find the nearest object in this distance threshold and generate a pie menu." group="General">
+                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                <Tunable type="float" name="value" class="Tunable" default="100.0" display="Value" description="The value of the threshold that the collection is compared against." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TunableList name="WATER_TERRAIN_TAGS" class="TunableList" display="Water Terrain Tags" description="The Tags on Object Definitions that mark objects for caching near the water. Please make exclusive tags for this, as we don't want to include objects that don't make sense." group="General">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag that marks an object for caching near the water terrain." group="General" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

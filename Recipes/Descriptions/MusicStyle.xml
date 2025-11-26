@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="recipe" class="MusicStyle" module="crafting.music" description="A set of Music Tracks. For example, GuitarStyle_Folk contains all of the folk MusicTracks for the guitar. MusicStyles are tuned on all PlayAudioSuperInteraction to determine what the Sim can play." instance_subclasses_only="False" path="Recipes\Descriptions" use_guid_for_reference="True">
+        <TunableList name="music_tracks" class="TunableList" display="Music Tracks" group="General">
+            <Tunable type="recipe" class="TunableReference" description="A particular music track to use as part of this style." allow_none="False" group="General" pack_safe="True" restrict="MusicTrack" />
+        </TunableList>
+
+        <Tunable type="pie_menu_category" name="pie_menu_category" class="TunableReference" display="Pie Menu Category" description="The pie menu category for this music style. This can be used to break styles up into genres." allow_none="True" group="General" />
+    </Instance>
+</TuningRoot>

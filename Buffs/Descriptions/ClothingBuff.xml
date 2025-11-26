@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="buff" class="ClothingBuff" module="buffs.clothing_buff" description="A new buff type that will disable the decay on the operating commodity when buff is removed." instance_needs_reference="True" instance_subclasses_only="False" parents="Buff" path="Buffs\Descriptions" use_guid_for_reference="True">
+        <Tunable type="float" name="removal_minutes" class="TunableSimMinute" default="40" display="Removal Minutes" min="None" max="None" description="Number of sim minutes till buff is removed. This meant to be used in conjunction with temporary commodity but if using a commodity that already exist commodity convergence value must be minimum value of commodity." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="story_arc" class="SimBasedStoryArc" module="story_progression.story_progression_arc" description="Story Arcs which are targeted at Sims, and not Households." instance_needs_reference="True" instance_subclasses_only="True" parents="BaseStoryArc" path="StoryArcs\Descriptions" use_guid_for_reference="True">
+        <Tunable type="story_chapter" name="starting_chapter" class="TunableReference" display="Starting Chapter" description="The first chapter of this Story Arc." allow_none="False" group="General" restrict="SimStoryChapter" />
+    </Instance>
+
+    
+</TuningRoot>

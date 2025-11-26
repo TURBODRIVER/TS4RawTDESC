@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="JewelryCraftingMaterialPickerInteraction" module="jewelry_crafting.jewelry_crafting_interactions" description="' Interaction run in a picker to retrieve shape, metal and crystals" instance_needs_reference="True" instance_subclasses_only="False" parents="ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="material" class="TunableVariant" default="none" display="Material" description="Material to be used in the picker" group="General">
+            <TunableTuple name="crystal" class="Tunable_CrystalMaterial" display="Crystal" description="' Derived class what will get the list of crystals to be generated" group="General" />
+            <TunableTuple name="gemstone" class="Tunable_GemstoneMaterial" display="Gemstone" description="' Derived class what will get the list of gemstones to be generated" group="General" />
+            <TunableTuple name="metal" class="Tunable_MetalMaterial" display="Metal" description="' Derived class what will get the list of metals to be generated" group="General" />
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableTuple name="shape" class="Tunable_ShapeMaterial" display="Shape" description="' Derived class what will get the list of shapes to be generated" group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

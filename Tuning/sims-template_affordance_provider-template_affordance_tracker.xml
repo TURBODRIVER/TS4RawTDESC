@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.template_affordance_provider.template_affordance_tracker">
+        <Class name="TemplateAffordanceTracker">
+            <Tunable type="float" name="DEFAULT_POST_RUN_DURATION" class="TunableSimMinute" default="30" display="Default Post Run Duration" min="None" max="None" description="The default number of Sim Minutes for a template affordance to be provided once the once the template provider (interaction, buff, etc.) is done." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

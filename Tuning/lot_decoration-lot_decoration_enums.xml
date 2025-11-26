@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="lot_decoration.lot_decoration_enums">
+        <Class name="DecorationLocation" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="COLUMNS" enum_value="5" />
+
+            <EnumItem name="EAVES" enum_value="1" />
+
+            <EnumItem name="FENCES" enum_value="3" />
+
+            <EnumItem name="FOUNDATIONS" enum_value="0" />
+
+            <EnumItem name="FRIEZES" enum_value="2" />
+
+            <EnumItem name="SPANDRELS" enum_value="4" />
+        </Class>
+
+        <Class name="DecorationPickerCategory" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="ALL" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

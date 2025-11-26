@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="build_buy">
+        <Class name="FloorFeatureType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BURNT" enum_value="0" />
+
+            <EnumItem name="DUST" enum_value="2" />
+
+            <EnumItem name="LEAF" enum_value="1" />
+        </Class>
+
+        <Class name="HouseholdInventoryFlags" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="DESTROY_OBJECT" enum_value="2" />
+
+            <EnumItem name="FORCE_OWNERSHIP" enum_value="1" />
+        </Class>
+
+        <Class name="BuyCategory" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="APPLIANCES" enum_value="2" />
+
+            <EnumItem name="COMFORT" enum_value="2048" />
+
+            <EnumItem name="DECOR" enum_value="128" />
+
+            <EnumItem name="DEFAULT" enum_value="2147483648" />
+
+            <EnumItem name="ELECTRONICS" enum_value="4" />
+
+            <EnumItem name="ENTERTAINMENT" enum_value="8" />
+
+            <EnumItem name="KIDS" enum_value="256" />
+
+            <EnumItem name="LIGHTING" enum_value="32" />
+
+            <EnumItem name="PLUMBING" enum_value="64" />
+
+            <EnumItem name="STORAGE" enum_value="512" />
+
+            <EnumItem name="SURFACE" enum_value="4096" />
+
+            <EnumItem name="UNUSED" enum_value="1" />
+
+            <EnumItem name="UNUSED_2" enum_value="16" />
+
+            <EnumItem name="VEHICLE" enum_value="8192" />
+        </Class>
+    </Module>
+</TuningRoot>

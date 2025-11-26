@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CreateCarriedObjectSuperInteraction" module="interactions.base.create_object_interaction" instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="carry_track_override" class="OptionalTunable" default="disabled" display="Carry Track Override" description="If enabled, specify which carry track the Sim must use to carry the created object." group="Carry Creation">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableEnum type="PostureTrack" name="enabled" class="TunableEnumEntry" default="RIGHT" display="Enabled" static_entries="postures.PostureTrack" description="Which hand to carry the object in." group="General" />
+        </TunableVariant>
+
+        <Tunable type="interaction" name="continuation" class="TunableReference" display="Continuation" description="An interaction to push as a continuation to the carry." allow_none="True" group="General" restrict="SuperInteraction" />
+
+        <TunableVariant type="None" name="continuation_with_affordance_overrides" class="OptionalTunable" default="disabled" display="Continuation With Affordance Overrides" description="If enabled, allows you to specify a continuation to the carry based on a participant's object definition. This continuation will be pushed in addition to the tunable continuation, although you will rarely need to tune both at the same time." group="Carry Creation">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <TunableList name="affordance_override" class="TunableMapping" display="Affordance Override" mapping_key="key" mapping_value="value" description="Based on the participants's object definition, you can override the affordance on the tunable continuation." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="object" name="key" class="TunableReference" display="Key" description="The object definition to look for." allow_none="False" group="General" />
+                        <Tunable type="interaction" name="value" class="TunableReference" display="Value" allow_none="False" group="General" restrict="SuperInteraction" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableList name="continuation" class="TunableContinuation" display="Continuation" description="A tunable continuation to push based on the parameters provided." group="General">
+                    <TunableTuple class="TunableTuple" description="A continuation entry." group="General">
+                        <TunableEnum type="ParticipantType" name="actor" class="TunableEnumEntry" default="Actor" display="Actor" static_entries="interactions.ParticipantType" description="The Sim on which the affordance is pushed." group="General" />
+                        <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The affordance to push as a continuation on the specified actor Sim." allow_none="False" group="General" pack_safe="True" />
+                        <TunableVariant type="None" name="carry_target" class="OptionalTunable" default="disabled" display="Carry Target" description="If enabled, specify a carry target for this continuation." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Object" display="Enabled" static_entries="interactions.ParticipantType" description="The participant the affordance will set as a carry target." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="inventory_carry_target" class="TunableVariant" default="None" display="Inventory Carry Target" description="Item in inventory (of continuations actor) to use as carry target for continuation if carry target is None" group="General">
+                            <Tunable name="None" class="TunableExistance" display="None" />
+                            <TunableTuple name="object_with_base_definition" class="TunableTuple" display="Object With Base Definition" group="General">
+                                <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The base definition to look for inside inventory. Objects that redirect (like counters) will match if base definition is the same." allow_none="False" group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="object_with_definition" class="TunableTuple" display="Object With Definition" group="General">
+                                <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The exact object definition to look for inside inventory." allow_none="False" group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="object_with_tag" class="CraftTaggedItemFactory" display="Object With Tag" description="This option tests crafted item's tags against a list of possible tags" group="General">
+                                <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tag of objects we want to test ownership of" group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <Tunable type="bool" name="preserve_preferred_object" class="Tunable" default="True" display="Preserve Preferred Object" description="If checked, the pushed interaction's preferred objects are determined by the current preferred objects. If unchecked, the transition sequence would not award bonuses to any specific part." group="General" />
+                        <Tunable type="bool" name="preserve_target_part" class="Tunable" default="False" display="Preserve Target Part" description="If checked, the pushed interaction will use the same target part if applicable. Defaults to false because typically we will want to let the transition select which part to use." group="General" />
+                        <Tunable type="interaction" name="si_affordance_override" class="TunableReference" display="Si Affordance Override" description="When the tuned affordance is a mixer for a different SI, use this to specify the mixer's appropriate SI. This is useful for pushing socials." allow_none="True" group="General" />
+                        <TunableEnum type="ParticipantType" name="target" class="TunableEnumEntry" default="Object" display="Target" static_entries="interactions.ParticipantType" description="The participant the affordance will target." group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="PickedObject" display="Participant" static_entries="interactions.ParticipantType" description="When using the affordance_override mapping, this is the participant we will use to get the definition." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="definition" class="OptionalTunable" default="tuned_definition" display="Definition" description="The object to create; this can be set at runtime. If 'runtime parameter' is chosen, it will look at the parameter passed in at runtime to determine which object to create. The primary use of the 'runtime parameter' option is if the interaction is pushed from code so consult a GPE before using it." group="Carry Creation">
+            <Tunable name="runtime_parameter" class="TunableExistance" display="Runtime Parameter" />
+            <TunableVariant type="None" name="tuned_definition" class="TunableTestedVariant" default="single" display="Tuned Definition" description="The object to create." group="General">
+                <TunableTuple name="single" class="ObjectDefinition" display="Single" group="General">
+                    <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The definition of the object." allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+                <TunableTuple name="tested" class="Tunable_TestedSelector" display="Tested" group="General">
+                    <TunableList name="records" class="TunableList" display="Records" group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <TunableTuple name="item" class="ObjectDefinition" display="Item" group="General">
+                                <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The definition of the object." allow_none="False" group="General" pack_safe="True" />
+                            </TunableTuple>
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="enter_carry_immediately" class="OptionalTunable" default="disabled" display="Enter Carry Immediately" description="If enabled, we are gonna run this element immediately without waiting for the 700 XEvt. No continuation affordance should be tuned to this interaction if enter_carry_immediately is enabled, as the owning affordance will act as the tuned continuation." group="Carry Creation">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="interaction" name="owning_affordance" class="TunableReference" display="Owning Affordance" description="The interaction that will be pushed that will own the carry state (e.g. a put down)." allow_none="False" group="General" pack_safe="True" />
+                <Tunable type="str" name="parenting_joint" class="TunableStringHash32" default="None" display="Parenting Joint" description="The joint of the carrier sim to parent the carryable to." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="initial_states" class="TunableList" display="Initial States" description="A list of states to apply to the finished object as soon as it is created." group="Carry Creation">
+            <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" restrict="ObjectStateValue" />
+        </TunableList>
+    </Instance>
+
+    
+</TuningRoot>

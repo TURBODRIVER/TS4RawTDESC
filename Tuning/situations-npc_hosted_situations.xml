@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.npc_hosted_situations">
+        <Class name="NPCHostedSituationService">
+            <TunableTuple name="WELCOME_WAGON_TUNING" class="TunableTuple" display="Welcome Wagon Tuning" description="Tuning dedicated to started the welcome wagon." group="General">
+                <TunableTuple name="available_time_of_day" class="TunableTuple" display="Available Time Of Day" description="The start and end times that determine the time that the welcome wagon can begin. This has nothing to do with the end time of the situation. The duration of the situation can last beyond the times tuned here." group="General">
+                    <TunableTuple name="end_time" class="TunableTimeOfDay" display="End Time" description="The end time that the welcome wagon can begin." group="General">
+                        <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="The start time that the welcome wagon can begin." group="General">
+                        <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+                <Tunable type="float" name="minimum_time_to_start_situation" class="TunableSimMinute" default="60" display="Minimum Time To Start Situation" min="0" max="None" description="The minimum amount of time since the service started that the welcome wagon will begin." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="situation" name="situation" class="TunableReference" display="Situation" description="The welcome wagon situation." allow_none="False" group="General" />
+                <TdescFragTag name="welcome_wagon_start_tests" class="TunableTestSet" display="Welcome Wagon Start Tests" description="A test set that we will test against before starting the welcome wagon." group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

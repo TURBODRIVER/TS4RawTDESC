@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="zone_modifier.zone_modifier_tuning">
+        <Class name="ZoneModifierTuning">
+            <TunableList name="INITIAL_ZONE_MODIFIERS" class="TunableMapping" display="Initial Zone Modifiers" mapping_key="key" mapping_value="value" description="A mapping of HouseDescription to zone modifiers the lot with that HouseDescription should have." group="General" mapping_class="InitialZoneModifiersMapping">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="housedescription" name="key" class="TunableReference" display="Key" description="The lot with this HouseDescription will have the tuned ZoneModifiers." group="General" pack_safe="True" />
+                    <TunableList name="value" class="TunableList" display="Value" description="The list of ZoneModifiers to give to the lot with the corresponding HouseDescription." group="General">
+                        <Tunable type="zone_modifier" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="ZoneModifier" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="animation.focus.focus_tuning">
+        <Class name="FocusScore" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="NONE" enum_value="0" />
+        </Class>
+
+        <Class name="FocusTuning">
+            <TunableList name="FOCUS_SCORE_VALUES" class="TunableMapping" display="Focus Score Values" mapping_key="key" mapping_value="value" description="A mapping of focus score to their numerical representation." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="FocusScore" name="key" class="TunableEnumEntry" default="NONE" display="Key" dynamic_entries="animation-focus-focus_tuning.FocusScore._elements" static_entries="animation-focus-focus_tuning.FocusScore" group="General" />
+                    <Tunable type="float" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" description="The value associated with this focus score. Sims chose what to focus on based on the weighted randomization of all objects they could choose to focus on." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

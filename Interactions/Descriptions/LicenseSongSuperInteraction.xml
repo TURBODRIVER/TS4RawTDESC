@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="LicenseSongSuperInteraction" module="crafting.music_interactions" description="This interaction allows the player to have a Sim 'license' a song they wrote for the purpose of making money. There is a license interaction per instrument type and the Sim can license one song per instrument at a time. Once the time expires, controlled by a commodity, the Sim can license another song of that type." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="music_styles" class="TunableList" display="Music Styles" group="General">
+            <Tunable type="recipe" class="TunableReference" description="Which music styles are available for this interaction. This should be only the Written Music Style for the particular instrument." allow_none="False" group="General" restrict="MusicStyle" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

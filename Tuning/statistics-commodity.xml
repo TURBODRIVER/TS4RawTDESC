@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="statistics.commodity">
+        <Class name="CommodityTimePassageFixupType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DO_NOT_FIXUP" enum_value="0" />
+
+            <EnumItem name="FIXUP_USING_AUTOSATISFY_CURVE" enum_value="1" />
+
+            <EnumItem name="FIXUP_USING_TIME_ELAPSED" enum_value="2" />
+        </Class>
+
+        <Class name="MotiveFillColorLevel" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DISTRESS" enum_value="2" />
+
+            <EnumItem name="FAILURE" enum_value="1" />
+
+            <EnumItem name="FINE" enum_value="3" />
+
+            <EnumItem name="NO_FILL" enum_value="0" />
+        </Class>
+
+        <Class name="MotiveUIStyle" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="LONG" enum_value="1" />
+
+            <EnumItem name="ORB" enum_value="2" />
+        </Class>
+
+        <Class name="SkewerAlertType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="PET_DISTRESS" enum_value="1" />
+        </Class>
+
+        <Class name="CommodityBestValueTuningMethod" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="USE_MAX_VALUE_TUNING" enum_value="0" />
+
+            <EnumItem name="USE_MIN_VALUE_TUNING" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

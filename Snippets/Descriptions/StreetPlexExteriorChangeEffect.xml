@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="StreetPlexExteriorChangeEffect" module="civic_policies.street_civic_policy_effect" description="Change the plex exterior when enacted." instance_needs_reference="True" instance_subclasses_only="False" parents="StreetEffect" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="enact_exterior_house_descriptions" class="TunableMapping" display="Enact Exterior House Descriptions" mapping_key="key" mapping_value="value" description="When enacted, a reference to the HouseDescription resource to use to select the Lot Template. Leaving unset makes no change on enact. The Street's Zones are matched to find which House Descriptions should be applied. Only Zones that have matching Lot Descriptions and are on the current Street will be modified." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="lotdescription" name="key" class="TunableReference" display="Key" group="General" pack_safe="True" />
+                <Tunable type="housedescription" name="value" class="TunableReference" display="Value" group="General" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="repeal_exterior_house_descriptions" class="TunableMapping" display="Repeal Exterior House Descriptions" mapping_key="key" mapping_value="value" description="When repealed, a reference to the HouseDescription resource to use to select the Lot Template. Leaving unset makes no change on repeal. The Street's Zones are matched to find which House Descriptions should be applied. Only Zones that have matching Lot Descriptions and are on the current Street will be modified." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="lotdescription" name="key" class="TunableReference" display="Key" group="General" pack_safe="True" />
+                <Tunable type="housedescription" name="value" class="TunableReference" display="Value" group="General" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

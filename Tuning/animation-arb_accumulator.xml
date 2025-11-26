@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="animation.arb_accumulator">
+        <Class name="ArbAccumulatorService">
+            <Tunable type="float" name="MAXIMUM_SHAVE_ANIMATION_RATIO" class="Tunable" default="2" display="Maximum Shave Animation Ratio" description="The maximum ratio of an animation to shave off. For example, if this is tuned to 2, we will shave off at most 1/2 of the total must-run duration of an animation." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="MAXIMUM_SHAVE_FRAMES_PER_ANIMATION" class="Tunable" default="5" display="Maximum Shave Frames Per Animation" description="The maximum number of frames to shave off of the must-run duration of each animation until we reach a total amount of time debt equal to MAXIMUM_TIME_DEBT." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MAXIMUM_TIME_DEBT" class="TunableRealSecond" default="1" display="Maximum Time Debt" min="None" max="None" description="The maximum amount of time in seconds to allow the server to run ahead of the client when running a contiguous block of animation/routing to improve blending. Setting this to 0 will disable this feature but ruin blending." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

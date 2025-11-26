@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="WeeklyScheduleZoneDirector" module="venues.weekly_schedule_zone_director" description="Zone Director with a weekly scheduler." instance_needs_reference="True" instance_subclasses_only="False" parents="ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="allow_open_street_director" class="Tunable" default="False" display="Allow Open Street Director" description="When set this will allow a weekly schedule zone director to start an open street director. However if this is False then the open street zone director won't start up and that can lead to things like seasonal conditional layers not spawning and such." group="General" />
+
+        <TunableList name="scheduled_situations" class="TunableMapping" display="Scheduled Situations" mapping_key="key" mapping_value="value" description="Mapping of week to possible schedule of situations for that day of the week." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="Days" name="key" class="TunableEnumEntry" default="SUNDAY" display="Key" static_entries="tunable_time.Days" description="Day of the week." group="General" />
+                <TunableList name="value" class="TunableList" display="Value" group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="snippet" name="schedule" class="TunableReference" display="Schedule" description="A schedule for the day." allow_none="False" group="General" restrict="WeeklyScheduleDay" />
+                        <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="Weight for this daily schedule." group="General">
+                            <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                            <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

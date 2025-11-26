@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="seasons.seasons_tuning">
+        <Class name="SeasonsTuning">
+            <TunableList name="SEASON_LENGTH_OPTIONS" class="TunableMapping" display="Season Length Options" mapping_key="key" mapping_value="value" description="A mapping of individual season length options to the length of time they are set to." group="General" mapping_class="SeasonLengthOptions">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="SeasonLength" name="key" class="TunableEnumEntry" default="NORMAL" display="Key" static_entries="seasons-seasons_enums.SeasonLength" binary_type="uint32" group="General" />
+                    <TunableTuple name="value" class="TunableTimeSpan" display="Value" description="Length of this season option, in days." group="General">
+                        <Tunable type="int" name="days" class="TunableRange" default="7" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SEASON_TYPE_MAPPING" class="TunableMapping" display="Season Type Mapping" mapping_key="key" mapping_value="value" description="A mapping of the season type to the season resource it will use." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="SeasonType" name="key" class="TunableEnumEntry" default="SUMMER" display="Key" static_entries="seasons-seasons_enums.SeasonType" description="The season." group="General" />
+                    <Tunable type="season" name="value" class="TunableReference" display="Value" description="Season resource that will be mapped to this season." allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="STARTING_SEASON" class="TunableStartingSeason" display="Starting Season" description="Tuning related to how the first season is chosen by a player new to the Seasons gameplay." group="General">
+                <TunableTuple name="alternate_season" class="TunableTuple" display="Alternate Season" description="First season the player starts with upon introduction to Seasons, if the current time is past the threshold specified." group="General">
+                    <TunableEnum type="SeasonType" name="season" class="TunableEnumEntry" default="SUMMER" display="Season" static_entries="seasons-seasons_enums.SeasonType" group="General" />
+                    <TunableTuple name="threshold" class="TunableTimeOfWeek" display="Threshold" description="If, upon first introduction to Seasons gameplay, the player is past this time of the week, we will use the alternate season specified" group="General">
+                        <TunableEnum type="Days" name="day" class="TunableEnumEntry" default="WEDNESDAY" display="Day" static_entries="tunable_time.Days" description="Day of the week" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+                <TunableEnum type="SeasonType" name="default_season" class="TunableEnumEntry" default="FALL" display="Default Season" static_entries="seasons-seasons_enums.SeasonType" description="First season player starts the game as, unless the condition in alternate season threshold is met." group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

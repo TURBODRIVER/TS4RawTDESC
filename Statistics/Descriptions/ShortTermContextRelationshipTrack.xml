@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="statistic" class="ShortTermContextRelationshipTrack" module="relationships.relationship_track" description="Represents a single STC relationship track." instance_needs_reference="True" instance_subclasses_only="False" parents="RelationshipTrack" path="Statistics\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="decay_to_initial_modifier" class="Tunable" default="False" display="Decay To Initial Modifier" description="If True, this track will converge to the tested modifier calculated at the time the sims last left a social group." group="~Core~" />
+
+        <Tunable type="float" name="socialization_decay_modifier" class="TunableRange" default="1" display="Socialization Decay Modifier" min="0" max="None" description="A multiplier to apply to the decay rate if the two Sims that this relationship track applies to are socializing." tuning_state="NeedsTuning" group="Decay" />
+
+        <Deleted name="visible_test_set" />
+    </Instance>
+</TuningRoot>

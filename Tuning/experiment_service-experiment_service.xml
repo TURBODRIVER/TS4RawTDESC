@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="experiment_service.experiment_service">
+        <Class name="ExperimentService">
+            <TunableList name="EXPERIMENTS" class="TunableMapping" display="Experiments" mapping_key="key" mapping_value="value" description="Mapping of experiments and player segmentation." group="General" mapping_class="TunableExperimentMap">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="ExperimentName" name="key" class="TunableEnumEntry" default="DEFAULT" display="Key" dynamic_entries="experiment_service-experiment_enums.ExperimentName._elements" static_entries="experiment_service-experiment_enums.ExperimentName" description="Experiment event key." group="General" invalid_entries="DEFAULT" />
+                    <TunableVariant type="None" name="value" class="TunableVariant" default="none" display="Value" group="General">
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                        <TunableTuple name="pivotal_moment_experiment" class="TunablePivotalMomentsExperiment" display="Pivotal Moment Experiment" group="General">
+                            <TunableList name="control_group_pivotal_moments" class="TunableList" display="Control Group Pivotal Moments" description="The pivotal moments that will be available for players that are not assigned to any group" group="General">
+                                <Tunable type="snippet" class="TunableReference" description="A pivotal moment available to player." allow_none="False" group="General" pack_safe="True" restrict="PivotalMoment" />
+                            </TunableList>
+                            <TunableList name="pivotal_moment_mapping" class="TunableMapping" display="Pivotal Moment Mapping" mapping_key="key" mapping_value="value" description="Mapping of experiments and player segmentation. Key is the group id. Pivotal Moments that must be available to all players must be set in tutorial service instead." group="General" mapping_class="TunableSegmentationDataMap">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="int" name="key" class="Tunable" default="None" display="Key" tuning_state="NeedsTuning" group="General" />
+                                    <TunableList name="value" class="TunableList" display="Value" description="The pivotal moments that will be available for the given group." group="General">
+                                        <Tunable type="snippet" class="TunableReference" description="A pivotal moment available to player." allow_none="False" group="General" pack_safe="True" restrict="PivotalMoment" />
+                                    </TunableList>
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="sim_experiment" class="TunableSimExperiment" display="Sim Experiment" group="General">
+                            <TunableList name="loot_mapping" class="TunableMapping" display="Loot Mapping" mapping_key="key" mapping_value="value" description="Mapping of experiments and player segmentation." group="General" mapping_class="TunableSegmentationDataMap">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="int" name="key" class="Tunable" default="None" display="Key" tuning_state="NeedsTuning" group="General" />
+                                    <TunableList name="value" class="TunableList" display="Value" description="The loots that will be rewarded for the experiment." group="General">
+                                        <Tunable type="action" class="TunableReference" description="A loot that will be rewarded." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                                    </TunableList>
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ObjectInInventoryPickerInteraction" module="interactions.base.picker_interaction" description="The picker interaction to select a certain object from a subject's inventory." instance_needs_reference="True" instance_subclasses_only="False" parents="ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TdescFragTag name="additional_item_test" class="TunableTestSet" display="Additional Item Test" description="A set of tests to run on each object in the inventory that passes the inventory_item_test. Each object must pass first the inventory_item_test and then the additional_item_test before it will be shown in the picker dialog. Only tests with ParticipantType.Object will work" group="Picker Tuning" />
+
+        <TunableEnum type="TestHiddenInventories" name="hidden_inventory_test" class="TunableEnumEntry" default="ANY" display="Hidden Inventory Test" static_entries="objects-object_tests.InventoryTest.TestHiddenInventories" description="Optionally restrict picker objects to only hidden or non-hidden inventories. If set to 'Any', objects in both the hidden inventory and non hidden inventory will be considered when populating the picker. " group="Picker Tuning" />
+
+        <TunableVariant type="None" name="inventory_item_test" class="TunableVariant" default="object" display="Inventory Item Test" description="A test to run on the objects in the inventory to determine which objects will show up in the picker. An object test type left un-tuned is considered any object." group="Picker Tuning">
+            <TunableTuple name="object" class="TunableObjectTypeFactory" display="Object" group="General">
+                <Tunable type="object" name="actual_object" class="TunableReference" display="Actual Object" description="The object we want to test ownership of" allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+            <TunableTuple name="tag_set" class="TunableObjectTagFactory" display="Tag Set" group="General">
+                <TunableList name="tag_set" class="TunableSet" display="Tag Set" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for." group="General" pack_safe="True" />
+                </TunableList>
+                <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableEnum type="ParticipantType" name="inventory_subject" class="TunableEnumEntry" default="Actor" display="Inventory Subject" static_entries="interactions.ParticipantType" description="Subject on which the inventory exists." group="Picker Tuning" />
+
+        <TunableVariant type="None" name="suppress_duplicate_objects" class="OptionalTunable" default="disabled" display="Suppress Duplicate Objects" description="If checked, only a single copy of objects with the same definition/stack id will be shown." group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableEnum type="DuplicateObjectsSuppressionType" name="enabled" class="TunableEnumEntry" default="BY_DEFINITION_ID" display="Enabled" static_entries="interactions-picker-picker_enums.DuplicateObjectsSuppressionType" description="Objects can be suppressed by different ways." group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

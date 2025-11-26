@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="GroupAnchoredAutonomySituationCommon" module="situations.ambient.anchored_open_streets_autonomy_situation" description="A class holding common code between situations that are anchoring the groups autonomy to a specific position." instance_subclasses_only="True" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="sim_filter" name="group_filter" class="TunableReference" display="Group Filter" description="The group filter for this visit. " allow_none="False" group="Roles" restrict="TunableAggregateFilter" />
+
+        <TunableEnum type="Tag" name="object_anchor_tag" class="TunableEnumEntry" default="INVALID" display="Object Anchor Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag that defines the objects that are valid for the anchor point. The situation will search the object manager for any object with this tag and will choose one at random. This object's position will be the anchor point. It is assumed that the roles in this situation will have an autonomy modifier with off_lot_autonomy_rule set to ANCHORED." group="Roles" />
+    </Instance>
+</TuningRoot>

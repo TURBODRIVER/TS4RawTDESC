@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="tutorials.tutorial_tip">
+        <Class name="TutorialTipTuning">
+            <TunableTuple name="FTUE_TUNABLES" class="FtueDataTuple" display="Ftue Tunables" description="Tunables relating to the FTUE tutorial mode." group="General">
+                <TunableList name="disable_ui_elements" class="TunableList" display="Disable Ui Elements" description="Disable one or more UI elements during a phase of the tutorial, denoted by the starting and ending tips." group="General">
+                    <TunableTuple class="TutorialTipDisableUiElements" description="Defines a set of UI elements to be disabled during a range of tips." group="General">
+                        <TunableList name="elements" class="TunableEnumSet" display="Elements" description="List of UI elements to disable. Note that not all elements can be disabled." group="General" unique_entries="true">
+                            <TunableEnum type="TutorialTipUiElement" class="TunableEnumEntry" default="UI_INVALID" static_entries="tutorials-tutorial_tip_enums.TutorialTipUiElement" group="General" />
+                        </TunableList>
+                        <Tunable type="tutorial_tip" name="end_tip" class="TunableReference" display="End Tip" description="When this tip becomes active or is satisfied, the target elements will become re-enabled." allow_none="False" group="General" pack_safe="True" />
+                        <Tunable type="int" name="reason" class="TunableLocalizedString" default="0x0" display="Reason" description="The reason the element has been disabled, usually displayed as a tooltip." group="General" />
+                        <Tunable type="tutorial_tip" name="start_tip" class="TunableReference" display="Start Tip" description="When this tip becomes active or is satisfied, the target elements will become disabled." allow_none="False" group="General" pack_safe="True" />
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="aspiration_category" name="ftue_aspiration_category" class="TunableReference" display="Ftue Aspiration Category" description="A reference to an aspiration category which is used in cas for the ftue flow" allow_none="False" group="General" pack_safe="True" />
+                <Tunable type="housedescription" name="start_house_description" class="TunableReference" display="Start House Description" description="A reference to the HouseDescription resource to load into in FTUE" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

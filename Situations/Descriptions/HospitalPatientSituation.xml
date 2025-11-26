@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="HospitalPatientSituation" module="situations.complex.hospital_patient_situation" description="Situation used to control the progression a hospital patient goes through when a user Sim is working at the Doctor active career." instance_subclasses_only="False" parents="PatientSituationBase, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="float" name="admitted_duration_for_time_jump" class="TunableSimMinute" default="180" display="Admitted Duration For Time Jump" min="None" max="None" description="The amount of time allowed to pass before a Sim in the admitted state will be ignored on load with a time jump." tuning_state="NeedsTuning" group="Timeout And Time Jump" />
+
+        <Tunable type="role_state" name="admitted_role_state" class="TunableReference" display="03_admitted_role_state" description="A reference to the hospital patients admitted role state while in the situation. This is the state where the patient is assigned to a bed and the doctor is actively trying to diagnose the issue." allow_none="False" group="Job and State" restrict="RoleState" />
+
+        <Tunable type="float" name="diagnosed_duration_for_time_jump" class="TunableSimMinute" default="180" display="Diagnosed Duration For Time Jump" min="None" max="None" description="The amount of time allowed to pass before a Sim in the diagnosed state will be ignored on load with a time jump." tuning_state="NeedsTuning" group="Timeout And Time Jump" />
+
+        <Tunable type="role_state" name="diagnosed_role_state" class="TunableReference" display="04_diagnosed_role_state" description="A reference to the hospital patients diagnosed role state while in the situation. This is the state where the patient has been diagnosed but it still waiting for the doctor to treat them." allow_none="False" group="Job and State" restrict="RoleState" />
+
+        <TunableTuple name="go_to_diagnosed_interactions" class="TunableInteractionOfInterest" display="Go To Diagnosed Interactions" description="The interactions to look for when a Sim has been diagnosed by a doctor and is now waiting for treatment." group="State Advancement">
+            <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+            </TunableList>
+        </TunableTuple>
+
+        <Tunable type="bool" name="pre_diagnosed" class="Tunable" default="False" display="Pre Diagnosed" description="If this is true then when the Sim is pre-rolled it will skip to the _DiagnosedState(). If it is False then it will default to pre-rolling the Sim to _AdmittedState()." group="General" />
+    </Instance>
+</TuningRoot>

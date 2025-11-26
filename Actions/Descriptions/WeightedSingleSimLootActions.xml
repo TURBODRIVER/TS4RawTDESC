@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="action" class="WeightedSingleSimLootActions" module="interactions.utils.loot" instance_needs_reference="True" instance_subclasses_only="False" path="Actions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="loot_actions" class="TunableList" display="Loot Actions" description="A list of weighted Loot Actions that operate only on one Sim." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableTuple name="buff_loot" class="TunableDynamicBuffLootOp" display="Buff Loot" description="This loot will give a random buff based on the weight get tuned inside." group="General">
+                    <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                    </TunableVariant>
+                    <TunableList name="buffs" class="TunableMapping" display="Buffs" mapping_key="key" mapping_value="value" description=" " group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="buff" name="key" class="TunableReference" display="Key" description="Buff that will get this weight in the random." allow_none="False" group="General" />
+                            <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The weight value." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableTuple name="chance" class="TunableSuccessChance" display="Chance" description="Percent chance that the loot action will be considered. The chance is evaluated just before running the tests." group="General">
+                        <Tunable type="float" name="base_chance" class="TunablePercent" default="100" display="Base Chance" min="0" max="100" description="The basic chance of success." group="General" />
+                        <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_chance." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_chance if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="" group="General" invalid_entries="Invalid,All,PickedItemId" />
+                    <TdescFragTag name="subject_filter_tests" class="TunableTestSet" display="Subject Filter Tests" description="These tests will be run once per subject. If the subject participant of this loot action resolves to multiple objects, each of those objects will be tested individually. Any subject that fails this test will be ignored by this loot. This will have no effect on whether we consider the loot to have passed testing on on other subjects or targets. We can use this in cases where we want to give loot based on some criteria like 'All active household members that are dogs get this loot'. These tests will have no effect on 'run tests first' as they are only used for participant filtering and not to determine loot success. The resolver used for these tests is a SingleObjectResolver based on subject sim. This means that test should generally be testing against 'Actor' and should not assume the presence of additional participants that may be present in the containing loot. Ask a GPE if you have questions." group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The test to decide whether the loot action can be applied." group="General" />
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <Tunable type="int" name="weight" class="Tunable" default="1" display="Weight" description="Accompanying weight of the loot." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

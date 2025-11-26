@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.aging.aging_mixin">
+        <Class name="AgingMixin">
+            <Tunable type="int" name="TEEN_DELAY_DAYS_TILL_NEXT_AGING_ATTEMPT" class="Tunable" default="7" display="Teen Delay Days Till Next Aging Attempt" description="The amount of time, in days. that a teen Sim will delay checking to age up again if they fail the high school check. The high school check is used to keep Teen Sims from aging unless necessary to try and keep the number of Sims created for high school down." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="BaseCivicPolicy" module="civic_policies.base_civic_policy" description="Base class for Civic Policies. Civic Policies are selectable things which have some ongoing game impact. The game mechanic for policy involves voting, enacting, and repealing them." instance_needs_reference="True" instance_subclasses_only="False" parents="DisplaySnippet" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="daily_vote_random_range" class="TunableInterval" display="Daily Vote Random Range" description="Range within which to randomize a daily vote count addition for this policy at the start of each day during the voting period. Only used if the policy is balloted." group="General">
+            <Tunable type="int" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="initial_vote_random_range" class="TunableInterval" display="Initial Vote Random Range" description="Range within which to randomize an initial vote count for this policy at the start of the voting period. Only used if the policy is balloted." group="General">
+            <Tunable type="int" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <Tunable type="statistic" name="vote_count_statistic" class="TunableReference" display="Vote Count Statistic" description="The statistic keeping a vote count for this policy. If not enacted, votes in this statistic would be counting toward an enactment vote. If enacted, votes would be counting toward a repeal vote." allow_none="False" group="General" />
+    </Instance>
+</TuningRoot>

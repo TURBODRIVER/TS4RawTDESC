@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="FetchObjectSocialSuperInteraction" module="interactions.base.distance_placement_interaction" description="A Social Super Interaction that throws a carried object and sends other Sims in the social group to route to it at the same time." instance_needs_reference="True" instance_subclasses_only="False" parents="SocialSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="bounce_jig" class="TunableSocialJigExplicit" display="Bounce Jig" description="The jig to use for the object's bounce, where actor b is the object's final resting position, and actor a is where the initial bounce occurs, relative to the final position. The actor offsets will setup the distance of the bounce. If the offsets are both 0, then there will be no bounce. The offset for actor a will determine where the first bounce occurs." group="Constraints">
+            <TunableTuple name="actor_a" class="TunablePositionAndOrientation" display="Actor A" group="General">
+                <TunableTuple name="position" class="TunableVector2" display="Position" description="Position of this actor in the scene." group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <Tunable type="float" name="rotation" class="TunableAngle" default="0.0" display="Rotation" min="0.0" max="360.0" description="Angle of this actor in the scene." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <TunableTuple name="actor_a_reserved_space" class="TunableReservedSpace" display="Actor A Reserved Space" description="The clearance required for the actor Sim." group="General">
+                <Tunable type="float" name="back" class="Tunable" default="1.0" display="Back" description="Space to be reserved in back of the actor." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="front" class="Tunable" default="1.0" display="Front" description="Space to be reserved in front of the actor." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="left" class="Tunable" default="1.0" display="Left" description="Space to be reserved to the left of the actor." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="right" class="Tunable" default="1.0" display="Right" description="Space to be reserved to the right of the actor." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <TunableList name="actor_b" class="TunableList" display="Actor B" min="1" description="A list of valid positions the target Sim may be in. Only one is ultimately picked." group="General">
+                <TunableTuple class="TunablePositionAndOrientation" group="General">
+                    <TunableTuple name="position" class="TunableVector2" display="Position" description="Position of this actor in the scene." group="General">
+                        <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <Tunable type="float" name="rotation" class="TunableAngle" default="0.0" display="Rotation" min="0.0" max="360.0" description="Angle of this actor in the scene." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+            <TunableTuple name="actor_b_reserved_space" class="TunableReservedSpace" display="Actor B Reserved Space" description="The clearance required for the target Sim." group="General">
+                <Tunable type="float" name="back" class="Tunable" default="1.0" display="Back" description="Space to be reserved in back of the actor." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="front" class="Tunable" default="1.0" display="Front" description="Space to be reserved in front of the actor." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="left" class="Tunable" default="1.0" display="Left" description="Space to be reserved to the left of the actor." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="right" class="Tunable" default="1.0" display="Right" description="Space to be reserved to the right of the actor." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableTuple>
+
+        <Tunable type="int" name="facing_radius" class="TunableRange" default="1" display="Facing Radius" min="1" max="None" description="Facing constraint radius that will be used for the Sim looking at the target position where the object will be placed." tuning_state="NeedsTuning" group="Constraints" />
+
+        <Tunable type="float" name="facing_range" class="TunableAngle" default="22.5" display="Facing Range" min="0.0" max="360.0" description="The max angle offset (in radians), the Sim can face away from the object." tuning_state="NeedsTuning" group="General" />
+
+        <TunableTuple name="fetch_constraint" class="TunableCircle" display="Fetch Constraint" description="The circle constraint for other Sims in the social group to route near the placement location." group="Constraints">
+            <Tunable type="bool" name="enables_height_scoring" class="Tunable" default="False" display="Enables Height Scoring" description="If enabled, this constraint will score goals using the height of the surface. The higher the goal the cheaper it is." group="General" />
+            <Tunable type="float" name="ideal_radius" class="Tunable" default="None" display="Ideal Radius" description="Ideal distance for this circle constraint, points closer to the ideal distance will score higher." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="ideal_radius_width" class="Tunable" default="0" display="Ideal Radius Width" description="This creates a band around the ideal_radius that also costs 0 instead of rising in cost. ex: If you have a circle of radius 5, with an ideal_radius of 2.5, and a ideal_radius_width of 0.5, all goals in the radius 2 to radius 3 range will score optimially." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="bool" name="multi_surface" class="Tunable" default="False" display="Multi Surface" description="If enabled, this constraint will be considered for multiple surfaces. Example: You want a circle constraint that can be both inside and outside of a pool." group="General" />
+            <Tunable type="float" name="radial_cost_weight" class="TunableRange" default="2.25" display="Radial Cost Weight" min="0" max="None" description="The importance of the radial cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="radius" class="Tunable" default="3" display="Radius" description="Circle radius" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="bool" name="require_los" class="Tunable" default="True" display="Require Los" description="If checked, the Sim will require line of sight to the actor. Positions where a Sim can't see the actor (e.g. there's a wall in the way) won't be valid. NOTE: This will NOT work on a constraint that is not used to generate routing goals such as broadcasters and reactions, use a Line Of Sight Constraint instead. This will work on constraints used to keep Sims in an interaction." group="General" />
+        </TunableTuple>
+
+        <TunableVariant type="None" name="minimum_requirement_jig" class="OptionalTunable" default="disabled" display="Minimum Requirement Jig" description="If enabled, we will use a jig to guarantee that we find a place to throw the ball from. From there, we find the furthest throw." group="Constraints">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableSocialJigExplicit" display="Enabled" description="The jig to use so we can find a good place to start our throw from. Doesn't really matter which actor A and B are, as long as there is enough distance between them for a throw. After we place this jig, we FGL from that location to find the longest throw possible." group="General">
+                <TunableTuple name="actor_a" class="TunablePositionAndOrientation" display="Actor A" group="General">
+                    <TunableTuple name="position" class="TunableVector2" display="Position" description="Position of this actor in the scene." group="General">
+                        <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <Tunable type="float" name="rotation" class="TunableAngle" default="0.0" display="Rotation" min="0.0" max="360.0" description="Angle of this actor in the scene." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableTuple name="actor_a_reserved_space" class="TunableReservedSpace" display="Actor A Reserved Space" description="The clearance required for the actor Sim." group="General">
+                    <Tunable type="float" name="back" class="Tunable" default="1.0" display="Back" description="Space to be reserved in back of the actor." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="front" class="Tunable" default="1.0" display="Front" description="Space to be reserved in front of the actor." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="left" class="Tunable" default="1.0" display="Left" description="Space to be reserved to the left of the actor." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="right" class="Tunable" default="1.0" display="Right" description="Space to be reserved to the right of the actor." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableList name="actor_b" class="TunableList" display="Actor B" min="1" description="A list of valid positions the target Sim may be in. Only one is ultimately picked." group="General">
+                    <TunableTuple class="TunablePositionAndOrientation" group="General">
+                        <TunableTuple name="position" class="TunableVector2" display="Position" description="Position of this actor in the scene." group="General">
+                            <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <Tunable type="float" name="rotation" class="TunableAngle" default="0.0" display="Rotation" min="0.0" max="360.0" description="Angle of this actor in the scene." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableTuple name="actor_b_reserved_space" class="TunableReservedSpace" display="Actor B Reserved Space" description="The clearance required for the target Sim." group="General">
+                    <Tunable type="float" name="back" class="Tunable" default="1.0" display="Back" description="Space to be reserved in back of the actor." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="front" class="Tunable" default="1.0" display="Front" description="Space to be reserved in front of the actor." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="left" class="Tunable" default="1.0" display="Left" description="Space to be reserved to the left of the actor." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="right" class="Tunable" default="1.0" display="Right" description="Space to be reserved to the right of the actor." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableTuple name="placement_distance" class="TunableInterval" display="Placement Distance" description="Distance in meters where the object will be placed." group="Constraints">
+            <Tunable type="float" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="upper_bound" class="TunableRange" default="10" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="raytest_offset" class="TunableInterval" display="Raytest Offset" description="Offset in meters from the ground from where the raytest should start and stop. i.e. If you're testing if the Sim should see the target position from its eye level, you may want a value around the 1.7 (for an adult)." group="Constraints">
+            <Tunable type="float" name="lower_bound" class="TunableRange" default="1.5" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="upper_bound" class="TunableRange" default="1.5" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <Tunable type="float" name="raytest_radius" class="TunableAngle" default="5.729577951308232" display="Raytest Radius" min="5.729577951308232" max="360.0" description="Radius of the ray test check that will be used to validate if the Sim can see the target position where the object will be placed." tuning_state="NeedsTuning" group="Constraints" />
+
+        <Tunable type="int" name="throw_xevent_id" class="Tunable" default="0" display="Throw Xevent Id" description="An xevent id for when the carry target is thrown from an animation." tuning_state="NeedsTuning" group="Animation" />
+
+        <Tunable type="str" name="thrown_object_actor_name" class="Tunable" default="carryObject" display="Thrown Object Actor Name" description="Offset in meters from the ground from where the raytest should end." group="Animation" />
+    </Instance>
+</TuningRoot>

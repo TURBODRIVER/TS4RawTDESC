@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="relationships.compatibility_tuning">
+        <Class name="CompatibilityLevel" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AMAZING" enum_value="0" />
+
+            <EnumItem name="AWFUL" enum_value="4" />
+
+            <EnumItem name="BAD" enum_value="3" />
+
+            <EnumItem name="GOOD" enum_value="1" />
+
+            <EnumItem name="NEUTRAL" enum_value="2" />
+        </Class>
+
+        <Class name="CompatibilityTuning">
+            <TunableList name="COMPATIBILITY_LEVEL_ICONS_MAP" class="TunableMapping" display="Compatibility Level Icons Map" mapping_key="key" mapping_value="value" description="A mapping of Compatibility levels to the icons used in the UI." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="CompatibilityLevel" name="key" class="TunableEnumEntry" default="NEUTRAL" display="Key" static_entries="relationships-compatibility_tuning.CompatibilityLevel" description="The CompatibilityLevel enum." group="General" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="A tuple of the icons and text that represent this CompatibilityLevel in the UI." group="General">
+                        <Tunable type="int" name="descriptive_text" class="TunableLocalizedString" default="0x0" display="Descriptive Text" description="Descriptive text for this Compatibility level, used for various tooltips." allow_none="True" group="General" />
+                        <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="The larger of the two icons for this CompatibilityLevel. This is used for the Relationship tooltip and Sim Profile panel." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="int" name="level_name" class="TunableLocalizedString" default="0x0" display="Level Name" description="Name of this Compatibility level." allow_none="True" group="General" />
+                        <Tunable type="ResourceKey" name="small_icon" class="TunableResourceKey" default="None" display="Small Icon" description="The smaller of the two icons for this CompatibilityLevel. This is used for the Sim portraits in the Relationship panel and Sim Picker." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="COMPATIBILITY_LEVEL_LOOT_MAP" class="TunableMapping" display="Compatibility Level Loot Map" mapping_key="key" mapping_value="value" description="A mapping of Compatibility levels to loot that will be applied whenever there is a level change." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="CompatibilityLevel" name="key" class="TunableEnumEntry" default="NEUTRAL" display="Key" static_entries="relationships-compatibility_tuning.CompatibilityLevel" description="The CompatibilityLevel enum." group="General" />
+                    <Tunable type="action" name="value" class="TunableReference" display="Value" description="The loot to applied to the Sim upon CompatibilityLevel update." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="COMPATIBILITY_LEVEL_THRESHOLDS" class="TunableMapping" display="Compatibility Level Thresholds" mapping_key="key" mapping_value="value" description="A mapping of Compatibility levels to the Compatibility score interval." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="CompatibilityLevel" name="key" class="TunableEnumEntry" default="NEUTRAL" display="Key" static_entries="relationships-compatibility_tuning.CompatibilityLevel" description="The CompatibilityLevel enum." group="General" />
+                    <TunableTuple name="value" class="TunableInterval" display="Value" description="The score interval that this level corresponds to." group="General">
+                        <Tunable type="int" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="COMPATIBILITY_SCORE_DEFAULT" class="TunableRange" default="0" display="Compatibility Score Default" min="None" max="None" description="The default score that all Compatibility scores start at." tuning_state="NeedsTuning" group="General" />
+
+            <TunableTuple name="COMPATIBILITY_SCORE_RANGE" class="TunableInterval" display="Compatibility Score Range" description="The acceptable max/min bounds for a Compatibility score." group="General">
+                <Tunable type="int" name="lower_bound" class="TunableRange" default="-100" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="upper_bound" class="TunableRange" default="100" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="int" name="NPC_PREFERENCE_COUNT_MAX" class="TunableRange" default="1" display="Npc Preference Count Max" min="0" max="None" description="The max number of Preference traits an NPC may be assigned." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="NPC_PREFERENCE_LOOT" class="TunableList" display="Npc Preference Loot" description="Loots to apply to NPCs when setting up their Preferences. This allows Preference traits to be assigned randomly, but (ideally) weighted against the Sim's existing traits." group="General">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

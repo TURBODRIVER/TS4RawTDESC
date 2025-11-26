@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="FishingBait" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableFishingBait" display="Value" description="Manage all of the data for a fishing bait." group="General">
+            <Tunable type="buff" name="bait_buff" class="TunableReference" display="Bait Buff" description="Buff of fishing bait." allow_none="False" group="General" />
+            <Tunable type="int" name="bait_description" class="TunableLocalizedString" default="0x0" display="Bait Description" description="Description of fishing bait." group="General" />
+            <Tunable type="object" name="bait_icon_definition" class="TunableReference" display="Bait Icon Definition" description="Object definition that will be used to render icon of fishing bait." allow_none="False" group="General" />
+            <Tunable type="int" name="bait_name" class="TunableLocalizedString" default="0x0" display="Bait Name" description="Name of fishing bait." group="General" />
+            <Tunable type="int" name="bait_priority" class="TunableRange" default="1" display="Bait Priority" min="1" max="None" description="The priority of the bait. When an object can be categorized into multiple fishing bait categories, the highest priority category will be chosen." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

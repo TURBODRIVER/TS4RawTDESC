@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.utils.loot_ops">
+        <Class name="DestroyObjectsFromInventorySource" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALL_STORAGE" enum_value="0" />
+
+            <EnumItem name="HIDDEN_STORAGE" enum_value="2" />
+
+            <EnumItem name="VISIBLE_STORAGE" enum_value="1" />
+        </Class>
+
+        <Class name="DestroyObjectsSource" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="IN_WORLD" enum_value="1" />
+
+            <EnumItem name="INVENTORY" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

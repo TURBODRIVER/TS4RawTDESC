@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.interaction_cancel_compatibility">
+        <Class name="InteractionCancelReason" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DEATH" enum_value="0" />
+
+            <EnumItem name="FIRE" enum_value="1" />
+
+            <EnumItem name="WEDDING" enum_value="2" />
+        </Class>
+
+        <Class name="InteractionCancelCompatibility">
+            <TunableList name="INTERACTION_CANCEL_COMPATIBILITY" class="TunableMapping" display="Interaction Cancel Compatibility" mapping_key="key" mapping_value="value" description="A mapping between cancel reasons and affordance filters. When a reason is requested it runs the interaction though the affordance filter that is requested along with all affordance filters in the hierarchy above it. For example, the wedding will ensure the the interaction matches the wedding, fire, and death reasons. The hierarchy of reasons is defined within python. GPE support will be needed to change or add new values to the hierarchy of reasons." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="InteractionCancelReason" name="key" class="TunableEnumEntry" default="DEATH" display="Key" static_entries="interactions-interaction_cancel_compatibility.InteractionCancelReason" description="An interaction canceling reason." group="General" />
+                    <TunableVariant type="None" name="value" class="TunableAffordanceFilterSnippet" default="literal" display="Value" description="An affordance filter that defines which interactions are able to be canceled. If the interaction is not compatible with the affordance filter then it will be canceled. (This may be tuned in place here using 'literal' or as a reference to a AffordanceFilter tuning snippet.)" group="General">
+                        <TdescFragTag name="literal" class="_TunableAffordanceFilter" display="Literal" description="An affordance filter." group="General" />
+                        <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a AffordanceFilter tuning snippet." allow_none="False" group="General" restrict="AffordanceFilter" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

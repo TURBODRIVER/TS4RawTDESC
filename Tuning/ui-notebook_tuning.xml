@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="ui.notebook_tuning">
+        <Class name="NotebookEntryType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EXPANDABLE_DATA" enum_value="0" />
+
+            <EnumItem name="EXPANDABLE_SINGLE" enum_value="3" />
+
+            <EnumItem name="ICON_DESCRIPTION_DATA" enum_value="2" />
+
+            <EnumItem name="NUMBERED_DATA" enum_value="1" />
+        </Class>
+
+        <Class name="NotebookTuning">
+            <TunableList name="NOTEBOOK_CATEGORY_MAPPING" class="TunableMapping" display="Notebook Category Mapping" mapping_key="key" mapping_value="value" description="A mapping from a notebook category ID to its shared category tuning data." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="NotebookCategories" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="ui-notebook_tuning.NotebookCategories._elements" static_entries="ui-notebook_tuning.NotebookCategories" description="Category type." group="General" pack_safe="True" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="Global data associated to a notebook category." group="General">
+                        <TunableVariant type="None" name="category_description" class="OptionalTunable" default="disabled" display="Category Description" description="Description corresponding to the notebook category." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+                        </TunableVariant>
+                        <Tunable type="ResourceKey" name="category_icon" class="TunableIconAllPacks" default="None" display="Category Icon" description="Icon to display on the notebook UI corresponding to a category." allow_none="True" group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                        <Tunable type="ResourceKey" name="category_large_icon" class="TunableIconAllPacks" default="None" display="Category Large Icon" description="Large version of the icon to display on the notebook UI corresponding to a category." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                        <Tunable type="int" name="category_name" class="TunableLocalizedString" default="0x0" display="Category Name" description="Name corresponding a the notebook category." group="General" />
+                        <TunableList name="subcategories" class="TunableMapping" display="Subcategories" mapping_key="key" mapping_value="value" description="A mapping from a notebook category ID to its global tuning data." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <TunableEnum type="NotebookSubCategories" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="ui-notebook_tuning.NotebookSubCategories._elements" static_entries="ui-notebook_tuning.NotebookSubCategories" description="Subcategory type." group="General" pack_safe="True" />
+                                <TunableTuple name="value" class="TunableTuple" display="Value" description="Mapping of subcategory ID to the shared subcategory data." group="General">
+                                    <TunableTuple name="entry_list_texts" class="TunableTuple" display="Entry List Texts" description="Text that will be shown in entry list." group="General">
+                                        <TunableVariant type="None" name="has_list_text" class="OptionalTunable" default="disabled" display="Has List Text" description="Text that will be shown when entry has list." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+                                        </TunableVariant>
+                                        <TunableVariant type="None" name="no_list_text" class="OptionalTunable" default="disabled" display="No List Text" description="Text that will be shown when entry has no list." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                    <TunableEnum type="NotebookEntryType" name="format_type" class="TunableEnumEntry" default="EXPANDABLE_DATA" display="Format Type" static_entries="ui-notebook_tuning.NotebookEntryType" description="Type of entry this notification will look like no the UI. - Expandable data corresponds to rows of data that expands into subitems. For example: Scientist serums will have an expandable option to display the ingredients for the serums. - Numbered data corresponds to a list of items to be numbered as they become available. For example: Detective notes get displayed a a numbered list. - Icon description data corresponds at an entry of an icon with some text describing it. For example detective evidence." group="General" />
+                                    <TunableVariant type="None" name="is_sortable" class="OptionalTunable" default="disabled" display="Is Sortable" description="If enabled, entries of subcategory will be presented sorted alphabetically." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                                            <Tunable type="bool" name="include_new_entry" class="Tunable" default="False" display="Include New Entry" description="If checked, the entries that has new entry tag will be sorted." group="General" />
+                                        </TunableTuple>
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="show_max_entries" class="OptionalTunable" default="disabled" display="Show Max Entries" description="If this is tuned, UI will use this value to display the amount of missing entries for a subcategory. For example if we tune this value to 3 and we unlock a notebook entry UI will display the data for the one entry that was unlocked but will display an empty UI field showing the player its missing two more." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <Tunable type="int" name="enabled" class="Tunable" default="1" display="Enabled" description="If this is tuned, UI will use this value to display the amount of missing entries for a subcategory. For example if we tune this value to 3 and we unlock a notebook entry UI will display the data for the one entry that was unlocked but will display an empty UI field showing the player its missing two more." tuning_state="NeedsTuning" group="General" />
+                                    </TunableVariant>
+                                    <Tunable type="ResourceKey" name="subcategory_icon" class="TunableIconAllPacks" default="None" display="Subcategory Icon" description="Icon to display on the notebook UI corresponding to a subcategory." allow_none="True" group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                                    <Tunable type="int" name="subcategory_name" class="TunableLocalizedString" default="0x0" display="Subcategory Name" description="Name corresponding to a notebook subcategory." group="General" />
+                                    <Tunable type="int" name="subcategory_tooltip" class="TunableLocalizedString" default="0x0" display="Subcategory Tooltip" description="Tooltip to be displayed when a player mouses over a subcategory icon." allow_none="True" group="General" />
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+
+        <Class name="NotebookCustomTypeTuning">
+            <Tunable type="notebook_entry" name="BAIT_NOTEBOOK_ENTRY" class="TunableReference" display="Bait Notebook Entry" description="Reference to the notebook entry tuning which will correspond to the fishing bait notebook entry where we will get all the shared tunables." allow_none="False" group="General" restrict="NotebookEntryBait" />
+        </Class>
+
+        <Class name="NotebookCategories" enum_bit_flag="False" enum_locked="False" enum_partitioned="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="1" />
+        </Class>
+
+        <Class name="NotebookSubCategories" enum_bit_flag="False" enum_locked="False" enum_partitioned="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

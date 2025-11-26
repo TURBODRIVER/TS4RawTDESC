@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.buff_component">
+        <Class name="BuffComponent">
+            <Tunable type="mood" name="DEFAULT_MOOD" class="TunableReference" display="Default Mood" description="The default initial mood." allow_none="False" group="General" />
+
+            <TunableList name="EXCLUSIVE_SET" class="TunableList" display="Exclusive Set" description="A list of buff groups to determine which buffs are exclusive from each other within the same group. A buff cannot exist in more than one exclusive group. The following rule of exclusivity for a group: 1. Higher weight will always be added and remove any lower weight buffs 2. Lower weight buff will not be added if a higher weight already exist in component 3. Same weight buff will always be added and remove any buff with same weight. Example: Group 1: Buff1 with weight of 5 Buff2 with weight of 1 Buff3 with weight of 1 Group 2: Buff4 with weight of 6 If sim has Buff1, trying to add Buff2 or Buff3 will not be added. If sim has Buff2, trying to add Buff3 will remove Buff2 and add Buff3 If sim has Buff2, trying to add Buff1 will remove Buff 2 and add Buff3 If sim has Buff4, trying to add Buff1, Buff2, or Buff3 will be added and Buff4 will stay on component " group="General">
+                <TunableList class="TunableList" group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff in exclusive group" allow_none="False" group="General" pack_safe="True" />
+                        <Tunable type="int" name="weight" class="Tunable" default="1" display="Weight" description="weight to determine if this buff should be added and remove other buffs in the exclusive group or not added at all. Example: Buff1 with weight of 5 Buff2 with weight of 1 Buff3 with weight of 1 If sim has Buff1, trying to add Buff2 or Buff3 will not be added. If sim has Buff2, trying to add Buff3 will remove Buff2 and add Buff3 if sim has Buff2, trying to add Buff1 will remove Buff 2 and add Buff3" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableList>
+
+            <Tunable type="int" name="UPDATE_INTENSITY_BUFFER" class="TunableRange" default="1" display="Update Intensity Buffer" min="0" max="None" description="A buffer that prevents a mood from becoming active unless its intensity is greater than the current active mood's intensity plus this amount. For example, if this tunable is 1, and the Sim is in a Flirty mood with intensity 2, then a different mood would become the active mood only if its intensity is 3+. If the predominant mood has an intensity that is less than the active mood's intensity, that mood will become the active mood." tuning_state="NeedsTuning" group="General" />
+        </Class>
+
+        <Class name="BuffPickerSuperInteraction">
+            <Class name="BuffHandlingType" enum_bit_flag="True" enum_locked="False">
+                <EnumItem name="DISABLE" enum_value="4" />
+
+                <EnumItem name="HIDE" enum_value="1" />
+
+                <EnumItem name="SELECT" enum_value="2" />
+            </Class>
+        </Class>
+    </Module>
+</TuningRoot>

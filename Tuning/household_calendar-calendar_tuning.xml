@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="household_calendar.calendar_tuning">
+        <Class name="CalendarTuning">
+            <TunableList name="CALENDAR_FILTER_DATA" class="TunableList" display="Calendar Filter Data" description="A List of Categories and Filters for use in filtering the Calendar data in the SchedulePane." group="UI">
+                <TunableTuple class="CalendarCategoryTuple" description="A tuple of Category and the filters for the category." group="General">
+                    <Tunable type="int" name="category_name" class="TunableLocalizedString" default="0x0" display="Category Name" description="The string to be used for the name of the category these filters belong to." group="General" />
+                    <TunableList name="filters" class="TunableList" display="Filters" description="Filter data used in the calendar" group="General">
+                        <TunableTuple class="CalendarFilterTuple" description="Defines a single filter in the Calendar's filter component." group="General">
+                            <TunableList name="entry_types" class="TunableEnumSet" display="Entry Types" description="The entries which will be captured by this filter." group="General" unique_entries="true">
+                                <TunableEnum type="DramaNodeUiDisplayType" class="TunableEnumEntry" default="NO_UI" static_entries="drama_scheduler-drama_enums.DramaNodeUiDisplayType" group="General" invalid_entries="NO_UI" />
+                            </TunableList>
+                            <Tunable type="int" name="filter_name" class="TunableLocalizedString" default="0x0" display="Filter Name" description="The name for this filter displayed in the calendar's filter component." group="General" />
+                            <Tunable type="bool" name="is_birthday_filter" class="Tunable" default="False" display="Is Birthday Filter" description="If enabled, birthday entries will be captured by this filter." group="General" />
+                            <Tunable type="bool" name="is_favorite_filter" class="Tunable" default="False" display="Is Favorite Filter" description="If enabled, only favorited entries which also match the other criteria, will be captured by this filter." group="General" />
+                            <Tunable type="bool" name="is_work_filter" class="Tunable" default="False" display="Is Work Filter" description="If enabled, work entries will be captured by this filter." group="General" />
+                            <TunableVariant type="None" name="region_resource" class="OptionalTunable" default="disabled" display="Region Resource" description="If enabled, only entries from zones within this region will be captured by this fiter." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="regiondescription" name="enabled" class="TunableReference" display="Enabled" group="General" pack_safe="True" />
+                            </TunableVariant>
+                            <TunableList name="required_packs" class="TunableEnumSet" display="Required Packs" description="If any packs are tuned here, at least one of them must be present for this filter to appear in the UI." group="General" unique_entries="true">
+                                <TunableEnum type="Pack" class="TunableEnumEntry" default="BASE_GAME" static_entries="sims4-common.Pack" group="General" />
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

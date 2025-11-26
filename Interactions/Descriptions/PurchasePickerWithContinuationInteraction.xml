@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="PurchasePickerWithContinuationInteraction" module="interactions.base.picker_interaction" description="Interaction that allows a player to purchase objects and place them directly into an object inventory, then run a follow up continuation with the purchased objects." instance_needs_reference="True" instance_subclasses_only="False" parents="PurchasePickerInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="continuation" class="TunableContinuation" display="Continuation" description="A continuation to push that provides access to the newly purchased items as a participant to the interaction. PurchasedObject will be the items that were purcahsed. If no object is purchased or objects are not delivered to an inventory, the continuation will not be run. " group="Picker Tuning">
+            <TunableTuple class="TunableTuple" description="A continuation entry." group="General">
+                <TunableEnum type="ParticipantType" name="actor" class="TunableEnumEntry" default="Actor" display="Actor" static_entries="interactions.ParticipantType" description="The Sim on which the affordance is pushed." group="General" />
+                <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The affordance to push as a continuation on the specified actor Sim." allow_none="False" group="General" pack_safe="True" />
+                <TunableVariant type="None" name="carry_target" class="OptionalTunable" default="disabled" display="Carry Target" description="If enabled, specify a carry target for this continuation." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Object" display="Enabled" static_entries="interactions.ParticipantType" description="The participant the affordance will set as a carry target." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="inventory_carry_target" class="TunableVariant" default="None" display="Inventory Carry Target" description="Item in inventory (of continuations actor) to use as carry target for continuation if carry target is None" group="General">
+                    <Tunable name="None" class="TunableExistance" display="None" />
+                    <TunableTuple name="object_with_base_definition" class="TunableTuple" display="Object With Base Definition" group="General">
+                        <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The base definition to look for inside inventory. Objects that redirect (like counters) will match if base definition is the same." allow_none="False" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="object_with_definition" class="TunableTuple" display="Object With Definition" group="General">
+                        <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The exact object definition to look for inside inventory." allow_none="False" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="object_with_tag" class="CraftTaggedItemFactory" display="Object With Tag" description="This option tests crafted item's tags against a list of possible tags" group="General">
+                        <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tag of objects we want to test ownership of" group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+                <Tunable type="bool" name="preserve_preferred_object" class="Tunable" default="True" display="Preserve Preferred Object" description="If checked, the pushed interaction's preferred objects are determined by the current preferred objects. If unchecked, the transition sequence would not award bonuses to any specific part." group="General" />
+                <Tunable type="bool" name="preserve_target_part" class="Tunable" default="False" display="Preserve Target Part" description="If checked, the pushed interaction will use the same target part if applicable. Defaults to false because typically we will want to let the transition select which part to use." group="General" />
+                <Tunable type="interaction" name="si_affordance_override" class="TunableReference" display="Si Affordance Override" description="When the tuned affordance is a mixer for a different SI, use this to specify the mixer's appropriate SI. This is useful for pushing socials." allow_none="True" group="General" />
+                <TunableEnum type="ParticipantType" name="target" class="TunableEnumEntry" default="Object" display="Target" static_entries="interactions.ParticipantType" description="The participant the affordance will target." group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

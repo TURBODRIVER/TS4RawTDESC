@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation_goal" class="SituationGoalRelationshipChangeTargetedSim" module="situations.situation_goal_targeted_sim" description="Situation Goal for running an interaction on targeted sim." instance_needs_reference="True" instance_subclasses_only="False" parents="SituationGoalTargetedSim, SituationGoal" path="SituationGoals\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="_goal_test" class="TunableRelationshipTest" display="Goal Test" description="The relationship state that this goal will complete when obtained." group="General">
+            <Tunable type="bool" name="invert_num_relations" class="Tunable" default="False" display="Invert Num Relations" description="If checked then we will check that your Num Relations is less than or equal to the value rather than the other way around." group="General" />
+            <Tunable type="bool" name="must_have_track" class="Tunable" default="False" display="Must Have Track" description="Setting this to True (checked) will ensure that this test only passes if the tested Sims actually have the tuned relationship track. If left False (unchecked), this test will evaluate as if the Sims have the relationship track at the value of 0." group="General" />
+            <TunableTuple name="prohibited_relationship_bits" class="TunableTuple" display="Prohibited Relationship Bits" group="General">
+                <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must match to fail the test." group="General" unique_entries="true">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" />
+                </TunableList>
+                <TunableList name="match_any" class="TunableSet" display="Match Any" description="If any of these relationship bits match the test will fail." group="General" unique_entries="true">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+            <TunableTuple name="relationship_score_interval" class="TunableInterval" display="Relationship Score Interval" description="The range that the relationship score must be within in order for this test to pass." group="General">
+                <Tunable type="float" name="lower_bound" class="TunableRange" default="-100.0" display="Lower Bound" min="-100.0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="upper_bound" class="TunableRange" default="100.0" display="Upper Bound" min="None" max="100.0" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <TunableTuple name="required_relationship_bits" class="TunableTuple" display="Required Relationship Bits" group="General">
+                <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must be present to pass the test." group="General" unique_entries="true">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="match_any" class="TunableSet" display="Match Any" description="Any of these relationship bits will pass the test." group="General" unique_entries="true">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+            <TunableEnum type="RelationshipTestEvents" name="test_event" class="TunableEnumEntry" default="AllRelationshipEvents" display="Test Event" static_entries="relationships-relationship_tests.RelationshipTestEvents" description="The event that we want to trigger this instance of the tuned test on." group="General" />
+            <TunableVariant type="None" name="test_incest" class="TunableVariant" default="disabled" display="Test Incest" description="Test for incest status. Test passes if this matches the two Sim's incest status." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable name="is incestuous" class="TunableExistance" display="Is Incestuous" />
+                <Tunable name="is not incestuous" class="TunableExistance" display="Is Not Incestuous" />
+            </TunableVariant>
+            <Tunable type="statistic" name="track" class="TunableReference" display="Track" description="If set, the test will use the relationship score between sims for this track. If unset, the track defaults to the global module tunable REL_INSPECTOR_TRACK." allow_none="True" group="General" pack_safe="True" restrict="RelationshipTrack" />
+        </TunableTuple>
+
+        <TunableTuple name="_relationship_pretest" class="TunableRelationshipTest" display="Relationship Pretest" description="The pretest of the relationship. Only sim's who match this relationship test when the test begins are valid to have their relationship change complete the test." group="General">
+            <Tunable type="bool" name="invert_num_relations" class="Tunable" default="False" display="Invert Num Relations" description="If checked then we will check that your Num Relations is less than or equal to the value rather than the other way around." group="General" />
+            <Tunable type="bool" name="must_have_track" class="Tunable" default="False" display="Must Have Track" description="Setting this to True (checked) will ensure that this test only passes if the tested Sims actually have the tuned relationship track. If left False (unchecked), this test will evaluate as if the Sims have the relationship track at the value of 0." group="General" />
+            <TunableTuple name="prohibited_relationship_bits" class="TunableTuple" display="Prohibited Relationship Bits" group="General">
+                <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must match to fail the test." group="General" unique_entries="true">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" />
+                </TunableList>
+                <TunableList name="match_any" class="TunableSet" display="Match Any" description="If any of these relationship bits match the test will fail." group="General" unique_entries="true">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+            <TunableTuple name="relationship_score_interval" class="TunableInterval" display="Relationship Score Interval" description="The range that the relationship score must be within in order for this test to pass." group="General">
+                <Tunable type="float" name="lower_bound" class="TunableRange" default="-100.0" display="Lower Bound" min="-100.0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="upper_bound" class="TunableRange" default="100.0" display="Upper Bound" min="None" max="100.0" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <TunableTuple name="required_relationship_bits" class="TunableTuple" display="Required Relationship Bits" group="General">
+                <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must be present to pass the test." group="General" unique_entries="true">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="match_any" class="TunableSet" display="Match Any" description="Any of these relationship bits will pass the test." group="General" unique_entries="true">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+            <TunableEnum type="RelationshipTestEvents" name="test_event" class="TunableEnumEntry" default="AllRelationshipEvents" display="Test Event" static_entries="relationships-relationship_tests.RelationshipTestEvents" description="The event that we want to trigger this instance of the tuned test on." group="General" />
+            <TunableVariant type="None" name="test_incest" class="TunableVariant" default="disabled" display="Test Incest" description="Test for incest status. Test passes if this matches the two Sim's incest status." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable name="is incestuous" class="TunableExistance" display="Is Incestuous" />
+                <Tunable name="is not incestuous" class="TunableExistance" display="Is Not Incestuous" />
+            </TunableVariant>
+            <Tunable type="statistic" name="track" class="TunableReference" display="Track" description="If set, the test will use the relationship score between sims for this track. If unset, the track defaults to the global module tunable REL_INSPECTOR_TRACK." allow_none="True" group="General" pack_safe="True" restrict="RelationshipTrack" />
+        </TunableTuple>
+
+        <Tunable type="bool" name="consider_post_sim_load_only" class="Tunable" default="False" display="Consider Post Sim Load Only" description="If True, consider test events sent after sim load only. If False, do not consider them." group="General" />
+    </Instance>
+</TuningRoot>

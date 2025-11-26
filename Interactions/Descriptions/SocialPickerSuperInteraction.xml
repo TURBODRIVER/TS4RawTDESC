@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="SocialPickerSuperInteraction" module="interactions.social.social_picker_super_interaction" description="This is a fake SI used by autonomy to choose a social. Social SIs are tuned by compatibility, which makes it impossible to score for autonomy. Instead, this interaction is the single one scored when deciding whether or not to socialize with a sim. The interaction will determine which social SIs are compatible, generate an appropriate content set, and then defer to subaction autonomy to choose a mixer. This mixer will push the appropriate SI." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Deleted name="allow_autonomous" />
+
+        <Deleted name="allow_user_directed" />
+    </Instance>
+</TuningRoot>

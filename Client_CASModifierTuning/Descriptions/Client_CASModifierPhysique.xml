@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="casmodifiertuning" class="Client_CASModifierPhysique" module="casmodifiertuning.Client_CASModifierPhysique" description="Assigns modifiers per physique type for age/gender/species" path="Client_CASModifierTuning\Descriptions">
+        <TunableList name="Ages" class="TunableSet" display="Ages" description="Valid ages for these modifiers" group="General" unique_entries="true">
+            <TunableEnum type="Age" class="TunableEnumEntry" default="None" static_entries="sims-sim_info_types.Age" group="General" />
+        </TunableList>
+
+        <Tunable type="str" name="BonyModifierName" class="Tunable" default="" description="Modifier name associated with heavy physique. This must be prefixed with the name of the .modifiers.xml where this modifier is defined. For example: 'yfHeadModifier_Brows_Arched' or 'ymHeadBelly_Big'." allow_none="True" binary_type="HashCode64" />
+
+        <Tunable type="str" name="FitModifierName" class="Tunable" default="" description="Modifier name associated with fit physique. This must be prefixed with the name of the .modifiers.xml where this modifier is defined. For example: 'yfHeadModifier_Brows_Arched' or 'ymHeadBelly_Big'." binary_type="HashCode64" />
+
+        <TunableList name="Genders" class="TunableSet" display="Genders" description="Valid genders for these modifiers" group="General" unique_entries="true">
+            <TunableEnum type="Gender" class="TunableEnumEntry" default="None" static_entries="sims-sim_info_types.Gender" group="General" />
+        </TunableList>
+
+        <Tunable type="str" name="HeavyModifierName" class="Tunable" default="" description="Modifier name associated with heavy physique. This must be prefixed with the name of the .modifiers.xml where this modifier is defined. For example: 'yfHeadModifier_Brows_Arched' or 'ymHeadBelly_Big'." binary_type="HashCode64" />
+
+        <Tunable type="str" name="LeanModifierName" class="Tunable" default="" description="Modifier name associated with lean physique. This must be prefixed with the name of the .modifiers.xml where this modifier is defined. For example: 'yfHeadModifier_Brows_Arched' or 'ymHeadBelly_Big'." allow_none="True" binary_type="HashCode64" />
+
+        <TunableEnum type="OccultType" name="OccultType" class="TunableEnumEntry" default="HUMAN" display="Occult Type" static_entries="sims-occult-occult_enums.OccultType" description="Valid occult type for these modifiers" group="Occult" />
+
+        <TunableEnum type="SpeciesExtended" name="Species" class="TunableEnumEntry" default="HUMAN" display="Species" static_entries="sims-sim_info_types.SpeciesExtended" description="Valid species for these modifiers" group="General" />
+    </Instance>
+</TuningRoot>

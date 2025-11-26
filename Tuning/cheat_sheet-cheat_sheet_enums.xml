@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="cheat_sheet.cheat_sheet_enums">
+        <Class name="CheatSheetMode" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="IN_BB_MODE" enum_value="1" />
+
+            <EnumItem name="IN_LIVE_MODE" enum_value="0" />
+
+            <EnumItem name="INVALID" enum_value="4294967295" />
+
+            <EnumItem name="TS3_CAMERA_ACTIVE" enum_value="2" />
+
+            <EnumItem name="TS4_CAMERA_ACTIVE" enum_value="3" />
+        </Class>
+
+        <Class name="CheatSheetElementType" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="INVALID" enum_value="4294967295" />
+
+            <EnumItem name="KEYFRAME" enum_value="0" />
+
+            <EnumItem name="LOCALIZED_STRING" enum_value="1" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

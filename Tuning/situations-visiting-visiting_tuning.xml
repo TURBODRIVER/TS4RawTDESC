@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.visiting.visiting_tuning">
+        <Class name="VisitingTuning">
+            <TunableList name="ALWAYS_WELCOME_TRAITS" class="TunableList" display="Always Welcome Traits" description="Traits that will guarantee that after the Sim is welcomed into a household, it will always be automatically welcomed if he/she comes back. i.e. Vampires are always welcomed after being welcomed once." group="General">
+                <Tunable type="trait" class="TunableReference" description="Trait reference to make the Sim always be welcomed after they are welcomed once." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

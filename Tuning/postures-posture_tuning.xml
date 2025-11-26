@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="postures.posture_tuning">
+        <Class name="PostureTuning">
+            <Tunable type="float" name="CONSTRAINT_HEIGHT_TOLERANCE" class="TunableRange" default="0.1" display="Constraint Height Tolerance" min="0" max="None" description="Maximum height tolerance the posture graph will allow for single point constraints from the position of the target object vs the position of the constraint goal. If the height is ever higher than this, a route fail will be generated. This value if modified should be verified with the Animation team since high values will generate pops on the animation. Height values will be in meters." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="MULTI_SIM_ENTRY_AND_EXIT_POSTURES" class="TunableList" display="Multi Sim Entry And Exit Postures" description="A list of multi-Sim postures that will always be entered from a multi-Sim posture and will always exit to the same multi-Sim posture, i.e. the multi-Sim romantic blanket woohoo, which is entered from the multi-Sim sit intimate posture and exits to the same multi-Sim sit intimate posture." group="General">
+                <Tunable type="posture" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <Tunable type="posture" name="SIM_CARRIED_POSTURE" class="TunableReference" display="Sim Carried Posture" description="The default posture representing a Sim being carried by another Sim." allow_none="False" group="General" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

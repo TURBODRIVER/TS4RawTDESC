@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.animal_preference_component">
+        <Class name="AnimalPreferenceComponent">
+            <Tunable type="int" name="FAVORITE_LOC_TEXT" class="TunableLocalizedString" default="0x0" display="Favorite Loc Text" description="The localized text that should appear in the tooltip to indicate the animal's favorite (ie. 'Favorite: __')" group="General" />
+
+            <TunableList name="TAGS_TO_TEXT" class="TunableMapping" display="Tags To Text" mapping_key="Tag" mapping_value="Localized Text" description="Mapping of tags to localized strings" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="Localized Text" class="TunableLocalizedString" default="0x0" display="Localized Text" description="The text that should show up when surfacing the tag to the player" group="General" />
+                    <TunableEnum type="Tag" name="Tag" class="TunableTag" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag to associate" dynamic_entries_prefix="Func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="UNKNOWN_LOC_TEXT" class="TunableLocalizedString" default="0x0" display="Unknown Loc Text" description="The localized text that should appear in case the favorite preference is not known (ie. '__: None')" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

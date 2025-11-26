@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="StanSituation" module="celebrity_fans.fan_situation" description="Stan situation. Stans are tied to a particular celebrity Sim." instance_subclasses_only="False" parents="FanSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="relbit" name="cooldown_bit" class="TunableReference" display="Cooldown Bit" description="Cooldown bit set on the stan when it is added to this situation. This rel-bit should have a timeout. While this stat is set, a Sim assigned to this situation will not be able to stan for a while after this situation expires." allow_none="False" group="Fans" />
+    </Instance>
+</TuningRoot>

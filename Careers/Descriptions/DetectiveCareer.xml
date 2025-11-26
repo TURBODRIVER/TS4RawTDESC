@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="career" class="DetectiveCareer" module="careers.detective.detective_career" description="The Detective active career." instance_subclasses_only="False" parents="Career" path="Careers\Descriptions" use_guid_for_reference="True">
+        <TunableList name="clue_incompatibility" class="TunableMapping" display="Clue Incompatibility" mapping_key="clue" mapping_value="incompatible_clues" description="Clues that are incompatible with each other." group="Career">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="detective_clue" name="clue" class="TunableReference" display="Clue" description="The clue that is incompatible with other clues." allow_none="False" group="General" />
+                <TunableList name="incompatible_clues" class="TunableList" display="Incompatible Clues" description="The clues that are incompatible with the clue used as the key here." group="General">
+                    <Tunable type="detective_clue" class="TunableReference" allow_none="False" group="General" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="crime_scene_events" class="TunableList" display="Crime Scene Events" description="The career events for each of the different types of crime scene." group="Career">
+            <Tunable type="career_event" class="TunableReference" allow_none="False" group="General" />
+        </TunableList>
+
+        <Tunable type="sim_filter" name="criminal_filter" class="TunableReference" display="Criminal Filter" description="The filter to use when spawning a criminal. The filter terms are a randomly generated set of clues." allow_none="False" group="Career" restrict="DynamicSimFilter" />
+
+        <Tunable type="trait" name="criminal_trait" class="TunableReference" display="Criminal Trait" description="A trait that is awarded to the criminal. The trait is added when the criminal is selected, and is removed when a new criminal is selected or the career is quit by the Sim." allow_none="False" group="Career" restrict="Trait" />
+
+        <Tunable type="sim_filter" name="decoy_filter" class="TunableReference" display="Decoy Filter" description="The filter to use when spawning decoys. The filter terms are a subset of the discovered clues." allow_none="False" group="Career" restrict="DynamicSimFilter" />
+
+        <Tunable type="int" name="number_of_clues" class="TunableRange" default="5" display="Number Of Clues" min="1" max="None" description="The number of clues per crime that the player will be given." tuning_state="NeedsTuning" group="Career" />
+
+        <Tunable type="int" name="number_of_decoys_per_undiscovered_clue" class="TunableRange" default="2" display="Number Of Decoys Per Undiscovered Clue" min="1" max="None" description="The number of Sims to spawn as decoys for each clue that the detective has not yet discovered." tuning_state="NeedsTuning" group="Career" />
+
+        <TunableList name="text_clues" class="TunableList" display="Text Clues" description="A list of groups of mutually exclusive clues that the player can discover in the course of solving a crime. Only one clue will be chosen from each group. (e.g. if all hair-color clues are in one group, only one hair-color clue will be chosen so there aren't conflicting clues)" group="Career">
+            <TunableList class="TunableList" description="A group of mutually incompatible clues. Only one clue will be chosen from this group." group="General">
+                <Tunable type="detective_clue" class="TunableReference" description="The clue information and filter term." allow_none="False" group="General" />
+            </TunableList>
+        </TunableList>
+    </Instance>
+</TuningRoot>

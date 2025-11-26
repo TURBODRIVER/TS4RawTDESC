@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="WalkbyAmbientSituation" module="situations.ambient.walkby_ambient_situation" instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_buff" />
+
+        <Deleted name="_cost" />
+
+        <Deleted name="_display_name" />
+
+        <Deleted name="_icon" />
+
+        <Deleted name="_implies_greeted_status" />
+
+        <Deleted name="_initiating_sim_tests" />
+
+        <Deleted name="_level_data" />
+
+        <Deleted name="_main_goal_visibility_test" />
+
+        <Deleted name="_relationship_between_job_members" />
+
+        <Deleted name="_resident_job" />
+
+        <Deleted name="_supports_automatic_bronze" />
+
+        <Deleted name="audio_sting_on_start" />
+
+        <Deleted name="background_audio" />
+
+        <TunableList name="can_start_walkby_limiting_tags" class="TunableSet" display="Can Start Walkby Limiting Tags" description="Don't start a situation of this type if another situation is already running that has any of these tags in its tags field. For instance, if you only want one Streaker at a time you would create a new tag SITUATION_STREAKER. Then set that in both this field and in the tags field of situation_streaker." group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="situation" group="General" />
+        </TunableList>
+
+        <Deleted name="category" />
+
+        <Deleted name="compatible_venues" />
+
+        <Deleted name="creation_ui_option" />
+
+        <Deleted name="duration" />
+
+        <Deleted name="duration_randomizer" />
+
+        <Deleted name="end_situation_dialog" />
+
+        <Deleted name="entitlement" />
+
+        <Deleted name="exclusivity" />
+
+        <TunableList name="flavor_affordances" class="TunableList" display="Flavor Affordances" description="When selected for walkby flavor the sim runs one of the affordances in this list." group="General">
+            <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="float" name="flavor_chance_to_start" class="TunablePercent" default="1" display="Flavor Chance To Start" min="0" max="100" description="This is the percentage chance that each walkby sim will start a flavor interaction, such as using the phone, on an ambient service ping. At most one will start per ping." group="General" />
+
+        <Tunable type="float" name="flavor_cooldown" class="TunableSimMinute" default="5" display="Flavor Cooldown" min="1" max="480" description="The minimum amount of time from the end of one flavor action until the walkby sim can perform another." tuning_state="NeedsTuning" group="General" />
+
+        <Deleted name="force_invite_only" />
+
+        <Deleted name="goal_button_text" />
+
+        <Deleted name="goal_sub_text" />
+
+        <Deleted name="highlight_first_incomplete_minor_goal" />
+
+        <Deleted name="job_display_ordering" />
+
+        <Deleted name="main_goal" />
+
+        <Deleted name="main_goal_audio_sting" />
+
+        <Deleted name="max_participants" />
+
+        <Deleted name="minor_goal_chains" />
+
+        <Deleted name="recommended_job_object_notification" />
+
+        <Deleted name="recommended_job_object_text" />
+
+        <Deleted name="screen_slam_bronze" />
+
+        <Deleted name="screen_slam_gold" />
+
+        <Deleted name="screen_slam_no_medal" />
+
+        <Deleted name="screen_slam_silver" />
+
+        <Deleted name="situation_description" />
+
+        <Deleted name="situation_display_description" />
+
+        <Deleted name="situation_location_description" />
+
+        <Deleted name="situation_main_objective" />
+
+        <Deleted name="suppress_scoring_progress_bar" />
+
+        <Deleted name="targeted_situation" />
+
+        <Deleted name="travel_request_behavior" />
+
+        <Deleted name="tutorial" />
+
+        <Deleted name="venue_invitation_message" />
+
+        <Deleted name="venue_situation_player_job" />
+
+        <TunableTuple name="walker_job" class="TunableTuple" display="Walker Job" group="Situation">
+            <Tunable type="role_state" name="flavor_interaction_state" class="TunableReference" display="Flavor Interaction State" description="The role state when the sim does a flavor interaction." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to the SituationJob used for the Sim performing the walkby" allow_none="False" group="General" restrict="SituationJob" />
+            <Tunable type="role_state" name="walkby_state" class="TunableReference" display="Walkby State" description="The state while the sim is walking by." allow_none="False" group="General" restrict="RoleState" />
+        </TunableTuple>
+    </Instance>
+
+    
+</TuningRoot>

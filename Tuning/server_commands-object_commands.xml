@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="server_commands.object_commands">
+        <Class name="ObjectCommandTuning">
+            <Tunable type="statistic" name="BROKEN_COMMODITY" class="TunableReference" display="Broken Commodity" description="The Broken Commodity" allow_none="False" group="General" />
+
+            <Tunable type="object_state" name="BURNED_ASH_STATE" class="TunableReference" display="Burned Ash State" description="The Burned Ash State" allow_none="False" group="General" />
+
+            <Tunable type="object_state" name="BURNED_MATERIAL_STATE" class="TunableReference" display="Burned Material State" description="The Burned Material State" allow_none="False" group="General" />
+
+            <Tunable type="statistic" name="DIRTY_COMMODITY" class="TunableReference" display="Dirty Commodity" description="The Dirty Commodity" allow_none="False" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

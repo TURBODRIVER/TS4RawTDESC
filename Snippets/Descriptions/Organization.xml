@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="Organization" module="display_snippet_tuning" description="Container for Organization Information." instance_needs_reference="True" instance_subclasses_only="False" parents="DisplaySnippet" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="hidden" class="Tunable" default="False" display="Hidden" description="If True, then the organization is hidden from the organization panel." group="General" />
+
+        <TunableVariant type="None" name="no_events_are_scheduled_string" class="OptionalTunable" default="disabled" display="No Events Are Scheduled String" description="If enabled and the organization has no scheduled events, this text will be displayed in the org panel background." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The string to show in the organization panel if there are no scheduled events." group="General" />
+        </TunableVariant>
+
+        <Tunable type="sim_filter" name="organization_filter" class="TunableReference" display="Organization Filter" description="Terms to add a member to the Organization's membership list." allow_none="False" group="General" restrict="TunableSimFilter" />
+
+        <TunableList name="organization_task_data" class="TunableList" display="Organization Task Data" description="List of possible tested organization tasks that can be offered to active organization members." group="General">
+            <TunableTuple class="TunableTuple" description="Tuple of test and aspirations that is run on activating organization tasks." group="General">
+                <Tunable type="aspiration" name="organization_task" class="TunableReference" display="Organization Task" description="An aspiration to use for task completion." allow_none="False" group="General" restrict="AspirationOrganizationTask" />
+                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests run when the task is activated. If tests do not pass, the tasks are not considered for assignment." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="statistic" name="progress_statistic" class="TunableReference" display="Progress Statistic" description="The Ranked Statistic represents Organization Progress." allow_none="False" group="General" restrict="RankedStatistic" />
+    </Instance>
+</TuningRoot>

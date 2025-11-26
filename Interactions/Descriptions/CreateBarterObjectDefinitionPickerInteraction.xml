@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CreateBarterObjectDefinitionPickerInteraction" module="objects.definition_picker_interaction" description="Class that creates an object with a given tag, having a value between min_value and max_value and a value greater than or equal to the value of the participant type." instance_needs_reference="True" instance_subclasses_only="False" parents="CreateObjectDefinitionPickerInteraction, ObjectDefinitionPickerInteraction, ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Deleted name="creation_data" />
+
+        <Tunable type="int" name="max_value" class="Tunable" default="100" display="Max Value" description="Maximum price value for the new object." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="min_value" class="Tunable" default="1" display="Min Value" description="Minimum price value for the new object." tuning_state="NeedsTuning" group="General" />
+
+        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="The participant of the interaction that will be used to filter the created object (being the created object of greater or equal value)" group="General" />
+    </Instance>
+
+    
+</TuningRoot>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="telemetry_helper">
+        <Class name="TelemetryTuning">
+            <Tunable type="int" name="BUFF_ALARM_TIME" class="TunableRange" default="60" display="Buff Alarm Time" min="1" max="None" description="Integer value in sim minutes in which the buff alarm will trigger to send a telemetry report of current active buff's on the household sims." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="EMOTION_REL_ALARM_TIME" class="TunableRange" default="60" display="Emotion Rel Alarm Time" min="1" max="None" description="Integer value in sim minutes in which the emotion and relationship alarm will trigger to send a telemetry report of the emotion and relationship status of the household sims." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="HOOK_ACTIONS" class="TunableList" display="Hook Actions" description="List of hook actions that we want to drop or collect to create rules to disable them from triggering." group="General">
+                <TunableTuple class="TunableTuple" description="Hook actions." group="General">
+                    <TunableEnum type="RuleAction" name="action" class="TunableEnumEntry" default="DROP" display="Action" static_entries="sims4-telemetry.RuleAction" description="Action to take for the specified tags. COLLECT to enable the hook. DROP to disable the hook." group="General" />
+                    <Tunable type="str" name="group_tag" class="Tunable" default="" display="Group Tag" description="Group identifier of the hook where the action should be applied. Can be empty if we want to apply an action by only module or hook tag. e.g. 'WHIM'" group="General" />
+                    <Tunable type="str" name="hook_tag" class="Tunable" default="" display="Hook Tag" description="Tag identifier of the hook where the action should be applied. Can be empty if we want to apply an action by only module or group tag. e.g. 'WADD'" group="General" />
+                    <Tunable type="str" name="module_tag" class="Tunable" default="" display="Module Tag" description="Module identifier of the hook where the action should be applied. Can be empty if we want to apply an action by only group or hook tag. e.g. 'GAME'. " group="General" />
+                    <Tunable type="int" name="priority" class="Tunable" default="0" display="Priority" description="Priority for this rule to apply. The rules are sorted in priority order (lowest priority first). The the first rule that matches a hook causes the hook to be blocked or collected, depending on the value of action. e.g. We can have an action to COLLECT hook {GAME, WHIM, WADD} with priority 0, and an action to DROP hooks with module 'GAME' {GAME, '', ''} with priority 1, this means the collected hook action will have more importance than the rule to drop all GAME hooks. " tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

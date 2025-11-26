@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="filters.neighborhood_population_service">
+        <Class name="_FillRentableLotRequest">
+            <TdescFragTag name="CAN_RENT_TESTS" class="TunableTestSet" display="Can Rent Tests" description="A set of tests that must pass for a Sim to be able to rent a lot as either the leader or a member of the travel group." group="General" />
+        </Class>
+
+        <Class name="NeighborhoodPopulationService">
+            <TunableList name="HOMELESS_HOUSEHOLD_TEMPLATES" class="TunableList" display="Homeless Household Templates" description="A List of household templates that will be considered for homelesss households." group="General">
+                <TunableTuple class="TunableHouseholdTemplateWeightTuple" group="General">
+                    <Tunable type="sim_template" name="household_template" class="TunableReference" display="Household Template" description="Household template that will be created for neighborhood population" allow_none="False" group="General" pack_safe="True" restrict="HouseholdTemplate" />
+                    <Tunable type="float" name="weight" class="Tunable" default="1" display="Weight" description="Weight of this template being chosen." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

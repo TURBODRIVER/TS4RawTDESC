@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="drama_node" class="GraduationVenueEventDramaNode" module="venues.graduation_venue_event_drama_node" description="The drama node type used to schedule and run the high school graduation event." instance_subclasses_only="False" parents="VenueEventDramaNode, BaseDramaNode" path="DramaNodes\Descriptions" use_guid_for_reference="True">
+        <Tunable type="sim_filter" name="graduating_npc_sim_filter" class="TunableReference" display="Graduating Npc Sim Filter" description="Sim Filter used to identify Sims that are ready to be aged up for graduation." allow_none="False" group="Graduation" />
+
+        <TunableTuple name="range_of_graduating_sims_allowed" class="TunableInterval" display="Range Of Graduating Sims Allowed" description="The minimum and maximum amount of Sims allowed to attend a graduation event." group="Graduation">
+            <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="1" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="upper_bound" class="TunableRange" default="5" display="Upper Bound" min="None" max="20" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableList name="update_on_calendar_events" class="TunableSet" display="Update On Calendar Events" description="When any of these events fire the calendar entry will be re-evaluated and either removed if necessary or added/update otherwise." group="General" unique_entries="true">
+            <TunableEnum type="TestEvent" class="TunableEnumEntry" default="Invalid" dynamic_entries="event_testing-test_events.TestEvent._elements" static_entries="event_testing-test_events.TestEvent" group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

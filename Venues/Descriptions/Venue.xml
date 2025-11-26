@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="venue" class="Venue" module="venues.venue_tuning" description="Tuning to define each individual venue. This class an event schedule tuning, which is a mapping of situation to schedule for that situation. When the scheduled time occurs, the situation that occurs at that time will spin up." instance_subclasses_only="False" path="Venues\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="allow_game_triggered_events" class="Tunable" default="False" display="Allow Game Triggered Events" description="Whether this venue can have game triggered events. ex for careers" group="General" />
+
+        <Tunable type="bool" name="allow_rolestate_routing_on_navmesh" class="Tunable" default="False" display="Allow Rolestate Routing On Navmesh" description="Allow all RoleStates routing permission on lot navmeshes of this venue type. This is particularly useful for outdoor venue types (lots with no walls), where it is awkward to have to 'invite a sim in' before they may route on the lot, be called over, etc. This tunable overrides the 'Allow Npc Routing On Active Lot' tunable of individual RoleStates." group="General" />
+
+        <Tunable type="bool" name="allow_super_speed_three" class="Tunable" default="True" display="Allow Super Speed Three" description="If set to True, game is allowed to get into super speed 3." group="General" />
+
+        <Tunable type="bool" name="allowed_for_clubs" class="Tunable" default="False" display="Allowed For Clubs" description="If checked, this Venue can be associated with Clubs and will be available for Club Gatherings." group="Clubs" />
+
+        <Tunable type="bool" name="allows_fire" class="Tunable" default="False" display="Allows Fire" description="If True a fire can happen on this venue, otherwise fires will not spawn on this venue." group="General" />
+
+        <TunableList name="automatic_objects" class="TunableList" display="Automatic Objects" description="A list of objects that is required to exist on this venue (e.g. the mailbox). If any of these objects are missing from this venue, they will be auto-placed on zone load." group="General">
+            <TunableTuple class="TunableTuple" description="An item that is required to be present on this venue. The object's tag will be used to determine if any similar objects are present. If no similar objects are present, then the object's actual definition is used to create an object of this type. This is not the same as required objects tuning. Please read comments for both the fields. E.g. To require a mailbox to be present on a lot, tune a hypothetical basicMailbox here. The code will not trigger as long as a basicMailbox, fancyMailbox, or cheapMailbox are present on the lot. If none of them are, then a basicMailbox will be automatically created." group="General">
+                <Tunable type="object" name="default_value" class="TunableReference" display="Default Value" description="The default object to use if no suitably tagged object is present on the lot." allow_none="False" group="General" />
+                <TunableEnum type="Tag" name="tag" class="TunableEnumEntry" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag to search for" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableTuple name="background_event_schedule" class="TunableSituationWeeklySchedule" display="Background Event Schedule" description="The Background Events that run on this venue. They run underneath any user facing Situations and there can only be one at a time. The schedule times and durations are windows in which background events can start." group="General">
+            <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                    <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                        <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                        <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                        <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                        <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                        <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                        <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                        <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                    </TunableTuple>
+                    <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                    <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                    <Tunable type="situation" name="situation" class="TunableReference" display="Situation" description="The situation to start according to the tuned schedule." allow_none="False" group="General" />
+                    <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                        <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+
+        <TunableList name="category_tags" class="TunableList" display="Category Tags" description="A list of tags to associate with this venue type." group="General">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A category tag for this venue." group="General" />
+        </TunableList>
+
+        <TunableVariant type="None" name="club_gathering_auto_spawn_schedule" class="OptionalTunable" default="disabled" display="Club Gathering Auto Spawn Schedule" description="If enabled, this schedule will specify the times when we will attempt to spawn associated Club Gatherings on this venue." group="Clubs">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableWeeklySchedule" display="Enabled" description="This schedule will specify the times when we will attempt to spawn associated Club Gatherings on this venue." group="General">
+                <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                    <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                        <TunableTuple name="club_gathering_data" class="TunableTuple" display="Club Gathering Data" description="Specify gathering behavior at these days and time." group="General">
+                            <TunableList name="ideal_club_gatherings" class="TunableCurve" display="Ideal Club Gatherings" description="Define the ideal number of gatherings that should be auto-started." group="General">
+                                <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="x: clubs_using_this_as_preferred_venue" description="x component" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="y: ideal_number_of_club_gatherings" description="y component" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableList>
+                            <Tunable type="int" name="maximum_club_gatherings" class="TunableRange" default="3" display="Maximum Club Gatherings" min="0" max="None" description="Define the maximum number of gatherings that can be auto- started." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                            <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                            <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                            <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                            <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                            <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                            <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                            <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                        </TunableTuple>
+                        <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                        <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                        <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                            <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="club_gathering_text" class="OptionalTunable" default="disabled" display="Club Gathering Text" description="Specify text included in an NPC's invite to join a gathering at this venue. This must be enabled if allowed_for_clubs is checked. If allowed_for_clubs is unchecked, setting this field has no effect." group="Clubs">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableVariant type="None" name="enabled" class="TunableLocalizedStringVariant" default="single" display="Enabled" description="A localization string. This may either be a single string, a set to pick a random string from, or concatenation from list of string." group="General">
+                <TunableTuple name="concatenation" class="TunableLocalizedStringConcatenation" display="Concatenation" description="A list of localized string concatenations. These strings will be joined together into single line-separated string" group="General">
+                    <TunableList name="concatenations" class="TunableList" display="Concatenations" group="General">
+                        <TunableVariant type="None" class="TunableLocalizedStringSnippet" default="literal" description="This may be tuned in place here using 'literal' or as a reference to a LocalizedString tuning snippet." group="General">
+                            <Tunable type="int" name="literal" class="TunableLocalizedString" default="0x0" display="Literal" description="A localized string that may use tokens." group="General" />
+                            <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a LocalizedString tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="LocalizedString" />
+                        </TunableVariant>
+                    </TunableList>
+                </TunableTuple>
+                <Tunable type="int" name="single" class="TunableLocalizedString" default="0x0" display="Single" description="A localized string that may NOT require tokens." group="General" />
+                <TunableTuple name="variation" class="TunableLocalizedStringVariation" display="Variation" description="A list of possible localized string variations." group="General">
+                    <TunableList name="variations" class="TunableList" display="Variations" group="General">
+                        <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may use tokens." group="General" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableVariant>
+
+        <Tunable type="int" name="display_name" class="TunableLocalizedString" default="0x0" display="Display Name" description="Name that will be displayed for the venue" group="General" />
+
+        <Tunable type="int" name="display_name_incomplete" class="TunableLocalizedString" default="0x0" display="Display Name Incomplete" description="Name that will be displayed for the incomplete venue" allow_none="True" group="General" />
+
+        <Tunable type="int" name="display_name_with_tier" class="TunableLocalizedString" default="0x0" display="Display Name With Tier" description="Name that will be displayed in contexts where we also want to show the current venue tier. If this venue has no venue tiers, this name will be ignored and display_name will be used." allow_none="True" group="General" />
+
+        <TunableList name="display_venue_features" class="TunableList" display="Display Venue Features" description="Features to be displayed on this venue's build buy configuration panel. Currently this has no gameplay effect, only for UI purpose." group="General">
+            <TunableTuple class="TunableDisplayVenueFeature" group="General">
+                <Tunable type="int" name="venue_feature_description" class="TunableLocalizedString" default="0x0" display="Venue Feature Description" description="Description of the venue feature." group="General" />
+                <Tunable type="ResourceKey" name="venue_feature_icon" class="TunableIcon" default="None" display="Venue Feature Icon" description="Icon of the venue feature." group="General" resource_types="0x2f7d0004" />
+                <Tunable type="int" name="venue_feature_name" class="TunableLocalizedString" default="0x0" display="Venue Feature Name" description="Name of the venue feature." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="drama_node_events" class="TunableList" display="Drama Node Events" description="A list of drama nodes that provide special events to the venues that they are a part of." group="General">
+            <Tunable type="drama_node" class="TunableReference" description="A drama node that will contain a special even on a venue." allow_none="False" group="General" pack_safe="True" restrict="VenueEventDramaNode" />
+        </TunableList>
+
+        <Tunable type="int" name="drama_node_events_to_schedule" class="TunableRange" default="1" display="Drama Node Events To Schedule" min="1" max="None" description="The number of drama node events that will be scheduled if events are specified." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="bool" name="exclude_owned_objects_in_lot_value_calculation" class="Tunable" default="False" display="Exclude Owned Objects In Lot Value Calculation" description="Whether or not owned objects should be excluded when computing the lot value for this venue type. Example: Residential should include the value but Rentable should not." group="General" />
+
+        <TunableList name="forbidden_objects" class="TunableList" display="Forbidden Objects" description="A list of objects that are not allowed on the lot. If they are placed, the lot cannot be labeled as this venue." group="General">
+            <TunableTuple class="TunableVenueObjectWithPair" description="Specify object tag(s) that can't be on this venue. Allows you to group objects, i.e. weight bench, treadmill, and basketball goals are tagged as 'exercise objects.' This is not the same as automatic objects tuning. Please read comments for both the fields." group="General">
+                <Tunable type="bool" name="is_optional" class="Tunable" default="False" display="Is Optional" description="If True, this object requirement will be optional to this venue. E.g. Waiter station and host station for restaurant should set this entry to True." group="General" />
+                <Tunable type="bool" name="is_unit_specific" class="Tunable" default="False" display="Is Unit Specific" description="If True, this object requirement will be specific to individual units of a multi unit venue." group="General" />
+                <Tunable type="int" name="max_number" class="TunableRange" default="2147483647" display="Max Number" min="0" max="None" description="The upper bound below which the number of objects of this type on the lot must be." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="min_number" class="TunableRange" default="0" display="Min Number" min="0" max="None" description="The lower bound above which the number of objects of this type on the lot must be." tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="object" class="TunableVenueObjectTags" display="Object" description="Specify object tag(s) that must be on this venue. Allows you to group objects, i.e. weight bench, treadmill, and basketball goals are tagged as 'exercise objects.'" group="General">
+                    <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tags of objects we want to test ownership of" group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                    </TunableList>
+                    <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                </TunableTuple>
+                <Tunable type="int" name="object_display_name" class="TunableLocalizedString" default="0x0" display="Object Display Name" description="Name that will be displayed for the object(s)" allow_catalog_name="True" group="General" />
+                <TunableEnum type="VenueObjectFlag" name="object_flags" class="TunableEnumEntry" default="NO_FLAG" display="Object Flags" static_entries="venues-venue_object_test.VenueObjectFlag" description="Optional flags for this venue object. E.g. When there is a small business registered in that lot." group="General" />
+                <TunableList name="object_parent_pair_tests" class="TunableList" display="Object Parent Pair Tests" description="Specify object tag(s) and/or parent attachment tags that requires to be on this venue. Allows you to group objects, i.e. weight bench, treadmill, and basketball goals are tagged as 'exercise objects.'" group="General">
+                    <TunableTuple class="VenueObjectParentPairTuple" group="General">
+                        <Tunable type="int" name="count" class="TunableRange" default="1" display="Count" min="1" max="None" description="How many required objects will be satisfied with this object(and/or with parent pair). E.g. a chair that slots to table will count as one dining spot, but booth slot to table will count as 2." tuning_state="NeedsTuning" group="General" />
+                        <TunableTuple name="object_tags" class="TunableVenueObjectTags" display="Object Tags" description="The objects (tag) that would count for the required items." group="General">
+                            <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tags of objects we want to test ownership of" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                            </TunableList>
+                            <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="parent_tags" class="TunableVenueObjectTags" display="Parent Tags" description="If set, the object tuned in object_tags would required to be slotted to the parent object tuned in parent_tags. E.g. in restaurant, a chair (with restaurant_chair tag) would need to slot to a table (with restaurant_table_tag) to count as a dining slot. But since bar will not has the restaurant_table_tag, so a high chair that slots to the bar will not count as dining spot." group="General">
+                            <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tags of objects we want to test ownership of" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                            </TunableList>
+                            <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                        </TunableTuple>
+                        <TunableEnum type="VenueObjectTestTag" name="required_object_test_tag" class="TunableEnumEntry" default="INVALID" display="Required Object Test Tag" dynamic_entries="venues-venue_object_test.VenueObjectTestTag._elements" static_entries="venues-venue_object_test.VenueObjectTestTag" group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableEnum type="VenueObjectTestType" name="object_test_type" class="TunableEnumEntry" default="OBJECT" display="Object Test Type" static_entries="venues-venue_object_test.VenueObjectTestType" description="This option determines what test will be applied. To test the number of objects of a certain type, select OBJECT. To test for a pool, select pool. To test the number of tiles used by the home, select tile (tiny home venues do this)." group="General" />
+                <Tunable type="int" name="tooltip_override" class="TunableLocalizedString" default="0x0" display="Tooltip Override" description="If tuned, the tooltip that will be shown when this requirement is moused over in the venue configuration requirements UI." allow_none="True" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="venue" name="gallery_upload_venue_type" class="TunableReference" display="Gallery Upload Venue Type" description="The venue type that this venue gets uploaded as to the gallery. In each region's tuning, make sure the upload type is downloaded as the appropriate venue type. Example: Rentable venues should be uploaded as Residential." allow_none="True" group="General" />
+
+        <Tunable type="bool" name="hide_from_buildbuy_ui" class="Tunable" default="False" display="Hide From Buildbuy Ui" description="If True, this venue type will not be available in the venue picker in build/buy." group="General" />
+
+        <TunableList name="included_venues_for_club_gathering" class="TunableList" display="Included Venues For Club Gathering" description="Venue types that will also be considered valid for club gatherings for a club with this venue type as its club hangout." group="Clubs">
+            <Tunable type="venue" class="TunableReference" description="Venue type to be included for club gatherings." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="int" name="new_venue_type_button_headline_text" class="TunableLocalizedString" default="0x0" display="New Venue Type Button Headline Text" description="When the venue type is 'new' to the player, the Venue Celebration dialog is shown. This is the localized string ID for the text that appears just above the messages, but below the image. If nothing is tuned it will show the default string as specified in ui code. Unless there are buttons tuned, then it will be hidden." allow_none="True" group="New Venue Dialog" />
+
+        <TunableList name="new_venue_type_buttons" class="TunableList" display="New Venue Type Buttons" description="A list of button data to be used to create buttons on the New Venue Dialog. If nothing is tuned here then we will default to the original format of the dialog which contains just the single button." group="New Venue Dialog">
+            <TunableTuple class="NewVenueTypeButtons" description="Tuning data for buttons to show when this dialog pops up. Consists of the text to show as the button text as well as the UiMessage to send (along with parameters) when the button is clicked." group="General">
+                <Tunable type="int" name="button_string" class="TunableLocalizedString" default="0x0" display="Button String" description="The string to be displayed as button text." group="General" />
+                <TunableTuple name="ui_message" class="TunableUiMessage" display="Ui Message" description="The UI message to send when the button is clicked along with any parameters needed." group="General">
+                    <Tunable type="str" name="message_name" class="Tunable" default="" display="Message Name" description="Name of the UI message. e.g. 'ShowEscapeMenu'" group="General" />
+                    <TunableList name="parameters" class="TunableMapping" display="Parameters" mapping_key="key" mapping_value="value" description="Any parameters to send with the message. Consult your UI engineering partner to determine what parameters, if any, should be specified." group="General" mapping_class="TunableUiMessageParameter">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="str" name="key" class="Tunable" default="None" display="Key" group="General" />
+                            <TunableVariant type="None" name="value" class="TunableUiValue" default="null" display="Value" description="Value to associate with this parameter." group="General">
+                                <Tunable name="null" class="TunableExistance" display="Null" />
+                                <Tunable type="bool" name="raw_bool" class="Tunable" default="False" display="Raw Bool" description="Provide a boolean value." group="General" />
+                                <Tunable type="float" name="raw_float" class="Tunable" default="0" display="Raw Float" description="Provide a floating-point value." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="raw_int" class="Tunable" default="0" display="Raw Int" description="Provide an integer value." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="str" name="raw_string" class="Tunable" default="" display="Raw String" description="Provide a non-localized string." group="General" />
+                                <Tunable type="ResourceKey" name="resource_key" class="TunableResourceKey" default="None" display="Resource Key" description="Provide a resource key. This is provided to the UI in the same format as the ResourceKey AS3 class." group="General" resource_types="" />
+                            </TunableVariant>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="int" name="new_venue_type_dialog_description" class="TunableLocalizedString" default="0x0" display="New Venue Type Dialog Description" description="When the venue type is 'new' to the player, the Venue Celebration dialog is shown. This is the localized string ID for the description text." allow_none="True" group="New Venue Dialog" />
+
+        <Tunable type="ResourceKey" name="new_venue_type_dialog_example_item" class="TunableResourceKey" default="None" display="New Venue Type Dialog Example Item" description="When the venue type is 'new' to the player, the Venue Celebration dialog is shown. This is the example lot ID to apply should the user respond positively to the dialog." allow_none="True" group="New Venue Dialog" resource_types="0x2a8a5e22" />
+
+        <Tunable type="ResourceKey" name="new_venue_type_dialog_image" class="TunableResourceKey" default="None" display="New Venue Type Dialog Image" description="When the venue type is 'new' to the player, the Venue Celebration dialog is shown. This is the main image ID shown in the dialog." allow_none="True" group="New Venue Dialog" resource_types="0x2f7d0004" />
+
+        <Tunable type="int" name="new_venue_type_headline_text" class="TunableLocalizedString" default="0x0" display="New Venue Type Headline Text" description="When the venue type is 'new' to the player, the Venue Celebration dialog is shown. This is the localized string ID for the headline text. If nothing is tuned it will show the default string as specified in ui code. {0.String} will get you the name of the venue for the string." allow_none="True" group="New Venue Dialog" />
+
+        <TunableList name="npc_summoning_behavior" class="TunableMapping" display="Npc Summoning Behavior" mapping_key="key" mapping_value="value" description="Whenever an NPC is summoned to a lot by the player, determine which action to take based on the summoning purpose. The purpose is a dynamic enum: venues.venue_constants.NPCSummoningPurpose. The action will generally involve either adding a sim to an existing situation or creating a situation then adding them to it. \depot\Sims4Projects\Docs\Design\Open Streets\Open Street Invite Matrix.xlsx residential: This is behavior pushed on the NPC if this venue was a residential lot. create_situation: Place the NPC in the specified situation/job pair. add_to_background_situation: Add the NPC the currently running background situation in the venue. notify_zone_director: notifies the current zones zone director that a sim needs to be spawned and lets the zone director handle it." group="Triggers">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="NPCSummoningPurpose" name="key" class="TunableEnumEntry" default="DEFAULT" display="Key" dynamic_entries="venues-venue_constants.NPCSummoningPurpose._elements" static_entries="venues-venue_constants.NPCSummoningPurpose" description="The different reasons that we have for summoning an NPC. Every time an NPC is summoned they are given one of these reasons as a key to how we want to handle that Sim." group="General" />
+                <TunableList name="value" class="TunableMapping" display="Value" mapping_key="key" mapping_value="value" description="A mapping between species and the action we want to take. If a species doesn't have specific tuning then the Human species tuning will be used instead." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="Species" name="key" class="TunableEnumEntry" default="HUMAN" display="Key" static_entries="sims-sim_info_types.Species" description="The species that we want to use to perform this behavior." group="General" invalid_entries="INVALID" />
+                        <TunableVariant type="None" name="value" class="TunableVariant" default="disabled" display="Value" description="The behavior that we want to accomplish based on the summoning type." group="General">
+                            <TunableTuple name="add_to_background_situation" class="TunableAddToBackgroundSituation" display="Add To Background Situation" description="Add the sims to the venue's current background situation. " group="General" />
+                            <TunableTuple name="create_situation" class="TunableCreateAndAddToSituation" display="Create Situation" description="Create a new situation of this type and add the NPC to its tuned job." group="General">
+                                <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The situation job to assign the sim to. If set to None the sim will be assigned to the situation's default job." allow_none="True" group="General" pack_safe="True" restrict="SituationJob" />
+                                <Tunable type="situation" name="situation_to_create" class="TunableReference" display="Situation To Create" allow_none="False" group="General" pack_safe="True" />
+                            </TunableTuple>
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="notify_zone_director" class="TunableNotfifyZoneDirector" display="Notify Zone Director" description="Notifies the current zone director that a Sim needs to be spawned and lets the zone director handle it." group="General" />
+                            <TunableTuple name="residential" class="TunableResidentialLotArrivalBehavior" display="Residential" description="NPC behavior on a residential lot. The behavior is different depending on the lot belonging to the player versus NPC. Greeted behavior can modify behavior as well." group="General">
+                                <TunableTuple name="npc_lot_greeted" class="TunableCreateAndAddToSituation" display="Npc Lot Greeted" description="Create a new situation of this type and add the NPC to its tuned job." group="General">
+                                    <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The situation job to assign the sim to. If set to None the sim will be assigned to the situation's default job." allow_none="True" group="General" pack_safe="True" restrict="SituationJob" />
+                                    <Tunable type="situation" name="situation_to_create" class="TunableReference" display="Situation To Create" allow_none="False" group="General" pack_safe="True" />
+                                </TunableTuple>
+                                <TunableTuple name="npc_lot_ungreeted" class="TunableCreateAndAddToSituation" display="Npc Lot Ungreeted" description="Create a new situation of this type and add the NPC to its tuned job." group="General">
+                                    <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The situation job to assign the sim to. If set to None the sim will be assigned to the situation's default job." allow_none="True" group="General" pack_safe="True" restrict="SituationJob" />
+                                    <Tunable type="situation" name="situation_to_create" class="TunableReference" display="Situation To Create" allow_none="False" group="General" pack_safe="True" />
+                                </TunableTuple>
+                                <TunableTuple name="player_sim_lot" class="TunableCreateAndAddToSituation" display="Player Sim Lot" description="Create a new situation of this type and add the NPC to its tuned job." group="General">
+                                    <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The situation job to assign the sim to. If set to None the sim will be assigned to the situation's default job." allow_none="True" group="General" pack_safe="True" restrict="SituationJob" />
+                                    <Tunable type="situation" name="situation_to_create" class="TunableReference" display="Situation To Create" allow_none="False" group="General" pack_safe="True" />
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="player_requires_visitation_rights" class="OptionalTunable" default="disabled" display="Player Requires Visitation Rights" description="If enabled, then lots of this venue type will require player Sims that are not on their home lot to go through the process of being greeted before they are given full rights to using the lot." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="situation" name="greeted" class="TunableReference" display="Player Greeted Situation" description="The situation to create for greeted player sims on this lot." allow_none="False" group="General" />
+                <Tunable type="situation" name="ungreeted" class="TunableReference" display="Player Ungreeted Situation" description="The situation to create for ungreeted player sims on this lot." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="required_objects" class="TunableList" display="Required Objects" description="A list of objects that are required to be on a lot before that lot can be labeled as this venue." group="General">
+            <TunableTuple class="TunableVenueObjectWithPair" description="Specify object tag(s) that must be on this venue. Allows you to group objects, i.e. weight bench, treadmill, and basketball goals are tagged as 'exercise objects.' This is not the same as automatic objects tuning. Please read comments for both the fields." group="General">
+                <Tunable type="bool" name="is_optional" class="Tunable" default="False" display="Is Optional" description="If True, this object requirement will be optional to this venue. E.g. Waiter station and host station for restaurant should set this entry to True." group="General" />
+                <Tunable type="bool" name="is_unit_specific" class="Tunable" default="False" display="Is Unit Specific" description="If True, this object requirement will be specific to individual units of a multi unit venue." group="General" />
+                <Tunable type="int" name="max_number" class="TunableRange" default="2147483647" display="Max Number" min="0" max="None" description="The upper bound below which the number of objects of this type on the lot must be." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="min_number" class="TunableRange" default="0" display="Min Number" min="0" max="None" description="The lower bound above which the number of objects of this type on the lot must be." tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="object" class="TunableVenueObjectTags" display="Object" description="Specify object tag(s) that must be on this venue. Allows you to group objects, i.e. weight bench, treadmill, and basketball goals are tagged as 'exercise objects.'" group="General">
+                    <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tags of objects we want to test ownership of" group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                    </TunableList>
+                    <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                </TunableTuple>
+                <Tunable type="int" name="object_display_name" class="TunableLocalizedString" default="0x0" display="Object Display Name" description="Name that will be displayed for the object(s)" allow_catalog_name="True" group="General" />
+                <TunableEnum type="VenueObjectFlag" name="object_flags" class="TunableEnumEntry" default="NO_FLAG" display="Object Flags" static_entries="venues-venue_object_test.VenueObjectFlag" description="Optional flags for this venue object. E.g. When there is a small business registered in that lot." group="General" />
+                <TunableList name="object_parent_pair_tests" class="TunableList" display="Object Parent Pair Tests" description="Specify object tag(s) and/or parent attachment tags that requires to be on this venue. Allows you to group objects, i.e. weight bench, treadmill, and basketball goals are tagged as 'exercise objects.'" group="General">
+                    <TunableTuple class="VenueObjectParentPairTuple" group="General">
+                        <Tunable type="int" name="count" class="TunableRange" default="1" display="Count" min="1" max="None" description="How many required objects will be satisfied with this object(and/or with parent pair). E.g. a chair that slots to table will count as one dining spot, but booth slot to table will count as 2." tuning_state="NeedsTuning" group="General" />
+                        <TunableTuple name="object_tags" class="TunableVenueObjectTags" display="Object Tags" description="The objects (tag) that would count for the required items." group="General">
+                            <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tags of objects we want to test ownership of" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                            </TunableList>
+                            <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="parent_tags" class="TunableVenueObjectTags" display="Parent Tags" description="If set, the object tuned in object_tags would required to be slotted to the parent object tuned in parent_tags. E.g. in restaurant, a chair (with restaurant_chair tag) would need to slot to a table (with restaurant_table_tag) to count as a dining slot. But since bar will not has the restaurant_table_tag, so a high chair that slots to the bar will not count as dining spot." group="General">
+                            <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tags of objects we want to test ownership of" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                            </TunableList>
+                            <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                        </TunableTuple>
+                        <TunableEnum type="VenueObjectTestTag" name="required_object_test_tag" class="TunableEnumEntry" default="INVALID" display="Required Object Test Tag" dynamic_entries="venues-venue_object_test.VenueObjectTestTag._elements" static_entries="venues-venue_object_test.VenueObjectTestTag" group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableEnum type="VenueObjectTestType" name="object_test_type" class="TunableEnumEntry" default="OBJECT" display="Object Test Type" static_entries="venues-venue_object_test.VenueObjectTestType" description="This option determines what test will be applied. To test the number of objects of a certain type, select OBJECT. To test for a pool, select pool. To test the number of tiles used by the home, select tile (tiny home venues do this)." group="General" />
+                <Tunable type="int" name="tooltip_override" class="TunableLocalizedString" default="0x0" display="Tooltip Override" description="If tuned, the tooltip that will be shown when this requirement is moused over in the venue configuration requirements UI." allow_none="True" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="small_business_seed" class="OptionalTunable" default="disabled" display="Small Business Seed" description="When venue is purchased, if user selects to auto create business, it will use this reference to create that small business." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="small_business_seed" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" pack_safe="True" />
+        </TunableVariant>
+
+        <TunableTuple name="special_event_schedule" class="TunableSituationWeeklySchedule" display="Special Event Schedule" description="The Special Events that run on this venue. These run on top of Background Events. We run only one user facing event at a time, so if the player started something then this may run in the background, otherwise the player will be invited to join in on this Venue Special Event." group="General">
+            <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                    <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                        <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                        <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                        <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                        <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                        <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                        <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                        <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                    </TunableTuple>
+                    <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                    <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                    <Tunable type="situation" name="situation" class="TunableReference" display="Situation" description="The situation to start according to the tuned schedule." allow_none="False" group="General" />
+                    <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                        <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+
+        <Tunable type="bool" name="store_travel_group_placed_objects" class="Tunable" default="False" display="Store Travel Group Placed Objects" description="If checked, any placed objects while in a travel group will be returned to household inventory once travel group is disbanded." group="General" />
+
+        <Tunable type="bool" name="supports_welcome_wagon" class="Tunable" default="True" display="Supports Welcome Wagon" description="Whether or not welcome wagons will appear on this venue type." group="General" />
+
+        <Tunable type="int" name="tier_banner_max_fail_text" class="TunableLocalizedString" default="0x0" display="Tier Banner Max Fail Text" description="If tuned, a message that will be displayed in the tier banner if the venue fails to satisfy the lowest tier due to being over the maximum for that tier requirement." allow_none="True" group="General" />
+
+        <Tunable type="int" name="tier_banner_min_fail_text" class="TunableLocalizedString" default="0x0" display="Tier Banner Min Fail Text" description="If tuned, a message that will be displayed in the tier banner if the venue fails to satisfy the lowest tier due to being under the minimum for that tier requirement." allow_none="True" group="General" />
+
+        <TunableVariant type="None" name="travel_group_limit" class="OptionalTunable" default="enabled" display="Travel Group Limit" description="Maximum number of travel groups allowed in this venue." group="Special Cases">
+            <Tunable type="int" name="enabled" class="TunableRange" default="1" display="Enabled" min="1" max="None" description="The maximum number of travel groups allowed in this venue." tuning_state="NeedsTuning" group="General" />
+            <Tunable name="no_limit" class="TunableExistance" display="No Limit" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="travel_interaction_name" class="TunableVariant" default="none" display="Travel Interaction Name" description="Specify what name a travel interaction gets when this Venue is an adjacent lot." group="Special Cases">
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableTuple name="visit_residential" class="TunableResidentialTravelDisplayName" display="Visit Residential" description="The interaction name for when the destination lot is a residence." group="General">
+                <Tunable type="int" name="go_here_name" class="TunableLocalizedString" default="0x0" display="Go Here Name" description="The interaction name for when no household lives on the destination lot. Tokens: 0:ActorSim Example: 'Go Here'" group="General" />
+                <Tunable type="int" name="go_home_name" class="TunableLocalizedString" default="0x0" display="Go Home Name" description="The interaction name for when the actor's home lot is the destination lot. Tokens: 0:ActorSim Example: 'Go Home'" group="General" />
+                <Tunable type="int" name="no_one_home_encapsulation" class="TunableLocalizedString" default="0x0" display="No One Home Encapsulation" description="The string that gets appended on the end of our interaction string if none of the household Sims at the destination lot are home. Tokens: 0:Interaction Name Example: '{0.String} (No One At Home)'" group="General" />
+                <Tunable type="int" name="ring_doorbell_name" class="TunableLocalizedString" default="0x0" display="Ring Doorbell Name" description="The interaction name for when the actor doesn't know any Sims that live on the destination lot. Tokens: 0:ActorSim Example: 'Ring Doorbell'" group="General" />
+                <Tunable type="int" name="visit_household_name" class="TunableLocalizedString" default="0x0" display="Visit Household Name" description="The interaction name for when the actor knows more than one Sim that lives on the destination lot, or the Sim they know is not at home. Tokens: 0:ActorSim, 1:Household Name Example: 'Visit The {1.String} Household'" group="General" />
+                <Tunable type="int" name="visit_sim_name" class="TunableLocalizedString" default="0x0" display="Visit Sim Name" description="The interaction name for when the actor knows exactly one Sim that lives on the destination lot. Tokens: 0:ActorSim, 1:Sim known Example: 'Visit {1.SimName}'" group="General" />
+                <Tunable type="int" name="visit_the_household_plural_name" class="TunableLocalizedString" default="0x0" display="Visit The Household Plural Name" description="The interaction name for when the actor knows more than one Sim that lives on the destination lot, or the Sim they know is not at home, and everyone who lives there has the same household name as their last name. Tokens: 0:ActorSim, 1:Household Name Example: 'Visit The {1.String|enHouseholdNamePlural}'" group="General" />
+            </TunableTuple>
+            <TunableTuple name="visit_venue" class="TunableCommercialTravelDisplayName" display="Visit Venue" description="The interaction name for when the destination lot is a commercial venue. Example: 'Visit The Bar'" group="General">
+                <Tunable type="int" name="visit_venue_name" class="TunableLocalizedString" default="0x0" display="Visit Venue Name" description="The interaction name for when the actor visit this venue Tokens: 0:ActorSim" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="travel_with_interaction_name" class="TunableVariant" default="none" display="Travel With Interaction Name" description="Specify what name a travel interaction gets when this Venue is an adjacent lot." group="Special Cases">
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableTuple name="visit_residential" class="TunableResidentialTravelDisplayName" display="Visit Residential" description="The interaction name for when the destination lot is a residence and the actor Sim is traveling with someone." group="General">
+                <Tunable type="int" name="go_here_name" class="TunableLocalizedString" default="0x0" display="Go Here Name" description="The interaction name for when no household lives on the destination lot. Tokens: 0:ActorSim Example: 'Go Here'" group="General" />
+                <Tunable type="int" name="go_home_name" class="TunableLocalizedString" default="0x0" display="Go Home Name" description="The interaction name for when the actor's home lot is the destination lot. Tokens: 0:ActorSim Example: 'Go Home'" group="General" />
+                <Tunable type="int" name="no_one_home_encapsulation" class="TunableLocalizedString" default="0x0" display="No One Home Encapsulation" description="The string that gets appended on the end of our interaction string if none of the household Sims at the destination lot are home. Tokens: 0:Interaction Name Example: '{0.String} (No One At Home)'" group="General" />
+                <Tunable type="int" name="ring_doorbell_name" class="TunableLocalizedString" default="0x0" display="Ring Doorbell Name" description="The interaction name for when the actor doesn't know any Sims that live on the destination lot. Tokens: 0:ActorSim Example: 'Ring Doorbell'" group="General" />
+                <Tunable type="int" name="visit_household_name" class="TunableLocalizedString" default="0x0" display="Visit Household Name" description="The interaction name for when the actor knows more than one Sim that lives on the destination lot, or the Sim they know is not at home. Tokens: 0:ActorSim, 1:Household Name Example: 'Visit The {1.String} Household'" group="General" />
+                <Tunable type="int" name="visit_sim_name" class="TunableLocalizedString" default="0x0" display="Visit Sim Name" description="The interaction name for when the actor knows exactly one Sim that lives on the destination lot. Tokens: 0:ActorSim, 1:Sim known Example: 'Visit {1.SimName}'" group="General" />
+                <Tunable type="int" name="visit_the_household_plural_name" class="TunableLocalizedString" default="0x0" display="Visit The Household Plural Name" description="The interaction name for when the actor knows more than one Sim that lives on the destination lot, or the Sim they know is not at home, and everyone who lives there has the same household name as their last name. Tokens: 0:ActorSim, 1:Household Name Example: 'Visit The {1.String|enHouseholdNamePlural}'" group="General" />
+            </TunableTuple>
+            <TunableTuple name="visit_venue" class="TunableCommercialTravelDisplayName" display="Visit Venue" description="The interaction name for when the destination lot is a commercial venue and the actor is traveling with someone. Example: 'Visit The Bar With...'" group="General">
+                <Tunable type="int" name="visit_venue_name" class="TunableLocalizedString" default="0x0" display="Visit Venue Name" description="The interaction name for when the actor visit this venue Tokens: 0:ActorSim" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="variable_venues" class="OptionalTunable" default="disabled" display="Variable Venues" description="Enable for variable venues, where the venue can change automatically. Either this venue or one of the provided sub-venues can be the active venue type. Most venues do not enable this feature." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="VariableVenueTuning" display="Enabled" description="Variable venue tuning." group="General">
+                <TunableTuple name="civic_policy" class="TunableVenueCivicPolicyProvider" display="Civic Policy" description="Tuning to control the civic policy voting and enactment process for a venue." group="General">
+                    <TunableList name="civic_policies" class="TunableSet" display="Civic Policies" description="The civic policies that may be enacted." group="General" unique_entries="true">
+                        <Tunable type="snippet" class="TunableReference" description="A civic policy." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                    </TunableList>
+                    <TunableVariant type="None" name="community_board_dialog_title" class="TunableLocalizedStringFactoryVariant" default="single" display="Community Board Dialog Title" description="The Community Board Dialog's title text." group="General">
+                        <TunableTuple name="concatenation" class="TunableLocalizedStringFactoryConcatenation" display="Concatenation" description="A list of localized string concatenations. These strings will be joined together into single line-separated string" group="General">
+                            <TunableList name="concatenations" class="TunableList" display="Concatenations" group="General">
+                                <TunableVariant type="None" class="TunableLocalizedStringSnippet" default="literal" description="This may be tuned in place here using 'literal' or as a reference to a LocalizedString tuning snippet." group="General">
+                                    <Tunable type="int" name="literal" class="TunableLocalizedString" default="0x0" display="Literal" description="A localized string that may use tokens." group="General" />
+                                    <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a LocalizedString tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="LocalizedString" />
+                                </TunableVariant>
+                            </TunableList>
+                        </TunableTuple>
+                        <Tunable type="int" name="single" class="TunableLocalizedString" default="0x0" display="Single" description="A localized string that may use tokens." group="General" />
+                        <TunableTuple name="variation" class="TunableLocalizedStringFactoryVariation" display="Variation" description="A list of possible localized string variations." group="General">
+                            <TunableList name="variations" class="TunableList" display="Variations" group="General">
+                                <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may use tokens." group="General" />
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TdescFragTag name="daily_random_vote_test" class="TunableTestSet" display="Daily Random Vote Test" description="If at least one test passes, and the user option is enabled, daily random voting will be performed at midnight." group="General" />
+                    <TdescFragTag name="initial_vote_test" class="TunableTestSet" display="Initial Vote Test" description="If at least one test passes, and the user option is enabled, initial voting will be performed when voting opens." group="General" />
+                    <TunableList name="voting_close_loot" class="TunableList" display="Voting Close Loot" description="Loot applied to Resident Sims when voting opens." group="General">
+                        <Tunable type="action" class="TunableReference" description="Loot to apply on voting open." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                    </TunableList>
+                    <TunableList name="voting_open_loot" class="TunableList" display="Voting Open Loot" description="Loot applied to Resident Sims when voting opens." group="General">
+                        <Tunable type="action" class="TunableReference" description="Loot to apply on voting open." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                    </TunableList>
+                </TunableTuple>
+                <Tunable type="bool" name="enable_civic_policy_support" class="Tunable" default="True" display="Enable Civic Policy Support" description="Whether or not Civic policies will control which venue is active." group="General" />
+                <Tunable type="int" name="variable_venue_description" class="TunableLocalizedString" default="0x0" display="Variable Venue Description" description="Alternative description used when the parent venue is the active venue. Replaces Venue Description." group="General" />
+                <Tunable type="int" name="variable_venue_display_name" class="TunableLocalizedString" default="0x0" display="Variable Venue Display Name" description="Alternative name used when the parent venue is the active venue. Replaces Display Name." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="venue_buffs" class="TunableList" display="Venue Buffs" description="A list of buffs that are added on Sims while they are instanced in this venue." group="General">
+            <TunableTuple class="TunableBuffReference" description="A buff that exists on Sims while they are instanced in this venue." group="General">
+                <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                        <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                    </TunableVariant>
+                </TunableVariant>
+                <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="int" name="venue_description" class="TunableLocalizedString" default="0x0" display="Venue Description" description="Description of Venue that will be displayed" group="General" />
+
+        <TunableList name="venue_flags" class="TunableEnumFlags" display="Venue Flags" description="Venue flags used to mark a venue with specific properties." group="General" unique_entries="true">
+            <TunableEnum type="VenueFlags" class="TunableEnumEntry" default="NONE" static_entries="venues-venue_enums.VenueFlags" group="General" />
+        </TunableList>
+
+        <Tunable type="ResourceKey" name="venue_icon" class="TunableResourceKey" default="None" display="Venue Icon" description="Venue Icon for UI" group="General" resource_types="0x2f7d0004" />
+
+        <TunableEnum type="VenueFrontdoorRequirement" name="venue_requires_front_door" class="TunableEnumEntry" default="NEVER" display="Venue Requires Front Door" static_entries="objects-doors-door_enums.VenueFrontdoorRequirement" description="Set to NEVER if this venue should never run the front door generation code. Set to ALWAYS if this venue should always run the front door generation code (like Residential lots). Set to OWNED_OR_RENTED if it should only run if the lot is owned by a household or rented by one. If it runs, venue will have the ring doorbell interaction and additional behavior like backup logic for broom teleports." group="General" />
+
+        <Tunable type="ResourceKey" name="venue_thumbnail" class="TunableResourceKey" default="None" display="Venue Thumbnail" description="Image of Venue that will be displayed" allow_none="True" group="General" resource_types="0x2f7d0004" />
+
+        <TunableList name="venue_tiers" class="TunableList" display="Venue Tiers" description="A list of requirements where each requirement corresponds to a tier that will be shown in the buildbuy tier UI. Tiers should be tuned in order from worst (tier n) to best (tier 1), where worst is the element of this list." group="General">
+            <TunableTuple class="TunableVenueTier" group="General">
+                <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="If tuned, an icon to associate with this requirement in the UI. Currently only supported for venue tier requirements." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                <TunableTuple name="required_object" class="TunableVenueObjectWithPair" display="Required Object" description="Specify object tag(s) that must be on this venue. Allows you to group objects, i.e. weight bench, treadmill, and basketball goals are tagged as 'exercise objects.' This is not the same as automatic objects tuning. Please read comments for both the fields." group="General">
+                    <Tunable type="bool" name="is_optional" class="Tunable" default="False" display="Is Optional" description="If True, this object requirement will be optional to this venue. E.g. Waiter station and host station for restaurant should set this entry to True." group="General" />
+                    <Tunable type="bool" name="is_unit_specific" class="Tunable" default="False" display="Is Unit Specific" description="If True, this object requirement will be specific to individual units of a multi unit venue." group="General" />
+                    <Tunable type="int" name="max_number" class="TunableRange" default="2147483647" display="Max Number" min="0" max="None" description="The upper bound below which the number of objects of this type on the lot must be." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="min_number" class="TunableRange" default="0" display="Min Number" min="0" max="None" description="The lower bound above which the number of objects of this type on the lot must be." tuning_state="NeedsTuning" group="General" />
+                    <TunableTuple name="object" class="TunableVenueObjectTags" display="Object" description="Specify object tag(s) that must be on this venue. Allows you to group objects, i.e. weight bench, treadmill, and basketball goals are tagged as 'exercise objects.'" group="General">
+                        <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tags of objects we want to test ownership of" group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                        </TunableList>
+                        <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                    </TunableTuple>
+                    <Tunable type="int" name="object_display_name" class="TunableLocalizedString" default="0x0" display="Object Display Name" description="Name that will be displayed for the object(s)" allow_catalog_name="True" group="General" />
+                    <TunableEnum type="VenueObjectFlag" name="object_flags" class="TunableEnumEntry" default="NO_FLAG" display="Object Flags" static_entries="venues-venue_object_test.VenueObjectFlag" description="Optional flags for this venue object. E.g. When there is a small business registered in that lot." group="General" />
+                    <TunableList name="object_parent_pair_tests" class="TunableList" display="Object Parent Pair Tests" description="Specify object tag(s) and/or parent attachment tags that requires to be on this venue. Allows you to group objects, i.e. weight bench, treadmill, and basketball goals are tagged as 'exercise objects.'" group="General">
+                        <TunableTuple class="VenueObjectParentPairTuple" group="General">
+                            <Tunable type="int" name="count" class="TunableRange" default="1" display="Count" min="1" max="None" description="How many required objects will be satisfied with this object(and/or with parent pair). E.g. a chair that slots to table will count as one dining spot, but booth slot to table will count as 2." tuning_state="NeedsTuning" group="General" />
+                            <TunableTuple name="object_tags" class="TunableVenueObjectTags" display="Object Tags" description="The objects (tag) that would count for the required items." group="General">
+                                <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tags of objects we want to test ownership of" group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                                </TunableList>
+                                <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="parent_tags" class="TunableVenueObjectTags" display="Parent Tags" description="If set, the object tuned in object_tags would required to be slotted to the parent object tuned in parent_tags. E.g. in restaurant, a chair (with restaurant_chair tag) would need to slot to a table (with restaurant_table_tag) to count as a dining slot. But since bar will not has the restaurant_table_tag, so a high chair that slots to the bar will not count as dining spot." group="General">
+                                <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tags of objects we want to test ownership of" group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" />
+                                </TunableList>
+                                <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                            </TunableTuple>
+                            <TunableEnum type="VenueObjectTestTag" name="required_object_test_tag" class="TunableEnumEntry" default="INVALID" display="Required Object Test Tag" dynamic_entries="venues-venue_object_test.VenueObjectTestTag._elements" static_entries="venues-venue_object_test.VenueObjectTestTag" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableEnum type="VenueObjectTestType" name="object_test_type" class="TunableEnumEntry" default="OBJECT" display="Object Test Type" static_entries="venues-venue_object_test.VenueObjectTestType" description="This option determines what test will be applied. To test the number of objects of a certain type, select OBJECT. To test for a pool, select pool. To test the number of tiles used by the home, select tile (tiny home venues do this)." group="General" />
+                    <Tunable type="int" name="tooltip_override" class="TunableLocalizedString" default="0x0" display="Tooltip Override" description="If tuned, the tooltip that will be shown when this requirement is moused over in the venue configuration requirements UI." allow_none="True" group="General" />
+                </TunableTuple>
+                <TunableEnum type="TierBannerAppearanceState" name="tier_banner_state" class="TunableEnumEntry" default="INVALID" display="Tier Banner State" static_entries="venues-venue_enums.TierBannerAppearanceState" description="The state to set on the tier banner in the UI if this requirement is the current active tier requirement." group="General" />
+                <Tunable type="int" name="tier_banner_text" class="TunableLocalizedString" default="0x0" display="Tier Banner Text" description="If tuned, text which will be displayed on the tier banner if this requirement is the current active tier requirement." allow_none="True" group="General" />
+                <Tunable type="int" name="tier_name" class="TunableLocalizedString" default="0x0" display="Tier Name" description="If tuned, the name of this tier. This will be used in places where we want to display a tier, but will not be used in the requirements panel (that will still be object_display_name)." allow_none="True" group="General" />
+                <Tunable type="int" name="tier_name_two_lines" class="TunableLocalizedString" default="0x0" display="Tier Name Two Lines" description=" If tuned, the name of this tier. This will be used in places like the tier cell view where we need to format the tier name as Tier x Tier Name. " allow_none="True" group="General" />
+                <TunableList name="zone_modifiers" class="TunableSet" display="Zone Modifiers" description="A set of zone modifiers to apply if this requirement is met. These zone modifiers will be 'hidden' from the UI and will not appear as lot traits in the lot trait molecule or manage worlds." group="General" unique_entries="true">
+                    <Tunable type="zone_modifier" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableEnum type="VenueTypes" name="venue_type" class="TunableEnumEntry" default="STANDARD" display="Venue Type" static_entries="venues-venue_enums.VenueTypes" description="The venue's functional type. Used to distinguish venues that function differently." group="General" />
+
+        <TunableVariant type="None" name="whim_set" class="OptionalTunable" default="disabled" display="Whim Set" description="If enabled then this venue type will offer a whim set to the Sim when it is the active lot." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="aspiration" name="enabled" class="TunableReference" display="Enabled" description="A whim set that is active when this venue is the active lot." allow_none="False" group="General" restrict="ObjectivelessWhimSet" />
+        </TunableVariant>
+
+        <Tunable type="zone_director" name="zone_director" class="TunableReference" display="Zone Director" description="The ZoneDirector type to request for this Venue Type. This will be the default type for this Venue Type. It may be overridden by a system such as Active Careers (e.g. your house is a crime scene now)." allow_none="False" group="General" restrict="ZoneDirectorBase" />
+
+        <TunableVariant type="None" name="zone_fixup" class="TunableVariant" default="residential" display="Zone Fixup" description="Specify what to do with a non resident NPC when the zone has to be fixed up on load. This fix up will occur if sim time or the active household has changed since the zone was last saved." group="Special Cases">
+            <TunableTuple name="add_to_background_situation" class="TunableAddToBackgroundSituation" display="Add To Background Situation" description="Add the sims to the venue's current background situation. " group="General" />
+            <TunableTuple name="create_situation" class="TunableCreateAndAddToSituation" display="Create Situation" description="Create a new situation of this type and add the NPC to its tuned job." group="General">
+                <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The situation job to assign the sim to. If set to None the sim will be assigned to the situation's default job." allow_none="True" group="General" pack_safe="True" restrict="SituationJob" />
+                <Tunable type="situation" name="situation_to_create" class="TunableReference" display="Situation To Create" allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+            <TunableTuple name="residential" class="TunableResidentialZoneFixupForNPC" display="Residential" description="Specify what to do with a non resident NPC on a residential lot when the zone has to be fixed up on load. This fix up will occur if sim time or the active household has changed since the zone was last saved." group="General">
+                <TunableTuple name="npc_lot_greeted" class="TunableCreateAndAddToSituation" display="Npc Lot Greeted" description="Create a new situation of this type and add the NPC to its tuned job." group="General">
+                    <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The situation job to assign the sim to. If set to None the sim will be assigned to the situation's default job." allow_none="True" group="General" pack_safe="True" restrict="SituationJob" />
+                    <Tunable type="situation" name="situation_to_create" class="TunableReference" display="Situation To Create" allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+                <TunableTuple name="npc_lot_ungreeted" class="TunableCreateAndAddToSituation" display="Npc Lot Ungreeted" description="Create a new situation of this type and add the NPC to its tuned job." group="General">
+                    <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The situation job to assign the sim to. If set to None the sim will be assigned to the situation's default job." allow_none="True" group="General" pack_safe="True" restrict="SituationJob" />
+                    <Tunable type="situation" name="situation_to_create" class="TunableReference" display="Situation To Create" allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+                <TunableTuple name="player_lot_greeted" class="TunableCreateAndAddToSituation" display="Player Lot Greeted" description="Create a new situation of this type and add the NPC to its tuned job." group="General">
+                    <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The situation job to assign the sim to. If set to None the sim will be assigned to the situation's default job." allow_none="True" group="General" pack_safe="True" restrict="SituationJob" />
+                    <Tunable type="situation" name="situation_to_create" class="TunableReference" display="Situation To Create" allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="zone_modifiers" class="TunableSet" display="Zone Modifiers" description="A set of default zone modifiers to apply in this Venue Type. These zone modifiers will be 'hidden' from the UI and will not appear as lot traits in the lot trait molecule or manage worlds." group="General" unique_entries="true">
+            <Tunable type="zone_modifier" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+    </Instance>
+
+    
+</TuningRoot>

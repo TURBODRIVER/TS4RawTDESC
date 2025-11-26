@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="RoutingFormationList" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableRoutingFormationList" display="Value" description="A tunable list of routing formations, along with functionality to choose the most appropriate formation based on number of routing slaves." group="General">
+            <TunableList name="formations" class="TunableList" display="Formations" min="1" description="A list of routing formations. One will be chosen based on the number of members of the group. It will use the closest match based on the number of offsets in the formation. Note that you will generally always want to use the 'follow' formation type here." group="General">
+                <Tunable type="snippet" class="TunableReference" allow_none="False" group="General" restrict="RoutingFormation" />
+            </TunableList>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="CrossAgeTuning" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableCrossAgeTuning" display="Value" description="Data for cross-age tunable values." group="General">
+            <TunableList name="cross_age_tuning" class="TunableMapping" display="Cross Age Tuning" mapping_key="subject_age" mapping_value="target_age_to_multiplier" description="A mapping of subject's age to another map of target's age to a tuned value." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Age" name="subject_age" class="TunableEnumEntry" default="ADULT" display="Subject Age" static_entries="sims-sim_info_types.Age" description="The subject's age." group="General" />
+                    <TunableList name="target_age_to_multiplier" class="TunableMapping" display="Target Age To Multiplier" mapping_key="target_age" mapping_value="multiplier" description="The data associated with the subject's age. Contains a map of the target's age to a multiplier." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="Tunable" default="1" display="Multiplier" description="The tuned value when this is the target's age." tuning_state="NeedsTuning" group="General" />
+                            <TunableEnum type="Age" name="target_age" class="TunableEnumEntry" default="ADULT" display="Target Age" static_entries="sims-sim_info_types.Age" description="The target's age." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+            <Tunable type="float" name="default_value" class="Tunable" default="1" display="Default Value" description="The default value, if the mapping requested is not found in the cross age tuning. For example: - for multipliers, you would want to set this to 1 - for modifiers which are additive, you would want to set this to 0 " tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

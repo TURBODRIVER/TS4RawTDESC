@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="StartCraftingRandomJewelSuperInteraction" module="jewelry_crafting.jewelry_crafting_interactions" description="' Starts crafting a random piece of jewelry" instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="check_fridge_shared_inventory" class="Tunable" default="True" display="Check Fridge Shared Inventory" description="If checked, look through the fridge shared inventory for gathering ingredients." group="General" />
+
+        <Tunable type="bool" name="check_sim_inventory" class="Tunable" default="True" display="Check Sim Inventory" description="If checked, look through the sims's inventory for gathering ingredients." group="General" />
+
+        <Tunable type="bool" name="check_target_inventory" class="Tunable" default="False" display="Check Target Inventory" description="If checked, look through the target object's inventory for gathering ingredients." group="General" />
+
+        <Tunable type="bool" name="set_target_as_current_ico" class="Tunable" default="False" display="Set Target As Current Ico" description="After creating the crafting component, if this is checked, the value of current_ico on the crafting_process will be set to the target. This is a way to make an object that we are not creating as an ICO to behave a bit like an ICO. By setting the current_ico to the target it allows the crafting interactions to return the target as the carry target, enabling the non ICO object to be carried to where it needs to be. For an example of when you might want to set this consider the Kave bowl. The Kava Bowl acts as both an ICO and a Final Product that holds individual servings. The only way to carry the Kava Bowl to the correct place to run the interaction is to set the current_ico to the kava bowl despite it not actually being a traditional ICO." group="General" />
+
+        <Tunable type="bool" name="use_inventory_materials" class="Tunable" default="False" display="Use Inventory Materials" description="If checked, the sim will use materials from its/table inventory. If not checked, the sim will purchase from the list of purchasable materials " group="General" />
+    </Instance>
+</TuningRoot>

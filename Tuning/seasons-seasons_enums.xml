@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="seasons.seasons_enums">
+        <Class name="SeasonType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="FALL" enum_value="1" />
+
+            <EnumItem name="SPRING" enum_value="3" />
+
+            <EnumItem name="SUMMER" enum_value="0" />
+
+            <EnumItem name="WINTER" enum_value="2" />
+        </Class>
+
+        <Class name="SeasonLength" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="LONG" enum_value="1" />
+
+            <EnumItem name="NORMAL" enum_value="0" />
+
+            <EnumItem name="VERY_LONG" enum_value="2" />
+        </Class>
+
+        <Class name="SeasonSegment" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EARLY" enum_value="0" />
+
+            <EnumItem name="LATE" enum_value="2" />
+
+            <EnumItem name="MID" enum_value="1" />
+        </Class>
+
+        <Class name="SeasonParameters" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="FLOWER_GROWTH" enum_value="2" />
+
+            <EnumItem name="FOLIAGE_COLORSHIFT" enum_value="4" />
+
+            <EnumItem name="FOLIAGE_REDUCTION" enum_value="3" />
+
+            <EnumItem name="LEAF_ACCUMULATION" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

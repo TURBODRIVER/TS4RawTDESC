@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="CurrencyBuck" module="bucks.currency_buck" description="Define the information associated with a particular buck that is used as a currency." instance_needs_reference="True" instance_subclasses_only="False" parents="DisplaySnippet" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="BucksType" name="buck_type" class="TunableEnumEntry" default="INVALID" display="Buck Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" description="The buck type for this currency." binary_type="uint32" group="General" />
+
+        <Tunable type="str" name="flyaway_gain_audio" class="Tunable" default="" display="Flyaway Gain Audio" description="Audio to use for the flyaway for this currency if currency is gained." allow_none="True" group="UI" />
+
+        <Tunable type="str" name="flyaway_loss_audio" class="Tunable" default="" display="Flyaway Loss Audio" description="Audio to use for the flyaway for this currency if currency is lost." allow_none="True" group="UI" />
+
+        <Tunable type="int" name="gain_string" class="TunableLocalizedString" default="0x0" display="Gain String" description="A string like '++{0.Money}' that will be used in UI to display an increase in this currency." group="UI" />
+
+        <Tunable type="int" name="lose_string" class="TunableLocalizedString" default="0x0" display="Lose String" description="A string like '--{0.Money}' that will be used in UI to display a decrease in this currency." group="UI" />
+
+        <Tunable type="int" name="value_string" class="TunableLocalizedString" default="0x0" display="Value String" description="A string like '{0.Money}' that will be used in UI to display a value of this currency." group="UI" />
+    </Instance>
+</TuningRoot>

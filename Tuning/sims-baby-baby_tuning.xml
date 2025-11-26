@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.baby.baby_tuning">
+        <Class name="BabyTuning">
+            <TunableList name="BABY_BASSINET_DEFINITION_MAP" class="TunableMapping" display="Baby Bassinet Definition Map" mapping_key="Baby" mapping_value="EmptyBassinet" description="The corresponding mapping for each definition pair of empty bassinet and bassinet with baby inside. The reason we need to have two of definitions is one is deletable and the other one is not." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="object" name="Baby" class="TunableReference" display="Baby" description="The definition of an object that is a bassinet containing a fully functioning baby." allow_none="False" group="General" pack_safe="True" />
+                    <Tunable type="object" name="EmptyBassinet" class="TunableReference" display="Emptybassinet" description="The definition of an object that is an empty bassinet." allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="object_state" name="BABY_CLOTH_STATE" class="TunableReference" display="Baby Cloth State" description="The object state that determines baby cloth value." allow_none="False" group="General" restrict="ObjectState" />
+
+            <TunableList name="BABY_CLOTH_STATE_MAP" class="TunableMapping" display="Baby Cloth State Map" mapping_key="key" mapping_value="value" description="A mapping from current BABY_CLOTH_STATE value to cloth string." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="object_state" name="key" class="TunableReference" display="Key" description="The state value that will be looked for on the baby." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <Tunable type="str" name="value" class="Tunable" default="" display="Value" description="The cloth that will be used if the state value key is present." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="BABY_DEFAULT_BASSINETS" class="TunableList" display="Baby Default Bassinets" description="A list of trait to default bassinet definitions. This is used when generating default bassinets for specific babies. The list is evaluated in order. Should no element be selected, an entry from BABY_BASSINET_DEFINITION_MAP is selected instead." group="General">
+                <TunableTuple class="TunableTuple" description="Should the baby have any of the specified traits, select a bassinet from the list of bassinets." group="General">
+                    <TunableList name="bassinets" class="TunableList" display="Bassinets" description="Should this entry be selected, a random bassinet from this list is chosen." group="General">
+                        <Tunable type="object" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="traits" class="TunableList" display="Traits" description="This entry is selected should the Sim have any of these traits." group="General">
+                        <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="BABY_DEFAULT_CLOTH" class="TunableTuple" display="Baby Default Cloth" description="Tuning for the default cloth value for different babies." group="General">
+                <Tunable type="str" name="alien" class="Tunable" default="" display="Alien" description="The cloth that will be used by default for an alien baby." group="General" />
+                <Tunable type="str" name="boy" class="Tunable" default="" display="Boy" description="The cloth that will be used by default for a boy baby." group="General" />
+                <Tunable type="str" name="girl" class="Tunable" default="" display="Girl" description="The cloth that will be used by default for a girl baby." group="General" />
+            </TunableTuple>
+
+            <Tunable type="object" name="BABY_THUMBNAIL_DEFINITION" class="TunableReference" display="Baby Thumbnail Definition" description="The thumbnail definition for client use only." allow_none="False" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

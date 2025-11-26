@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="StreetBaseLootEffect" module="civic_policies.street_civic_policy_effect" description="Base class for providing loot to entities associated with a street when the effect is enacted." instance_needs_reference="True" instance_subclasses_only="True" parents="StreetEffect" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="enact_loot" class="TunableList" display="Enact Loot" description="If enabled, Loot applied when the effect is enacted" group="General">
+            <Tunable type="action" class="TunableReference" description="Loot applied when the effect is enacted." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="repeal_loot" class="TunableList" display="Repeal Loot" description="If enabled, Loot applied when the effect is repealed" group="General">
+            <Tunable type="action" class="TunableReference" description="Loot applied when the effect is repealed." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+        </TunableList>
+
+        <TunableVariant type="None" name="scheduled_loot" class="OptionalTunable" default="disabled" display="Scheduled Loot" description="While enacted, loot to award on a schedule." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableScheduledLoot" display="Enabled" description="Weekly Scheduled Loot" group="General">
+                <TunableList name="loot" class="TunableList" display="Loot" description="Loot applied when the effect is enacted." group="General">
+                    <Tunable type="action" class="TunableReference" description="Loot applied when the effect is enacted." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                </TunableList>
+                <TunableTuple name="schedule_data" class="TunableWeeklySchedule" display="Schedule Data" description="The information to schedule points during the week that the Street Policy Effect, if enacted, will award loot." group="General">
+                    <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                        <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                            <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                                <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                                <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                                <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                                <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                                <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                                <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                                <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                            </TunableTuple>
+                            <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                            <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                            <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                                <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

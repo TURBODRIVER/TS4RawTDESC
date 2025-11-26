@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="OrganizationMemberSingleJobSituation" module="organizations.organization_situations" description="Situation that requires one or more members of organizations to fill in a job." instance_subclasses_only="False" parents="OrganizationEventBase, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="job_and_role_state" class="TunableSituationJobAndRoleState" display="Job And Role State" description="The job and role that a member will be used to fill in." group="Situation">
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

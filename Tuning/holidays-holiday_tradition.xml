@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="holidays.holiday_tradition">
+        <Class name="TraditionActivationEvent" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="HOLIDAY_ACTIVATE" enum_value="0" />
+
+            <EnumItem name="HOLIDAY_DEACTIVATE" enum_value="1" />
+
+            <EnumItem name="TRADITION_ADD" enum_value="2" />
+
+            <EnumItem name="TRADITION_REMOVE" enum_value="3" />
+        </Class>
+
+        <Class name="TraditionType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="HOLIDAY_TRADITION" enum_value="0" />
+
+            <EnumItem name="SITUATION_ACTIVITY" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

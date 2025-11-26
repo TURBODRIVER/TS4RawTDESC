@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="WeatherForcastList" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="value" class="TunableList" display="Value" group="General">
+            <TunableTuple class="TunableTuple" description="A tuple of forecast and weight." group="General">
+                <Tunable type="weather_forecast" name="forecast" class="TunableReference" display="Forecast" description="The weather forecast." allow_none="False" group="General" pack_safe="True" restrict="WeatherForecast" />
+                <Tunable type="int" name="weight" class="Tunable" default="1" display="Weight" description="Weight of this forecast being selected." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

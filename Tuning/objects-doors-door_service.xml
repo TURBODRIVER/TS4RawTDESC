@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.doors.door_service">
+        <Class name="DoorService">
+            <TunableList name="FRONT_DOOR_ALLOWED_APARTMENT_PORTAL_FLAGS" class="TunableEnumFlags" display="Front Door Allowed Apartment Portal Flags" description="Additional portal flags to be used if needing to choose between multiple external doors in an apartment. e.g. Elevator." group="General" unique_entries="true">
+                <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+            </TunableList>
+
+            <TunableList name="FRONT_DOOR_ALLOWED_PORTAL_FLAGS" class="TunableEnumFlags" display="Front Door Allowed Portal Flags" description="Door Service does a routability check to all doors from the lot's arrival spawn point to find doors that are reachable without crossing other doors. These flags are supplied to the routability check's PathPlanContext, to tell it what portals are usable. For example, stair portals should be allowed (e.g. for front doors off the ground level, or house is on a foundation)." group="General" unique_entries="true">
+                <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

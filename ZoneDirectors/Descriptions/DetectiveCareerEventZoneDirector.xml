@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="DetectiveCareerEventZoneDirector" module="careers.detective.detective_career_event_zone_director" description="The zone director for crime scenes in the detective career." instance_needs_reference="True" instance_subclasses_only="False" parents="CareerEventZoneDirector, SchedulingZoneDirector, ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <Tunable type="trait" name="criminal_trait" class="TunableReference" display="Criminal Trait" description="The trait that signifies that a sim is a criminal at the police station." allow_none="False" group="General" />
+
+        <TunableTuple name="in_holding_cell_buff" class="TunableBuffReference" display="In Holding Cell Buff" description="The buff that indicates that this sim is in a holding cell." group="General">
+            <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+            </TunableVariant>
+            <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                    <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                    <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                    <Tunable name="none" class="TunableExistance" display="None" />
+                </TunableVariant>
+            </TunableVariant>
+            <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+        </TunableTuple>
+    </Instance>
+
+    
+</TuningRoot>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.bouncer.bouncer_request">
+        <Class name="BouncerRequest">
+            <Tunable type="float" name="TARDY_SIM_TIME" class="TunableSimMinute" default="30" display="Tardy Sim Time" min="None" max="None" description="Amount of time until a sim coming to a situation is considered tardy" tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

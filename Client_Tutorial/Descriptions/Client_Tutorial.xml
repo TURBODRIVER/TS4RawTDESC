@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="client_tutorial" class="Client_Tutorial" module="client_tutorials.client_tutorial" description="Main container class that holds all data for a client tutorial." instance_subclasses_only="False" path="Client_Tutorials\Descriptions">
+        <Tunable type="bool" name="allowed_in_casdemo" class="Tunable" default="False" display="Allowed in CAS Demo" description="Allow this Tutorial in CAS Demo" tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="client_tutorial" name="category" class="TunableReference" display="Category" description="The tutorial category in which this tutorial belongs." group="General" restrict="Client_TutorialCategory" />
+
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="Name of the tutorial. i.e. if this is a tutorial about Build/Buy you might put 'Build Buy Mode'" allow_none="True" group="General" />
+
+        <TunableTuple name="notification" class="TunableTNSNotification" display="Notification" description="This is the notification that will show when you are eligible for this tutorial. When a tutorial triggers, we show a notification and let the player decide if they want to click the notification to see the tutorial." group="General">
+            <Tunable type="ResourceKey" name="audio" class="TunableResourceKey" default="None" display="Audio String" description="The sound to play when the dialog is shown." allow_none="True" group="General" resource_types="0x39b2aa4a" />
+            <TunableEnum type="UiDialogNotificationExpandBehavior" name="expand_behavior" class="TunableEnumEntry" default="USER_SETTING" display="Expand Behavior" static_entries="ui-ui_dialog_notification.UiDialogNotification.UiDialogNotificationExpandBehavior" description="Specify the notification's expand behavior." group="General" />
+            <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="The icon image to be displayed" allow_none="True" group="General" resource_types="0x2f7d0004" />
+            <TunableEnum type="UiDialogNotificationLevel" name="information_level" class="TunableEnumEntry" default="PLAYER" display="Information Level" static_entries="ui-ui_dialog_notification.UiDialogNotification.UiDialogNotificationLevel" description="Specify the notification's information level." group="General" />
+            <Tunable type="ResourceKey" name="secondary_icon" class="TunableResourceKey" default="None" display="Secondary Icon" description="A secondary icon image to be displayed." allow_none="True" group="General" resource_types="0x2f7d0004" />
+            <Tunable type="int" name="text" class="TunableLocalizedString" default="0x0" display="Text" description="The dialog's text, a localized string that may use tokens." allow_none="True" group="General" />
+            <Tunable type="int" name="title" class="TunableLocalizedString" default="0x0" display="Title" description="The dialog's title." allow_none="True" group="General" />
+            <TunableList name="ui_responses" class="TunableList" display="Ui Responses" description="A list of buttons that are mapped to UI commands." group="General">
+                <TunableTuple class="TunableUiDialogResponse" description="A dialog response." group="General">
+                    <Tunable type="int" name="text" class="TunableLocalizedString" default="0x0" display="Text" description="The prompt's text." group="General" />
+                    <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
+                </TunableTuple>
+            </TunableList>
+            <TunableEnum type="UiDialogNotificationUrgency" name="urgency" class="TunableEnumEntry" default="DEFAULT" display="Urgency" static_entries="ui-ui_dialog_notification.UiDialogNotification.UiDialogNotificationUrgency" description="Specify the notification's urgency." group="General" />
+            <TunableEnum type="UiDialogNotificationVisualType" name="visual_type" class="TunableEnumEntry" default="INFORMATION" display="Visual Type" static_entries="ui-ui_dialog_notification.UiDialogNotification.UiDialogNotificationVisualType" description="Specify the notification's visual treatment." group="General" />
+        </TunableTuple>
+
+        <TunableList name="slides" class="TunableList" display="Slides" description="These are the slides (images with a description) that create the story for this tutorial. They will be shown in the order they are provided, so the first slide in this list will be the first slide of the tutorial." group="General">
+            <TunableTuple class="TunableTutorialSlideTuple" group="General">
+                <Tunable type="ResourceKey" name="image" class="TunableResourceKey" default="None" display="Image" description="The image for this slide." group="General" resource_types="0x2f7d0004" />
+                <Tunable type="ResourceKey" name="image_console" class="TunableResourceKey" default="None" display="Image (Console)" description="The image for this slide on console. If unset the Image will be used as a fallback." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                <Tunable type="ResourceKey" name="image_console_jp" class="TunableResourceKey" default="None" display="Image (Console; JP)" description="The image for this slide on console for the JP SKU. Fallback order is: Image (Console), Image." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                <TunableEnum type="TutorialPlatformFilter" name="platform_filter" class="TunableEnumEntry" default="ALL_PLATFORMS" display="Platform Filter" static_entries="tutorials-tutorial.TutorialPlatformFilter" description="The platforms on which this slide is shown." group="General" />
+                <Tunable type="int" name="text" class="TunableLocalizedString" default="0x0" display="Text" description="The text for this slide." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="triggers" class="TunableList" display="Triggers" description="These are the events that can trigger this tutorial. i.e. if this is a Build/Buy tutorial, we might want to trigger this tutorial when you build something, buy something, or enter build/buy. You could add all three of those events and this tutorial will trigger if any one of them happen. The tutorial tip will be triggered at any point that one of these events is even triggered." group="General">
+            <TunableEnum type="Trigger" class="TunableEnumEntry" default="INVALID" dynamic_entries="client-tutorial.Trigger._elements" static_entries="client-tutorial.Trigger" group="General" />
+        </TunableList>
+
+        <Tunable type="int" name="ui_sort_order" class="Tunable" default="0" display="Ui Sort Order" description="Sort order for UI purposes. Relative to other tutorials" tuning_state="NeedsTuning" group="General" />
+    </Instance>
+
+    
+</TuningRoot>

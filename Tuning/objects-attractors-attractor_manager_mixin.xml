@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.attractors.attractor_manager_mixin">
+        <Class name="AttractorManagerMixin">
+            <TunableList name="ATTRACTOR_OBJECT_TAGS" class="TunableSet" display="Attractor Object Tags" description="One or more tags that indicate an object is a type of attractor point. We use attractor points to push Sims near things and reference specific geography in the world." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A specific tag." dynamic_entries_prefix="AtPo" group="General" invalid_entries="INVALID" />
+            </TunableList>
+
+            <TunableList name="SPAWN_POINT_ATTRACTORS" class="TunableMapping" display="Spawn Point Attractors" mapping_key="spawn point tag" mapping_value="attractor point definition" description="Mapping from spawn point tags to attractor objects so we can create attractor points at spawn points." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="object" name="attractor point definition" class="TunableReference" display="Attractor Point Definition" description="The object we want to create on the Spawn Point." allow_none="False" group="General" pack_safe="True" />
+                    <TunableEnum type="Tag" name="spawn point tag" class="TunableEnumEntry" default="INVALID" display="Spawn Point Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag on the spawn point." group="General" invalid_entries="INVALID" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

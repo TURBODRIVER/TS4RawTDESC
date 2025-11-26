@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CreateAndServeToSlotSuperInteraction" module="crafting.serving_interactions" description="A Super Interaction to create and serve an object into slots on a surface." instance_needs_reference="True" instance_subclasses_only="False" parents="CreateAndServeObjectSuperInteraction, CraftingPhaseCreateObjectSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_saveable" />
+
+        <Tunable type="int" name="put_down_object_xevt_id" class="Tunable" default="101" display="Put Down Object Xevt Id" description="Xevt id for when the object should be parented to the slot." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+</TuningRoot>

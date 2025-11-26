@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.situation_manager">
+        <Class name="SituationManager">
+            <Tunable type="situation" name="DEFAULT_LEAVE_NOW_MUST_RUN_SITUATION" class="TunableReference" display="Default Leave Now Must Run Situation" description="The situation type that drives the sim off the lot pronto." allow_none="False" group="General" restrict="SingleSimLeaveSituation" />
+
+            <Tunable type="situation" name="DEFAULT_LEAVE_SITUATION" class="TunableReference" display="Default Leave Situation" description="The situation type for the background leave situation. It collects sims who are not in other situations and asks them to leave periodically." allow_none="False" group="General" restrict="LeaveSituation" />
+
+            <Tunable type="drama_node" name="DEFAULT_PLAYER_PLANNED_DRAMA_NODE" class="TunableReference" display="Default Player Planned Drama Node" description="The drama node that will be scheduled when a player plans an event for the future." allow_none="False" group="General" restrict="PlayerPlannedDramaNode" />
+
+            <Tunable type="situation" name="DEFAULT_TRAVEL_SITUATION" class="TunableReference" display="Default Travel Situation" description="The default situation for when you are simply traveling with a group of Sims." allow_none="False" group="General" />
+
+            <Tunable type="situation" name="DEFAULT_VISIT_SITUATION" class="TunableReference" display="Default Visit Situation" description="The default visit situation used when you ask someone to hang out or invite them in." allow_none="False" group="General" />
+
+            <Tunable type="float" name="EXTERNAL_AUTONOMY_DISCOURAGEMENT_MULTIPLIER" class="TunableRange" default="0.1" display="External Autonomy Discouragement Multiplier" min="0" max="1" description="If Allow External Autonomy is False, this multiplier is applied to autonomy. Lower values discourage external autonomy more. A value of 0 completely blocks external autonomy. A value of 1 doesn't apply discouragement, as if Allow External Autonomy was True." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="LEAVE_INTERACTION_TAGS" class="TunableSet" display="Leave Interaction Tags" description="The tags indicating leave lot interactions, but not leave lot must run interactions. These are used to determine if a leave lot interaction is running or cancel one if it is." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="interaction" group="General" />
+            </TunableList>
+
+            <TunableList name="MULTI_INSTANCE_SITUATION_DISPLAY_TYPES" class="TunableSet" display="Multi Instance Situation Display Types" description="A set of situation display types which allow multiple running instances." group="General" unique_entries="true">
+                <TunableEnum type="SituationDisplayType" class="TunableEnumEntry" default="NORMAL" static_entries="situations-situation_types.SituationDisplayType" description="A SituationDisplayType which allows multiple running instances." group="General" />
+            </TunableList>
+
+            <TunableList name="SITUATION_CATEGORY_PLAYER_PLANNED_DRAMA_NODE" class="TunableMapping" display="Situation Category Player Planned Drama Node" mapping_key="situation_category" mapping_value="drama_node" description="A mapping of Situaiton Categories to Player Planned Drama Nodes used for scheduling. If the Situation Category is found in this mapping, the corresponding Drama Node is used. If the Situation Category is not found in this mapping, the tuned Default Player Planned Drama Node is used." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="drama_node" name="drama_node" class="TunableReference" display="Drama Node" description="The drama node that will be scheduled when a player plans an event for the future." allow_none="False" group="General" restrict="PlayerPlannedDramaNode" />
+                    <TunableEnum type="SituationCategoryUid" name="situation_category" class="TunableEnumEntry" default="DEFAULT" display="Situation Category" dynamic_entries="situations-situation_types.SituationCategoryUid._elements" static_entries="situations-situation_types.SituationCategoryUid" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="SUPER_SPEED_THREE_REQUEST_BUFF" class="TunableBuffReference" display="Super Speed Three Request Buff" description="The buff to apply to the Sim when we're trying to make them run the leave situation from a super speed three request." group="General">
+                <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                        <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                    </TunableVariant>
+                </TunableVariant>
+                <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

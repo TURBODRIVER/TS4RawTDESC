@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="object" class="Puddle" module="objects.puddles.puddle" instance_needs_reference="True" instance_subclasses_only="False" parents="GameObject, ScriptObject" path="Objects\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="evaporation_data" class="TunableTuple" display="Evaporation Data" description="This is the information for evaporation. This controls how long this puddle takes to evaporate." group="Puddles">
+            <Tunable type="statistic" name="commodity" class="TunableReference" display="Commodity" description="The commodity used for evaporation." allow_none="False" group="General" restrict="Commodity" />
+            <TunableTuple name="initial_value" class="TunableInterval" display="Initial Value" description="Initial value of this commodity. Time it takes to evaporate will be based on how fast this commodity decays. (Based on loot given in weather aware component)" group="General">
+                <Tunable type="float" name="lower_bound" class="TunableRange" default="30" display="Lower Bound" min="1" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="upper_bound" class="TunableRange" default="60" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableTuple>
+
+        <TunableTuple name="evaporation_outcome" class="TunableTuple" display="Evaporation Outcome" group="Puddles">
+            <Tunable type="int" name="nothing" class="TunableRange" default="5" display="Nothing" min="1" max="None" description="Relative chance of nothing." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="plant" class="TunableRange" default="1" display="Plant" min="0" max="None" description="Relative chance of plant." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="weeds" class="TunableRange" default="2" display="Weeds" min="0" max="None" description="Relative chance of weeds." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="indoor_evaporation_time" class="TunableInterval" display="Indoor Evaporation Time" description="Number of SimMinutes this puddle should take to evaporate when created indoors." group="XXX Deprecated">
+            <Tunable type="float" name="lower_bound" class="TunableSimMinute" default="200" display="Lower Bound" min="1" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="upper_bound" class="TunableSimMinute" default="300" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="intial_stat_value" class="TunableTuple" display="Intial Stat Value" description="This is the starting value for the stat specified. This controls how long it takes to mop this puddle." group="Puddles">
+            <Tunable type="statistic" name="stat" class="TunableReference" display="Stat" description="The stat used for mopping puddles." allow_none="False" group="General" restrict="Statistic" />
+            <Tunable type="int" name="value" class="Tunable" default="-20" display="Value" description="The initial value this puddle should have for the mopping stat. The lower the value (-100,100), the longer it takes to mop up." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="outdoor_evaporation_time" class="TunableInterval" display="Outdoor Evaporation Time" description="Number of SimMinutes this puddle should take to evaporate when created outdoors." group="XXX Deprecated">
+            <Tunable type="float" name="lower_bound" class="TunableSimMinute" default="30" display="Lower Bound" min="1" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="upper_bound" class="TunableSimMinute" default="60" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="puddle_grow_chance" class="TunableTunableMultiplier" display="Puddle Grow Chance" description="The chance of puddle to grow." group="Puddles">
+            <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+
+        <TunableEnum type="PuddleLiquid" name="puddle_liquid" class="TunableEnumEntry" default="INVALID" display="Puddle Liquid" dynamic_entries="objects-puddles.PuddleLiquid._elements" static_entries="objects-puddles.PuddleLiquid" description="The liquid that the puddle is made of." group="Puddles" invalid_entries="INVALID" />
+
+        <TunableEnum type="PuddleSize" name="puddle_size" class="TunableEnumEntry" default="NoPuddle" display="Puddle Size" static_entries="objects-puddles.PuddleSize" description="The size of the puddle." group="Puddles" invalid_entries="NoPuddle" />
+    </Instance>
+</TuningRoot>

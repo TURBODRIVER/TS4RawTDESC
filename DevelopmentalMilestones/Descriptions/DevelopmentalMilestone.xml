@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="developmental_milestone" class="DevelopmentalMilestone" module="developmental_milestones.developmental_milestone" description="A Developmental Milestone is a tracked, learned behavior that a Sim can do. It appears in a new UI and often unlocks new abilities for the Sim, in addition to making additional Milestones available. Implementation-wise, these are unrelated to other systems named 'milestones' in the TS4 codebase." instance_needs_reference="True" instance_subclasses_only="False" path="DevelopmentalMilestones\Descriptions" use_guid_for_reference="True">
+        <TunableList name="ages" class="TunableEnumSet" display="Ages" description="Milestone is limited to the specified age state(s)." group="General" unique_entries="true">
+            <TunableEnum type="Age" class="TunableEnumEntry" default="INFANT" static_entries="sims-sim_info_types.Age" group="General" />
+        </TunableList>
+
+        <TunableEnum type="DevelopmentalMilestoneCategory" name="category" class="TunableEnumEntry" default="INVALID" display="Category" dynamic_entries="developmental_milestones-developmental_milestone.DevelopmentalMilestoneCategory._elements" static_entries="developmental_milestones-developmental_milestone.DevelopmentalMilestoneCategory" description="Category where this milestone appears in the UI." binary_type="uint32" group="General" invalid_entries="INVALID" />
+
+        <TunableVariant type="None" name="commodity" class="OptionalTunable" default="disabled" display="Commodity" description="The commodity used to track progress toward unlocking this milestone. This commodity is added to the Sim when the milestone becomes available, and is removed when it is either completed or the Sim advances to the next age state." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="statistic" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" restrict="Commodity" />
+        </TunableVariant>
+
+        <Tunable type="situation_goal" name="goal" class="TunableReference" display="Goal" description="The goal that must be completed to unlock the milestone." allow_none="False" group="General" />
+
+        <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="Icon to show in the UI when this milestone is completed." group="General" resource_types="0x2f7d0004" />
+
+        <TunableVariant type="None" name="is_primary_milestone" class="OptionalTunable" default="False" display="Is Primary Milestone" description="Primary milestones are visible in the UI when they are active but not yet unlocked. Non-primary milestones are only visible in the UI after they are unlocked." group="General">
+            <Tunable name="False" class="TunableExistance" display="False" />
+            <TunableTuple name="True" class="DevelopmentalMilestoneIsPrimaryMilestone" display="True" group="General">
+                <Tunable type="int" name="hint_text" class="TunableLocalizedString" default="0x0" display="Hint Text" description="Displayed in UI hovertip when the milestone is not yet completed." group="General" />
+                <TunableVariant type="None" name="revealable_name" class="OptionalTunable" default="disabled" display="Revealable Name" description="If tuned, use this name when the milestone is in the revealable state. Otherwise, use the default name." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Revealable name of the milestone." group="General" />
+                </TunableVariant>
+                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="If the tuned tests pass for the Sim, then the milestone will display as revealable in the UI, otherwise it will not." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="loot" class="TunableList" display="Loot" description="Optional loot to apply when this milestone is awarded." group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+        </TunableList>
+
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="Name of this milestone." group="General" />
+
+        <TunableList name="prerequisite_milestones" class="TunableSet" display="Prerequisite Milestones" description="Milestones that must be completed before this milestone becomes available. If none are tuned, it is available at the beginning of the age state." group="General" unique_entries="true">
+            <Tunable type="developmental_milestone" class="TunableReference" allow_none="False" group="General" />
+        </TunableList>
+
+        <Tunable type="bool" name="repeatable" class="Tunable" default="False" display="Repeatable" description="If True, the milestone will reset after it is completed." group="General" />
+
+        <Tunable type="bool" name="retroactive_only" class="Tunable" default="False" display="Retroactive Only" description="If True, the milestone is only activated once, during the tracker's initial startup, and will be shut down after retroactive loot is applied." group="General" />
+
+        <TunableVariant type="None" name="treat_unlocked_at_age_percentage" class="OptionalTunable" default="disabled" display="Treat Unlocked At Age Percentage" description="This milestone will be treated as unlocked for unplayed Sims and also auto-assigned to Sims if they become part of an active household if the Sim's percentage of current age state is at or above this tuned percent." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="float" name="Percent" class="TunablePercent" default="0" display="Percent" min="0" max="100" group="General" />
+        </TunableVariant>
+
+        <Tunable type="int" name="ui_sort_order" class="Tunable" default="0" display="Ui Sort Order" description="A tuned value that determines the order in which milestones are listed in the UI." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="unlocked_text" class="TunableLocalizedString" default="0x0" display="Unlocked Text" description="Text to show in the UI hovertip after the milestone is completed. Supported tokens: {0} = Actor Sim (Sim the milestone unlocked for) - e.g. {0.SimFirstName} {1} = Target Sim - e.g. {1.SimName} {2} = Target Object Name - e.g. {2.ObjectName} {3.String} = Unlocked In Lot Name {4.String} = Unlocked In Region Name {5.String} = Career Display Name (Career the milestone unlocked for) {6.String} = Career Level (Career Level the milestone unlocked for) {7.String} = Death Type (Death Type the milestone unlocked for) {8.String} = Trait Display Name (Trait the milestone unlocked for) {9.String} = Small Business name (Small Business the milestone unlocked for)" allow_none="True" group="General" />
+
+        <Tunable type="int" name="unlocked_text_no_context" class="TunableLocalizedString" default="0x0" display="Unlocked Text No Context" description="Text to show in the UI hovertip after the milestone is completed if contextual information is not available." allow_none="True" group="General" />
+
+        <Tunable type="int" name="unlocked_text_target_sim_header" class="TunableLocalizedString" default="0x0" display="Unlocked Text Target Sim Header" description="Text to show above the target sim's icon in the UI hovertip after the milestone is completed. e.g. With, Married To Only works if the tuned unlocked_text uses the supported token {1} = Target Sim." allow_none="True" group="General" />
+    </Instance>
+</TuningRoot>

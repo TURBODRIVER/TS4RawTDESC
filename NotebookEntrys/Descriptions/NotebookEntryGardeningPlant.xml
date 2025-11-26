@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="notebook_entry" class="NotebookEntryGardeningPlant" module="objects.gardening.gardening_notebook_entries" description="A notebook entry specific to Plants. This populates the entry automatically, and displays static data for a specific plant (e.g. rarity, seasonality, etc...)" instance_subclasses_only="False" parents="NotebookEntry" path="NotebookEntrys\Descriptions" use_guid_for_reference="True">
+        <Deleted name="entry_icon" />
+
+        <Deleted name="entry_sublist" />
+
+        <Deleted name="entry_sublist_is_sortable" />
+
+        <Deleted name="entry_text" />
+
+        <Tunable type="int" name="entry_text_rarity" class="TunableLocalizedString" default="0x0" display="Entry Text Rarity" description=" The text to display for rarity. e.g.: Rarity: {0.String} " group="General" />
+
+        <Tunable type="int" name="entry_text_splicing" class="TunableLocalizedString" default="0x0" display="Entry Text Splicing" description="The text to display for a single splicing entry. e.g.: Splice with {P0.ObjectName} to get {P1.ObjectName}." group="General" />
+
+        <Tunable type="int" name="entry_text_value" class="TunableLocalizedString" default="0x0" display="Entry Text Value" description=" The text to display for the fruit's Simoleon value. e.g.: Average Harvestable Value: {0.Money} " group="General" />
+
+        <Deleted name="entry_tooltip" />
+    </Instance>
+</TuningRoot>

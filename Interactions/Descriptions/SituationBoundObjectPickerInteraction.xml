@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="SituationBoundObjectPickerInteraction" module="interactions.picker.situation_picker_interaction" description="The picker interaction to select the bound object in a specified situation." instance_needs_reference="True" instance_subclasses_only="False" parents="ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="valid_situations" class="SituationSearchByDefinitionOrTagsVariant" default="by_definition" display="Valid Situations" description="Situations to pull bound objects from for the picker." group="Picker Tuning">
+            <TunableTuple name="by_definition" class="TunableSituationByDefinition" display="By Definition" description="A tunable which provides a way to search for situations a Sim is in based off provided situation types, whether a situation matches the given definitions, or to find all situations of the given definitions." group="General">
+                <TunableList name="situations" class="TunableSet" display="Situations" min="1" description="Situation types to match." group="General" unique_entries="true">
+                    <Tunable type="situation" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+            <TunableTuple name="by_tags" class="TunableSituationByTags" display="By Tags" description="A tunable which provides a way to find all situations tagged with any of the given tags, search for situations a Sim is in based off provided situation tags, or test whether a situation is tagged with any of the given tags." group="General">
+                <TunableList name="situation_tags" class="TunableTags" display="Situation Tags" min="1" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Situation tags to match. A situation that matches ANY of these tags will match." dynamic_entries_prefix="situation" group="General" invalid_entries="INVALID" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

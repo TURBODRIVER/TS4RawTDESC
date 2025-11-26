@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tagtuning" class="TagOccultTypeMapping" module="tagtuning.TagOccultTypeMapping" description="Mapping between CAS occult types and occult tags." path="Client_TagTuning\Descriptions">
+        <TunableList name="OccultToArchetypeTagCategory" class="TunableList" display="Occult Archetype Tag Categories" description="List of CAS occult to tag category mappings.">
+            <TunableTuple name="OccultTypeToArchetypeTagCategory" class="TagOccultTypeMapping.OccultTypeToArchetypeTagCategory" description="Mapping from occult type to the corresponding archetype tag category.">
+                <TunableEnum type="TagCategory" name="ArchetypeTagCategory" class="TunableEnumEntry" default="INVALID" display="ArchetypeTagCategory" dynamic_entries="tag.TagCategory._elements" static_entries="tag.TagCategory" description="Tag Category for this occult type." pack_safe="true" />
+                <TunableEnum type="OccultType" name="OccultType" class="TunableEnumEntry" default="HUMAN" display="Occult Type" static_entries="sims-occult-occult_enums.OccultType" description="The occult type to be mapped." />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="OccultTypes" class="TunableList" display="Occult Types" description="List of CAS occult mappings.">
+            <TunableTuple name="OccultTypeToTag" class="TagOccultTypeMapping.OccultTypeToTag" description="Mapping from occult type to the corresponding tag.">
+                <TunableEnum type="OccultType" name="OccultType" class="TunableEnumEntry" default="HUMAN" display="Occult Type" static_entries="sims-occult-occult_enums.OccultType" description="The occult type to be mapped." />
+                <TunableEnum type="Tag" name="Tag" class="TunableEnumEntry" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag for this occult type." pack_safe="true" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

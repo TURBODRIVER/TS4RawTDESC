@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.display_component">
+        <Class name="DisplayComponent">
+            <Tunable type="object_state" name="DEFAULT_STATE" class="TunableReference" display="Default State" description="The default state a display object will be set to when it is unparented from a Display Parent." allow_none="False" group="General" restrict="ObjectStateValue" />
+
+            <Tunable type="object_state" name="DISPLAY_STATE" class="TunableReference" display="Display State" description="The state a display object will be set to when it is parented to a Display Parent." allow_none="False" group="General" restrict="ObjectStateValue" />
+        </Class>
+    </Module>
+</TuningRoot>

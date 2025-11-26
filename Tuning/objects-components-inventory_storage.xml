@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.inventory_storage">
+        <Class name="InventoryStorage">
+            <TunableList name="UI_FILTER_TYPES" class="TunableList" display="Ui Filter Types" description="A list of filter categories containing filter types used to filter the sim's inventory in the UI. The inventory can also be sorted by filter type; filters lower on this list will sort lower when sorted by filter type." group="General">
+                <TunableTuple class="InventoryUIFilterCategoryTuple" description="A category of filters in the UI. Contains a name and a list of filters." group="General">
+                    <Tunable type="int" name="category_name" class="TunableLocalizedString" default="0x0" display="Category Name" description="The name displayed in the UI for this filter category." group="General" />
+                    <TunableList name="filters" class="TunableList" display="Filters" description="The filters used in this category. " group="General">
+                        <TunableTuple class="InventoryUIFilterTypeTuple" description="Data that defines a filter type in the inventory UI." group="General">
+                            <Tunable type="str" name="debug_name" class="Tunable" default="NONE" display="Debug Name" description="A unique name used to select this inventory filter type through the console command ui.inventory.set_sort_filter when the inventory ui is open." group="General" />
+                            <TunableList name="disqualifying_tags" class="TunableTags" display="Disqualifying Tags" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="If an object has any of these tags, it will fail this filter even if it would otherwise pass." binary_type="uint32" group="General" invalid_entries="INVALID" pack_safe="True" />
+                            </TunableList>
+                            <Tunable type="int" name="filter_name" class="TunableLocalizedString" default="0x0" display="Filter Name" description="The name displayed in the UI for this filter type. " group="General" />
+                            <TunableList name="required_packs" class="TunableEnumSet" display="Required Packs" description="If any packs are tuned here, at least one of them must be present for this filter to appear in the UI." group="General" unique_entries="true">
+                                <TunableEnum type="Pack" class="TunableEnumEntry" default="BASE_GAME" static_entries="sims4-common.Pack" group="General" />
+                            </TunableList>
+                            <TunableList name="tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that should be considered part of this filter." binary_type="uint32" group="General" invalid_entries="INVALID" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="UI_SORT_TYPES" class="TunableList" display="Ui Sort Types" description="A list of gameplay-based sort types used in the sim's inventory in the UI." group="General">
+                <TunableTuple class="InventoryUISortTypeTuple" description="Data that defines this sort for the inventory UI." group="General">
+                    <Tunable type="str" name="debug_name" class="Tunable" default="NONE" display="Debug Name" description="A unique name used to select this inventory sort type through the console command ui.inventory.set_sort_filter when the inventory ui is open." group="General" />
+                    <Tunable type="bool" name="is_ascending" class="Tunable" default="True" display="Is Ascending" description="Whether a higher value from object_data will sort first. If a high value means that the object should sort lower (E.G. brokenness), this should be false." group="General" />
+                    <TunableVariant type="None" name="object_data" class="TunableVariant" default="states" display="Object Data" description="The object data that determines the sort order of this sort type." group="General">
+                        <TunableList name="states" class="TunableList" display="States" description="States whose values are used to sort on for this sort type. " group="General">
+                            <Tunable type="object_state" class="TunableReference" description="A State to sort on." allow_none="False" group="General" restrict="ObjectState" />
+                        </TunableList>
+                    </TunableVariant>
+                    <Tunable type="int" name="sort_name" class="TunableLocalizedString" default="0x0" display="Sort Name" description="The name displayed in the UI for this sort type." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

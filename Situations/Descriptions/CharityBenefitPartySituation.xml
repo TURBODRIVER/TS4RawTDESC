@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="CharityBenefitPartySituation" module="situations.complex.charity_benefit_party" instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="bartender" class="TunableTuple" display="Bartender" group="Roles">
+            <Tunable type="role_state" name="bartender_benefit_role_state" class="TunableReference" display="Bartender Benefit Role State" description="Bartender's role state to prepare drinks, socialize, etc. during the benefit." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The SituationJob for the Bartender." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <TunableTuple name="caterer" class="TunableTuple" display="Caterer" group="Roles">
+            <Tunable type="role_state" name="caterer_benefit_role_state" class="TunableReference" display="Caterer Benefit Role State" description="Caterer's role state for serving the guests." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The SituationJob for the caterer." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <TunableTuple name="entertainer" class="TunableTuple" display="Entertainer" group="Roles">
+            <Tunable type="role_state" name="entertainer_benefit_role_state" class="TunableReference" display="Entertainer Benefit Role State" description="Entertainer's role state during the benefit." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The SituationJob for the entertainer." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <TunableTuple name="guest" class="TunableTuple" display="Guest" group="Roles">
+            <Tunable type="role_state" name="guest_benefit_role_state" class="TunableReference" display="Guest Benefit Role State" description="Guest's role state during the benefit." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The SituationJob for the Guests." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <TunableTuple name="host" class="TunableTuple" display="Host" group="Roles">
+            <Tunable type="role_state" name="host_benefit_role_state" class="TunableReference" display="Host Benefit Role State" description="The host's role state during the benefit." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The SituationJob for the host." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <Deleted name="venue_invitation_message" />
+
+        <Deleted name="venue_situation_player_job" />
+    </Instance>
+</TuningRoot>

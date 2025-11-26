@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="object" class="Sim" module="sims.sim" description="A little digital person." instance_needs_reference="True" instance_subclasses_only="False" parents="GameObject, ScriptObject" path="Objects\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="_awareness_component" class="OptionalTunable" default="disabled" display="Awareness Component" description="If enabled, this Sim will react to stimuli using the client-driven awareness system." group="Components">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableAwarenessComponent" display="Enabled" description="The awareness component controls how Sims play interaction-specific content to react to external stimuli. For example, a cat who is eating might look up when Sims walk by. This content is specific to the interaction. In order for awareness to work while running the Eat interaction, Eat-specific content must be authored and accounted for. Traits and other factors control and define how specific stimuli affect a Sim. Some cat, for example, might be more or less prone to be aware of their surroundings." group="General" />
+        </TunableVariant>
+
+        <TunableTuple name="_carrying_component" class="TunableCarryingComponent" display="Carrying Component" description="Define how this Sim picks up, holds, and puts down carryable objects." group="Components">
+            <TunableVariant type="None" name="carry_locomotion" class="TunableVariant" default="bipedal" display="Carry Locomotion" description="Define how this Sim locomotes, and by that how this Sim holds things." group="General">
+                <TunableTuple name="bipedal" class="Tunable_CarryLocomotionBipedal" display="Bipedal" description="The Sim is bipedal. They can pick up objects using their right or left hand. They have handedness, which defines which hand they prefer to use." group="General">
+                    <TunableList name="handedness_trait_map" class="TunableMapping" display="Handedness Trait Map" mapping_key="key" mapping_value="value" description="Associate the Sim's handedness to specific traits." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <TunableEnum type="Hand" name="key" class="TunableEnumEntry" default="RIGHT" display="Key" static_entries="animation-posture_manifest.Hand" description="The Sim's handedness." group="General" />
+                            <Tunable type="trait" name="value" class="TunableReference" display="Value" description="The trait associated with this specific handedness." allow_none="False" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="quadrupedal" class="Tunable_CarryLocomotionQuadrupedal" display="Quadrupedal" description="The Sim is quadrupedal. They can pick up objects using their mouth, and Sims can possibly ride their back (or somehow, they can hold things on their back). They have no handedness, i.e. they cannot define whether or not they prefer to hold things in their mouth or on their back." group="General" />
+            </TunableVariant>
+            <Tunable type="strategy" name="default_put_down_strategy" class="TunableReference" display="Default Put Down Strategy" description="If the object specifies no species-specific put down tuning, fallback to this strategy." allow_none="False" group="General" />
+            <TunableTuple name="holstering_behavior" class="TunableTuple" display="Holstering Behavior" description="Define the holstering behavior for this Sim." group="General">
+                <TunableList name="age_specific_behavior" class="TunableMapping" display="Age Specific Behavior" mapping_key="key" mapping_value="value" description="Define age-specific holstering behavior for this Sim. For example, toddlers always holster objects while routing (visual choice)." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="Age" name="key" class="TunableEnumEntry" default="ADULT" display="Key" static_entries="sims-sim_info_types.Age" description="The age for which this behavior applies." group="General" />
+                        <TunableVariant type="None" name="value" class="TunableHolsteringBehaviorVariant" default="allow" display="Value" group="General">
+                            <TunableTuple name="allow" class="Tunable_HolsteringBehaviorAllowed" display="Allow" description="This Sim is allowed to holster objects to satisfy constraints that require free hands. The Sim will still respect the holstering restrictions defined by the interactions." group="General">
+                                <Tunable type="bool" name="always_holster_for_non_mobile_transitions" class="Tunable" default="False" display="Always Holster For Non Mobile Transitions" description="If checked, this Sim will always holster all objects when executing a transition involving a non-mobile posture (whether it be the source or the destination.)" group="General" />
+                                <Tunable type="bool" name="always_holster_while_routing" class="Tunable" default="False" display="Always Holster While Routing" description="If checked, this Sim will always holster all objects when routing. If unchecked, the Sim will only holster while routing if the object is specifically tuned to exhibit this behavior." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="disallow" class="Tunable_HolsteringBehaviorDisallowed" display="Disallow" description="This Sim is never allowed to holster. Any interaction that requires free hands is incompatible with carry." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableList>
+                <TunableVariant type="None" name="default_behavior" class="TunableHolsteringBehaviorVariant" default="allow" display="Default Behavior" description="Define the default holstering behavior for this Sim." group="General">
+                    <TunableTuple name="allow" class="Tunable_HolsteringBehaviorAllowed" display="Allow" description="This Sim is allowed to holster objects to satisfy constraints that require free hands. The Sim will still respect the holstering restrictions defined by the interactions." group="General">
+                        <Tunable type="bool" name="always_holster_for_non_mobile_transitions" class="Tunable" default="False" display="Always Holster For Non Mobile Transitions" description="If checked, this Sim will always holster all objects when executing a transition involving a non-mobile posture (whether it be the source or the destination.)" group="General" />
+                        <Tunable type="bool" name="always_holster_while_routing" class="Tunable" default="False" display="Always Holster While Routing" description="If checked, this Sim will always holster all objects when routing. If unchecked, the Sim will only holster while routing if the object is specifically tuned to exhibit this behavior." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="disallow" class="Tunable_HolsteringBehaviorDisallowed" display="Disallow" description="This Sim is never allowed to holster. Any interaction that requires free hands is incompatible with carry." group="General" />
+                </TunableVariant>
+            </TunableTuple>
+            <TunableList name="put_down_strategy_multipliers" class="TunableMapping" display="Put Down Strategy Multipliers" mapping_key="key" mapping_value="value" description="Define some global multiplier that affect a Sim's behavior when putting down objects. For instance, toddlers might be generally discouraged from putting objects in slots, and Wild toddlers might be generally encouraged to put objects on the floor." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="trait" name="key" class="TunableReference" display="Key" description="If the Sim has this trait, these multipliers are applied." allow_none="False" group="General" pack_safe="True" />
+                    <TunableTuple name="value" class="TunablePutDownStrategyOverride" display="Value" description="A set of overrides that can affect Put Down costs." group="General">
+                        <TunableVariant type="None" name="object_inventory_cost_override" class="_TunablePutDownOverrideVariant" default="dont_override" display="Object Inventory Cost Override" group="General">
+                            <Tunable type="float" name="cost_override" class="TunableRange" default="1" display="Cost Override" min="0" max="None" description="A cost multiplier to apply to the generic cost. A multiplier that's less than 1 makes the choice more optimal, while a multiplier greater than 1 makes the choice less optimal." tuning_state="NeedsTuning" group="General" />
+                            <Tunable name="disallow" class="TunableExistance" display="Disallow" />
+                            <Tunable name="dont_override" class="TunableExistance" display="Dont Override" />
+                            <Tunable name="heavily_discouraged" class="TunableExistance" display="Heavily Discouraged" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="slot_cost_override" class="_TunablePutDownOverrideVariant" default="dont_override" display="Slot Cost Override" group="General">
+                            <Tunable type="float" name="cost_override" class="TunableRange" default="1" display="Cost Override" min="0" max="None" description="A cost multiplier to apply to the generic cost. A multiplier that's less than 1 makes the choice more optimal, while a multiplier greater than 1 makes the choice less optimal." tuning_state="NeedsTuning" group="General" />
+                            <Tunable name="disallow" class="TunableExistance" display="Disallow" />
+                            <Tunable name="dont_override" class="TunableExistance" display="Dont Override" />
+                            <Tunable name="heavily_discouraged" class="TunableExistance" display="Heavily Discouraged" />
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+
+        <TunableVariant type="None" name="_ensemble_component" class="OptionalTunable" default="disabled" display="Ensemble Component" description="If enabled, the Sim will have specific ensemble-related functionality. This is not a requirement for Sims to be in ensembles." group="Components">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableEnsembleComponent" display="Enabled" description="This component handles certain functionality related to ensembles." group="General">
+                <TunableList name="_rel_bit_ensembles" class="TunableMapping" display="Rel Bit Ensembles" mapping_key="key" mapping_value="value" description="A mapping of relationship bit to ensemble. A Sim will generate an ensemble with a Sim with this particular bit. e.g. A dog might want to form an ensemble with one of their owners. Dogs who chose to form an ensemble with the same Sim will share an ensemble." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="relbit" name="key" class="TunableReference" display="Key" description="The relationship bit driving the behavior." allow_none="False" group="General" pack_safe="True" restrict="RelationshipBit" />
+                        <Tunable type="ensemble" name="value" class="TunableReference" display="Value" description="The ensemble to form." allow_none="False" group="General" pack_safe="True" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableTuple name="_interaction_queue" class="TunableInteractionQueue" display="Interaction Queue" description="The interaction queue is a manager or ordering a Sim's pending interactions and processing them as they reach the head of the queue. The queue consists of several ListBuckets in a static priority ordering. The next interaction is found by checking the buckets in order until an interaction is found that is compatible with the Sim's current SIState." group="Components">
+            <Tunable type="bool" name="always_start_inertial" class="Tunable" default="False" display="Always Start Inertial" description="If this is checked, interactions queued on this Sim always start inertial, regardless of what the content's tuning might say. This makes Sims more responsive to commands but less sticky and less likely to complete any given task." group="General" />
+            <Tunable type="int" name="max_interactions" class="TunableRange" default="8" display="Max Interactions" min="0" max="10" description="The maximum number of visible interactions in the queue, including running interactions. If this value is greater than 10, the interaction queue .swf must be updated." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <Deleted name="_persistence" />
+
+        <TunableList name="_phone_affordances" class="TunableList" display="Phone Affordances" description="A list of affordances generated when the player wants to use the Sim's cell phone." group="General">
+            <Tunable type="interaction" class="TunableReference" description="An affordance that can be run as a solo interaction." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="_relation_panel_affordances" class="TunableList" display="Relation Panel Affordances" description="A list of affordances that are shown when the player clicks on a Sim in the relationship panel. These affordances must be able to run as solo interactions, meaning they cannot have a target object or Sim. When the selected interaction runs, the Subject type 'PickedItemId' will be set to the clicked Sim's id. For example, a relationship change loot op with Subject as Actor and Target Subject as PickedItemId will change the relationship between the Active Sim and the Sim selected in the Relationship Panel." group="General">
+            <Tunable type="interaction" class="TunableReference" description="An affordance shown when the player clicks on a relation in the relationship panel." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableVariant type="None" name="_school" class="OptionalTunable" default="disabled" display="School" description="If enabled, this Sim is required to be enrolled in school at specific ages." group="Components">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableSchoolTuning" display="Enabled" description="Tuning related to school." group="General">
+                <TunableList name="school_data" class="TunableMapping" display="School Data" min="1" mapping_key="key" mapping_value="value" description="Ensure Sims of these ages are auto-enrolled in school." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="Age" name="key" class="TunableEnumEntry" default="CHILD" display="Key" static_entries="sims-sim_info_types.Age" description="The age for which we ensure a school career is added." group="General" />
+                        <TunableTuple name="value" class="Tunable_SchoolData" display="Value" description="School data specific to an age." group="General">
+                            <Tunable type="career" name="school_career" class="TunableReference" display="School Career" description="The career for this age." allow_none="False" group="General" />
+                            <Tunable type="object" name="school_homework" class="TunableReference" display="School Homework" description="The homework object for this school career." allow_none="False" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+                <TdescFragTag name="school_data_tests" class="TunableTestSet" display="School Data Tests" description="Tests that must pass in order for a Sim to be added to a school career on load. Example: with EP12 installed we don't want drop outs or early graduates being forced back into school. Testing for the appropriate traits prevents that from happening, but only when EP12 is installed." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Deleted name="_world_file_object_persists" />
+
+        <TunableTuple name="animation_overlay_component" class="TunableAnimationOverlayComponent" display="Animation Overlay Component" description="Tune animation overlays that are constantly played on this Sim." group="Components">
+            <TunableList name="animation_overlays" class="TunableList" display="Animation Overlays" description="A list of animation overlays to play on this Sim." group="General">
+                <TunableTuple class="TunableAnimationOverlay" description="A construct that is responsible for playing overlay animations on a Sim." group="General">
+                    <Tunable type="animation" name="_overlay_animation" class="TunableReference" display="Overlay Animation" description="The animation element controlling the overlay." allow_none="False" group="General" restrict="AnimationElement" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+
+        <TunableTuple name="initial_buff" class="TunableBuffReference" display="Initial Buff" description="A buff that will be permanently added to the Sim on creation. Used to affect the neutral state of a Sim." group="General">
+            <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+            </TunableVariant>
+            <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                    <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                    <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                    <Tunable name="none" class="TunableExistance" display="None" />
+                </TunableVariant>
+            </TunableVariant>
+            <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="trait_quirks" class="TunableTraitQuirkSet" display="Trait Quirks" description="Quirks are traits that are applied to Sims randomly. They are meant to drive behavior that should be unique, but not necessarily exposed to the player. Quirks are categorized in sets. A Sim must have one trait from each of the defined sets. Each quirk can be assigned a weight, so that some quirks are more common than others. When loading a Sim, quirks are automatically added if no quirk from the set is assigned. This means the tuning may be updated and the changes can be reflected on legacy Sims. e.g.: Dogs may be easily scared, neutral, or never scared, for example." group="Components">
+            <TunableList name="_quirk_sets" class="TunableList" display="Quirk Sets" description="A list of all the quirk sets for this Sim. One quirk from each set is assigned." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableVariant type="None" name="count" class="TunableVariant" default="fixed" display="Count" description="Define how many quirks from this set the Sim is supposed to receive." group="General">
+                        <TunableTuple name="dynamic" class="Tunable_QuirkCountDynamic" display="Dynamic" description="The number of quirks to be equipped from this set is random. Traits can modify this number." group="General">
+                            <TunableTuple name="interval" class="TunableInterval" display="Interval" description="The Sim is going to receive between these many quirks from this set." group="General">
+                                <Tunable type="int" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                            <TunableList name="trait_modifiers" class="TunableMapping" display="Trait Modifiers" mapping_key="key" mapping_value="value" description="If the Sim is equipped with this trait, the available number of quirks is modified accordingly. NOTE: You can specify negative values to subtract from the count." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="trait" name="key" class="TunableReference" display="Key" description="The Sim must have this trait in order for the modifier to be applied." allow_none="False" group="General" pack_safe="True" />
+                                    <TunableTuple name="value" class="TunableTuple" display="Value" group="General">
+                                        <Tunable type="int" name="lower_bound_modifier" class="Tunable" default="1" display="Lower Bound Modifier" description="The lower bound of the available quirk count is modified by this amount." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="int" name="upper_bound_modifier" class="Tunable" default="1" display="Upper Bound Modifier" description="The upper bound of the available quirk count is modified by this amount." tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="fixed" class="Tunable_QuirkCountFixed" display="Fixed" description="The number of quirks to be equipped from this set is fixed." group="General">
+                            <Tunable type="int" name="count" class="Tunable" default="1" display="Count" description="The Sim is going to receive these many quirks from this set." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableList name="entries" class="TunableList" display="Entries" description="A quirk set. This Sim is guaranteed to have one and only one of the quirks tuned here." group="General">
+                        <TunableTuple class="TunableTuple" description="A quirk entry. The weight is relative to other quirks in this set." group="General">
+                            <Tunable type="float" name="quirk_relative_weight" class="TunableRange" default="1" display="Quirk Relative Weight" min="1.192092896e-07" max="None" description="The likelihood that this quirk is assigned relative to other quirks in this quirk set." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="trait" name="quirk_trait" class="TunableReference" display="Quirk Trait" description="The trait representing this quirk." allow_none="False" group="General" pack_safe="True" />
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableVariant type="None" name="required_age" class="OptionalTunable" default="disabled" display="Required Age" description="If tuned the quirks will require a specific age. " group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="Age" name="enabled" class="TunableEnumEntry" default="ADULT" display="Enabled" static_entries="sims-sim_info_types.Age" description="The age required" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+    </Instance>
+
+    
+</TuningRoot>

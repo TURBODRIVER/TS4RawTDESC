@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="vfx.vfx_mask">
+        <Class name="VFXMask" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="MASK_ADULT" enum_value="32" />
+
+            <EnumItem name="MASK_BABY" enum_value="1" />
+
+            <EnumItem name="MASK_CHILD" enum_value="4" />
+
+            <EnumItem name="MASK_CURSED" enum_value="32768" />
+
+            <EnumItem name="MASK_DREAM_BIG" enum_value="4096" />
+
+            <EnumItem name="MASK_ELDER" enum_value="64" />
+
+            <EnumItem name="MASK_PARENTING_SKILL" enum_value="16384" />
+
+            <EnumItem name="MASK_SECRET_SOCIETY" enum_value="262144" />
+
+            <EnumItem name="MASK_SKILL_LEVEL_1" enum_value="128" />
+
+            <EnumItem name="MASK_SKILL_LEVEL_2" enum_value="256" />
+
+            <EnumItem name="MASK_SKILL_LEVEL_3" enum_value="512" />
+
+            <EnumItem name="MASK_SKILL_LEVEL_4" enum_value="1024" />
+
+            <EnumItem name="MASK_SKILL_LEVEL_5" enum_value="2048" />
+
+            <EnumItem name="MASK_SKILL_LEVEL_HIGH" enum_value="65536" />
+
+            <EnumItem name="MASK_SPRITE_HIGH" enum_value="2097152" />
+
+            <EnumItem name="MASK_SPRITE_LOW" enum_value="524288" />
+
+            <EnumItem name="MASK_SPRITE_MEDIUM" enum_value="1048576" />
+
+            <EnumItem name="MASK_TEEN" enum_value="8" />
+
+            <EnumItem name="MASK_TODDLER" enum_value="2" />
+
+            <EnumItem name="MASK_VAMPIRE" enum_value="8192" />
+
+            <EnumItem name="MASK_WEREWOLF" enum_value="4194304" />
+
+            <EnumItem name="MASK_WITCH_MOTES" enum_value="131072" />
+
+            <EnumItem name="MASK_YOUNGADULT" enum_value="16" />
+        </Class>
+
+        <Class name="ExcludeVFXMask" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="MASK_MISSION" enum_value="2" />
+
+            <EnumItem name="MASK_PHOTOGRAPHY" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

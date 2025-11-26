@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="relbit" class="SocialContextBit" module="relationships.relationship_bit" description="A relationship bit specifically intended to represent social context." instance_needs_reference="True" instance_subclasses_only="False" parents="RelationshipBit" path="RelationshipBits\Descriptions" use_guid_for_reference="True">
+        <Tunable type="float" name="attention_cost" class="Tunable" default="0" display="Attention Cost" description="Any Sim in this social context will add this amount to the attention cost of any social super interaction they are running." tuning_state="NeedsTuning" group="General" />
+
+        <TunableVariant type="None" name="size_limit" class="OptionalTunable" default="disabled" display="Size Limit" description="If enabled, this bit will only be available if the owner Sim is in a social context with the specified number of Sims. If there are more Sims than the specified limit, the bit will transform to another form, i.e. to a different bit." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="int" name="size" class="TunableRange" default="2" display="Size" min="0" max="None" description="The maximum number of Sims that can share a social context in order for this bit to be visible." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="relbit" name="transformation" class="TunableReference" display="Transformation" description="The bit that is going to replace this bit if the size limit is violated." allow_none="False" group="General" restrict="SocialContextBit" />
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

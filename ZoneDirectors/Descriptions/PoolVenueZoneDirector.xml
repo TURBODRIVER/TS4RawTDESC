@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="PoolVenueZoneDirector" module="venues.pool_venue.pool_venue_zone_director" description="Zone Director for the Pool Venue." instance_needs_reference="True" instance_subclasses_only="False" parents="SchedulingZoneDirector, ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="place_all_user_sims_in_same_arrival_situation" class="Tunable" default="False" display="Place All User Sims In Same Arrival Situation" description="If this is enabled then all user sims will be placed in the same situation instead of each in their own situation." group="General" />
+
+        <Tunable type="bool" name="place_travel_companion_in_same_arrival_situation" class="Tunable" default="False" display="Place Travel Companion In Same Arrival Situation" description="If this is enabled, the travel companion will put into the same situation with user sims. If this checked, place_all_user_sims_in_same_arrival_situation has to be True as well or there will be unit test error." group="General" />
+
+        <TunableTuple name="special_pool_schedule" class="TunableSituationWeeklySchedule" display="Special Pool Schedule" description="The schedule to trigger pool scheduled events (e.g. parties, etc)" group="General">
+            <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                    <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                        <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                        <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                        <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                        <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                        <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                        <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                        <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                    </TunableTuple>
+                    <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                    <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                    <Tunable type="situation" name="situation" class="TunableReference" display="Situation" description="The situation to start according to the tuned schedule." allow_none="False" group="General" pack_safe="True" />
+                    <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                        <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+
+        <TunableVariant type="None" name="travel_companion_arrival_situation" class="OptionalTunable" default="disabled" display="Travel Companion Arrival Situation" description="If enabled then Sims that aren't controllable that travel with the users Sims will be placed in the tuned situation on arrival. If place_travel_companion_in_same_arrival_situation is checked, this needs to be disable or there will be unit test error." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="situation" name="enabled" class="TunableReference" display="Enabled" description="If the user invites NPC's to travel with them to this lot then this is the situation that they will be added to." allow_none="False" group="General" />
+        </TunableVariant>
+
+        <Tunable type="situation" name="user_sim_arrival_situation" class="TunableReference" display="User Sim Arrival Situation" description="The situation to place all of the Sims from the users household in when they arrive." allow_none="False" group="General" />
+    </Instance>
+</TuningRoot>

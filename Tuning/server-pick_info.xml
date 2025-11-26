@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="server.pick_info">
+        <Class name="PickTerrainType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ANYWHERE" enum_value="0" />
+
+            <EnumItem name="CAN_GO_HERE" enum_value="10" />
+
+            <EnumItem name="IN_POND" enum_value="8" />
+
+            <EnumItem name="IN_STREET" enum_value="5" />
+
+            <EnumItem name="IS_OUTSIDE" enum_value="7" />
+
+            <EnumItem name="NO_LOT" enum_value="3" />
+
+            <EnumItem name="OFF_LOT" enum_value="2" />
+
+            <EnumItem name="OFF_STREET" enum_value="6" />
+
+            <EnumItem name="ON_LOT" enum_value="1" />
+
+            <EnumItem name="ON_OTHER_LOT" enum_value="4" />
+
+            <EnumItem name="ON_OTHER_UNIT" enum_value="11" />
+
+            <EnumItem name="OUT_OF_POND" enum_value="9" />
+        </Class>
+
+        <Class name="PickType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="PICK_CEILING" enum_value="19" />
+
+            <EnumItem name="PICK_CLUB_PANEL" enum_value="18" />
+
+            <EnumItem name="PICK_FLOOR" enum_value="5" />
+
+            <EnumItem name="PICK_FOUNDATION" enum_value="12" />
+
+            <EnumItem name="PICK_FOUNTAIN" enum_value="17" />
+
+            <EnumItem name="PICK_MANAGE_OUTFITS" enum_value="-2" />
+
+            <EnumItem name="PICK_MANAGE_SMALL_BUSINESS_OUTFIT" enum_value="-3" />
+
+            <EnumItem name="PICK_MISC" enum_value="9" />
+
+            <EnumItem name="PICK_NONE" enum_value="0" />
+
+            <EnumItem name="PICK_OBJECT" enum_value="2" />
+
+            <EnumItem name="PICK_POOL_EDGE" enum_value="16" />
+
+            <EnumItem name="PICK_POOL_SURFACE" enum_value="15" />
+
+            <EnumItem name="PICK_POOL_TRIM" enum_value="14" />
+
+            <EnumItem name="PICK_PORTRAIT" enum_value="10" />
+
+            <EnumItem name="PICK_ROOF" enum_value="8" />
+
+            <EnumItem name="PICK_SIM" enum_value="3" />
+
+            <EnumItem name="PICK_SKEWER" enum_value="11" />
+
+            <EnumItem name="PICK_STAIRS" enum_value="7" />
+
+            <EnumItem name="PICK_TERRAIN" enum_value="6" />
+
+            <EnumItem name="PICK_UNKNOWN" enum_value="1" />
+
+            <EnumItem name="PICK_WALL" enum_value="4" />
+
+            <EnumItem name="PICK_WATER_TERRAIN" enum_value="13" />
+        </Class>
+    </Module>
+</TuningRoot>

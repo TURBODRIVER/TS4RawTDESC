@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="restaurants.restaurant_tag_tuning">
+        <Class name="RestaurantTagTuning">
+            <TunableEnum type="Tag" name="DINER_SITUATION_TAG" class="TunableEnumWithFilter" default="INVALID" display="Diner Situation Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The situation tag to determine whether the situation is diner situation." dynamic_entries_prefix="situation" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableEnum type="VenueObjectTestTag" name="DINING_SPOT_OBJECT_TEST_TAG" class="TunableEnumEntry" default="INVALID" display="Dining Spot Object Test Tag" dynamic_entries="venues-venue_object_test.VenueObjectTestTag._elements" static_entries="venues-venue_object_test.VenueObjectTestTag" description="The enum tag to identify required object test in venue tuning for the dining spot." group="General" invalid_entries="INVALID" />
+
+            <TunableEnum type="Tag" name="RECIPE_DRINK_TAG" class="TunableEnumWithFilter" default="INVALID" display="Recipe Drink Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The recipe tag to determine if this recipe is drink recipe." dynamic_entries_prefix="recipe" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableEnum type="Tag" name="RECIPE_FOOD_TAG" class="TunableEnumWithFilter" default="INVALID" display="Recipe Food Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The recipe tag to determine if this recipe is food recipe." dynamic_entries_prefix="recipe" group="General" invalid_entries="INVALID" pack_safe="True" />
+        </Class>
+    </Module>
+</TuningRoot>

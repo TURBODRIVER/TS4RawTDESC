@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="services.rabbit_hole_service">
+        <Class name="RabbitHoleService">
+            <Tunable type="rabbit_hole" name="FAMILIAR_RABBIT_HOLE" class="TunableReference" display="Familiar Rabbit Hole" description="A special rabbit hole that is used by familiars when their master is also put into a rabbit hole." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="interaction" name="GENERIC_GO_HOME_AND_ATTEND" class="TunableReference" display="Generic Go Home And Attend" description="An interaction that will be used to travel sims who need to rabbit hole at their home zone." allow_none="False" group="General" />
+
+            <Tunable type="interaction" name="LEAVE_EARLY_INTERACTION" class="TunableReference" display="Leave Early Interaction" description="The interaction that causes a sim to leave their rabbit hole early" allow_none="False" group="General" restrict="RabbitHoleLeaveEarlyInteraction" />
+        </Class>
+    </Module>
+</TuningRoot>

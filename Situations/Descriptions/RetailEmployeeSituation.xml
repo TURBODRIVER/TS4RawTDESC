@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="RetailEmployeeSituation" module="retail.retail_employee_situation" description="The situation an employee of a retail store will run." instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_buff" />
+
+        <Deleted name="_cost" />
+
+        <Deleted name="_display_name" />
+
+        <Deleted name="_icon" />
+
+        <Deleted name="_initiating_sim_tests" />
+
+        <Deleted name="_level_data" />
+
+        <Deleted name="_main_goal_visibility_test" />
+
+        <Deleted name="_relationship_between_job_members" />
+
+        <Deleted name="_resident_job" />
+
+        <Deleted name="_supports_automatic_bronze" />
+
+        <Deleted name="audio_sting_on_start" />
+
+        <Deleted name="background_audio" />
+
+        <Deleted name="category" />
+
+        <Deleted name="compatible_venues" />
+
+        <Tunable type="situation_job" name="employee_job" class="TunableReference" display="Employee Job" description="The situation job for the employee." allow_none="False" group="General" restrict="SituationJob" />
+
+        <Deleted name="end_situation_dialog" />
+
+        <Deleted name="entitlement" />
+
+        <Deleted name="force_invite_only" />
+
+        <TunableTuple name="go_home_interaction" class="TunableInteractionOfInterest" display="Go Home Interaction" description="The interaction that, when run on an employee, will have them end this situation and go home." group="General">
+            <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+            </TunableList>
+        </TunableTuple>
+
+        <TunableTuple name="go_to_store_interaction" class="TunableInteractionOfInterest" display="Go To Store Interaction" description="The interaction that, when run by an employee, will switch the situation state to start cleaning, upselling, restocking, etc." group="General">
+            <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+            </TunableList>
+        </TunableTuple>
+
+        <Deleted name="goal_button_text" />
+
+        <Deleted name="goal_sub_text" />
+
+        <Deleted name="highlight_first_incomplete_minor_goal" />
+
+        <Deleted name="job_display_ordering" />
+
+        <Deleted name="main_goal" />
+
+        <Deleted name="main_goal_audio_sting" />
+
+        <Deleted name="max_participants" />
+
+        <Deleted name="minor_goal_chains" />
+
+        <Deleted name="recommended_job_object_notification" />
+
+        <Deleted name="recommended_job_object_text" />
+
+        <Tunable type="role_state" name="role_state_go_to_store" class="TunableReference" display="Role State Go To Store" description="The role state for getting the employee inside the store. This is the default role state and will be run first before any other role state can start." allow_none="False" group="General" restrict="RoleState" />
+
+        <Tunable type="float" name="role_state_go_to_store_timeout" class="TunableSimMinute" default="60" display="Role State Go To Store Timeout" min="None" max="None" description="Automatically advance out of the role state after waiting for this duration. There's a number of reasons the employee can fail to exit the role state in a timely fashion, such as the register is blocked (by another employee clocking, even) and hijacked by a social." tuning_state="NeedsTuning" group="General" />
+
+        <Deleted name="screen_slam_bronze" />
+
+        <Deleted name="screen_slam_gold" />
+
+        <Deleted name="screen_slam_no_medal" />
+
+        <Deleted name="screen_slam_silver" />
+
+        <Deleted name="situation_description" />
+
+        <Deleted name="situation_display_description" />
+
+        <Deleted name="situation_location_description" />
+
+        <Deleted name="situation_main_objective" />
+
+        <TunableTuple name="state_clean" class="Tunable_EmployeeSituationState" display="State Clean" description="The state during which employees clean the store." group="General">
+            <TunableTuple name="push_interaction" class="TunableInteractionOfInterest" display="Push Interaction" description="If an interaction of this type is run by the employee, this state will activate." group="General">
+                <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                    <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+                </TunableList>
+            </TunableTuple>
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="The role state that is active on the employee for the duration of this state." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="float" name="timeout_max" class="TunableSimMinute" default="30" display="Timeout Max" min="None" max="None" description="The maximum amount of time, in Sim minutes, the employee will be in this state before moving on to a new state." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="timeout_min" class="TunableSimMinute" default="10" display="Timeout Min" min="None" max="None" description="The minimum amount of time, in Sim minutes, the employee will be in this state before moving on to a new state." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="state_restock" class="Tunable_EmployeeSituationState" display="State Restock" description="The state during which employees restock items." group="General">
+            <TunableTuple name="push_interaction" class="TunableInteractionOfInterest" display="Push Interaction" description="If an interaction of this type is run by the employee, this state will activate." group="General">
+                <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                    <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+                </TunableList>
+            </TunableTuple>
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="The role state that is active on the employee for the duration of this state." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="float" name="timeout_max" class="TunableSimMinute" default="30" display="Timeout Max" min="None" max="None" description="The maximum amount of time, in Sim minutes, the employee will be in this state before moving on to a new state." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="timeout_min" class="TunableSimMinute" default="10" display="Timeout Min" min="None" max="None" description="The minimum amount of time, in Sim minutes, the employee will be in this state before moving on to a new state." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="state_ring_up_customers" class="Tunable_EmployeeSituationState" display="State Ring Up Customers" description="The state during which employees will ring up customers." group="General">
+            <TunableTuple name="push_interaction" class="TunableInteractionOfInterest" display="Push Interaction" description="If an interaction of this type is run by the employee, this state will activate." group="General">
+                <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                    <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+                </TunableList>
+            </TunableTuple>
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="The role state that is active on the employee for the duration of this state." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="float" name="timeout_max" class="TunableSimMinute" default="30" display="Timeout Max" min="None" max="None" description="The maximum amount of time, in Sim minutes, the employee will be in this state before moving on to a new state." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="timeout_min" class="TunableSimMinute" default="10" display="Timeout Min" min="None" max="None" description="The minimum amount of time, in Sim minutes, the employee will be in this state before moving on to a new state." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="state_slack_off" class="Tunable_EmployeeSituationState" display="State Slack Off" description="The state during which employees slack off." group="General">
+            <TunableTuple name="push_interaction" class="TunableInteractionOfInterest" display="Push Interaction" description="If an interaction of this type is run by the employee, this state will activate." group="General">
+                <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                    <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+                </TunableList>
+            </TunableTuple>
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="The role state that is active on the employee for the duration of this state." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="float" name="timeout_max" class="TunableSimMinute" default="30" display="Timeout Max" min="None" max="None" description="The maximum amount of time, in Sim minutes, the employee will be in this state before moving on to a new state." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="timeout_min" class="TunableSimMinute" default="10" display="Timeout Min" min="None" max="None" description="The minimum amount of time, in Sim minutes, the employee will be in this state before moving on to a new state." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="state_socialize" class="Tunable_EmployeeSituationState" display="State Socialize" description="The state during which employees socialize with customers." group="General">
+            <TunableTuple name="push_interaction" class="TunableInteractionOfInterest" display="Push Interaction" description="If an interaction of this type is run by the employee, this state will activate." group="General">
+                <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                    <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+                </TunableList>
+            </TunableTuple>
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="The role state that is active on the employee for the duration of this state." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="float" name="timeout_max" class="TunableSimMinute" default="30" display="Timeout Max" min="None" max="None" description="The maximum amount of time, in Sim minutes, the employee will be in this state before moving on to a new state." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="timeout_min" class="TunableSimMinute" default="10" display="Timeout Min" min="None" max="None" description="The minimum amount of time, in Sim minutes, the employee will be in this state before moving on to a new state." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <Deleted name="suppress_scoring_progress_bar" />
+
+        <Deleted name="targeted_situation" />
+
+        <TunableTuple name="total_work_time" class="TunableInterval" display="Total Work Time" description="The amount of time in sim minutes an employee will work before leaving for the day." group="General">
+            <Tunable type="float" name="lower_bound" class="TunableSimMinute" default="1" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="upper_bound" class="TunableSimMinute" default="2" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableList name="total_work_time_buffs" class="TunableMapping" display="Total Work Time Buffs" mapping_key="key" mapping_value="value" description="A mapping from percentage duration worked to buffs applied to employees working more than this amount. Buffs don't stack; the higher percentage buff is the applied one." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="float" name="key" class="TunablePercent" default="50" display="Key" min="0" max="100" description="The percentage duration worked." group="General" />
+                <TunableTuple name="value" class="TunableBuffReference" display="Value" description="The buff applied to employees working over the specified amount." group="General">
+                    <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                            <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                        </TunableVariant>
+                    </TunableVariant>
+                    <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <Deleted name="travel_request_behavior" />
+
+        <Deleted name="tutorial" />
+
+        <Deleted name="venue_invitation_message" />
+
+        <Deleted name="venue_situation_player_job" />
+    </Instance>
+
+    
+</TuningRoot>

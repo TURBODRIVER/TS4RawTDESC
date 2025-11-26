@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="RoommateArchetype" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableTuple" display="Value" group="General">
+            <Tunable type="sim_filter" name="sim_filter" class="TunableReference" display="Sim Filter" description="Sim Filter to conform the roommate to if this archetype is selected." allow_none="False" group="General" restrict="TunableSimFilter" />
+            <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="The weight of this archetype relative to other entries in this list" group="General">
+                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="GoDancingSituation" module="situations.go_dancing.go_dancing_situation" description="The Go Dancing Scenario. This situation represents a party that either the player is invited to or plans on a special venue (ruins, bluffs, club). It consists of the player, the Sims they invite, and spins up a particular zone director at the destination." instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_implies_greeted_status" />
+
+        <Deleted name="_resident_job" />
+
+        <Tunable type="zone_director" name="_zone_director" class="TunableReference" display="Zone Director" description="This zone director will automatically be requested by the situation during zone spin up." allow_none="False" group="General" restrict="ZoneDirectorBase" />
+
+        <Deleted name="exclusivity" />
+
+        <TunableTuple name="host_job_and_role_state" class="TunableSituationJobAndRoleState" display="Host Job And Role State" description="The job and role state of the Sim who planned the Go Dancing Situation." group="General">
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="party_goer" class="TunableSituationJobAndRoleState" display="Party Goer" description="The job and role of Party Goers." group="General">
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

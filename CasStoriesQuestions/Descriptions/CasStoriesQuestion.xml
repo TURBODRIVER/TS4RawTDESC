@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="cas_stories_question" class="CasStoriesQuestion" module="cas.cas_stories_question" description="A CAS Stories Question. This question may be selected by the CAS stories flow and asked to the player in order to narrow down which attributes should be given to a CAS stories sim." instance_subclasses_only="False" path="CasStoriesQuestions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="The icon for this question." group="UI" resource_types="0x2f7d0004" />
+
+        <TunableEnum type="Pack" name="pack" class="TunableEnumEntry" default="BASE_GAME" display="Pack" static_entries="sims4-common.Pack" description="The pack with which this question is associated. Will affect when and how frequently this answer is selected by CAS Stories." group="General" />
+
+        <TunableList name="possible_answers" class="TunableList" display="Possible Answers" description="Answers to this question." group="General">
+            <Tunable type="cas_stories_answer" class="TunableReference" allow_none="False" group="General" restrict="CasStoriesAnswer" />
+        </TunableList>
+
+        <Tunable type="int" name="text" class="TunableLocalizedString" default="0x0" display="Text" description="The text of this question." group="UI" />
+    </Instance>
+</TuningRoot>

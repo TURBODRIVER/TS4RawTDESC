@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.payment.payment_dest">
+        <Class name="PaymentDestTuningFlags" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ACTIVE_HOUSEHOLD" enum_value="1" />
+
+            <EnumItem name="ALL" enum_value="63" />
+
+            <EnumItem name="BUSINESS" enum_value="4" />
+
+            <EnumItem name="NO_DEST" enum_value="0" />
+
+            <EnumItem name="OPEN_SMALL_BUSINESS" enum_value="32" />
+
+            <EnumItem name="PARTICIPANT_HOUSEHOLD" enum_value="2" />
+
+            <EnumItem name="RENTAL_UNIT_PROPERY_OWNER" enum_value="16" />
+
+            <EnumItem name="STATISTIC" enum_value="8" />
+        </Class>
+    </Module>
+</TuningRoot>

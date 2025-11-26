@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="ui.ui_dialog_notification">
+        <Class name="UiDialogNotification">
+            <Class name="UiDialogNotificationAutoDeleteReason" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="LEAVE_LIVE_MODE" enum_value="1" />
+
+                <EnumItem name="NO_REASON" enum_value="0" />
+            </Class>
+
+            <Class name="UiDialogNotificationExpandBehavior" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="FORCE_EXPAND" enum_value="1" />
+
+                <EnumItem name="USER_SETTING" enum_value="0" />
+            </Class>
+
+            <Class name="UiDialogNotificationLevel" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="PLAYER" enum_value="0" />
+
+                <EnumItem name="SIM" enum_value="1" />
+            </Class>
+
+            <Class name="UiDialogNotificationUrgency" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="DEFAULT" enum_value="0" />
+
+                <EnumItem name="URGENT" enum_value="1" />
+            </Class>
+
+            <Class name="UiDialogNotificationVisualType" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="INFORMATION" enum_value="0" />
+
+                <EnumItem name="SPECIAL_MOMENT" enum_value="2" />
+
+                <EnumItem name="SPEECH" enum_value="1" />
+            </Class>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

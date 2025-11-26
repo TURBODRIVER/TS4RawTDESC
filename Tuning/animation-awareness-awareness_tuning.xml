@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="animation.awareness.awareness_tuning">
+        <Class name="AwarenessTuning">
+            <TunableList name="AWARENESS_CHANNEL_DATA" class="TunableMapping" display="Awareness Channel Data" mapping_key="key" mapping_value="value" description="Define data specific to the tuned awareness channels. If no data is specified, default values are used." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="AwarenessChannel" name="key" class="TunableEnumEntry" default="PROXIMITY" display="Key" dynamic_entries="animation-awareness-awareness_enums.AwarenessChannel._elements" static_entries="animation-awareness-awareness_enums.AwarenessChannel" group="General" />
+                    <TunableTuple name="value" class="TunableAwarenessChannelData" display="Value" description="Define how each awareness channel is supposed to behave." group="General">
+                        <TunableEnum type="AwarenessChannelEvaluationType" name="evaluation_type" class="TunableEnumEntry" default="PEAK" display="Evaluation Type" static_entries="animation-awareness-awareness_enums.AwarenessChannelEvaluationType" description="Define how Sims evaluate scores for this channel." group="General" />
+                        <Tunable type="float" name="limit" class="TunableRange" default="256" display="Limit" min="0" max="None" description="Define a limit beyond which scores are no longer added. For example, imagine a SMELL channel evaluated using SUM (to make Sims aware of new smells, for instance). It would be unrealistic for the nth plate of food (where n is large) to produce a reaction. Use limit to define this characteristic." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

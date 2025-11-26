@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="postures">
+        <Class name="PostureTransitionTargetPreferenceTag" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="-1" />
+        </Class>
+
+        <Class name="PostureTrackGroup" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="BODY" enum_value="1" />
+
+            <EnumItem name="CARRY" enum_value="14" />
+        </Class>
+
+        <Class name="PostureTrack" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="BACK" enum_value="8" />
+
+            <EnumItem name="BODY" enum_value="1" />
+
+            <EnumItem name="LEFT" enum_value="2" />
+
+            <EnumItem name="RIGHT" enum_value="4" />
+        </Class>
+    </Module>
+</TuningRoot>

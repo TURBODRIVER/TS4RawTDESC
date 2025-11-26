@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="user_interface_info" class="ZoneModifierDisplayInfo" module="zone_modifier.zone_modifier_display_info" description="Tuning information that will be available in base game for the purpose of displaying information about the zone modifier even if its relevant pack is not installed. Used primarily in UI for gallery, where a player can browse lots with Lot Traits from other packs they don't own." instance_base_game_only="True" instance_subclasses_only="False" path="UserInterfaceInfos\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="ZoneModifierType" name="modifier_type" class="TunableEnumEntry" default="LOT_TRAIT" display="Modifier Type" static_entries="zone_modifier-zone_modifier_display_info.ZoneModifierType" description="The type of modifier that this zone modifier represents. For example, is this a lot trait or a lot challenge." group="UI" />
+
+        <Tunable type="int" name="zone_modifier_description" class="TunableLocalizedString" default="0x0" display="Zone Modifier Description" description="The zone modifier's description." group="UI" />
+
+        <Tunable type="ResourceKey" name="zone_modifier_icon" class="TunableIcon" default="None" display="Zone Modifier Icon" description="The zone modifier's icon." group="UI" resource_types="0x2f7d0004" />
+
+        <Tunable type="int" name="zone_modifier_name" class="TunableLocalizedString" default="0x0" display="Zone Modifier Name" description="The zone modifier's name." group="UI" />
+
+        <Tunable type="zone_modifier" name="zone_modifier_reference" class="TunableReference" display="Zone Modifier Reference" description="The zone modifier gameplay tuning reference ID. This ID will be what is persisted in save data and used for any lookups." allow_none="False" group="UI" pack_safe="True" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="drama_node" class="HolidayDramaNode" module="holidays.holiday_drama_node" description="A drama node that has information about running a holiday." instance_subclasses_only="False" parents="BaseDramaNode" path="DramaNodes\Descriptions" use_guid_for_reference="True">
+        <Tunable type="holiday_definition" name="holiday" class="TunableReference" display="Holiday" description="The holiday that this drama node starts." allow_none="False" group="General" />
+
+        <TunableTuple name="pre_holiday_duration" class="TunableTimeSpan" display="Pre Holiday Duration" description="This duration is used to calculate the drama node's start time for main holidays by subtracting the tuned amount from the globally tuned start time. The player is notified with a reminder for the holiday, and decorations will be put up in the neighborhood. For surprise holidays, this should be set to 0, as surprise holidays have no pre-holiday state." group="General">
+            <Tunable type="int" name="hours" class="TunableRange" default="23" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TdescFragTag name="tests_to_create_situation" class="TunableTestSet" display="Tests To Create Situation" description="Tests that must pass for the holiday situation to be created on the target sim." group="General" />
+
+        <Deleted name="ui_display_data" />
+    </Instance>
+</TuningRoot>

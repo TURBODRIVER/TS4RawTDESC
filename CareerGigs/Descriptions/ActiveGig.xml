@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="career_gig" class="ActiveGig" module="careers.active_career_gig" description="Tuning specific to a an active career gig. These are adhoc career events which gives the sim pay if they complete it." instance_subclasses_only="False" parents="Gig" path="CareerGigs\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="gig_pay_rabbit_hole" class="OptionalTunable" default="disabled" display="Gig Pay Rabbit Hole" description="If enabled, we will grant this amount of money to sim when they finished the gig in rabbithole. If disabled, we will grant minimum pay defined in gig_pay instead." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="Tunable" default="0" display="Enabled" tuning_state="NeedsTuning" group="General" />
+        </TunableVariant>
+
+        <Tunable type="int" name="gig_picker_localization_format" class="TunableLocalizedString" default="0x0" display="Gig Picker Localization Format" description="String used to format the description in the gig picker. Currently has tokens for name, payout, gig time, tip title, and tip text. Note: Acting career with audition has its own flow and won't consider this string, it will use GIG_PICKER_LOCALIZATION_FORMAT defined in career.career_tuning instead." allow_none="True" group="General" />
+    </Instance>
+</TuningRoot>

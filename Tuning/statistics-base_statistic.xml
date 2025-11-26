@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="statistics.base_statistic">
+        <Class name="StatisticChangeDirection" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BOTH" enum_value="2" />
+
+            <EnumItem name="DECREASE" enum_value="1" />
+
+            <EnumItem name="INCREASE" enum_value="0" />
+        </Class>
+
+        <Class name="GalleryLoadBehavior" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DONT_LOAD" enum_value="0" />
+
+            <EnumItem name="LOAD_FOR_ALL" enum_value="3" />
+
+            <EnumItem name="LOAD_ONLY_FOR_OBJECT" enum_value="1" />
+
+            <EnumItem name="LOAD_ONLY_FOR_SIM" enum_value="2" />
+        </Class>
+    </Module>
+</TuningRoot>

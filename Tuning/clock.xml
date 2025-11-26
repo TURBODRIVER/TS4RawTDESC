@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="clock">
+        <Class name="ClockSpeedMode" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="INTERACTION_STARTUP_SPEED" enum_value="4" />
+
+            <EnumItem name="NORMAL" enum_value="1" />
+
+            <EnumItem name="PAUSED" enum_value="0" />
+
+            <EnumItem name="SPEED2" enum_value="2" />
+
+            <EnumItem name="SPEED3" enum_value="3" />
+
+            <EnumItem name="SUPER_SPEED3" enum_value="5" />
+        </Class>
+
+        <Class name="GameClock">
+            <TunableTuple name="NEW_GAME_START_TIME" class="TunableTimeOfWeek" display="New Game Start Time" description="The time the game starts at when a player starts a new game." group="General">
+                <TunableEnum type="Days" name="day" class="TunableEnumEntry" default="SUNDAY" display="Day" static_entries="tunable_time.Days" description="Day of the week" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </Class>
+
+        <Class name="ClockSpeedMultiplierType" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="LOW_PERFORMANCE" enum_value="1" />
+        </Class>
+
+        <Class name="ClockSpeedMultipliers">
+            <TunableList name="CLOCK_SPEED_TYPE_MULTIPLIER_MAP" class="TunableMapping" display="Clock Speed Type Multiplier Map" mapping_key="Clock Speed Multiplier Type" mapping_value="Clock Speed Multipliers" description="A mapping of ClockSpeedMultiplierTypes to clock speed multipliers." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="ClockSpeedMultiplierType" name="Clock Speed Multiplier Type" class="TunableEnumEntry" default="DEFAULT" display="Clock Speed Multiplier Type" dynamic_entries="clock.ClockSpeedMultiplierType._elements" static_entries="clock.ClockSpeedMultiplierType" description="The ClockSpeedMultiplier to which we apply the multipliers." group="General" />
+                    <TunableTuple name="Clock Speed Multipliers" class="TunableClockSpeedMultipliers" display="Clock Speed Multipliers" group="General">
+                        <Tunable type="float" name="speed_three_multiplier" class="Tunable" default="7.0" display="Speed Three Multiplier" description="How much faster speed three goes than normal speed. The game clock will have its speed multiplied by this number." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="speed_two_multiplier" class="Tunable" default="3.0" display="Speed Two Multiplier" description="How much faster speed two goes than normal speed. The game clock will have its speed multiplied by this number." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="super_speed_three_multiplier" class="Tunable" default="36.0" display="Super Speed Three Multiplier" description="How much faster super speed three goes than normal speed. The game clock will have its speed multiplied by this number." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="float" name="TUNABLE_INTERACTION_STARTUP_SPEED_MULTIPLIER" class="Tunable" default="5.0" display="Tunable Interaction Startup Speed Multiplier" description="How much faster preroll autonomy speed goes than normal speed." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

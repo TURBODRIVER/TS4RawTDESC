@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="statistics.statistic_ops">
+        <Class name="TransferType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ADDITIVE" enum_value="0" />
+
+            <EnumItem name="AVERAGE" enum_value="3" />
+
+            <EnumItem name="REPLACEMENT" enum_value="2" />
+
+            <EnumItem name="SUBTRACTIVE" enum_value="1" />
+        </Class>
+
+        <Class name="StatisticOperation">
+            <Tunable type="int" name="DISPLAY_TEXT" class="TunableLocalizedString" default="0x0" display="Display Text" description="A string displaying the amount that this stat operation awards. It will be provided two tokens: the statistic name and the value change." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="cas_stories_answer" class="CasStoriesAnswer" module="cas.cas_stories_answer" description="A CAS Stories Answer. This will be a selectable response to a question posed to the player during the CAS Stories flow. Selecting this answer will assign the sim a greater chance of having different features (these can be traits, aspirations, etc)." instance_needs_reference="True" instance_subclasses_only="False" path="CasStoriesAnswers\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="text" class="TunableLocalizedString" default="0x0" display="Text" description="The text of this answer." group="UI" />
+
+        <TunableList name="weightings" class="TunableList" display="Weightings" description="A list of objects to apply weightings to if this answer is selected. Weight is the weight that shoudld be added to the chance to receive this object. In the latter case a trait will be selected from the trait chooser based on its cumulative weighting throughout the CAS Stories survey." group="General">
+            <TunableTuple class="CASAnswerWeightings" group="General">
+                <Tunable type="float" name="weight" class="Tunable" default="0.0" display="Weight" tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="weighted_object" class="TunableVariant" default="trait" display="Weighted Object" group="General">
+                    <Tunable type="aspiration_track" name="aspiration_track" class="TunableReference" display="Aspiration Track" allow_none="False" group="General" />
+                    <Tunable type="trait" name="trait" class="TunableReference" display="Trait" allow_none="False" group="General" restrict="Trait" />
+                    <Tunable type="cas_stories_trait_chooser" name="trait_chooser" class="TunableReference" display="Trait Chooser" allow_none="False" group="General" restrict="CasStoriesTraitChooser" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

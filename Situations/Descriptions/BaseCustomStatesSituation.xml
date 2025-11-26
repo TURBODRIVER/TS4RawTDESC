@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="BaseCustomStatesSituation" module="situations.custom_states.custom_states_situation" description="The Basic Custom States Situation." instance_subclasses_only="True" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableList name="default_job_and_roles" class="TunableMapping" display="Default Job And Roles" mapping_key="Situation Job" mapping_value="Role State" description="A mapping between the default situation jobs and role states." group="~Core~">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="role_state" name="Role State" class="TunableReference" display="Role State" description="A reference to a default Role State for this Situation Job." allow_none="False" group="General" />
+                <Tunable type="situation_job" name="Situation Job" class="TunableReference" display="Situation Job" description="A reference to a default Situation Job." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="default_situation_job" class="OptionalTunable" default="disabled" display="Default Situation Job" description="Optionally tune a default situation job. This is needed when using Zone directors etc, which automatically assume a default job is present." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="situation_job" name="enabled" class="TunableReference" display="Enabled" description="Optionally tune a default situation job. This is needed when using Zone directors etc, which automatically assume a default job is present." allow_none="True" group="General" />
+        </TunableVariant>
+
+        <TunableEnum type="SituationSerializationOption" name="persistence_option" class="TunableEnumEntry" default="LOT" display="Persistence Option" static_entries="situations-situation_types.SituationSerializationOption" description="How this situation save/loads. Each option saves the situation into a different place within the save game. The situation may still fail to load if the Sims no longer match their filters, time has passed, or the zone director just says no at the end of it. DONT: This situation will never save load. LOT: This situation will be saved on the lot. This means that it will only be loaded upon returning to this lot. STREET: This situation will be saved on the street. This means that if you travel between different lots on the same street that it will be loaded." group="General" invalid_entries="HOLIDAY" />
+
+        <TunableList name="pre_populate_jobs" class="TunableMapping" display="Pre Populate Jobs" mapping_key="job" mapping_value="pre_population_data" description="A mapping of Job Types to data that will prepopulate that Job with Sims in the Situation Creation UI." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="situation_job" name="job" class="TunableReference" display="Job" description="The job to prepopulate." allow_none="False" group="General" restrict="SituationJob" />
+                <TunableTuple name="pre_population_data" class="TunableTuple" display="Pre Population Data" description="Data used to prepopulate the tuned Job. These tunables are all relative to the Sim that scheduled the event." group="General">
+                    <Tunable type="bool" name="include_owner_sim" class="Tunable" default="True" display="Include Owner Sim" description="If checked, the Sim that scheduled this event will be prepopulated for the tuned Job." group="General" />
+                    <TunableList name="included_relbits" class="TunableList" display="Included Relbits" description="Any Sim that shares one of these RelBits with the owner Sim will be prepopulated in the tuned Job." group="General">
+                        <Tunable type="relbit" class="TunableReference" description="Any Sim that shares this RelBit with the Sim that scheduled this event will be prepopulated into the tuned Job." allow_none="False" group="General" restrict="RelationshipBit" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="bool" name="should_cancel_leave_interaction_on_premature_removal" class="Tunable" default="False" display="Should Cancel Leave Interaction On Premature Removal" description="If Checked any leave interaction running or queued on the sim should be canceled if they are removed prematurely from the situation. Any situation that can cause a sim to leave the lot (but not leave lot must run) should have this checked so that the leave interaction can be canceled if the sim is pulled from this situation to be in another situation. My dinner party ends and the guest are leaving. I decide to throw an after hours affair inviting several of the guests who are leaving. I need to cancel their leave interaction so that they will stay." group="General" />
+
+        <Tunable type="int" name="sims_expected_to_be_in_situation" class="TunableRange" default="1" display="Sims Expected To Be In Situation" min="0" max="None" description="The number of Sims expected to be in the situation for the zone director to calculate over." tuning_state="NeedsTuning" group="Walkby" />
+    </Instance>
+</TuningRoot>

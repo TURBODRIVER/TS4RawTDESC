@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="UseMusicProductionStationSuperInteraction" module="interactions.music_production_station_interactions" description="An interaction that 'parks' a sim at a music production station and prepares the station for producing/remixing a specified music track." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="audio_start_event" class="Tunable" default="520" display="Audio Start Event" description="The script event to listen for from animation so we know when to start the music." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="audio_stop_event" class="Tunable" default="521" display="Audio Stop Event" description="The script event to listen for from animation so we know when to stop the music." tuning_state="NeedsTuning" group="General" />
+
+        <TunableList name="channels" class="TunableMapping" display="Channels" mapping_key="key" mapping_value="value" description="A map of channel enums and their associated data. " group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="ChannelFlags" name="key" class="TunableEnumEntry" default="CHANNEL1" display="Key" static_entries="objects-components-stored_audio_component.ChannelFlags" description="The enum for a channel." group="General" />
+                <TunableTuple name="value" class="TunableTuple" display="Value" description="Channel specific data." group="General">
+                    <Tunable type="int" name="channel_name" class="TunableLocalizedString" default="0x0" display="Channel Name" description="The name to display for this channel. " group="General" />
+                    <TdescFragTag name="channel_tests" class="TunableTestSet" display="Channel Tests" description="The tests to display this channel's remix mixer" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="music_track_data_snippet" class="TunableMusicTrackDataSnippet" default="literal" display="Music Track Data Snippet" description="The reference to looping and fixed-length .propx files for the associated music track. (This may be tuned in place here using 'literal' or as a reference to a MusicTrackData tuning snippet.)" group="General">
+            <TunableTuple name="literal" class="TunableMusicTrackData" display="Literal" description="A pairing of looping and fixed-length audio tracks to be played and saved from the music production station." group="General">
+                <Tunable type="ResourceKey" name="fixed_length_audio" class="TunableResourceKey" default="None" display="Fixed Length Audio" description="The fixed-length propx file of the music track." group="General" resource_types="0x39b2aa4a" />
+                <Tunable type="ResourceKey" name="looping_audio" class="TunableResourceKey" default="None" display="Looping Audio" description="The looping propx file of the music track." group="General" resource_types="0x39b2aa4a" />
+            </TunableTuple>
+            <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a MusicTrackData tuning snippet." allow_none="False" group="General" restrict="MusicTrackData" />
+        </TunableVariant>
+
+        <Tunable type="int" name="turn_off_channel_display_name" class="TunableLocalizedString" default="0x0" display="Turn Off Channel Display Name" description="The name to display for remix mixers that turn off a channel. " group="General" />
+
+        <Tunable type="ResourceKey" name="turn_off_channel_icon" class="TunableIcon" default="None" display="Turn Off Channel Icon" description="The icon to display in the pie menu for remix mixers that turn off a channel. " group="UI" resource_types="0x2f7d0004" />
+
+        <Tunable type="int" name="turn_on_channel_display_name" class="TunableLocalizedString" default="0x0" display="Turn On Channel Display Name" description="The name to display for remix mixers that turn on a channel." group="General" />
+
+        <Tunable type="ResourceKey" name="turn_on_channel_icon" class="TunableIcon" default="None" display="Turn On Channel Icon" description="The icon to display in the pie menu for remix mixers that turn on a channel. " group="UI" resource_types="0x2f7d0004" />
+    </Instance>
+</TuningRoot>

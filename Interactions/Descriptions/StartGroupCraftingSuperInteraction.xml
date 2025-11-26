@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="StartGroupCraftingSuperInteraction" module="crafting.crafting_interactions" description="An interaction that uses the picker for selecting a recipe, but then instead of actually starting to craft, creates a situation that will then start the actual crafting later." instance_needs_reference="True" instance_subclasses_only="False" parents="StartCraftingSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="situation" name="group_crafting_situation" class="TunableReference" display="Group Crafting Situation" description="The situation to start to actual handle crafting." allow_none="False" group="General" />
+    </Instance>
+</TuningRoot>

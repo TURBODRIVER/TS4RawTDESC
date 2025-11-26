@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="restaurants.restaurant_diner_situation">
+        <Class name="DinerSubSituationState" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ARRIVAL" enum_value="1" />
+
+            <EnumItem name="CHECK_IN_WITH_HOST" enum_value="2" />
+
+            <EnumItem name="EAT_FOOD_STATE" enum_value="9" />
+
+            <EnumItem name="EAT_PREROLL" enum_value="14" />
+
+            <EnumItem name="LEAVE" enum_value="11" />
+
+            <EnumItem name="ORDER_FROM_CHEF" enum_value="5" />
+
+            <EnumItem name="ORDER_PREROLL" enum_value="12" />
+
+            <EnumItem name="POST_PLACE_ORDER" enum_value="6" />
+
+            <EnumItem name="PRE_PLACE_ORDER" enum_value="4" />
+
+            <EnumItem name="PREPARE_TO_LEAVE" enum_value="10" />
+
+            <EnumItem name="WAIT_FOR_FOOD_FROM_CHEF" enum_value="7" />
+
+            <EnumItem name="WAIT_FOR_FOOD_FROM_WAITSTAFF" enum_value="8" />
+
+            <EnumItem name="WAIT_FOR_FOOD_PREROLL" enum_value="13" />
+
+            <EnumItem name="WAIT_FOR_TABLE" enum_value="3" />
+        </Class>
+    </Module>
+</TuningRoot>

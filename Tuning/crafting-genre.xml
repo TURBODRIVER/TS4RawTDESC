@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="crafting.genre">
+        <Class name="Genre">
+            <Tunable type="int" name="GENRE_PREFIX_STRING_FACTORY" class="TunableLocalizedString" default="0x0" display="Genre Prefix String Factory" description="The prefix that will be displayed. {0.String} will be the comma- separated list of genres the object has." group="General" />
+
+            <TunableList name="TAG_TO_TUNING_MAP" class="TunableMapping" display="Tag To Tuning Map" mapping_key="key" mapping_value="value" description="Mapping between genres and their tuning. All tags added to this mapping are automatically considered a genre tag." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Tag" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag of the genre." group="General" pack_safe="True" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="Tuning for the genre." group="General">
+                        <Tunable type="int" name="localized_name" class="TunableLocalizedString" default="0x0" display="Localized Name" description="The name of the genre." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

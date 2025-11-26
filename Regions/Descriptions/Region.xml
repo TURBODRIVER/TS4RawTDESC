@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="region" class="Region" module="world.region" description="Represents the gameplay tuning associated with a region." instance_needs_reference="True" instance_subclasses_only="False" path="Regions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="compatible_venues" class="TunableList" display="Compatible Venues" description="A list of venues that are allowed to be set by the player in this region." group="General">
+            <Tunable type="venue" class="TunableReference" description="A venue that the player can set in this region." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableEnum type="OutfitCategory" name="default_outfit_category" class="TunableEnumEntry" default="EVERYDAY" display="Default Outfit Category" static_entries="sims-outfits-outfit_enums.OutfitCategory" description="The default outfit category to set on the played Sim if they were in an invalid outfit category for this region when they were last saved." group="General" invalid_entries="CURRENT_OUTFIT" />
+
+        <TunableVariant type="None" name="fishing_data" class="OptionalTunable" default="disabled" display="Fishing Data" description="If enabled, define all of the data for fishing locations in this region. Only used if objects are tuned to use region fishing data." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableVariant type="None" name="enabled" class="TunableFishingDataSnippet" default="literal" display="Enabled" description="This may be tuned in place here using 'literal' or as a reference to a FishingData tuning snippet." group="General">
+                <TunableTuple name="literal" class="TunableTunedFishingData" display="Literal" description="Tuned fishing data for a particular fishing location." group="General">
+                    <TunableList name="possible_fish" class="TunableList" display="Possible Fish" description="If the Sim catches a fish, we'll pick one of these based on their weights. Higher weighted fish have a higher chance of being caught." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="object" name="fish" class="TunableReference" display="Fish" allow_none="False" group="General" pack_safe="True" />
+                            <TunableTuple name="luck_option_config" class="TunableLuckOptionData" display="Luck Option Config" description="The luck specific data for this option." group="General">
+                                <Tunable type="float" name="player_perception" class="TunableRange" default="0" display="Player Perception" min="-100" max="100" description="The player's perception of the option, from -100 to 100. For example, if a sim is fishing, pulling up a boot would be seen as -100, while pulling up a treasure chest would be seen as 100." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="bool" name="show_impacts" class="Tunable" default="True" display="Show Impacts" description="If luck influences the selection process and selects this option, and this bool is True, then we will telegraph that impact to the player. An example of when to turn this off is for 'do nothing' options, where we don't want the game to say 'luck chose something!' but nothing visibly happened for the player." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A construct that determines a total multiplier value based on tunable tests." group="General">
+                                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                    <TunableTuple class="TunableTuple" group="General">
+                                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableList name="possible_treasures" class="TunableList" display="Possible Treasures" description="If the Sim catches a treasure, we'll pick one of these based on their weights. Higher weighted treasures have a higher chance of being caught." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <TunableTuple name="luck_option_config" class="TunableLuckOptionData" display="Luck Option Config" description="The luck specific data for this option." group="General">
+                                <Tunable type="float" name="player_perception" class="TunableRange" default="0" display="Player Perception" min="-100" max="100" description="The player's perception of the option, from -100 to 100. For example, if a sim is fishing, pulling up a boot would be seen as -100, while pulling up a treasure chest would be seen as 100." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="bool" name="show_impacts" class="Tunable" default="True" display="Show Impacts" description="If luck influences the selection process and selects this option, and this bool is True, then we will telegraph that impact to the player. An example of when to turn this off is for 'do nothing' options, where we don't want the game to say 'luck chose something!' but nothing visibly happened for the player." group="General" />
+                            </TunableTuple>
+                            <Tunable type="object" name="treasure" class="TunableReference" display="Treasure" allow_none="False" group="General" pack_safe="True" />
+                            <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A construct that determines a total multiplier value based on tunable tests." group="General">
+                                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                    <TunableTuple class="TunableTuple" group="General">
+                                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableTuple name="weight_fish" class="TunableTuple" display="Weight Fish" group="General">
+                        <TunableTuple name="luck_option_config" class="TunableLuckOptionData" display="Luck Option Config" description="The luck specific data for this option." group="General">
+                            <Tunable type="float" name="player_perception" class="TunableRange" default="0" display="Player Perception" min="-100" max="100" description="The player's perception of the option, from -100 to 100. For example, if a sim is fishing, pulling up a boot would be seen as -100, while pulling up a treasure chest would be seen as 100." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="bool" name="show_impacts" class="Tunable" default="True" display="Show Impacts" description="If luck influences the selection process and selects this option, and this bool is True, then we will telegraph that impact to the player. An example of when to turn this off is for 'do nothing' options, where we don't want the game to say 'luck chose something!' but nothing visibly happened for the player." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A tunable list of tests and multipliers to apply to the weight used to determine if the Sim will catch a fish instead of treasure or junk. This will be used in conjunction with the Weight Junk and Weight Treasure." group="General">
+                            <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                            <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableTuple>
+                    <TunableTuple name="weight_junk" class="TunableTuple" display="Weight Junk" group="General">
+                        <TunableTuple name="luck_option_config" class="TunableLuckOptionData" display="Luck Option Config" description="The luck specific data for this option." group="General">
+                            <Tunable type="float" name="player_perception" class="TunableRange" default="0" display="Player Perception" min="-100" max="100" description="The player's perception of the option, from -100 to 100. For example, if a sim is fishing, pulling up a boot would be seen as -100, while pulling up a treasure chest would be seen as 100." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="bool" name="show_impacts" class="Tunable" default="True" display="Show Impacts" description="If luck influences the selection process and selects this option, and this bool is True, then we will telegraph that impact to the player. An example of when to turn this off is for 'do nothing' options, where we don't want the game to say 'luck chose something!' but nothing visibly happened for the player." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A tunable list of tests and multipliers to apply to the weight used to determine if the Sim will catch junk instead of a fish or treasure. This will be used in conjunction with the Weight Fish and Weight Treasure." group="General">
+                            <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                            <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableTuple>
+                    <TunableTuple name="weight_treasure" class="TunableTuple" display="Weight Treasure" group="General">
+                        <TunableTuple name="luck_option_config" class="TunableLuckOptionData" display="Luck Option Config" description="The luck specific data for this option." group="General">
+                            <Tunable type="float" name="player_perception" class="TunableRange" default="0" display="Player Perception" min="-100" max="100" description="The player's perception of the option, from -100 to 100. For example, if a sim is fishing, pulling up a boot would be seen as -100, while pulling up a treasure chest would be seen as 100." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="bool" name="show_impacts" class="Tunable" default="True" display="Show Impacts" description="If luck influences the selection process and selects this option, and this bool is True, then we will telegraph that impact to the player. An example of when to turn this off is for 'do nothing' options, where we don't want the game to say 'luck chose something!' but nothing visibly happened for the player." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A tunable list of tests and multipliers to apply to the weight used to determine if the Sim will catch a treasure instead of fish or junk. This will be used in conjunction with the Weight Fish and Weight Junk." group="General">
+                            <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                            <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableTuple>
+                <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a FishingData tuning snippet." allow_none="False" group="General" restrict="FishingData" />
+            </TunableVariant>
+        </TunableVariant>
+
+        <TunableList name="gallery_download_venue_map" class="TunableMapping" display="Gallery Download Venue Map" mapping_key="gallery_venue_type" mapping_value="region_venue_type" description="A map from gallery venue to instanced venue. We need to be able to convert gallery venues into other venues that are only compatible with that region." group="General" mapping_class="GalleryDownloadVenueMappingTuple">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="venue" name="gallery_venue_type" class="TunableReference" display="Gallery Venue Type" description="A venue type that exists in the gallery." allow_none="False" group="General" pack_safe="True" />
+                <Tunable type="venue" name="region_venue_type" class="TunableReference" display="Region Venue Type" description="The venue type that the gallery venue will become when it is downloaded into this region." allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="bool" name="is_persistable" class="Tunable" default="False" display="Is Persistable" description="If true, we will create an instance for this region and save/load it. The instance has a commodity tracker which can be used for region based commodities." group="General" />
+
+        <Tunable type="bool" name="is_summit_weather_enabled" class="Tunable" default="False" display="Is Summit Weather Enabled" description="Whether this region has summit (EP10) weather enabled." group="General" />
+
+        <TunableTuple name="outfit_category_restrictions" class="TunableTuple" display="Outfit Category Restrictions" description="A setting which specifies which outfits Sims are able to have in this region." group="General">
+            <TunableTuple name="allowed_outfits" class="TunableWhiteBlackList" display="Allowed Outfits" description="The outfit categories that are valid for this region." group="General">
+                <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                    <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                    <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                        <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                            <TunableEnum type="OutfitCategory" class="TunableEnumEntry" default="EVERYDAY" static_entries="sims-outfits-outfit_enums.OutfitCategory" group="General" invalid_entries="CURRENT_OUTFIT" />
+                        </TunableList>
+                        <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                            <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableVariant>
+                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                    <Tunable name="everything" class="TunableExistance" display="Everything" />
+                    <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                        <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                            <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                            <TunableEnum type="OutfitCategory" class="TunableEnumEntry" default="EVERYDAY" static_entries="sims-outfits-outfit_enums.OutfitCategory" group="General" invalid_entries="CURRENT_OUTFIT" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+            <TunableVariant type="None" name="required_outfit_category" class="OptionalTunable" default="disabled" display="Required Outfit Category" description="If set, when a playable Sim spawns into this region, they are granted an outfit in this outfit category if they do not have one set." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableTuple name="enabled" class="Tunable_RegionalRequiredOutfitGenerator" display="Enabled" description="Defines the way we generate the required regional outfit for this region." group="General">
+                    <TunableVariant type="None" name="generator" class="TunableOutfitSnippet" default="literal" display="Generator" description="This may be tuned in place here using 'literal' or as a reference to a Outfit tuning snippet." group="General">
+                        <TunableTuple name="literal" class="TunableOutfitGenerator" display="Literal" description="A helper that generates outfits for a Sim. The tunables control aspects of randomization, such as tags, weights, overrides, etc..." group="General">
+                            <TunableList name="blocked_tags" class="TunableSet" display="Blocked Tags" description="The set of prohibited tags used to generate the outfit. Parts must not match the specified tag in order to be valid for the generated outfit." group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="Uniform|OutfitCategory|Style|Situation" group="General" invalid_entries="INVALID" pack_safe="True" />
+                            </TunableList>
+                            <TunableList name="body_type_chance_overrides" class="TunableMapping" display="Body Type Chance Overrides" mapping_key="key" mapping_value="value" description="Define body type chance overrides for the generate outfit. For example, if BODYTYPE_HAT is mapped to 100%, then the outfit is guaranteed to have a hat if any hat matches the specified tags. If used in an appearance modifier, these body types will contribute to the flags that determine which body types can be generated, regardless of their percent chance." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <TunableEnum type="BodyType" name="key" class="TunableEnumEntry" default="NONE" display="Key" static_entries="sims-outfits-outfit_enums.BodyType" group="General" />
+                                    <Tunable type="float" name="value" class="TunablePercent" default="100" display="Value" min="0" max="100" description="The chance that a part is applied to the corresponding body type." group="General" />
+                                </TunableTuple>
+                            </TunableList>
+                            <TunableList name="body_type_match_not_found_policy" class="TunableMapping" display="Body Type Match Not Found Policy" mapping_key="key" mapping_value="value" description="The policy we should take for a body type that we fail to find a match for. Primary example is to use MATCH_NOT_FOUND_KEEP_EXISTING for generating a tshirt and making sure a sim wearing full body has a lower body cas part. If used in an appearance modifier, these body types will contribute to the flags that determine which body types can be generated." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <TunableEnum type="BodyType" name="key" class="TunableEnumEntry" default="NONE" display="Key" static_entries="sims-outfits-outfit_enums.BodyType" group="General" />
+                                    <TunableEnum type="MatchNotFoundPolicy" name="value" class="TunableEnumEntry" default="MATCH_NOT_FOUND_UNSPECIFIED" display="Value" static_entries="sims-outfits-outfit_enums.MatchNotFoundPolicy" group="General" />
+                                </TunableTuple>
+                            </TunableList>
+                            <TunableList name="filter_flag" class="TunableEnumFlags" default="USE_EXISTING_IF_APPROPRIATE,USE_VALID_FOR_LIVE_RANDOM" display="Filter Flag" description="Define how to handle part randomization for the generated outfit." group="General" unique_entries="true">
+                                <TunableEnum type="OutfitFilterFlag" class="TunableEnumEntry" default="NONE" static_entries="sims-outfits-outfit_enums.OutfitFilterFlag" group="General" />
+                            </TunableList>
+                            <TunableList name="tags" class="TunableSet" display="Tags" description="The set of tags used to generate the outfit. Parts must match the specified tag in order to be valid for the generated outfit." group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="Uniform|OutfitCategory|Style|Situation" group="General" invalid_entries="INVALID" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a Outfit tuning snippet." allow_none="False" group="General" restrict="Outfit" />
+                    </TunableVariant>
+                    <TunableEnum type="OutfitCategory" name="outfit_category" class="TunableEnumEntry" default="SWIMWEAR" display="Outfit Category" static_entries="sims-outfits-outfit_enums.OutfitCategory" description="The outfit category that is required for the region." group="General" invalid_entries="CURRENT_OUTFIT,CAREER,SITUATION,SPECIAL" />
+                </TunableTuple>
+            </TunableVariant>
+            <Tunable type="bool" name="travel_groups_only" class="Tunable" default="False" display="Travel Groups Only" description="When set, this applies only to Sims in travel groups." group="General" />
+        </TunableTuple>
+
+        <Tunable type="bool" name="provides_sunlight" class="Tunable" default="True" display="Provides Sunlight" description="If enabled, this region provides sunlight between the tuned Sunrise Time and Sunset Time. This is used for gameplay effect (i.e. Vampires)." group="Time" />
+
+        <TunableList name="region_buffs" class="TunableList" display="Region Buffs" description="A list of buffs that are added on Sims while they are instanced in this region." group="General">
+            <Tunable type="buff" class="TunableReference" description="A buff that exists on Sims while they are instanced in this region." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableEnum type="BucksType" name="region_currency_bucks_type" class="TunableEnumEntry" default="INVALID" display="Region Currency Bucks Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" description="If this is set to INVALID, this region will by default use Simoleon as currency type. Otherwise it will use selected bucks type as currency type." group="General" />
+
+        <Tunable type="ResourceKey" name="region_icon" class="TunableResourceKey" default="None" display="Region Icon" description="Thumbnail image of the region." allow_none="True" group="General" resource_types="0x2f7d0004" />
+
+        <TunableEnum type="RegionType" name="region_type" class="TunableEnumEntry" default="REGIONTYPE_RESIDENTIAL" display="Region Type" static_entries="world-region.RegionType" description="The region type for this region. Keep in sync with UI region tuning in Tuning->ui.ui_tuning->UiTuning->Pack Specific Data-> [Pack] -> Region List -> region type" group="General" />
+
+        <TunableList name="seasonal_parameters" class="TunableMapping" display="Seasonal Parameters" mapping_key="key" mapping_value="value" description=" " group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="SeasonParameters" name="key" class="TunableEnumEntry" default="LEAF_ACCUMULATION" display="Key" static_entries="seasons-seasons_enums.SeasonParameters" description="The parameter that we wish to change." group="General" />
+                <TunableList name="value" class="TunableList" display="Value" description="A list of the different seasonal parameter changes that we want to send over the course of a year." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="SeasonType" name="season" class="TunableEnumEntry" default="SPRING" display="Season" static_entries="seasons-seasons_enums.SeasonType" description="The Season that this change is in." group="General" />
+                        <Tunable type="float" name="time_in_season" class="TunableRange" default="0.0" display="Time In Season" min="0.0" max="1.0" description="The time within the season that this will occur." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="value" class="Tunable" default="0.0" display="Value" description="The value that we will set this parameter to in the season" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="seasonal_sunrise_time" class="TunableMapping" display="Seasonal Sunrise Time" mapping_key="key" mapping_value="value" description="A mapping between season and sunrise time. If the current season is not found then we will default to the tuned sunrise time." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="SeasonType" name="key" class="TunableEnumEntry" default="SUMMER" display="Key" static_entries="seasons-seasons_enums.SeasonType" description="The season." group="General" />
+                <TunableTuple name="value" class="TunableTimeOfDay" display="Value" description="The time, in Sim-time, the sun rises in this region, in this season." group="Time">
+                    <Tunable type="int" name="hour" class="TunableRange" default="6" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="seasonal_sunset_time" class="TunableMapping" display="Seasonal Sunset Time" mapping_key="key" mapping_value="value" description="A mapping between season and sunset time. If the current season is not found then we will default to the tuned sunset time." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="SeasonType" name="key" class="TunableEnumEntry" default="SUMMER" display="Key" static_entries="seasons-seasons_enums.SeasonType" description="The season." group="General" />
+                <TunableTuple name="value" class="TunableTimeOfDay" display="Value" description="The time, in Sim-time, the sun sets in this region, in this season." group="Time">
+                    <Tunable type="int" name="hour" class="TunableRange" default="20" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="snow_behavior" class="TunableMapping" display="Snow Behavior" mapping_key="key" mapping_value="value" description="Snow behavior for this location for the various seasons Defaults to NO_SNOW if not tuned for the current season If set to PERMANENT, it will also set initial water to frozen and windows to frosted" group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="SeasonType" name="key" class="TunableEnumEntry" default="SPRING" display="Key" static_entries="seasons-seasons_enums.SeasonType" description="The Season." group="General" />
+                <TunableEnum type="SnowBehavior" name="value" class="TunableEnumEntry" default="NO_SNOW" display="Value" static_entries="weather-weather_enums.SnowBehavior" description="How snow behaves during this season at this location" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableEnum type="SnowBehavior" name="snow_behavior_no_seasons" class="TunableEnumEntry" default="NO_SNOW" display="Snow Behavior No Seasons" static_entries="weather-weather_enums.SnowBehavior" description="How snow behaves during this season at this location" group="General" />
+
+        <Tunable type="bool" name="store_travel_group_placed_objects" class="Tunable" default="False" display="Store Travel Group Placed Objects" description="If checked, any placed objects while in a travel group will be returned to household inventory once travel group is disbanded." group="General" />
+
+        <TunableTuple name="sunrise_time" class="TunableTimeOfDay" display="Sunrise Time" description="The time, in Sim-time, the sun rises in this region." group="Time">
+            <Tunable type="int" name="hour" class="TunableRange" default="6" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="sunset_time" class="TunableTimeOfDay" display="Sunset Time" description="The time, in Sim-time, the sun sets in this region." group="Time">
+            <Tunable type="int" name="hour" class="TunableRange" default="20" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <Tunable type="bool" name="supports_lunar_cycle" class="Tunable" default="True" display="Supports Lunar Cycle" description="Whether this region supports the lunar cycle. This affects whether world environment effects are adjusted to the current lunar phase, and whether or not Sims that are instanced in this world are awarded lunar effects during lunar phases. For example, worlds that have two moons disable the lunar cycle." group="General" />
+
+        <TunableList name="tags" class="TunableList" display="Tags" description="Tags that are used to group regions. Destination Regions will likely have individual tags, but Home/Residential Regions will share a tag." group="General">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A Tag used to group this region. Destination Regions will likely have individual tags, but Home/Residential Regions will share a tag." group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableVariant type="None" name="tracked_terrain_tags" class="OptionalTunable" default="disabled" display="Tracked Terrain Tags" description="What terrain transitions should be tracked in this region. Used to tuned which terrains are important and exist in this region." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableEnumSet" display="Enabled" group="General" unique_entries="true">
+                <TunableEnum type="TerrainTag" class="TunableEnumEntry" default="INVALID" static_entries="world-terrain_enums.TerrainTag" group="General" />
+            </TunableList>
+        </TunableVariant>
+
+        <Tunable type="int" name="travel_group_build_disabled_tooltip" class="TunableLocalizedString" default="0x0" display="Travel Group Build Disabled Tooltip" description="The string that will appear in the tooltip of the grayed out build mode button if build is being disabled because of a travel group in this region." allow_none="True" group="General" />
+
+        <TunableList name="weather" class="TunableMapping" display="Weather" mapping_key="key" mapping_value="value" description="Forecasts for this location for the various seasons" group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="SeasonType" name="key" class="TunableEnumEntry" default="SPRING" display="Key" static_entries="seasons-seasons_enums.SeasonType" description="The Season." group="General" />
+                <Tunable type="snippet" name="value" class="TunableReference" display="Value" description="The forecasts for the season by part of season" allow_none="False" group="General" pack_safe="True" restrict="WeatherSeasonalForecasts" />
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="snippet" name="weather_no_seasons" class="TunableReference" display="Weather No Seasons" description="Forecast(s) for this location for players without EP05 installed" allow_none="True" group="General" pack_safe="True" restrict="WeatherForcastList" />
+
+        <Tunable type="bool" name="weather_supports_fresh_snow" class="Tunable" default="True" display="Weather Supports Fresh Snow" description="If enabled, this region supports fresh snow." group="General" />
+
+        <TunableVariant type="None" name="welcome_wagon_replacement" class="OptionalTunable" default="disabled" display="Welcome Wagon Replacement" description="If enabled then we will replace the Welcome Wagon with a new situation. If the narrative is also set to replace the welcome wagon that will take precedent over this replacement." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="situation" name="enabled" class="TunableReference" display="Enabled" description="The situation we will use to replace the welcome wagon." allow_none="False" group="General" />
+        </TunableVariant>
+    </Instance>
+
+    
+</TuningRoot>

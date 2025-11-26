@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="SwitchLightAndStateImmediateInteraction" module="objects.lighting.lighting_object_interactions" description="An interaction that immediately changes objects' state at the same time based on the specific tags and changes the dimmer value of environment lights or particular set of lights." instance_needs_reference="True" instance_subclasses_only="False" parents="SwitchLightImmediateInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="state_settings" class="TunableObjectStateHelper" display="State Settings" description="Find objects in the same room or lot based on the tags and set state to the desired state." group="General">
+            <Tunable type="object_state" name="desired_state" class="TunableReference" display="Desired State" description="State that will be set to the objects." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+            <TunableList name="object_tags" class="TunableTags" display="Object Tags" group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Find all of the objects based on these tags." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableList>
+            <TunableVariant type="None" name="object_target" class="TunableObjectTargetVariant" default="room_objects" display="Object Target" description="Define the set of objects that this interaction is applied to." group="General">
+                <TunableTuple name="all_objects" class="Tunable_ObjectTargetAll" display="All Objects" description="The target are all objects. Find all objects that have the tags." group="General" />
+                <TunableTuple name="room_objects" class="Tunable_ObjectTargetRoom" display="Room Objects" description="The target are all objects in the same room as the interaction target that have the tags." group="General" />
+            </TunableVariant>
+            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="If pass these tests, the object's state will be changed to Desired State." group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

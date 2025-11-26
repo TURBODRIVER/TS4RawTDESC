@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation_goal" class="SituationGoalSmallBusinessIncome" module="small_business.small_business_situation_goals" description="Situation Goal that enables checking for a specific kind of Small Business Income." instance_needs_reference="True" instance_subclasses_only="False" parents="SituationGoal" path="SituationGoals\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_iterations" />
+
+        <Deleted name="_post_tests" />
+
+        <Tunable type="int" name="amount_to_earn" class="Tunable" default="0" display="Amount To Earn" description="Amount to earn in order to consider this goal as completed." tuning_state="NeedsTuning" group="Goals" />
+
+        <TunableList name="revenue_types" class="TunableList" display="Revenue Types" description="The types of the payment we want to track." group="Goals">
+            <TunableEnum type="PaymentBusinessRevenueType" class="TunableEnumEntry" default="SMALL_BUSINESS_INTERACTION_FEE" static_entries="interactions-payment-payment_info.PaymentBusinessRevenueType" description="The type of the payment we want to track." group="General" />
+        </TunableList>
+    </Instance>
+
+    
+</TuningRoot>

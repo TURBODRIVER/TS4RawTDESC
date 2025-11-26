@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="drama_node" class="CalendarEventDramaNode" module="drama_scheduler.calendar_event_drama_node" description="A drama node for scheduling something and displaying it on the calendar that has no real functionality other than being there for other systems to test against." instance_subclasses_only="False" parents="BaseDramaNode" path="DramaNodes\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="_simless" class="Tunable" default="True" display="Simless" description="If True, the drama node will behave simlessly and won't need (or use) the receiver sim." group="Participant" />
+
+        <TunableVariant type="None" name="advance_notice_time" class="OptionalTunable" default="disabled" display="Advance Notice Time" description="If enabled, a calender alarm will be triggered at the specified time prior to the event." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTimeSpan" display="Enabled" description="The amount of time between the alert and the start of the event." group="General">
+                <Tunable type="int" name="days" class="TunableRange" default="0" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="hours" class="TunableRange" default="0" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="calendar_end_time_override" class="OptionalTunable" default="disabled" display="Calendar End Time Override" description="If enabled, this will be the time of day shown in the calendar as the end time instead of the time calculated from the start time." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTimeOfDay" display="Enabled" description="The time of day to display as the end time for this event in the calendar." group="General">
+                <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="calendar_start_time_override" class="OptionalTunable" default="disabled" display="Calendar Start Time Override" description="If enabled, this will be the time of day shown in the calendar as the start time instead of the scheduled time." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTimeOfDay" display="Enabled" description="The time this event will display as the start time in the calendar." group="General">
+                <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="events_of_interest" class="TunableSet" display="Events Of Interest" description="When any of these events fire, the sims of interest will be updated, and the event added/removed from the calendar as appropriate" group="General" unique_entries="true">
+            <TunableEnum type="TestEvent" class="TunableEnumEntry" default="Invalid" dynamic_entries="event_testing-test_events.TestEvent._elements" static_entries="event_testing-test_events.TestEvent" group="General" />
+        </TunableList>
+
+        <Deleted name="override_picked_sim_info_resolver" />
+
+        <Deleted name="picked_sim_info" />
+
+        <Deleted name="sender_sim_info" />
+
+        <Deleted name="sender_sim_info_type" />
+
+        <TdescFragTag name="sim_of_interest_tests" class="TunableTestSet" display="Sim Of Interest Tests" description="Tests used to determine which active household sims this event involves. Any sim in the active household that passes the test will be indicated as participating in the calendar. If no household sims Are participating, event won't be on calendar." group="General" />
+    </Instance>
+</TuningRoot>

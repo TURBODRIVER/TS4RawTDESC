@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="user_interface_info" class="StoryProgressionRuleDisplayInfo" module="story_progression.story_progression_rule_display_info" description="Tuning used to display story progression rules in the UI." instance_subclasses_only="False" path="UserInterfaceInfos\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="rule_description" class="TunableLocalizedString" default="0x0" display="Rule Description" description="String to be displayed as this rule's description." group="General" />
+
+        <Tunable type="ResourceKey" name="rule_icon" class="TunableIcon" default="None" display="Rule Icon" description="Icon to be displayed to represent this rule." group="General" resource_types="0x2f7d0004" />
+
+        <Tunable type="int" name="rule_name" class="TunableLocalizedString" default="0x0" display="Rule Name" description="String to be displayed as this rule's name." group="General" />
+    </Instance>
+</TuningRoot>

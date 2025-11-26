@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="NPCLeaveLotInteraction" module="sims.self_interactions" description="Interaction that sends an NPC back to its home lot." instance_needs_reference="True" instance_subclasses_only="False" parents="TravelInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="static_fadeout_time" class="TunableRange" default="0" display="Static Fadeout Time" min="0" max="2147483647" description="How long will the sims fade out for until they dissapear. 0 disables static fade out." tuning_state="NeedsTuning" group="Travel" />
+    </Instance>
+
+    
+</TuningRoot>

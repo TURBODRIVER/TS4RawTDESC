@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="filters.tunable">
+        <Class name="FilterTermTag" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="NO_TAG" enum_value="0" />
+        </Class>
+
+        <Class name="IsHomeZoneUniversityHousingFilterTerm">
+            <Tunable type="venue" name="UNIVERSITY_HOUSING_VENUE_TUNING" class="TunableReference" display="University Housing Venue Tuning" description="The university housing venue. This should be kept in sync with the same tunable in university_housing_tuning.py and we would ideally just reference the get_university_housing_zone_ids in there, but doing so causes a circular import." allow_none="False" group="General" pack_safe="True" />
+        </Class>
+
+        <Class name="TunableSimFilter">
+            <Tunable type="sim_filter" name="ANY_FILTER" class="TunableReference" display="Any Filter" description="A filter used for creating debug sims in your neighborhood." allow_none="False" group="General" />
+
+            <Tunable type="sim_filter" name="BLANK_FILTER" class="TunableReference" display="Blank Filter" description="A filter that is used when a filter of None is passed in. This filter should have no filter terms." allow_none="False" group="General" />
+
+            <Tunable type="int" name="TOP_NUMBER_OF_SIMS_TO_LOOK_AT" class="Tunable" default="5" display="Top Number Of Sims To Look At" description="When running a filter request and doing a weighted random, how many of the top scorers will be used to get the results." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="sim_filter" name="UNIMPORTANT_FILTER" class="TunableReference" display="Unimportant Filter" description="A filter used to find Sims that are considered unimportant. Unimportant Sims can be used as a fallback before generating new SimInfos in the case a filter request fails. This allows us to conserve SimInfos." allow_none="False" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

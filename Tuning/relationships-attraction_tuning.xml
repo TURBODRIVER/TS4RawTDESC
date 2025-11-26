@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="relationships.attraction_tuning">
+        <Class name="AttractionTuning">
+            <Tunable type="statistic" name="ATTRACTION_RELATIONSHIP_TRACK" class="TunableReference" display="Attraction Relationship Track" description="The unidirectional relationship track that represents how attracted the actor sim is towards the target sim." allow_none="False" group="General" pack_safe="True" restrict="RelationshipTrack" />
+
+            <Tunable type="float" name="BASE_ATTRACTION_VALUE" class="Tunable" default="0" display="Base Attraction Value" description="The intial value of attraction from an actor sim towards a target sim when calculating attraction. Turn Ons and Turn Offs add their attraction modifiers to this value to calculate the total attraction." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="LOOT_BEFORE_ATTRACTION_FIRST_ADDED" class="TunableList" display="Loot Before Attraction First Added" description="Loot actions that are applied right before an attraction track is first added for the actor sim towards the target sim." group="General">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableList>
+
+            <TunableList name="LOOT_ON_ATTRACTION_ADDED" class="TunableList" display="Loot On Attraction Added" description="Loot actions that are applied right after an attraction track is first added for the actor sim towards the target sim." group="General">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableList>
+
+            <TdescFragTag name="TRACK_ATTRACTION_TESTS" class="TunableTestSet" display="Track Attraction Tests" description="If these tests pass for the actor and target, then we will track the actor's attraction towards the target. " group="General" />
+
+            <Tunable type="int" name="UNKNOWN_DESCRIPTION" class="TunableLocalizedString" default="0x0" display="Unknown Description" description="The description to use in the Sim Profile when the active sim does not know the attraction that the target sim feels towards the active sim." group="General" />
+
+            <Tunable type="ResourceKey" name="UNKNOWN_ICON" class="TunableIcon" default="None" display="Unknown Icon" description="The icon to display in the Sim Profile when the active sim does not know the attraction that the target sim feels towards the active sim." group="General" resource_types="0x2f7d0004" />
+
+            <Tunable type="int" name="UNKNOWN_TITLE" class="TunableLocalizedString" default="0x0" display="Unknown Title" description="The title to use in the Sim Profile when the active sim does not know the attraction that the target sim feels towards the active sim." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="DeliverBabyOnSurgeryTableInteraction" module="interactions.utils.pregnancy_interactions" description="Interaction for a pregnant sim to give birth on a surgery table." instance_needs_reference="True" instance_subclasses_only="False" parents="DeliverBabySuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="_loot_per_baby" class="TunableList" display="Loot Per Baby" description="Loot that will be applied when a baby is born to a non NPC Sim. Actor will be the mom and TargetSim will be the sim_info of the baby. This will work for multiple babies as each loot will be applied to each baby sim info. None of these loots will be applied to a baby born to an NPC Sim." group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+        </TunableList>
+
+        <Tunable type="interaction" name="after_delivery_interaction" class="TunableReference" display="After Delivery Interaction" description="The interaction to push on the Sim after delivering a baby at the hospital." allow_none="True" group="General" pack_safe="True" />
+
+        <Tunable type="slot_type" name="bassinet_slot_type" class="TunableReference" display="Bassinet Slot Type" description="SlotType used to place the bassinet when it is created." allow_none="False" group="General" restrict="SlotType" />
+
+        <Tunable type="object" name="bassinet_to_use" class="TunableReference" display="Bassinet To Use" description="Bassinet with Baby object definition id." allow_none="False" group="General" />
+
+        <TunableTuple name="destroy_baby_in_bassinet_vfx" class="TunablePlayEffect" display="Destroy Baby In Bassinet Vfx" description="The VFX to play when the baby is being destroyed during an NPC birth sequence." group="General">
+            <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+            <TunableVariant type="None" name="joint_name" class="OptionalTunable" default="Slot" display="Joint Name" description="Specify if the visual effect is attached to a slot and, if so, which slot." group="General">
+                <Tunable name="Current_Position" class="TunableExistance" display="Current Position" />
+                <Tunable type="str" name="Slot" class="TunableStringHash32" default="_FX_" display="Slot" description="The name of the slot this effect is attached to." group="General" />
+            </TunableVariant>
+            <Tunable type="bool" name="play_immediate" class="Tunable" default="False" display="Play Immediate" description="If checked, this effect will be triggered immediately, nothing will block. ex. VFX will be played immediately while the Sim is routing or animating." group="General" />
+        </TunableTuple>
+
+        <TunableEnum type="ParticipantType" name="surgery_table_participant_type" class="TunableEnumEntry" default="Object" display="Surgery Table Participant Type" static_entries="interactions.ParticipantType" description="A reference to the ParticipantType that the surgery table will be in this interaction." group="General" />
+    </Instance>
+</TuningRoot>

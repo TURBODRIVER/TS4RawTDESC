@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.global_gender_preference_tuning">
+        <Class name="AttractionStatus" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ATTRACTED" enum_value="1" />
+
+            <EnumItem name="NOT_ATTRACTED" enum_value="0" />
+        </Class>
+
+        <Class name="ExploringOptionsStatus" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EXPLORING" enum_value="1" />
+
+            <EnumItem name="NOT_EXPLORING" enum_value="0" />
+        </Class>
+
+        <Class name="GenderPreferenceType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="INVALID" enum_value="0" />
+
+            <EnumItem name="ROMANTIC" enum_value="1" />
+
+            <EnumItem name="WOOHOO" enum_value="2" />
+        </Class>
+
+        <Class name="GlobalGenderPreferenceTuning">
+            <TunableList name="ALWAYS_ATTRACTIVE_TRAITS" class="TunableList" display="Always Attractive Traits" description="Traits corresponding to Sims that are always attractive, e.g. the Grim Reaper." group="General">
+                <Tunable type="trait" class="TunableReference" description="Any Sim with the specified trait will be always attractive." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <Tunable type="float" name="ENABLE_AUTOGENERATION_SAME_SEX_PREFERENCE_THRESHOLD" class="Tunable" default="1.0" display="Enable Autogeneration Same Sex Preference Threshold" description="A value that, once crossed, indicates the player's allowance of same- sex relationships with townie auto-generation." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="ENABLED_AUTOGENERATION_EXPLORING_SEXUALITY_WEIGHTS" class="TunableList" display="Enabled Autogeneration Exploring Sexuality Weights" description="An alternative weightings list for the weighted random choice of sexuality exploration after a romantic same-sex relationship has been kindled." group="General">
+                <TunableTuple class="TunableTuple" description="A mapping between whether we're exploring sexuality and the desired weight." group="General">
+                    <TunableEnum type="ExploringOptionsStatus" name="exploring_sexuality" class="TunableEnumEntry" default="EXPLORING" display="Exploring Sexuality" static_entries="sims-global_gender_preference_tuning.ExploringOptionsStatus" description="Whether Sim should be exploring or not exploring their sexuality." group="General" />
+                    <Tunable type="int" name="weight" class="Tunable" default="0" display="Weight" description="The weight to denote the percentage of NPCs we want to exist with this trait." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="ENABLED_AUTOGENERATION_SAME_SEX_PREFERENCE_WEIGHTS" class="TunableMapping" display="Enabled Autogeneration Same Sex Preference Weights" mapping_key="key" mapping_value="value" description="An alternative weightings mapping for the weighted random chance of sexual attraction after a romantic same-sex relationship has been kindled." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Gender" name="key" class="TunableEnumEntry" default="MALE" display="Key" static_entries="sims-sim_info_types.Gender" description="The gender to index the AttractionStatus list to." group="General" />
+                    <TunableList name="value" class="TunableList" display="Value" description="A weightings list for the weighted random choice of sexual attraction." group="General">
+                        <TunableTuple class="TunableTuple" description="A mapping between whether we're attracted to this gender and the desired weight." group="General">
+                            <TunableEnum type="AttractionStatus" name="attraction_status" class="TunableEnumEntry" default="ATTRACTED" display="Attraction Status" static_entries="sims-global_gender_preference_tuning.AttractionStatus" description="Whether the Sim is attracted to this gender or not." group="General" />
+                            <Tunable type="int" name="weight" class="Tunable" default="0" display="Weight" description="The weight to denote the percentage of NPCs we want to exist with this sexual attraction." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="EXPLORING_SEXUALITY_TRAITS_MAPPING" class="TunableMapping" display="Exploring Sexuality Traits Mapping" mapping_key="key" mapping_value="value" description="A mapping between the exploring enum to expected traits for easy lookup." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="ExploringOptionsStatus" name="key" class="TunableEnumEntry" default="EXPLORING" display="Key" static_entries="sims-global_gender_preference_tuning.ExploringOptionsStatus" description="Whether Sim should be exploring or not exploring their sexuality." group="General" />
+                    <Tunable type="trait" name="value" class="TunableReference" display="Value" description="The matching trait representative of exploring or not exploring sexuality." allow_none="False" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="EXPLORING_SEXUALITY_WEIGHTS" class="TunableList" display="Exploring Sexuality Weights" description="A weightings list for the weighted random choice of exploring sexuality." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="ExploringOptionsStatus" name="exploring_sexuality" class="TunableEnumEntry" default="EXPLORING" display="Exploring Sexuality" static_entries="sims-global_gender_preference_tuning.ExploringOptionsStatus" description="Whether Sim should be exploring or not exploring their sexuality." group="General" />
+                    <Tunable type="int" name="weight" class="Tunable" default="0" display="Weight" description="The weight to denote the percentage of NPCs we want to exist with this trait." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="trait" name="FEMALE_CLOTHING_PREFERENCE_TRAIT" class="TunableReference" display="Female Clothing Preference Trait" description="The trait that signifies that this sim prefers to wear female clothing." allow_none="False" group="General" />
+
+            <TunableList name="GENDER_PREFERENCE" class="TunableMapping" display="Gender Preference" mapping_key="key" mapping_value="value" description="A mapping between gender and the gender preference statistic for easy lookup." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Gender" name="key" class="TunableEnumEntry" default="MALE" display="Key" static_entries="sims-sim_info_types.Gender" description="The gender to index the gender preference to." group="General" />
+                    <Tunable type="statistic" name="value" class="TunableReference" display="Value" description="The statistic that represents the matching gender preference." allow_none="False" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="float" name="GENDER_PREFERENCE_THRESHOLD" class="Tunable" default="0" display="Gender Preference Threshold" description="The threshold in which this sim will consider having an appropriate gender preference. Note that being GREATER THAN OR EQUAL TO this threshold will indicate the Sim has an attraction to the respective gender and will have the appropriate attraction trait, whereas LESS THAN will indicate the opposite (that they have the NotAttracted trait)." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="GENDER_PREFERENCE_WEIGHTS" class="TunableMapping" display="Gender Preference Weights" mapping_key="key" mapping_value="value" description="A mapping between gender and the weighted random chance of sexual attraction to that gender." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Gender" name="key" class="TunableEnumEntry" default="MALE" display="Key" static_entries="sims-sim_info_types.Gender" description="The gender to index the AttractionStatus list to." group="General" />
+                    <TunableList name="value" class="TunableList" display="Value" description="A weightings list for the weighted random choice of sexual attraction." group="General">
+                        <TunableTuple class="TunableTuple" description="A mapping between whether we're attracted to this gender and the desired weight." group="General">
+                            <TunableEnum type="AttractionStatus" name="attraction_status" class="TunableEnumEntry" default="ATTRACTED" display="Attraction Status" static_entries="sims-global_gender_preference_tuning.AttractionStatus" description="Whether the Sim is attracted to this gender or not." group="General" />
+                            <Tunable type="int" name="weight" class="Tunable" default="0" display="Weight" description="The weight to denote the percentage of NPCs we want to exist with this sexual attraction." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="trait" name="MALE_CLOTHING_PREFERENCE_TRAIT" class="TunableReference" display="Male Clothing Preference Trait" description="The trait that signifies that this sim prefers to wear male clothing." allow_none="False" group="General" />
+
+            <TunableList name="ROMANTIC_PREFERENCE_TRAITS_MAPPING" class="TunableMapping" display="Romantic Preference Traits Mapping" mapping_key="key" mapping_value="value" description="A mapping between gender and the romantic orientation traits for easy lookup." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Gender" name="key" class="TunableEnumEntry" default="MALE" display="Key" static_entries="sims-sim_info_types.Gender" description="The gender to index the attraction trait to." group="General" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="A tuple of traits representing that the Sim is attracted and not attracted, respectively." group="General">
+                        <Tunable type="trait" name="is_attracted_trait" class="TunableReference" display="Is Attracted Trait" description="Reference to the trait that denotes that the Sim is attracted to this gender." allow_none="False" group="General" />
+                        <Tunable type="trait" name="not_attracted_trait" class="TunableReference" display="Not Attracted Trait" description="Reference to the trait that denotes that the Sim is not attracted to this gender." allow_none="False" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="WOOHOO_PREFERENCE_TRAITS_MAPPING" class="TunableMapping" display="Woohoo Preference Traits Mapping" mapping_key="key" mapping_value="value" description="A mapping between gender and the woohoo orientation traits for easy lookup." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Gender" name="key" class="TunableEnumEntry" default="MALE" display="Key" static_entries="sims-sim_info_types.Gender" description="The gender to index the attraction trait to." group="General" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="A tuple of traits representing that the Sim is attracted and not attracted, respectively." group="General">
+                        <Tunable type="trait" name="is_attracted_trait" class="TunableReference" display="Is Attracted Trait" description="Reference to the trait that denotes that the Sim is attracted to this gender." allow_none="False" group="General" />
+                        <Tunable type="trait" name="not_attracted_trait" class="TunableReference" display="Not Attracted Trait" description="Reference to the trait that denotes that the Sim is not attracted to this gender." allow_none="False" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

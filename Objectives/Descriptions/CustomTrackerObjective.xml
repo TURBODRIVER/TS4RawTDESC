@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="objective" class="CustomTrackerObjective" module="event_testing.custom_tracker_objective" description="An objective that sets up special tracking in order to track special changes outside of tests." instance_needs_reference="True" instance_subclasses_only="False" path="Objectives\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="ObjectiveCategoryType" name="category_type" class="TunableEnumEntry" default="NO_CATEGORY_TYPE" display="Category Type" dynamic_entries="event_testing-objective_enums.ObjectiveCategoryType._elements" static_entries="event_testing-objective_enums.ObjectiveCategoryType" description="What type of objective is this. Used for tests against types. If this objective doesn't need to be tested against, leave as NO_CATEGORY_TYPE." group="General" />
+
+        <TunableVariant type="None" name="display_age_list" class="DisplayAgeListOptionalTunable" default="disabled" display="Display Age List" description="If enabled, the Sim must be one of the specified ages for the Objective to be displayed in the UI. This does not create any Gameplay side checks to prevent this Objective from being completed anyways." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableEnumSet" default="TODDLER,CHILD,TEEN,YOUNGADULT,ADULT,ELDER" display="Enabled" group="General" unique_entries="true">
+                <TunableEnum type="Age" class="TunableEnumEntry" default="ADULT" static_entries="sims-sim_info_types.Age" group="General" />
+            </TunableList>
+        </TunableVariant>
+
+        <Tunable type="int" name="display_text" class="TunableLocalizedString" default="0x0" display="Display Text" description="The single line description of the objective as it appears in various panels." allow_none="True" group="UI" />
+
+        <TunableVariant type="None" name="picker_icon" class="OptionalTunable" default="disabled" display="Picker Icon" description="When this objective is shown in the picker, this is the icon that will be displayed beside it. If this objective will never appear in a picker, this can be left blank." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="ResourceKey" name="enabled" class="TunableIcon" default="None" display="Enabled" description="The icon used to represent this objective in the picker." group="General" resource_types="0x2f7d0004" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="relative_to_unlock_moment" class="Tunable" default="False" display="Relative To Unlock Moment" description="If true this objective will start counting from the moment of assignment or reset instead of over the total lifetime of a Sim, most useful for Careers and Whimsets. Note: this effect is only for 'Total' data tests (tests that used persisted save data) " group="Special Cases" />
+
+        <Tunable type="bool" name="resettable" class="Tunable" default="False" display="Resettable" description="Setting this allows for this objective to reset back to zero for certain uses, such as for Whim Set activation." group="Special Cases" />
+
+        <Tunable type="int" name="satisfaction_points" class="Tunable" default="0" display="Satisfaction Points" description="The number of satisfaction points received upon the completion of this Objective." tuning_state="NeedsTuning" group="Rewards" />
+
+        <Tunable type="bool" name="show_progress" class="Tunable" default="True" display="Show Progress" description="If True, incremental progress is shown in UI. If False, progress display is disabled." group="General" />
+
+        <Tunable type="bool" name="show_tooltip_update_in_special_cases" class="Tunable" default="True" display="Show Tooltip Update In Special Cases" description="If False the tooltip objective will not be displayed when updates and if the special cases are met (if there is a Small Business open) This has been implemented to avoid spamming the player with the aspiration tooltip update, for example the Fabulously Wealthy aspiration goals when earning money. " group="Special Cases" />
+
+        <Tunable type="int" name="tooltip" class="TunableLocalizedString" default="0x0" display="Tooltip" description="The tooltip of the Objective." allow_none="True" group="UI" />
+
+        <TunableVariant type="None" name="tracking" class="TunableVariant" default="commodity" display="Tracking" description="The method of tracking that we want to use." group="General">
+            <TunableTuple name="commodity" class="TunableTrackCommodity" display="Commodity" description="Track a commodity." group="General">
+                <Tunable type="statistic" name="commodity_to_track" class="TunableReference" display="Commodity To Track" description="The commodity that we want to track on the Sim." allow_none="False" group="General" restrict="Commodity" />
+                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="The threshold that we are trying to reach." group="General">
+                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                    <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

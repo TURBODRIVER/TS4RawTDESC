@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="CustomStateFuneralSituation" module="grieving_rituals.situations.custom_states_funeral_situation" instance_subclasses_only="False" parents="CustomStatesSituation, BaseCustomStatesSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="zone_director" name="_zone_director" class="TunableReference" display="Zone Director" description="This zone director will automatically be requested by the situation during zone spin up." allow_none="False" group="General" restrict="ZoneDirectorBase" />
+
+        <Tunable type="situation_job" name="departed_job" class="TunableReference" display="Departed Job" description="The Situation Job used by the departed sim." allow_none="False" group="General" restrict="SituationJob" />
+
+        <TunableEnum type="Tag" name="funeral_activities_buff_tag" class="TunableEnumWithFilter" default="INVALID" display="Funeral Activities Buff Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag associated with all buffs awarded by funeral activities." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" />
+
+        <TunableEnum type="OutfitCategory" name="preferred_outfit_category" class="TunableEnumEntry" default="SITUATION" display="Preferred Outfit Category" static_entries="sims-outfits-outfit_enums.OutfitCategory" description="If a sim's outfit in the tuned category complies with one of the tags in the outfit extra tag set, then use that existing outfit instead of generating a new one. " group="General" />
+
+        <TunableList name="will_preference_completeness_map" class="TunableMapping" display="Will Preference Completeness Map" mapping_key="activity" mapping_value="completed_buff" description="A map of Situation Activity to the Buff that was rewarded when the related goal was completed. Used to measure adherence to the deceased's will." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="holiday_tradition" name="activity" class="TunableReference" display="Activity" description="An available activity for this Situation." allow_none="False" group="General" pack_safe="True" restrict="SituationActivity" />
+                <Tunable type="buff" name="completed_buff" class="TunableReference" display="Completed Buff" description="The buff awarded by the activity's SituationGoal." allow_none="False" group="General" pack_safe="True" restrict="Buff" />
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="action" name="will_preference_failure_loot" class="TunableReference" display="Will Preference Failure Loot" description="Apply a set of loot actions to the Host sim for failing to complete all Funeral Preferences of the deceased." allow_none="True" group="General" pack_safe="True" restrict="LootActions" />
+
+        <Tunable type="action" name="will_preference_success_loot" class="TunableReference" display="Will Preference Success Loot" description="Apply a set of loot actions to the Host sim for successfully completing all Funeral Preferences of the deceased." allow_none="True" group="General" pack_safe="True" restrict="LootActions" />
+    </Instance>
+</TuningRoot>

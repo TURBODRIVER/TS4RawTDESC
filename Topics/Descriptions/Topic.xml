@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="topic" class="Topic" module="topics.topic" description="A topic element." instance_needs_reference="True" instance_subclasses_only="False" path="Topics\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="guaranteed_content" class="OptionalTunable" default="disabled" display="Guaranteed Content" description="If enabled, will force content set generation to add options for this topic." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="If enabled, will force content set generation to add options for this topic." group="General">
+                <Tunable type="int" name="count" class="Tunable" default="1" display="Count" description="The number of options to force into the content set." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="priority" class="Tunable" default="0" display="Priority" description="The priority of this Topic vs. other Topics. Ties are randomized." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="bool" name="is_timed_relevancy" class="Tunable" default="False" display="Is Timed Relevancy" description="If set, relevancy value is treated as number of minutes until topic is removed." group="General" />
+
+        <TunableVariant type="None" name="relevancy_value" class="TunableLiteralOrRandomValue" default="literal" display="Relevancy Value" description="Initial Decay value once value has reached zero topic will be removed. If is_timeout is set, this will the number of minutes before topic will timeout." group="General">
+            <TunableTuple name="literal" class="TunableIntervalLiteral" display="Literal" description="A literal value that is to be used as the lower and upper bound of an interval. This allows both literal and range interval tunings in the same TunableVariant without having to manually set the lower and upper bounds to the same value." group="General">
+                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" description="The upper and lower bounds." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <TunableTuple name="random_in_range" class="TunableInterval" display="Random In Range" description="A tunable interval between lower_bound and upper_bound." group="General">
+                <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="int" name="score_bonus" class="Tunable" default="0" display="Score Bonus" description="Score bonus for matching topic tag." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+</TuningRoot>

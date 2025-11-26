@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.color.object_color_tuning">
+        <Class name="ObjectColorTuning">
+            <TunableList name="OBJECT_COLOR_PALETTE" class="TunableMapping" display="Object Color Palette" mapping_key="key" mapping_value="value" description="The dictionary of object color palette information." group="General" mapping_class="ObjectColorPaletteTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="ObjectColorPickerPalette" name="key" class="TunableEnumEntry" default="INVALID" display="Key" static_entries="objects-color-object_color_enums.ObjectColorPickerPalette" description="The key for the palette entry." group="General" invalid_entries="INVALID,LIGHTING" />
+                    <TunableTuple name="value" class="TunablePaletteEntryTuple" display="Value" group="General">
+                        <TunableList name="colors" class="TunableList" display="Colors" description="A list of all the different colors you can set the object to be." group="General">
+                            <TunableTuple class="TunableObjectColorTuple" group="General">
+                                <TunableList name="color" class="TunableList" display="Color" min="1" description="The list of colors associated with this selectable item. It requires at least one color, but some use cases may use multiple colors. " group="General">
+                                    <TunableTuple class="TunableColorRGBA" description="Tunable RGBA values used to set the color. Tuning the A value will not do anything as it is not used." group="General">
+                                        <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                                <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of the color that appears when you mouse over it." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                        <TunableVariant type="None" name="use_default" class="OptionalTunable" default="disabled" display="Use Default" description="An optional label that if provided will cause the dialog to display an additional checkbox to allow the player to select the default color." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

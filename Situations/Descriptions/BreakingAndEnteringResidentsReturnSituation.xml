@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="BreakingAndEnteringResidentsReturnSituation" module="situations.breaking_and_entering.breaking_and_entering_situation" description="The follow-up situation for Breaking and Entering. This situation represents the resident sims of the active lot returning to their home to likely find the player sim in the midst of snooping." instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_implies_greeted_status" />
+
+        <Deleted name="_resident_job" />
+
+        <Tunable type="zone_director" name="_zone_director" class="TunableReference" display="Zone Director" description="This zone director will automatically be requested by the situation during zone spin up." allow_none="False" group="General" restrict="ZoneDirectorBase" />
+
+        <Deleted name="exclusivity" />
+
+        <TunableTuple name="resident_sims_job_and_role_state" class="TunableSituationJobAndRoleState" display="Resident Sims Job And Role State" description="The job and role state of the resident Sims who live on the lot." group="General">
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

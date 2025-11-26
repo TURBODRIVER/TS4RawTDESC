@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="vehicles.vehicle_tuning">
+        <Class name="VehicleTuning">
+            <TunableList name="SURFACE_FAVORITES" class="TunableMapping" display="Surface Favorites" mapping_key="Surface" mapping_value="Favorite Tag" description="Tuning that specifies which favorite tag to search for when a Sim attempts to deploy a vehicle on a given surface. Example: Sim is in the water and wants to deploy a water vehicle. They have both an Aqua Zip and an Island Canoe, but only the Aqua Zip is the favorite. We want to ask the favorites tracker if a given favorite water vehicle has been set, which is based on the tag tuned here." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Tag" name="Favorite Tag" class="TunableTag" default="INVALID" display="Favorite Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The favorite tag we search the inventory for when deploying vehicles." dynamic_entries_prefix="Func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                    <TunableEnum type="SurfaceType" name="Surface" class="TunableEnumEntry" default="SURFACETYPE_WORLD" display="Surface" static_entries="routing.SurfaceType" description="The Surface we want to apply a favorite tag to. If the Sim is on this surface and has an opportunity to deploy a vehicle, then we use the corresponding tag to choose it." group="General" invalid_entries="SURFACETYPE_UNKNOWN" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

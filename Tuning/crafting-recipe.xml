@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="crafting.recipe">
+        <Class name="PhaseName" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+
+            <EnumItem name="START_PHASE" enum_value="1" />
+        </Class>
+
+        <Class name="Recipe">
+            <Tunable type="int" name="cooking_time_reduced_inactive_text" class="TunableLocalizedString" default="0x0" display="Cooking Time Reduced Inactive Text" description="The text to show in recipe tooltip in recipe picker if cooking time is reduced." allow_none="True" group="General" />
+
+            <Tunable type="int" name="cooking_time_reduced_text" class="TunableLocalizedString" default="0x0" display="Cooking Time Reduced Text" description="The text to show in recipe tooltip in recipe picker if cooking time is reduced." allow_none="True" group="General" />
+
+            <TunableList name="INGREDIENT_REPLACEMENT_MAP" class="TunableList" display="Ingredient Replacement Map" description="A mapping for replacement of a set of ingredients by another ingredient. For example A Prepped Ingredient -> Set of Fresh Ingredients." group="General" unique_entries="true">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="ingredients_to_replace_list" class="TunableList" display="Ingredients To Replace List" description="List of ingredients that will be replaced by replacement_ingredient. If a replacement_ingredient is used in a recipe, it will replace all equivalent ingredients on that recipe." group="General">
+                        <TunableVariant type="None" class="TunableVariant" default="none" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
+                            <TunableTuple name="ingredient_by_definition" class="TunableIngredientRequirementByDef" display="Ingredient By Definition" description="An Ingredient Requirement that is defined by an object definition." group="General">
+                                <Tunable type="object" name="ingredient_ref" class="TunableReference" display="Ingredient Ref" description="Reference to ingredient object definition. Example: gardenFruitGENOnion_01" allow_none="False" group="General" pack_safe="True" />
+                            </TunableTuple>
+                            <TunableTuple name="ingredient_by_tag" class="TunableIngredientRequirementByTag" display="Ingredient By Tag" description="An Ingredient Requirement that is defined by a tag." group="General">
+                                <TunableEnum type="Tag" name="ingredient_tag" class="TunableEnumEntry" default="INVALID" display="Ingredient Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag that ingredient object should have. Example: Func_Ingredient_Fruit" group="General" pack_safe="True" />
+                            </TunableTuple>
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                        </TunableVariant>
+                    </TunableList>
+                    <TunableVariant type="None" name="replacement_ingredient" class="TunableVariant" default="none" display="Replacement Ingredient" description="Ingredient if used that will replace all ingredients in ingredients_to_replace_list." group="General">
+                        <TunableTuple name="ingredient_by_definition" class="TunableIngredientRequirementByDef" display="Ingredient By Definition" description="An Ingredient Requirement that is defined by an object definition." group="General">
+                            <Tunable type="object" name="ingredient_ref" class="TunableReference" display="Ingredient Ref" description="Reference to ingredient object definition. Example: gardenFruitGENOnion_01" allow_none="False" group="General" pack_safe="True" />
+                        </TunableTuple>
+                        <TunableTuple name="ingredient_by_tag" class="TunableIngredientRequirementByTag" display="Ingredient By Tag" description="An Ingredient Requirement that is defined by a tag." group="General">
+                            <TunableEnum type="Tag" name="ingredient_tag" class="TunableEnumEntry" default="INVALID" display="Ingredient Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag that ingredient object should have. Example: Func_Ingredient_Fruit" group="General" pack_safe="True" />
+                        </TunableTuple>
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableEnum type="Tag" name="RECIPE_FOOD_TAG" class="TunableEnumEntry" default="INVALID" display="Recipe Food Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="' Tag to look for when iterating through recipes to know if they are food recipes." group="General" />
+
+            <TunableList name="TEST_APPLIANCE_DEFINITIONS_TAGS_PAIRS" class="TunableList" display="Test Appliance Definitions Tags Pairs" description="A list of definitions of appliances that will be used for automatic testing of recipes." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="object" name="appliance" class="TunableReference" display="Appliance" description="Reference to appliance object definition." allow_none="False" group="General" pack_safe="True" />
+                    <Tunable type="interaction" name="super_affordance" class="TunableReference" display="Super Affordance" description="A super affordance on appliance object to test with." allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+                    <TunableList name="tags" class="TunableList" display="Tags" description="A set of recipe tag list that will be used for automatic testing of recipes. Every list is a another testing scenario." group="General">
+                        <TunableList class="TunableList" description="A list of recipe tags that will be used for automatic testing of recipes." group="General">
+                            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag that ingredient recipe should have." group="General" pack_safe="True" />
+                        </TunableList>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

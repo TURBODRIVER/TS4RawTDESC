@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.funds">
+        <Class name="FundsSource" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BUCKS" enum_value="4" />
+
+            <EnumItem name="BUSINESS" enum_value="2" />
+
+            <EnumItem name="HOUSEHOLD" enum_value="0" />
+
+            <EnumItem name="NO_SOURCE" enum_value="5" />
+
+            <EnumItem name="RETAIL" enum_value="1" />
+
+            <EnumItem name="STATISTIC" enum_value="3" />
+        </Class>
+
+        <Class name="FundsTuning">
+            <TunableList name="UNAFFORDABLE_TOOLTIPS" class="TunableMapping" display="Unaffordable Tooltips" mapping_key="key" mapping_value="value" description="A mapping of tooltips for each of the funds sources when an interaction cannot be performed due to lack of such funds. Each tooltip takes the same tokens as the interaction." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="FundsSource" name="key" class="TunableEnumEntry" default="HOUSEHOLD" display="Key" static_entries="sims-funds.FundsSource" description="The funds source." group="General" />
+                    <Tunable type="int" name="value" class="TunableLocalizedString" default="0x0" display="Value" description="The tooltip to display when a Sim cannot run the specified interaction due to lack of funds." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+
+        <Class name="_Funds">
+            <Tunable type="int" name="MAX_FUNDS" class="TunableRange" default="99999999" display="Max Funds" min="0" max="2147483647" description="Max Funds a household can have. If this is tuned please update GlobalTunables.as in the UI code. There is a constant there that matches this value and will need to be updated if we ever retune this value." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

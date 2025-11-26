@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="autonomy.autonomy_modes_tuning">
+        <Class name="AutonomyModesTuning">
+            <Tunable type="float" name="LOCKOUT_TIME" class="TunableSimMinute" default="240" display="Lockout Time" min="None" max="None" description="Number of sim minutes to lockout a failed interaction push or routing failure." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

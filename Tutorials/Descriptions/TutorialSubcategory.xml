@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tutorial" class="TutorialSubcategory" module="tutorials.tutorial" description="Subcategory class for tutorials" instance_subclasses_only="False" path="Tutorials\Descriptions" use_guid_for_reference="True">
+        <Tunable type="tutorial" name="intro" class="TunableReference" display="Intro" description="Introductory lesson associated with this subcategory." allow_none="True" group="General" restrict="Tutorial" />
+
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="Name of the tutorial subcategory." group="General" />
+
+        <TunableEnum type="Tag" name="tag" class="TunableTag" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The lesson tag associated with this subcategory." dynamic_entries_prefix="lesson" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+        <Tunable type="int" name="ui_sort_order" class="Tunable" default="0" display="Ui Sort Order" description="Order in which this subcategory is sorted against other subcategories within the same category. If two subcategories within a category have the same sort order, the ordering is undefined." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+</TuningRoot>

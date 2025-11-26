@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <TdescFrag>
+        <TunableTuple class="_TunableAffordanceFilter" description="An affordance filter." group="General">
+            <TunableVariant type="None" name="default_inclusion" class="TunableVariant" default="include_all" display="Default Inclusion" description="This defines the default compatibility with other interactions." group="General">
+                <TunableTuple name="exclude_all" class="TunableTuple" display="Exclude All" description="This will create incompatibility with all interactions by default, except those that are whitelisted, from which you can define exceptions." group="General">
+                    <TunableList name="exclude_affordances" class="TunableList" display="Filter Exception Items" group="General">
+                        <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="exclude_lists" class="TunableList" display="Filter Exception Lists" group="General">
+                        <Tunable type="snippet" class="TunableReference" description="A reference to a AffordanceList tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="AffordanceList" />
+                    </TunableList>
+                    <TunableList name="include_affordances" class="TunableList" display="Whitelist Items" group="General">
+                        <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="include_lists" class="TunableList" display="Whitelist Lists" group="General">
+                        <Tunable type="snippet" class="TunableReference" description="A reference to a AffordanceList tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="AffordanceList" />
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="include_all" class="TunableTuple" display="Include All" description="This will create compatibility with all interactions by default, except those that are blacklisted, from which you can define exceptions." group="General">
+                    <TunableList name="exclude_affordances" class="TunableList" display="Blacklist Items" group="General">
+                        <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="exclude_lists" class="TunableList" display="Blacklist Lists" group="General">
+                        <Tunable type="snippet" class="TunableReference" description="A reference to a AffordanceList tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="AffordanceList" />
+                    </TunableList>
+                    <TunableList name="include_affordances" class="TunableList" display="Filter Exception Items" group="General">
+                        <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="include_lists" class="TunableList" display="Filter Exception Lists" group="General">
+                        <Tunable type="snippet" class="TunableReference" description="A reference to a AffordanceList tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="AffordanceList" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableTuple>
+    </TdescFrag>
+</TuningRoot>

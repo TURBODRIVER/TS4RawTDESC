@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="adoption.adoption_service">
+        <Class name="AdoptionService">
+            <Tunable type="float" name="PET_ADOPTION_CATALOG_LIFETIME" class="TunableSimMinute" default="60" display="Pet Adoption Catalog Lifetime" min="0" max="None" description="The amount of time in Sim minutes before a pet Sim is removed from the adoption catalog." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="PET_ADOPTION_GENDER_OPTION_TRAITS" class="TunableList" display="Pet Adoption Gender Option Traits" description="List of gender option traits from which one will be applied to generated Pets based on the tuned weights." group="General">
+                <TunableTuple class="TunableTuple" description="A weighted gender option trait that might be applied to the generated Pet." group="General">
+                    <Tunable type="trait" name="trait" class="TunableReference" display="Trait" description="A gender option trait that might be applied to the generated Pet." allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                    <Tunable type="float" name="weight" class="Tunable" default="1" display="Weight" description="The relative weight of this trait." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

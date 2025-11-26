@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="careers.career_ops">
+        <Class name="CareerOps" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CALLED_IN_SICK" enum_value="2" />
+
+            <EnumItem name="JOIN_CAREER" enum_value="0" />
+
+            <EnumItem name="QUIT_CAREER" enum_value="1" />
+        </Class>
+
+        <Class name="CareerLevelOps" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DEMOTE" enum_value="1" />
+
+            <EnumItem name="PROMOTE" enum_value="0" />
+        </Class>
+
+        <Class name="CareerTimeOffReason" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="FAKE_SICK" enum_value="2" />
+
+            <EnumItem name="MISSING_WORK" enum_value="3" />
+
+            <EnumItem name="NO_TIME_OFF" enum_value="0" />
+
+            <EnumItem name="PTO" enum_value="1" />
+
+            <EnumItem name="WORK_FROM_HOME" enum_value="4" />
+        </Class>
+    </Module>
+</TuningRoot>

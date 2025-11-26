@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="RelaxationCenterZoneDirector" module="venues.relaxation_center_zone_director" description="Zone Director for relaxation center." instance_needs_reference="True" instance_subclasses_only="False" parents="SchedulingZoneDirector, ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="place_all_user_sims_in_same_arrival_situation" class="Tunable" default="False" display="Place All User Sims In Same Arrival Situation" description="If this is enabled then all user sims will be placed in the same situation instead of each in their own situation." group="General" />
+
+        <Tunable type="bool" name="place_travel_companion_in_same_arrival_situation" class="Tunable" default="False" display="Place Travel Companion In Same Arrival Situation" description="If this is enabled, the travel companion will put into the same situation with user sims. If this checked, place_all_user_sims_in_same_arrival_situation has to be True as well or there will be unit test error." group="General" />
+
+        <TunableVariant type="None" name="travel_companion_arrival_situation" class="OptionalTunable" default="disabled" display="Travel Companion Arrival Situation" description="If enabled then Sims that aren't controllable that travel with the users Sims will be placed in the tuned situation on arrival. If place_travel_companion_in_same_arrival_situation is checked, this needs to be disable or there will be unit test error." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="situation" name="enabled" class="TunableReference" display="Enabled" description="If the user invites NPC's to travel with them to this lot then this is the situation that they will be added to." allow_none="False" group="General" />
+        </TunableVariant>
+
+        <Tunable type="situation" name="user_sim_arrival_situation" class="TunableReference" display="User Sim Arrival Situation" description="The situation to place all of the Sims from the users household in when they arrive." allow_none="False" group="General" />
+    </Instance>
+</TuningRoot>

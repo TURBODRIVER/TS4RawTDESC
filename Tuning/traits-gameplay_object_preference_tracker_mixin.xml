@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="traits.gameplay_object_preference_tracker_mixin">
+        <Class name="GameplayObjectPreferenceTrackerMixin">
+            <TunableList name="PREFERENCE_TYPE_STRING_MAP" class="TunableMapping" display="Preference Type String Map" mapping_key="Gameplay Object Preference Type" mapping_value="Displayable Gameplay Object Preference Type" description="A mapping of Gameplay Object Preference Type to a string to be displayed to the user." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="Displayable Gameplay Object Preference Type" class="TunableLocalizedString" default="0x0" display="Displayable Gameplay Object Preference Type" description="A localized string that may NOT require tokens." group="General" />
+                    <TunableEnum type="GameplayObjectPreferenceTypes" name="Gameplay Object Preference Type" class="TunableEnumEntry" default="NONE" display="Gameplay Object Preference Type" static_entries="traits-preference_enums.GameplayObjectPreferenceTypes" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

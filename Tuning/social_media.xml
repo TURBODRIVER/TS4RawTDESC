@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="social_media">
+        <Class name="SocialMediaNarrative" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EMBARRASSED" enum_value="4" />
+
+            <EnumItem name="EXCITED" enum_value="5" />
+
+            <EnumItem name="FLIRTY" enum_value="1" />
+
+            <EnumItem name="FRIENDLY" enum_value="0" />
+
+            <EnumItem name="FUNNY" enum_value="9" />
+
+            <EnumItem name="HAPPY" enum_value="6" />
+
+            <EnumItem name="MEAN" enum_value="2" />
+
+            <EnumItem name="PRANK" enum_value="11" />
+
+            <EnumItem name="PROUD" enum_value="3" />
+
+            <EnumItem name="SAD" enum_value="7" />
+
+            <EnumItem name="STRESSED" enum_value="8" />
+
+            <EnumItem name="UNCOMFORTABLE" enum_value="10" />
+        </Class>
+
+        <Class name="SocialMediaPostType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="DIRECT_MESSAGE" enum_value="1" />
+
+            <EnumItem name="FOLLOWERS_UPDATE" enum_value="3" />
+
+            <EnumItem name="FRIEND_REQUEST" enum_value="2" />
+
+            <EnumItem name="PUBLIC_POST" enum_value="4" />
+        </Class>
+
+        <Class name="SocialMediaPolarity" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="NEGATIVE" enum_value="1" />
+
+            <EnumItem name="POSITIVE" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

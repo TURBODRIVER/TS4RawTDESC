@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="routing.walkstyle.walkstyle_carry_overrides">
+        <Class name="WalkstyleCarryOverrides">
+            <TunableList name="CARRY_COMPATIBLE_WALKSTYLE_OVERRIDE_MAP" class="TunableMapping" display="Carry Compatible Walkstyle Override Map" mapping_key="key" mapping_value="value" description="Provides an override to a given walkstyle if this Sim is carrying another Sim. (ie. horse riding with a carried sim)." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="ResourceKey" name="key" class="TunableWalkstyle" default="None" display="Key" description="The walkstyle to override when carrying a Sim." group="General" pack_safe="True" resource_types="0x27c01d95" />
+                    <TunableList name="value" class="TunableList" display="Value" description="A list of tested walkstyles which can be used to override the walkstyle from an incoming walkstyle request. The first passing walkstyle will be selected. If no tests pass, the walkstyle from the request will be used." group="General">
+                        <TunableTuple class="TunableTuple" description="A tuple containing a walkstyle and the tests they need to pass to be selected." group="General">
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The tests used to determine if this walkstyle should be selected as an override." group="General" />
+                            <Tunable type="ResourceKey" name="walkstyle" class="TunableWalkstyle" default="None" display="Walkstyle" description="A walkstyle that can be used as an override if its tests pass." group="General" pack_safe="True" resource_types="0x27c01d95" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation_goal" class="SituationGoalSmallBusinessCustomerActivitiesPerformed" module="small_business.small_business_situation_goals" description="Situation Goal that enables checking for an amount of business activities done by the customers in a Small Business" instance_needs_reference="True" instance_subclasses_only="False" parents="SituationGoal" path="SituationGoals\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_iterations" />
+
+        <Deleted name="_post_tests" />
+
+        <Tunable type="int" name="number_of_activities_to_complete" class="Tunable" default="1" display="Number Of Activities To Complete" description="Amount of customers activities that should be done to consider the goal as completed." tuning_state="NeedsTuning" group="Goals" />
+    </Instance>
+
+    
+</TuningRoot>

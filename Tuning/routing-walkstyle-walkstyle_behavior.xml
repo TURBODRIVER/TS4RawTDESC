@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="routing.walkstyle.walkstyle_behavior">
+        <Class name="WalksStyleBehavior">
+            <TunableList name="CARRY_INCOMPATIBLE_WALKSTYLES" class="TunableSet" display="Carry Incompatible Walkstyles" description="List of walkstyles that should be considered incompatible with the Sim carrying anything." group="General" unique_entries="true">
+                <Tunable type="ResourceKey" class="TunableWalkstyle" default="None" group="General" pack_safe="True" resource_types="0x27c01d95" />
+            </TunableList>
+
+            <TunableList name="TERRAIN_TAG_WALKSTYLES" class="TunableList" display="Terrain Tag Walkstyles" description="Associate a terrain tag to a specific walkstyle." group="General">
+                <TunableTuple class="TunableTuple" description="The terrain tags and walkstyles that are associated." group="General">
+                    <TunableEnum type="TerrainTag" name="terrain_tag" class="TunableEnumEntry" default="INVALID" display="Terrain Tag" static_entries="world-terrain_enums.TerrainTag" description="The terrain tag that applies the tuned walkstyle." group="General" invalid_entries="INVALID" />
+                    <Tunable type="ResourceKey" name="walkstyle_to_use" class="TunableWalkstyle" default="None" display="Walkstyle To Use" description="The walkstyle that should be used on the given terrain type." group="General" pack_safe="True" resource_types="0x27c01d95" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="WALKSTYLE_COST" class="TunableMapping" display="Walkstyle Cost" mapping_key="key" mapping_value="value" description="Associate a specific walkstyle to a statistic cost before the walkstyle can be activated." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="ResourceKey" name="key" class="TunableWalkstyle" default="None" display="Key" description="The walkstyle that should have a specified cost when triggered." group="General" pack_safe="True" resource_types="0x27c01d95" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="Cost data of the specified walkstyle." group="General">
+                        <Tunable type="int" name="cost" class="TunableRange" default="1" display="Cost" min="0" max="None" description="When the walkstyle is triggered during a route, this is the cost that will be substracted from the specified statistic. " tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="statistic" name="walkstyle_cost_statistic" class="TunableReference" display="Walkstyle Cost Statistic" description="The statistic we are operating on when the walkstyle is triggered." allow_none="False" group="General" pack_safe="True" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="WALKSTYLE_DISTANCE_LIMITS" class="TunableMapping" display="Walkstyle Distance Limits" mapping_key="key" mapping_value="value" description="A mapping of walkstyle to distance after which the route should either fail or force the sim to be carried, if possible." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="ResourceKey" name="key" class="TunableWalkstyle" default="None" display="Key" description="The walkstyle whose distance is limited." group="General" pack_safe="True" resource_types="0x27c01d95" />
+                    <Tunable type="float" name="value" class="TunableRange" default="0" display="Value" min="0" max="None" description="The distance after which the sim cannot route." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="WALKSTYLES_OVERRIDE_TELEPORT" class="TunableList" display="Walkstyles Override Teleport" description="Any walkstyles found here will be able to override the teleport styles if they are specified." group="General">
+                <Tunable type="ResourceKey" class="TunableWalkstyle" default="None" group="General" pack_safe="True" resource_types="0x27c01d95" />
+            </TunableList>
+
+            <TunableList name="WALKSTYLES_RESTRICTED_FROM_SINGLE_STEPS" class="TunableSet" display="Walkstyles Restricted From Single Steps" description="A list of walkstyles that are unable to route over curbs and single steps." group="General" unique_entries="true">
+                <Tunable type="ResourceKey" class="TunableWalkstyle" default="None" group="General" pack_safe="True" resource_types="0x27c01d95" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

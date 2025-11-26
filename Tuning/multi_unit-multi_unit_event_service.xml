@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="multi_unit.multi_unit_event_service">
+        <Class name="MultiUnitCommonAreaEventBehavior" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="COMMON_AREA_EVENT_TERMINATES_UNIT_EVENT_DEFERRED" enum_value="3" />
+
+            <EnumItem name="COMMON_AREA_EVENT_TERMINATES_UNIT_EVENT_IMMEDIATE" enum_value="2" />
+
+            <EnumItem name="UNIT_EVENT_BLOCKS_COMMON_AREA_EVENT" enum_value="1" />
+        </Class>
+
+        <Class name="MultiUnitEventService">
+            <TunableEnum type="MultiUnitCommonAreaEventBehavior" name="MULTI_UNIT_EVENT_COMMON_AREA_EVENT_BEHAVIOR" class="TunableEnumEntry" default="UNIT_EVENT_BLOCKS_COMMON_AREA_EVENT" display="Multi Unit Event Common Area Event Behavior" static_entries="multi_unit-multi_unit_event_service.MultiUnitCommonAreaEventBehavior" description="When scheduling a common area event, this is how it is affected by and affects any existing unit events." group="General" />
+
+            <Tunable type="action" name="PROPERTY_OWNER_EVENT_TABLE" class="TunableReference" display="Property Owner Event Table" description="The Event Table, represented by this RandomWeightedLoot, will determine and launch the appropriate residential rental event (via drama node loot)." allow_none="False" group="General" pack_safe="True" restrict="RandomWeightedLoot" />
+
+            <TunableTuple name="PROPERTY_OWNER_EVENT_TIME_INTERVAL" class="TunableInterval" display="Property Owner Event Time Interval" description="The min and max possible time (in hours) that the Property Owner event alarm will trigger. A random amount of time between them will be chosen each time alarm is set up." group="General">
+                <Tunable type="int" name="lower_bound" class="TunableRange" default="3" display="Lower Bound" min="1" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="upper_bound" class="TunableRange" default="5" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="int" name="PROPERTY_OWNER_MAX_ACTIVE_EVENTS" class="TunableRange" default="1" display="Property Owner Max Active Events" min="1" max="None" description="The maximum number of active events a Property Owner may have at any given time." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="action" name="TENANT_EVENT_TABLE" class="TunableReference" display="Tenant Event Table" description="A RandomWeightLoot event table that will determine and launch a tenant event for the active household's home unit." allow_none="False" group="General" pack_safe="True" restrict="RandomWeightedLoot" />
+
+            <TunableTuple name="TENANT_EVENT_TIME_INTERVAL" class="TunableInterval" display="Tenant Event Time Interval" description="Interval in sim hours between attempts to trigger tenant events." group="General">
+                <Tunable type="int" name="lower_bound" class="TunableRange" default="23" display="Lower Bound" min="1" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="upper_bound" class="TunableRange" default="25" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TunableList name="TESTED_UNIT_LOT_TRAITS" class="TunableMapping" display="Tested Unit Lot Traits" mapping_key="key" mapping_value="value" description="A mapping of ZoneModifiers => Tests, where the ZoneModifiers represent a specific lot condition. The ZoneModifiers will be tested against in the PROPERTY_OWNER_EVENT_TABLE to determine whether an event type can be selected for a unit." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="zone_modifier" name="key" class="TunableReference" display="Key" description="The ZoneModifier to test for." allow_none="False" group="General" pack_safe="True" restrict="ZoneModifier" />
+                    <TdescFragTag name="value" class="TunableTestSet" display="Value" description="A series of tests that must pass in order for this ZoneModifier to be applied to a zone." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

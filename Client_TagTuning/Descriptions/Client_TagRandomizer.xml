@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tagtuning" class="Client_TagRandomizer" module="tagtuning.Client_TagRandomizer" description="Tag based randomize tuning." path="Client_TagTuning\Descriptions">
+        <TunableList name="RandomizerParams" class="TunableList" display="Categories" description="Item to Params.">
+            <TunableTuple name="ItemToParams" class="TagRandomizer.ItemToParams" description="randomizer params mapping from item.">
+                <TunableEnum type="TagRandomizerItemEnums" name="Item" class="TunableEnumEntry" default="Undefined" display="Item" dynamic_entries="tagrandomizeritemenums.TagRandomizerItemEnums._elements" static_entries="tagrandomizeritemenums.TagRandomizerItemEnums" />
+                <Tunable type="float" name="probability" class="TunableRange" default="1" display="Probability" min="0" max="1" description="Chance of using this in randomizer" />
+                <TunableList name="TagCategories" class="TunableList" display="Tag Categories" description="Tag Categories">
+                    <TunableEnum type="TagCategory" name="TagCategory" class="TunableEnumEntry" default="INVALID" display="Tag Category" dynamic_entries="tag.TagCategory._elements" static_entries="tag.TagCategory" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

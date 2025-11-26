@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CancelOnStateChangeInteraction" module="objects.electronics.stereo" description="An interaction that cancels itself if the tuned state conditions are met. if object has function on_interaction_canceled_from_state_change a fn (interaction, new_state_value)->viud that will be called when the interaction ends up cancelled" instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="cancel_state_test" class="TunableStateTest" display="Cancel State Test" description="the state test to run when the object's state changes. If this test passes, the interaction will cancel" group="General">
+            <TunableVariant type="None" name="fallback_behavior" class="TunableVariant" default="always_fail" display="Fallback Behavior" description="What to do if the given object doesn't have the state in question." group="General">
+                <Tunable name="always_fail" class="TunableExistance" display="Always Fail" />
+                <Tunable name="always_pass" class="TunableExistance" display="Always Pass" />
+            </TunableVariant>
+            <TunableEnum type="Operator" name="operator" class="TunableOperator" default="EQUAL" display="Operator" static_entries="sims4-math.Operator" description="The comparison to use." group="General" />
+            <Tunable type="bool" name="test_individual" class="Tunable" default="False" display="Test Individual" description="If true, the test will pass if any of the objects meet the criteria. If false, all objects have meet them." group="General" />
+            <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+            </TunableVariant>
+            <Tunable type="object_state" name="value" class="TunableReference" display="Value" description="The value to compare to." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+            <TunableEnum type="ParticipantType" name="who" class="TunableEnumEntry" default="Object" display="Who" static_entries="interactions.ParticipantType" description="Who or what to apply this test to." group="General" />
+        </TunableTuple>
+
+        <TunableVariant type="None" name="required_station" class="OptionalTunable" default="disabled" display="Required Station" description="If enabled, specifies the radio station this affordance listens to. Normally this is provided by the object's Stereo component and does not need to be tuned here." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="object_state" name="enabled" class="TunableReference" display="Enabled" description="The station that this affordance listens to." allow_none="False" group="General" restrict="ObjectStateValue" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

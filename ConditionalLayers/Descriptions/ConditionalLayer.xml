@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="conditional_layer" class="ConditionalLayer" module="world.conditional_layer" instance_needs_reference="True" instance_subclasses_only="False" path="ConditionalLayers\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="client_only" class="Tunable" default="False" display="Client Only" description="If checked, this layer is loaded as a client side layer. All objects on the layer will exist as scene models only and have no gameplay (e.g. no interactions, no footprint). This is useful for layers that are purely decorative. And unlike regular game objects, client side objects can be placed outside of routable/interactable areas, e.g. decorative cards in the distance. We do not support mixing game objects and client only objects on the same layer. Please separate them out onto their on layers." group="General" />
+
+        <TunableVariant type="None" name="fade_data" class="OptionalTunable" default="disabled" display="Fade Data" description="If enabled, the conditional layer will fade in rather than pop." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="float" name="delay_max" class="TunableRange" default="20.0" display="Delay Max" min="0.0" max="None" description="The maximum length of the fade delay in sim minutes." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="delay_min" class="TunableRange" default="10.0" display="Delay Min" min="0.0" max="None" description="The minimum length of the fade delay in sim minutes." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="fade_duration" class="Tunable" default="10.0" display="Fade Duration" description="The duration of the fade in sim minutes." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="str" name="layer_name" class="TunableStringHash32" default="None" display="Layer Name" description="The name of the layer that will be loaded. World Building should tell you what this should be." group="General" />
+    </Instance>
+</TuningRoot>

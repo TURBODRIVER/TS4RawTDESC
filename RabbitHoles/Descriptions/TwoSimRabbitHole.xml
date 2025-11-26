@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="rabbit_hole" class="TwoSimRabbitHole" module="rabbit_hole.multi_sim_rabbit_hole" description="A multi sim rabbit hole for just two sims." instance_needs_reference="True" instance_subclasses_only="False" parents="MultiSimRabbitHoleBase, RabbitHole" path="RabbitHoles\Descriptions" use_guid_for_reference="True">
+        <TunableList name="first_participant_types" class="TunableSet" display="First Participant Types" description="The participant types that should map to the first sim. Note: The first participant will always map to actor, so it is not needed here." group="General" unique_entries="true">
+            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantType" description="A participant type that should map to the first sim." group="General" />
+        </TunableList>
+
+        <TunableList name="second_participant_types" class="TunableSet" display="Second Participant Types" description="The participant types that should map to the second sim." group="General" unique_entries="true">
+            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="TargetSim" static_entries="interactions.ParticipantType" description="A participant type that should map to the second sim." group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

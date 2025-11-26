@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="services.style_service">
+        <Class name="StyleService">
+            <TunableList name="STYLE_OUTFIT_DEFAULT" class="TunableMapping" display="Style Outfit Default" min="2" mapping_key="key" mapping_value="value" description="The mapping between gender and default outfit information" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Gender" name="key" class="TunableEnumEntry" default="MALE" display="Key" static_entries="sims-sim_info_types.Gender" group="General" />
+                    <Tunable type="ResourceKey" name="value" class="TunableResourceKey" default="None" display="Value" description="The SimInfo file to use when editing outfits." group="General" resource_types="0x25ed6f4" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="float" name="STYLE_OUTFIT_SELECTION_ODDS" class="TunablePercent" default="20" display="Style Outfit Selection Odds" min="0" max="100" description="Chance a situation sim will wear a styled outfit" group="General" />
+
+            <TunableList name="STYLED_OUTFITS_AVAILABLE_TESTS" class="StyleServiceAvailableTestList" display="Styled Outfits Available Tests" description="A set of tests, all of which must pass in order for styled outfits to be available to be applied on Sims." group="General">
+                <TunableVariant type="None" class="StyleServiceAvailableTestVariant" default="region" group="General">
+                    <TunableTuple name="region" class="TunableRegionTest" display="Region" description="A test to check which region the actor sim is in." group="General">
+                        <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="disabled" display="Blacklist" description="If enabled then we will check a blacklist of regions in insure that the sim is not within one of them." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableSet" display="Enabled" description="A set of regions that the sim being tested must not be within." group="General" unique_entries="true">
+                                <Tunable type="region" class="TunableReference" description="A region that the sim being tested in must not be within." allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="subject" class="OptionalTunable" default="disabled" display="Subject" description="If enabled then we will test the region of the specified participant type. Otherwise we will test the current region." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableEnum type="ParticipantTypeActorTargetSim" name="enabled" class="TunableEnumEntry" default="Actor" display="Enabled" static_entries="interactions.ParticipantTypeActorTargetSim" description="Who do we want to run this test on." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled then we will check a whitelist of regions in insure that the sim is within one of them." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableSet" display="Enabled" description="A set of regions that the sim being tested must be within." group="General" unique_entries="true">
+                                <Tunable type="region" class="TunableReference" description="A region that the sim being tested in must be within." allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

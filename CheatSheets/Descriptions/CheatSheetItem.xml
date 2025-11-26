@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="cheat_sheet" class="CheatSheetItem" module="cheat_sheet.cheat_sheet_item" description="Tuning to define a set of cheat sheet hints that appear in the UI. Each item contains: control_elements, a list of elements, TunableVariants that contain either keyframe_icon, a string defining a keyframe on CheatSheetIcon in GuiComponentLibrary.fla, or string_control, a loc string defining the control (e.g. 'Page Up'). item_description: A loc string containing the description fot the control. tests: A set of tests that must be true for the item to be displayed." instance_needs_reference="True" instance_subclasses_only="False" path="CheatSheets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="controls" class="TunableList" display="Controls" description="The entire set of cheat sheet hints. We iterate over this, checking each item against its tests to determine which should be visible." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableList name="conditions" class="TunableSet" display="Conditions" group="General" unique_entries="true">
+                    <TunableEnum type="CheatSheetMode" class="TunableEnumEntry" default="INVALID" static_entries="cheat_sheet-cheat_sheet_enums.CheatSheetMode" description="Set of conditions that, when true, activate this item in the list. EG, TS3_CAMERA_ACTIVE + IN_LIVE_MODE will be visible when the TS3 camera is active and the user is in Live Mode, and invisible if either of those aren't true " group="General" invalid_entries="INVALID" />
+                </TunableList>
+                <TunableList name="control_elements" class="TunableList" display="Control Elements" description="List of elements that define this control item, which may be either names of Keyframes, or strings to display in this line item on the Cheat Sheet" group="General">
+                    <TunableVariant type="None" class="TunableVariant" default="none" description="Every Control ElementEither a string that defines a keyframe, or a localized string to display" group="General">
+                        <Tunable type="str" name="keyframe_icon" class="TunableStringHash64" default="None" display="Keyframe Icon" description="When variant is this type, defines the keyframe in CheatSheetIcon in GuiComponentLibrary.fla to display " group="General" />
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                        <Tunable type="int" name="string_control" class="TunableLocalizedString" default="0x0" display="String Control" description="When variant is this type, specifies the localized string to display in this element" group="General" />
+                    </TunableVariant>
+                </TunableList>
+                <Tunable type="int" name="item_description" class="TunableLocalizedString" default="0x0" display="Item Description" description="Localized text to display next to to the icon" group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+
+    
+</TuningRoot>

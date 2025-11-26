@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="object_state" class="CommodityBasedObjectState" module="objects.components.state" description="Represents a state linked to a commodity. Changes in the commodity will change the object's state, and changes directly to the state of the object will update the commodity to an appropriate value." instance_subclasses_only="False" parents="ObjectState" path="ObjectStates\Descriptions" use_guid_for_reference="True">
+        <TunableList name="_values" class="TunableList" display="Values" min="1" group="General" unique_entries="true">
+            <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" restrict="CommodityBasedObjectStateValue" />
+        </TunableList>
+
+        <Tunable type="statistic" name="linked_stat" class="TunableReference" display="Linked Stat" description="The statistic to link to the state." allow_none="False" group="General" />
+
+        <Tunable type="bool" name="lot_based" class="Tunable" default="False" display="Lot Based" description="Whether the state should check the linked stat on the active lot instead of on the object itself." group="General" />
+    </Instance>
+</TuningRoot>

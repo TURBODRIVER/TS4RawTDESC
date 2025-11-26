@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.genealogy_tracker">
+        <Class name="FamilyRelationshipIndex" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="FATHER" enum_value="1" />
+
+            <EnumItem name="FATHERS_FATHER" enum_value="5" />
+
+            <EnumItem name="FATHERS_MOM" enum_value="4" />
+
+            <EnumItem name="MOTHER" enum_value="0" />
+
+            <EnumItem name="MOTHERS_FATHER" enum_value="3" />
+
+            <EnumItem name="MOTHERS_MOM" enum_value="2" />
+        </Class>
+
+        <Class name="RelationshipTropeType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="SIM_FAMILY_TROPE" enum_value="0" />
+
+            <EnumItem name="SIM_ROMANCE_TROPE" enum_value="1" />
+        </Class>
+
+        <Class name="FamilyRelationshipTuning">
+            <Tunable type="relbit" name="DEAD_SPOUSE_RELATIONSHIP_BIT" class="TunableReference" display="Dead Spouse Relationship Bit" description="A bit indicating that one Sim is another Sim's deceased spouse." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="DIVORCED_SPOUSE_RELATIONSHIP_BIT" class="TunableReference" display="Divorced Spouse Relationship Bit" description="A bit indicating that one Sim is another Sim's estranged spouse." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="GRANDCHILD_RELATIONSHIP_BIT" class="TunableReference" display="Grandchild Relationship Bit" description="A bit indicating that one Sim is another Sim's grandchild." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="GRANDPARENT_RELATIONSHIP_BIT" class="TunableReference" display="Grandparent Relationship Bit" description="A bit indicating that one Sim is another Sim's grandparent." allow_none="False" group="General" />
+
+            <TunableList name="MATRIX" class="TunableList" display="Matrix" description="This matrix is mirrored in RelationshipHelper.cpp in CAS Systems code. Please discuss with a GPE and CAS engineer if you wish to update this tuning. Sim Y's ancestry depth ----> +-------------+-------------+-------------+ | | | | | Spouse | Parent | Grandparent | Sim X's | | | | ancestry +-------------+-------------+-------------+ depth | | | | | | Child | Sibling | Uncle/Aunt | | | | | | | +-------------+-------------+-------------+ V | | | | | Grandchild | Nephew | Cousin | | | | | +-------------+-------------+-------------+" group="General">
+                <TunableList class="TunableList" group="General">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" />
+                </TunableList>
+            </TunableList>
+
+            <Tunable type="relbit" name="SIBLING_RELATIONSHIP_BIT" class="TunableReference" display="Sibling Relationship Bit" description="A bit indicating that one Sim is another Sim's sibling." allow_none="False" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.body_type_level.body_type_level_tracker">
+        <Class name="BodyTypeLevelTracker">
+            <Tunable type="float" name="COLLECT_REQUESTS_MINUTES" class="Tunable" default="0.5" display="Collect Requests Minutes" description="The number of in-game minutes to wait before sending pending body type level change requests after receiving the first one. This is a performance optimization so client can process multiple requests at the same time." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

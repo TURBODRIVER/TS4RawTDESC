@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="server.config_service">
+        <Class name="ConfigService">
+            <TunableEnum type="ContentModes" name="DEFAULT_CONTENT_MODE" class="TunableEnumEntry" default="PRODUCTION" display="Default Content Mode" dynamic_entries="server-config_service.ContentModes._elements" static_entries="server-config_service.ContentModes" description="Content mode that the server starts up in." group="General" />
+        </Class>
+
+        <Class name="ContentModes" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEMO" enum_value="1" />
+
+            <EnumItem name="PRODUCTION" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

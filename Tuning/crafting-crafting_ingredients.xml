@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="crafting.crafting_ingredients">
+        <Class name="IngredientTooltipStyle" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DEFAULT_MISSING_INGREDIENTS" enum_value="0" />
+
+            <EnumItem name="DISPLAY_RECIPE_DESCRIPTION" enum_value="1" />
+        </Class>
+
+        <Class name="IngredientTuning">
+            <TunableList name="INGREDIENT_QUALITY_MAPPING" class="TunableMapping" display="Ingredient Quality Mapping" mapping_key="key" mapping_value="value" description="Mapping of all possible ingredient quality states to what possible states will the ingredients have. e.g. High quality ingredients need to be mapped to gardening high quality, fish high quality or any state that will indicate what high quality means on a different system." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="object_state" name="key" class="TunableReference" display="Key" description="The states that will define the ingredient quality." allow_none="False" group="General" restrict="ObjectStateValue" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="Definition of the ingredient quality state. This will define the quality boost on the recipe and the possible states an ingredient can have to have this state." group="General">
+                        <Tunable type="int" name="quality_boost" class="Tunable" default="1" display="Quality Boost" description="Value that will be added to the quality commodity whenever this state is added." tuning_state="NeedsTuning" group="General" />
+                        <TunableList name="state_value_list" class="TunableList" display="State Value List" description="List of ingredient states that will give this level of ingredient quality." group="General">
+                            <Tunable type="object_state" class="TunableReference" description="The states that will define the ingredient quality." allow_none="False" group="General" restrict="ObjectStateValue" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="INGREDIENT_STATE_SORT_MODIFIERS" class="TunableMapping" display="Ingredient State Sort Modifiers" mapping_key="key" mapping_value="value" description="List of ingredient states and the sort value to add to that ingredient. The larger the number, the further down the list the ingredient will be sorted." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="object_state" name="key" class="TunableReference" display="Key" description="The states that will define the ingredient quality." allow_none="False" group="General" restrict="ObjectStateValue" />
+                    <Tunable type="int" name="value" class="Tunable" default="None" display="Value" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableEnum type="Tag" name="INGREDIENT_TAG" class="TunableEnumEntry" default="INVALID" display="Ingredient Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag to look for when iterating through objects to know if they are ingredients. All ingredients should be tuned with this tag." group="General" />
+
+            <TunableList name="INGREDIENT_TAG_DISPLAY_MAPPING" class="TunableMapping" display="Ingredient Tag Display Mapping" mapping_key="key" mapping_value="value" description="Mapping of all object tags to their localized string that will display on the ingredient list. This will be used for displaying on the recipe's when an ingredient is tuned by tag instead of object definition. Example: Display objects of rag FISH as string 'Any Fish'" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Tag" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag corresponding at an ingredient type that can be used in a recipe." group="General" pack_safe="True" />
+                    <Tunable type="int" name="value" class="TunableLocalizedString" default="0x0" display="Value" description="A localized string that may use tokens." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="INGREDIENT_TAG_SORT_MODIFIERS" class="TunableMapping" display="Ingredient Tag Sort Modifiers" mapping_key="key" mapping_value="value" description="Mapping of object tags to the value that will be added together with ingredient quality to determine sort order when considering which ingredients to use use in a recipe first. Lower numbers will be considered first when taking required ingredients." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Tag" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag corresponding at an ingredient type that can be used in a recipe." group="General" pack_safe="True" />
+                    <Tunable type="int" name="value" class="Tunable" default="None" display="Value" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="OPTIONAL_INGREDIENT_LIST_STRING" class="TunableLocalizedString" default="0x0" display="Optional Ingredient List String" description="The string for having an optional list of ingredients. This will be shown on tooltips of pie menu recipe interactions. Example: 'Optional: {0.String}' Tokens: 0 - String containing a list of ingredients." group="General" />
+
+            <TunableEnum type="Tag" name="PREPPED_INGREDIENT_TAG" class="TunableEnumEntry" default="INVALID" display="Prepped Ingredient Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="' Tag to look for when iterating through objects to know if they are prepped ingredients. All prepped ingredients should be tuned with this tag." group="General" pack_safe="True" />
+
+            <Tunable type="int" name="RECIPE_COMPLETE_INGREDIENT_STRING" class="TunableLocalizedString" default="0x0" display="Recipe Complete Ingredient String" description="The string for having all of one ingredient type needed for a recipe. This will be shown on tooltips of pie menu recipe interactions. Example: '<span class='hasIngredients'>{0.String}</span>' Tokens: 0 - String containing an ingredient and how many you own/need." group="General" />
+
+            <Tunable type="int" name="RECIPE_INCOMPLETE_INGREDIENT_STRING" class="TunableLocalizedString" default="0x0" display="Recipe Incomplete Ingredient String" description="The string for not having all of one ingredient type needed for a recipe. This will be shown on tooltips of pie menu recipe interactions. Example: '<span class='noIngredients'>{0.String}</span>' Tokens: 0 - String containing an ingredient and how many you own/need." group="General" />
+
+            <Tunable type="int" name="REQUIRED_INGREDIENT_LIST_STRING" class="TunableLocalizedString" default="0x0" display="Required Ingredient List String" description="The string for requiring a list of ingredients. This will be shown on tooltips of pie menu recipe interactions. Example: 'Required: {0.String}' Tokens: 0 - String containing a list of ingredients." group="General" />
+
+            <Tunable type="int" name="SINGLE_INGREDIENT_TYPE_STRING" class="TunableLocalizedString" default="0x0" display="Single Ingredient Type String" description="The string that contains an ingredient and how much of it the sim has access to. This will be shown in tooltips for pie menu recipe interactions. Example: '{0.String} - ({1.Number}/{2.Number})' Tokens: 0 - ingredient string 1 - number owned 2 - number needed" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

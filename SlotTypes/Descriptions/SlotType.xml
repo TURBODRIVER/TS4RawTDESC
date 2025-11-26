@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="slot_type" class="SlotType" module="objects.slots" description="A class defining a type of object slot." instance_base_game_only="True" instance_needs_reference="True" instance_subclasses_only="False" path="SlotTypes\Descriptions">
+        <TunableVariant type="None" name="bone_name_hash" class="OptionalTunable" default="not_referenced_by_animation" display="Bone Name Hash" description="The name of the bone this slot is associated to." group="General">
+            <Tunable name="not_referenced_by_animation" class="TunableExistance" display="Not Referenced By Animation" />
+            <Tunable type="str" name="referenced_by_animation" class="TunableStringHash32" default="None" display="Referenced By Animation" description="The name of the bone this slot is associated to." group="General" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="implies_owner_object_is_routable_terrain" class="Tunable" default="False" display="Implies Owner Object Is Routable Terrain" description="This should be checked if the owner of this slot should be considered terrain for routing purposes. e.g. a 1x1 slot of the treehouse with a violin slotted in." group="General" />
+
+        <Tunable type="bool" name="implies_owner_object_is_surface" class="Tunable" default="True" display="Implies Owner Object Is Surface" description="This should be checked if the existence of this slot type on an object means that object will under some circumstances need to be considered a surface. Surfaces are usually used as additional actors in ASMs (for instance, the eat ASM has a table actor in addition to the sitTemplate/chair and sim). Generally speaking, this should be checked when a sim might need to interact with this slot. Examples are food slots, deco slots sims can put things into, and similar. This should not be checked when a slot is used only for build-buy or is un-interactable. Examples are slots for chairs (unless we add the ability for sims to place chairs), slots for modular furniture, and deco(rative) slots that are not sim-interactable." group="General" />
+
+        <Tunable type="bool" name="implies_slotted_object_has_surface" class="Tunable" default="True" display="Implies Slotted Object Has Surface" description="This should be checked if the owner of this slot should be considered a surface for any object using this SlotType. 'Using' in this case means that the SlotType sets of the slotted object and the RuntimeSlot it is placed in both continue this SlotType. If an object shares multiple SlotTypes with the RuntimeSlot it is placed in, only one of those SlotTypes need imply 'has_surface' for it to be true. Objects that cannot support surfaces (such as non-posture-graph objects) will ignore this tuning." group="General" />
+
+        <TunableList name="shared_slot_object_tags" class="TunableTags" display="Shared Slot Object Tags" group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="For the purpose of interaction constraints expecting an object in a specific slottype , any object with one of the specified tags will be treated as slotted into all the slots of this type that share the same position across all the parts of an object. e.g. a cut cake interaction requiring the cake in a animationSlot_SitShared will work on parts 1, 7, and 8 even though the cake is slotted into the slot in part 8 because the slots all share the same position, and the cakes have the appropriate tag." group="General" invalid_entries="INVALID" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="bool" name="use_as_joint" class="Tunable" default="False" display="Use As Joint" description="If enabled, hash of the slot name will also be used as joint hash when a child is added to the slot. e.g. ceramic on a pottery wheel should rotate with it's parent slot." group="General" />
+    </Instance>
+</TuningRoot>

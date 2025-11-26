@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.social.social_picker_super_interaction">
+        <Class name="SocialPickerSuperInteraction">
+            <Tunable type="scommodity" name="SOCIAL_STATIC_COMMODITY" class="TunableReference" display="Social Static Commodity" description="All social SIs except for this one must be tagged with this static commodity or they won't be seen or selected by autonomy. Example: sim_Chat and BeAffectionate should both have this static commodity." allow_none="False" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

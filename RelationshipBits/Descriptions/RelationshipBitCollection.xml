@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="relbit" class="RelationshipBitCollection" module="relationships.relationship_bit" description="Represents a collection for relationship bits" instance_needs_reference="True" instance_subclasses_only="False" path="RelationshipBits\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="RelationshipBitCollectionUid" name="collection_id" class="TunableEnumEntry" default="Invalid" display="Collection Id" dynamic_entries="relationships-relationship_bit.RelationshipBitCollectionUid._elements" static_entries="relationships-relationship_bit.RelationshipBitCollectionUid" description="The unique id of the relationship bit" group="General" />
+
+        <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="Icon to be displayed for the collection." allow_none="True" group="General" resource_types="0x2f7d0004" />
+
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="Name to be displayed for the collection." group="General" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="routing.portals.portal_data_stairs">
+        <Class name="_PortalTypeDataStairs">
+            <Tunable type="float" name="STAIR_SHOO_POLYGON_PADDING" class="Tunable" default="0.3" display="Stair Shoo Polygon Padding" description="When a sim uses a stair case with a stair landing, any sims who are in the way will be shooed. The polygon that determines which sims are shooed is based on the portals on that landing, but can be padded using this constant." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

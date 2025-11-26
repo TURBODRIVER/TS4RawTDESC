@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="pivotal_moments.pivotal_moment">
+        <Class name="PivotalMomentActivationStatus" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACTIVE" enum_value="3" />
+
+            <EnumItem name="DELAYED" enum_value="5" />
+
+            <EnumItem name="LISTENING" enum_value="0" />
+
+            <EnumItem name="ON_COOLDOWN" enum_value="4" />
+
+            <EnumItem name="PENDING" enum_value="1" />
+
+            <EnumItem name="SCHEDULED" enum_value="2" />
+        </Class>
+
+        <Class name="PivotalMomentSerializationOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACCOUNT" enum_value="1" />
+
+            <EnumItem name="GAME" enum_value="0" />
+
+            <EnumItem name="HOUSEHOLD" enum_value="2" />
+        </Class>
+    </Module>
+</TuningRoot>

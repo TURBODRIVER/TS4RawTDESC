@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="Telemetry_MemoryUsageTelemetrySettings" class="Telemetry.MemoryUsageTelemetrySettings" module="Telemetry.MemoryUsageTelemetry" description="Tuning parameters for Memory Usage Telemetry" path="Client_MemUsageTelemetry\Descriptions">
+        <Tunable type="int" name="UpdateDeltaMemThreshold" class="Tunable" default="25" display="Update Min Mem Delta Threshold" description="Minimum Memory Delta Threshold (in MB) compared to last update to trigger a new update." />
+
+        <Tunable type="float" name="UpdateInterval" class="Tunable" default="30.0" display="Update Interval" description="Minimum Update Interval (in sec) to check memory stats." />
+    </Instance>
+</TuningRoot>

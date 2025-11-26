@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="lunar_cycle" class="LunarPhaseEffectBuffs" module="lunar_cycle.lunar_phase_effect" description="Buffs to apply on lunar phases and the expected length of this effect, which will determine how long the applied buffs should last." instance_needs_reference="True" instance_subclasses_only="False" parents="LunarPhaseEffect" path="LunarCycle\Descriptions" use_guid_for_reference="True">
+        <TunableList name="effect_buffs" class="TunableList" display="Effect Buffs" description="List of buffs to attempt to apply during this lunar phase. If a buff reason tooltip is tuned for a successfully applied buff, that tooltip is used to populate a lunar effect tooltip in the UI." group="General">
+            <TunableTuple class="_TunableLunarEffectBuffReference" group="General">
+                <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                        <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                    </TunableVariant>
+                </TunableVariant>
+                <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" pack_safe="True" />
+                <TunableVariant type="None" name="tooltip_text" class="OptionalTunable" default="disabled" display="Tooltip Text" description="If set, specify a tooltip text to describe the effect in lunar cycle tooltip when this buff is active on the Sim." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The description of the lunar effect. This will be displayed in the lunar cycle tooltip." group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="float" name="effect_duration" class="TunableSimMinute" default="240" display="Effect Duration" min="1" max="1440" description="The duration of the effect. This duration will be enforced so that the buffs are aligned with the expected length of the lunar effect. e.g. lunar effect was expected to be started at 8pm and last 180 minutes. Sim is created/spun up and gets a lunar effect buff applied at 9:15pm. The lunar effect buff will be updated so it properly ends at 11pm, as expected by the lunar effect duration." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+
+    
+</TuningRoot>

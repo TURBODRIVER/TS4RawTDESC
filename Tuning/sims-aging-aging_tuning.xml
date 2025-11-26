@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.aging.aging_tuning">
+        <Class name="AgingTuning">
+            <Tunable type="float" name="AGE_PROGRESS_UPDATE_TIME" class="Tunable" default="0.2" display="Age Progress Update Time" description="The update rate, in Sim Days, of age progression in the UI." tuning_state="NeedsTuning" group="General" />
+
+            <TunableEnum type="AgeSpeeds" name="AGE_SPEED_SETTING" class="TunableEnumEntry" default="NORMAL" display="Age Speed Setting" static_entries="sims-aging-aging_enums.AgeSpeeds" description="The speed at which all Sims (human, cat, dog, fox) age. Specific values tuned on aging_transition." group="General" />
+
+            <Tunable type="float" name="AGE_SUPPRESSION_ALARM_TIME" class="TunableSimMinute" default="5" display="Age Suppression Alarm Time" min="1" max="None" description="Amount of time in sim seconds to suppress aging." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="AGING_DATA" class="TunableMapping" display="Aging Data" mapping_key="key" mapping_value="value" description="On a per-species level, define all age-related data." group="General" mapping_class="AgingDataMapping">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Species" name="key" class="TunableEnumEntry" default="HUMAN" display="Key" static_entries="sims-sim_info_types.Species" description="The species this aging data applies to." binary_type="uint32" group="General" invalid_entries="INVALID" />
+                    <TunableTuple name="value" class="TunableAgingData" display="Value" description="Control how Sims age. The tuning defines what ages are available to them, and how aging is applied to and affects them." group="General">
+                        <Tunable type="interaction" name="age_up_interaction" class="TunableReference" display="Age Up Interaction" description="The default interaction that ages Sims up. This is called when Sims auto-age or when the 'Age Up' cheat is invoked." allow_none="False" group="General" pack_safe="True" />
+                        <TunableList name="ages" class="TunableMapping" display="Ages" min="1" mapping_key="key" mapping_value="value" description="All available ages for this Sim, and any data associated with that specific age." group="General" mapping_class="AvailableAgeDataMapping">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <TunableEnum type="Age" name="key" class="TunableEnumEntry" default="ADULT" display="Key" static_entries="sims-sim_info_types.Age" description="The available age for the Sim." binary_type="uint32" group="General" />
+                                <TunableTuple name="value" class="AvailableAgeDataTuple" display="Value" description="Any further data associated with this age." group="General">
+                                    <Tunable type="ResourceKey" name="cas_icon" class="TunableIcon" default="None" display="Cas Icon" description="Icon to be displayed in the ui for the age." group="General" resource_types="0x2f7d0004" />
+                                    <Tunable type="ResourceKey" name="cas_icon_selected" class="TunableIcon" default="None" display="Cas Icon Selected" description="Icon to be displayed in the UI for the age when buttons are selected." group="General" resource_types="0x2f7d0004" />
+                                    <Tunable type="int" name="cas_name" class="TunableLocalizedString" default="0x0" display="Cas Name" description="The name to be displayed in the UI for the age." group="General" />
+                                    <Tunable type="int" name="cas_name_gender_neutral" class="TunableLocalizedString" default="0x0" display="Cas Name Gender Neutral" description="The gender neutral name to be displayed in the UI for the age." group="General" />
+                                    <Tunable type="int" name="discoverable_personality_trait_count" class="TunableRange" default="0" display="Discoverable Personality Trait Count" min="0" max="None" description="The number of discoverable traits available to a Sim." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="personality_trait_count" class="TunableRange" default="3" display="Personality Trait Count" min="0" max="None" description="The number of traits available to a Sim of this age." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="snippet" name="transition" class="TunableReference" display="Transition" description="The transition data associated with this age, such as dialogs, notifications, durations, etc..." allow_none="False" group="General" pack_safe="True" restrict="AgingTransition" />
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableList>
+                        <TunableList name="bonus_days" class="TunableMapping" display="Bonus Days" mapping_key="key" mapping_value="value" description="Specify how much bonus time is added to elder Sims possessing these traits." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="trait" name="key" class="TunableReference" display="Key" description="The trait associated with this modifier." allow_none="False" group="General" pack_safe="True" />
+                                <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The modifier associated with this trait." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                        <Tunable type="interaction" name="old_age_interaction" class="TunableReference" display="Old Age Interaction" description="The default interaction that transitions a Sim from old age to death." allow_none="False" group="General" pack_safe="True" />
+                        <TunableEnum type="DeathType" name="old_age_npc_death_type_fallback" class="TunableEnumEntry" default="NONE" display="Old Age Npc Death Type Fallback" dynamic_entries="interactions-utils-death_enums.DeathType._elements" static_entries="interactions-utils-death_enums.DeathType" description="Used if the Old Age Interaction is not a death interaction. In that case, the non-instanced NPCs are not running the interaction but also can't get their death type from the interaction's tuning. This value is used as a fallback. The NPC's death type set to this value, and it will effectively become a ghost." group="General" pack_safe="True" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="AGING_SAVE_LOCK_TOOLTIP" class="TunableLocalizedString" default="0x0" display="Aging Save Lock Tooltip" description="The tooltip to show in situations where save-lock during Age Up is necessary, i.e. when babies or non-NPC Sims age up. This tooltip is provided one token: the Sim that is aging up." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

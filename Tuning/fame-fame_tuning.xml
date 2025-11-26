@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="fame.fame_tuning">
+        <Class name="FameTunables">
+            <Tunable type="bucks_perk" name="CAREER_HOPPER_PERK" class="TunableReference" display="Career Hopper Perk" description="A reference to the Career Hopper perk. You shouldn't need to tune this. If you do please see your GPE partner." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="float" name="CHANCE_TO_WEAR_TRAILBLAZER_OUTFIT" class="TunablePercent" default="50" display="Chance To Wear Trailblazer Outfit" min="0" max="100" description="a percentage chance for a sim in a situation without an overriding outfit will wear the same outfit as a trend setting sim." group="General" />
+
+            <Tunable type="action" name="END_FEUD_LOOT" class="TunableReference" display="End Feud Loot" description="The loot to apply in order to remove the feud and clean up all of the stuff that comes along with ending a feud." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableEnum type="TestEvent" name="FAME_MOMENT_EVENT" class="TunableEnumEntry" default="Invalid" display="Fame Moment Event" dynamic_entries="event_testing-test_events.TestEvent._elements" static_entries="event_testing-test_events.TestEvent" description="The event to register for when waiting for a Fame Moment to occur." group="General" />
+
+            <TunableEnum type="BucksType" name="FAME_PERKS_BUCKS_TYPE" class="TunableEnumEntry" default="INVALID" display="Fame Perks Bucks Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" description="A reference to the bucks type used for Fame Perks." group="General" pack_safe="True" />
+
+            <Tunable type="statistic" name="FAME_RANKED_STATISTIC" class="TunableReference" display="Fame Ranked Statistic" description="The ranked statistic that is to be used for tracking fame progress. This should not need to be tuned at all. If you think you need to tune this please speak with a GPE before doing so." allow_none="False" group="General" pack_safe="True" restrict="RankedStatistic" />
+
+            <Tunable type="bucks_perk" name="LIFESTYLE_BRAND_PERK" class="TunableReference" display="Lifestyle Brand Perk" description="A reference to the perk that is used to unlock the lifestyle brand interactions." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableList name="PARENT_FAME_AGE_UP_BONUS" class="TunableMapping" display="Parent Fame Age Up Bonus" mapping_key="key" mapping_value="value" description="This is a mapping of difference in Fame Rank Level between the Sim and the highest fame parent, and the amount of fame to award the Sim as a bonus. The calculation looks something like this: Sim A is aging up and is Fame Rank 1. Sim A's Father is Fame Rank 3. Sim A's mother is Fame Rank 4. The value we will use for the calculation is Sim A's Parent with the most Fame minus Sim A's Fame. In this case this is Sim A's mom has the highest Rank Fame so we will use her value, 4. Subtracting 1 from 4 results in a difference of 3. Using 3 as the lookup we find the amount of Fame the child gets just for their parent being famous and add that amount to their Fame." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="key" class="TunableRange" default="1" display="Key" min="0" max="5" description="The difference in Fame between the parent and child." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="value" class="TunableRange" default="10" display="Value" min="0" max="None" description="The amount of Fame to award the child." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="relbit" name="SHUNNED_REL_BIT" class="TunableReference" display="Shunned Rel Bit" description="A reference to the relbit that identifies that a sim is being shunned by another sim in the relationship panel." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableList name="TRAILBLAZER_EFFECT_AVAILABLE_TESTS" class="TrailblazerEffectAvailableTestList" display="Trailblazer Effect Available Tests" description="A set of tests, all of which must pass in order for the trailblazer perk to be able to activate." group="General">
+                <TunableVariant type="None" class="TrailblazerEffectAvailableTestVariant" default="region" group="General">
+                    <TunableTuple name="region" class="TunableRegionTest" display="Region" description="A test to check which region the actor sim is in." group="General">
+                        <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="disabled" display="Blacklist" description="If enabled then we will check a blacklist of regions in insure that the sim is not within one of them." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableSet" display="Enabled" description="A set of regions that the sim being tested must not be within." group="General" unique_entries="true">
+                                <Tunable type="region" class="TunableReference" description="A region that the sim being tested in must not be within." allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="subject" class="OptionalTunable" default="disabled" display="Subject" description="If enabled then we will test the region of the specified participant type. Otherwise we will test the current region." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableEnum type="ParticipantTypeActorTargetSim" name="enabled" class="TunableEnumEntry" default="Actor" display="Enabled" static_entries="interactions.ParticipantTypeActorTargetSim" description="Who do we want to run this test on." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled then we will check a whitelist of regions in insure that the sim is within one of them." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableSet" display="Enabled" description="A set of regions that the sim being tested must be within." group="General" unique_entries="true">
+                                <Tunable type="region" class="TunableReference" description="A region that the sim being tested in must be within." allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableList>
+
+            <Tunable type="bucks_perk" name="TRAILBLAZER_PERK" class="TunableReference" display="Trailblazer Perk" description="A reference to the perk that is used to identify a Sim as being a trailblazer when it is unlocked in that Sims bucks tracker." allow_none="False" group="General" pack_safe="True" />
+        </Class>
+
+        <Class name="LifestyleBrandTargetMarket" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="LifestyleBrandProduct" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

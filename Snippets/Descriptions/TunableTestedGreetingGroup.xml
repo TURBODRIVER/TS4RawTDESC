@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="TunableTestedGreetingGroup" module="interactions.social.greeting_socials.greetings" instance_needs_reference="True" instance_subclasses_only="False" parents="TunableTestedGreeting" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="tests_or_greeting" class="TunableVariant" default="none" display="Tests Or Greeting" description="Either play a greeting if the tests pass, or reference another TunableTestedGreetingGroup that will perform it's behavior if the tests pass." group="General">
+            <TunableTuple name="greeting" class="TunableTuple" display="Greeting" description="A mixer reaction greeting." group="General">
+                <TunableTuple name="mixer" class="TunableReactionMixer" display="Mixer" description="Mixer reactions that Sims can play before socializing. This particular reaction works well with Social Mixers because we can guarantee that the Sim will greet the target within social constraints. Just remember to override the super affordance to a social super interaction." group="General">
+                    <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The affordance to push on the subject." allow_none="False" group="General" pack_safe="True" restrict="MixerInteraction" />
+                    <TunableVariant type="None" name="affordance_target" class="OptionalTunable" default="disabled" display="Affordance Target" description="If enabled, the pushed interaction will target a specified participant." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeReaction" name="enabled" class="TunableEnumEntry" default="TargetSim" display="Enabled" static_entries="interactions.ParticipantTypeReaction" description="The participant to be targeted by the pushed interaction." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="super_affordance_override" class="OptionalTunable" default="disabled" display="Super Affordance Override" description="If enabled, this super affordance will be the SI for the reaction mixer. If disabled, we use the posture's SI. Note: This should only be tuned if we are trying to push a SocialMixerInteraction as a reaction mixer. In that case you want to push its SocialSuperInteraction. Furthermore, if the pusher of this reaction is a Social interaction whose SI matches the override type, we'll reuse that SI as the mixer's SI." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="interaction" name="enabled" class="TunableReference" display="Enabled" description="The super affordance to use for this reaction mixer." allow_none="False" group="General" pack_safe="True" restrict="SocialSuperInteraction" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableTuple>
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableTuple name="tests" class="TunableTuple" display="Tests" description="Child TunableTestedGreetingGroup nodes that run if the tests pass." group="General">
+                <TunableList name="child_nodes" class="TunableList" display="Child Nodes" description="A list of children to run through as children of this branch. If any one passes, it will not process any more children." group="General">
+                    <Tunable type="snippet" class="TunableReference" description="A child node that represents a set of tests to run as well as child nodes or a greeting." allow_none="False" group="General" pack_safe="True" restrict="TunableTestedGreetingGroup" />
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

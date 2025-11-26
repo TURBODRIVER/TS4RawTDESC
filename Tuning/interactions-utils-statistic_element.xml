@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.utils.statistic_element">
+        <Class name="ConditionalInteractionAction" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EXIT_CANCEL" enum_value="3" />
+
+            <EnumItem name="EXIT_NATURALLY" enum_value="2" />
+
+            <EnumItem name="GO_INERTIAL" enum_value="1" />
+
+            <EnumItem name="LOWER_PRIORITY" enum_value="4" />
+
+            <EnumItem name="NO_ACTION" enum_value="0" />
+        </Class>
+
+        <Class name="ConditionalActionRestriction" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AUTONOMOUS_ONLY" enum_value="2" />
+
+            <EnumItem name="NO_RESTRICTIONS" enum_value="0" />
+
+            <EnumItem name="USER_DIRECTED_ONLY" enum_value="1" />
+        </Class>
+
+        <Class name="ProgressBarAction" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="FORCE_USE_CONDITION" enum_value="2" />
+
+            <EnumItem name="IGNORE_CONDITION" enum_value="1" />
+
+            <EnumItem name="NO_ACTION" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

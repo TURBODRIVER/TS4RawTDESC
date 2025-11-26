@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="BusinessPreset" module="small_business.small_business_tuning" description="Data for predefined business presets." instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="Display name for this preset" group="General" />
+
+        <TunableList name="rule_set" class="TunableSet" display="Rule Set" max="5" description="Rules for this preset." group="General" unique_entries="true">
+            <Tunable type="club_interaction_group" class="TunableReference" description="The ClubInteractionGroup that this rule applies to." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

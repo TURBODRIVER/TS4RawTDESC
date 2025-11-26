@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.university.university_scholarship_tuning">
+        <Class name="ScholarshipTuning">
+            <TunableTuple name="APPLICATION_RESPONSE_TUNING" class="TunableTuple" display="Application Response Tuning" description="Loot actions to be run on scholarship acceptance or rejection. Reward object(s) given through the loot actions must have the Scholarship Letter Component enabled in order to store information about the resolved scholarship and sim applicant on the object." group="General">
+                <Tunable type="action" name="accepted_below_value_threshold" class="TunableReference" display="Accepted Below Value Threshold" description="Loot action to be called when a Sim is accepted to a scholarship and the value does not exceed the tuned value threshold." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                <Tunable type="action" name="accepted_beyond_value_threshold" class="TunableReference" display="Accepted Beyond Value Threshold" description="Loot action to be called when a Sim is accepted to a scholarship and the value earned exceeds the tuned value threshold." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                <Tunable type="action" name="rejected" class="TunableReference" display="Rejected" description="Loot action to be called when a Sim is rejected from a scholarship." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                <Tunable type="int" name="value_threshold" class="Tunable" default="1" display="Value Threshold" description="A value threshold that when exceeds runs the 'accepted_beyond_value_ threshold' loot action." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="action" name="FULL_RIDE_LOOT" class="TunableReference" display="Full Ride Loot" description="Loot to run if a sim has applied for scholarships and successfully earned a full ride to attend university." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+
+            <Tunable type="snippet" name="MERIT_SCHOLARSHIP" class="TunableReference" display="Merit Scholarship" description="The merit scholarship to evaluate on enrollment. One Merit Scholarship is earned at enrollment if any prestige degrees are earned." allow_none="False" group="General" pack_safe="True" restrict="Scholarship" />
+        </Class>
+
+        <Class name="MeritEvaluation">
+            <TunableList name="DEGREES_EARNED_TO_VALUE_OF_MERIT_SCHOLARSHIP" class="TunableMapping" display="Degrees Earned To Value Of Merit Scholarship" mapping_key="key" mapping_value="value" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="key" class="TunableRange" default="1" display="Key" min="0" max="None" description="The threshold of prestige degrees earned." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="value" class="TunableRange" default="50" display="Value" min="0" max="None" description="The value to award for a merit scholarship." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+
+        <Class name="ScholarshipMaintenanceEnum" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACADEMIC" enum_value="1" />
+
+            <EnumItem name="ACTIVITY" enum_value="2" />
+        </Class>
+    </Module>
+</TuningRoot>

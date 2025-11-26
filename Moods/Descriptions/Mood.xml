@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="mood" class="Mood" module="statistics.mood" description="A basic mood." instance_needs_reference="True" instance_subclasses_only="False" path="Moods\Descriptions" use_guid_for_reference="True">
+        <TunableList name="audio_stings_on_add" class="TunableList" display="Audio Stings On Add" description="The audio to play when a mood or it's intensity changes. Tune one for each intensity on the mood" group="General">
+            <Tunable type="ResourceKey" class="TunableResourceKey" default="None" description="The sound to play." group="General" resource_types="0x39b2aa4a" />
+        </TunableList>
+
+        <TunableTuple name="base_color" class="TunableColorRGBA" display="Base Color" description="The base color for the ghost shader." group="Ghosts">
+            <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableEnum type="BuffPolarity" name="buff_polarity" class="TunableEnumEntry" default="NEUTRAL" display="Buff Polarity" static_entries="buffs.BuffPolarity" description="Setting the polarity will determine how up/down arrows appear for any buff that provides this mood." group="UI" />
+
+        <TunableList name="buffs" class="TunableList" display="Buffs" description="A list of buffs that will be added while this mood is the active mood on a Sim. The first item is applied for the initial intensity, and each subsequent item replaces the previous buff as the intensity levels up." group="General">
+            <TunableTuple class="TunableBuffReference" group="General">
+                <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                        <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                    </TunableVariant>
+                </TunableVariant>
+                <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="True" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="colored_ghost_list" class="TunableList" display="Colored Ghost List" description="List of colored ghost tuning for this mood. Client will go through this list and find the first trait in this list the ghost equipped, then use that entry to apply the special ghost color settings." group="General">
+            <TunableTuple class="TraitColoredGhostTuple" group="General">
+                <Tunable type="float" name="color_saturation" class="TunableRange" default="0.0" display="Color Saturation" min="0.0" max="10.0" description="Color saturation for ghost. Ranged from 0~10, 0: mono, 10:colored" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="edge_color_brightness" class="TunableRange" default="0.0" display="Edge Color Brightness" min="0.0" max="10.0" description="Edge color brightness. Ranged from 0~10." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="trait" name="trait" class="TunableReference" display="Trait" description="The ghost having this trait will have their special color settings." allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="descriptions" class="TunableList" display="Descriptions" description="Description for the UI tooltip, per intensity." group="General">
+            <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may NOT require tokens." group="General" />
+        </TunableList>
+
+        <TunableList name="descriptions_age_override" class="TunableMapping" display="Descriptions Age Override" mapping_key="Age" mapping_value="description_text" description="Mapping of age to descriptions text for mood. If age does not exist in mapping will use default description text." group="General" mapping_class="DescriptionsAgeOverrideMappingTuple">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="Age" name="Age" class="TunableEnumEntry" default="CHILD" display="Age" static_entries="sims-sim_info_types.Age" group="General" />
+                <TunableList name="description_text" class="TunableList" display="Description Text" description="Description for the UI tooltip, per intensity." group="General">
+                    <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may NOT require tokens." group="General" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableTuple name="descriptions_trait_override" class="TunableMoodDescriptionTraitOverride" display="Descriptions Trait Override" description="Trait override for mood descriptions. If a Sim has this trait and there is not a valid age override for the Sim, this description text will be used." group="General">
+            <TunableList name="descriptions" class="TunableList" display="Descriptions" description="Description for the UI tooltip, per intensity." group="General">
+                <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may NOT require tokens." group="General" />
+            </TunableList>
+            <Tunable type="trait" name="trait" class="TunableReference" display="Trait" allow_none="True" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="edge_color" class="TunableColorRGBA" display="Edge Color" description="The edge color for the ghost shader." group="Ghosts">
+            <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <Tunable type="statistic" name="environment_scoring_commodity" class="TunableReference" display="Environment Scoring Commodity" description="Defines the ranges and corresponding buffs to apply for this mood's environmental contribution. Be sure to tune min, max, and the different states. The convergence value is what will remove the buff. Suggested to be 0." allow_none="False" group="General" restrict="Commodity" />
+
+        <Tunable type="float" name="filter_param_desaturation" class="TunableRange" default="0.0" display="Filter Param Desaturation" min="0.0" max="1.0" description="0 - 1. Controls the amount of color retained by objects behind the ghost. 0 = all color retained, 1 = no color retained." tuning_state="NeedsTuning" group="Ghosts" />
+
+        <Tunable type="float" name="filter_param_lens_distortion" class="Tunable" default="0.0" display="Filter Param Lens Distortion" description="Controls lens distortion effect on the ghost. 0 = no effect, higher value = more distortion" tuning_state="NeedsTuning" group="Ghosts" />
+
+        <Tunable type="float" name="filter_param_noise_distortion" class="Tunable" default="0.0" display="Filter Param Noise Distortion" description="Controls the amount of distortion obtained from the noise texture. 0 = no effect, Higher value = more distortion" tuning_state="NeedsTuning" group="Ghosts" />
+
+        <Tunable type="float" name="filter_param_noise_jumpiness" class="Tunable" default="0.0" display="Filter Param Noise Jumpiness" description="Controls the rate at which the input from the noise texture jumps around at random. 0 = no jumpiness, Higher value = more jumpiness" tuning_state="NeedsTuning" group="Ghosts" />
+
+        <Tunable type="float" name="filter_param_noise_scale_x" class="Tunable" default="1.0" display="Filter Param Noise Scale X" description="Scales the input from the noise texture horizontally." tuning_state="NeedsTuning" group="Ghosts" />
+
+        <Tunable type="float" name="filter_param_noise_scale_y" class="Tunable" default="1.0" display="Filter Param Noise Scale Y" description="Scales the input from the noise texture vertically." tuning_state="NeedsTuning" group="Ghosts" />
+
+        <Tunable type="float" name="filter_param_noise_scroll_y" class="Tunable" default="0.0" display="Filter Param Noise Scroll Y" description="Controls the rate at which the input from the noise texture scrolls vertically. 0 = no scrolling, Negative value = scrolls up, Positive value = scrolls down." tuning_state="NeedsTuning" group="Ghosts" />
+
+        <Tunable type="float" name="filter_param_opacity_offset" class="Tunable" default="0.0" display="Filter Param Opacity Offset" description="Controls the ghost's opacity. Higher value = more opacity." tuning_state="NeedsTuning" group="Ghosts" />
+
+        <TunableList name="icons" class="TunableList" display="Icons" description="Icon for the UI tooltip, per intensity." group="General">
+            <Tunable type="ResourceKey" class="TunableResourceKey" default="None" group="General" resource_types="0x2f7d0004" />
+        </TunableList>
+
+        <TunableList name="intensity_thresholds" class="TunableList" display="Intensity Thresholds" description="List of thresholds at which the intensity of this mood levels up. If empty, this mood has a single threshold and all mood tuning lists should have a single item in them. For each threshold added, you may add a new item to the Buffs, Mood Names, Portrait Pose Indexes and Portrait Frames lists." group="General">
+            <Tunable type="int" class="Tunable" default="None" tuning_state="NeedsTuning" group="General" />
+        </TunableList>
+
+        <Tunable type="bool" name="is_changeable" class="Tunable" default="False" display="Is Changeable" description="If this is checked, any buff with this mood will change to the highest current mood of the same polarity. If there is no mood with the same polarity it will default to use this mood type" group="General" />
+
+        <TunableVariant type="None" name="mood_asm_param" class="OptionalTunable" default="Determined_By_Other_Moods" display="Mood Asm Param" description="If set, then this mood will specify an asm parameter to affect animations. If not set, then the ASM parameter will be determined by the second most prevalent mood." group="General">
+            <Tunable name="Determined_By_Other_Moods" class="TunableExistance" display="Determined By Other Moods" />
+            <Tunable type="str" name="Specify" class="Tunable" default="" display="Specify" description="The ASM parameter for Sim's mood, if not set, will use 'xxx' from instance name pattern with 'mood_xxx'." choice_query="SwingSupport:EnumNames(mood)" group="General" />
+        </TunableVariant>
+
+        <TunableList name="mood_colors" class="TunableList" display="Mood Colors" description="A list of the colors displayed on the steel series mouse when the active Sim has this mood. The first item is applied for the initial intensity, and each subsequent item replaces the color as the intensity levels up." group="General">
+            <TunableTuple class="TunableVector3" description="Color." group="General">
+                <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="mood_frequencies" class="TunableList" display="Mood Frequencies" description="A list of the flash frequencies on the steel series mouse when the active Sim has this mood. The first item is applied for the initial intensity, and each subsequent item replaces the value as the intensity levels up. 0 => solid color, otherwise, value => value hertz." group="General">
+            <Tunable type="float" class="Tunable" default="0.0" description="Hertz." tuning_state="NeedsTuning" group="General" />
+        </TunableList>
+
+        <TunableList name="mood_names" class="TunableList" display="Mood Names" description="A list of localized names of this mood. The first item is applied for the initial intensity, and each subsequent item replaces the name as the intensity levels up." group="General">
+            <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may NOT require tokens." group="General" />
+        </TunableList>
+
+        <TunableVariant type="None" name="mood_text_color" class="OptionalTunable" default="No_Particular_Color" display="Mood Text Color" description="The color to use for text representative of this mood in applicable UIs. Ask a GPE if you are unsure what this applies to. " group="General">
+            <TunableTuple name="enabled" class="TunableColorRGBA" display="Enabled" description="A color." group="General">
+                <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <Tunable name="No_Particular_Color" class="TunableExistance" display="No Particular Color" />
+        </TunableVariant>
+
+        <Tunable type="ResourceKey" name="noise_texture" class="TunableResourceKey" default="None" display="Noise Texture" description="Optional texture used to apply noise effects to the ghost." allow_none="True" group="Ghosts" resource_types="0xb2d882" />
+
+        <TunableList name="portrait_frames" class="TunableList" display="Portrait Frames" description="A list of the frame labels (NOT numbers!) from the UI .fla file that the portrait should be set to when this mood is active. Determines background color, font color, etc. The first item is applied for the initial intensity, and each subsequent item replaces the pose as the intensity levels up." group="General">
+            <Tunable type="str" class="Tunable" default="" group="General" />
+        </TunableList>
+
+        <TunableList name="portrait_pose_indexes" class="TunableList" display="Portrait Pose Indexes" description="A list of the indexes of the pose passed to thumbnail generation on the client to pose the Sim portrait when they have this mood. You can find the list of poses in tuning (Client_ThumnailPoses) The first item is applied for the initial intensity, and each subsequent item replaces the pose as the intensity levels up." group="General">
+            <Tunable type="int" class="Tunable" default="0" tuning_state="NeedsTuning" group="General" />
+        </TunableList>
+
+        <TunableList name="thumbnail_vfx_list" class="TunableList" display="Thumbnail Vfx List" description="List of effects that will be rendered for a Robot Sims thumbnail for this mood." group="Robots">
+            <TunableTuple class="MoodVFXInfoTuple" description="The name of the effect to play and the joint name it should be attached to." group="General">
+                <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+                <Tunable type="str" name="joint_name" class="Tunable" default="" display="Joint Name" description="The joint name this effect is attached to." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="whim_set" class="OptionalTunable" default="disabled" display="Whim Set" description="If enabled then this mood will offer a whim set to the Sim when it is active." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="aspiration" name="enabled" class="TunableReference" display="Enabled" description="A whim set that is active when this mood is active." allow_none="False" group="General" restrict="ObjectivelessWhimSet" />
+        </TunableVariant>
+    </Instance>
+
+    
+</TuningRoot>

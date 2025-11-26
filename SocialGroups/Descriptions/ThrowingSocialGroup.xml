@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="social_group" class="ThrowingSocialGroup" module="socials.throwing_group" description="A Social Group that contains a group of Sims throwing objects at each other." instance_needs_reference="True" instance_subclasses_only="False" parents="SocialGroup" path="SocialGroups\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="adjustment_interval" class="TunableInterval" display="Adjustment Interval" description="How long Sims wait before adjusting positions." group="General">
+            <Tunable type="float" name="lower_bound" class="TunableSimMinute" default="2" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="upper_bound" class="TunableSimMinute" default="5" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableList name="adjustment_mixers" class="TunableList" display="Adjustment Mixers" description="List of mixers that we push as possible adustment options. Sims should not try to adjust right after running these mixers." group="General">
+            <Tunable type="interaction" class="TunableReference" description="Adjustment mixer reference." allow_none="False" group="General" pack_safe="True" restrict="MixerInteraction" />
+        </TunableList>
+
+        <Deleted name="include_default_facing_constraint" />
+
+        <TunableTuple name="scoring_function" class="TunableThrowingGroupCostFunction" display="Scoring Function" description="The scoring function for this group." group="General">
+            <Tunable type="float" name="adjustment_distance" class="TunableRange" default="5.0" display="Adjustment Distance" min="0" max="None" description="Any position that requires the Sim to be at a distance less than this value will be penalized." tuning_state="NeedsTuning" group="General" />
+            <TunableTuple name="location_tests" class="TunableTuple" display="Location Tests" description="Tests to run on the goal location to validate if it should be discouraged when using this social group." group="General">
+                <TunableVariant type="None" name="validate_is_outside" class="OptionalTunable" default="disabled" display="Validate Is Outside" description="If enabled goals that do not match the outside condition will be discouraged." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="bool" name="enabled" class="Tunable" default="False" display="Enabled" description="If True goals outside will be encouraged, if false only goals on the inside will be encouraged." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="validate_snowmask" class="OptionalTunable" default="disabled" display="Validate Snowmask" description="If enabled goals that do not match the snowmask value will be discouraged. This is used for winter to guarantee cases like snowball fight the Sims readjust and move around in places where there is snow." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="float" name="enabled" class="Tunable" default="0.5" display="Enabled" description="Value snowmask should be greater than to pass this test." tuning_state="NeedsTuning" group="General" />
+                </TunableVariant>
+            </TunableTuple>
+            <Tunable type="float" name="maximum_distance" class="TunableRange" default="10.0" display="Maximum Distance" min="0" max="None" description="Any distance to another Sim over this amount will be penalized." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="minimum_distance" class="TunableRange" default="3.0" display="Minimum Distance" min="0" max="None" description="Any distance to another Sim under this amount will be penalized." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="cas.cas_enums">
+        <Class name="CASPaintPose" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ARMS_UP_IDLE" enum_value="8" />
+
+            <EnumItem name="BACK" enum_value="2" />
+
+            <EnumItem name="INNER_ARM_LEFT_IDLE" enum_value="6" />
+
+            <EnumItem name="INNER_ARM_RIGHT_IDLE" enum_value="9" />
+
+            <EnumItem name="INNER_LEG_LEFT_IDLE" enum_value="7" />
+
+            <EnumItem name="INNER_LEG_RIGHT_IDLE" enum_value="10" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="SIT" enum_value="1" />
+
+            <EnumItem name="SIT_UP" enum_value="3" />
+
+            <EnumItem name="STAND" enum_value="4" />
+
+            <EnumItem name="TATTOO_IDLE" enum_value="5" />
+        </Class>
+
+        <Class name="CASMode" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BODY" enum_value="0" />
+
+            <EnumItem name="BODY_PART" enum_value="5" />
+
+            <EnumItem name="FACE" enum_value="1" />
+
+            <EnumItem name="FACE_DETAIL" enum_value="2" />
+
+            <EnumItem name="HANDS" enum_value="4" />
+
+            <EnumItem name="NOACTION" enum_value="3" />
+        </Class>
+
+        <Class name="RandomizationMode" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CAREER_OUTFIT_RANDOMIZATION" enum_value="3" />
+
+            <EnumItem name="CLUB_OUTFIT_RANDOMIZATION_ALL" enum_value="4" />
+
+            <EnumItem name="CLUB_OUTFIT_RANDOMIZATION_SINGLE" enum_value="5" />
+
+            <EnumItem name="MENU_RANDOMIZATION" enum_value="2" />
+
+            <EnumItem name="SELECTIVE_RANDOMIZATION" enum_value="1" />
+
+            <EnumItem name="TEMPLATE_RANDOMIZATION" enum_value="6" />
+        </Class>
+
+        <Class name="CASMenuState">
+            <Class name="MenuItem" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="AGE" enum_value="2" />
+
+                <EnumItem name="BLANKET" enum_value="86" />
+
+                <EnumItem name="BODY" enum_value="19" />
+
+                <EnumItem name="BODYDETAILS" enum_value="205" />
+
+                <EnumItem name="BODYHAIR_ARM" enum_value="95" />
+
+                <EnumItem name="BODYHAIR_LEG" enum_value="96" />
+
+                <EnumItem name="BODYHAIR_TORSOBACK" enum_value="98" />
+
+                <EnumItem name="BODYHAIR_TORSOFRONT" enum_value="97" />
+
+                <EnumItem name="BOTTOMS" enum_value="70" />
+
+                <EnumItem name="BRACELETS" enum_value="51" />
+
+                <EnumItem name="BREED" enum_value="201" />
+
+                <EnumItem name="BRIDLE" enum_value="85" />
+
+                <EnumItem name="CHEEK" enum_value="10" />
+
+                <EnumItem name="CHIN" enum_value="13" />
+
+                <EnumItem name="CONTACTS" enum_value="37" />
+
+                <EnumItem name="EARRINGS" enum_value="34" />
+
+                <EnumItem name="EARS" enum_value="14" />
+
+                <EnumItem name="EYEBROWS" enum_value="15" />
+
+                <EnumItem name="EYES" enum_value="8" />
+
+                <EnumItem name="FACE_PRESETS" enum_value="26" />
+
+                <EnumItem name="FACIALHAIR" enum_value="31" />
+
+                <EnumItem name="FINGERNAIL" enum_value="55" />
+
+                <EnumItem name="FOREHEAD" enum_value="16" />
+
+                <EnumItem name="FORELOCK" enum_value="81" />
+
+                <EnumItem name="FULLBODY" enum_value="93" />
+
+                <EnumItem name="FUR" enum_value="202" />
+
+                <EnumItem name="GENDER" enum_value="1" />
+
+                <EnumItem name="GLASSES" enum_value="35" />
+
+                <EnumItem name="GLOVES" enum_value="54" />
+
+                <EnumItem name="HAIRSTYLE" enum_value="30" />
+
+                <EnumItem name="HATS" enum_value="32" />
+
+                <EnumItem name="HEADDECO" enum_value="38" />
+
+                <EnumItem name="HOOFCOLOR" enum_value="87" />
+
+                <EnumItem name="HORN" enum_value="88" />
+
+                <EnumItem name="HORSE_FEATHER" enum_value="82" />
+
+                <EnumItem name="HORSE_TAIL" enum_value="83" />
+
+                <EnumItem name="JAW" enum_value="12" />
+
+                <EnumItem name="LOOKS" enum_value="17" />
+
+                <EnumItem name="MAKEUP" enum_value="36" />
+
+                <EnumItem name="MAKEUP_CHEEKS" enum_value="41" />
+
+                <EnumItem name="MAKEUP_EYELASHES" enum_value="45" />
+
+                <EnumItem name="MAKEUP_EYELINER" enum_value="44" />
+
+                <EnumItem name="MAKEUP_EYES" enum_value="40" />
+
+                <EnumItem name="MAKEUP_FACEPAINT" enum_value="43" />
+
+                <EnumItem name="MAKEUP_LIPS" enum_value="42" />
+
+                <EnumItem name="MANE" enum_value="80" />
+
+                <EnumItem name="MEDICAL" enum_value="56" />
+
+                <EnumItem name="MOUTH" enum_value="11" />
+
+                <EnumItem name="NECKLACES" enum_value="52" />
+
+                <EnumItem name="NONE" enum_value="0" />
+
+                <EnumItem name="NOSE" enum_value="9" />
+
+                <EnumItem name="OUTFIT_ATHLETIC" enum_value="102" />
+
+                <EnumItem name="OUTFIT_EVERYDAY" enum_value="100" />
+
+                <EnumItem name="OUTFIT_FORMAL" enum_value="101" />
+
+                <EnumItem name="OUTFIT_MISC" enum_value="103" />
+
+                <EnumItem name="OUTFIT_PARTY" enum_value="104" />
+
+                <EnumItem name="OUTFIT_SLEEP" enum_value="105" />
+
+                <EnumItem name="OUTFIT_WORK" enum_value="106" />
+
+                <EnumItem name="OWNED" enum_value="18" />
+
+                <EnumItem name="PELT" enum_value="200" />
+
+                <EnumItem name="PIERCINGS" enum_value="33" />
+
+                <EnumItem name="RINGS" enum_value="53" />
+
+                <EnumItem name="SADDLE" enum_value="84" />
+
+                <EnumItem name="SHOES" enum_value="71" />
+
+                <EnumItem name="SKIN_DETAILS" enum_value="5" />
+
+                <EnumItem name="SKINCOLOR" enum_value="94" />
+
+                <EnumItem name="SKINDETAIL_BODYSCAR" enum_value="204" />
+
+                <EnumItem name="SKINDETAIL_BROW" enum_value="20" />
+
+                <EnumItem name="SKINDETAIL_CHEEKS" enum_value="21" />
+
+                <EnumItem name="SKINDETAIL_EYEBAGS" enum_value="22" />
+
+                <EnumItem name="SKINDETAIL_EYESOCKET" enum_value="23" />
+
+                <EnumItem name="SKINDETAIL_MOUTH" enum_value="24" />
+
+                <EnumItem name="SKINSPECULARITY" enum_value="99" />
+
+                <EnumItem name="SOCKS" enum_value="73" />
+
+                <EnumItem name="STOCKINGS" enum_value="72" />
+
+                <EnumItem name="TAIL" enum_value="27" />
+
+                <EnumItem name="TATTOOS" enum_value="6" />
+
+                <EnumItem name="TEETH" enum_value="25" />
+
+                <EnumItem name="TIGHTS" enum_value="74" />
+
+                <EnumItem name="TOENAIL" enum_value="75" />
+
+                <EnumItem name="TOPS" enum_value="50" />
+
+                <EnumItem name="TRAITS" enum_value="4" />
+
+                <EnumItem name="UNUSED1" enum_value="203" />
+
+                <EnumItem name="VOICE" enum_value="3" />
+
+                <EnumItem name="WHOLEHEADS" enum_value="7" />
+
+                <EnumItem name="WINGS" enum_value="89" />
+            </Class>
+
+            <Class name="MenuMode" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="ACCESSORIES" enum_value="1048576" />
+
+                <EnumItem name="CLOTHING" enum_value="524288" />
+
+                <EnumItem name="FEATURED" enum_value="1310720" />
+
+                <EnumItem name="NONE" enum_value="0" />
+
+                <EnumItem name="OUTFITS" enum_value="786432" />
+
+                <EnumItem name="PROFILE" enum_value="262144" />
+            </Class>
+
+            <Class name="MenuSection" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="ACCESSORIES" enum_value="7168" />
+
+                <EnumItem name="BODY" enum_value="2048" />
+
+                <EnumItem name="FACE" enum_value="8192" />
+
+                <EnumItem name="GENERIC_BREEDS" enum_value="10240" />
+
+                <EnumItem name="GENERIC_PELTS" enum_value="9216" />
+
+                <EnumItem name="HAIR" enum_value="6144" />
+
+                <EnumItem name="HEAD" enum_value="1024" />
+
+                <EnumItem name="LOWERBODY" enum_value="4096" />
+
+                <EnumItem name="NONE" enum_value="0" />
+
+                <EnumItem name="UPPERBODY" enum_value="3072" />
+            </Class>
+
+            <Class name="MenuType" enum_bit_flag="False" enum_locked="False">
+                <EnumItem name="MENU" enum_value="4194304" />
+
+                <EnumItem name="MENUITEM" enum_value="12582912" />
+
+                <EnumItem name="NONE" enum_value="0" />
+
+                <EnumItem name="SUBMENU" enum_value="8388608" />
+            </Class>
+        </Class>
+
+        <Class name="CASRandomizeFlag" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CLOTHING_ACCESSORIES" enum_value="4194304" />
+
+            <EnumItem name="CLOTHING_BOTTOM" enum_value="131072" />
+
+            <EnumItem name="CLOTHING_FACIAL_HAIR" enum_value="2097152" />
+
+            <EnumItem name="CLOTHING_FULLBODY" enum_value="8388608" />
+
+            <EnumItem name="CLOTHING_HAIR" enum_value="1048576" />
+
+            <EnumItem name="CLOTHING_HAT" enum_value="32768" />
+
+            <EnumItem name="CLOTHING_MAKEUP" enum_value="524288" />
+
+            <EnumItem name="CLOTHING_SHOES" enum_value="262144" />
+
+            <EnumItem name="CLOTHING_TOP" enum_value="65536" />
+
+            <EnumItem name="HORSE_HAIR" enum_value="33554432" />
+
+            <EnumItem name="HORSE_HOOVES" enum_value="67108864" />
+
+            <EnumItem name="OCCULT_SKINDETAIL" enum_value="4096" />
+
+            <EnumItem name="OCCULT_TAIL" enum_value="8192" />
+
+            <EnumItem name="PROFILE_ASPIRATION" enum_value="512" />
+
+            <EnumItem name="PROFILE_BODYSHAPE" enum_value="2" />
+
+            <EnumItem name="PROFILE_BREEDSIZE" enum_value="16384" />
+
+            <EnumItem name="PROFILE_CLOTHING" enum_value="256" />
+
+            <EnumItem name="PROFILE_FACE" enum_value="8" />
+
+            <EnumItem name="PROFILE_FACIALHAIR" enum_value="64" />
+
+            <EnumItem name="PROFILE_GENDER" enum_value="1" />
+
+            <EnumItem name="PROFILE_HAIR" enum_value="32" />
+
+            <EnumItem name="PROFILE_PREFERENCES" enum_value="16777216" />
+
+            <EnumItem name="PROFILE_SKINTONE" enum_value="16" />
+
+            <EnumItem name="PROFILE_TRAITS" enum_value="2048" />
+
+            <EnumItem name="PROFILE_VOICE" enum_value="128" />
+
+            <EnumItem name="RANDOMIZE_BY_MENUSTATE" enum_value="2147483648" />
+
+            <EnumItem name="WINGS" enum_value="134217728" />
+        </Class>
+
+        <Class name="SimRegion" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BACKFEET" enum_value="27" />
+
+            <EnumItem name="BELLY" enum_value="23" />
+
+            <EnumItem name="BODY" enum_value="28" />
+
+            <EnumItem name="BROWS" enum_value="8" />
+
+            <EnumItem name="BUTT" enum_value="24" />
+
+            <EnumItem name="CHEEKS" enum_value="3" />
+
+            <EnumItem name="CHEST" enum_value="14" />
+
+            <EnumItem name="CHIN" enum_value="4" />
+
+            <EnumItem name="EARS" enum_value="9" />
+
+            <EnumItem name="EYES" enum_value="0" />
+
+            <EnumItem name="FEET" enum_value="27" />
+
+            <EnumItem name="FOREHEAD" enum_value="6" />
+
+            <EnumItem name="FORELEGS" enum_value="33" />
+
+            <EnumItem name="FRONTFEET" enum_value="20" />
+
+            <EnumItem name="FULLFACE" enum_value="12" />
+
+            <EnumItem name="FUR" enum_value="32" />
+
+            <EnumItem name="HANDS" enum_value="20" />
+
+            <EnumItem name="HEAD" enum_value="10" />
+
+            <EnumItem name="HINDLEGS" enum_value="34" />
+
+            <EnumItem name="HIPS" enum_value="22" />
+
+            <EnumItem name="INVALID" enum_value="64" />
+
+            <EnumItem name="JAW" enum_value="5" />
+
+            <EnumItem name="LOWERARM" enum_value="19" />
+
+            <EnumItem name="LOWERBODY" enum_value="30" />
+
+            <EnumItem name="LOWERLEG" enum_value="26" />
+
+            <EnumItem name="MOUTH" enum_value="2" />
+
+            <EnumItem name="MUZZLE" enum_value="2" />
+
+            <EnumItem name="NECK" enum_value="16" />
+
+            <EnumItem name="NOSE" enum_value="1" />
+
+            <EnumItem name="SHOULDERS" enum_value="17" />
+
+            <EnumItem name="TAIL" enum_value="31" />
+
+            <EnumItem name="THIGHS" enum_value="25" />
+
+            <EnumItem name="UPPERARM" enum_value="18" />
+
+            <EnumItem name="UPPERBODY" enum_value="29" />
+
+            <EnumItem name="UPPERCHEST" enum_value="15" />
+
+            <EnumItem name="WAIST" enum_value="21" />
+
+            <EnumItem name="WINGS" enum_value="33" />
+        </Class>
+
+        <Class name="CASEditMode" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BATUU" enum_value="10" />
+
+            <EnumItem name="CAREER" enum_value="5" />
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="DISGUISE" enum_value="4" />
+
+            <EnumItem name="FASHION" enum_value="11" />
+
+            <EnumItem name="FTUE" enum_value="9" />
+
+            <EnumItem name="GENDER" enum_value="8" />
+
+            <EnumItem name="MANNEQUIN" enum_value="1" />
+
+            <EnumItem name="MANNEQUIN_APPLY_OUTFIT" enum_value="2" />
+
+            <EnumItem name="MANNEQUIN_CAREER" enum_value="3" />
+
+            <EnumItem name="MANNEQUIN_CLUB" enum_value="6" />
+
+            <EnumItem name="PREFERENCES" enum_value="12" />
+
+            <EnumItem name="REINCARNATION" enum_value="14" />
+
+            <EnumItem name="SIM_CUSTOMIZATION" enum_value="13" />
+
+            <EnumItem name="SINGLE_SIM" enum_value="7" />
+
+            <EnumItem name="SMALL_BUSINESS" enum_value="16" />
+
+            <EnumItem name="TATTOO" enum_value="15" />
+        </Class>
+
+        <Class name="CASSkinToneType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALL" enum_value="0" />
+
+            <EnumItem name="COOL" enum_value="3" />
+
+            <EnumItem name="MISC" enum_value="4" />
+
+            <EnumItem name="NEUTRAL" enum_value="2" />
+
+            <EnumItem name="WARM" enum_value="1" />
+        </Class>
+
+        <Class name="CASSimCustomizationOptionType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="GENDER" enum_value="0" />
+
+            <EnumItem name="RELATIONSHIP_EXPECTATIONS" enum_value="2" />
+
+            <EnumItem name="SEXUAL_ORIENTATION" enum_value="1" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

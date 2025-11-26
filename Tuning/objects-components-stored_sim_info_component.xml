@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.stored_sim_info_component">
+        <Class name="StoredSimInfoComponent">
+            <TunableList name="LOOTS_ON_OBJECT_REMOVE" class="TunableMapping" display="Loots On Object Remove" mapping_key="key" mapping_value="value" description="A mapping of object tag to loots. A list of loots will be apply to the object that has the stored sim component when the object is removed." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Tag" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="what object to run loots." group="General" pack_safe="True" />
+                    <TunableList name="value" class="TunableList" display="Value" description="loots to apply to the object when object is removed." group="General">
+                        <TunableVariant type="None" class="TunableVariant" default="none" description="A specific loot to apply." group="General">
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                            <TunableTuple name="remove_trait" class="TunableRemoveTraitLootOp" display="Remove Trait" description="This loot will remove the specified trait" group="General">
+                                <TunableTuple name="chance" class="TunableSuccessChance" display="Chance" description="Percent chance that the loot action will be considered. The chance is evaluated just before running the tests." group="General">
+                                    <Tunable type="float" name="base_chance" class="TunablePercent" default="100" display="Base Chance" min="0" max="100" description="The basic chance of success." group="General" />
+                                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_chance." group="General">
+                                        <TunableTuple class="TunableTuple" group="General">
+                                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_chance if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                        </TunableTuple>
+                                    </TunableList>
+                                </TunableTuple>
+                                <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The sim(s) the operation is applied to." group="General" />
+                                <TdescFragTag name="subject_filter_tests" class="TunableTestSet" display="Subject Filter Tests" description="These tests will be run once per subject. If the subject participant of this loot action resolves to multiple objects, each of those objects will be tested individually. Any subject that fails this test will be ignored by this loot. This will have no effect on whether we consider the loot to have passed testing on on other subjects or targets. We can use this in cases where we want to give loot based on some criteria like 'All active household members that are dogs get this loot'. These tests will have no effect on 'run tests first' as they are only used for participant filtering and not to determine loot success. The resolver used for these tests is a SingleObjectResolver based on subject sim. This means that test should generally be testing against 'Actor' and should not assume the presence of additional participants that may be present in the containing loot. Ask a GPE if you have questions." group="General" />
+                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The test to decide whether the loot action can be applied." group="General" />
+                                <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                                    <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                                    <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                                    <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                                </TunableVariant>
+                                <TunableVariant type="None" name="trait" class="TunableVariant" default="specific_trait" display="Trait" description="Type of trait removal to perform." group="General">
+                                    <TunableTuple name="all_from_list" class="Tunable_RemoveAllTraitsFromList" display="All From List" description="Remove all traits from a specific list of traits." group="General">
+                                        <TunableList name="trait_list" class="TunableList" display="Trait List" description="The list of traits that will be removed." group="General">
+                                            <Tunable type="trait" class="TunableReference" description="A trait that will be removed by this loot." allow_none="False" group="General" pack_safe="True" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                    <TunableTuple name="random_personality_trait" class="Tunable_RemoveRandomPersonalityTrait" display="Random Personality Trait" description="Remove a random personality trait." group="General">
+                                        <TunableList name="traits_to_not_consider" class="TunableList" display="Traits To Not Consider" description="Personality traits that should not be considered for removal. Leave blank to consider all personality traits." group="General">
+                                            <Tunable type="trait" class="TunableReference" description="A personality trait that should not be removed." allow_none="False" group="General" pack_safe="True" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                    <TunableTuple name="random_trait" class="Tunable_RemoveRandomTrait" display="Random Trait" description="Remove a random trait, with a filter by type." group="General">
+                                        <TunableEnum type="TraitType" name="trait_type" class="TunableEnumEntry" default="PERSONALITY" display="Trait Type" static_entries="traits-trait_type.TraitType" group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="specific_trait" class="Tunable_RemoveSpecificTrait" display="Specific Trait" description="Remove the specified trait." group="General">
+                                        <Tunable type="trait" name="specific_trait" class="TunableReference" display="Specific Trait" description="The trait to be removed." allow_none="False" group="General" pack_safe="True" />
+                                    </TunableTuple>
+                                    <TunableTuple name="traits_of_type" class="Tunable_RemoveTraitsOfType" display="Traits Of Type" description="Remove all traits of a specific type." group="General">
+                                        <TunableList name="trait_types" class="TunableEnumSet" display="Trait Types" description="A set of trait types to find and remove." group="General" unique_entries="true">
+                                            <TunableEnum type="TraitType" class="TunableEnumEntry" default="GAMEPLAY" static_entries="traits-trait_type.TraitType" group="General" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

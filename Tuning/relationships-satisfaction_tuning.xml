@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="relationships.satisfaction_tuning">
+        <Class name="SatisfactionTuning">
+            <Tunable type="statistic" name="RELATIONSHIP_SATISFACTION_TRACK" class="TunableReference" display="Relationship Satisfaction Track" description="A reference to the relationship track that represents relationship satisfaction." allow_none="False" group="General" pack_safe="True" restrict="RelationshipTrack" />
+
+            <TdescFragTag name="SHOULD_TRACK_TESTS" class="TunableTestSet" display="Should Track Tests" description="If these tests fail for the given actor and target, we want to freeze relationship satisfaction and hide it. When the tests succeed, we want to show relationship satisfaction and allow it to decay. We do not add/remove relationship satisfaction itself from the actor and target. When this test is used, we automatically test both directions, so you only need to write the test for one direction." group="General" />
+
+            <Tunable type="int" name="UNKNOWN_DESCRIPTION" class="TunableLocalizedString" default="0x0" display="Unknown Description" description="The description to use in the Sim Profile when the active sim does not know the relationship satisfaction that the target sim feels towards the active sim." group="General" />
+
+            <Tunable type="ResourceKey" name="UNKNOWN_ICON" class="TunableIcon" default="None" display="Unknown Icon" description="The icon to display in the Sim Profile when the active sim does not know the relationship satisfaction that the target sim feels towards the active sim." group="General" resource_types="0x2f7d0004" />
+
+            <Tunable type="int" name="UNKNOWN_TITLE" class="TunableLocalizedString" default="0x0" display="Unknown Title" description="The title to use in the Sim Profile when the active sim does not know the relationship satisfaction that the target sim feels towards the active sim." group="General" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

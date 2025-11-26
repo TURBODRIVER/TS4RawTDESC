@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="sim_template" class="TunableSimTemplate" module="filters.sim_template" description="The base tunable filter." instance_subclasses_only="False" path="SimTemplates\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="_custom_packed_pronouns" class="OptionalTunable" default="disabled" display="Custom Packed Pronouns" description="The Sim's customized pronouns in order : subjective objective possessive dependent possessive independent reflexive e.g. 'He|him|his|his|himself|'" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+        </TunableVariant>
+
+        <TunableList name="_fixups" class="TunableList" display="Fixups" description="Sim info fixups that will be added to the generated sim." group="General">
+            <Tunable type="sim_info_fixup" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableVariant type="None" name="_major" class="OptionalTunable" default="disabled" display="Major" description="When enabled allows you to specify a major and university to enroll the Sim into." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="The degree that will be added to the generated Sim." group="General">
+                <TunableVariant type="None" name="major" class="OptionalTunable" default="Random" display="Major" description="When enabled allows you to specify which major the Sim will be enrolled in. When not enabled a random major will be chosen." group="General">
+                    <Tunable name="Random" class="TunableExistance" display="Random" />
+                    <Tunable type="university_major" name="Specific" class="TunableReference" display="Specific" description="The degree to enroll the Sim into." allow_none="False" group="General" />
+                </TunableVariant>
+                <Tunable type="int" name="num_courses_to_enroll_in" class="TunableRange" default="1" display="Num Courses To Enroll In" min="1" max="None" description="The amount of courses to enroll in for the chosen major. " tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="random_credits_in_range" class="TunableInterval" display="Random Credits In Range" description="The range of random values to be added to the credit count." group="General">
+                    <Tunable type="int" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="12" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableVariant type="None" name="university" class="OptionalTunable" default="Random" display="University" description="When enabled allows you to specify which university the Sim should be attending. When not enabled a random university will be assigned." group="General">
+                    <Tunable name="Random" class="TunableExistance" display="Random" />
+                    <Tunable type="university" name="Specific" class="TunableReference" display="Specific" description="The university to assign the Sim to when enrolling in a degree" allow_none="False" group="General" pack_safe="True" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableTuple name="_perks" class="TunableTuple" display="Perks" description="Perks that will be added to the generated template." group="General">
+            <TunableList name="explicit" class="TunableList" display="Explicit" description="A perk that will always be added to sim." group="General">
+                <Tunable type="bucks_perk" class="TunableReference" allow_none="False" group="General" />
+            </TunableList>
+            <TunableVariant type="None" name="num_random" class="OptionalTunable" default="disabled" display="Num Random" description="If enabled, we want random amount of perks to be added to sim." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="A tunable interval between lower_bound and upper_bound." group="General">
+                    <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableVariant>
+            <TunableTuple name="whiteblacklist" class="TunableWhiteBlackList" display="Whiteblacklist" description="Pass if perk is in one of the perks in the whitelist, or fail if it is any of the perks in the blacklist." group="General">
+                <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                    <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                    <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                        <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                            <Tunable type="bucks_perk" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                            <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableVariant>
+                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                    <Tunable name="everything" class="TunableExistance" display="Everything" />
+                    <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                        <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                            <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                            <Tunable type="bucks_perk" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+        </TunableTuple>
+
+        <TunableList name="_ranks" class="TunableList" display="Ranks" description="The ranked statistics that we want to set on the Sim." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="int" name="rank" class="Tunable" default="1" display="Rank" description="The rank value for this filter." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="statistic" name="ranked_statistic" class="TunableReference" display="Ranked Statistic" description="The ranked statistic that we are going to set." allow_none="False" group="General" pack_safe="True" restrict="RankedStatistic" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableTuple name="_sim_creation_info" class="TunableSimCreator" display="Sim Creation Info" description="The sim creation info that is passed into CAS in order to create the sim." group="General">
+            <TunableVariant type="None" name="age_variant" class="TunableVariant" default="none" display="Age Variant" description="The sim's age for creation. Can be a literal age or random between two ages." group="General">
+                <TunableTuple name="literal" class="TunableLiteralAge" display="Literal" description="Tunable to give literal age." group="General">
+                    <TunableEnum type="Age" name="literal_age" class="TunableEnumEntry" default="ADULT" display="Literal Age" static_entries="sims-sim_info_types.Age" description="The Sim's age." group="General" />
+                </TunableTuple>
+                <Tunable name="none" class="TunableExistance" display="None" />
+                <TunableTuple name="random" class="TunableRandomAge" display="Random" description="Tunable to give age between min and max" group="General">
+                    <TunableEnum type="Age" name="max_age" class="TunableEnumEntry" default="ADULT" display="Max Age" static_entries="sims-sim_info_types.Age" description="The maximum Age for creation" group="General" />
+                    <TunableEnum type="Age" name="min_age" class="TunableEnumEntry" default="ADULT" display="Min Age" static_entries="sims-sim_info_types.Age" description="The minimum age for creation." group="General" />
+                </TunableTuple>
+            </TunableVariant>
+            <TunableList name="body_type_chance_overrides" class="TunableMapping" display="Body Type Chance Overrides" mapping_key="key" mapping_value="value" description="Define body type chance overrides for the generate outfit. For example, if BODYTYPE_HAT is mapped to 100%, then the outfit is guaranteed to have a hat if any hat matches the specified tags." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="BodyType" name="key" class="TunableEnumEntry" default="NONE" display="Key" static_entries="sims-outfits-outfit_enums.BodyType" group="General" />
+                    <Tunable type="float" name="value" class="TunablePercent" default="100" display="Value" min="0" max="100" description="The chance that a part is applied to the corresponding body type." group="General" />
+                </TunableTuple>
+            </TunableList>
+            <TunableList name="body_type_match_not_found_policy" class="TunableMapping" display="Body Type Match Not Found Policy" mapping_key="key" mapping_value="value" description="The policy we should take for a body type that we fail to find a match for. Primary example is to use MATCH_NOT_FOUND_KEEP_EXISTING for generating a tshirt and making sure a sim wearing full body has a lower body cas part." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="BodyType" name="key" class="TunableEnumEntry" default="NONE" display="Key" static_entries="sims-outfits-outfit_enums.BodyType" group="General" />
+                    <TunableEnum type="MatchNotFoundPolicy" name="value" class="TunableEnumEntry" default="MATCH_NOT_FOUND_UNSPECIFIED" display="Value" static_entries="sims-outfits-outfit_enums.MatchNotFoundPolicy" group="General" />
+                </TunableTuple>
+            </TunableList>
+            <TunableList name="filter_flag" class="TunableEnumFlags" default="USE_EXISTING_IF_APPROPRIATE,USE_VALID_FOR_LIVE_RANDOM" display="Filter Flag" description="Define how to handle part randomization for the generated outfit." group="General" unique_entries="true">
+                <TunableEnum type="OutfitFilterFlag" class="TunableEnumEntry" default="NONE" static_entries="sims-outfits-outfit_enums.OutfitFilterFlag" group="General" />
+            </TunableList>
+            <TunableVariant type="None" name="full_name" class="TunableVariant" default="disabled" display="Full Name" description="If specified, then defines how the Sims name will be determined." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The Sim's name will be determined by this localized string. Their first, last and full name will all be set to this. " group="General" />
+                <TunableTuple name="first_and_last_name" class="TunableTuple" display="First And Last Name" description="The Sim's name will be determined by the specified localized strings. This is useful when regenerating a pre-made sim." group="General">
+                    <Tunable type="int" name="first_name" class="TunableLocalizedString" default="0x0" display="First Name" description="The Sim's first name." group="General" />
+                    <TunableVariant type="None" name="last_name" class="OptionalTunable" default="specify_last_name" display="Last Name" description="Optionally set the Sim's last name." group="General">
+                        <Tunable name="no_last_name" class="TunableExistance" display="No Last Name" />
+                        <Tunable type="int" name="specify_last_name" class="TunableLocalizedString" default="0x0" display="Specify Last Name" description="A localized string that may NOT require tokens." group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableEnum type="SimNameType" name="name_type" class="TunableEnumEntry" default="DEFAULT" display="Name Type" dynamic_entries="sims-sim_spawner_enums.SimNameType._elements" static_entries="sims-sim_spawner_enums.SimNameType" description="The sim name type to use when generating the Sims name randomly." group="General" />
+            </TunableVariant>
+            <TunableEnum type="Gender" name="gender" class="TunableEnumEntry" default="None" display="Gender" static_entries="sims-sim_info_types.Gender" description="The Sim's gender." group="General" />
+            <TunableVariant type="None" name="resource_key" class="OptionalTunable" default="disabled" display="Resource Key" description="If enabled, the Sim will be created using a saved SimInfo file." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="ResourceKey" name="enabled" class="TunableResourceKey" default="None" display="Enabled" description="The SimInfo file to use." group="General" resource_types="0x25ed6f4" />
+            </TunableVariant>
+            <TunableEnum type="SpeciesExtended" name="species" class="TunableEnumEntry" default="HUMAN" display="Species" static_entries="sims-sim_info_types.SpeciesExtended" description="The Sim's species." group="General" invalid_entries="INVALID" />
+            <Tunable type="tag_set" name="tunable_tag_set" class="TunableReference" display="Tunable Tag Set" description="The set of tags that this template uses for CAS creation." allow_none="True" group="General" restrict="TunableTagSet" />
+            <TunableList name="weighted_tag_lists" class="TunableList" display="Weighted Tag Lists" description="A list of weighted tag lists. Each weighted tag list adds a single tag to the set of tags to use for Sim creation." group="General">
+                <Tunable type="tag_set" class="TunableReference" description="A weighted tag list. A single tag is added to the set of tags for Sim creation from this list based on the weights." allow_none="False" group="General" restrict="TunableWeightedTagList" />
+            </TunableList>
+        </TunableTuple>
+
+        <TunableTuple name="_skills" class="TunableTuple" display="Skills" description="Skill that will be added to created sim." group="General">
+            <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="A list of skills that that will not be chosen if looking to set a random skill." group="General" unique_entries="true">
+                <Tunable type="statistic" class="TunableReference" allow_none="False" group="General" restrict="Skill" />
+            </TunableList>
+            <TunableList name="explicit" class="TunableList" display="Explicit" description="Skill that will be added to sim" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableTuple name="range" class="TunableSkillRange" display="Range" description="The possible skill range for a skill that will be added to the generated sim." group="General">
+                        <Tunable type="int" name="ideal_value" class="Tunable" default="5" display="Ideal Value" description="The ideal value for this skill. If outside of min/max, will be ignored" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="max_value" class="Tunable" default="10" display="Max Value" description="The maximum possible skill." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="min_value" class="Tunable" default="0" display="Min Value" description="The minimum possible skill." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <Tunable type="statistic" name="skill" class="TunableReference" display="Skill" description="The skill that will be added." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+                </TunableTuple>
+            </TunableList>
+            <TunableVariant type="None" name="random" class="OptionalTunable" default="no_extra_random" display="Random" description="Enable if you want random amount of skills to be added to sim." group="General">
+                <TunableTuple name="additional_random" class="TunableTuple" display="Additional Random" group="General">
+                    <TunableList name="choices" class="TunableList" display="Choices" description="A list of skills that will be chose for random update." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <TunableTuple name="range" class="TunableSkillRange" display="Range" description="The possible skill range for a skill that will be added to the generated sim." group="General">
+                                <Tunable type="int" name="ideal_value" class="Tunable" default="5" display="Ideal Value" description="The ideal value for this skill. If outside of min/max, will be ignored" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="max_value" class="Tunable" default="10" display="Max Value" description="The maximum possible skill." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="min_value" class="Tunable" default="0" display="Min Value" description="The minimum possible skill." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                            <Tunable type="statistic" name="skill" class="TunableReference" display="Skill" description="The skill that will be added. If left blank a random skill will be chosen that is not in the blacklist." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableTuple name="interval" class="TunableInterval" display="Interval" description="Additional random number skills to be added from the random list." group="General">
+                        <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+                <Tunable name="no_extra_random" class="TunableExistance" display="No Extra Random" />
+            </TunableVariant>
+        </TunableTuple>
+
+        <TunableTuple name="_traits" class="TunableTuple" display="Traits" description="Traits that will be added to the generated template." group="General">
+            <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="A list of traits that will not be considered when giving random skills." group="General" unique_entries="true">
+                <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <TunableList name="explicit" class="TunableList" display="Explicit" description="A trait that will always be added to sim." group="General">
+                <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <TunableVariant type="None" name="num_random" class="OptionalTunable" default="disabled" display="Num Random" description="If enabled a random number of personality traits that will be added to generated sim." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="A tunable interval between lower_bound and upper_bound." group="General">
+                    <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableVariant>
+        </TunableTuple>
+    </Instance>
+
+    
+</TuningRoot>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.push_npc_leave_lot_now">
+        <Class name="PushNpcLeaveLotNowInteraction">
+            <TunableList name="NPC_LEAVE_LOT_NOW_AFFORDANCES" class="TunableSet" display="Npc Leave Lot Now Affordances" group="General" unique_entries="true">
+                <Tunable type="interaction" class="TunableReference" description="The default interaction an NPC Sim will run when they are pushed to leave the lot." allow_none="False" group="General" />
+            </TunableList>
+
+            <TunableList name="NPC_LEAVE_LOT_NOW_MUST_RUN_AFFORDANCE" class="TunableSet" display="Npc Leave Lot Now Must Run Affordance" group="General" unique_entries="true">
+                <Tunable type="interaction" class="TunableReference" description="The default interaction an NPC Sim will run when they are pushed the 'must run' version of leave lot." allow_none="False" group="General" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

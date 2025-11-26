@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.complex.eviction_tenant_situation">
+        <Class name="EvictionReason" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="LEASE_EXPIRED" enum_value="2" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="RULE_BROKEN" enum_value="3" />
+
+            <EnumItem name="UNJUST_EVICTION" enum_value="4" />
+
+            <EnumItem name="UNPAID_RENT" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

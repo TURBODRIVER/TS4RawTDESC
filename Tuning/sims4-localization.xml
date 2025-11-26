@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims4.localization">
+        <Class name="ConcatenationStyle" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BULLET_SEPARATION" enum_value="3" />
+
+            <EnumItem name="COMMA_SEPARATION" enum_value="0" />
+
+            <EnumItem name="CONCATENATE_SEPARATION" enum_value="2" />
+
+            <EnumItem name="NEW_LINE_SEPARATION" enum_value="1" />
+        </Class>
+
+        <Class name="LocalizationHelperTuning">
+            <Tunable type="int" name="BULLETED_ITEM_STRUCTURE" class="TunableLocalizedString" default="0x0" display="Bulleted Item Structure" description="Localized string that will define a single bulleted item. e.g. * {0.String}" group="General" />
+
+            <Tunable type="int" name="BULLETED_LIST_STRUCTURE" class="TunableLocalizedString" default="0x0" display="Bulleted List Structure" description=" Localized string that will define the bulleted list start structure, this item will receive a string followed by a bulleted item e.g. {0.String} * {1.String} " group="General" />
+
+            <Tunable type="int" name="COLORED_TEXT" class="TunableLocalizedString" default="0x0" display="Colored Text" description="Localized string that takes in a string representing a font color hex and another string, and outputs the string in that color." group="General" />
+
+            <Tunable type="int" name="COMMA_LIST_STRUCTURE" class="TunableLocalizedString" default="0x0" display="Comma List Structure" description="Localized string that defines the format for a comma-separated list. e.g. {0.String}, {1.String}" group="General" />
+
+            <Tunable type="int" name="COMMA_LIST_STRUCTURE_LAST_ELEMENT" class="TunableLocalizedString" default="0x0" display="Comma List Structure Last Element" description="Localized string that defines the format of the last element of a comma- separated list. e.g. {0.String}, and {1.String}" group="General" />
+
+            <Tunable type="int" name="COMMA_LIST_STRUCTURE_TWO_ELEMENTS" class="TunableLocalizedString" default="0x0" display="Comma List Structure Two Elements" description="Localized string that defines the format of a two-element sequence of a comma-separated list. This does not necessarily have to include a comma. e.g. {0.String} and {1.String}" group="General" />
+
+            <Tunable type="int" name="CONCATENATED_STRING_STRUCTURE" class="TunableLocalizedString" default="0x0" display="Concatenated String Structure" description="Localized string that will define the format for two concatenated strings. The purpose of this string is to be able to combine two strings in the game like a state of an object with its name: 'Tested Reaper Potion' and 'Untested Reaper Potion' having the 'Tested' be a string and 'Reaper Potion' be a second string separated by a space. The localized string for this concatenation WILL NOT ALWAYS be string0 followed by string1, since in different languages the order might be different, so when using this concatenated string structure type be aware of this. English e.g. {0.String} {1.String} {'Untested'} {'Reaper Potion'} Spanish e.g. {1.String} {0.String} {'Pocion de muerte} {'sin probar'}" group="General" />
+
+            <Tunable type="int" name="ELLIPSIS" class="TunableLocalizedString" default="0x0" display="Ellipsis" description="Localized string that outputs a string followed by ellipsis. e.g. {0.String}..." group="General" />
+
+            <Tunable type="int" name="FOR_MONEY" class="TunableLocalizedString" default="0x0" display="For Money" description="Localized string that outputs a 'For Simoleon amount' when provided a number. e.g. For {0.Money}" group="General" />
+
+            <Tunable type="int" name="MONEY" class="TunableLocalizedString" default="0x0" display="Money" description="Localized string that outputs a Simoleon amount when provided a number. e.g. {0.Money}" group="General" />
+
+            <Tunable type="int" name="NAME_VALUE_PAIR_STRUCTURE" class="TunableLocalizedString" default="0x0" display="Name Value Pair Structure" description="Localized string that will define the pattern for name-value pairs, e.g. {0.String}: {1.String}" group="General" />
+
+            <Tunable type="int" name="NAME_VALUE_PARENTHESIS_PAIR_STRUCTURE" class="TunableLocalizedString" default="0x0" display="Name Value Parenthesis Pair Structure" description="Localized string that will define the pattern for name-value pairs using parenthesis. e.g. {0.String} ({1.String})" group="General" />
+
+            <Tunable type="int" name="NEW_LINE_LIST_STRUCTURE" class="TunableLocalizedString" default="0x0" display="New Line List Structure" description=" Localized string that will define the format for two new-line-seperated strings. e.g. {0.String} {1.String} " group="General" />
+
+            <Tunable type="int" name="OBJECT_DESCRIPTION_LOCALIZATION" class="TunableLocalizedString" default="0x0" display="Object Description Localization" description="Localized factory that will receive an object and will return the localized catalog description of that object e.g. {0.ObjectDescription} " group="General" />
+
+            <Tunable type="int" name="OBJECT_NAME_COUNT" class="TunableLocalizedString" default="0x0" display="Object Name Count" description="Localized string that defines the pattern for object counts. e.g. {0.Number} {S0.{S1.ObjectName}}{P0.{P1.ObjectName}}" group="General" />
+
+            <Tunable type="int" name="OBJECT_NAME_COUNT_WITH_DESCRIPTION" class="TunableLocalizedString" default="0x0" display="Object Name Count With Description" description=" Localized string that defines the pattern for object counts. e.g. {0.Number} {S0.{S1.ObjectName}}{P0.{P1.ObjectName}} {2.String} " group="General" />
+
+            <Tunable type="int" name="OBJECT_NAME_INDETERMINATE" class="TunableLocalizedString" default="0x0" display="Object Name Indeterminate" description="Localized factory that will receive an object and will return the object name preceded by the appropriate indeterminate article. e.g. A/an {0.ObjectName}" group="General" />
+
+            <Tunable type="int" name="OBJECT_NAME_LOCALIZATION" class="TunableLocalizedString" default="0x0" display="Object Name Localization" description="Localized factory that will receive an object and will return the localized catalog name of that object name e.g. {0.ObjectName} " group="General" />
+
+            <Tunable type="int" name="RAW_TEXT" class="TunableLocalizedString" default="0x0" display="Raw Text" description="Localized string that will define take a raw string and set it as a localized string. e.g. {0.String}" group="General" />
+
+            <Tunable type="int" name="SIM_FIRST_NAME_LOCALIZATION" class="TunableLocalizedString" default="0x0" display="Sim First Name Localization" description="Localized string that will recieve a sim and will return the First Name of the sim. e.g. {0.SimFirstName}" group="General" />
+
+            <Tunable type="int" name="SIM_FULL_NAME_LOCALIZATION" class="TunableLocalizedString" default="0x0" display="Sim Full Name Localization" description="Localized string that will recieve a sim and will return the Full Name of the sim. e.g. {0.SimFullName}" group="General" />
+
+            <Tunable type="int" name="START_TIME_TO_END_TIME" class="TunableLocalizedString" default="0x0" display="Start Time To End Time" description="Localized string that outputs a start to end time when provided two DateAndTimes. e.g. {0.TimeShort} to {1.TimeShort}" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

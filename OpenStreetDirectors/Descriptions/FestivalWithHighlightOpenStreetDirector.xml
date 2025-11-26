@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="open_street_director" class="FestivalWithHighlightOpenStreetDirector" module="open_street_director.basic_festival" description="Basic festival that supports call to actions" instance_needs_reference="True" instance_subclasses_only="False" parents="BasicFestivalOpenStreetDirector, BaseFestivalOpenStreetDirector, OpenStreetDirectorBase" path="OpenStreetDirectors\Descriptions" use_guid_for_reference="True">
+        <TunableList name="_call_to_actions" class="TunableList" display="Call To Actions" description="List of call to actions that should be started at the beginning of this Open Street Director, and last until it ends (or until a basic extra ends it 'early')." group="General">
+            <Tunable type="call_to_action" class="TunableReference" allow_none="False" group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

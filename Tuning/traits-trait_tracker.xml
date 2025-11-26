@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="traits.trait_tracker">
+        <Class name="TraitTracker">
+            <TunableList name="DEFAULT_GENDER_OPTION_TRAITS" class="TunableMapping" display="Default Gender Option Traits" mapping_key="key" mapping_value="value" description="A mapping from gender to default gender option traits. After loading the sim's trait tracker, if no gender option traits are found (e.g. loading a save created prior to them being added), the tuned gender option traits for the sim's gender will be added." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Gender" name="key" class="TunableEnumEntry" default="MALE" display="Key" static_entries="sims-sim_info_types.Gender" description="The Sim's gender." group="General" />
+                    <TunableList name="value" class="TunableSet" display="Value" description="The default gender option traits to be added for this gender." group="General" unique_entries="true">
+                        <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="EXCLUSIVE_SET" class="TunableList" display="Exclusive Set" description="A list of trait groups to determine which traits are exclusive from each other within the same group. We will prevent a trait from being added if a trait with a higher weight excludes it. We will remove traits with a lower or equal weight when we add a new trait. For example: Group 1 has: Trait A, Weight 3 Trait B, Weight 2 Trait C, Weight 1 Group 2 has: Trait B, Weight 3 Trait D, Weight 1 Trait E, Weight 1 If our sim has Trait A and tries to add: Trait B will not be added. Trait C will not be added. Trait D will be added. Trait E will be added. If our sim has Trait B and tries to add: Trait A will remove Trait B and add Trait A. Trait C will not be added. Trait D will not be added. Trait E will not be added. If our sim has Trait C and tries to add: Trait A will remove Trait C and add Trait A. Trait B will remove Trait C and add Trait B. Trait D will be added. Trait E will be added. If our sim has Trait D and tries to add: Trait A will be added. Trait B will remove Trait D and add Trait B. Trait C will be added. Trait E will remove Trait D and add Trait E. If our sim has Trait E and tries to add: Trait A will be added. Trait B will remove Trait E and add Trait B. Trait C will be added. Trait D will remove Trait E and add Trait D." group="General">
+                <TunableList class="TunableList" min="1" group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="trait" name="trait" class="TunableReference" display="Trait" description="A trait in the exclusive group." allow_none="False" group="General" pack_safe="True" />
+                        <Tunable type="int" name="weight" class="Tunable" default="1" display="Weight" description="The weight to determine if this trait should be added and remove other traits in the exclusive group, or not add this trait at all." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableList>
+
+            <TunableList name="GENDER_TRAITS" class="TunableMapping" display="Gender Traits" mapping_key="key" mapping_value="value" description="A mapping from gender to trait. Any Sim with the specified gender will have the corresponding gender trait." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Gender" name="key" class="TunableEnumEntry" default="MALE" display="Key" static_entries="sims-sim_info_types.Gender" description="The Sim's gender." group="General" />
+                    <Tunable type="trait" name="value" class="TunableReference" display="Value" description="The trait associated with the specified gender." allow_none="False" group="General" restrict="Trait" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="KNOWLEDGE_TRAIT_TYPES" class="TunableSet" display="Knowledge Trait Types" description="Sims are allowed to get knowledge about traits of these types." group="General" unique_entries="true">
+                <TunableEnum type="TraitType" class="TunableEnumEntry" default="PERSONALITY" static_entries="traits-trait_type.TraitType" group="General" />
+            </TunableList>
+
+            <TunableList name="SPECIES_EXTENDED_TRAITS" class="TunableMapping" display="Species Extended Traits" mapping_key="key" mapping_value="value" description="A mapping from extended species to trait. Any Sim of the specified extended species will have the corresponding extended species trait." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="SpeciesExtended" name="key" class="TunableEnumEntry" default="SMALLDOG" display="Key" static_entries="sims-sim_info_types.SpeciesExtended" description="The Sim's extended species." group="General" invalid_entries="INVALID" />
+                    <Tunable type="trait" name="value" class="TunableReference" display="Value" description="The trait associated with the specified extended species." allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SPECIES_TRAITS" class="TunableMapping" display="Species Traits" mapping_key="key" mapping_value="value" description="A mapping from species to trait. Any Sim of the specified species will have the corresponding species trait." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Species" name="key" class="TunableEnumEntry" default="HUMAN" display="Key" static_entries="sims-sim_info_types.Species" description="The Sim's species." group="General" invalid_entries="INVALID" />
+                    <Tunable type="trait" name="value" class="TunableReference" display="Value" description="The trait associated with the specified species." allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="TRAIT_INHERITANCE" class="TunableList" display="Trait Inheritance" description="Define how specific traits are transferred to offspring. Define keys of sets of traits resulting in the assignment of another trait, weighted against other likely outcomes." group="General">
+                <TunableTuple class="TunableTuple" description="A set of trait requirements and outcomes. Please note that inverted requirements are not necessary. The game will automatically swap parents A and B to try to fulfill the constraints. e.g. Alien Inheritance Alien inheritance follows a simple set of rules: Alien+Alien always generates aliens Alien+None always generates part aliens Alien+PartAlien generates either aliens or part aliens PartAlien+PartAlien generates either aliens, part aliens, or regular Sims PartAlien+None generates either part aliens or regular Sims Given the specifications involving 'None', we need to probably blacklist the two traits to detect a case where only one of the two parents has a meaningful trait: a_whitelist = Alien b_whitelist = Alien outcome = Alien a_whitelist = Alien b_blacklist = Alien,PartAlien outcome = PartAlien etc..." group="General">
+                    <TunableList name="outcomes" class="TunableList" display="Outcomes" description="A weighted list of potential outcomes given that the requirements have been satisfied." group="General">
+                        <TunableTuple class="TunableTuple" description="A weighted outcome. The weight is relative to other entries within this outcome set." group="General">
+                            <Tunable type="trait" name="trait" class="TunableReference" display="Trait" description="The potential inherited trait." allow_none="True" group="General" pack_safe="True" restrict="Trait" />
+                            <Tunable type="float" name="weight" class="Tunable" default="1" display="Weight" description="The relative weight of this outcome versus other outcomes in this same set." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableList name="parent_a_blacklist" class="TunableList" display="Parent A Blacklist" description="One of the parents must have ALL the traits specified in the Parent A Whitelist and none of the traits in the Parent A Blacklist." group="General">
+                        <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                    </TunableList>
+                    <TunableList name="parent_a_whitelist" class="TunableList" display="Parent A Whitelist" description="One of the parents must have ALL the traits specified in the Parent A Whitelist and none of the traits in the Parent A Blacklist." group="General">
+                        <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                    </TunableList>
+                    <TunableList name="parent_b_blacklist" class="TunableList" display="Parent B Blacklist" description="If either Parent A field has traits specified then the other parent must have all the traits specified in the Parent B Whitelist and none of the traits specified in the Parent B Blacklist. If both parents match the Parent A requirements (which would always be true if both Parent A fields are empty), then this passes if either of the parents match the Parent B requirements." group="General">
+                        <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                    </TunableList>
+                    <TunableList name="parent_b_whitelist" class="TunableList" display="Parent B Whitelist" description="If either Parent A field has traits specified then the other parent must have all the traits specified in the Parent B Whitelist and none of the traits specified in the Parent B Blacklist. If both parents match the Parent A requirements (which would always be true if both Parent A fields are empty), then this passes if either of the parents match the Parent B requirements." group="General">
+                        <Tunable type="trait" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

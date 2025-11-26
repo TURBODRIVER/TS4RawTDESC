@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="PostureTypeList" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="value" class="TunableList" display="Value" group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="posture" name="posture_type" class="TunableReference" display="Posture Type" description="Posture that is supported by this object." allow_none="False" group="General" pack_safe="True" />
+                <TunableVariant type="None" name="required_clearance" class="OptionalTunable" default="disabled" display="Required Clearance" description="Amount of clearance you need in front of the object or part for this posture to be supported." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="float" name="enabled" class="Tunable" default="1" display="Enabled" description="Amount of clearance you need in front of the object or part for this posture to be supported." tuning_state="NeedsTuning" group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

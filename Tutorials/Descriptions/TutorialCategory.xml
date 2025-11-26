@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tutorial" class="TutorialCategory" module="tutorials.tutorial" description="Category class for tutorials" instance_subclasses_only="False" path="Tutorials\Descriptions" use_guid_for_reference="True">
+        <TunableList name="content" class="TunableTags" display="Content" group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Set of lesson tags contained within this category." dynamic_entries_prefix="lesson" group="General" invalid_entries="INVALID" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="tutorial" name="intro" class="TunableReference" display="Intro" description="Introductory lesson associated with this category." allow_none="True" group="General" restrict="Tutorial" />
+
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="Name of the tutorial category." group="General" />
+
+        <TunableEnum type="Tag" name="tag" class="TunableTag" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The lesson tag associated with this category." dynamic_entries_prefix="lesson" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+        <Tunable type="int" name="ui_sort_order" class="Tunable" default="0" display="Ui Sort Order" description="Order in which this category is sorted against other categories. If two categories have the same sort order, the ordering is undefined." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+</TuningRoot>

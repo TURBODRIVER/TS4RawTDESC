@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="whim" class="Whim" module="whims.whim" description="Tuning for a single whim goal." instance_needs_reference="True" instance_subclasses_only="False" path="Whims\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="chaining_whimset_chance_multiplier" class="OptionalTunable" default="disabled" display="Chaining Whimset Chance Multiplier" description="When this whim completes and if this field is tuned, we will multiply this whim's source whimset's 'chance to be picked' by this multiplier. This allows us to have a higher chance of 'chaining' whims from the same whimset, without outright forcing it." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="float" name="enabled" class="Tunable" default="1.0" display="Enabled" description="The multiplier to apply to the whimset's 'chance to be picked'." tuning_state="NeedsTuning" group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="commodity" class="OptionalTunable" default="disabled" display="Commodity" description="If set, this whim will give a commodity when enabled." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="statistic" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" restrict="Commodity" />
+        </TunableVariant>
+
+        <Tunable type="int" name="fluff_description" class="TunableLocalizedString" default="0x0" display="Fluff Description" description="A description of the whim from the owning sim's perspective. For example, if the whim is 'buy a pool', the fluff description might be 'I've always wanted to swim in my own backyard. I should get a pool.'" group="General" />
+
+        <Tunable type="situation_goal" name="goal" class="TunableReference" display="Goal" description="The goal for this whim." allow_none="False" group="General" />
+
+        <TunableList name="super_affordances" class="TunableSet" display="Super Affordances" description="Super affordances this adds to the object." group="General" unique_entries="true">
+            <Tunable type="interaction" class="TunableReference" description="A super affordance added to this object." allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+        </TunableList>
+
+        <TunableList name="target_super_affordances" class="TunableProvidedAffordances" display="Target Super Affordances" description="Super affordances this adds to the target." group="General">
+            <TunableTuple class="TunableTuple" description="Tunables related to a specific affordance we are providing, with the ability to override specifics about targets, restrictions, and dependencies." group="General">
+                <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="An affordance we make available. Pay attention to who this affordance is provided on. See the provided affordances description for more info." allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+                <Tunable type="bool" name="allow_self" class="Tunable" default="False" display="Allow Self" description="If set, the Sim running the providing interaction is allowed to also run the provided interaction." group="General" />
+                <TunableVariant type="None" name="object_filter" class="TunableObjectFilterVariant" default="filter_by_sim" display="Object Filter" description="Define the type of objects this affordance is provided on." group="General">
+                    <TunableTuple name="allow_all" class="Tunable_FilterAllowAll" display="Allow All" description="No requirements. All objects are valid." group="General" />
+                    <TunableTuple name="filter_by_portal_flags" class="Tunable_FilterByPortalFlags" display="Filter By Portal Flags" description="Specify portal requirements for the object." group="General">
+                        <TunableList name="portal_flags" class="TunableEnumFlags" display="Portal Flags" description="The object must have any of these portal flags in order to satisfy the requirement." group="General" unique_entries="true">
+                            <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="filter_by_sim" class="Tunable_FilterBySim" display="Filter By Sim" description="Specify Sim or non-Sim requirements for the object. " group="General" />
+                    <TunableTuple name="filter_by_state" class="Tunable_FilterByState" display="Filter By State" description="Specify state requirements for the object." group="General">
+                        <TunableTuple name="states" class="TunableWhitelist" display="States" description="The required states to pass this test." group="General">
+                            <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                            <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                <Tunable type="object_state" class="TunableReference" description="The state value." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableTuple>
+                    <TunableTuple name="filter_by_tags" class="Tunable_FilterByTags" display="Filter By Tags" description="Specify tag requirements for the object." group="General">
+                        <TunableList name="tags" class="TunableSet" display="Tags" min="1" description="The object must have any of these tags in order to satisfy the requirement." group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" invalid_entries="INVALID" pack_safe="True" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="filter_by_terrain" class="Tunable_FilterByTerrain" display="Filter By Terrain" description="Specify a requirement of the object being the terrain." group="General">
+                        <Tunable type="bool" name="allow_unroutable_terrain" class="Tunable" default="False" display="Allow Unroutable Terrain" description="Allow surfaces that are in unroutable terrain. For example, when clicking on a neighboring lot." group="General" />
+                        <TunableList name="disallowed_surfaces" class="TunableSet" display="Disallowed Surfaces" description="Routing surfaces where the placement of this object should fail." group="General" unique_entries="true">
+                            <TunableEnum type="SurfaceType" class="TunableEnumEntry" default="SURFACETYPE_POOL" static_entries="routing.SurfaceType" group="General" invalid_entries="SURFACETYPE_UNKNOWN" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableEnum type="WhimType" name="type" class="TunableEnumEntry" default="INVALID" display="Type" static_entries="whims-whims_tracker.WhimType" description="The type of whim that this whim is." group="General" invalid_entries="INVALID" />
+    </Instance>
+</TuningRoot>

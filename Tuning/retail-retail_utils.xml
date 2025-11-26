@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="retail.retail_utils">
+        <Class name="RetailUtils">
+            <TunableEnum type="Tag" name="RETAIL_CUSTOMER_SITUATION_TAG" class="TunableEnumWithFilter" default="INVALID" display="Retail Customer Situation Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag associated with customer situations." dynamic_entries_prefix="situation" group="General" pack_safe="True" />
+
+            <TunableEnum type="Tag" name="RETAIL_EMPLOYEE_SITUATION_TAG" class="TunableEnumWithFilter" default="INVALID" display="Retail Employee Situation Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag associated with employee situations." dynamic_entries_prefix="situation" group="General" pack_safe="True" />
+
+            <TunableList name="RETAIL_INVENTORY_TYPES" class="TunableList" display="Retail Inventory Types" description="A reference to the inventory types of retail inventories. If a retail item gets put into any inventory type in this list, it will automatically be marked for sale." group="General">
+                <TunableEnum type="InventoryType" class="TunableEnumEntry" default="UNDEFINED" dynamic_entries="objects-components-inventory_enums.InventoryType._elements" static_entries="objects-components-inventory_enums.InventoryType" description="The inventory type." group="General" pack_safe="True" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

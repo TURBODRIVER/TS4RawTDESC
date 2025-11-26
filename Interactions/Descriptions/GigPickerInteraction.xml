@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="GigPickerInteraction" module="careers.gig_picker_interaction" description="Interaction that allows a player to pick a Gig from generated picker panel. Once selected, the Gig will be added to the Sim's career and scheduled." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="buckets" class="OptionalTunable" default="disabled" display="Buckets" description="If enabled, we only return Gigs from these buckets. Gigs with no buckets are rejected. The order in which buckets are tuned here will determine the order in which buckets are shown in the picker. Gigs from the first bucket will appear at the top of the picker and so on." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableList" display="Enabled" group="General" unique_entries="true">
+                <TunableEnum type="GigScoringBucket" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="careers-career_enums.GigScoringBucket._elements" static_entries="careers-career_enums.GigScoringBucket" description="Bucket to test against." group="General" />
+            </TunableList>
+        </TunableVariant>
+
+        <Tunable type="bool" name="disable_row_if_visibility_tests_fail" class="Tunable" default="False" display="Disable Row If Visibility Tests Fail" description="If checked, we will grey out any row if the corresponding gig failed its visibility testing. If not checked, the row won't be shown." group="General" />
+
+        <Tunable type="career" name="gig_career" class="TunableReference" display="Gig Career" description="The Gig Career associated with this interaction." allow_none="False" group="General" />
+
+        <TunableVariant type="None" name="loot_when_empty" class="OptionalTunable" default="disabled" display="Loot When Empty" description="If enabled, we run this loot when picker is empty and don't display the empty picker. If disabled, picker will appear empty." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableList" display="Enabled" description="Loot applied if the picker is going to be empty." group="General">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableList>
+        </TunableVariant>
+
+        <Tunable type="bool" name="run_visibility_tests" class="Tunable" default="True" display="Run Visibility Tests" description="If checked, This picker will run visibility tests on a gig to decide whether it should be shown. Otherwise, all gigs will be available." group="General" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="SkillStatePickerSuperInteraction" module="interactions.picker.skills_states_picker_interaction" description="A picker interaction that displays a picker populated with skills to apply a state value to the object." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="skills_states" class="TunableMapping" display="Skills States" mapping_key="key" mapping_value="value" description="List of all skills and their statuses that can be taught in a hobby class." group="Picker Tuning">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="statistic" name="key" class="TunableReference" display="Key" description="Skills that can be taught from a hobby class." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+                <TunableTuple name="value" class="TunableTuple" display="Value" group="General">
+                    <Tunable type="object_state" name="disabled_state_value" class="TunableReference" display="Disabled State Value" description="State value that target object will be changed to if skill is unselected." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <Tunable type="object_state" name="enabled_state_value" class="TunableReference" display="Enabled State Value" description="State value that target object will be changed to if skill is selected." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <Tunable type="object_state" name="state" class="TunableReference" display="State" description="The state of the skill to know if it is on or off to be taught." allow_none="False" group="General" pack_safe="True" restrict="ObjectState" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

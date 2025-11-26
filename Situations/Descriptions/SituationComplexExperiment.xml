@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="SituationComplexExperiment" module="situations.complex.complex_experiment" instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="_host_job" class="TunableTuple" display="Host Job" group="General">
+            <Tunable type="role_state" name="default_role_state" class="TunableReference" display="Default Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <TunableTuple name="mean_test" class="TunableParticipantRanInteractionTest" display="Mean Test" description="Test for a mean interaction that will trigger a state change" group="General">
+            <TunableList name="affordance_lists" class="TunableSet" display="Affordance Lists" description="The Sim must have run either any affordance or have a proxied affordance in Affordances or these Affordance Lists, or an interaction matching one of the tags in this tunable's Tags field." group="General" unique_entries="true">
+                <Tunable type="snippet" class="TunableReference" description="A reference to a AffordanceList tuning snippet." allow_none="False" group="General" restrict="AffordanceList" />
+            </TunableList>
+            <TunableList name="affordances" class="TunableSet" display="Affordances" description="The Sim must have run either any affordance or have a proxied affordance in this list or Affordance Lists, or an interaction matching one of the tags in this tunable's Tags field." group="General" unique_entries="true">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <Tunable type="bool" name="consider_all_cancelled_as_failure" class="Tunable" default="False" display="Consider All Cancelled As Failure" description="If True, test will consider the interaction outcome to be Failure if canceled for any reason. If this box is checked and consider_user_cancelled_as_failure is not checked, user cancel's will still be treated as failures." group="General" />
+            <Tunable type="bool" name="consider_user_cancelled_as_failure" class="Tunable" default="True" display="Consider User Cancelled As Failure" description="If True, test will consider the interaction outcome to be Failure if canceled by the user." group="General" />
+            <TunableList name="skill_tags" class="TunableSet" display="Skill Tags" description="Skill tags to check against skill attached to the interaction, determined by if the interaction identifies it in skill loot data, or if it is an associated skill in the outcome. If you are setting this and are not using affordances or lists for filtering, you probably want to ensure that you set interaction tags that are more or equally restrictive to either one of Interaction_Super or Interaction_Mixer. And do not use Interaction_All, unless you really want to trigger for both mixers and super interactions." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="skill" group="General" />
+            </TunableList>
+            <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+            </TunableList>
+            <TunableTuple name="target_filters" class="TunableTuple" display="Target Filters" description="Restrictions on the target of this interaction." group="General">
+                <TunableVariant type="None" name="object_states" class="OptionalTunable" default="disabled" display="Object States" description="Limit test success only to target objects that are in certain states" group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableTuple name="enabled" class="BasicStateCheckFactory" display="Enabled" description="This option tests crafted item's tags against a list of possible tags." group="General">
+                        <TunableVariant type="None" name="object_requirement" class="TunableVariant" default="any_object" display="Object Requirement" group="General">
+                            <Tunable name="any_object" class="TunableExistance" display="Any Object" />
+                            <TunableTuple name="definition" class="TunableTuple" display="Definition" group="General">
+                                <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object must have this definition." allow_none="False" group="General" pack_safe="True" />
+                            </TunableTuple>
+                            <TunableTuple name="tag" class="TunableTuple" display="Tag" group="General">
+                                <TunableTuple name="tag" class="CraftTaggedItemFactory" display="Tag" description="The object must have this tag." group="General">
+                                    <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tag of objects we want to test ownership of" group="General" unique_entries="true">
+                                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" pack_safe="True" />
+                                    </TunableList>
+                                    <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableList name="state_set" class="TunableSet" display="State Set" group="General" unique_entries="true">
+                            <Tunable type="object_state" class="TunableReference" description="What state to test for." allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableEnum type="StateTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_STATE_IN_SET" display="Test Type" static_entries="objects-object_tests.StateTestType" description="How to test the states in the state set against the objects in the inventory." group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+                <TunableVariant type="None" name="object_tags" class="OptionalTunable" default="disabled" display="Object Tags" description="Object tags for limiting test success to a subset of target objects." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Target object tags and how they are tested." group="General">
+                        <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="A set of tags to test the target object for." group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag to test the target object for." group="General" />
+                        </TunableList>
+                        <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the target object." group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+            <TunableEnum type="InteractionTestEvents" name="test_event" class="TunableEnumEntry" default="InteractionComplete" display="Test Event" static_entries="event_testing-tests_with_data.InteractionTestEvents" description="The event that we want to trigger this instance of the tuned test on. InteractionStart: Triggers when the interaction starts. InteractionComplete: Triggers when the interaction ends. This is best used with a one shot interaction. It will not get called if an interaction is canceled. If you have a Sim parked in an interaction that you can only exit via cancel, you will not hit this. InteractionUpdate: Triggers on a 15 sim minute cadence from the start of the interaction. If the interaction ends before a cycle is up it does not trigger. Do not use this for short interactions as it has a possibility of never getting an update for an interaction." group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="test_job" class="TunableTuple" display="Test Job" group="General">
+            <Tunable type="role_state" name="angry_role_state" class="TunableReference" display="Angry Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="role_state" name="friendly_role_state" class="TunableReference" display="Friendly Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

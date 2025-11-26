@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="AutonomousPreferredObjectPickerInteraction" module="interactions.base.picker_interaction" description="Autonomous picker interaction that selects the use only object for the specified ObjectPreferenceTag." instance_needs_reference="True" instance_subclasses_only="False" parents="AutonomousObjectPickerInteraction, AutonomousPickerSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Deleted name="basic_content" />
+
+        <Deleted name="ignore_group_socials" />
+
+        <Deleted name="joinable" />
+
+        <Deleted name="object_reservation_tests" />
+
+        <Deleted name="outfit_change" />
+
+        <Deleted name="outfit_priority" />
+
+        <Deleted name="post_guaranteed_autonomy_commodities" />
+
+        <Deleted name="post_run_autonomy_commodities" />
+
+        <Deleted name="pre_add_autonomy_commodities" />
+
+        <Deleted name="pre_run_autonomy_commodities" />
+
+        <TunableEnum type="ObjectPreferenceTag" name="preference_tag" class="TunableEnumEntry" default="INVALID" display="Preference Tag" dynamic_entries="autonomy-autonomy_preference.ObjectPreferenceTag._elements" static_entries="autonomy-autonomy_preference.ObjectPreferenceTag" description="The preference tag to use." group="Picker Tuning" invalid_entries="INVALID" />
+    </Instance>
+</TuningRoot>

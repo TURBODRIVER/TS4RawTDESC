@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="StereoPieMenuChoicesInteraction" module="objects.electronics.stereo" description="Interaction that lists all the channels available in the passed in audio state and calls the activate channel function when the selected channel is chosen" instance_needs_reference="True" instance_subclasses_only="False" parents="ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="off_state_pie_menu_category" class="TunableTuple" display="Off State Pie Menu Category" group="General">
+            <Tunable type="pie_menu_category" name="pie_menu_category" class="TunableReference" display="Pie Menu Category" description="Pie menu category so we can display a submenu for each outfit category" allow_none="True" group="General" />
+            <Tunable type="pie_menu_category" name="pie_menu_category_on_forwarded" class="TunableReference" display="Pie Menu Category On Forwarded" description="Pie menu category so when this interaction is forwarded from inventory object to inventory owner." allow_none="True" group="General" />
+        </TunableTuple>
+
+        <Tunable type="bool" name="push_additional_affordances" class="Tunable" default="True" display="Push Additional Affordances" description="Whether to push affordances specified by the channel. This is used for stereo's turn on and listen to... interaction" group="General" />
+    </Instance>
+</TuningRoot>

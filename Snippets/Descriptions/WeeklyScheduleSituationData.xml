@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="WeeklyScheduleSituationData" module="venues.weekly_schedule_zone_director" description="Structure containing the situation and job information neccessary to start a scheduled situation." instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="job_assignments" class="TunableList" display="Job Assignments" description="List of jobs with associated test of sims who can fulfill that job and min/max number of sims assigned to that job. Will make two passes attempting to assign instantiated sims to jobs. The first pass will assign instantiated sims that pass the test into jobs until the jobs meets the minimum requirements. The second pass will assign instantiated sims into jobs until the job meets the maximum requirements." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="situation_job" name="job" class="TunableReference" display="Job" description="The situation job. " allow_none="False" group="General" />
+                <TunableTuple name="sim_count" class="TunableInterval" display="Sim Count" description="Number of sims for this job. Minimum of 0 means job is optional. Will attempt to assign up to the max before moving on to next job/situation." group="General">
+                    <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests used to determine if the instanced sim should be assigned to this job." group="General" />
+                <TunableList name="upper_bound_count_modifiers" class="TunableList" display="Upper Bound Count Modifiers" description="Reduce Max sim count by 1 for every sim previously assigned (in this time period) to specified situation/job." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="situation_job" name="job" class="TunableReference" display="Job" description="The situation job. " allow_none="False" group="General" />
+                        <Tunable type="situation" name="situation" class="TunableReference" display="Situation" description="The Situation." allow_none="False" group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="situation" name="situation" class="TunableReference" display="Situation" description="Situation to run." allow_none="False" group="General" />
+
+        <TunableEnum type="UserFacingType" name="user_facing" class="TunableEnumEntry" default="NEVER" display="User Facing" static_entries="venues-weekly_schedule_zone_director.UserFacingType" description="NEVER: Never make user facing. ALWAYS: Make user facing if at least 1 selectable sim in in situation. LINK_SELECTABLE_SIMS: Make user facing and link to selectable sim if only 1 selectable sim is in the situation. LINK_CAREER_SIMS: Make user facing and link to career sim if only 1 career sim is in the situation." group="General" />
+    </Instance>
+</TuningRoot>

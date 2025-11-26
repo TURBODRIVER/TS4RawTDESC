@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="FamiliarPickerInteraction" module="familiars.familiar_interactions" description="Picker Interaction for Picking Familiars." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="incompatible_region_disabled_tooltip" class="TunableLocalizedString" default="0x0" display="Incompatible Region Disabled Tooltip" description="Tooltip that displays if a pet familiar is in an incompatible region." group="General" />
+
+        <TunableVariant type="None" name="picker_action" class="TunableVariant" default="set_active_familiar" display="Picker Action" description="The action to take after selecting a familiar from the picker." group="Picker Tuning">
+            <TunableTuple name="set_active_familiar" class="TunableSetActiveFamiliarAction" display="Set Active Familiar" description="Set the picked choice as the active familiar." group="General" />
+            <TunableTuple name="unbind_familiar" class="TunableUnbindFamiliarAction" display="Unbind Familiar" description="Unbind a familiar from the Sim." group="General" />
+        </TunableVariant>
+
+        <Tunable type="int" name="rabbit_holed_disabled_tooltip" class="TunableLocalizedString" default="0x0" display="Rabbit Holed Disabled Tooltip" description="Tooltip that displays if a pet familiar is in a rabbit hole." group="General" />
+    </Instance>
+</TuningRoot>

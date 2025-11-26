@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="university_course_data" class="UniversityCourseData" module="sims.university.university_tuning" description="University Course Data tunable resource." instance_needs_reference="True" instance_subclasses_only="False" path="UniversityCourseDatas\Descriptions" use_guid_for_reference="True">
+        <TunableList name="classroom_tag" class="TunableMapping" display="Classroom Tag" mapping_key="key" mapping_value="value" description="University specific classroom tags. Used by university interactions on shells to determine which building shell should have the interaction(s) available." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="university" name="key" class="TunableReference" display="Key" allow_none="False" group="General" />
+                <TunableList name="value" class="TunableSet" display="Value" min="1" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="int" name="cost" class="TunableRange" default="200" display="Cost" min="0" max="None" description="The cost of this course." tuning_state="NeedsTuning" group="General" />
+
+        <TunableTuple name="course_skill_data" class="TunableTuple" display="Course Skill Data" description="The related skill data for this specific course. Whenever a Sim does something that increases their course grade performance (like attending lecture or studying), this skill will also increase by the tunable amount. Likewise, whenever this related skill increases, the course grade will also increase." group="General">
+            <TunableVariant type="None" name="related_skill" class="OptionalTunable" default="disabled" display="Related Skill" description="The related skill associated with this course." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="statistic" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+            </TunableVariant>
+        </TunableTuple>
+
+        <TunableList name="course_tags" class="TunableTags" display="Course Tags" group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag for this course. Used for objects that may be shared between courses." dynamic_entries_prefix="course" group="General" invalid_entries="INVALID" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="aspiration" name="final_requirement_aspiration" class="TunableReference" display="Final Requirement Aspiration" description="An aspiration to use for tracking the final course requirement. " allow_none="True" group="General" restrict="AspirationAssignment" />
+
+        <TunableEnum type="FinalCourseRequirement" name="final_requirement_type" class="TunableEnumEntry" default="NONE" display="Final Requirement Type" static_entries="sims-university-university_enums.FinalCourseRequirement" description="The final requirement for this course. This requirement must be completed before the course can be considered complete." group="General" />
+
+        <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="Icon for this university course." allow_none="True" group="General" resource_types="0x2f7d0004" />
+
+        <TunableList name="professor_assignment_trait" class="TunableMapping" display="Professor Assignment Trait" mapping_key="key" mapping_value="value" description="A mapping of University -> professor assignment trait. This is needed because each of the universities shipped with EP08 use the exact same classes but we want different teachers for each university." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="university" name="key" class="TunableReference" display="Key" description="A reference to the University that the professor will belong to." allow_none="False" group="General" />
+                <Tunable type="trait" name="value" class="TunableReference" display="Value" description="The trait used to identify the professor for this course." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="spawn_point_tag" class="TunableMapping" display="Spawn Point Tag" mapping_key="key" mapping_value="value" description="University specific spawn point tags. Used by course related interactions to determine which spawn point to use for the constraint. (i.e. the one in front of the appropriate building)" group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="university" name="key" class="TunableReference" display="Key" allow_none="False" group="General" />
+                <TunableList name="value" class="TunableSet" display="Value" min="1" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="Spawn" group="General" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="university_course_mapping" class="TunableMapping" display="University Course Mapping" mapping_key="key" mapping_value="value" description="University specific course name and description. Each university can have its own course name and description defined." group="General" mapping_class="UniversityCourseDataMapping">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="university" name="key" class="TunableReference" display="Key" allow_none="False" group="General" />
+                <TunableTuple name="value" class="UniversityCourseDisplayData" display="Value" group="General">
+                    <Tunable type="int" name="course_description" class="TunableLocalizedString" default="0x0" display="Course Description" description="A description for this course." allow_none="True" group="General" />
+                    <Tunable type="int" name="course_name" class="TunableLocalizedString" default="0x0" display="Course Name" description="The name of this course." group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

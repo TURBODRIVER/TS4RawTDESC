@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="breed" class="Breed" module="sims.pets.breed_tuning" description="Breed properties and various gameplay behaviors." instance_subclasses_only="False" path="Breeds\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="breed_description" class="TunableLocalizedString" default="0x0" display="Breed Description" description="The breed description." group="General" />
+
+        <Tunable type="int" name="breed_display_name" class="TunableLocalizedString" default="0x0" display="Breed Display Name" description="The breed display name." group="General" />
+
+        <TunableEnum type="SpeciesExtended" name="breed_species" class="TunableEnumEntry" default="HUMAN" display="Breed Species" static_entries="sims-sim_info_types.SpeciesExtended" description="This breed is restricted to this species." binary_type="uint32" group="General" invalid_entries="HUMAN,INVALID" />
+
+        <TunableEnum type="Tag" name="breed_tag" class="TunableTag" default="INVALID" display="Breed Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag associated with this breed." dynamic_entries_prefix="breed" group="General" invalid_entries="INVALID" />
+
+        <TunableList name="breed_traits" class="TunableSet" display="Breed Traits" description="Traits that are by default associated with this breed." group="General" unique_entries="true">
+            <Tunable type="trait" class="TunableReference" allow_none="False" group="General" />
+        </TunableList>
+
+        <TunableList name="breed_voices" class="TunableList" display="Breed Voices" description="A list valid voice actors and pitch ranges that this breed can have when randomly generated." group="General">
+            <TunableTuple class="BreedVoiceTuple" group="General">
+                <Tunable type="int" name="breed_voice_actor_index" class="Tunable" default="0" display="Breed Voice Actor Index" description="The breed's default voice actor is a combination of its species and index. In general, 0-3 is mapped to A-D, though not all species have all four. (The mapping of species+index to voice actor is maintained in CASSharedUtils.cpp.) Dogs and small dogs share the same voice actors, and have four: Index 0 - DogA (Generic Dog) Index 1 - DogB (Small Yappy Dog) Index 2 - DogC (Tough Dog) Index 3 - DogD (Big Dumb Hound Dog) Cats have two: Index 0 - CatA (Generic Cat) Index 1 - CatB (Scratchy Alley Cat)" tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="breed_voice_pitch" class="TunableInterval" display="Breed Voice Pitch" description="Min/max voice pitch that the breed will have." group="General">
+                    <Tunable type="float" name="lower_bound" class="TunableRange" default="-1" display="Lower Bound" min="-1" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="1" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="sim_info_resources" class="TunableSet" display="Sim Info Resources" description="A list of YA resources for the breed. CAS will attempt to age down or up when they are generating the sim info with the age we pass in through the SimInfo. " group="General" unique_entries="true">
+            <Tunable type="ResourceKey" class="TunableResourceKey" default="None" group="General" resource_types="0x25ed6f4" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="career_gig" class="RabbitholeGig" module="careers.rabbithole_career_gig" description="Tuning specific to a rabbithole career gig." instance_subclasses_only="False" parents="Gig" path="CareerGigs\Descriptions" use_guid_for_reference="True">
+        <Deleted name="audio_on_prep_task_completion" />
+
+        <Deleted name="career_events" />
+
+        <Deleted name="end_of_gig_dialog" />
+
+        <Deleted name="gig_cast" />
+
+        <Deleted name="gig_cast_rel_bit_collection_id" />
+
+        <Tunable type="int" name="gig_picker_localization_format" class="TunableLocalizedString" default="0x0" display="Gig Picker Localization Format" description="String used to format the description in the gig picker. Currently has tokens for name, payout, gig time, tip title, and tip text." group="General" />
+
+        <Deleted name="gig_prep_tasks" />
+
+        <TunableTuple name="negative_mood_tuning" class="TunableTuple" display="Negative Mood Tuning" description="Tuning for the negative mood test. If the Sim has the any of the negative mood buffs (the Buff test passes), the failure chance tunable will be used to determine whether or not to apply the FAILURE outcome." group="General">
+            <Tunable type="float" name="failure_chance" class="TunablePercent" default="0.0" display="Failure Chance" min="0" max="100" description="Chance of a FAILURE outcome if the negative mood test passes." group="General" />
+            <TunableTuple name="negative_mood_test" class="TunableBuffTest" display="Negative Mood Test" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                    <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                </TunableList>
+                <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                    <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                </TunableList>
+                <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="Who or what to apply this test to." group="General" />
+                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                        <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                </TunableVariant>
+                <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                    </TunableList>
+                </TunableVariant>
+            </TunableTuple>
+        </TunableTuple>
+
+        <Deleted name="payout_stat_data" />
+
+        <TunableVariant type="None" name="recommended_skill_tuning" class="OptionalTunable" default="disabled" display="Recommended Skill Tuning" description="Tuning for the (optional) recommended skill. If the Sim has this skill, the outcome will depend on the Sim's skill level relative to the recommended skill level." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="int" name="critical_failure_skill_level_delta" class="Tunable" default="0" display="Critical Failure Skill Level Delta" description="The difference in skill levels lower than the recommended skill level for a Sim to qualify for a CRITICAL FAILURE outcome." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="failure_chance_multiplier" class="Tunable" default="0.0" display="Failure Chance Multiplier" description="The multiplier for determining the chance the Sim will receive the FAILURE outcome." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="great_success_chance_multiplier" class="Tunable" default="0.0" display="Great Success Chance Multiplier" description="The multiplier for determining the chance the Sim will receive the GREAT_SUCCESS outcome." tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="recommended_skill_test" class="TunableSkillRangeTest" display="Recommended Skill Test" description="The recommended skill test for this gig. For Home Assignment gigs, the skill range min and max should be the same." group="General">
+                    <Tunable type="statistic" name="skill" class="TunableReference" display="Skill" description="The skill to test against. Should the Sim not have the specified skill, or should the skill not be available because of pack restrictions, this Sim will be considered at level 0." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+                    <TunableVariant type="None" name="skill_range" class="TunableVariant" default="interval" display="Skill Range" description="A skill range defined by either an interval or a threshold." group="General">
+                        <TunableTuple name="interval" class="TunableSkillInterval" display="Interval" description="A TunableThreshold that is specifically used in Skill Range Tests to determine if a skill meets the required skill level." group="General">
+                            <TunableTuple name="skill_interval" class="TunableInterval" display="Skill Interval" description="The range (inclusive) a skill level must be in to pass this test." group="General">
+                                <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="upper_bound" class="TunableRange" default="10" display="Upper Bound" min="None" max="20" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableTuple>
+                        <TunableTuple name="threshold" class="TunableSkillThreshold" display="Threshold" description="A TunableThreshold that is specifically used in Skill Range Tests to determine if a skill meets the required skill level.' " group="General">
+                            <TunableTuple name="skill_threshold" class="TunableThreshold" display="Skill Threshold" description="The Threshold for the skill level to be valid." group="General">
+                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The subject of this test." group="General" />
+                    <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                    </TunableVariant>
+                    <Tunable type="bool" name="use_effective_skill_level" class="Tunable" default="False" display="Use Effective Skill Level" description="If checked, then instead of using the skill's actual level, the test will use the skill's effective level for the purpose of satisfying the specified criteria." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="cas_preference_item" class="CasPreferenceItem" module="cas.cas_preference_item" description="Tuning used by CAS to group the preference-traits with associated likes and dislikes. Anytime a new Preference Item subclass is added, update Tuning Load methods in SimPreferences.cpp/h in order for Preference Items to be available for selection in CAS." instance_needs_reference="True" instance_subclasses_only="False" path="CasPreferenceItems\Descriptions" use_guid_for_reference="True">
+        <Tunable type="cas_preference_category" name="cas_preference_category" class="TunableReference" display="Cas Preference Category" description="The category this Preference Item belongs to. (E.g. if the Preference Item contains: Trait-Likes-Pink and Trait-Dislikes-Pink, then the category would be Preference-Category-Color." allow_none="False" group="General" />
+
+        <Tunable type="trait" name="dislike" class="TunableReference" display="Dislike" description="The dislike-trait for this Preference Item." allow_none="False" group="General" />
+
+        <Tunable type="trait" name="like" class="TunableReference" display="Like" description="The like-trait for this Preference Item." allow_none="False" group="General" />
+
+        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="If enabled, the tooltip description text for this item in the CAS Preferences Panel." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

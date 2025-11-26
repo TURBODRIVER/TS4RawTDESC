@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="recipe" class="MusicTrack" module="crafting.music" description="A musical instrument song that may be performed and/or written by a Sim." instance_subclasses_only="False" path="Recipes\Descriptions" use_guid_for_reference="True">
+        <Tunable type="float" name="buffer" class="TunableRealSecond" default="0" display="Buffer" min="None" max="None" description="A buffer added to the track length. This is used to prevent the audio from stopping before it's finished." group="General" />
+
+        <Tunable type="bool" name="check_for_unlock" class="Tunable" default="False" display="Check For Unlock" description="Whether or not to check the Sim's Unlock Component to determine if they can play the song. Currently, only clips that are meant to be unlocked by the Write Song interaction should have this set to true." group="General" />
+
+        <Tunable type="float" name="length" class="TunableRealSecond" default="30" display="Length" min="0" max="None" description="The length of the clip in real seconds. This should be a part of the propx's file name." group="General" />
+
+        <TunableList name="moods" class="TunableList" display="Moods" description="A list of moods that will be used to determine which song a Sim will play autonomously. If a Sim doesn't know any songs that their current mood, they'll play anything." tuning_state="NeedsTuning" group="General">
+            <Tunable type="mood" class="TunableReference" allow_none="False" group="General" />
+        </TunableList>
+
+        <TunableVariant type="None" name="music_clip" class="OptionalTunable" default="disabled" display="Music Clip" description="If enabled, the music clip for music interactions. If disabled, make sure you have vocals tuned." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="ResourceKey" name="enabled" class="TunableResourceKey" default="None" display="Enabled" description="The propx file of the music clip to play." group="General" resource_types="0x39b2aa4a" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="music_track_name" class="OptionalTunable" default="enabled" display="Music Track Name" description="If the clip is of a song, this is its name. The name is shown in the Pie Menu when picking specific songs to play. If the clip isn't a song, like clips used for the Practice or Write Song interactions, this does not need to be tuned." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The track's name." group="General" />
+        </TunableVariant>
+
+        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests to verify if this song is available for the Sim to play." group="General" />
+
+        <TunableList name="vocals" class="TunableMapping" display="Vocals" mapping_key="participant" mapping_value="vocal_tracks" description="A mapping of participants and their potential vocal tracks. Each participant that has a vocal track that tests successfully will sing when the music starts. Note: The interaction's resolver will be passed into the vocal track tests, so use the same participant in those tests." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="ParticipantTypeSim" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSim" description="The participant who should sing vocals when the music starts." group="General" />
+                <TunableList name="vocal_tracks" class="TunableList" display="Vocal Tracks" description="If this music track has vocals, add them here. The first track that passes its test will be used. If no tracks pass their test, none will be used." group="General">
+                    <Tunable type="recipe" class="TunableReference" allow_none="False" group="General" restrict="VocalTrack" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.picker.object_marketplace_picker_interaction">
+        <Class name="ObjectMarketplacePickerInteraction">
+            <Tunable type="object_state" name="OBJECT_MARKETPLACE_PURCHASED_STATE_VALUE" class="TunableReference" display="Object Marketplace Purchased State Value" description="The state value that will be applied to objects after they have been purchased to indicate they have been purchased." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <Tunable type="int" name="REFRESH_TIME_TEXT" class="TunableLocalizedString" default="0x0" display="Refresh Time Text" description="Text indicating how much time is left until the picker refreshes. Shown in picker. Receives a single time token." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

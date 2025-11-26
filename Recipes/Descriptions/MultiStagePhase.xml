@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="recipe" class="MultiStagePhase" module="crafting.recipe" description="A recipe phase that contains multiple stages." instance_subclasses_only="False" parents="Phase" path="Recipes\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="multiple_order_tuning" class="OptionalTunable" default="disabled" display="Multiple Order Tuning" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="int" name="min_turns_required" class="Tunable" default="0" display="Min Turns Required" description="Minimum pips needed for adding more orders." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

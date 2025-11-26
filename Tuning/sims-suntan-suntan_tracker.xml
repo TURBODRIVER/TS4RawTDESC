@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.suntan.suntan_tracker">
+        <Class name="SuntanTracker">
+            <Tunable type="object_state" name="TAN_LEVEL_OBJECT_STATE" class="TunableReference" display="Tan Level Object State" description="The object state that represents a Sims tan level." allow_none="False" group="General" pack_safe="True" restrict="ObjectState" />
+
+            <TunableList name="TAN_LEVEL_TO_STATE_MAP" class="TunableMapping" display="Tan Level To State Map" mapping_key="key" mapping_value="value" description="Map of tan level to object state that corresponds to that tan level. Used on save/load to set the state of the Sim object to persist the tan state correctly." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="TanLevel" name="key" class="TunableEnumEntry" default="NO_TAN" display="Key" static_entries="sims-suntan-suntan_tuning.TanLevel" description="Tan level that needs to be persisted." group="General" pack_safe="True" />
+                    <Tunable type="object_state" name="value" class="TunableReference" display="Value" description="The object state value that represents the persisted tan level that needs to be set on load." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="buff" name="TAN_PRANK_BUFF" class="TunableReference" display="Tan Prank Buff" description="A Sim that has this buff will generate new tan lines based on their current outfit when changing tan level." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableList name="TAN_PRANK_CAS_PARTS" class="TunableList" display="Tan Prank Cas Parts" description="A list of CAS parts from which a random entry is selected if a Sim has been pranked to generate tan lines." group="General">
+                <Tunable type="caspart" class="TunableReference" description="CAS part to use to generate tan lines for a Sim that has been pranked." group="General" pack_safe="True" />
+            </TunableList>
+
+            <Tunable type="buff" name="UPDATE_TAN_LINES_BUFF" class="TunableReference" display="Update Tan Lines Buff" description="A Sim that has this buff will generate new tan lines based on their current outfit when changing tan level." allow_none="False" group="General" pack_safe="True" />
+        </Class>
+    </Module>
+</TuningRoot>

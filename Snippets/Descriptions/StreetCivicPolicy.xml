@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="StreetCivicPolicy" module="civic_policies.street_civic_policy" description="A Street Civic Policy manages a set of Street Civic Policy Effects." instance_needs_reference="True" instance_subclasses_only="False" parents="BaseCivicPolicy, DisplaySnippet" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="civic_policy_effects" class="TunableList" display="Civic Policy Effects" description="Actions to apply when the civic policy is enacted." group="General">
+            <Tunable type="snippet" class="TunableReference" description="A Street Effect to include." allow_none="False" group="General" pack_safe="True" restrict="StreetEffect" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

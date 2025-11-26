@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="career_gig" class="HomeAssignmentGig" module="careers.home_assignment_career_gig" description="Tuning specific to a home assignment career gig. These gigs use the gig time as a deadline before which a sim must complete an aspiration/assignment." instance_subclasses_only="False" parents="Gig" path="CareerGigs\Descriptions" use_guid_for_reference="True">
+        <Deleted name="audio_on_prep_task_completion" />
+
+        <TunableVariant type="None" name="bonus_gig_aspiration_tuning" class="OptionalTunable" default="disabled" display="Bonus Gig Aspiration Tuning" description="Tuning for the bonus gig aspiration. This is optional, but if the aspiration is completed, it results in a chance for a better outcome." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="aspiration" name="bonus_gig_aspiration" class="TunableReference" display="Bonus Gig Aspiration" description="The bonus aspiration to use as part of this gig's assignments." allow_none="False" group="General" restrict="Aspiration" />
+                <Tunable type="float" name="great_success_chance" class="TunablePercent" default="0.0" display="Great Success Chance" min="0" max="100" description="Chance of a SUCCESS outcome being upgraded to GREAT_SUCCESS." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Deleted name="career_events" />
+
+        <Deleted name="end_of_gig_dialog" />
+
+        <Tunable type="aspiration" name="gig_assignment_aspiration" class="TunableReference" display="Gig Assignment Aspiration" description="An aspiration to use as the assignment for this gig. The objectives of this aspiration" allow_none="False" group="General" restrict="AspirationGig" />
+
+        <Deleted name="gig_cast" />
+
+        <Deleted name="gig_cast_rel_bit_collection_id" />
+
+        <Tunable type="int" name="gig_picker_localization_format" class="TunableLocalizedString" default="0x0" display="Gig Picker Localization Format" description="String used to format the description in the gig picker. Currently has tokens for name, payout, gig time, tip title, and tip text." group="General" />
+
+        <Deleted name="gig_prep_tasks" />
+
+        <TunableVariant type="None" name="great_success_remaining_time" class="OptionalTunable" default="disabled" display="Great Success Remaining Time" description="If the aspiration for this gig is completed with more than this amount of time left, the gig will be considered a great success." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTimeSpan" display="Enabled" description="A duration that may be specified in weeks/days/hours/minutes." group="General">
+                <Tunable type="int" name="days" class="TunableRange" default="0" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="hours" class="TunableRange" default="0" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Deleted name="payout_stat_data" />
+    </Instance>
+</TuningRoot>

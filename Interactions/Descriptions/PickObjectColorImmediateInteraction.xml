@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="PickObjectColorImmediateInteraction" module="objects.color.object_color_interactions" description="An interaction that immediately changes the object color value of an object." instance_needs_reference="True" instance_subclasses_only="False" parents="ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="ObjectColorPickerStyle" name="dialog_style" class="TunableEnumEntry" default="SIMPLE" display="Dialog Style" static_entries="objects-color-object_color_enums.ObjectColorPickerStyle" description="Formatting of the color picker dialog. " group="General" />
+
+        <TunableVariant type="None" name="object_color_operation" class="TunableVariant" default="to_light" display="Object Color Operation" description="Define the operation we're going to execute. We can either apply the color to a light or to a ghost sim." group="General">
+            <TunableTuple name="to_ghost" class="Tunable_ToGhost" display="To Ghost" description="The interaction displays a dialog that changes the ghost's color." group="General" />
+            <TunableTuple name="to_light" class="Tunable_ToLight" display="To Light" description="The interaction displays a dialog that changes the light's color or intensity." group="General">
+                <TunableVariant type="None" name="light_target" class="TunableLightTargetVariant" default="this_light" display="Light Target" description="Define the set of lights this operation applies to (e.g. All Lights, This Room, All Candles, etc...)" group="General">
+                    <TunableTuple name="all_lights" class="Tunable_LightTargetAll" display="All Lights" description="The target are all lights, except those tagged as manual lights." group="General">
+                        <Tunable type="bool" name="include_common_area" class="Tunable" default="False" display="Include Common Area" description="If set, all lights in common areas of apartments or residential rental will be considered." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="room_lights" class="Tunable_LightTargetRoom" display="Room Lights" description="The target are all lights in the same room as the interaction target, expect manual lights." group="General" />
+                    <TunableTuple name="specific_lights" class="Tunable_LightTargetFromTags" display="Specific Lights" description="The target are all lights with a specific tag, including lights tagged as manual lights." group="General">
+                        <TunableList name="tags" class="TunableSet" display="Tags" description="An object with any tag in this set is a potential target of this interaction, provided it has a lighting component." group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag." group="General" pack_safe="True" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="this_light" class="Tunable_LightTargetInteraction" display="This Light" description="The target is the light that is the target of the interaction." group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableEnum type="ObjectColorPickerPalette" name="palette_colors" class="TunableEnumEntry" default="INVALID" display="Palette Colors" static_entries="objects-color-object_color_enums.ObjectColorPickerPalette" description="The palette of colors to show in the dialog." group="General" invalid_entries="INVALID" />
+
+        <TunableVariant type="None" name="palette_label" class="OptionalTunable" default="disabled" display="Palette Label" description="Override the label of the color palette. " group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="slider_label" class="OptionalTunable" default="disabled" display="Slider Label" description="Override the label of the slider. " group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="call_to_action" class="CallToAction" module="call_to_action.call_to_action" description="A specific Call To Action. (Highlight designed to attract players attention and get him to perform an interaction on the specified object)" instance_subclasses_only="False" path="CallsToAction\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="_color" class="TunableColor" default="none" display="Color" description="The color of the call to action." group="General">
+            <TunableTuple name="hex" class="TunableColorHex" display="Hex" description="A color." group="General">
+                <Tunable type="str" name="hex_code" class="Tunable" default="#FFFFFFFF" display="Hex Code" description="An ARGB color in hex, same as one would use in HTML. A leading '0x' or '#' is allowed but not required. You can omit the alpha, in which case opaque is assumed." group="General" />
+            </TunableTuple>
+            <TunableEnum type="Color" name="name" class="TunableEnumEntry" default="WHITE" display="Name" static_entries="sims4-color.Color" group="General" />
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableTuple name="rgb" class="TunableColorRGBA" display="Rgb" description="A color." group="General">
+                <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="_desired_state_threshold" class="OptionalTunable" default="disabled" display="Desired State Threshold" description="Optional additional state threshold filter for objects that already pass the tag filter." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableThreshold" display="Enabled" description="Optional additional state threshold filter for objects that already pass the tag filter." group="General">
+                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                <Tunable type="object_state" name="value" class="TunableReference" display="Value" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="int" name="_max_highlighted_objects" class="TunableRange" default="0" display="Max Highlighted Objects" min="0" max="None" description="The maximum number of objects that will be highlighted by this call to action. 0 means no limit." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="bool" name="_on_active_lot" class="Tunable" default="True" display="On Active Lot" description="Whether or not objects on active lot should be highlighted." group="General" />
+
+        <Tunable type="bool" name="_on_open_street" class="Tunable" default="True" display="On Open Street" description="Whether or not objects on open street should be highlighted." group="General" />
+
+        <Tunable type="float" name="_pulse_frequency" class="TunableRange" default="1.0" display="Pulse Frequency" min="0.1" max="None" description="The frequency at which the highlight pulses." tuning_state="NeedsTuning" group="General" />
+
+        <TunableVariant type="None" name="_sim_filter" class="OptionalTunable" default="disabled" display="Sim Filter" description="Filter to select one or more sims to recieve the CTA." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="sim_filter" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" pack_safe="True" restrict="TunableSimFilter" />
+        </TunableVariant>
+
+        <TunableList name="_sim_tests" class="TunableList" display="Sim Tests" description="Tests used to determine which sims to allow in the call to action." group="General">
+            <TunableTuple class="TunableTuple" description="A combination of a test and information to choose a sim as the test target." group="General">
+                <Tunable type="snippet" name="scenario_role" class="TunableReference" display="Scenario Role" description="When set and Target Type is SCENARIO_SIM this will be the role used to determine what sim to target for the test." allow_none="True" group="General" restrict="ScenarioRole" />
+                <TunableEnum type="CallToActionActorType" name="target_type" class="TunableEnumEntry" default="ACTIVE_SIM" display="Target Type" static_entries="call_to_action-call_to_action.CallToActionActorType" description="How to determine which sim should be chosen as the target of this test." group="General" />
+                <TunableVariant type="None" name="test" class="TunableCallToActionTestVariant" default="none" display="Test" description="A tunable test support for choosing sims to be highlighted" group="General">
+                    <TunableTuple name="has_buff" class="TunableBuffTest" display="Has Buff" description="Test whether or not a participant has or doesn't have specific buffs." group="General">
+                        <Tunable type="bool" name="apply_whitelist_on_individual_basis" class="Tunable" default="True" display="Apply Whitelist On Individual Basis" description="If checked, will require that each target has at least one whitelisted buff. If unchecked, will require only a single target to have at least one whitelisted buff." group="General" />
+                        <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="The Sim must not have any buff in this list to pass the test." group="General" unique_entries="true">
+                            <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableList name="blacklist_tags" class="TunableTags" display="Blacklist Tags" group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Sim must not have any buff that matches any of these tags to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                        </TunableList>
+                        <TunableList name="categories_to_ignore" class="TunableList" display="Categories To Ignore" description="If a buff is found from Require Categories or Disallow Categories and has a category from within this list, then it will be ignored for the test and not count toward passing or failing." group="General">
+                            <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category if found on a buff to make the buff be ignored." group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableList name="disallow_categories" class="TunableList" display="Disallow Categories" description="Each target must not have any buffs with any of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                            <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be disallowed." group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableList name="require_categories" class="TunableList" display="Require Categories" description="Each target must have at least one buff with at least one of the categories tuned here. This category comes from the buff's owning commodity categories (from Categories tuned on the commodity or from Temporary Commodity Info on the buff). Buffs with any category tuned in Categories To Ignore will not be considered in this test." group="General">
+                            <TunableEnum type="StatisticCategory" class="TunableEnumEntry" default="INVALID" dynamic_entries="statistics-statistic_categories.StatisticCategory._elements" static_entries="statistics-statistic_categories.StatisticCategory" description="Category to be required." group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="Who or what to apply this test to." group="General" />
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled, participant will test for buff's on the whitelist." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableSet" display="Enabled" description="The participant must have at least one buff in this list to pass the test." group="General" unique_entries="true">
+                                <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="whitelist_tags" class="OptionalTunable" default="disabled" display="Whitelist Tags" description="If enabled, participant will test for buffs which match tags in the defined set." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableTags" display="Enabled" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The participant must have at least one buff which matches a tag in this list to pass the test." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" pack_safe="True" />
+                            </TunableList>
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="has_job" class="TunableSituationJobTest" display="Has Job" description="Require the tuned participant to have a specific situation job. If multiple participants, ALL participants must have the required job to pass." group="General">
+                        <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If checked then the test result will be reversed, so it will test to see if they are not in a job or not in role state that has matching tags." group="General" />
+                        <TunableList name="role_tags" class="TunableSet" display="Role Tags" description="The participant must have a job that matches the role_tags or have the situation_job." group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableList name="situation_jobs" class="TunableSet" display="Situation Jobs" description="The participant must have this job in this list or a job that matches the role_tags." group="General" unique_entries="true">
+                            <Tunable type="situation_job" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <Tunable name="none" class="TunableExistance" display="None" />
+                    <TunableTuple name="relationship" class="TunableRelationshipTest" display="Relationship" description="Gate availability by a relationship status." group="General">
+                        <Tunable type="bool" name="invert_num_relations" class="Tunable" default="False" display="Invert Num Relations" description="If checked then we will check that your Num Relations is less than or equal to the value rather than the other way around." group="General" />
+                        <Tunable type="bool" name="must_have_track" class="Tunable" default="False" display="Must Have Track" description="Setting this to True (checked) will ensure that this test only passes if the tested Sims actually have the tuned relationship track. If left False (unchecked), this test will evaluate as if the Sims have the relationship track at the value of 0." group="General" />
+                        <Tunable type="int" name="num_relations" class="Tunable" default="0" display="Num Relations" description="Number of Sims with specified relationships required to pass, default(0) is all known relations. If value set to 1 or greater, then test is looking at least that number of relationship to match the criteria. If value is set to 0, then test will pass if relationships being tested must match all criteria of the test to succeed. For example, if interaction should not appear if any relationship contains a relationship bit, this value should be 0." tuning_state="NeedsTuning" group="General" />
+                        <TunableTuple name="prohibited_relationship_bits" class="TunableTuple" display="Prohibited Relationship Bits" group="General">
+                            <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must match to fail the test." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" />
+                            </TunableList>
+                            <TunableList name="match_any" class="TunableSet" display="Match Any" description="If any of these relationship bits match the test will fail." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="relationship_score_interval" class="TunableInterval" display="Relationship Score Interval" description="The range that the relationship score must be within in order for this test to pass." group="General">
+                            <Tunable type="float" name="lower_bound" class="TunableRange" default="-100.0" display="Lower Bound" min="-100.0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="upper_bound" class="TunableRange" default="100.0" display="Upper Bound" min="None" max="100.0" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="required_relationship_bits" class="TunableTuple" display="Required Relationship Bits" group="General">
+                            <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must be present to pass the test." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                            <TunableList name="match_any" class="TunableSet" display="Match Any" description="Any of these relationship bits will pass the test." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableEnum type="RelationshipTestEvents" name="test_event" class="TunableEnumEntry" default="AllRelationshipEvents" display="Test Event" static_entries="relationships-relationship_tests.RelationshipTestEvents" description="The event that we want to trigger this instance of the tuned test on." group="General" />
+                        <TunableVariant type="None" name="test_incest" class="TunableVariant" default="disabled" display="Test Incest" description="Test for incest status. Test passes if this matches the two Sim's incest status." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable name="is incestuous" class="TunableExistance" display="Is Incestuous" />
+                            <Tunable name="is not incestuous" class="TunableExistance" display="Is Not Incestuous" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                        <Tunable type="statistic" name="track" class="TunableReference" display="Track" description="If set, the test will use the relationship score between sims for this track. If unset, the track defaults to the global module tunable REL_INSPECTOR_TRACK." allow_none="True" group="General" pack_safe="True" restrict="RelationshipTrack" />
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="_tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The set of tags that are used to determine which objects to highlight." group="General" invalid_entries="INVALID" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="float" name="_thickness" class="TunableRange" default="0.002" display="Thickness" min="0.001" max="0.005" description="The thickness of the highlight." tuning_state="NeedsTuning" group="General" />
+
+        <TunableVariant type="None" name="_tutorial_text" class="OptionalTunable" default="disabled" display="Tutorial Text" description="Text for a tutorial call to action. If this is enabled, the CTA will be a tutorial CTA with the specified text." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="highlighted_object_vfx" class="OptionalTunable" default="disabled" display="Highlighted Object Vfx" description="If enabled, we will play an effect on the objects highlighted by this call to action." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableVariant type="None" name="enabled" class="TunablePlayEffectVariant" default="no_effect" display="Enabled" description="Effect to play on the objects when they are highlighted." group="General">
+                <Tunable name="no_effect" class="TunableExistance" display="No Effect" />
+                <TunableTuple name="play_effect" class="TunablePlayEffect" display="Play Effect" description="Distributable Primitive-like object (it supports the running/stop/write API) that represents a visual effect parented to a game object. Call start() to start the effect and stop() to stop it." group="General">
+                    <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+                    <TunableVariant type="None" name="joint_name" class="OptionalTunable" default="Slot" display="Joint Name" description="Specify if the visual effect is attached to a slot and, if so, which slot." group="General">
+                        <Tunable name="Current_Position" class="TunableExistance" display="Current Position" />
+                        <Tunable type="str" name="Slot" class="TunableStringHash32" default="_FX_" display="Slot" description="The name of the slot this effect is attached to." group="General" />
+                    </TunableVariant>
+                    <Tunable type="bool" name="play_immediate" class="Tunable" default="False" display="Play Immediate" description="If checked, this effect will be triggered immediately, nothing will block. ex. VFX will be played immediately while the Sim is routing or animating." group="General" />
+                </TunableTuple>
+                <TunableTuple name="play_multiple_effects" class="TunablePlayMultipleEffects" display="Play Multiple Effects" description="Play multiple visual effects." group="General">
+                    <TunableList name="vfx_list" class="TunableList" display="Vfx List" description="A list of effects to play" group="General">
+                        <TunableTuple class="TunablePlayEffect" description="A single effect to play." group="General">
+                            <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+                            <TunableVariant type="None" name="joint_name" class="OptionalTunable" default="Slot" display="Joint Name" description="Specify if the visual effect is attached to a slot and, if so, which slot." group="General">
+                                <Tunable name="Current_Position" class="TunableExistance" display="Current Position" />
+                                <Tunable type="str" name="Slot" class="TunableStringHash32" default="_FX_" display="Slot" description="The name of the slot this effect is attached to." group="General" />
+                            </TunableVariant>
+                            <Tunable type="bool" name="play_immediate" class="Tunable" default="False" display="Play Immediate" description="If checked, this effect will be triggered immediately, nothing will block. ex. VFX will be played immediately while the Sim is routing or animating." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

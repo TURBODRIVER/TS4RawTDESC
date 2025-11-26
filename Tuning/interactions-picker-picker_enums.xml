@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.picker.picker_enums">
+        <Class name="PickerInteractionDeliveryMethod" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DELIVERY_SERVICE_NPC" enum_value="3" />
+
+            <EnumItem name="INVENTORY" enum_value="0" />
+
+            <EnumItem name="MAILMAN" enum_value="1" />
+
+            <EnumItem name="SLOT_TO_PARENT" enum_value="2" />
+        </Class>
+
+        <Class name="SimPickerLinkContinuation" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACTOR" enum_value="1" />
+
+            <EnumItem name="ALL" enum_value="3" />
+
+            <EnumItem name="NEITHER" enum_value="0" />
+
+            <EnumItem name="PICKED" enum_value="2" />
+
+            <EnumItem name="TARGET" enum_value="4" />
+        </Class>
+
+        <Class name="DuplicateObjectsSuppressionType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BY_DEFINITION_ID" enum_value="0" />
+
+            <EnumItem name="BY_DEFINITION_ID_AND_STACK_ID" enum_value="2" />
+
+            <EnumItem name="BY_STACK_ID" enum_value="1" />
+        </Class>
+
+        <Class name="PriceOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="USE_CURRENT_VALUE" enum_value="0" />
+
+            <EnumItem name="USE_RETAIL_VALUE" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

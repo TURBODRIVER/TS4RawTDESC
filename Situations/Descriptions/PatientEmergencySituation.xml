@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="PatientEmergencySituation" module="situations.complex.patient_emergency_situation" description="Situation used when a patient has an Emergency that a doctor needs to address on top of all of the doctors other daily duties." instance_subclasses_only="False" parents="PatientSituationBase, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="force_patient_on_active_career_sim" class="Tunable" default="False" display="Force Patient On Active Career Sim" description="If true then the patient will be the active career sim, otherwise we will let the filter service select a sim." group="Job and State" />
+
+        <Tunable type="float" name="procedure_duration_for_time_jump" class="TunableSimMinute" default="180" display="Procedure Duration For Time Jump" min="None" max="None" description="The amount of time allowed to pass before a Sim in the procedure state will be ignored on load with a time jump." tuning_state="NeedsTuning" group="Timeout And Time Jump" />
+
+        <Tunable type="role_state" name="procedure_role_state" class="TunableReference" display="03_procedure_role_state" description="A reference to the hospital patients diagnosed role state while in the situation. This is the state where the patient has been diagnosed but it still waiting for the doctor to treat them." allow_none="False" group="Job and State" restrict="RoleState" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="statistics.skill">
+        <Class name="SkillLevelType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CHILD" enum_value="2" />
+
+            <EnumItem name="MAJOR" enum_value="0" />
+
+            <EnumItem name="MINOR" enum_value="1" />
+
+            <EnumItem name="POTTY" enum_value="6" />
+
+            <EnumItem name="TEEN" enum_value="3" />
+
+            <EnumItem name="TODDLER" enum_value="5" />
+
+            <EnumItem name="VAMPIRE_LORE" enum_value="4" />
+        </Class>
+
+        <Class name="SkillCategory" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="CHILD" enum_value="1" />
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+        </Class>
+
+        <Class name="Skill">
+            <Tunable type="float" name="DYNAMIC_SKILL_INTERVAL" class="TunableRange" default="1" display="Dynamic Skill Interval" min="1" max="None" description="Interval used when dynamic loot is used in a PeriodicStatisticChangeElement." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="SKILL_EFFECTIVENESS_GAIN" class="TunableMapping" display="Skill Effectiveness Gain" mapping_key="key" mapping_value="value" description="Skill gain points based on skill effectiveness." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="SkillEffectiveness" name="key" class="TunableEnumEntry" default="STANDARD" display="Key" dynamic_entries="statistics-skill_loot_data.SkillEffectiveness._elements" static_entries="statistics-skill_loot_data.SkillEffectiveness" group="General" />
+                    <TunableList name="value" class="TunableCurve" display="Value" group="General">
+                        <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                            <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SKILL_LEVEL_LIST" class="TunableMapping" display="Skill Level List" mapping_key="key" mapping_value="value" description="A mapping defining the level boundaries for each skill type." group="General" mapping_class="SkillLevelListMappingTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="SkillLevelType" name="key" class="TunableEnumEntry" default="MAJOR" display="Key" static_entries="statistics-skill.SkillLevelType" group="General" />
+                    <TunableList name="value" class="TunableList" display="Value" description="The level boundaries for skill type, specified as a delta from the previous value." group="General">
+                        <Tunable type="int" class="Tunable" default="0" tuning_state="NeedsTuning" group="General" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

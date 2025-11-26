@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="SpecificSimEmployeeFestivalSituation" module="open_street_director.festival_situations" description="A special festival employee situation that forces a specific sim into its job. This is useful when we want specific unique Sims that we do not want replacements of to show up in the world." instance_subclasses_only="False" parents="EmployeeFestivalSituationState, BaseGenericFestivalSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="situation_job" name="specific_sim_job" class="TunableReference" display="Specific Sim Job" description="The job specific Sim that has to be put into this situation no matter their current situation." allow_none="False" group="General" />
+    </Instance>
+</TuningRoot>

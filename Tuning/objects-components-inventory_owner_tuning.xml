@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.inventory_owner_tuning">
+        <Class name="InventoryTuning">
+            <TunableList name="INVALID_ACCESS_STATES" class="TunableList" display="Invalid Access States" group="General">
+                <Tunable type="object_state" class="TunableReference" description="If an inventory owner is in any of the states tuned here, it will not be available to grab objects out of." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

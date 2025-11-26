@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="casmodifiertuning" class="Client_CASModifierTuning" module="casmodifiertuning.Client_CASModifierTuning" description="Limits on the range at which modifiers can be applied" path="Client_CASModifierTuning\Descriptions">
+        <TunableList name="Ages" class="TunableSet" display="Ages" description="Valid ages for this" group="General" unique_entries="true">
+            <TunableEnum type="Age" class="TunableEnumEntry" default="None" static_entries="sims-sim_info_types.Age" group="General" />
+        </TunableList>
+
+        <TunableList name="Genders" class="TunableSet" display="Genders" description="Trait allowed gender, empty set means not specified" group="General" unique_entries="true">
+            <TunableEnum type="Gender" class="TunableEnumEntry" default="None" static_entries="sims-sim_info_types.Gender" group="General" />
+        </TunableList>
+
+        <TunableList name="Modifiers" class="TunableList" display="ModifierList" description="List of modifiers">
+            <TunableTuple name="ModifierData" class="Client_CASModifierTuning.ModifierData" description="Parameters for a single modifier.">
+                <Tunable type="float" name="LimitDirectManip" class="Tunable" default="1.0" description="Maximum value that can be set for this modifier through direct manipulation (0 to 1)." />
+                <Tunable type="float" name="LimitRandomize" class="Tunable" default="1.0" description="Maximum value that can be set for this modifier through randomization (0 to 1)." />
+                <Tunable type="float" name="MinValue" class="Tunable" default="0.0" description="The minimum value that can be set for this modifier when changing a Sim's age. Default is 0. Note: If greater than 0, the opposite modifier also gets turned off automatically. Note 2: Cannot be less than 0." />
+                <Tunable type="str" name="ModifierName" class="Tunable" default="modifier_name" description="Modifier name. This must be prefixed with the name of the .modifiers.xml where this modifier is defined. For example: 'yfHeadModifier_Brows_Arched' or 'ymHeadBelly_Big'." binary_type="HashCode64" />
+                <Tunable type="float" name="Offset" class="Tunable" default="0.0" description="An offset applied to this modifier for this age. Default is 0. Note: This also affects the opposite modifier - the offset is applied along the two-modifier slider. Note 2: This value cannot be less than 0. If you need to offset the modifier in the opposite direction, set the offset on the opposite modifier instead." />
+                <Tunable type="float" name="Scale" class="Tunable" default="1.0" description="How much to scale this modifier for this age. Default is 1.0" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableEnum type="OccultType" name="OccultType" class="TunableEnumEntry" default="HUMAN" display="Occult Type" static_entries="sims-occult-occult_enums.OccultType" description="The occult type this modifier tuning is specific to." group="General" />
+
+        <TunableEnum type="SpeciesExtended" name="Species" class="TunableEnumEntry" default="HUMAN" display="Species" static_entries="sims-sim_info_types.SpeciesExtended" description="The species this modifier tuning is specific to." group="General" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="story_progression.story_progression_lot_selection">
+        <Class name="StoryProgressionLotSelection">
+            <Tunable type="float" name="KID_TO_KID_BED_MULTIPLIER" class="TunableRange" default="1" display="Kid To Kid Bed Multiplier" min="1" max="None" description="When trying to populate a lot if lot has a kids bed and household has a kid in it. This multiplier will be applied to the weight of household when selecting household to move in." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="NUM_BEDS_TO_IDEAL_HOUSEHOLD_CURVE" class="TunableMapping" display="Num Beds To Ideal Household Curve" mapping_key="Num Beds" mapping_value="Ideal Household Curve" description="Based on the number of beds and the number of sims in the household, a multiplier will be applied to the household to determine if household will be selected and added to zone." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="Ideal Household Curve" class="TunableCurve" display="Ideal Household Curve" group="General">
+                        <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                            <Tunable type="float" name="x" class="Tunable" default="0.0" display="x: num_sim_in_household" description="x component" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="y" class="Tunable" default="0.0" display="y: bonus_multiplier" description="y component" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                    <Tunable type="int" name="Num Beds" class="Tunable" default="1" display="Num Beds" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="REGION_TO_HOUSEHOLD_POPULATION_DATA" class="TunableMapping" display="Region To Household Population Data" mapping_key="Region Description" mapping_value="Household Population Data" description="Mapping of Region Description ID to household population data. This is used to fill households for the different type of regions." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableTuple name="Household Population Data" class="TunableHouseholdPopulationData" display="Household Population Data" description="Contains data required to fill neighborhood with sims." group="General">
+                        <TunableList name="household_description_to_lot_data" class="TunableMapping" display="Household Description To Lot Data" mapping_key="House Description" mapping_value="Household Templates" description="Mapping of House Description ID to household templates and weight. This is used to fill households for the different type of regions and acts as the default if the player has not visited the lot before." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="housedescription" name="House Description" class="TunableReference" display="House Description" group="General" pack_safe="True" />
+                                <TunableTuple name="Household Templates" class="TunableTuple" display="Household Templates" description="The default data used for this lot if the player has never visited it." group="General">
+                                    <Tunable type="bool" name="has_double_beds" class="Tunable" default="False" display="Has Double Beds" description="If the lot has double beds." group="General" />
+                                    <Tunable type="bool" name="has_kids_beds" class="Tunable" default="False" display="Has Kids Beds" description="If the lot has kids beds." group="General" />
+                                    <Tunable type="int" name="total_beds" class="TunableRange" default="0" display="Total Beds" min="0" max="None" description="The total number of beds on this lot." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableList>
+                        <TunableList name="household_description_to_templates" class="TunableMapping" display="Household Description To Templates" mapping_key="House Description" mapping_value="Household Templates" description="Mapping of House Description ID to household templates and weight. This is used to fill households for the different type of regions." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="housedescription" name="House Description" class="TunableReference" display="House Description" group="General" pack_safe="True" />
+                                <TunableList name="Household Templates" class="TunableList" display="Household Templates" group="General">
+                                    <TunableTuple class="TunableHouseholdTemplateWeightTuple" group="General">
+                                        <Tunable type="sim_template" name="household_template" class="TunableReference" display="Household Template" description="Household template that will be created for neighborhood population" allow_none="False" group="General" pack_safe="True" restrict="HouseholdTemplate" />
+                                        <Tunable type="float" name="weight" class="Tunable" default="1" display="Weight" description="Weight of this template being chosen." tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="regiondescription" name="Region Description" class="TunableReference" display="Region Description" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="float" name="RELATIONSHIP_DEPTH_WEIGHT" class="Tunable" default="0.5" display="Relationship Depth Weight" description="Multiplier used to modify relationship depth to determine how important depth is in weight. The higher the multiplier the more relationship depth is added to weight score. The lower the weight the less likely household will be moved in." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="RELATIONSHIP_TRACK_MULTIPLIER" class="Tunable" default="2" display="Relationship Track Multiplier" description="Multiply the number of tracks by this multiplier to provide an additional score to determine if household should be moved in. The higher the multiplier the more the number of tracks bonus is added to weight. The lower the weight the less likely household will be moved in." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="RELATIONSHIP_UTILITY_CURVE" class="TunableWeightedUtilityCurve" display="Relationship Utility Curve" description="Based on the relationship score for a household apply a multiplier to weight for determining score for moving household in." group="General">
+                <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="x: overall_score_for_household" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="y: multiplier_to_apply" description="y component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="float" name="SIGNIFICANT_OTHER_MULTIPLIER" class="TunableRange" default="1" display="Significant Other Multiplier" min="1" max="None" description="When trying to populate a lot and if lot has a double bed and household contains a pair of sims that are considered significant other. This multiplier will be applied to the weight of household when selecting household to move in." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

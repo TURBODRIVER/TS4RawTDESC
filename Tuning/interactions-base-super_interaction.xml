@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.base.super_interaction">
+        <Class name="RallyableTag" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="NONE" enum_value="0" />
+        </Class>
+
+        <Class name="RallySource" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ENSEMBLE" enum_value="1" />
+
+            <EnumItem name="SOCIAL_GROUP" enum_value="0" />
+        </Class>
+
+        <Class name="SuperInteraction">
+            <Tunable type="interaction" name="CARRIED_POSTURE_PICKUP_AFFORDANCE" class="TunableReference" display="Carried Posture Pickup Affordance" description="The pickup affordance to push onto other carrying sims if a sim is being carried. Should only be changed with engineering support." allow_none="False" group="General" />
+
+            <Tunable type="interaction" name="CARRY_POSTURE_REPLACEMENT_AFFORDANCE" class="TunableReference" display="Carry Posture Replacement Affordance" description="The replacement affordance for carry postures. Should only be changed with engineering support." allow_none="False" group="General" />
+
+            <TunableList name="DEFAULT_POSTURE_TARGET_PREFERENCES" class="TunableMapping" display="Default Posture Target Preferences" mapping_key="key" mapping_value="value" description="A tunable mapping of posture tags to a goal score bonus in meters. This is used to make some objects more attractive than others for the purposes of posture preference scoring. That means that higher numbers are good; the Sim will go x meters out of their way to use these objects, where x is the amount tuned. For example, if one object has a score of 3 and another object has a score of 0, the object that scores 0 will need to be more than 3 meters closer than the object that scores 3 for the Sim to choose it. Example: Let's say you want to make couches more desirable for watching TV. To do this, you would create a new tag in PostureTransitionTargetPreferenceTag (found in Tuning->postures) called 'ComfortableSeating'. Then you would tag all appropriate objects with that tag by adding it to PosturePreferenceTagList on the object. Next, you would come in here and add a new item with a key of that tag and a value of 10 or so, which is about the size of the constraint to watch TV. Thus they will tend to use couches in the TV cone at the expense of other factors. One example downside of this is they will be less inclined to consider how centered they are in the TV cone and what direction the sofa is facing." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="PostureTransitionTargetPreferenceTag" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="postures.PostureTransitionTargetPreferenceTag._elements" static_entries="postures.PostureTransitionTargetPreferenceTag" group="General" />
+                    <Tunable type="float" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="MULTIPLAYER_REJECTED_TOOLTIP" class="TunableLocalizedString" default="0x0" display="Multiplayer Rejected Tooltip" description="Grayed out Pie Menu Text on sim has already been rejected by other player." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

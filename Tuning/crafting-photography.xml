@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="crafting.photography">
+        <Class name="Photography">
+            <TunableList name="BASE_PHOTO_QUALITY_MAP" class="TunableMapping" display="Base Photo Quality Map" mapping_key="key" mapping_value="value" description="The mapping of CameraQuality value to an interval of quality values that will be used to asign a random base quality value to a photo as it is created." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="CameraQuality" name="key" class="TunableEnumEntry" default="CHEAP" display="Key" static_entries="crafting-photography_enums.CameraQuality" description="The CameraQuality value. If this photo has this CameraQuality, value, then a random quality between the min value and max value will be assigned to the photo." group="General" />
+                    <TunableTuple name="value" class="TunableInterval" display="Value" description="The range of base quality values from which a random value will be given to the photo." group="General">
+                        <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="upper_bound" class="TunableRange" default="100" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="EMOTION_STATE_MAP" class="TunableMapping" display="Emotion State Map" mapping_key="key" mapping_value="value" description="The mapping of moods to states, used to give photo objects a mood based state. These states are then used by the tooltip component to display emotional content on the photo's tooltip." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="mood" name="key" class="TunableReference" display="Key" description="The mood to associate with a state." allow_none="False" group="General" />
+                    <Tunable type="object_state" name="value" class="TunableReference" display="Value" description="The state that represents the mood for the purpose of displaying emotional content in a tooltip." allow_none="False" group="General" restrict="ObjectStateValue" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="FAIL_PHOTO_QUALITY_RANGE" class="TunableInterval" display="Fail Photo Quality Range" description="The random quality statistic value that a failure photo will be given between the min and max tuned values." group="General">
+                <Tunable type="int" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="upper_bound" class="TunableRange" default="100" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TunableEnum type="Tag" name="GROUP_PHOTO_X_ACTOR_TAG" class="TunableEnumEntry" default="INVALID" display="Group Photo X Actor Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag to specify the photo studio interaction that the photo target sim who should be considered the x actor will run." group="General" invalid_entries="INVALID" />
+
+            <TunableEnum type="Tag" name="GROUP_PHOTO_Y_ACTOR_TAG" class="TunableEnumEntry" default="INVALID" display="Group Photo Y Actor Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag to specify the photo studio interaction that the photo target sim who should be considered the y actor will run." group="General" invalid_entries="INVALID" />
+
+            <TunableEnum type="Tag" name="GROUP_PHOTO_Z_ACTOR_TAG" class="TunableEnumEntry" default="INVALID" display="Group Photo Z Actor Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag to specify the photo studio interaction that the photo target sim who should be considered the z actor will run." group="General" invalid_entries="INVALID" />
+
+            <Tunable type="object" name="LARGE_LANDSCAPE_OBJ_DEF" class="TunableReference" display="Large Landscape Obj Def" description="Object definition for a large landscape photo." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="object" name="LARGE_PORTRAIT_OBJ_DEF" class="TunableReference" display="Large Portrait Obj Def" description="Object definition for a large portrait photo." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="object" name="MEDIUM_LANDSCAPE_OBJ_DEF" class="TunableReference" display="Medium Landscape Obj Def" description="Object definition for a medium landscape photo." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="object" name="MEDIUM_PORTRAIT_OBJ_DEF" class="TunableReference" display="Medium Portrait Obj Def" description="Object definition for a medium portrait photo." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableList name="MOOD_PARAM_TO_MOOD_CATEGORY_STATE" class="TunableMapping" display="Mood Param To Mood Category State" mapping_key="key" mapping_value="value" description="If the player took a picture in a photo mode that supports mood categories, we will perform a state change to the corresponding state based on the mood that each picture was taken in." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="str" name="key" class="Tunable" default="None" display="Key" description="The mood ASM parameter value to associate with a state." group="General" />
+                    <Tunable type="object_state" name="value" class="TunableReference" display="Value" description="The state that represents the mood category." allow_none="False" group="General" restrict="ObjectStateValue" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="NUM_PHOTOS_PER_SESSION" class="Tunable" default="5" display="Num Photos Per Session" description="Max possible photos that can be taken during one photo session. Once this number has been reached, the photo session will exit." tuning_state="NeedsTuning" group="General" />
+
+            <TunableEnum type="Tag" name="PAINTING_INTERACTION_TAG" class="TunableEnumEntry" default="INVALID" display="Painting Interaction Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag to specify a painting interaction." group="General" />
+
+            <TunableList name="PHOTO_OBJECT_LOOT_PER_TARGET" class="TunableList" display="Photo Object Loot Per Target" description="A list of loots which will be applied once PER target. The participants for each application will be Actor: photographer, Target: photograph target and Object: the Photograph itself. If a photo interaction has 2 target sims, this loot will be applied twice." group="General">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <TunableList name="PHOTO_VALUE_MODIFIER_MAP" class="TunableMapping" display="Photo Value Modifier Map" mapping_key="key" mapping_value="value" description="The mapping of state values to Simoleon value modifiers. The final value of a photo is decided based on its current value multiplied by the sum of all modifiers for states that apply to the photo. All modifiers are added together first, then the sum will be multiplied by the current price." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="object_state" name="key" class="TunableReference" display="Key" description="The quality state values. If this photo has this state, then a random modifier between min_value and max_value will be multiplied to the current price." allow_none="False" group="General" restrict="ObjectStateValue" />
+                    <TunableTuple name="value" class="TunableInterval" display="Value" description="The maximum modifier multiplied to the current price based on the provided state value" group="General">
+                        <Tunable type="float" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="PHOTO_VALUE_SKILL_CURVE" class="TunableTunableStatisticModifierCurve" display="Photo Value Skill Curve" description="Allows you to adjust the final value of the photo based on the Sim's level of a given skill." group="General">
+                <TunableVariant type="None" name="multiplier" class="TunableVariant" default="raw_value" display="Multiplier" description="Define how the multiplier will be applied." group="General">
+                    <Tunable name="raw_value" class="TunableExistance" display="Raw Value" />
+                    <TunableList name="value_curve" class="TunableCurve" display="Value Curve" description="The multiplier will be determined by interpolating against a curve. The user-value is used. This means that a curve for skills should have levels as its x-axis." group="General">
+                        <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                            <Tunable type="float" name="x" class="Tunable" default="0.0" display="x: Skill Level" description="x component" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="y" class="Tunable" default="0.0" display="y: Simoleon Multiplier" description="y component" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableVariant>
+                <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The payout amount will be multiplied by this statistic's value." allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+
+            <TunableList name="PHOTOGRAPHY_LOOT_LIST" class="TunableList" display="Photography Loot List" description="A list of loot operations to apply to the photographer when photo mode exits." group="General">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableList>
+
+            <Tunable type="statistic" name="PHOTOGRAPHY_SKILL" class="TunableReference" display="Photography Skill" description="A reference to the photography skill." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+
+            <Tunable type="float" name="QUALITY_MODIFIER_PER_SKILL_LEVEL" class="Tunable" default="0" display="Quality Modifier Per Skill Level" description="For each level of skill in Photography, this amount will be added to the quality statistic." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="object" name="SMALL_LANDSCAPE_OBJ_DEF" class="TunableReference" display="Small Landscape Obj Def" description="Object definition for a small landscape photo." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="object" name="SMALL_PORTRAIT_OBJ_DEF" class="TunableReference" display="Small Portrait Obj Def" description="Object definition for a small portrait photo." allow_none="False" group="General" pack_safe="True" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

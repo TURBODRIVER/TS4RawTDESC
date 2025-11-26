@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="InviteOverSituation" module="situations.visiting.invite_over_situation" instance_subclasses_only="False" parents="VisitingNPCSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_implies_greeted_status" />
+
+        <Deleted name="creation_ui_option" />
+
+        <Deleted name="duration" />
+
+        <Deleted name="exclusivity" />
+
+        <TunableTuple name="invited_job" class="TunableTuple" display="Invited Job" group="General">
+            <Tunable type="role_state" name="ring_doorbell_state" class="TunableReference" display="Ring Doorbell State" description="The state for telling a Sim to try to ring the doorbell followed by inviting themselves in." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to the SituationJob used for the Sim invited over." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <TunableEnum type="NPCSummoningPurpose" name="purpose" class="TunableEnumEntry" default="DEFAULT" display="Purpose" dynamic_entries="venues-venue_constants.NPCSummoningPurpose._elements" static_entries="venues-venue_constants.NPCSummoningPurpose" description="The purpose/reason used to create the venue type specific visit situation, after the invited sim attempts to ring the door bell. This should be tuned to Invite In, but since that is a dynamic enum you must do it yourself." group="General" />
+    </Instance>
+</TuningRoot>

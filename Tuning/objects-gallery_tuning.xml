@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.gallery_tuning">
+        <Class name="GalleryGameplayTuning">
+            <TunableEnum type="Tag" name="EXPORT_SAVE_DATA_TO_GALLERY_TAG" class="TunableEnumEntry" default="INVALID" display="Export Save Data To Gallery Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Reference to the tag used for marking objects that require their save data to be stored in the gallery. i.e. Craftables, books, etc." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

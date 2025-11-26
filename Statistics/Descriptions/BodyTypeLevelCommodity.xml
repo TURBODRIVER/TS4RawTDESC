@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="statistic" class="BodyTypeLevelCommodity" module="sims.body_type_level.body_type_level_commodity" description="A commodity representing the level of a particular BodyType for a sim." instance_needs_reference="True" instance_subclasses_only="False" parents="Commodity" path="Statistics\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="BodyType" name="body_type" class="TunableEnumEntry" default="NONE" display="Body Type" static_entries="sims-outfits-outfit_enums.BodyType" description="The body type this commodity is associated with." group="General" invalid_entries="NONE" />
+
+        <TunableList name="eligible_species" class="TunableEnumSet" default="HUMAN" display="Eligible Species" description="Only species in this list will have the commodity added to them." group="General" unique_entries="true">
+            <TunableEnum type="SpeciesExtended" class="TunableEnumEntry" default="HUMAN" static_entries="sims-sim_info_types.SpeciesExtended" group="General" />
+        </TunableList>
+
+        <TunableList name="states" class="TunableList" display="States" description="Commodity states based on thresholds. This should be ordered from lowest to highest value. If the higher the value the worse the commodity gets, check the field 'States Ordered Best To Worst'." group="General">
+            <TunableTuple class="TunableBodyTypeLevelCommodityState" group="General">
+                <Tunable type="bool" name="apply_loot_on_load" class="Tunable" default="False" display="Apply Loot On Load" description="If true and the commodity is currently in this state, loot_list_on_enter_always will be reapplied." group="General" />
+                <TunableTuple name="background_color" class="TunableColorRGBA" display="Background Color" description="Background color for motive bar" group="General">
+                    <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <Tunable type="int" name="body_type_client_level" class="TunableRange" default="0" display="Body Type Client Level" min="0" max="None" description="The integer representation of this state (level) on the client." tuning_state="NeedsTuning" group="General" />
+                <TunableTuple name="buff" class="TunableBuffReference" display="Buff" description="Buff that will get added to sim when commodity is at this current state." group="General">
+                    <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                            <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                        </TunableVariant>
+                    </TunableVariant>
+                    <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="True" group="General" />
+                </TunableTuple>
+                <TunableVariant type="None" name="buff_add_threshold" class="OptionalTunable" default="disabled" display="Buff Add Threshold" description="When enabled, buff will not be added unless threshold has been met. Value for threshold must be within this commodity state." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableTuple name="enabled" class="TunableThreshold" display="Enabled" description="When enabled, buff will not be added unless threshold has been met. Value for threshold must be within this commodity state." group="General">
+                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                        <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+                <TunableList name="buff_overrides" class="TunableMapping" display="Buff Overrides" mapping_key="key" mapping_value="value" description="A mapping of traits to TunableBuffReferences, used to override the buff field" group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="trait" name="key" class="TunableReference" display="Key" description="The trait." allow_none="False" group="General" pack_safe="True" />
+                        <TunableTuple name="value" class="TunableBuffReference" display="Value" description="Buff that will get added to sim when commodity is at this current state." group="General">
+                            <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                            </TunableVariant>
+                            <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                    <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                                    <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                                    <Tunable name="none" class="TunableExistance" display="None" />
+                                </TunableVariant>
+                            </TunableVariant>
+                            <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" pack_safe="True" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="int" name="data_description" class="TunableLocalizedString" default="0x0" display="Data Description" description="Localized description of the current commodity state." allow_none="True" group="General" />
+                <TunableTuple name="fill_color" class="TunableColorRGBA" display="Fill Color" description="Fill color for motive bar" group="General">
+                    <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableEnum type="MotiveFillColorLevel" name="fill_level" class="TunableEnumEntry" default="NO_FILL" display="Fill Level" static_entries="statistics-commodity.MotiveFillColorLevel" description="By default we use ui_visible_distress_threshold to indicate when a motive needs attention in the sim info tray. When this is tuned, a state can override that by selecting DISTRESS or worse." group="General" />
+                <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="Icon that is displayed for the current state of this commodity." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                <TunableList name="loot_list_on_enter_always" class="TunableList" display="Loot List On Enter Always" description="List of loots that will be applied when commodity value enters this state, regardless of what the previous state was. Note: This will not work if the commodity exists on both Sims AND Objects because the participant types in the loot will not match the resolvers passed in." group="General">
+                    <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="loot_list_on_enter_decreasing" class="TunableList" display="Loot List On Enter Decreasing" description="List of loots that will be applied when commodity value enters this state coming from a higher state. Note: This will not work if the commodity exists on both Sims AND Objects because the participant types in the loot will not match the resolvers passed in." group="General">
+                    <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="loot_list_on_enter_increasing" class="TunableList" display="Loot List On Enter Increasing" description="List of loots that will be applied when commodity value enters this state coming from a lower state. Note: This will not work if the commodity exists on both Sims AND Objects because the participant types in the loot will not match the resolvers passed in." group="General">
+                    <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="tooltip_icon_list" class="TunableList" display="Tooltip Icon List" description="A list of icons to show in the tooltip of this commodity state." group="General">
+                    <Tunable type="ResourceKey" class="TunableResourceKey" default="None" description="Icon that is displayed what types of objects help solve this motive." group="General" resource_types="0x2f7d0004" />
+                </TunableList>
+                <TunableList name="trait_based_ui_overrides" class="TunableMapping" display="Trait Based Ui Overrides" mapping_key="key" mapping_value="value" description="A mapping of Traits to a list of all overrideable tuning fields for the Motives panel UI." group="General" mapping_class="TraitBasedUIOverridesMapping">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="trait" name="key" class="TunableReference" display="Key" allow_none="False" group="General" pack_safe="True" />
+                        <TunableTuple name="value" class="TraitBasedUIOverrides" display="Value" description="The tunables available for overriding the appearance of the Motives panel UI. " group="General">
+                            <TunableVariant type="None" name="data_description" class="OptionalTunable" default="disabled" display="Data Description" description="Localized description of the current commodity state." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." allow_none="True" group="General" />
+                            </TunableVariant>
+                            <TunableVariant type="None" name="fill_color" class="OptionalTunable" default="disabled" display="Fill Color" description="Fill color for motive bar." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableTuple name="enabled" class="TunableColorRGBA" display="Enabled" description="A color." group="General">
+                                    <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                            <TunableVariant type="None" name="icon" class="OptionalTunable" default="disabled" display="Icon" description="Icon that is displayed for the current state of this commodity." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="ResourceKey" name="enabled" class="TunableResourceKey" default="None" display="Enabled" allow_none="True" group="General" resource_types="0x2f7d0004" />
+                            </TunableVariant>
+                            <Tunable type="int" name="priority" class="Tunable" default="0" display="Priority" description="When multiple overrides match the sim, the highest priority is preferred." tuning_state="NeedsTuning" group="General" />
+                            <TunableVariant type="None" name="stat_name" class="OptionalTunable" default="disabled" display="Stat Name" description="Localized name of this commodity." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." allow_none="True" group="General" />
+                            </TunableVariant>
+                            <TunableVariant type="None" name="tooltip_icon_list" class="OptionalTunable" default="disabled" display="Tooltip Icon List" description="A list of icons to show in the tooltip of this commodity state." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableList name="enabled" class="TunableList" display="Enabled" group="General">
+                                    <Tunable type="ResourceKey" class="TunableResourceKey" default="None" description="Icon that is displayed what types of objects help solve this motive." group="General" resource_types="0x2f7d0004" />
+                                </TunableList>
+                            </TunableVariant>
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+                <TunableVariant type="None" name="ui_container_animation_decreasing" class="OptionalTunable" default="disabled" display="Ui Container Animation Decreasing" description="If enabled, when this commodity enters this state from a higher one, it plays the tuned animation." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="When the commodity enters this state from a higher one, play the animation with this label on the commodity container." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="ui_container_animation_increasing" class="OptionalTunable" default="disabled" display="Ui Container Animation Increasing" description="If enabled, when this commodity enters this state from a lower one, it plays the tuned animation." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="str" name="enabled" class="Tunable" default="" display="Enabled" description="When the commodity enters this state from a lower one, play the animation with this label on the commodity container." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="ui_name" class="OptionalTunable" default="disabled" display="Ui Name" description="If enabled, the name of the commodity state that will be used in applicable UIs (for example, the pet tooltip that shows commodity state info for motives)." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                        <TunableVariant type="None" name="color" class="TunableVariant" default="use_default_color" display="Color" group="General">
+                            <TunableTuple name="specify_color" class="TunableColorRGBA" display="Specify Color" description="A color." group="General">
+                                <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                            <Tunable name="use_default_color" class="TunableExistance" display="Use Default Color" />
+                            <Tunable name="use_state_fill_color" class="TunableExistance" display="Use State Fill Color" />
+                        </TunableVariant>
+                        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="Localized description of this commodity state." group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+                <Tunable type="int" name="value" class="Tunable" default="0" display="Value" description="lower bound value of the commodity state" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+
+    
+</TuningRoot>

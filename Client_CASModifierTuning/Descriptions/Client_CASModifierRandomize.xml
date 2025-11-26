@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="casmodifiertuning" class="Client_CASModifierRandomize" module="casmodifiertuning.Client_CASModifierRandomize" description="Controls the dampening applied on on modifiers" path="Client_CASModifierTuning\Descriptions">
+        <TunableList name="ModifierRandomList" class="TunableList" display="Modifier Random Data" description="Modifier randomization params">
+            <TunableTuple name="ModifierRandom" class="Client_CASModifierRandomize.ModifierRandom" description="Randomization variation for modifiers">
+                <TunableEnum type="Age" name="Age" class="TunableEnumEntry" default="None" display="Age" static_entries="sims-sim_info_types.Age" description="Age this applies to." group="General" />
+                <TunableEnum type="Gender" name="Gender" class="TunableEnumEntry" default="None" display="Gender" static_entries="sims-sim_info_types.Gender" description="Gender this applies to." group="General" />
+                <Tunable type="float" name="Variation" class="Tunable" default="0.0" description="Modifier variation to add on top of the presets" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableEnum type="OccultType" name="OccultType" class="TunableEnumEntry" default="HUMAN" display="Occult Type" static_entries="sims-occult-occult_enums.OccultType" description="The occult type this modifier tuning is specific to." group="Occult" />
+
+        <TunableEnum type="SpeciesExtended" name="Species" class="TunableEnumEntry" default="HUMAN" display="Species" static_entries="sims-sim_info_types.SpeciesExtended" description="The species this modifier tuning is specific to." group="General" />
+    </Instance>
+</TuningRoot>

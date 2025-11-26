@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="TunableTestedGreetingTargeted" module="interactions.social.greeting_socials.greetings" instance_needs_reference="True" instance_subclasses_only="False" parents="TunableTestedGreeting" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="tests_or_greeting" class="TunableVariant" default="none" display="Tests Or Greeting" description="Either play a greeting if the tests pass, or reference another TunableTestedGreetingTargeted that will perform it's behavior if the tests pass." group="General">
+            <TunableTuple name="greeting" class="TunableTuple" display="Greeting" description=" " group="General">
+                <TunableTuple name="si" class="TunableReactionSi" display="Si" description="Super reactions that allow the Sim to play an SI before socializing. These can be Social Super Interactions which work well so that we guarantee the Sim is within social constraints. Since these can be touching socials, you can have a social super interaction that uses a jig group." group="General">
+                    <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The affordance to push on the subject." allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+                    <TunableVariant type="None" name="affordance_run_priority" class="OptionalTunable" default="disabled" display="Affordance Run Priority" description="If enabled, specify the priority at which the affordance runs. This may be different than 'affordance_priority'. For example. you might want an affordance to push at high priority such that it cancels existing interactions, but it runs at a lower priority such that it can be more easily canceled." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="Priority" name="enabled" class="TunableEnumEntry" default="Low" display="Enabled" static_entries="interactions-priority.Priority" description="The run priority for the specified affordance." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="affordance_target" class="OptionalTunable" default="enabled" display="Affordance Target" description="If enabled, the pushed interaction will target a specified participant." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeReaction" name="enabled" class="TunableEnumEntry" default="TargetSim" display="Enabled" static_entries="interactions.ParticipantTypeReaction" description="The participant to be targeted by the pushed interaction." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="override_interaction_source" class="OptionalTunable" default="disabled" display="Override Interaction Source" description="If enabled, we will override the source of this pushed SI. For example if we don't want a pushed SI to be easily canceled by another user directed interaction, we can set this to be SCRIPT_WITH_USER_INTENT." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="InteractionSource" name="enabled" class="TunableEnumEntry" default="SCRIPT" display="Enabled" static_entries="interactions-context.InteractionSource" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableTuple>
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableTuple name="tests" class="TunableTuple" display="Tests" description="Child TunableTestedGreetingTargeted nodes that run if the tests pass." group="General">
+                <TunableList name="child_nodes" class="TunableList" display="Child Nodes" description="A list of children to run through as children of this branch. If any one passes, it will not process any more children." group="General">
+                    <Tunable type="snippet" class="TunableReference" description="A child node that represents a set of tests to run as well as child nodes or a greeting." allow_none="False" group="General" pack_safe="True" restrict="TunableTestedGreetingTargeted" />
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

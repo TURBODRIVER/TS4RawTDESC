@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="relics.relic_tuning">
+        <Class name="RelicComboId" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="RelicTuning">
+            <Tunable type="int" name="DEFAULT_UNDISCOVERED_TEXT" class="TunableLocalizedString" default="0x0" display="Default Undiscovered Text" description="The default text to use when something hasn't been discovered yet." group="General" />
+
+            <Tunable type="int" name="IN_WORLD_HOVERTIP_TEXT" class="TunableLocalizedString" default="0x0" display="In World Hovertip Text" description="The hovertip text to show on relics when they're in the world. When they're in the inventory, they'll use the hovertip text tuned on the relic data." group="General" />
+
+            <TunableList name="RELIC_DISCOVERY_DATA" class="TunableMapping" display="Relic Discovery Data" mapping_key="relic_combo_id" mapping_value="relic_combo_data" description="A mapping of Relic Combo IDs and the data associated with that relic combination." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableTuple name="relic_combo_data" class="TunableTuple" display="Relic Combo Data" description="The data about a set of fused objects." group="General">
+                        <Tunable type="int" name="discovered_picker_description_text" class="TunableLocalizedString" default="0x0" display="Discovered Picker Description Text" description="The relic description text to use if this relic/gem combination is known by the Sim." group="General" />
+                        <TunableVariant type="None" name="hovertip_data" class="OptionalTunable" default="disabled" display="Hovertip Data" description="If enabled, this combination can also provide it's information to the hovertip of the tuned object." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="The objects and potential required states." group="General">
+                                <TunableVariant type="None" name="object_state" class="OptionalTunable" default="disabled" display="Object State" description="If enabled, the participant being checked against Object A must also be in this state to qualify for this relic combination. For example, a crystal is required to be in the high quality state to count towards the high quality relic discovery." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="object_state" name="enabled" class="TunableReference" display="Enabled" description="A state value Object A needs to be in to qualify for this relic combo." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                                </TunableVariant>
+                                <TunableList name="objects" class="TunableSet" display="Objects" description="A set of objects that will provide the information from this relic combo." group="General" unique_entries="true">
+                                    <Tunable type="object" class="TunableReference" description="A reference to the second part of the relic." allow_none="False" group="General" pack_safe="True" />
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableList name="object_a" class="TunableSet" display="Object A" description="A set of objects that count towards this relic combination. For examples, since all of the crystals do the same thing, they can all be in one set instead of creating a new entry for each crystal/relic combo." group="General" unique_entries="true">
+                            <Tunable type="object" class="TunableReference" description="A reference to the first part of the relic." allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableVariant type="None" name="object_a_state" class="OptionalTunable" default="disabled" display="Object A State" description="If enabled, the participant being checked against Object A must also be in this state to qualify for this relic combination. For example, a crystal is required to be in the high quality state to count towards the high quality relic discovery." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="object_state" name="enabled" class="TunableReference" display="Enabled" description="A state value Object A needs to be in to qualify for this relic combo." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                        </TunableVariant>
+                        <TunableList name="object_b" class="TunableSet" display="Object B" description="A set of objects that count towards this relic combination. For examples, since all of the crystals do the same thing, they can all be in one set instead of creating a new entry for each crystal/relic combo." group="General" unique_entries="true">
+                            <Tunable type="object" class="TunableReference" description="A reference to the second part of the relic." allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableVariant type="None" name="object_b_state" class="OptionalTunable" default="disabled" display="Object B State" description="If enabled, the participant being checked against Object B must also be in this state to qualify for this relic combination. For example, a crystal is required to be in the high quality state to count towards the high quality relic discovery." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="object_state" name="enabled" class="TunableReference" display="Enabled" description="A state value Object A needs to be in to qualify for this relic combo." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="undiscovered_picker_description_text" class="OptionalTunable" default="use_default_undiscovered_text" display="Undiscovered Picker Description Text" description="If this is set to Link To Other Relic Data, instead of using the Default Undiscovered Text, we'll use whatever text is available for linked relic combination. For instance, if this is the tuning for the llama-chaos relic being combined with a gem, this could be enabled and point to the 'llama top chaos bottom' combo so that data will be provided if the Sim hasn't learned about this specific combination yet." group="General">
+                            <TunableEnum type="RelicComboId" name="link_to_other_relic_data" class="TunableEnumEntry" default="INVALID" display="Link To Other Relic Data" dynamic_entries="relics-relic_tuning.RelicComboId._elements" static_entries="relics-relic_tuning.RelicComboId" description="The Relic Combination ID to use as a reference to this combination." group="General" invalid_entries="INVALID" />
+                            <Tunable name="use_default_undiscovered_text" class="TunableExistance" display="Use Default Undiscovered Text" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableEnum type="RelicComboId" name="relic_combo_id" class="TunableEnumEntry" default="INVALID" display="Relic Combo Id" dynamic_entries="relics-relic_tuning.RelicComboId._elements" static_entries="relics-relic_tuning.RelicComboId" description="The Relic Combination ID to use as a reference to this combination." group="General" invalid_entries="INVALID" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

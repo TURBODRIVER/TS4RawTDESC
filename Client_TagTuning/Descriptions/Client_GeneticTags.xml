@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tagtuning" class="Client_GeneticTags" module="tagtuning.Client_GeneticTags" description="Genetic tag tuning." path="Client_TagTuning\Descriptions">
+        <TunableList name="GeneticItemParams" class="TunableList" display="Genetic Item" description="Item to Params.">
+            <TunableTuple name="ItemToParams" class="GeneticTags.ItemToParams" description="genetic tag categories for item.">
+                <TunableEnum type="TagRandomizerItemEnums" name="Item" class="TunableEnumEntry" default="Undefined" display="Item" dynamic_entries="tagrandomizeritemenums.TagRandomizerItemEnums._elements" static_entries="tagrandomizeritemenums.TagRandomizerItemEnums" />
+                <TunableList name="TagCategories" class="TunableList" display="Tag Category" description="Tag Categories">
+                    <TunableEnum type="TagCategory" name="TagCategory" class="TunableEnumEntry" default="INVALID" display="Tag Category" dynamic_entries="tag.TagCategory._elements" static_entries="tag.TagCategory" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

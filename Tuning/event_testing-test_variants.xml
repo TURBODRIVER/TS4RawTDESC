@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="event_testing.test_variants">
+        <Class name="SimoleonsTestEvents" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AllSimoloenEvents" enum_value="0" />
+
+            <EnumItem name="OnExitBuildBuy" enum_value="46" />
+
+            <EnumItem name="SimoleonsEarned" enum_value="7" />
+
+            <EnumItem name="SimoleonsEarnedBB" enum_value="122" />
+
+            <EnumItem name="SimoleonsEarnedFireInsuranceFraud" enum_value="137" />
+        </Class>
+
+        <Class name="SituationRunningTestEvents" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="SituationEnded" enum_value="4" />
+
+            <EnumItem name="SituationStarted" enum_value="60" />
+        </Class>
+
+        <Class name="CareerStoryProgressionModificationType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="JOIN" enum_value="1" />
+
+            <EnumItem name="QUIT" enum_value="2" />
+
+            <EnumItem name="RETIRE" enum_value="3" />
+        </Class>
+
+        <Class name="BusinessTestEvents" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="FirstSimoleonEarned" enum_value="141" />
+
+            <EnumItem name="Register" enum_value="139" />
+
+            <EnumItem name="Sold" enum_value="140" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

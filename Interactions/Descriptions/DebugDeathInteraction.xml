@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="DebugDeathInteraction" module="interactions.utils.death_interactions" description="An immediate interaction that creates affordance object pairs for all listed death interactions." instance_needs_reference="True" instance_subclasses_only="False" parents="ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="death_options" class="TunableList" display="Death Options" description="A list of deaths that this interaction can give. " group="General">
+            <TunableTuple class="TunableTuple" description="Tuple of the death interaction with a corresponding name. " group="General">
+                <Tunable type="interaction" name="death_interaction" class="TunableReference" display="Death Interaction" description="The death interaction reference. " allow_none="False" group="General" pack_safe="True" />
+                <TunableVariant type="None" name="display_name_override" class="OptionalTunable" default="disabled" display="Display Name Override" description="If specified, will override the display name of the interaction using the class display name format." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The name that will appear in the pie menu for the death interaction." group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

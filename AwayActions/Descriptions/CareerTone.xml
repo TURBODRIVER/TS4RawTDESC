@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="away_action" class="CareerTone" module="careers.career_interactions" description="Specialized away action that acts as a Career Tone." instance_needs_reference="True" instance_subclasses_only="False" parents="AwayAction" path="AwayActions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="dominant_tone_loot_actions" class="TunableList" display="Dominant Tone Loot Actions" description="Loot to apply at the end of a work period if this tone ran for the most amount of time out of all tones." group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" restrict="LootActions,RandomWeightedLoot" />
+        </TunableList>
+
+        <Tunable type="float" name="performance_multiplier" class="Tunable" default="1" display="Performance Multiplier" description="Performance multiplier applied to work performance gain." tuning_state="NeedsTuning" group="General" />
+
+        <TunableList name="sim_filter_periodic_loots" class="TunableList" display="Sim Filter Periodic Loots" description="Periodic loots applied to sims from a sim filter. " group="General">
+            <TunableTuple class="TunableSimFilterPeriodicLoots" description="Periodic loots to apply to the Sims specified via a Sim filter. Example Usages: -Gain relationship with 2 coworkers every hour. -Every hour, there is a 5% chance of meeting a new coworker." group="General">
+                <TunableTuple name="chance" class="TunableSuccessChance" display="Chance" description="Chance per hour of loot being applied." group="General">
+                    <Tunable type="float" name="base_chance" class="TunablePercent" default="100" display="Base Chance" min="0" max="100" description="The basic chance of success." group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_chance." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_chance if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <Tunable type="action" name="loot" class="TunableReference" display="Loot" description="Loot actions to apply to the two Sims. The Sim in the career is Actor, and if Targeted is enabled those Sims will be TargetSim." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                <TunableVariant type="None" name="max_sims" class="OptionalTunable" default="disabled" display="Max Sims" description="If enabled and the Sim filter finds more than the specified number of Sims, the loot will only be applied a random selection of this many Sims." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableRange" default="1" display="Enabled" min="1" max="None" tuning_state="NeedsTuning" group="General" />
+                </TunableVariant>
+                <Tunable type="sim_filter" name="sim_filter" class="TunableReference" display="Sim Filter" description="Filter for specifying who to set at target Sims for loot application." allow_none="False" group="General" restrict="TunableSimFilter" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="working_sim_periodic_loots" class="TunableList" display="Working Sim Periodic Loots" description="Periodic loots applied to the working sim. " group="General">
+            <TunableTuple class="TunableWorkingSimPeriodicLoots" description="Periodic loots to apply to the working Sim." group="General">
+                <TunableTuple name="chance" class="TunableSuccessChance" display="Chance" description="Chance per hour of loot being applied." group="General">
+                    <Tunable type="float" name="base_chance" class="TunablePercent" default="100" display="Base Chance" min="0" max="100" description="The basic chance of success." group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_chance." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_chance if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <Tunable type="action" name="loot" class="TunableReference" display="Loot" description="Loot actions to apply to the working/Actor Sim." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

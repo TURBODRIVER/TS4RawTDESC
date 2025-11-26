@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="FishingData" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableTunedFishingData" display="Value" description="Tuned fishing data for a particular fishing location." group="General">
+            <TunableList name="possible_fish" class="TunableList" display="Possible Fish" description="If the Sim catches a fish, we'll pick one of these based on their weights. Higher weighted fish have a higher chance of being caught." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="object" name="fish" class="TunableReference" display="Fish" allow_none="False" group="General" pack_safe="True" />
+                    <TunableTuple name="luck_option_config" class="TunableLuckOptionData" display="Luck Option Config" description="The luck specific data for this option." group="General">
+                        <Tunable type="float" name="player_perception" class="TunableRange" default="0" display="Player Perception" min="-100" max="100" description="The player's perception of the option, from -100 to 100. For example, if a sim is fishing, pulling up a boot would be seen as -100, while pulling up a treasure chest would be seen as 100." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="bool" name="show_impacts" class="Tunable" default="True" display="Show Impacts" description="If luck influences the selection process and selects this option, and this bool is True, then we will telegraph that impact to the player. An example of when to turn this off is for 'do nothing' options, where we don't want the game to say 'luck chose something!' but nothing visibly happened for the player." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A construct that determines a total multiplier value based on tunable tests." group="General">
+                        <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                        <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+            <TunableList name="possible_treasures" class="TunableList" display="Possible Treasures" description="If the Sim catches a treasure, we'll pick one of these based on their weights. Higher weighted treasures have a higher chance of being caught." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableTuple name="luck_option_config" class="TunableLuckOptionData" display="Luck Option Config" description="The luck specific data for this option." group="General">
+                        <Tunable type="float" name="player_perception" class="TunableRange" default="0" display="Player Perception" min="-100" max="100" description="The player's perception of the option, from -100 to 100. For example, if a sim is fishing, pulling up a boot would be seen as -100, while pulling up a treasure chest would be seen as 100." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="bool" name="show_impacts" class="Tunable" default="True" display="Show Impacts" description="If luck influences the selection process and selects this option, and this bool is True, then we will telegraph that impact to the player. An example of when to turn this off is for 'do nothing' options, where we don't want the game to say 'luck chose something!' but nothing visibly happened for the player." group="General" />
+                    </TunableTuple>
+                    <Tunable type="object" name="treasure" class="TunableReference" display="Treasure" allow_none="False" group="General" pack_safe="True" />
+                    <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A construct that determines a total multiplier value based on tunable tests." group="General">
+                        <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                        <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+            <TunableTuple name="weight_fish" class="TunableTuple" display="Weight Fish" group="General">
+                <TunableTuple name="luck_option_config" class="TunableLuckOptionData" display="Luck Option Config" description="The luck specific data for this option." group="General">
+                    <Tunable type="float" name="player_perception" class="TunableRange" default="0" display="Player Perception" min="-100" max="100" description="The player's perception of the option, from -100 to 100. For example, if a sim is fishing, pulling up a boot would be seen as -100, while pulling up a treasure chest would be seen as 100." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="show_impacts" class="Tunable" default="True" display="Show Impacts" description="If luck influences the selection process and selects this option, and this bool is True, then we will telegraph that impact to the player. An example of when to turn this off is for 'do nothing' options, where we don't want the game to say 'luck chose something!' but nothing visibly happened for the player." group="General" />
+                </TunableTuple>
+                <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A tunable list of tests and multipliers to apply to the weight used to determine if the Sim will catch a fish instead of treasure or junk. This will be used in conjunction with the Weight Junk and Weight Treasure." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+            <TunableTuple name="weight_junk" class="TunableTuple" display="Weight Junk" group="General">
+                <TunableTuple name="luck_option_config" class="TunableLuckOptionData" display="Luck Option Config" description="The luck specific data for this option." group="General">
+                    <Tunable type="float" name="player_perception" class="TunableRange" default="0" display="Player Perception" min="-100" max="100" description="The player's perception of the option, from -100 to 100. For example, if a sim is fishing, pulling up a boot would be seen as -100, while pulling up a treasure chest would be seen as 100." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="show_impacts" class="Tunable" default="True" display="Show Impacts" description="If luck influences the selection process and selects this option, and this bool is True, then we will telegraph that impact to the player. An example of when to turn this off is for 'do nothing' options, where we don't want the game to say 'luck chose something!' but nothing visibly happened for the player." group="General" />
+                </TunableTuple>
+                <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A tunable list of tests and multipliers to apply to the weight used to determine if the Sim will catch junk instead of a fish or treasure. This will be used in conjunction with the Weight Fish and Weight Treasure." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+            <TunableTuple name="weight_treasure" class="TunableTuple" display="Weight Treasure" group="General">
+                <TunableTuple name="luck_option_config" class="TunableLuckOptionData" display="Luck Option Config" description="The luck specific data for this option." group="General">
+                    <Tunable type="float" name="player_perception" class="TunableRange" default="0" display="Player Perception" min="-100" max="100" description="The player's perception of the option, from -100 to 100. For example, if a sim is fishing, pulling up a boot would be seen as -100, while pulling up a treasure chest would be seen as 100." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="show_impacts" class="Tunable" default="True" display="Show Impacts" description="If luck influences the selection process and selects this option, and this bool is True, then we will telegraph that impact to the player. An example of when to turn this off is for 'do nothing' options, where we don't want the game to say 'luck chose something!' but nothing visibly happened for the player." group="General" />
+                </TunableTuple>
+                <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A tunable list of tests and multipliers to apply to the weight used to determine if the Sim will catch a treasure instead of fish or junk. This will be used in conjunction with the Weight Fish and Weight Junk." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableTuple>
+    </Instance>
+
+    
+</TuningRoot>

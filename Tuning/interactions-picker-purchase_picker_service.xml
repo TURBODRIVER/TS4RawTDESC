@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.picker.purchase_picker_service">
+        <Class name="PurchasePickerGroup" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="PurchasePickerService">
+            <TunableList name="PICKER_DATA_GROUPS" class="TunableMapping" display="Picker Data Groups" mapping_key="key" mapping_value="value" description="A mapping between purchase picker groups and tuning relating to the various limited data that can be provided from the picker." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="PurchasePickerGroup" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="interactions-picker-purchase_picker_service.PurchasePickerGroup._elements" static_entries="interactions-picker-purchase_picker_service.PurchasePickerGroup" description="The purchase picker group type that this set of purchase picker limited items is linked to." group="General" invalid_entries="INVALID" />
+                    <TunableList name="value" class="TunableList" display="Value" description="List of categories of items we will pick from to fulfill the items provider. Number of those items are limited." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <TunableList name="items_list" class="TunableMapping" display="Items List" mapping_key="key" mapping_value="value" description="These are items within this category we will pick randomly to fulfill the items provider. Key is the object definition, weight is the relative chance they will be picked." group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="object" name="key" class="TunableReference" display="Key" description="The object definition we are creating from." allow_none="False" group="General" pack_safe="True" />
+                                    <Tunable type="float" name="value" class="TunableRange" default="1.0" display="Value" min="0.0" max="None" description="The relative weight of this object. Higher weight has higher chance to be picked." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableList>
+                            <Tunable type="int" name="number_of_types_of_items" class="TunableRange" default="1" display="Number Of Types Of Items" min="1" max="None" description="This will be used to limit the number of types of items in this category. Say we have 6 kinds of items in the category. If this value is set to 2 we will randomly select 2 kinds from the 6." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="quantity_for_each_item" class="TunableRange" default="1" display="Quantity For Each Item" min="1" max="None" description="Available number of items in each picked kind of item. For example if we have apple and pear picked, and this number is 3, then eventually we will have 3 apples and 3 pears in the vendor's sell picker." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for this entire category to be picked by the provider." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="REFRESH_TIME" class="TunableTimeOfDay" display="Refresh Time" description="The time of day that the items will refresh in the picker." group="General">
+                <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

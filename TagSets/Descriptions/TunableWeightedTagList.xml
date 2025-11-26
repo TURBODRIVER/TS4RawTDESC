@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tag_set" class="TunableWeightedTagList" module="filters.sim_template" description="A list of weighted tags." instance_needs_reference="True" instance_subclasses_only="False" path="TagSets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="weighted_tags" class="TunableList" display="Weighted Tags" description="A list of weighted tags." group="General">
+            <TunableTuple class="TunableTuple" description="A tag and the weight associated with it." group="General">
+                <TunableEnum type="Tag" name="tag" class="TunableTag" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag." dynamic_entries_prefix="" group="General" invalid_entries="INVALID" pack_safe="True" />
+                <Tunable type="float" name="weight" class="TunableRange" default="1" display="Weight" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

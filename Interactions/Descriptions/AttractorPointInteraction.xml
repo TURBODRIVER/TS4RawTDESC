@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="AttractorPointInteraction" module="interactions.attractor_point_interaction" description="An interaction that selects an attractor point and then pushes a continuation interaction targetting that attractor point." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="Tag" name="_attractor_point_identifier" class="TunableEnumWithFilter" default="INVALID" display="Attractor Point Identifier" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The identifier that will be used to select which attractor points we will use." dynamic_entries_prefix="AtPo" group="Picker Tuning" invalid_entries="INVALID" />
+
+        <Tunable type="interaction" name="_attractor_point_interaction" class="TunableReference" display="Attractor Point Interaction" description="The affordance that we will push on the Sim once the attractor point selection has been made." allow_none="False" group="Picker Tuning" restrict="SuperInteraction" />
+    </Instance>
+</TuningRoot>

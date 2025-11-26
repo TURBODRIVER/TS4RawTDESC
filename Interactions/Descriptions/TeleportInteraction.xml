@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="TeleportInteraction" module="interactions.base.teleport_interaction" description="Interaction to teleport a Sim to the interaction's animation constraints." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="use_fgl" class="Tunable" default="False" display="Use Fgl" description="If enabled, use fgl to place the actor sim near the destination goal. This will also make it always find the world routing surface regardless of the goal's routing surface type. If disabled, try to place the sim directly at the goal's location. " group="General" />
+    </Instance>
+</TuningRoot>

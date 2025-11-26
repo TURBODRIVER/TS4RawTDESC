@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.inventory_availability_tuning">
+        <Class name="InventoryAvailabilityTuning">
+            <TunableList name="ZONE_AVAILABILITY_RULES" class="TunableList" display="Zone Availability Rules" description="The rules used to determine whether or not specific items are available in a given region/zone." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="associated_tests" class="TunableInventoryAvailabilityTestList" display="Associated Tests" description="A set of tests that must pass for this ruleset to be active. Any tests used here should not be based on anything other than the current zone or venue." group="General">
+                        <TunableVariant type="None" class="TunableInventoryAvailabilityTestVariant" default="region" group="General">
+                            <TunableTuple name="region" class="TunableRegionTest" display="Region" description="A test to check which region the actor sim is in." group="General">
+                                <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="disabled" display="Blacklist" description="If enabled then we will check a blacklist of regions in insure that the sim is not within one of them." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="A set of regions that the sim being tested must not be within." group="General" unique_entries="true">
+                                        <Tunable type="region" class="TunableReference" description="A region that the sim being tested in must not be within." allow_none="False" group="General" pack_safe="True" />
+                                    </TunableList>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="disabled" display="Whitelist" description="If enabled then we will check a whitelist of regions in insure that the sim is within one of them." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableList name="enabled" class="TunableSet" display="Enabled" description="A set of regions that the sim being tested must be within." group="General" unique_entries="true">
+                                        <Tunable type="region" class="TunableReference" description="A region that the sim being tested in must be within." allow_none="False" group="General" pack_safe="True" />
+                                    </TunableList>
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableList>
+                    <TunableTuple name="tag_white_black_list" class="TunableWhiteBlackList" display="Tag White Black List" description="If associated tests pass, this white/black list indicates whether this object will be visible based on the tags on the object." group="General">
+                        <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                            <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                            <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableTag" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag to filter on." dynamic_entries_prefix="Func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                </TunableList>
+                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                            <Tunable name="everything" class="TunableExistance" display="Everything" />
+                            <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableVariant>
+                                <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableTag" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag to filter on." dynamic_entries_prefix="Func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.bills_enums">
+        <Class name="AdditionalBillSource" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="Miscellaneous" enum_value="0" />
+        </Class>
+
+        <Class name="BillTypes" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALL_BILLS" enum_value="0" />
+
+            <EnumItem name="HOUSING_BILLS" enum_value="1" />
+
+            <EnumItem name="NON_HOUSING_BILLS" enum_value="2" />
+        </Class>
+
+        <Class name="BillDueType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="HAS_POSITIVE_CREDITS" enum_value="2" />
+
+            <EnumItem name="IS_DUE" enum_value="0" />
+
+            <EnumItem name="IS_NOT_DUE" enum_value="1" />
+        </Class>
+
+        <Class name="DebtSource" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BILLS" enum_value="1" />
+
+            <EnumItem name="HOUSING_BILLS" enum_value="2" />
+
+            <EnumItem name="SCHOOL_LOAN" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

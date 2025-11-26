@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="temple.temple_tuning">
+        <Class name="TempleTuning">
+            <TunableTuple name="CHEST_OPEN_INTEARCTION" class="TunableInteractionOfInterest" display="Chest Open Intearction" description="A reference to the open interaction for chests. This interaction will be listened for to determine temple completion." group="General">
+                <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                    <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+                </TunableList>
+            </TunableTuple>
+
+            <Tunable type="object_state" name="CHEST_OPEN_STATE" class="TunableReference" display="Chest Open State" description="The state that indicates the chest is open." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <TunableEnum type="Tag" name="CHEST_TAG" class="TunableTag" default="INVALID" display="Chest Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag used to identify the final chest of a temple. If it's in the open state, the temple will be considered solved." dynamic_entries_prefix="func_temple" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableTuple name="GATE_LOCK_LOOT" class="TunableLockDoor" display="Gate Lock Loot" description="The LockDoor loot to run on the gates in the temple on load when they should be locked." group="General">
+                <TunableTuple name="chance" class="TunableSuccessChance" display="Chance" description="Percent chance that the loot action will be considered. The chance is evaluated just before running the tests." group="General">
+                    <Tunable type="float" name="base_chance" class="TunablePercent" default="100" display="Base Chance" min="0" max="100" description="The basic chance of success." group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_chance." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_chance if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <TunableEnum type="ClearLock" name="clear_existing_locks" class="TunableEnumEntry" default="CLEAR_ALL" display="Clear Existing Locks" static_entries="objects-components-portal_locking_enums.ClearLock" description="Which locks should be cleared before adding the new lock data." group="General" />
+                <TunableVariant type="None" name="lock_data" class="TunableVariant" default="lock_all_with_simid_exception" display="Lock Data" group="General">
+                    <TunableTuple name="lock_all_with_genus_exception" class="TunableLockAllWithGenusException" display="Lock All With Genus Exception" description="Lock all Sims except those that match the tuned genus." group="General">
+                        <TunableVariant type="None" name="ages" class="OptionalTunable" default="unspecified" display="Ages" description="The Sim must be one of the specified ages." group="General">
+                            <TunableList name="specified" class="TunableEnumSet" default="TEEN,YOUNGADULT,ADULT,ELDER" display="Specified" description="The Sim must be one of the specified ages." group="General" unique_entries="true">
+                                <TunableEnum type="Age" class="TunableEnumEntry" default="ADULT" static_entries="sims-sim_info_types.Age" group="General" />
+                            </TunableList>
+                            <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="gender" class="OptionalTunable" default="unspecified" display="Gender" description="The Sim must be of the specified gender." group="General">
+                            <TunableEnum type="Gender" name="specified" class="TunableEnumEntry" default="None" display="Specified" static_entries="sims-sim_info_types.Gender" description="The Sim must be of the specified gender." group="General" />
+                            <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                        </TunableVariant>
+                        <TunableEnum type="LockPriority" name="lock_priority" class="TunableEnumEntry" default="SYSTEM_LOCK" display="Lock Priority" static_entries="objects-components-portal_locking_enums.LockPriority" description="The priority of this lock data. Used in comparison between multiple lock datas on the lock component test." group="General" />
+                        <TunableEnum type="LockSide" name="lock_sides" class="TunableEnumEntry" default="LOCK_BOTH" display="Lock Sides" static_entries="objects-components-portal_locking_enums.LockSide" description="Which side or both this lock data will lock." group="General" />
+                        <TunableEnum type="MatchType" name="match_type" class="TunableEnumEntry" default="MATCH_ALL" display="Match Type" static_entries="sims-sim_info_tests.MatchType" description="If MATCH_ALL is set, test will pass if Sim matches with all enabled tuned genus. If MATCH_ANY is set, test will pass if Sim matches with one of the enabled tuned genus." group="General" />
+                        <Tunable type="bool" name="should_persist" class="Tunable" default="True" display="Should Persist" description="If checked, this lock data will be persisted." group="General" />
+                        <TunableVariant type="None" name="species" class="OptionalTunable" default="unspecified" display="Species" description="The Sim must be one of the specified species." group="General">
+                            <TunableList name="specified" class="TunableEnumSet" display="Specified" description="The Sim must be one of the specified species." group="General" unique_entries="true">
+                                <TunableEnum type="Species" class="TunableEnumEntry" default="HUMAN" static_entries="sims-sim_info_types.Species" group="General" invalid_entries="INVALID" />
+                            </TunableList>
+                            <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="lock_all_with_simid_exception" class="TunableLockAllWithSimIdExceptionData" display="Lock All With Simid Exception" description="The lock data will reject anyone who's not in the exception sim id list." group="General">
+                        <Tunable type="bool" name="except_actor" class="Tunable" default="False" display="Except Actor" description="If we want this lock data to have this actor as exception sim." group="General" />
+                        <Tunable type="bool" name="except_household" class="Tunable" default="False" display="Except Household" description="If we want this lock data to have actor's household as exception sims." group="General" />
+                        <TunableEnum type="LockPriority" name="lock_priority" class="TunableEnumEntry" default="SYSTEM_LOCK" display="Lock Priority" static_entries="objects-components-portal_locking_enums.LockPriority" description="The priority of this lock data. Used in comparison between multiple lock datas on the lock component test." group="General" />
+                        <TunableEnum type="LockSide" name="lock_sides" class="TunableEnumEntry" default="LOCK_BOTH" display="Lock Sides" static_entries="objects-components-portal_locking_enums.LockSide" description="Which side or both this lock data will lock." group="General" />
+                        <Tunable type="bool" name="should_persist" class="Tunable" default="True" display="Should Persist" description="If checked, this lock data will be persisted." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="lock_all_with_situation_job_exception" class="TunableLockAllWithSituationJobExceptionData" display="Lock All With Situation Job Exception" group="General">
+                        <Tunable type="bool" name="except_business_employee" class="Tunable" default="False" display="Except Business Employee" description="If true, the business store employee will have exception to the door." group="General" />
+                        <TunableEnum type="LockPriority" name="lock_priority" class="TunableEnumEntry" default="SYSTEM_LOCK" display="Lock Priority" static_entries="objects-components-portal_locking_enums.LockPriority" description="The priority of this lock data. Used in comparison between multiple lock datas on the lock component test." group="General" />
+                        <TunableEnum type="LockSide" name="lock_sides" class="TunableEnumEntry" default="LOCK_BOTH" display="Lock Sides" static_entries="objects-components-portal_locking_enums.LockSide" description="Which side or both this lock data will lock." group="General" />
+                        <Tunable type="bool" name="should_persist" class="Tunable" default="True" display="Should Persist" description="If checked, this lock data will be persisted." group="General" />
+                        <TunableTuple name="situation_job_test" class="TunableSituationJobTest" display="Situation Job Test" description="The test to determine whether this sim can pass or not." group="General">
+                            <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If checked then the test result will be reversed, so it will test to see if they are not in a job or not in role state that has matching tags." group="General" />
+                            <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The subject of this situation job test." group="General" />
+                            <TunableList name="role_tags" class="TunableSet" display="Role Tags" description="The participant must have a job that matches the role_tags or have the situation_job." group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" pack_safe="True" />
+                            </TunableList>
+                            <TunableList name="situation_jobs" class="TunableSet" display="Situation Jobs" description="The participant must have this job in this list or a job that matches the role_tags." group="General" unique_entries="true">
+                                <Tunable type="situation_job" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                            <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                            </TunableVariant>
+                        </TunableTuple>
+                    </TunableTuple>
+                    <TunableTuple name="lock_creature" class="TunableLockCreatureData" display="Lock Creature" description="Lock specific creature types." group="General">
+                        <TunableList name="creature_types" class="TunableList" display="Creature Types" description="The creature types that this lock data applies to." group="General">
+                            <TunableEnum type="CreatureType" class="TunableEnumEntry" default="Invalid" static_entries="animation-animation_constants.CreatureType" group="General" />
+                        </TunableList>
+                        <TunableEnum type="LockPriority" name="lock_priority" class="TunableEnumEntry" default="SYSTEM_LOCK" display="Lock Priority" static_entries="objects-components-portal_locking_enums.LockPriority" description="The priority of this lock data. Used in comparison between multiple lock datas on the lock component test." group="General" />
+                        <TunableEnum type="LockSide" name="lock_sides" class="TunableEnumEntry" default="LOCK_BOTH" display="Lock Sides" static_entries="objects-components-portal_locking_enums.LockSide" description="Which side or both this lock data will lock." group="General" />
+                        <Tunable type="bool" name="should_persist" class="Tunable" default="True" display="Should Persist" description="If checked, this lock data will be persisted." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="lock_ranked_statistic" class="TunableLockRankedStatisticData" display="Lock Ranked Statistic" description="The lock data represent ranked statistic test. Sim that can pass the the ranked statistic test on the data can pass this lock." group="General">
+                        <TunableEnum type="LockPriority" name="lock_priority" class="TunableEnumEntry" default="SYSTEM_LOCK" display="Lock Priority" static_entries="objects-components-portal_locking_enums.LockPriority" description="The priority of this lock data. Used in comparison between multiple lock datas on the lock component test." group="General" />
+                        <TunableEnum type="LockSide" name="lock_sides" class="TunableEnumEntry" default="LOCK_BOTH" display="Lock Sides" static_entries="objects-components-portal_locking_enums.LockSide" description="Which side or both this lock data will lock." group="General" />
+                        <TunableTuple name="rank_threshold" class="TunableThreshold" display="Rank Threshold" description="Sims that have ranked statistic's value inside the threshold are not locked by the portal." group="General">
+                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                            <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" description="The number that describes the threshold." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <Tunable type="statistic" name="ranked_stat" class="TunableReference" display="Ranked Stat" description="The ranked statistic we are operating on. Sims won't be allowed to traverse if they don't have this statistic." allow_none="False" group="General" restrict="RankedStatistic" />
+                        <Tunable type="bool" name="should_persist" class="Tunable" default="True" display="Should Persist" description="If checked, this lock data will be persisted." group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+                <Tunable type="bool" name="replace_same_lock_type" class="Tunable" default="True" display="Replace Same Lock Type" description="If True, it will replace the same type of lock data in the locking component, otherwise it will update the existing data." group="General" />
+                <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The sim(s) the operation is applied to." group="General" />
+                <TdescFragTag name="subject_filter_tests" class="TunableTestSet" display="Subject Filter Tests" description="These tests will be run once per subject. If the subject participant of this loot action resolves to multiple objects, each of those objects will be tested individually. Any subject that fails this test will be ignored by this loot. This will have no effect on whether we consider the loot to have passed testing on on other subjects or targets. We can use this in cases where we want to give loot based on some criteria like 'All active household members that are dogs get this loot'. These tests will have no effect on 'run tests first' as they are only used for participant filtering and not to determine loot success. The resolver used for these tests is a SingleObjectResolver based on subject sim. This means that test should generally be testing against 'Actor' and should not assume the presence of additional participants that may be present in the containing loot. Ask a GPE if you have questions." group="General" />
+                <TdescFragTag name="target_filter_tests" class="TunableTestSet" display="Target Filter Tests" description="As subject filter tests, except per target object. See description of subject filter tests." group="General" />
+                <TunableEnum type="ParticipantType" name="target_participant_type" class="TunableEnumEntry" default="Object" display="Target Participant Type" static_entries="interactions.ParticipantType" description="The object to lock." group="General" />
+                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The test to decide whether the loot action can be applied." group="General" />
+                <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                    <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                    <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                    <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                </TunableVariant>
+            </TunableTuple>
+
+            <Tunable type="object_state" name="GATE_STATE" class="TunableReference" display="Gate State" description="The state for temple gates. Used for easy look up." allow_none="False" group="General" pack_safe="True" restrict="ObjectState" />
+
+            <TunableEnum type="Tag" name="GATE_TAG" class="TunableTag" default="INVALID" display="Gate Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag used to find the gate objects inside Temples." dynamic_entries_prefix="func_temple" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableTuple name="GATE_UNLOCK_LOOT" class="TunableUnlockDoor" display="Gate Unlock Loot" description="The UnlockDoor loot to run on the gates when they should be unlocked." group="General">
+                <TunableTuple name="chance" class="TunableSuccessChance" display="Chance" description="Percent chance that the loot action will be considered. The chance is evaluated just before running the tests." group="General">
+                    <Tunable type="float" name="base_chance" class="TunablePercent" default="100" display="Base Chance" min="0" max="100" description="The basic chance of success." group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_chance." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_chance if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The sim(s) the operation is applied to." group="General" />
+                <TdescFragTag name="subject_filter_tests" class="TunableTestSet" display="Subject Filter Tests" description="These tests will be run once per subject. If the subject participant of this loot action resolves to multiple objects, each of those objects will be tested individually. Any subject that fails this test will be ignored by this loot. This will have no effect on whether we consider the loot to have passed testing on on other subjects or targets. We can use this in cases where we want to give loot based on some criteria like 'All active household members that are dogs get this loot'. These tests will have no effect on 'run tests first' as they are only used for participant filtering and not to determine loot success. The resolver used for these tests is a SingleObjectResolver based on subject sim. This means that test should generally be testing against 'Actor' and should not assume the presence of additional participants that may be present in the containing loot. Ask a GPE if you have questions." group="General" />
+                <TdescFragTag name="target_filter_tests" class="TunableTestSet" display="Target Filter Tests" description="As subject filter tests, except per target object. See description of subject filter tests." group="General" />
+                <TunableEnum type="ParticipantType" name="target_participant_type" class="TunableEnumEntry" default="Object" display="Target Participant Type" static_entries="interactions.ParticipantType" description="The object to unlock." group="General" />
+                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="The test to decide whether the loot action can be applied." group="General" />
+                <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                    <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                    <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                    <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                </TunableVariant>
+                <TunableVariant type="None" name="unlock_creature_types" class="OptionalTunable" default="unlock_all_creatures" display="Unlock Creature Types" description="If enabled, define the creature types that for which this unlock will apply" group="General">
+                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of creature types to apply the unlock to if LockType is LOCK_CREATURE." group="General">
+                        <TunableEnum type="CreatureType" class="TunableEnumEntry" default="Invalid" static_entries="animation-animation_constants.CreatureType" group="General" invalid_entries="Invalid" />
+                    </TunableList>
+                    <Tunable name="unlock_all_creatures" class="TunableExistance" display="Unlock All Creatures" />
+                </TunableVariant>
+                <TunableVariant type="None" name="unlock_type" class="OptionalTunable" default="unlock_every_type" display="Unlock Type" description="The type of the lock we want to remove, by default should be everything." group="General">
+                    <TunableEnum type="LockType" name="enabled" class="TunableEnumEntry" default="LOCK_ALL_WITH_SIMID_EXCEPTION" display="Enabled" static_entries="objects-components-portal_locking_enums.LockType" group="General" />
+                    <Tunable name="unlock_every_type" class="TunableExistance" display="Unlock Every Type" />
+                </TunableVariant>
+            </TunableTuple>
+
+            <Tunable type="object_state" name="GATE_UNLOCK_STATE" class="TunableReference" display="Gate Unlock State" description="The unlock state for temple gates." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <Tunable type="lotdescription" name="TEMPLE_LOT_DESCRIPTION" class="TunableReference" display="Temple Lot Description" description="A reference to the lot description file for the temple lot. This is used for easier zone ID lookups." group="General" pack_safe="True" />
+
+            <TunableList name="TEMPLES" class="TunableMapping" display="Temples" mapping_key="Template House Description" mapping_value="Temple Data" description="A Mapping of Temple Templates (house descriptions) and the data associated with each temple." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="housedescription" name="Template House Description" class="TunableReference" display="Template House Description" group="General" pack_safe="True" />
+                    <TunableTuple name="Temple Data" class="TunableTuple" display="Temple Data" description="The data associated with the mapped temple template." group="General">
+                        <TunableList name="enter_lot_loot" class="TunableSet" display="Enter Lot Loot" description="Loot applied to Sims when they enter or spawn in to this Temple. NOTE: Exit Lot Loot is not guaranteed to be given. For example, if the Sim walks onto the lot, player switches to a different zone, then summons that Sim, that Sim will bypass getting the exit loot." group="General" unique_entries="true">
+                            <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                        </TunableList>
+                        <TunableList name="exit_lot_loot" class="TunableSet" display="Exit Lot Loot" description="Loot applied to Sims when they exit or spawn out of this Temple. NOTE: This loot is not guaranteed to be given after Enter Lot Loot. For example, if the Sim walks onto the lot, player switches to a different zone, then summons that Sim, that Sim will bypass getting the exit loot." group="General" unique_entries="true">
+                            <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                        </TunableList>
+                        <TunableList name="rooms" class="TunableMapping" display="Rooms" mapping_key="Room Number" mapping_value="Room Data" description="A mapping of room number to the room data. Room number 0 will be the entrance room to the temple, room 1 will be the first room that needs to be unlocked, and so on." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="snippet" name="Room Data" class="TunableReference" display="Room Data" description="A reference to a Templeroomdata tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="Templeroomdata" />
+                                <Tunable type="int" name="Room Number" class="Tunable" default="None" display="Room Number" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableEnum type="Tag" name="TRAP_TAG" class="TunableTag" default="INVALID" display="Trap Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag used to identify traps inside temples. This will be used to find placeholder traps as well." dynamic_entries_prefix="func_temple" group="General" invalid_entries="INVALID" pack_safe="True" />
+        </Class>
+    </Module>
+</TuningRoot>

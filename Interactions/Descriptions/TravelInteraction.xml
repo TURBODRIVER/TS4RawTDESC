@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="TravelInteraction" module="sims.self_interactions" description="An interaction that allows Sims to travel across zones." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_party_size_weight_tuning" />
+
+        <Deleted name="_provided_posture_type" />
+
+        <Deleted name="allow_from_object_inventory" />
+
+        <Deleted name="allow_from_sim_inventory" />
+
+        <Deleted name="animation_stat" />
+
+        <Deleted name="autonomy_can_overwrite_similar_affordance" />
+
+        <Deleted name="autonomy_preference" />
+
+        <Deleted name="basic_focus" />
+
+        <Deleted name="basic_liabilities" />
+
+        <Deleted name="basic_reserve_object" />
+
+        <Deleted name="cancel_replacement_affordances" />
+
+        <Deleted name="canonical_animation" />
+
+        <Deleted name="force_autonomy_on_inertia" />
+
+        <Deleted name="force_exit_on_inertia" />
+
+        <Deleted name="ignore_group_socials" />
+
+        <Deleted name="intensity" />
+
+        <Deleted name="joinable" />
+
+        <Deleted name="object_reservation_tests" />
+
+        <Deleted name="opportunity_cost_multiplier" />
+
+        <Deleted name="outfit_change" />
+
+        <Deleted name="outfit_priority" />
+
+        <Deleted name="post_guaranteed_autonomy_commodities" />
+
+        <Deleted name="post_run_autonomy_commodities" />
+
+        <Deleted name="pre_add_autonomy_commodities" />
+
+        <Deleted name="pre_run_autonomy_commodities" />
+
+        <Deleted name="privacy" />
+
+        <Deleted name="provided_affordances" />
+
+        <Deleted name="rallyable" />
+
+        <Deleted name="relationship_scoring" />
+
+        <Deleted name="skill_loot_data" />
+
+        <Deleted name="subaction_selection_weight" />
+
+        <Deleted name="supported_posture_type_filter" />
+
+        <Tunable type="bool" name="travel_care_dependents" class="Tunable" default="True" display="Travel Care Dependents" description="If checked, this interaction detects whether or not the traveling Sim is any other Sim's (e.g. toddler) caregiver. If so, it does two things: * If the caregiver situation specifies it, it creates a constraint for this SI (e.g. carry a toddler). * It automatically despawns care dependents." group="General" />
+
+        <TunableVariant type="None" name="travel_xevt" class="OptionalTunable" default="disabled" display="Travel Xevt" description="If enabled, specify an xevent at which the Sim will disappear from the world." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="Tunable" default="100" display="Enabled" description="The xevent at which the Sim will disappear from the world." group="General" />
+        </TunableVariant>
+
+        <Deleted name="utility_info" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="world.ocean_tuning">
+        <Class name="OceanTuning">
+            <TunableEnum type="Tag" name="BEACH_LOCATOR_TAG" class="TunableTag" default="INVALID" display="Beach Locator Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag we can use to get the beach locator definition." dynamic_entries_prefix="" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableList name="OCEAN_DATA" class="TunableMapping" display="Ocean Data" mapping_key="species" mapping_value="age_data" description="The species-age mapping to ocean data. This defines what ages and species can wade in the water and what the water level restrictions are as well as beach portal access objects." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="age_data" class="TunableList" display="Age Data" description="The ages and their data." group="General">
+                        <TunableTuple class="TunableTuple" description="The ages and their ocean data." group="General">
+                            <TunableList name="ages" class="TunableEnumSet" display="Ages" description="The age of the actor." group="General" unique_entries="true">
+                                <TunableEnum type="Age" class="TunableEnumEntry" default="BABY" static_entries="sims-sim_info_types.Age" group="General" />
+                            </TunableList>
+                            <TunableTuple name="ocean_data" class="TunableTuple" display="Ocean Data" description="The ocean data for this Age." group="General">
+                                <TunableVariant type="None" name="beach_portal_data" class="OptionalTunable" default="disabled" display="Beach Portal Data" description="An optional portal definition to allow sims to swim in the ocean. Without this, Sims at this age and species cannot swim in the ocean." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="snippet" name="enabled" class="TunableReference" display="Enabled" description="The portals this age/species will use to swim in the ocean." allow_none="False" group="General" pack_safe="True" restrict="PortalData" />
+                                </TunableVariant>
+                                <TunableVariant type="None" name="swimwear_change_outfit_reason" class="OptionalTunable" default="disabled" display="Swimwear Change Outfit Reason" description="If enabled, the outfit change reason that determines which outfit category a Sim automatically changes into when entering water." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableEnum type="OutfitChangeReason" name="enabled" class="TunableEnumEntry" default="Invalid" display="Enabled" dynamic_entries="sims-outfits-outfit_enums.OutfitChangeReason._elements" static_entries="sims-outfits-outfit_enums.OutfitChangeReason" group="General" invalid_entries="Invalid" />
+                                </TunableVariant>
+                                <Tunable type="float" name="swimwear_change_water_depth" class="TunableRange" default="0.1" display="Swimwear Change Water Depth" min="0" max="None" description="If a Sim's path includes water where the depth is at least the tuned value, in meters, they will switch into the outfit based on the outfit change reasonat the start of the path." tuning_state="NeedsTuning" group="General" />
+                                <TunableTuple name="wading_interval" class="TunableInterval" display="Wading Interval" description="The wading interval for Sims at this age and species. The lower bound indicates the minimum water height required to apply the wading walkstyle, and the upper bound indicates the maximum height we can walk into the water until we can potentially swim." group="General">
+                                    <Tunable type="float" name="lower_bound" class="TunableRange" default="0.1" display="Lower Bound" min="0.01" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="float" name="upper_bound" class="TunableRange" default="1.0" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <Tunable type="float" name="water_depth_error" class="TunableRange" default="0.05" display="Water Depth Error" min="0.01" max="None" description="The error, in meters, that we allow for the swimming beach portals." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableEnum type="SpeciesExtended" name="species" class="TunableEnumEntry" default="HUMAN" display="Species" static_entries="sims-sim_info_types.SpeciesExtended" description="The extended species that this data is for." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

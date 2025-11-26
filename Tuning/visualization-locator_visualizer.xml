@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="visualization.locator_visualizer">
+        <Class name="LocatorVisualizer">
+            <TunableList name="LOCATOR_COLORS" class="TunableMapping" display="Locator Colors" mapping_key="Locator ID" mapping_value="Locator Color" description="Debug Locator Color mapping. This way we can map locator types to colors. When the user types the |debugvis.locators.start command, they will be able to see which locator belongs to it's appropriate color, even if the catalog side changes." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Color" name="Locator Color" class="TunableEnumEntry" default="WHITE" display="Locator Color" static_entries="sims4-color.Color" description="The debug Color this Locator will appear in the world." group="General" />
+                    <Tunable type="int" name="Locator ID" class="Tunable" default="8890" display="Locator Id" description="The ID of the Locator from the Catalog under Locators." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

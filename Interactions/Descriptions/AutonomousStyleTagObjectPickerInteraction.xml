@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="AutonomousStyleTagObjectPickerInteraction" module="interactions.base.picker_interaction" description="Autonomous picker interaction that picks an object with the tuned style tag." instance_needs_reference="True" instance_subclasses_only="False" parents="AutonomousObjectPickerInteraction, AutonomousPickerSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="object_filter_test" class="TunableObjectTaggedObjectFilterTestSet" display="Object Filter Test" description="A list of test to verify object is valid to be selected for autonomous use." group="Picker Tuning">
+            <TunableVariant type="None" class="TunableVariant" default="none" group="General">
+                <TunableTuple name="distance_test" class="TunableDistanceTest" display="Distance Test" description="A tunable factory that tests whether the distance between the actor and the target is within a certain threshold." group="General">
+                    <TunableTuple name="distance_threshold" class="TunableThreshold" display="Distance Threshold" description="The distance threshold for this test. The distance between the subject and the target must satisfy this condition in order of the test to pass." group="General">
+                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                        <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableVariant type="None" name="level_modifier" class="TunableVariant" default="no_modifier" display="Level Modifier" description="Determine how difference in levels affects distance. A modifier of 10, for example, would mean that the distance between two objects is increased by 10 meters for every floor between them." group="General">
+                        <Tunable name="infinite" class="TunableExistance" display="Infinite" />
+                        <Tunable name="no_modifier" class="TunableExistance" display="No Modifier" />
+                        <Tunable type="float" name="specific" class="TunableRange" default="8" display="Specific" min="0" max="None" description="A meter modifier to add to the distance multiplied by the number of floors between subject and target." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="object_count_threshold" class="OptionalTunable" default="disabled" display="Object Count Threshold" description="The number of objects that must pass the distance test for the overall test to succeed. If enabled then the tuned number of objects must pass the distance test for the test to succeed. If disabled then ALL of the objects must pass the distance test for the test to succeed." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableTuple name="enabled" class="TunableThreshold" display="Enabled" description="The number of objects that must pass the distance test in order for the test to succeed." group="General">
+                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                            <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The subject of the test." group="General" />
+                    <TunableVariant type="None" name="target" class="TunableVariant" default="participant_type" display="Target" description="The object to find the distance to. participant_type: Allows you to specify the participant you want to check the distance to. object_tags: Allows you to specify a list of tags to use to find objects to test the distance to." group="General">
+                        <TunableTuple name="object_tags" class="TunableTuple" display="Object Tags" group="General">
+                            <TunableList name="tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Supplies the target(s) of the test using any object that matches the tuned tags." group="General" invalid_entries="INVALID" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="participant_type" class="TunableTuple" display="Participant Type" group="General">
+                            <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Supplies the target(s) of the test using the tuned ParticipantType." group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <Tunable name="none" class="TunableExistance" display="None" />
+                <TunableTuple name="object_criteria_test" class="TunableObjectCriteriaTest" display="Object Criteria Test" description="A test to look at all the objects and compare them to the tuned criteria." group="General">
+                    <Tunable type="bool" name="completed" class="Tunable" default="False" display="Completed" description="If checked, any craftable object (such as a painting) must be finished for it to be considered." group="General" />
+                    <TunableVariant type="None" name="desired_state_threshold" class="OptionalTunable" default="disabled" display="Desired State Threshold" description="A state threshold that the object must satisfy for this test to pass" group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableTuple name="enabled" class="TunableThreshold" display="Enabled" description="A state threshold that the object must satisfy for this test to pass" group="General">
+                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                            <Tunable type="object_state" name="value" class="TunableReference" display="Value" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableVariant type="None" name="in_use_test" class="OptionalTunable" default="disabled" display="In Use Test" description="If enabled, test whether the object is currently in use." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableTuple name="enabled" class="TunableInUseTest" display="Enabled" description="A tunable test to tell if any of the tuned targets are in use by any sims." group="General">
+                            <TunableEnum type="Candidates" name="candidates" class="TunableEnumEntry" default="NON_ACTORS" display="Candidates" static_entries="objects-object_tests.InUseTest.Candidates" description="Which sims will be considered users of the target." group="General" />
+                            <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If unchecked, this test will pass when the object is in use. If checked, this test will pass when the object is not in use. If a number using range is specified, then if checked the test will pass when the number using is outside the specified range. Either too many or too few." group="General" />
+                            <TunableVariant type="None" name="number_using" class="OptionalTunable" default="disabled" display="Number Using" description="An optional interval to specify an inclusive range of valid sims that must be using the target(s) Too few or too many, and the test will fail." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="A tunable interval between lower_bound and upper_bound." group="General">
+                                    <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="upper_bound" class="TunableRange" default="1000" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                            <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                            </TunableVariant>
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableEnum type="ObjectLocation" name="object_location" class="TunableEnumEntry" default="AllSpaces" display="Object Location" static_entries="objects-object_tests.ObjectLocation" description="The Location restriction for the object on active lot. Object needs to be in the set location space to pass the test." group="General" />
+                    <Tunable type="bool" name="on_active_lot" class="Tunable" default="False" display="On Active Lot" description="If checked, test whether or not the object is on the active lot. If unchecked the object can be either on the active lot or in the open streets area, we don't really care." group="General" />
+                    <Tunable type="bool" name="owned" class="Tunable" default="True" display="Owned" description="If checked will test if the object is owned by the active household. If unchecked it doesn't matter who owns the object or if it is owned at all." group="General" />
+                    <TunableVariant type="None" name="positional_relationship_test" class="TunableVariant" default="no_positional_relationship_test" display="Positional Relationship Test" description="The type of positional relationship test to run on the object with respect to another object." group="General">
+                        <Tunable name="no_positional_relationship_test" class="TunableExistance" display="No Positional Relationship Test" />
+                        <TunableTuple name="radius_test" class="Tunable_RadiusFactory" display="Radius Test" description="The object must be within a certain radius of a tuned participant in order for the test to pass." group="General">
+                            <Tunable type="bool" name="check_same_level" class="Tunable" default="False" display="Check Same Level" description="If True, we will only check objects on the same level of the radius actor. " group="General" />
+                            <Tunable type="float" name="radius" class="TunableDistanceSquared" default="5.0" display="Radius" description="The radius, with the radius actor's position, that defines the area within which the object is valid." tuning_state="NeedsTuning" group="General" />
+                            <TunableEnum type="ParticipantType" name="radius_actor" class="TunableEnumEntry" default="ParticipantTypeSingle.Object" display="Radius Actor" static_entries="interactions.ParticipantType" description="The actor whose position, with the radius, defines the area within which the object is valid." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="tagged_object_on_same_level_test" class="Tunable_TaggedObjectOnSameLevelFactory" display="Tagged Object On Same Level Test" description="The object must has at least one object with a tuned tag on the same level as a tuned participant in order for the test to pass." group="General">
+                            <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="ParticipantTypeSingle.Object" display="Subject" static_entries="interactions.ParticipantType" description="The participant to test against. " group="General" />
+                            <TunableEnum type="Tag" name="tag" class="TunableTag" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A single tag to find an object matching to test against the participant. " dynamic_entries_prefix="" group="General" invalid_entries="INVALID" pack_safe="True" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableVariant type="None" name="sim_ownership" class="OptionalTunable" default="disabled" display="Sim Ownership" description="If enabled, test whether or not the object is owned by the active Sim. If checked, test will pass if the Sim owns the object." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="slot_test" class="TunableVariant" default="no_slot_test" display="Slot Test" description="The slot test to run on the object." group="General">
+                        <Tunable name="no_slot_test" class="TunableExistance" display="No Slot Test" />
+                        <TunableTuple name="test" class="TunableSlotTest" display="Test" description="Verify slot status. This test will only apply for single entity participants" group="General">
+                            <Tunable type="bool" name="check_part_owner" class="Tunable" default="False" display="Check Part Owner" description="If enabled and target of tests is a part, the test will be run on the part owner instead." group="General" />
+                            <TunableVariant type="None" name="child_slot" class="TunableVariant" default="by_reference" display="Child Slot" description="The slot on the participant to be tested. " group="General">
+                                <Tunable type="str" name="by_name" class="Tunable" default="_ctnm_" display="By Name" description="The exact name of a slot on the participant to be tested." group="General" />
+                                <Tunable type="slot_type" name="by_reference" class="TunableReference" display="By Reference" description="A particular slot type to be tested." allow_none="False" group="General" restrict="SlotType" />
+                            </TunableVariant>
+                            <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="The subject of this situation data test." group="General" />
+                            <Tunable type="int" name="slot_count_required" class="Tunable" default="1" display="Slot Count Required" description="Minimum number of slots that must pass test only valid for reference slots And not if all are required to pass" tuning_state="NeedsTuning" group="General" />
+                            <TunableVariant type="None" name="slot_test_type" class="TunableVariant" default="has_empty_slot" display="Slot Test Type" description="Type of slot test to run on target subject." group="General">
+                                <TunableTuple name="has_empty_slot" class="TunableTuple" display="Has Empty Slot" description="Verify the slot exists on the participant and it's unoccupied" group="General">
+                                    <Tunable type="bool" name="check_all_slots" class="Tunable" default="False" display="Check All Slots" description="Check this if you want to check that all the slots of the subject are empty." group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="has_slot_type" class="TunableTuple" display="Has Slot Type" description="Verify if the child slot type is of the tuned slot type," group="General" />
+                                <TunableTuple name="has_used_slot" class="TunableTuple" display="Has Used Slot" description="Verify if any slot of the child slot type is currently occupied" group="General">
+                                    <Tunable type="bool" name="check_all_slots" class="Tunable" default="False" display="Check All Slots" description="Check this if you want to check that all the slots of the subject are used." group="General" />
+                                    <TunableVariant type="None" name="object_type" class="OptionalTunable" default="disabled" display="Object Type" description="If enabled one of the children in the used slot must be of a certain kind of object. This test can be done by definition id or object tags." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="If set to definition id then at least one of the child objects must pass the definition test specified. If set to object tags then at least one of the child objects must pass the object tag test specified. " group="General">
+                                            <TunableTuple name="definition_id" class="TunableObjectTypeFactory" display="Definition Id" group="General">
+                                                <Tunable type="object" name="actual_object" class="TunableReference" display="Actual Object" description="The object we want to test ownership of" allow_none="False" group="General" pack_safe="True" />
+                                            </TunableTuple>
+                                            <Tunable name="none" class="TunableExistance" display="None" />
+                                            <TunableTuple name="object_tags" class="TunableObjectTagFactory" display="Object Tags" group="General">
+                                                <TunableList name="tag_set" class="TunableSet" display="Tag Set" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for." group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                    </TunableVariant>
+                                </TunableTuple>
+                            </TunableVariant>
+                            <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                            </TunableVariant>
+                        </TunableTuple>
+                    </TunableVariant>
+                    <Tunable type="bool" name="use_depreciated_values" class="Tunable" default="False" display="Use Depreciated Values" description="If checked, the value consideration for each checked object will at its depreciated amount. This affects the 'All Objects' test type, changing the total value considered to be at the non-depreciated amount." group="General" />
+                    <TunableVariant type="None" name="value" class="OptionalTunable" default="disabled" display="Value" description="A threshold test for the monetary value of a single object in order for it to be considered." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Value/comparison pair used to define a Threshold." group="General">
+                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                            <TunableVariant type="None" name="value_to_check" class="TunableVariant" default="catalog_value" display="Value To Check" group="General">
+                                <Tunable name="catalog_value" class="TunableExistance" display="Catalog Value" />
+                                <Tunable name="current_value" class="TunableExistance" display="Current Value" />
+                                <Tunable name="depreciated_value" class="TunableExistance" display="Depreciated Value" />
+                            </TunableVariant>
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="object_has_no_children_test" class="TunableObjectHasNoChildrenTest" display="Object Has No Children Test" description="A tunable test that checks to see if a specific object has any objects slotted on it or not." group="General">
+                    <Tunable type="bool" name="check_part_owner" class="Tunable" default="False" display="Check Part Owner" description="If enabled and target of tests is a part, the test will be run on the part owner instead." group="General" />
+                    <TunableEnum type="ParticipantType" name="targets" class="TunableEnumEntry" default="Object" display="Targets" static_entries="interactions.ParticipantType" description="Who or what to apply this test to." group="General" />
+                    <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TunableVariant type="None" name="radius" class="OptionalTunable" default="enabled" display="Radius" description="Ensures objects are within a tuned radius. NOTE: THIS SHOULD ONLY BE DISABLED IF APPROVED BY A GPE. Disabling this can have a serious performance impact since most pickers will end up with way too many objects in them." group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableRange" default="5" display="Enabled" min="1" max="50" description="Object must be in a certain range for consideration." tuning_state="NeedsTuning" group="General" />
+        </TunableVariant>
+
+        <TunableEnum type="Tag" name="style_tag_set" class="TunableEnumEntry" default="INVALID" display="Style Tag Set" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Picked objects will have the tuned style tag." group="Picker Tuning" />
+    </Instance>
+</TuningRoot>

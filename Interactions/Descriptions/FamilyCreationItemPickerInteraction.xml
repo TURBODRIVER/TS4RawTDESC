@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="FamilyCreationItemPickerInteraction" module="sims.family_recipes.family_recipes_picker_interactions" description="' Interaction run in a picker to retrieve ingredients and buffs" instance_needs_reference="True" instance_subclasses_only="False" parents="ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="item" class="TunableVariant" default="none" display="Item" description="Item to be used in the picker" group="General">
+            <TunableTuple name="buff" class="Tunable_BuffItem" display="Buff" description="' Derived class what will get the list of buffs to be generated" group="General" />
+            <TunableTuple name="family_recipe" class="Tunable_FamilyRecipeItem" display="Family Recipe" description="' Derived class what will get the list of family recipe that our Sim has learned." group="General" />
+            <TunableTuple name="ingredient" class="Tunable_IngredientItem" display="Ingredient" description="' Derived class what will get the list of ingredients to be generated" group="General" />
+            <Tunable name="none" class="TunableExistance" display="None" />
+        </TunableVariant>
+    </Instance>
+
+    
+</TuningRoot>

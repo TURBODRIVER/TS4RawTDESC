@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="traits.traits">
+        <Class name="Trait">
+            <TunableEnum type="Tag" name="DAY_NIGHT_TRACKING_BUFF_TAG" class="TunableEnumWithFilter" default="INVALID" display="Day Night Tracking Buff Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag that marks buffs as opting in to Day Night Tracking on traits.." dynamic_entries_prefix="buff" group="General" invalid_entries="INVALID" />
+
+            <TunableList name="EQUIP_SLOT_NUMBER_MAP" class="TunableMapping" display="Equip Slot Number Map" mapping_key="Age" mapping_value="Slot Number" description="The number of personality traits available to Sims of specific ages." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Age" name="Age" class="TunableEnumEntry" default="YOUNGADULT" display="Age" static_entries="sims-sim_info_types.Age" description="The Sim's age." group="General" />
+                    <Tunable type="int" name="Slot Number" class="Tunable" default="3" display="Slot Number" description="The number of personality traits available to a Sim of the specified age." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableEnum type="Tag" name="PERSONALITY_TRAIT_TAG" class="TunableEnumEntry" default="INVALID" display="Personality Trait Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag that marks a trait as a personality trait." group="General" invalid_entries="INVALID" />
+        </Class>
+
+        <Class name="TraitBuffReplacementPriority" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="NORMAL" enum_value="0" />
+        </Class>
+
+        <Class name="TraitUICategory" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="BREEDABLE" enum_value="3" />
+
+            <EnumItem name="EXPLORING_RELATIONSHIP_EXPECTATIONS" enum_value="6" />
+
+            <EnumItem name="EXPLORING_SEXUAL_ORIENTATION" enum_value="11" />
+
+            <EnumItem name="GENDER" enum_value="1" />
+
+            <EnumItem name="IDENTITY" enum_value="2" />
+
+            <EnumItem name="PERSONALITY" enum_value="0" />
+
+            <EnumItem name="RELATIONSHIP_EXPECTATIONS" enum_value="5" />
+
+            <EnumItem name="SEXUAL_ORIENTATION_ROMANCE_ATTRACTED" enum_value="9" />
+
+            <EnumItem name="SEXUAL_ORIENTATION_ROMANCE_NOT_ATTRACTED" enum_value="10" />
+
+            <EnumItem name="SEXUAL_ORIENTATION_WOOHOO_ATTRACTED" enum_value="7" />
+
+            <EnumItem name="SEXUAL_ORIENTATION_WOOHOO_NOT_ATTRACTED" enum_value="8" />
+
+            <EnumItem name="SPECIAL" enum_value="4" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

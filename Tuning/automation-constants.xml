@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="automation.constants">
+        <Class name="Constants">
+            <Class name="Buffs">
+                <Tunable type="buff" name="BUFF_ELECTROCUTION_WARNING" class="TunableReference" display="Buff Electrocution Warning" description="buff_Death_Electrocution_Warning" allow_none="False" group="General" />
+
+                <Tunable type="buff" name="BUFF_GOT_CLASS_LIST" class="TunableReference" display="Buff Got Class List" description="buff_HighSchool_Active_GotClassList" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="buff" name="BUFF_INDOOR_WEATHER" class="TunableReference" display="Buff Indoor Weather" description="buff_Weather_Indoor_test" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="buff" name="BUFF_MEMORY_INSPIRED" class="TunableReference" display="Buff Memory Inspired" description="Buff_Memory_inspired" allow_none="False" group="General" />
+
+                <Tunable type="buff" name="BUFF_OUTDOOR_WEATHER" class="TunableReference" display="Buff Outdoor Weather" description="buff_Weather_Outside_Test" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="buff" name="BUFF_PREGNANCY_TRIMESTER1" class="TunableReference" display="Buff Pregnancy Trimester1" description="buff_Pregnancy_Trimester1" allow_none="False" group="General" />
+
+                <Tunable type="buff" name="BUFF_PREGNANCY_TRIMESTER2" class="TunableReference" display="Buff Pregnancy Trimester2" description="buff_Pregnancy_Trimester2" allow_none="False" group="General" />
+
+                <Tunable type="buff" name="BUFF_PREGNANCY_TRIMESTER3" class="TunableReference" display="Buff Pregnancy Trimester3" description="buff_Pregnancy_Trimester3" allow_none="False" group="General" />
+
+                <Tunable type="buff" name="BUFF_READY_TO_ORDER" class="TunableReference" display="Buff Ready To Order" description="buff_Restaurants_Diner_Player_PreplaceOrder" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="buff" name="BUFF_TO_PREVENT_FEARS" class="TunableReference" display="Buff To Prevent Fears" description="PreventFearTraitAdditions" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="buff" name="BUFF_WEREWOLF_IN_BEAST_FORM" class="TunableReference" display="Buff Werewolf In Beast Form" description="buff_Werewolf_InBeastForm" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="buff" name="CHEATINGBUFF_OKAY" class="TunableReference" display="Cheatingbuff Okay" description="An Okay buff" allow_none="False" group="General" />
+            </Class>
+
+            <Class name="CasParts">
+                <TunableList name="TEST_CAS_IN_GAME_EXCLUSIONS" class="TunableList" display="Test Cas In Game Exclusions" description="CAS Parts that we want to exclude when comparing the CAS data with the in-game CAS data, during the CAS In-Game PerPersistence - Verify Sim Data (TestCasInGame)" group="General" unique_entries="true">
+                    <Tunable type="caspart" class="TunableReference" group="General" pack_safe="True" />
+                </TunableList>
+            </Class>
+
+            <Class name="ClubSeeds">
+                <Tunable type="club_seed" name="CHESS_CLUB_SEED" class="TunableReference" display="Chess Club Seed" description="Chess Club" allow_none="False" group="General" />
+            </Class>
+
+            <Class name="Interactions">
+                <Tunable type="interaction" name="ACTIVATE_ALL_BOTS" class="TunableReference" display="Activate All Bots" description="Interaction to activate all bots." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="ACTIVITY_TABLE_CRAFT_PICTURE_STAGING" class="TunableReference" display="Activity Table Craft Picture Staging" description="Crafting staging interaction for activity table" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="ADOPT_SIM" class="TunableReference" display="Adopt Sim" description="computer interaction to adopt child" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="AGE_UP" class="TunableReference" display="Age Up" description="age up baby to child" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="ALIEN_DISGUISE_SELF" class="TunableReference" display="Alien Disguise Self" description="Interaction to wear alien disguise." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="ALIEN_REMOVE_DISGUISE" class="TunableReference" display="Alien Remove Disguise" description="Interaction to remove alien disguise." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="BAR_MAKE_DRINK" class="TunableReference" display="Bar Make Drink" description="interaction used for making drink at bar" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="BAR_MAKE_DRINK_STAGING" class="TunableReference" display="Bar Make Drink Staging" description="staging interaction used for making drink" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="BARSTOOL_SIT" class="TunableReference" display="Barstool Sit" description="sit interaction on barstool setup lot object" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="BED_WOOHOO" class="TunableReference" display="Bed Woohoo" description="woohoo interaction on bed" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="BICYCLE_POSTURE_INTERACTION" class="TunableReference" display="Bicycle Posture Interaction" description="Interaction used to verify the Sim mounted the bicycle after travel." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="BICYCLE_TRAVEL" class="TunableReference" display="Bicycle Travel" description="Interaction used to travel on the bicycle." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="BIKE_GO_HERE" class="TunableReference" display="Bike Go Here" description="Terrain interaction for biking" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="BOOK_READ" class="TunableReference" display="Book Read" description="read book interaction" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="BRING_INFANT_INSIDE" class="TunableReference" display="Bring Infant Inside" description="Interaction to bring infant inside." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="BROOMSTICK_FLY_HERE" class="TunableReference" display="Broomstick Fly Here" description="Interaction to perform user directed broom teleport." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="BUY_CURIO_ITEMS" class="TunableReference" display="Buy Curio Items" description="Interaction to buy curio items." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CANOE_BOARD" class="TunableReference" display="Canoe Board" description="Interaction used to get sim to board island canoe." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CANOE_EXIT" class="TunableReference" display="Canoe Exit" description="Interaction used to get the sim out of the canoe." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CANOE_GO_FISHING" class="TunableReference" display="Canoe Go Fishing" description="Interaction used to get sim to go fishing on the island canoe." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CANOE_LOUNGE" class="TunableReference" display="Canoe Lounge" description="Interaction used to get sim to lounge on an island canoe." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CANOE_MOBILE_POSTURE" class="TunableReference" display="Canoe Mobile Posture" description="Interaction used to get sim to verify that sim is in the island canoe mobile posture." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CANOE_PLACE_IN_WORLD" class="TunableReference" display="Canoe Place In World" description="Interaction used to get the canoe out of the inventory." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CANOE_SAIL_HERE" class="TunableReference" display="Canoe Sail Here" description="Interaction used to get sim to sail to a location with an island canoe." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CANOE_SIT_POSTURE" class="TunableReference" display="Canoe Sit Posture" description="Interaction used to get sim to verify that sim is in the island canoe sit posture." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CARRY_HOLD_OBJECT" class="TunableReference" display="Carry Hold Object" description="Interaction run when holding an object" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CARRY_WINGS" class="TunableReference" display="Carry Wings" description="Interaction run when a fairy is holding their wings" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CHANGE_FROM_FAIRY_FORM" class="TunableReference" display="Change From Fairy Form" description="Interaction to change the Sim out of the fairy occult form." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CHANGE_INFANT_OUTFIT" class="TunableReference" display="Change Infant Outfit" description="Interaction used to change infant outfit using changing table" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CHANGE_TO_FAIRY_FORM" class="TunableReference" display="Change To Fairy Form" description="Interaction to change the Sim into the fairy occult form." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CHAT" class="TunableReference" display="Chat" description="A supporting interaction that is usually present when two newly introduced sims are having a friendly conversation. Used to verify that sims remain socializing for a short time period after that have been introduced. A test failure will be thrown if the sim is not seen in this interaction a few moments after two sims begin a friendly conversation." allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CHAT_HERE" class="TunableReference" display="Chat Here" description="terrain interaction used to make sims in a social go to a location" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CHEAT_MAKESPOILED" class="TunableReference" display="Cheat Makespoiled" description="cheat interaction to change the state of a food commodity to spoiled" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CHEAT_REFILL" class="TunableReference" display="Cheat Refill" description="cheat interaction to refill a consumable, e.g. empty food plate" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CLEAN_DISH_MICROWAVE" class="TunableReference" display="Clean Dish Microwave" description="clean up interaction available on microwave object" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CLEANOUT_SPOILEDFOOD_FROM_SIM" class="TunableReference" display="Cleanout Spoiledfood From Sim" description="interaction used to clean out the spoiled food from sim's inventory" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CLEANUP_DISH" class="TunableReference" display="Cleanup Dish" description="clean up interaction on food plate/glass" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CLIMB_DOWN" class="TunableReference" display="Climb Down" description="climb down a ladder" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CLIMB_UP" class="TunableReference" display="Climb Up" description="climb up a ladder" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="COLLECT_TRASH" class="TunableReference" display="Collect Trash" description="interaction used to collect trash from an indoor or outdoor trash can" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="COMPLETE_HAZMAT_SUIT" class="TunableReference" display="Complete Hazmat Suit" description="Interaction to combine an incomplete hazmat suit with spore filter to create a complete hazmat suit" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="COMPUTER_BROWSE_WEB" class="TunableReference" display="Computer Browse Web" description="Interaction for browsing the web on the computer" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="COOK_GOURMET" class="TunableReference" display="Cook Gourmet" description="fridge interaction that generates a dialog box for crafting options" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="COOK_HOMESTYLE" class="TunableReference" display="Cook Homestyle" description="fridge interaction that generates a dialog box for crafting options" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CRAFT_RESUME_COOK" class="TunableReference" display="Craft Resume Cook" description="interaction to resume the food crafting" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CRAFTING_RESUME_ACTIVITY_TABLE" class="TunableReference" display="Crafting Resume Activity Table" description="Interaction to resume crafting at the activity table" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CRAFTING_RESUME_EASEL" class="TunableReference" display="Crafting Resume Easel" description="Interaction to resume crafting at the easel" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="CREATE_CARRY_UMBRELLA" class="TunableReference" display="Create Carry Umbrella" description="Interaction that is run when sim is holding an umbrella." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="CREATE_CRAFTABLES" class="TunableReference" display="Create Craftables" description="Debug terrain interaction (shift+click) used to spawn craftable objects" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="DEAD_MANS_FLOAT" class="TunableReference" display="Dead Mans Float" description="interaction for performing a float in the water" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="DECLARE_ENEMY" class="TunableReference" display="Declare Enemy" description="interaction to declare another sim as enemy" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="DOG_STAND" class="TunableReference" display="Dog Stand" description="Dog stand posture provider" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="DOG_SWIM" class="TunableReference" display="Dog Swim" description="Dog Swim posture provider" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="DRINK_JUICEDRINK_GENERIC" class="TunableReference" display="Drink Juicedrink Generic" description="interaction used for drinking juice-type drinks" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="EASEL_PAINTING_STAGING_SMALL" class="TunableReference" display="Easel Painting Staging Small" description="Crafting staging interaction for painting small painting at the easel" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="EAT_CHIPS" class="TunableReference" display="Eat Chips" description="interaction used for eating food" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="EAT_FRENCH_TOAST" class="TunableReference" display="Eat French Toast" description="interaction used for eating food" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="EAT_ROAST_CHICKEN" class="TunableReference" display="Eat Roast Chicken" description="interaction used for eating food" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="EMPTY_MICROWAVE" class="TunableReference" display="Empty Microwave" description="interaction used to empty the microwave object" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="EMPTY_OVEN" class="TunableReference" display="Empty Oven" description="interaction used to empty the oven object" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="EMPTY_TRASH" class="TunableReference" display="Empty Trash" description="interaction used for emptying a trash can" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="FAMILIAR_BIND" class="TunableReference" display="Familiar Bind" description="Interaction to bind familiar." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="FAMILIAR_SUMMON" class="TunableReference" display="Familiar Summon" description="Interaction to summon familiar." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="FAMILIAR_UNBIND" class="TunableReference" display="Familiar Unbind" description="Interaction to unbind familiar." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="FIGHT" class="TunableReference" display="Fight" description="interaction to fight with another sim" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="FILL_BOWL" class="TunableReference" display="Fill Bowl" description="" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="FIND_A_JOB" class="TunableReference" display="Find A Job" description="interaction to find a job under work" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="FIND_COMMON_GROUND" class="TunableReference" display="Find Common Ground" description="interaction to find common ground with another sim" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="FLY_DOWN" class="TunableReference" display="Fly Down" description="fly down a ladder" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="FLY_UP" class="TunableReference" display="Fly Up" description="fly up a ladder" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="FRIDGE_OF_STEEL" class="TunableReference" display="Fridge Of Steel" description="upgrade fridge to unbreakable interaction" allow_none="False" group="General" />
+
+                <TunableList name="FRIENDLY_SOCIAL" class="TunableList" display="Friendly Social" description="Friendly social interactions, at least one of these should be available at any given time" group="General">
+                    <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" />
+                </TunableList>
+
+                <Tunable type="interaction" name="GENERIC_BED_WOOHOO" class="TunableReference" display="Generic Bed Woohoo" description="woohoo interaction" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="GENERIC_COOK" class="TunableReference" display="Generic Cook" description="interaction used for making food" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="GET_CASE_ASSIGNMENT" class="TunableReference" display="Get Case Assignment" description="interaction used for getting case assignment detective career" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="GET_CLASS_LIST" class="TunableReference" display="Get Class List" description="Interaction to get class list." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="GIVE_INVESTIGATION_SYSTEM_INVENTORY_OBJECTS" class="TunableReference" display="Give Investigation System Inventory Objects" description="debug interaction used to fill Sim's inventory with objects they need for Strangerville storyline" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="GO_HERE" class="TunableReference" display="Go Here" description="terrain interaction used to make sim go to a location" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="GO_ON_PATROL" class="TunableReference" display="Go On Patrol" description="interaction used to go on patrol detective career" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="GRAB_A_SERVE" class="TunableReference" display="Grab A Serve" description="interaction to grab a serving" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="GRAB_A_SNACK" class="TunableReference" display="Grab A Snack" description="interaction used on fridge to generate basic food items" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="GRAB_ROAST_CHICKEN_PLATE" class="TunableReference" display="Grab Roast Chicken Plate" description="interaction used on a multiserving object to generate a single-serving object" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="HAND_INFANT_TO_SIM" class="TunableReference" display="Hand Infant To Sim" description="Interaction to hand infant to another sim." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="HAVE_BABY" class="TunableReference" display="Have Baby" description="have baby triggered off labor buff" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="INFANTS_BE_CARRIED" class="TunableReference" display="Infants Be Carried" description="The interaction that is pushed on infants that are being carried." allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="INFANTS_CARRY" class="TunableReference" display="Infants Carry" description="An interaction that requires the Sim to pick up an infant and carry at front." allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="INFANTS_CARRY_BACK_TO_FRONT" class="TunableReference" display="Infants Carry Back To Front" description="The interaction to transfer the infant from back carry to front carry." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="INFANTS_CARRY_FRONT_TO_BACK" class="TunableReference" display="Infants Carry Front To Back" description="The interaction to transfer the infant from front carry to back carry." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="INFANTS_CHANGE_DIAPER_ON_STATION" class="TunableReference" display="Infants Change Diaper On Station" description="Change Infant Diaper picker interaction on the changing station." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="INFANTS_GET_DIAPER_CHANGED" class="TunableReference" display="Infants Get Diaper Changed" description="The interaction on infants when their diaper is being changed on the changing station." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="INFANTS_LAY_ON_BACK_CRIB" class="TunableReference" display="Infants Lay On Back Crib" description="The interaction on infants when they are laying on back in crib." allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="INTRODUCE" class="TunableReference" display="Introduce" description="a friendly interaction that should be available even for two sims that do not know each other" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="KICK_OVER_OUTDOOR" class="TunableReference" display="Kick Over Outdoor" description="interaction used for kicking an outdoor trash can" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="MAKE_FOOD_STAGING_BASIC" class="TunableReference" display="Make Food Staging Basic" description="interaction used for making food" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="MAKE_FRENCH_TOAST" class="TunableReference" display="Make French Toast" description="interaction used for making food" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="MAKE_ROAST_CHICKEN_COUNTER" class="TunableReference" display="Make Roast Chicken Counter" description="interaction used for making food" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="MAKE_SIM_FAIRY" class="TunableReference" display="Make Sim Fairy" description="Interaction to make the Sim a fairy." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="MICROWAVE_STAGING_BASIC" class="TunableReference" display="Microwave Staging Basic" description="Crafting staging interaction for microwaving dinner" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="NAP_BED" class="TunableReference" display="Nap Bed" description="interaction on a bed that satisfies energy motive" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="NAP_SOFA" class="TunableReference" display="Nap Sofa" description="interaction on a sofa that satisfies energy motive" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="OBJECT_REPAIR" class="TunableReference" display="Object Repair" description="repair object interaction" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="ORDER_FOOD_FOR_TABLE" class="TunableReference" display="Order Food For Table" description="order food for table at a restaurant" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="PAINTING_SELL" class="TunableReference" display="Painting Sell" description="Interaction to sell the painting" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="PAINTING_SELL_ART_GALLERY" class="TunableReference" display="Painting Sell Art Gallery" description="Interaction to sell the painting to art gallery" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="PAY_BILL" class="TunableReference" display="Pay Bill" description="pay the bill at a restaurant and leave" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="PET_SLEEP" class="TunableReference" display="Pet Sleep" description="interaction for pet to find a preferred place and sleep" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="PETS_BRING_BALL" class="TunableReference" display="Pets Bring Ball" description="Interaction to command pet to fetch ball, requires trait_pets_training_command_fetch." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="PETS_CAT_SIT" class="TunableReference" display="Pets Cat Sit" description="Interaction for cat to sit." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="PETS_DOG_CARRY" class="TunableReference" display="Pets Dog Carry" description="An interaction that requires the Sim to pick up a dog." allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+
+                <Tunable type="interaction" name="PETS_DOG_PUT_DOWN_ON_SURFACE" class="TunableReference" display="Pets Dog Put Down On Surface" description="An interaction that puts a dog down on a routable surface." allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+
+                <Tunable type="interaction" name="PETS_DOG_SOCIALIZE" class="TunableReference" display="Pets Dog Socialize" description="An social interaction supporting multiple dogs." allow_none="False" group="General" pack_safe="True" restrict="SocialSuperInteraction" />
+
+                <Tunable type="interaction" name="PETS_DOG_WALK" class="TunableReference" display="Pets Dog Walk" description="An interaction that has a Sim leash up a dog." allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+
+                <Tunable type="interaction" name="PHONE_PICK_SERVICE_TO_HIRE" class="TunableReference" display="Phone Pick Service To Hire" description="Hire NPC service interaction on phone" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="PICK_UMBRELLA" class="TunableReference" display="Pick Umbrella" description="Interaction that is run for sim to pick an umbrella." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="PICKUP_OUTDOOR" class="TunableReference" display="Pickup Outdoor" description="interaction used to pickup an outdoor trash can that is lying in the ground after being kicked" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="PLACE_IN_WORLD" class="TunableReference" display="Place In World" description="Interaction used on sim inventory objects to place object in world" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="PLANT_OVERSIZED_CROP" class="TunableReference" display="Plant Oversized Crop" description="interaction to plant the oversized crop" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="PLAY_IN_TRASH_PILE" class="TunableReference" display="Play In Trash Pile" description="Interaction used for playing in a trash pile" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="PLAY_VIOLIN" class="TunableReference" display="Play Violin" description="Interaction used for playing the violin" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="PRACTICE_SPEAKING" class="TunableReference" display="Practice Speaking" description="Interaction used on a mirror object that solves for Social motive" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="PURCHASE_OVERSIZED_CROP_SEEDS" class="TunableReference" display="Purchase Oversized Crop Seeds" description="interaction to purchase oversized crop seeds" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="PUT_AWAY" class="TunableReference" display="Put Away" description="Interaction used on (non-sim) object to place object in object's inventory" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="PUT_IN_INVENTORY" class="TunableReference" display="Put In Inventory" description="Interaction used on object to place object in sim's inventory" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="PUT_INFANT_DOWN" class="TunableReference" display="Put Infant Down" description="Interaction to bring request infant be put down." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="RABBIT_HOLE_TEST" class="TunableReference" display="Rabbit Hole Test" description="Interaction that tests rabbit hole constraint" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="REAPER_INSPECT" class="TunableReference" display="Reaper Inspect" description="Interaction indicates that reaper has started inspecting the dead sim" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="REAPER_NOMORE_WORK" class="TunableReference" display="Reaper Nomore Work" description="Interaction indicates that reaper has no more work after finalizing dead sim" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="REQUEST_TABLE" class="TunableReference" display="Request Table" description="request a table at a restaurant" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="RESET_OBJECT" class="TunableReference" display="Reset Object" description="Debug Interaction (shift+click) used to reset objects and sims" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="RETAIL_CHECK_OUT_CUSTOMER" class="TunableReference" display="Retail Check Out Customer" description="Interaction to check out customer" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="RETAIL_CLOCK_IN" class="TunableReference" display="Retail Clock In" description="Interaction employee uses to clock in" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="RETAIL_INSTRUCT_TO_CHECK_OUT" class="TunableReference" display="Retail Instruct To Check Out" description="Interaction to instruct employee to check out customers" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="RETAIL_SET_ITEM_FOR_SALE" class="TunableReference" display="Retail Set Item For Sale" description="Interaction to mark objects for sale" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="RETURN_TO_DOCK" class="TunableReference" display="Return To Dock" description="interaction used to command robot vacuum object to return to dock" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="RIDE_HERE" class="TunableReference" display="Ride Here" description="Interaction used to get sim to ride the water scooter to a location." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="RIGHT_THIS_WAY" class="TunableReference" display="Right This Way" description="host leading sim to table" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="ROMANTIC_COMPLIMENT_APPEARANCE" class="TunableReference" display="Romantic Compliment Appearance" description="Romantic -> Compliment Appearance Social interaction" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="ROMANTIC_MAKE_MOVE" class="TunableReference" display="Romantic Make Move" description="Romantic -> Make Move Social interaction" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="RUMMAGEFORFOOD_OUTDOOR" class="TunableReference" display="Rummageforfood Outdoor" description="Interaction used to rummage for food from an outdoor trash can" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SEALED_DOOR_EXAMINE" class="TunableReference" display="Sealed Door Examine" description="Interaction used to examine the sealed door in the Strangerville lab" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SEALED_DOOR_USE_KEYCARD" class="TunableReference" display="Sealed Door Use Keycard" description="Interaction used to use keycard to open the sealed door in the Strangerville lab" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SEARCH_DOCUMENTATION" class="TunableReference" display="Search Documentation" description="interaction to search the documentation" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SET_FRONT_DOOR" class="TunableReference" display="Set Front Door" description="Interaction used to set door as front door" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SETUP_LOT" class="TunableReference" display="Setup Lot" description="Debug terrain interaction (shift+click) used to spawn debug b/b objects" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SIT" class="TunableReference" display="Sit" description="Sit posture provider" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SIT_BED_CROSSLEGGED" class="TunableReference" display="Sit Bed Crosslegged" description="Sit cross-legged on bed posture provider" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SIT_BED_KNEEL" class="TunableReference" display="Sit Bed Kneel" description="Sit kneeling on bed posture provider" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SIT_CHAIR" class="TunableReference" display="Sit Chair" description="interaction used to make sim sit in a chair" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SIT_HERE" class="TunableReference" display="Sit Here" description="terrain interaction used to make sim sit at a location" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SIT_INTIMATE" class="TunableReference" display="Sit Intimate" description="Sit intimate posture provider" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SIT_INTIMATE_BOOTH" class="TunableReference" display="Sit Intimate Booth" description="Sit intimate for booths/sectional sofa." allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SIT_ON_VACUUM" class="TunableReference" display="Sit On Vacuum" description="Interaction used to make a cat sim sit on a robot vacuum" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SIT_PASSIVE" class="TunableReference" display="Sit Passive" description="passive interaction used when sim is sitting" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SKATE_AROUND" class="TunableReference" display="Skate Around" description="interaction to skate around" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SKATE_GENERIC" class="TunableReference" display="Skate Generic" description="posture providing interaction to skate." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SKI_DOWNHILL" class="TunableReference" display="Ski Downhill" description="Interaction used to ski downhill." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SKIING_ONETIME_MEDIUM_INTENSITY" class="TunableReference" display="Skiing Onetime Medium Intensity" description="interaction to skiing on easy lope snow" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SLED_TOGETHER_SIM_PICKER" class="TunableReference" display="Sled Together Sim Picker" description="Interaction used to sled together with others." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SLEEP_BED" class="TunableReference" display="Sleep Bed" description="interaction on a bed that solves for energy" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SLOPE_MOVE_AWAY" class="TunableReference" display="Slope Move Away" description="Interaction used to move away from slope." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SPELL_CAST_CLEAN_SELF" class="TunableReference" display="Spell Cast Clean Self" description="Interaction to cast clean self spell." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SPELL_CAST_CLONE_SELF" class="TunableReference" display="Spell Cast Clone Self" description="Interaction to cast clone self spell." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SPELL_CAST_FREEZE_SIM" class="TunableReference" display="Spell Cast Freeze Sim" description="Interaction to cast freeze Sim spell." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SPELL_CAST_TERRAIN_TELEPORT" class="TunableReference" display="Spell Cast Terrain Teleport" description="Interaction to cast world teleport spell." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SPELL_CAST_TOGGLE_WAND" class="TunableReference" display="Spell Cast Toggle Wand" description="Interaction to toggling using wands for spells." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="SPELL_DEBUG_UNLOCK" class="TunableReference" display="Spell Debug Unlock" description="Debug interaction to unlock spells." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="STAND" class="TunableReference" display="Stand" description="Stand posture provider" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="START_SKIING" class="TunableReference" display="Start Skiing" description="Interaction used to start skiing." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="START_SKIING_ONETIME" class="TunableReference" display="Start Skiing Onetime" description="Interaction used to start skiing one time." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="START_SKIING_ONETIME_LOW" class="TunableReference" display="Start Skiing Onetime Low" description="Interaction used to start skiing one time low." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="START_SLED_TOGETHER" class="TunableReference" display="Start Sled Together" description="Interaction used to start sledding together." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="STOMP_TRASH_PILE" class="TunableReference" display="Stomp Trash Pile" description="interaction on a trash pile for stomping" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SWIM" class="TunableReference" display="Swim" description="Swim posture provider" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SWIM_HERE" class="TunableReference" display="Swim Here" description="terrain interaction used for sim to swim in pool" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="SWIM_HERE_OCEAN" class="TunableReference" display="Swim Here Ocean" description="terrain interaction used for sim to swim in ocean" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="TAKE_SHOWER" class="TunableReference" display="Take Shower" description="Interaction used on shower object that solves for hygeine motive" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="TODDLER_OCEAN_PLAY" class="TunableReference" display="Toddler Ocean Play" description="Continuation of TODDLER_OCEAN_PLAY_GO_HERE." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="TODDLER_OCEAN_PLAY_GO_HERE" class="TunableReference" display="Toddler Ocean Play Go Here" description="User-directed interaction used on ocean to make toddler play in ocean" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="TODDLERS_BE_CARRIED" class="TunableReference" display="Toddlers Be Carried" description="The interaction that is pushed on toddlers that are being carried." allow_none="False" group="General" restrict="SuperInteraction" />
+
+                <Tunable type="interaction" name="TODDLERS_CARRY" class="TunableReference" display="Toddlers Carry" description="An interaction that requires the Sim to pick up a toddler." allow_none="False" group="General" restrict="SuperInteraction" />
+
+                <Tunable type="interaction" name="TODDLERS_PUT_DOWN_SOFA" class="TunableReference" display="Toddlers Put Down Sofa" description="An interaction that puts down carried toddlers on sofas." allow_none="False" group="General" restrict="SuperInteraction" />
+
+                <Tunable type="interaction" name="TODDLERS_USE_BATHTUB" class="TunableReference" display="Toddlers Use Bathtub" description="An interaction that puts down carried toddlers in bathtubs and tests out the toddlerBath multi-sim posture." allow_none="False" group="General" restrict="SuperInteraction" />
+
+                <Tunable type="interaction" name="TODDLERS_USE_HIGH_CHAIR" class="TunableReference" display="Toddlers Use High Chair" description="An interaction that requires the toddler to be picked up and put down by an adult in order to use the high chair." allow_none="False" group="General" restrict="SuperInteraction" />
+
+                <Tunable type="interaction" name="TOILET_PREGNANCY_TEST" class="TunableReference" display="Toilet Pregnancy Test" description="take pregnancy test on toilet object" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="TRASH_SALVAGE_SCAVENGE" class="TunableReference" display="Trash Salvage Scavenge" description="interaction used to salvage a trash pile" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="TRASHCAN_INDOOR_THROW_AWAY" class="TunableReference" display="Trashcan Indoor Throw Away" description="Interaction used on an indoor trash can to throw away trash to an outdoor trash can" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="TRAVEL_ALIEN_WORLD" class="TunableReference" display="Travel Alien World" description="interaction used to travel to alien world" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="TRAVEL_CRIME_SCENE" class="TunableReference" display="Travel Crime Scene" description="interaction used to travel to crime scene detective career" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="TRY_FOR_BABY" class="TunableReference" display="Try For Baby" description="woohoo try-for-baby interaction" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="TURN_OFF_TV" class="TunableReference" display="Turn Off Tv" description="Interaction used to turn off tv object" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="UPGRADE_ALIEN_PORTAL" class="TunableReference" display="Upgrade Alien Portal" description="interaction on invention constructor to upgrade alien portal" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="USE_TABLET" class="TunableReference" display="Use Tablet" description="An interaction on tablets" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="USE_TOILET" class="TunableReference" display="Use Toilet" description="Gender-nonspecfic interaction used on toilet object that solves for bladder motive" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="VAMPIRE_TELEPORT" class="TunableReference" display="Vampire Teleport" description="Interaction to perform vampire mist teleport." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_BEGIN_EXAMINING" class="TunableReference" display="Vet Begin Examining" description="Interaction to begin the pet examine." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_BILL_OWNER" class="TunableReference" display="Vet Bill Owner" description="Interaction to bill the pet owner." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_CALM_PET" class="TunableReference" display="Vet Calm Pet" description="Calm pet interaction." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_CORRECT_TREATMENT" class="TunableReference" display="Vet Correct Treatment" description="Interaction to treat the pet." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINATION_1" class="TunableReference" display="Vet Examination 1" description="Examination 1 to run on pet." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINATION_2" class="TunableReference" display="Vet Examination 2" description="Examination 2 to run on pet." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINE_CALM_PET" class="TunableReference" display="Vet Examine Calm Pet" description="Interaction to calm pet." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINE_END" class="TunableReference" display="Vet Examine End" description="Interaction to end pet examine." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINE_EYEEXAM" class="TunableReference" display="Vet Examine Eyeexam" description="Interaction to examine pet eyes." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINE_LISTENTOBREATHING" class="TunableReference" display="Vet Examine Listentobreathing" description="Interaction to examine pet breathing." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINE_LISTENTOHEART" class="TunableReference" display="Vet Examine Listentoheart" description="Interaction to examine pet heart." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINE_MOUTH" class="TunableReference" display="Vet Examine Mouth" description="Interaction to examine pet mouth." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINE_SKINFURINSPECTION" class="TunableReference" display="Vet Examine Skinfurinspection" description="Interaction to examine pet skin and fur." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINE_SUPER" class="TunableReference" display="Vet Examine Super" description="Super interaction for vet exam." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_EXAMINE_TESTEARS" class="TunableReference" display="Vet Examine Testears" description="Interaction to examine pet ears." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_GREET_PET" class="TunableReference" display="Vet Greet Pet" description="Interaction to greet the pet." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_GREET_PET_NEUTRAL" class="TunableReference" display="Vet Greet Pet Neutral" description="Interaction to greet the pet in neutral." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_GREET_PET_OWNER" class="TunableReference" display="Vet Greet Pet Owner" description="Interaction to greet the pet owner." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_GREET_PET_OWNER_NEUTRAL" class="TunableReference" display="Vet Greet Pet Owner Neutral" description="Interaction to greet the pet owner in neutral." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_INCORRECT_TREATMENT" class="TunableReference" display="Vet Incorrect Treatment" description="Interaction to treat the pet incorrectly." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_PET_BILL_OWNER" class="TunableReference" display="Vet Pet Bill Owner" description="Interaction to bill the pet owner." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_PET_EXAMINE_SUPER" class="TunableReference" display="Vet Pet Examine Super" description="Super interaction for vet exam as pet." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VET_SIGN_IN_FOR_SICKNESS" class="TunableReference" display="Vet Sign In For Sickness" description="Interaction to sign in for sickness." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="VOTE_CIVIC_POLICY" class="TunableReference" display="Vote Civic Policy" description="interaction to vote on neighborhood action plans" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="WAIT_FOR_FOOD" class="TunableReference" display="Wait For Food" description="wait for ordered food to arrive at table" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="WAIT_FOR_POT" class="TunableReference" display="Wait For Pot" description="Coffee maker interaction while waiting for pot to brew" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="WASH_DISH" class="TunableReference" display="Wash Dish" description="Interaction used to wash dirty dish object" allow_none="False" group="General" />
+
+                <Tunable type="interaction" name="WATCH_COMEDY" class="TunableReference" display="Watch Comedy" description="interaction used for watching comedy on TV" allow_none="False" group="General" />
+
+                <TunableList name="WATCH_TV" class="TunableList" display="Watch Tv" description="Interaction used on TV object that generates a dialogbox for channel options and solves for fun motive" group="General">
+                    <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" />
+                </TunableList>
+
+                <Tunable type="interaction" name="WATER_SCOOTER_MOBILE_POSTURE" class="TunableReference" display="Water Scooter Mobile Posture" description="Interaction used to get sim to verify that sim is in the water scooter mobile posture." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="WATERING_PLANTS" class="TunableReference" display="Watering Plants" description="interaction to watering the plants" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="WEAR_HAZMAT_SUIT" class="TunableReference" display="Wear Hazmat Suit" description="interaction to put on completed hazmat suit" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="WEDDING_AISLE_SEND_PAIR_DOWN" class="TunableReference" display="Wedding Aisle Send Pair Down" description="Interaction to send two sims down wedding aisle." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="WEDDING_AISLE_WALK_TOGETHER" class="TunableReference" display="Wedding Aisle Walk Together" description="Interaction of two sims walking down wedding aisle." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="WEREWOLF_MAX_FURY" class="TunableReference" display="Werewolf Max Fury" description="Interaction to grant max fury to a werewolf." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="interaction" name="YELL_AT" class="TunableReference" display="Yell At" description="interaction to yell at another sim" allow_none="False" group="General" pack_safe="True" />
+            </Class>
+
+            <Class name="LocalizationStrings">
+                <Tunable type="int" name="BREWED_COFFEE" class="TunableLocalizedString" default="0x0" display="Brewed Coffee" description="Pie menu name for brew coffee" group="General" />
+
+                <Tunable type="int" name="CHIPS" class="TunableLocalizedString" default="0x0" display="Chips" description="UI Dialog option for fridge snack" group="General" />
+
+                <Tunable type="int" name="COMEDY" class="TunableLocalizedString" default="0x0" display="Comedy" description="UI dialog option for 'comedy' TV channel" group="General" />
+
+                <Tunable type="int" name="DRAW_SHAPES" class="TunableLocalizedString" default="0x0" display="Draw Shapes" description="Interaction name for drawing shapes at activity table" group="General" />
+
+                <Tunable type="int" name="FRENCH_TOAST" class="TunableLocalizedString" default="0x0" display="French Toast" description="UI Dialog option for 'french toast' fridge crafting option" group="General" />
+
+                <Tunable type="int" name="HAVE_A_QUICK_MEAL" class="TunableLocalizedString" default="0x0" display="Have A Quick Meal" description="Interaction name having microwave dinner" group="General" />
+
+                <Tunable type="int" name="JUICE" class="TunableLocalizedString" default="0x0" display="Juice" description="UI Dialog option for one-handed potable fridge snack" group="General" />
+
+                <Tunable type="int" name="JUICEDRINK2" class="TunableLocalizedString" default="0x0" display="Juicedrink2" description="UI Dialog option for a specific juicedrink type drink crafting station option" group="General" />
+
+                <Tunable type="int" name="MAKE_CHEESECAKE" class="TunableLocalizedString" default="0x0" display="Make Cheesecake" description="Recipe interaction name for cheesecake" group="General" />
+
+                <Tunable type="int" name="MAKE_FRENCH_TOAST" class="TunableLocalizedString" default="0x0" display="Make French Toast" description="Recipe interaction name for french toast" group="General" />
+
+                <Tunable type="int" name="MAKE_JUICEDRINK_GENERIC" class="TunableLocalizedString" default="0x0" display="Make Juicedrink Generic" description="Prototype name for make generic juice-type drink interaction from a crafting station" group="General" />
+
+                <Tunable type="int" name="MAKE_JUICEDRINK2" class="TunableLocalizedString" default="0x0" display="Make Juicedrink2" description="Recipe interaction name for a specific juicedrink-type drink that can be crafted" group="General" />
+
+                <Tunable type="int" name="MAKE_ROAST_CHICKEN" class="TunableLocalizedString" default="0x0" display="Make Roast Chicken" description="Recipe interaction name for roast chicken" group="General" />
+
+                <Tunable type="int" name="MASSAGE_THERAPIST" class="TunableLocalizedString" default="0x0" display="Massage Therapist" description="UI Dialog option for 'hire massage therapist'" group="General" />
+
+                <Tunable type="int" name="MICROWAVE_DINNER" class="TunableLocalizedString" default="0x0" display="Microwave Dinner" description="Pie menu name microwave dinner" group="General" />
+
+                <Tunable type="int" name="NAME_WITH_SIMOLEANS" class="TunableLocalizedString" default="0x0" display="Name With Simoleans" description="Localization string used for interaction names with Simolean costs." group="General" />
+
+                <Tunable type="int" name="ONE_HANDED_DRINK" class="TunableLocalizedString" default="0x0" display="One Handed Drink" description="UI Dialog option for fridge snack. A one-handed drink available to newly created families that is compatible with foods." group="General" />
+
+                <Tunable type="int" name="ONE_HANDED_SNACK" class="TunableLocalizedString" default="0x0" display="One Handed Snack" description="UI Dialog option for fridge snack. A one-handed food available to newly created families that is compatible with drinks. Also pushes the eat at table interaction from the fridge." group="General" />
+
+                <Tunable type="int" name="ONE_TIME_MAID" class="TunableLocalizedString" default="0x0" display="One Time Maid" description="UI Dialog option for 'one-time maid service'" group="General" />
+
+                <Tunable type="int" name="PAINT_PAINTING" class="TunableLocalizedString" default="0x0" display="Paint Painting" description="Interaction name for painting" group="General" />
+
+                <Tunable type="int" name="PIZZA_DELIVERY" class="TunableLocalizedString" default="0x0" display="Pizza Delivery" description="UI Dialog option for 'pizza delivery'" group="General" />
+
+                <Tunable type="int" name="ROAST_CHICKEN" class="TunableLocalizedString" default="0x0" display="Roast Chicken" description="UI Dialog option for 'roast chicken' fridge crafting option" group="General" />
+
+                <Tunable type="int" name="SHAPES" class="TunableLocalizedString" default="0x0" display="Shapes" description="Pie menu name for drawing shapes at activity table" group="General" />
+
+                <Tunable type="int" name="SIMCITY_CHEESECAKE" class="TunableLocalizedString" default="0x0" display="Simcity Cheesecake" description="UI Dialog option for 'cheesecake' fridge crafting option" group="General" />
+
+                <Tunable type="int" name="SMALL_CLASSIC_PAINTING" class="TunableLocalizedString" default="0x0" display="Small Classic Painting" description="Pie menu name for classic painting" group="General" />
+
+                <Tunable type="int" name="TOGETHER_MODIFIER" class="TunableLocalizedString" default="0x0" display="Together Modifier" description="Pie Menu Dialog modifier for doing a thing 'Together'. For example, Go Here Together, or Jog Here Together" group="General" />
+
+                <Tunable type="int" name="TRY_FOR_BABY" class="TunableLocalizedString" default="0x0" display="Try For Baby" description="Pie menu dialog for try for baby" group="General" />
+
+                <Tunable type="int" name="WALK" class="TunableLocalizedString" default="0x0" display="Walk" description="Interaction name for walk" group="General" />
+            </Class>
+
+            <Class name="LotDescriptions">
+                <TunableList name="GAMEPLAY_SOAK_EXCLUSIONS" class="TunableSet" display="Gameplay Soak Exclusions" description="A list of lots to exclude from travel in gameplaysoak test" group="General" unique_entries="true">
+                    <Tunable type="lotdescription" class="TunableReference" group="General" pack_safe="True" />
+                </TunableList>
+            </Class>
+
+            <Class name="Misc">
+                <Tunable type="int" name="AUTOMATION_VERSION" class="Tunable" default="1" display="Automation Version" description="This value is read by the automated test script and used to determine which test behavior should be used. In general, this value should be updated whenever game behavior that the automated test relies on is changed. For usage info, please see http://maxisweb/sims4/index.php?title=Automation_Dependency_Versioning_System" tuning_state="NeedsTuning" group="General" />
+
+                <Tunable type="int" name="NUM_TRAVEL_FAILURES" class="Tunable" default="3" display="Num Travel Failures" description="This value is used to tune the number of acceptable failures for automated tests that care about the number of times travel can fail." tuning_state="NeedsTuning" group="General" />
+            </Class>
+
+            <Class name="ObjectDefinitions">
+                <Tunable type="object" name="ACTIVITY_TABLE" class="TunableReference" display="Activity Table" description="an activity table" allow_none="False" group="General" />
+
+                <Tunable type="object" name="ALIEN_PORTAL" class="TunableReference" display="Alien Portal" description="Portal to alien world" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="AUTOTEST_CHIPS" class="TunableReference" display="Autotest Chips" description="long to eat debug chips used by autotests" allow_none="False" group="General" />
+
+                <Tunable type="object" name="BAKE_PAN" class="TunableReference" display="Bake Pan" description="a food baking pan block model object slots into stove" allow_none="False" group="General" />
+
+                <Tunable type="object" name="BAR" class="TunableReference" display="Bar" description="bar created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="BASSINET" class="TunableReference" display="Bassinet" description="baby birthing pod" allow_none="False" group="General" />
+
+                <Tunable type="object" name="BATHTUB" class="TunableReference" display="Bathtub" description="bathtub created in the toddlerTest portion of GUISmoke" allow_none="False" group="General" />
+
+                <Tunable type="object" name="BICYCLE_DEFINITION" class="TunableReference" display="Bicycle Definition" description="Bicycle used for testing vehicle travel." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="BOOK" class="TunableReference" display="Book" description="individual book object" allow_none="False" group="General" />
+
+                <Tunable type="object" name="BOOMBOX" class="TunableReference" display="Boombox" description="boombox used to pets tests" allow_none="False" group="General" />
+
+                <Tunable type="object" name="BOT_CLEAN" class="TunableReference" display="Bot Clean" description="Cleaning Bot." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="BOT_GARDEN" class="TunableReference" display="Bot Garden" description="Gardening Bot." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="BOT_PARTY" class="TunableReference" display="Bot Party" description="Party Bot." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="BOT_REPAIR" class="TunableReference" display="Bot Repair" description="Repair Bot" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="BOT_TESTS_COUNTER" class="TunableReference" display="Bot Tests Counter" description="Counter" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="BOT_TESTS_PLANT" class="TunableReference" display="Bot Tests Plant" description="Tomator Plant" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="BOT_TESTS_PLANTER" class="TunableReference" display="Bot Tests Planter" description="Planter Box" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="BOT_TESTS_SINK1" class="TunableReference" display="Bot Tests Sink1" description="Sink 1" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="BOT_TESTS_SINK2" class="TunableReference" display="Bot Tests Sink2" description="Sink 2" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="BUNNY_SLOPE" class="TunableReference" display="Bunny Slope" description="Bunny Slope" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="CAKE_BAKE_PAN" class="TunableReference" display="Cake Bake Pan" description="a cake baking pan object created during make_cheesecake interaction" allow_none="False" group="General" />
+
+                <Tunable type="object" name="CAT_CONDO" class="TunableReference" display="Cat Condo" description="a high end cat condo with lots of places for cat to sit" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="CEILING_LIGHT" class="TunableReference" display="Ceiling Light" description="A ceiling light" allow_none="False" group="General" />
+
+                <Tunable type="object" name="CHAIR" class="TunableReference" display="Chair" description="Seat object created by setup lot cheat, 4 of these are placed around the dining table" allow_none="False" group="General" />
+
+                <Tunable type="object" name="CHANGING_STATION" class="TunableReference" display="Changing Station" description="Changing station used for infants" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="CHEESECAKE" class="TunableReference" display="Cheesecake" description="edible craftable object" allow_none="False" group="General" />
+
+                <Tunable type="object" name="CHIPS" class="TunableReference" display="Chips" description="edible object that can be placed in the world" allow_none="False" group="General" />
+
+                <Tunable type="object" name="COFFEE_MAKER" class="TunableReference" display="Coffee Maker" description="a coffee maker" allow_none="False" group="General" />
+
+                <Tunable type="object" name="COMMON_UPGRADE_PART" class="TunableReference" display="Common Upgrade Part" description="common upgrade part" allow_none="False" group="General" />
+
+                <Tunable type="object" name="COMMUNITY_VOTING_BOARD" class="TunableReference" display="Community Voting Board" description="Community Voting Board" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="COMPLETED_HAZMAT_SUIT" class="TunableReference" display="Completed Hazmat Suit" description="A completed Hazmat suit that lives in Sim's inventory and is used for traveling through spore clouds" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="COMPUTER" class="TunableReference" display="Computer" description="a computer" allow_none="False" group="General" />
+
+                <Tunable type="object" name="COUNTER" class="TunableReference" display="Counter" description="created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="COUNTER_ISLE" class="TunableReference" display="Counter Isle" description="A isle counter different from counter defined in COUNTER" allow_none="False" group="General" />
+
+                <Tunable type="object" name="CRAFT_PICTURE" class="TunableReference" display="Craft Picture" description="picture generated from activity table" allow_none="False" group="General" />
+
+                <Tunable type="object" name="CRIB" class="TunableReference" display="Crib" description="crib used for infants." allow_none="False" group="General" />
+
+                <Tunable type="object" name="DECO_LARGE_SLOT" class="TunableReference" display="Deco Large Slot" description="A decorative object requiring a large slot" allow_none="False" group="General" />
+
+                <Tunable type="object" name="DECO_MEDIUM_SLOT" class="TunableReference" display="Deco Medium Slot" description="A decorative object requiring a medium slot" allow_none="False" group="General" />
+
+                <Tunable type="object" name="DECO_SMALL_SLOT" class="TunableReference" display="Deco Small Slot" description="A decorative object requiring a small slot" allow_none="False" group="General" />
+
+                <Tunable type="object" name="DESK" class="TunableReference" display="Desk" description="a desk" allow_none="False" group="General" />
+
+                <Tunable type="object" name="DIRTY_DISH" class="TunableReference" display="Dirty Dish" description="Dirty dish object generated when cleaning out spoiled food" allow_none="False" group="General" />
+
+                <Tunable type="object" name="DOOR" class="TunableReference" display="Door" description="wall-placable object that creates a portal allowing sim to walk through the wall" allow_none="False" group="General" />
+
+                <Tunable type="object" name="DOUBLE_BED" class="TunableReference" display="Double Bed" description="energy-fulfilling woohoo-compatible object created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="DUCKS" class="TunableReference" display="Ducks" description="A water-placeable duck" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="EASEL" class="TunableReference" display="Easel" description="an easel for painting" allow_none="False" group="General" />
+
+                <Tunable type="object" name="EASY_SLOPE" class="TunableReference" display="Easy Slope" description="Easy Slope" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="EMPTY_GLASS" class="TunableReference" display="Empty Glass" description="A drinking tumbler object that is empty" allow_none="False" group="General" />
+
+                <Tunable type="object" name="EP10_EASY_SLOPE_SNOW" class="TunableReference" display="Ep10 Easy Slope Snow" description="Used to skiing when sim is in mountain climb excursion." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="FRENCH_TOAST" class="TunableReference" display="French Toast" description="edible single-serving craftable object" allow_none="False" group="General" />
+
+                <Tunable type="object" name="FRIDGE" class="TunableReference" display="Fridge" description="food storage device created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="FRIDGE2" class="TunableReference" display="Fridge2" description="food storage device in sqe gameplay world" allow_none="False" group="General" />
+
+                <Tunable type="object" name="FRY_PAN" class="TunableReference" display="Fry Pan" description="a food fry pan block model object slots onto stove" allow_none="False" group="General" />
+
+                <Tunable type="object" name="GARDENPLANT_PATCH" class="TunableReference" display="Gardenplant Patch" description="A place to crop the plants" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="HIGH_CHAIR" class="TunableReference" display="High Chair" description="A high chair, where toddlers sit and eat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="HIGH_WALL_PAINTING" class="TunableReference" display="High Wall Painting" description="a painting that can be height adjusted on a wall" allow_none="False" group="General" />
+
+                <Tunable type="object" name="HOST_STATION" class="TunableReference" display="Host Station" description="host station used in restaurant test" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="INCOMPLETE_HAZMAT_SUIT" class="TunableReference" display="Incomplete Hazmat Suit" description="An incomplete Hazmat suit that lives in Sim's inventory that, when completed, is used for traveling through spore clouds" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="INDOOR_TRASHCAN" class="TunableReference" display="Indoor Trashcan" description="an indoor trash can object" allow_none="False" group="General" />
+
+                <Tunable type="object" name="INVENTION_CONSTRUCTOR" class="TunableReference" display="Invention Constructor" description="Scientist object" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="ISLAND_CANOE" class="TunableReference" display="Island Canoe" description="Island canoe used for testing ocean vehicles." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="JUICE" class="TunableReference" display="Juice" description="JuiceDrink-type cheat-spawnable craftable object compatible with sim inventory and fridge inventory" allow_none="False" group="General" />
+
+                <Tunable type="object" name="JUICEDRINK2" class="TunableReference" display="Juicedrink2" description="JuiceDrink-type crafted object, requires bartending skill to create, craftable at bar" allow_none="False" group="General" />
+
+                <Tunable type="object" name="KITCHEN_UPGRADE_PART" class="TunableReference" display="Kitchen Upgrade Part" description="kitchen upgrade part" allow_none="False" group="General" />
+
+                <Tunable type="object" name="MAGIC_BROOM" class="TunableReference" display="Magic Broom" description="Broomstick to use for broom teleport" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="MAGIC_FAMILIAR" class="TunableReference" display="Magic Familiar" description="Familiar summoned" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="MAGIC_WAND" class="TunableReference" display="Magic Wand" description="Magic wand to use when casting spells" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="MASSAGE_TABLE" class="TunableReference" display="Massage Table" description="the relaxer massage table" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="MICROWAVE" class="TunableReference" display="Microwave" description="A Schmapple microwave object" allow_none="False" group="General" />
+
+                <Tunable type="object" name="MICROWAVE_DINNER" class="TunableReference" display="Microwave Dinner" description="A food plate object created by cooking a microwave dinner" allow_none="False" group="General" />
+
+                <Tunable type="object" name="MIRROR_FLOOR" class="TunableReference" display="Mirror Floor" description="mirror created by setup lot cheat, placed on the floor" allow_none="False" group="General" />
+
+                <Tunable type="object" name="MIRROR_WALL" class="TunableReference" display="Mirror Wall" description="mirror that can be hung on a wall" allow_none="False" group="General" />
+
+                <Tunable type="object" name="OUTDOOR_TRASHCAN" class="TunableReference" display="Outdoor Trashcan" description="An outdoor trash can" allow_none="False" group="General" />
+
+                <Tunable type="object" name="OVERSIZED_PUMPKIN_SEEDS" class="TunableReference" display="Oversized Pumpkin Seeds" description="Oversized pumpkin seeds" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="PAINT_CANVAS" class="TunableReference" display="Paint Canvas" description="canvas generated from painting" allow_none="False" group="General" />
+
+                <Tunable type="object" name="PET_BALL" class="TunableReference" display="Pet Ball" description="a pet ball" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="PET_BOWL" class="TunableReference" display="Pet Bowl" description="food bowl for pets tests" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="PET_EXAMINE_TABLE1" class="TunableReference" display="Pet Examine Table1" description="Pet Examine Table" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="PET_EXAMINE_TABLE2" class="TunableReference" display="Pet Examine Table2" description="Pet Examine Table" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="PETAL_LINED_WEDDING_AISLE_SHORT" class="TunableReference" display="Petal Lined Wedding Aisle Short" description="Wedding aisle" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="PICNIC_TABLE" class="TunableReference" display="Picnic Table" description="Picnic table object used in posture graph test" allow_none="False" group="General" />
+
+                <Tunable type="object" name="POLICE_STATION_COMPUTER" class="TunableReference" display="Police Station Computer" description="A computer found at the police station" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="POOL_FLOOR_LIGHT" class="TunableReference" display="Pool Floor Light" description="A pool floor light" allow_none="False" group="General" />
+
+                <Tunable type="object" name="POOL_LADDER" class="TunableReference" display="Pool Ladder" description="A pool ladder" allow_none="False" group="General" />
+
+                <Tunable type="object" name="POOL_WALL_LIGHT" class="TunableReference" display="Pool Wall Light" description="A pool wall light" allow_none="False" group="General" />
+
+                <Tunable type="object" name="REED" class="TunableReference" display="Reed" description="A reed object that can be placed on water" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="ROAST_CHICKEN" class="TunableReference" display="Roast Chicken" description="edible multiserving object, spawns single-serving objects" allow_none="False" group="General" />
+
+                <Tunable type="object" name="ROAST_CHICKEN_PLATE" class="TunableReference" display="Roast Chicken Plate" description="edible single-serving craftable object" allow_none="False" group="General" />
+
+                <Tunable type="object" name="ROAST_CHICKEN_TRAY" class="TunableReference" display="Roast Chicken Tray" description="transitional craftable object" allow_none="False" group="General" />
+
+                <Tunable type="object" name="ROBOT_VACUUM" class="TunableReference" display="Robot Vacuum" description="Robot vacuum object" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="ROBOT_VACUUM_DOCK" class="TunableReference" display="Robot Vacuum Dock" description="Dock for robot vacuum object" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="RUMMAGED_MACNCHEESE_FOODPLATE" class="TunableReference" display="Rummaged Macncheese Foodplate" description="mac n cheese foodplate created by rummage interaction on outdoor trash can" allow_none="False" group="General" />
+
+                <Tunable type="object" name="RUMMAGED_OATMEAL_FOODPLATE" class="TunableReference" display="Rummaged Oatmeal Foodplate" description="oatmeal foodplate created by rummage interaction on outdoor trash can" allow_none="False" group="General" />
+
+                <Tunable type="object" name="RUMMAGED_SALADGARDEN_FOODPLATE" class="TunableReference" display="Rummaged Saladgarden Foodplate" description="salad garden foodplate created by rummage interaction on outdoor trash can" allow_none="False" group="General" />
+
+                <Tunable type="object" name="SCYTHE" class="TunableReference" display="Scythe" description="Death's scythe" allow_none="False" group="General" />
+
+                <Tunable type="object" name="SEALED_DOOR" class="TunableReference" display="Sealed Door" description="The sealed door in entrance of lab in Strangerville" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="SEALED_DOOR_2" class="TunableReference" display="Sealed Door 2" description="The 2nd sealed door in the Strangerville lab" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="SEALED_DOOR_3" class="TunableReference" display="Sealed Door 3" description="The 3rd sealed door in the Strangerville lab" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="SEARCH_EVIDENCE" class="TunableReference" display="Search Evidence" description="The first evidence in Strangerville lab" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="SECTIONAL_SOFA" class="TunableReference" display="Sectional Sofa" description="Sectional Sofa dynamically configured gameplay object" allow_none="False" group="General" />
+
+                <Tunable type="object" name="SECTIONAL_SOFA_PIECE" class="TunableReference" display="Sectional Sofa Piece" description="Sectional Sofa piece, placed by B/B" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="SHOWER" class="TunableReference" display="Shower" description="Hygeine-fulfilling object created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="SINK" class="TunableReference" display="Sink" description="Bathroom sink object created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="SKATING_RINK" class="TunableReference" display="Skating Rink" description="skating rink" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="SOFA" class="TunableReference" display="Sofa" description="Multi-seat seatable object created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="SQUARE_TABLE" class="TunableReference" display="Square Table" description="square table used for pets tests" allow_none="False" group="General" />
+
+                <Tunable type="object" name="STOOL" class="TunableReference" display="Stool" description="Single-seat object created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="STOVE" class="TunableReference" display="Stove" description="a stove object created by the setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="STRANGEVILLE_CURIO_SHOP" class="TunableReference" display="Strangeville Curio Shop" description="Curio shop to buy items" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="STRANGEVILLE_SPY_BUG" class="TunableReference" display="Strangeville Spy Bug" description="Used to plant on other sims to spy." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="TABLE" class="TunableReference" display="Table" description="Dining table object created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="TABLE_SMALL_SLOT" class="TunableReference" display="Table Small Slot" description="A table with a small slot" allow_none="False" group="General" />
+
+                <Tunable type="object" name="TABLET" class="TunableReference" display="Tablet" description="an electronic tablet" allow_none="False" group="General" />
+
+                <Tunable type="object" name="TOILET" class="TunableReference" display="Toilet" description="Bladder-fulfilling seatable object created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="TOMBSTONE" class="TunableReference" display="Tombstone" description="A tombstone for a dead sim" allow_none="False" group="General" />
+
+                <Tunable type="object" name="TOYBOX" class="TunableReference" display="Toybox" description="a toybox" allow_none="False" group="General" />
+
+                <Tunable type="object" name="TRASH_PILE" class="TunableReference" display="Trash Pile" description="A trash pile" allow_none="False" group="General" />
+
+                <Tunable type="object" name="TRASH_PILE_SCAVENGE" class="TunableReference" display="Trash Pile Scavenge" description="A trash pile that can be scavenged for parts" allow_none="False" group="General" />
+
+                <Tunable type="object" name="TV" class="TunableReference" display="Tv" description="Entertainment-fulfilling chair-compatible object created by setup lot cheat" allow_none="False" group="General" />
+
+                <Tunable type="object" name="UMBRELLA" class="TunableReference" display="Umbrella" description="Used to verify that sim will carry umbrella in the rain." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="UMBRELLA_RACK" class="TunableReference" display="Umbrella Rack" description="Umbrella rack for sims to use umbrella." allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="URN" class="TunableReference" display="Urn" description="An urn holding the ashes of a dead sim" allow_none="False" group="General" />
+
+                <Tunable type="object" name="VET_PODIUM" class="TunableReference" display="Vet Podium" description="vet podium" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="object" name="VIOLIN" class="TunableReference" display="Violin" description="a portable musical instrument" allow_none="False" group="General" />
+
+                <Tunable type="object" name="WALL_LIGHT" class="TunableReference" display="Wall Light" description="A wall sconce light" allow_none="False" group="General" />
+
+                <Tunable type="object" name="WATER_SCOOTER" class="TunableReference" display="Water Scooter" description="Water scooter used for testing ocean vehicles." allow_none="False" group="General" pack_safe="True" />
+            </Class>
+
+            <Class name="Recipes">
+                <Tunable type="recipe" name="SMALL_CLAM_CHOWDER" class="TunableReference" display="Small Clam Chowder" description="Small clam chowder recipe" allow_none="False" group="General" pack_safe="True" />
+            </Class>
+
+            <Class name="ResourceIds">
+                <Tunable type="block" name="BLK_FENCE_AND_CEILING_RAIL" class="TunableReference" display="Blk Fence And Ceiling Rail" description="Build/buy block product type, has fence railing wall facet types and ceiling friezes" group="General" />
+
+                <Tunable type="block" name="BLK_HEXAGON_3x3" class="TunableReference" display="Blk Hexagon 3X3" description="Build/buy block product type, hexagonal 3x3 block with diagonal walls on the corners" group="General" />
+
+                <Tunable type="block" name="BLK_L_SHAPE" class="TunableReference" display="Blk L Shape" description="L-shaped block used for build/buy block placement and manipulation tests" group="General" />
+
+                <Tunable type="block" name="BLK_RIGHT_ROUNDED_3x5" class="TunableReference" display="Blk Right Rounded 3X5" description="3x5 block with a flat left side and rounded right side, with a single unit wide non-rounded wall segment between the two rounded sides" group="General" />
+
+                <Tunable type="block" name="BLK_ROUNDED_LARGE" class="TunableReference" display="Blk Rounded Large" description="7x7 rounded deck" group="General" />
+
+                <Tunable type="block" name="BLK_ROUNDED_SMALL" class="TunableReference" display="Blk Rounded Small" description="3x3 rounded deck" group="General" />
+
+                <Tunable type="block" name="BLK_SQUARE_DECK" class="TunableReference" display="Blk Square Deck" description="Build/buy block product type, outdoor block with fence railing wall facet types" group="General" />
+
+                <Tunable type="block" name="BLK_SQUARE_ROOM_3x3" class="TunableReference" display="Blk Square Room 3X3" description="Build/Buy block product type, 3x3 plain square block with no automatic doors or windows" group="General" />
+
+                <Tunable type="block" name="BLK_TRIANGLE_TR_2x2" class="TunableReference" display="Blk Triangle Tr 2X2" description="Build/Buy block product type, 2x2 block with flat left and bottom sides and a diagonal top-right side" group="General" />
+
+                <Tunable type="buildladder" name="BUILD_LADDER_1" class="TunableReference" display="Build Ladder 1" description="build ladder" group="General" />
+
+                <Tunable type="ceilingrail" name="CEILING_RAIL2" class="TunableReference" display="Ceiling Rail2" description="ceiling rail different from product defined in STYLE1" group="General" />
+
+                <Tunable type="floorpattern" name="DECK_FLOOR_PATTERN2" class="TunableReference" display="Deck Floor Pattern2" description="deck floor pattern different from pattern defined in STYLE1" group="General" />
+
+                <Tunable type="wallpattern" name="DROP_WALL_PRODUCT1" class="TunableReference" display="Drop Wall Product1" description="Generic stair drop wall product used for build/buy tests" group="General" />
+
+                <Tunable type="wallpattern" name="DROP_WALL_PRODUCT2" class="TunableReference" display="Drop Wall Product2" description="Generic stair drop wall type, should be disctinct from DROP_WALL_PRODUCT1" group="General" />
+
+                <Tunable type="fence" name="FENCE_TYPE2" class="TunableReference" display="Fence Type2" description="fence type different from type defined in STYLE1" group="General" />
+
+                <Tunable type="floortrim" name="FLOOR_TRIM2" class="TunableReference" display="Floor Trim2" description="floor trim different from trim defined in STYLE1" group="General" />
+
+                <Tunable type="frieze" name="FRIEZE_PRODUCT1" class="TunableReference" display="Frieze Product1" description="frieze product used by STYLE1" group="General" />
+
+                <Tunable type="frieze" name="FRIEZE_PRODUCT2" class="TunableReference" display="Frieze Product2" description="frieze product different from product defined in STYLE1" group="General" />
+
+                <Tunable type="halfwalltrim" name="HALF_WALL_TRIM" class="TunableReference" display="Half Wall Trim" description="Half wall trim different from default one" group="General" />
+
+                <Tunable type="halfwall" name="HALF_WALL1" class="TunableReference" display="Half Wall1" description="Generic halfwall type" group="General" />
+
+                <Tunable type="halfwall" name="HALF_WALL2" class="TunableReference" display="Half Wall2" description="Generic halfwall type different from type defined in HALF_WALL1" group="General" />
+
+                <Tunable type="floorpattern" name="INNER_FLOOR_PATTERN2" class="TunableReference" display="Inner Floor Pattern2" description="inner floor pattern different from pattern defined in STYLE1" group="General" />
+
+                <Tunable type="wallpattern" name="INNER_WALL_PATTERN2" class="TunableReference" display="Inner Wall Pattern2" description="inner wall pattern different from pattern defined in STYLE1" group="General" />
+
+                <Tunable type="wallpattern" name="OUTER_WALL_PATTERN2" class="TunableReference" display="Outer Wall Pattern2" description="outer wall pattern different from pattern defined in STYLE1" group="General" />
+
+                <Tunable type="block" name="POOL_DIAG_SQUARE_1x1" class="TunableReference" display="Pool Diag Square 1X1" description="Build/buy block product type, diagonal 1x1 pool block" group="General" />
+
+                <Tunable type="block" name="POOL_OCTAGON_3x3" class="TunableReference" display="Pool Octagon 3X3" description="Build/buy block product type, octagon 3x3 pool block" group="General" />
+
+                <Tunable type="block" name="POOL_SQUARE_1x1" class="TunableReference" display="Pool Square 1X1" description="Build/buy block product type, square 1x1 pool block" group="General" />
+
+                <Tunable type="block" name="POOL_TRIANGLE_1x1" class="TunableReference" display="Pool Triangle 1X1" description="Build/buy block product type, triangle 1x1 pool block" group="General" />
+
+                <Tunable type="pooltrim" name="POOL_TRIM2" class="TunableReference" display="Pool Trim2" description="pool trim different from trim defined in STYLE1" group="General" />
+
+                <Tunable type="railing" name="RAILING_PRODUCT1" class="TunableReference" display="Railing Product1" description="Generic stair railing type used for build/buy tests" group="General" />
+
+                <Tunable type="railing" name="RAILING_PRODUCT2" class="TunableReference" display="Railing Product2" description="Generic stair railing type, should be distinct from railing defined in RAILING_PRODUCT1" group="General" />
+
+                <Tunable type="roof" name="ROOF_PATTERN_DEFAULT" class="TunableReference" display="Roof Pattern Default" description="Roof pattern used for build/buy tests" group="General" />
+
+                <Tunable type="roofpattern" name="ROOF_PATTERN2" class="TunableReference" display="Roof Pattern2" description="Roof pattern different from pattern defined in STYLE1" group="General" />
+
+                <Tunable type="rooftrim" name="ROOF_TRIM2" class="TunableReference" display="Roof Trim2" description="roof eave trim different from trim defined in STYLE1" group="General" />
+
+                <Tunable type="stair" name="STAIR_PRODUCT1" class="TunableReference" display="Stair Product1" description="Generic stair type used for stair functionality testing" group="General" />
+
+                <Tunable type="stair" name="STAIR_PRODUCT2" class="TunableReference" display="Stair Product2" description="Generic stair type, visually distinct from STAIR_PRODUCT1" group="General" />
+
+                <Tunable type="style" name="STYLE1" class="TunableReference" display="Style1" description="Build/buy style used to verify stlye change functionality. Should be different from style defined in STYLE2" group="General" />
+
+                <Tunable type="fence" name="STYLE1_FENCE_TYPE" class="TunableReference" display="Style1 Fence Type" description="fence type used by style defined in STYLE1" group="General" />
+
+                <Tunable type="wallpattern" name="STYLE1_INNER_WALL_PATTERN" class="TunableReference" display="Style1 Inner Wall Pattern" description="inner wall pattern used by style defined in STYLE1" group="General" />
+
+                <Tunable type="wallpattern" name="STYLE1_OUTER_WALL_PATTERN" class="TunableReference" display="Style1 Outer Wall Pattern" description="outer wall pattern used by style defined in STYLE1" group="General" />
+
+                <Tunable type="style" name="STYLE2" class="TunableReference" display="Style2" description="Build/buy style used to verify stlye change functionality. Should be different from style defined in STYLE1" group="General" />
+
+                <Tunable type="wallpattern" name="STYLE2_INNER_WALL_PATTERN" class="TunableReference" display="Style2 Inner Wall Pattern" description="inner wall pattern used by style defined in STYLE2" group="General" />
+
+                <Tunable type="wallpattern" name="STYLE2_OUTER_WALL_PATTERN" class="TunableReference" display="Style2 Outer Wall Pattern" description="outer wall pattern used by style defined in STYLE2" group="General" />
+
+                <Tunable type="wallpattern" name="WALL_PATTERN" class="TunableReference" display="Wall Pattern" description="wall pattern different from pattern defined in STYLE1 and STYLE2" group="General" />
+
+                <Tunable type="wallpattern" name="WALL_PATTERN_1" class="TunableReference" display="Wall Pattern 1" description="additional wall pattern" group="General" />
+
+                <Tunable type="wallpattern" name="WALL_PATTERN_2" class="TunableReference" display="Wall Pattern 2" description="additional wall pattern" group="General" />
+
+                <Tunable type="wallpattern" name="WALL_PATTERN_3" class="TunableReference" display="Wall Pattern 3" description="additional wall pattern" group="General" />
+
+                <Tunable type="wallpattern" name="WALL_PATTERN_4" class="TunableReference" display="Wall Pattern 4" description="additional wall pattern" group="General" />
+
+                <Tunable type="wallpattern" name="WALL_PATTERN_5" class="TunableReference" display="Wall Pattern 5" description="additional wall pattern" group="General" />
+            </Class>
+
+            <Class name="SituationJobs">
+                <Tunable type="situation_job" name="EXCURSION_MOUNTAIN_CLIMBER" class="TunableReference" display="Excursion Mountain Climber" description="Excursion Mountain Climber Job" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="situation_job" name="EXCURSION_MOUNTAIN_LEADER" class="TunableReference" display="Excursion Mountain Leader" description="Excursion Mountain Leader Job" allow_none="False" group="General" pack_safe="True" />
+
+                <Tunable type="situation_job" name="HIGHSCHOOL_NPC_PRINCIPAL" class="TunableReference" display="Highschool Npc Principal" description="Highschool Prinipal Job" allow_none="False" group="General" pack_safe="True" />
+            </Class>
+
+            <Class name="Situations">
+                <Tunable type="situation" name="HIGHSCHOOL_NPCS_SITUATION" class="TunableReference" display="Highschool Npcs Situation" description="Highschool NPCs situation" allow_none="False" group="General" pack_safe="True" />
+            </Class>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

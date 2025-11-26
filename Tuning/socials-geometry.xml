@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="socials.geometry">
+        <Class name="SocialGeometry">
+            <Tunable type="float" name="DEFAULT_SCORE_CUTOFF" class="TunableRange" default="0.8" display="Default Score Cutoff" min="0" max="1.0" description="Transforms scoring below cutoff * max_score are filtered out when joining / adjusting position" tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="GROUP_ANGLE_CURVE" class="TunableCurve" display="Group Angle Curve" description="A curve defining the score for two Sims with this facing angle (in radians). An angle of zero (on the x-axis) means a Sims is facing another Sim, while PI means a Sim is facing away. Higher values (on the y-axis) encourage that angular facing." group="General">
+                <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="GROUP_DISTANCE_CURVE" class="TunableCurve" display="Group Distance Curve" description="A curve defining the score for standing a given distance away from other Sims in the social group. Higher values (on the y-axis) encourage standing at that distance (on the x-axis) away from other Sims." group="General">
+                <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="NON_GROUP_DISTANCE_CURVE" class="TunableCurve" display="Non Group Distance Curve" description="A curve defining the score for standing a given distance away from other Sims *not* in the social group. Higher values (on the y-axis) encourage standing at that distance (on the x-axis) away from other Sims." group="General">
+                <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="float" name="NON_OVERLAPPING_SCORE_MULTIPLIER" class="Tunable" default="0.05" display="Non Overlapping Score Multiplier" description="Minimum score multiplier for non-overlapping fields" tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="OVERLAP_SCORE_MULTIPLIER" class="Tunable" default="1.0" display="Overlap Score Multiplier" description="p Higher values raise the importance of the 'personal space' component of the social scoring function." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="SCORE_OFFSET_FOR_CURRENT_POSITION" class="Tunable" default="0.5" display="Score Offset For Current Position" description="An additional score to apply to points that are virtually identical to the Sim's current position if the Sim already has an entry in the geometry. Larger numbers provide more friction that will prevent Sims from moving away from their current position unless the score of the new point makes moving worthwhile." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="SCORE_STRENGTH_MULTIPLIER" class="Tunable" default="3" display="Score Strength Multiplier" description="Values > 1 will cause Sims to go further out of their way to be in perfect social arrangements. This helps overcome distance attenuation for social adjustment since we want Sims to care more about where they are positioned than how far they have to go to improve that position." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

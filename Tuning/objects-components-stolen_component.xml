@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.stolen_component">
+        <Class name="StolenComponent">
+            <Tunable type="int" name="STOLEN_FROM_HOUSEHOLD" class="TunableLocalizedString" default="0x0" display="Stolen From Household" description="How the Stolen From text should appear for households. e.g. 'Stolen From Household: {0.String} ' = Stolen From Household: Goth" group="General" />
+
+            <Tunable type="int" name="STOLEN_FROM_LOT" class="TunableLocalizedString" default="0x0" display="Stolen From Lot" description="How the Stolen From text should appear for non-Household lots. e.g. 'Stolen From: {0.String}' = Stolen From: The Blue Velvet" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

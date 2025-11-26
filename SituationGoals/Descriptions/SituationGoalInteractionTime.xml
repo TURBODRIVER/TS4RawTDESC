@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation_goal" class="SituationGoalInteractionTime" module="situations.situation_goal_interaction_time" description="Situation Goal for actor running an interaction for a certain amount of time." instance_needs_reference="True" instance_subclasses_only="False" parents="SituationGoal" path="SituationGoals\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="_goal_test" class="TunableInteractionOfInterest" display="Goal Test" description="Interaction and duration that this situation goal will use. Example: Bartend for 10 sim minutes." group="Tests">
+            <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The affordance that we are are timing for length of runtime." allow_none="True" group="General" restrict="SuperInteraction" />
+            <Tunable type="int" name="duration" class="TunableRange" default="10" display="Duration" min="1" max="None" description="The amount of time in sim hours that this interaction has to run for this test to be considered passed." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="tags" class="TunableSet" display="Tags" description="A set of tags that will match an affordance instead of looking for a specific one." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+            </TunableList>
+        </TunableTuple>
+
+        <Deleted name="_iterations" />
+
+        <Deleted name="_post_tests" />
+
+        <Deleted name="should_reevaluate_on_load" />
+
+        <Tunable type="bool" name="verify_sims_interested_in_goal" class="Tunable" default="False" display="Verify Sims Interested In Goal" description="Whether or not event verification should check that the Sim Info for an event is part of the list of Sims that are associated with the goal. For example, a goal to garden for an hour would use this to make sure that only the household Sims are considered. NOTE: If this becomes widely used by time-based goals, we should consider making this the standard default behaviour instead of being opt-in." group="General" />
+    </Instance>
+</TuningRoot>

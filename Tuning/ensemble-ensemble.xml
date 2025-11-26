@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="ensemble.ensemble">
+        <Class name="Ensemble">
+            <TunableList name="ENSEMBLE_PRIORITIES" class="TunableList" display="Ensemble Priorities" description="A list of ensembles by priority. Those with higher guids will be considered more important than those with lower guids. IMPORTANT: All ensemble types must be referenced in this list." group="General">
+                <Tunable type="ensemble" class="TunableReference" description="A single ensemble." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

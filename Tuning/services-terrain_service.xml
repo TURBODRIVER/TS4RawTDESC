@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="services.terrain_service">
+        <Class name="TerrainService">
+            <Tunable type="object" name="OCEAN_DEFINITION" class="TunableReference" display="Ocean Definition" description="The definition for the Ocean object." allow_none="False" group="General" restrict="Ocean" />
+
+            <Tunable type="object" name="TERRAIN_DEFINITION" class="TunableReference" display="Terrain Definition" description="The definition used to instantiate the Terrain object." allow_none="False" group="General" restrict="Terrain" />
+
+            <Tunable type="snippet" name="WALKSTYLE_PORTAL_DATA" class="TunableReference" display="Walkstyle Portal Data" description="The portal used for traversing between different terrain types (to change walkstyle)." allow_none="False" group="General" pack_safe="True" restrict="PortalData" />
+
+            <TunableEnum type="Tag" name="WALKSTYLE_PORTAL_LOCATOR_TAG" class="TunableTag" default="INVALID" display="Walkstyle Portal Locator Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag we can use to get the walkstyle portal definition." dynamic_entries_prefix="" group="General" invalid_entries="INVALID" pack_safe="True" />
+        </Class>
+    </Module>
+</TuningRoot>

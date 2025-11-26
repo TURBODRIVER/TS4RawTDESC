@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="ActingStudioZoneDirector" module="careers.acting.acting_studio_zone_director" description="Zone director used to control the objects and interactions on the acting studio lot." instance_needs_reference="True" instance_subclasses_only="False" parents="CareerEventZoneDirector, SchedulingZoneDirector, ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <TunableList name="performance_objects" class="TunableMapping" display="Performance Objects" mapping_key="performance_object_tag" mapping_value="performance_object_states" description="A mapping of performance objects (i.e. lights, green screen, vfx machine) and the state they should be put into when the performance starts/stops." group="Career">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableTuple name="performance_object_states" class="TunableTuple" display="Performance Object States" description="States that should be applied to the objects before, during, and after the performance. If the object doesn't have the necessary state then nothing will happen." group="General">
+                    <TunableList name="performance_states" class="TunableSet" display="Performance States" description="States to set on the object when the performance starts." group="General" unique_entries="true">
+                        <Tunable type="object_state" class="TunableReference" description="A state value to set on the object." allow_none="False" group="General" restrict="ObjectStateValue" />
+                    </TunableList>
+                    <TunableList name="post_performance_states" class="TunableSet" display="Post Performance States" description="States set on the object when the performance is over." group="General" unique_entries="true">
+                        <Tunable type="object_state" class="TunableReference" description="A state value to set on the object." allow_none="False" group="General" restrict="ObjectStateValue" />
+                    </TunableList>
+                    <TunableList name="pre_performance_states" class="TunableSet" display="Pre Performance States" description="States to set on the object when the zone loads." group="General" unique_entries="true">
+                        <TunableTuple class="TunableTuple" description="A state to set on an object as well as a perk that will skip setting the state." group="General">
+                            <TunableVariant type="None" name="skip_with_perk" class="OptionalTunable" default="disabled" display="Skip With Perk" description="If enabled, allows skipping this state change if the active Sim has a tuned perk." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <Tunable type="bucks_perk" name="enabled" class="TunableReference" display="Enabled" description="If the active Sim has this perk, this state won't be set on the tuned objects. For instance, if the Sim has the Established Name perk, they don't need to use the hair and makeup chair. This can prevent those objects from glowing in that case." allow_none="False" group="General" />
+                            </TunableVariant>
+                            <Tunable type="object_state" name="state_value" class="TunableReference" display="State Value" description="A state value to set on the object." allow_none="False" group="General" restrict="ObjectStateValue" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <TunableEnum type="Tag" name="performance_object_tag" class="TunableTag" default="INVALID" display="Performance Object Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag for the performance object." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableTuple name="post_performance_time_between_wrap_and_lights" class="TunableTimeSpan" display="Post Performance Time Between Wrap And Lights" description="How long after the 'that's a wrap' sound until the post-performance state should be swapped on all the objects (lights, greenscreen, etc.)" group="General">
+            <Tunable type="int" name="minutes" class="TunableRange" default="5" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="post_performance_time_remaining" class="TunableTimeSpan" display="Post Performance Time Remaining" description="This is how long the gig should last once the player completes the final interaction. Regardless of how long the timer shows, once the player finishes the final interaction, we'll set the gig to end in this tuned amount of time. Note: This should be enough time to encompass both the Post Performance Time To Wrap Callout and Post Performance time Between Wrap And Lights time spans." group="General">
+            <Tunable type="int" name="hours" class="TunableRange" default="0" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="minutes" class="TunableRange" default="20" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="post_performance_time_to_wrap_callout" class="TunableTimeSpan" display="Post Performance Time To Wrap Callout" description="How long, after the Player completes the entire gig, until the 'That's a wrap' sound should play." group="General">
+            <Tunable type="int" name="minutes" class="TunableRange" default="5" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableList name="stage_marks" class="TunableMapping" display="Stage Marks" mapping_key="stage_mark_tag" mapping_value="scene_interactions" description="A mapping of stage marker tags to the interactions that should be added to them for this gig. These interactions will be applied to the stage mark/object on zone load." group="Career">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableList name="scene_interactions" class="TunableSet" display="Scene Interactions" description="The set of interactions that will be added to the stage mark object." group="General" unique_entries="true">
+                    <Tunable type="interaction" class="TunableReference" description="A Super Interaction that should be added to the stage mark object." allow_none="False" group="General" restrict="SuperInteraction" />
+                </TunableList>
+                <TunableEnum type="Tag" name="stage_mark_tag" class="TunableTag" default="INVALID" display="Stage Mark Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag for the stage mark object the tuned scene interactions should be on." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="interaction" name="start_performance_interaction" class="TunableReference" display="Start Performance Interaction" description="A reference to the interaction that indicates the performance is starting. This is what triggers all of the state changes in the Performance Object tuning." allow_none="False" group="Career" restrict="SuperInteraction" />
+
+        <TunableTuple name="thats_a_wrap_audio" class="TunablePlayAudio" display="Thats A Wrap Audio" description="The sound to play when the player has completed the performance and the Post Performance Time To Wrap Callout time has passed." group="General">
+            <Tunable type="ResourceKey" name="audio" class="TunableResourceKey" default="None" display="Audio" description="The sound to play." group="General" resource_types="0x39b2aa4a" />
+            <Tunable type="bool" name="immediate_audio" class="Tunable" default="False" display="Immediate Audio" description="If checked, this audio will be triggered immediately, nothing will block. ex. Earbuds audio will be played immediately while the Sim is routing or animating." group="General" />
+            <TunableVariant type="None" name="joint_name_hash" class="OptionalTunable" default="disabled" display="Joint Name Hash" description="Specify if the audio is attached to a slot and, if so, which slot. Otherwise the audio will be attached to the object's origin." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="str" name="enabled" class="TunableStringHash32" default="None" display="Enabled" description="The name of the slot this audio is attached to." group="General" />
+            </TunableVariant>
+            <Tunable type="bool" name="play_on_active_sim_only" class="Tunable" default="False" display="Play On Active Sim Only" description="If enabled, and audio target is Sim, the audio will only be played on selected Sim. Otherwise it will be played regardless Sim is selected or not. If audio target is Object, always set this to False. Otherwise the audio will never be played. ex. This will be useful for Earbuds where we want to hear the music only when the Sim is selected." group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="StartCraftingAutonomouslySuperInteraction" module="crafting.crafting_interactions" description="Interaction that allows a Sim to begin crafting a recipe autonomously. This is never available user-directed." instance_needs_reference="True" instance_subclasses_only="False" parents="AutonomousPickerSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="bucks_price_multipliers" class="TunableMapping" display="Bucks Price Multipliers" mapping_key="key" mapping_value="value" description="Mapping of buck type to tested multiplier to apply to the bucks price of the item." group="Picker Tuning">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="BucksType" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" description="Buck type to apply price multiplier to." group="General" />
+                <TunableTuple name="value" class="TunableTunableMultiplier" display="Value" description="Tested multipliers to apply to the bucks price of the item." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <Tunable type="bool" name="check_fridge_shared_inventory" class="Tunable" default="True" display="Check Fridge Shared Inventory" description="If checked, look through the fridge shared inventory for gathering ingredients." group="General" />
+
+        <Tunable type="bool" name="check_sim_inventory" class="Tunable" default="True" display="Check Sim Inventory" description="If checked, look through the sims's inventory for gathering ingredients." group="General" />
+
+        <Tunable type="bool" name="check_target_inventory" class="Tunable" default="False" display="Check Target Inventory" description="If checked, look through the target object's inventory for gathering ingredients." group="General" />
+
+        <TunableVariant type="None" name="craft_for_other_sims" class="TunableVariant" default="no_other_sims" display="Craft For Other Sims" description="Options for crafting this drink for other sims." group="General">
+            <TunableTuple name="craft_for_specific_participant" class="TunableTuple" display="Craft For Specific Participant" description="Craft for the Sim of a specific participant type. " group="General">
+                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="PickedSim" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The specific participant that we want to craft for. " group="General" />
+            </TunableTuple>
+            <TunableTuple name="no_other_sims" class="TunableTuple" display="No Other Sims" description="Don't craft this for any other sims." group="General" />
+            <TunableTuple name="party_crafting" class="TunableTuple" display="Party Crafting" description="Craft for all for the Sims in a rally source." group="General">
+                <TunableList name="rally_source" class="TunableEnumSet" default="ENSEMBLE" display="Rally Source" description="A list of different sources that we want to use to figure out the Sims to craft drinks for." group="General" unique_entries="true">
+                    <TunableEnum type="RallySource" class="TunableEnumEntry" default="ENSEMBLE" static_entries="interactions-base-super_interaction.RallySource" group="General" />
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="funds_source" class="TunableVariant" default="household" display="Funds Source" description="When deducting the cost of the recipe, it will be deducted from this funds source." group="General">
+            <TunableTuple name="bucks" class="Tunable_PaymentSourceBucks" display="Bucks" description="Payment source is bucks." group="General">
+                <Tunable type="bool" name="advertise_simoleon_delta" class="Tunable" default="False" display="Advertise Simoleon Delta" description="If True, the simoleon delta will be advertised whether or not the full amount is required by require_full_amount." group="General" />
+                <Tunable type="bool" name="allow_credits" class="Tunable" default="False" display="Allow Credits" description="If False, the payment element will permit negative payments (credits)." group="General" />
+                <TunableEnum type="BucksType" name="bucks_type" class="TunableEnumEntry" default="INVALID" display="Bucks Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" description="The type of Bucks to pay." group="General" pack_safe="True" />
+                <TunableVariant type="None" name="cost_string_override" class="OptionalTunable" default="disabled" display="Cost String Override" description="When enabled, override the format for displaying interaction names on interactions that have this payment as a cost. 0.String is the interaction name. 1 will be the the cost amount." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="gain_string_override" class="OptionalTunable" default="disabled" display="Gain String Override" description="When enabled, override the format for displaying interaction names on interactions that have this payment as a gain. 0.String is the interaction name. 1 will be the the gain amount." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                </TunableVariant>
+                <Tunable type="bool" name="require_full_amount" class="Tunable" default="True" display="Require Full Amount" description="If False, the payment element will subtract whatever funds are available if there are not enough funds." group="General" />
+            </TunableTuple>
+            <TunableTuple name="business" class="Tunable_PaymentSourceBusiness" display="Business" description="Payment source is the active retail lot. If there is no active retail lot, will use household funds." group="General">
+                <Tunable type="bool" name="advertise_simoleon_delta" class="Tunable" default="False" display="Advertise Simoleon Delta" description="If True, the simoleon delta will be advertised whether or not the full amount is required by require_full_amount." group="General" />
+                <Tunable type="bool" name="allow_credits" class="Tunable" default="False" display="Allow Credits" description="If False, the payment element will permit negative payments (credits)." group="General" />
+                <TunableVariant type="None" name="cost_string_override" class="OptionalTunable" default="disabled" display="Cost String Override" description="When enabled, override the format for displaying interaction names on interactions that have this payment as a cost. 0.String is the interaction name. 1 will be the the cost amount." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                </TunableVariant>
+                <TunableEnum type="BusinessFundsCategory" name="funds_category" class="TunableEnumEntry" default="NONE" display="Funds Category" dynamic_entries="business-business_funds.BusinessFundsCategory._elements" static_entries="business-business_funds.BusinessFundsCategory" description="If defined, this expense is categorized and can be displayed in the Retail finance dialog." group="General" />
+                <TunableVariant type="None" name="gain_string_override" class="OptionalTunable" default="disabled" display="Gain String Override" description="When enabled, override the format for displaying interaction names on interactions that have this payment as a gain. 0.String is the interaction name. 1 will be the the gain amount." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                </TunableVariant>
+                <Tunable type="bool" name="require_full_amount" class="Tunable" default="True" display="Require Full Amount" description="If False, the payment element will subtract whatever funds are available if there are not enough funds." group="General" />
+            </TunableTuple>
+            <TunableTuple name="household" class="Tunable_PaymentSourceHousehold" display="Household" description="Payment source is the provided sim's household funds." group="General">
+                <Tunable type="bool" name="advertise_simoleon_delta" class="Tunable" default="False" display="Advertise Simoleon Delta" description="If True, the simoleon delta will be advertised whether or not the full amount is required by require_full_amount." group="General" />
+                <Tunable type="bool" name="allow_credits" class="Tunable" default="False" display="Allow Credits" description="If False, the payment element will permit negative payments (credits)." group="General" />
+                <TunableVariant type="None" name="cost_string_override" class="OptionalTunable" default="disabled" display="Cost String Override" description="When enabled, override the format for displaying interaction names on interactions that have this payment as a cost. 0.String is the interaction name. 1 will be the the cost amount." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="gain_string_override" class="OptionalTunable" default="disabled" display="Gain String Override" description="When enabled, override the format for displaying interaction names on interactions that have this payment as a gain. 0.String is the interaction name. 1 will be the the gain amount." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                </TunableVariant>
+                <Tunable type="bool" name="require_full_amount" class="Tunable" default="True" display="Require Full Amount" description="If False, the payment element will subtract whatever funds are available if there are not enough funds." group="General" />
+            </TunableTuple>
+            <TunableTuple name="no_source" class="Tunable_PaymentSourceNoSource" display="No Source" description="No payment source, just pluck the funds out of thin air." group="General">
+                <Tunable type="bool" name="advertise_simoleon_delta" class="Tunable" default="False" display="Advertise Simoleon Delta" description="If True, the simoleon delta will be advertised whether or not the full amount is required by require_full_amount." group="General" />
+                <TunableVariant type="None" name="cost_string_override" class="OptionalTunable" default="disabled" display="Cost String Override" description="When enabled, override the format for displaying interaction names on interactions that have this payment as a cost. 0.String is the interaction name. 1 will be the the cost amount." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="gain_string_override" class="OptionalTunable" default="disabled" display="Gain String Override" description="When enabled, override the format for displaying interaction names on interactions that have this payment as a gain. 0.String is the interaction name. 1 will be the the gain amount." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                </TunableVariant>
+            </TunableTuple>
+            <TunableTuple name="statistic" class="Tunable_PaymentSourceStatistic" display="Statistic" description="Payment source is a statistic on a participant" group="General">
+                <Tunable type="bool" name="advertise_simoleon_delta" class="Tunable" default="False" display="Advertise Simoleon Delta" description="If True, the simoleon delta will be advertised whether or not the full amount is required by require_full_amount." group="General" />
+                <Tunable type="bool" name="allow_credits" class="Tunable" default="False" display="Allow Credits" description="If False, the payment element will permit negative payments (credits)." group="General" />
+                <TunableVariant type="None" name="cost_string_override" class="OptionalTunable" default="disabled" display="Cost String Override" description="When enabled, override the format for displaying interaction names on interactions that have this payment as a cost. 0.String is the interaction name. 1 will be the the cost amount." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="gain_string_override" class="OptionalTunable" default="disabled" display="Gain String Override" description="When enabled, override the format for displaying interaction names on interactions that have this payment as a gain. 0.String is the interaction name. 1 will be the the gain amount." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                </TunableVariant>
+                <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant whose statistic should be used to pay" group="General" />
+                <Tunable type="bool" name="require_full_amount" class="Tunable" default="True" display="Require Full Amount" description="If False, the payment element will subtract whatever funds are available if there are not enough funds." group="General" />
+                <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic that should be used to pay." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="bool" name="ingredient_cost_only" class="Tunable" default="False" display="Ingredient Cost Only" description="If true, this interaction will require ingredients for all recipes and not have a simoleon cost." group="General" />
+
+        <TunableTuple name="price_multiplier" class="TunableTunableMultiplier" display="Price Multiplier" description="Tested multipliers to apply to the price of the item." group="General">
+            <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+
+        <TunableList name="recipes" class="TunableList" display="Recipes" description="The recipes a Sim can craft." group="General">
+            <Tunable type="recipe" class="TunableReference" description="Recipe to craft." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="bool" name="set_target_as_current_ico" class="Tunable" default="False" display="Set Target As Current Ico" description="After creating the crafting component, if this is checked, the value of current_ico on the crafting_process will be set to the target. This is a way to make an object that we are not creating as an ICO to behave a bit like an ICO. By setting the current_ico to the target it allows the crafting interactions to return the target as the carry target, enabling the non ICO object to be carried to where it needs to be. For an example of when you might want to set this consider the Kave bowl. The Kava Bowl acts as both an ICO and a Final Product that holds individual servings. The only way to carry the Kava Bowl to the correct place to run the interaction is to set the current_ico to the kava bowl despite it not actually being a traditional ICO." group="General" />
+
+        <TdescFragTag name="test_reserve_object" class="TunableReserveObject" display="Test Reserve Object" description="The reservation type to use when testing for this interaction's autonomous availability." group="General" />
+    </Instance>
+</TuningRoot>

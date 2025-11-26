@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CareerIconOverridePicker" module="interactions.picker.career_icon_override_picker" description="A picker interaction that builds a list of icons(avatars) that a Sim can choose from when join a video game streamer career." instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="career" name="career_reference" class="TunableReference" display="Career Reference" description="The Career we pick the icon for." allow_none="False" group="Picker Tuning" pack_safe="True" />
+
+        <TunableList name="icon_choices" class="TunableList" display="Icon Choices" description="A list of all the tuning needed for the different Icons for a career" group="Picker Tuning" unique_entries="true">
+            <TunableTuple class="TunableTuple" description="The Icon to override the default sim profile icon." group="General">
+                <Tunable type="int" name="description_text" class="TunableLocalizedString" default="0x0" display="Description Text" description="The description for icon that is displayed in the picker." group="General" />
+                <TunableVariant type="None" name="icon" class="TunableIconVariant" default="resource_key" display="Icon" group="General">
+                    <TunableTuple name="career_icon_override" class="TunableCareerIconOverrideIconFactory" display="Career Icon Override" group="General">
+                        <Tunable type="career" name="career_reference" class="TunableReference" display="Career Reference" description="The Career to override the icon." allow_none="False" group="General" pack_safe="True" />
+                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the career." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
+                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="participant" class="TunableParticipantTypeIconFactory" display="Participant" description="The Sim who's thumbnail will be used." group="General">
+                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                    <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
+                        <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                    </TunableTuple>
+                    <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
+                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="tradition" class="TunableHolidayIconFactory" display="Tradition" group="General">
+                        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="We use this participant's holiday tracker to get the icon." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableVariant>
+                <Tunable type="bool" name="is_default" class="Tunable" default="False" display="Is Default" description="The default icon for the career when no choice from player is made. At least one of the icon should be set as default." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the career." group="Picker Tuning" unique_entries="true">
+            <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

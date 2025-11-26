@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="PickCareerByAgentInteraction" module="careers.pick_career_by_agent_interaction" description="A picker interaction that allows a player to choose an agent-based career indirectly by choosing an agent for that career. Players are presented with all the possible agents for the tuned careers. If they select an agent, they will be placed into the corresponding career with that agent." instance_needs_reference="True" instance_subclasses_only="False" parents="TraitPickerSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="pickable_careers" class="TunableList" display="Pickable Careers" description="A list of careers whose available agents will be used to populate the picker. When an available agent is selected, the sim actor will be placed in the associated career. A career may have multiple agents, in which case each will appear and each will correspond to that career." group="Picker Tuning" unique_entries="true">
+            <Tunable type="career" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="adaptive_clock_speed">
+        <Class name="AdaptiveClockSpeed">
+            <TunableVariant type="None" name="TIME_DIFFERENCE_THRESHOLD" class="OptionalTunable" default="disabled" display="Time Difference Threshold" description="If enabled, the game will drop into the given time speed multipliers when the difference in ticks between sim_now and game_clock_now goes beyond a threshold for a fixed duration. NOTE: This tuning is shared for all machine specifications and build configurations! Its important to note this distinction since you have to consider the wide range between the player's build and a GPE's build setup." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                    <TunableTuple name="default_speed_multiplier" class="TunableAdaptiveSpeed" display="Default Speed Multiplier" description="The default clock speed multiplier. The game starts with this speed multiplier type and always attempts to come back to it if the sim_now and game_now clocks are close to each other. We switch to the reduced speed multiplier only after the simulation has deviated for beyond the tuned threshold consistently for the tuned duration." group="General">
+                        <Tunable type="int" name="duration" class="Tunable" default="10000" display="Duration" description="The duration for which the game has to cross the threshold to consider switching the multipler_type. Tune this to zero to disable a duration before transition to the other multipliers." tuning_state="NeedsTuning" group="General" />
+                        <TunableEnum type="ClockSpeedMultiplierType" name="multipler_type" class="TunableEnumEntry" default="DEFAULT" display="Multipler Type" dynamic_entries="clock.ClockSpeedMultiplierType._elements" static_entries="clock.ClockSpeedMultiplierType" description="The clock multiplier type that governs the speed multipliers used by the game." group="General" />
+                        <Tunable type="int" name="threshold" class="Tunable" default="10000" display="Threshold" description="A threshold to compare against the different between the sim_now and game_now clock ticks. This must be a non negative number. Units: ticks." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="reduced_speed_multiplier" class="TunableAdaptiveSpeed" display="Reduced Speed Multiplier" description="The clock speed multiplier used when the difference in ticks between sim_now and game_now goes beyond the threshold consistently for a specified duration of ticks. Tune the threshold and duration that decide whether we have to switch back to the default speed multipliers." group="General">
+                        <Tunable type="int" name="duration" class="Tunable" default="10000" display="Duration" description="The duration for which the game has to cross the threshold to consider switching the multipler_type. Tune this to zero to disable a duration before transition to the other multipliers." tuning_state="NeedsTuning" group="General" />
+                        <TunableEnum type="ClockSpeedMultiplierType" name="multipler_type" class="TunableEnumEntry" default="DEFAULT" display="Multipler Type" dynamic_entries="clock.ClockSpeedMultiplierType._elements" static_entries="clock.ClockSpeedMultiplierType" description="The clock multiplier type that governs the speed multipliers used by the game." group="General" />
+                        <Tunable type="int" name="threshold" class="Tunable" default="10000" display="Threshold" description="A threshold to compare against the different between the sim_now and game_now clock ticks. This must be a non negative number. Units: ticks." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableVariant>
+        </Class>
+    </Module>
+</TuningRoot>

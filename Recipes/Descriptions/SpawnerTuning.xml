@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="recipe" class="SpawnerTuning" module="objects.components.spawner_component" instance_subclasses_only="False" path="Recipes\Descriptions" use_guid_for_reference="True">
+        <TunableList name="object_reference" class="TunableList" display="Object Reference" description="List of objects the spawner can create. When the random check picks this value from the weight calculation it will give all the items tuned on this list." group="General">
+            <TunableVariant type="None" class="TunableVariant" default="object_definition" description="Specify the means by which will the spawner will create the object." group="General">
+                <TunableTuple name="object_definition" class="TunableObjectCreator" display="Object Definition" description="Factory that provides a way to create an object from an object definition." group="General">
+                    <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The definition of the object to be created." allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+                <TunableTuple name="recipe" class="TunableRecipeCreator" display="Recipe" description="Factory that provides a way to create an object from a recipe." group="General">
+                    <Tunable type="recipe" name="recipe" class="TunableReference" display="Recipe" description="Recipe to produce an object with." allow_none="False" group="General" />
+                    <TunableList name="weighted_quality" class="TunableList" display="Weighted Quality" description="A list of weighted quality in which the object will be created. If empty, it will apply a default quality." group="General">
+                        <TunableTuple class="TunableTuple" description="A possible level of quality for this item that will be generated. This will be randomly chosen based off weight against other items in the list." group="General">
+                            <Tunable type="object_state" name="quality" class="TunableReference" display="Quality" allow_none="False" group="General" restrict="CommodityBasedObjectStateValue" />
+                            <Tunable type="int" name="weight" class="TunableRange" default="1" display="Weight" min="1" max="None" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TdescFragTag name="owner_tests" class="TunableTestSet" display="Owner Tests" description="Conditional tests to be passed on the component's owner to determine if spawning can occur." group="General" />
+
+        <Tunable type="float" name="spawn_chance" class="TunablePercent" default="100" display="Spawn Chance" min="0" max="100" description="The chance that the spawned object will actually be created. This is in case we want spawned objects to not be created in a predictable behavior and the change of 'nothing happening' be available." group="General" />
+
+        <TunableVariant type="None" name="spawn_times" class="OptionalTunable" default="No_custom_spawn_times" display="Spawn Times" description="Schedule of when the spawners should trigger. If this time is tuned spawners will trigger according to this schedule instead of the spawner commodities. This should be used for spawners that are on the open neighborhood so that those spawners are time based instead of commodity based." group="General">
+            <Tunable name="No_custom_spawn_times" class="TunableExistance" display="No Custom Spawn Times" />
+            <TunableTuple name="Set_custom_spawn_times" class="TunableWeeklySchedule" display="Set Custom Spawn Times" description="A class representing a tuned weekly schedule. This class can be used to start alarms that will be called based on the tuning. min_alarm_time_span: if set, if timespan until next alarm has a timespan < min_alarm_time_span, timespan till alarm will be set to min_alarm_time_span extra_data: extra data to pass back each time the alarm is called start_callback will take in parameters: scheduler, Tuple of type AlarmData, extra_data where scheduler is this instance of the scheduler start_time is chosen start time, end time is chosen end time entry is the entry that specified in the start_time, end_time in schedule_entries_tuning extra_data is the data passed in when creating the scheduler" group="General">
+                <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                    <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                        <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                            <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                            <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                            <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                            <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                            <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                            <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                            <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                        </TunableTuple>
+                        <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                        <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                        <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                            <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="int" name="spawn_weight" class="TunableRange" default="1" display="Spawn Weight" min="0" max="None" description="Weight that object will have on the probability calculation of which object to spawn." tuning_state="NeedsTuning" group="General" />
+
+        <TunableVariant type="None" name="spawner_option" class="TunableVariant" default="none" display="Spawner Option" description="Type of spawners to create: Ground type - Spawned object will appear on the floor at a tunable radius from the spawner object. Slot type - Spawned object will appear on an available slot of a tunable slot type in the spawner object. Interaction type - Spawned objects will appear on the inventory when player makes a gather-harvest-scavenge interaction on them. " group="General">
+            <TunableTuple name="ground_spawning" class="TunableTuple" display="Ground Spawning" group="General">
+                <TunableVariant type="None" name="force_initialization_spawn" class="OptionalTunable" default="disabled" display="Force Initialization Spawn" description="If checked, objects with this component will force a spawning of objects on initialization. This is mainly used for objects on the open street where we want to fake that some time has already passed. Additionally, if checked, objects will force the states on this list instead of the force_states list on the general spawner tuning, this way we can add some custom states only for the initialization spawn." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableList name="enabled" class="TunableList" display="Enabled" description="List of states the created object will have when initialized." group="General">
+                        <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" restrict="ObjectStateValue" />
+                    </TunableList>
+                </TunableVariant>
+                <TunableList name="force_states" class="TunableList" display="Force States" description="List of states the created object will be pushed to." group="General">
+                    <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                </TunableList>
+                <TunableTuple name="initial_location_offset" class="TunableTuple" display="Initial Location Offset" group="General">
+                    <TunableTuple name="default_offset" class="TunableVector3" display="Default Offset" description="The default Vector3 offset from the location target's position." group="General">
+                        <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableVariant type="None" name="x_randomization_range" class="OptionalTunable" default="disabled" display="X Randomization Range" description="A random number in this range will be applied to the default offset along the x axis." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="A random number in this range will be applied to the default offset along the x axis." group="General">
+                            <Tunable type="float" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="upper_bound" class="TunableRange" default="0" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableVariant type="None" name="z_randomization_range" class="OptionalTunable" default="disabled" display="Z Randomization Range" description="A random number in this range will be applied to the default offset along the z axis." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="A random number in this range will be applied to the default offset along the z axis." group="General">
+                            <Tunable type="float" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="upper_bound" class="TunableRange" default="0" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="location_test" class="TunableTuple" display="Location Test" group="General">
+                    <TunableVariant type="None" name="is_natural_ground" class="OptionalTunable" default="Don't_Test" display="Is Natural Ground" description="If checked, will verify the spawned object is on natural ground. If unchecked will test the object is not on natural ground" group="General">
+                        <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                        <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="is_outside" class="OptionalTunable" default="Don't_Test" display="Is Outside" description="If checked, will verify if the spawned object is located outside. If unchecked will test the object is not outside" group="General">
+                        <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                        <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <Tunable type="int" name="min_radius" class="TunableRange" default="0" display="Min Radius" min="0" max="None" description="Minimum distance away from the portal location to start looking for a good location." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="placement_scoring" class="TunableList" display="Placement Scoring" description="List of scoring functions used by FGL to determine best places to put the object. Will only apply to off-lot spawners." group="General">
+                    <TunableVariant type="None" class="TunablePlacementScoringFunction" default="radial_distance_scoring" group="General">
+                        <TunableTuple name="angular_scoring" class="TunableAngularScoring" display="Angular Scoring" description="Score by position within a given angle." group="General">
+                            <Tunable type="float" name="max_distance" class="TunableAngle" default="57.29577951308232" display="Max Distance" min="0.0" max="360.0" description="Max distance from optimal angle before the score becomes zero." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="optimal_angle" class="TunableAngle" default="0.0" display="Optimal Angle" min="0.0" max="360.0" description="Optimal angle from the tested location. Will score highest." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="width" class="TunableAngle" default="0.0" display="Width" min="0.0" max="360.0" description="Absolute distance in meters from optimal angle (relative to location orientation) where location will attain the max score of 1.0 for this function." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="linear_distance_scoring" class="TunableLinearDistanceScoring" display="Linear Distance Scoring" description="Score by distance from a defined line." group="General">
+                            <Tunable type="bool" name="ignore_surface" class="Tunable" default="False" display="Ignore Surface" description="If unset, will ensure the location and the tested position share the same routing surface. Otherwise, scoring will not care if the two positions have different surfaces." group="General" />
+                            <TunableTuple name="initial_point" class="TunableVector3" display="Initial Point" description="Position relative to starting location used as first point in the line used for scoring." group="General">
+                                <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                            <Tunable type="float" name="max_distance" class="Tunable" default="1" display="Max Distance" description="Max distance from optimal before the score becomes zero." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="optimal_distance" class="Tunable" default="0" display="Optimal Distance" description="Optimal distance in meters from the tested location." tuning_state="NeedsTuning" group="General" />
+                            <TunableTuple name="secondary_point" class="TunableVector3" display="Secondary Point" description="Secondary point used to create a line from initial point. This is relative to the starting location. Distance from this line will be measured." group="General">
+                                <Tunable type="float" name="x" class="Tunable" default="1.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableTuple>
+                        <TunableTuple name="radial_distance_scoring" class="TunableRadialDistanceScoring" display="Radial Distance Scoring" description="Score by distance from starting point." group="General">
+                            <Tunable type="bool" name="ignore_surface" class="Tunable" default="False" display="Ignore Surface" description="If unset, will ensure the location and the tested position share the same routing surface. Otherwise, scoring will not care if the two positions have different surfaces." group="General" />
+                            <Tunable type="float" name="max_distance" class="Tunable" default="1" display="Max Distance" description="Max distance from optimal before the score becomes zero." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="optimal_distance" class="Tunable" default="1" display="Optimal Distance" description="Optimal distance in meters from the starting point." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="width" class="Tunable" default="0" display="Width" description="Absolute distance from optimal width where location will attain the max score of 1.0 for this function." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableList>
+                <Tunable type="int" name="radius" class="TunableRange" default="1" display="Radius" min="0" max="None" description="Max radius at which the spawned object should appear" tuning_state="NeedsTuning" group="General" />
+                <TunableList name="restrictions" class="TunableList" display="Restrictions" description="List of orientation restrictions used by FGL when searching for a place to put the object. Will only apply to off-lot spawners." group="General">
+                    <TunableVariant type="None" class="TunableOrientationRestriction" default="absolute_orientation" group="General">
+                        <TunableTuple name="absolute_orientation" class="TunableOrientationRangeRestriction" display="Absolute Orientation" description="A tunable orientation restriction." group="General">
+                            <TunableTuple name="angle" class="TunableInterval" display="Angle" description="Tunable angle range for orientation of the target relative to the orientation of the original location." group="General">
+                                <Tunable type="float" name="lower_bound" class="TunableAngle" default="0.0" display="Lower Bound" min="None" max="360.0" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="float" name="upper_bound" class="TunableAngle" default="0.0" display="Upper Bound" min="0.0" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                            <Tunable type="float" name="ideal_angle" class="TunableAngle" default="0.0" display="Ideal Angle" min="0.0" max="360.0" description="Ideal angle for orientation of the target." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="relative_facing_circle" class="TunableRelativeFacingCircleRestriction" display="Relative Facing Circle" description="Orientation facing in a radius around a circle." group="General">
+                            <Tunable type="float" name="angle" class="TunableAngle" default="0.0" display="Angle" min="0.0" max="360.0" description="Facing range to the circle." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="radius" class="Tunable" default="1" display="Radius" description="Radius around the given point up to which will be tested." tuning_state="NeedsTuning" group="General" />
+                            <TunableTuple name="target_offset" class="TunableVector3" display="Target Offset" description="Offset relative to starting point as center of circle." group="General">
+                                <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableTuple>
+                        <TunableTuple name="relative_facing_range" class="TunableRelativeFacingRangeRestriction" display="Relative Facing Range" description="A tunable relative facing orientation restriction." group="General">
+                            <Tunable type="float" name="angle" class="TunableAngle" default="0.0" display="Angle" min="0.0" max="360.0" description="Facing range to the object." tuning_state="NeedsTuning" group="General" />
+                            <TunableTuple name="target_offset" class="TunableVector3" display="Target Offset" description="Offset relative to starting point to face." group="General">
+                                <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableList>
+                <TunableVariant type="None" name="starting_location" class="TunableVariant" default="spawner_location" display="Starting Location" description="The location at which we want to start attempting to place the object we are creating." group="General">
+                    <TunableTuple name="portal_location" class="TunableTuple" display="Portal Location" description="If selected the object will be spanwed near the location of the specified portal type and start or end location" group="General">
+                        <TunableVariant type="None" name="portal_direction" class="TunableVariant" default="there" display="Portal Direction" description="Choose between the There and Back of the portal. This will not work properly if the portal is missing a Back and Back is specified here." group="General">
+                            <Tunable name="back" class="TunableExistance" display="Back" />
+                            <Tunable name="there" class="TunableExistance" display="There" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="portal_location" class="TunableVariant" default="entry" display="Portal Location" description="Choose between the entry and exit location of the portal." group="General">
+                            <Tunable name="entry" class="TunableExistance" display="Entry" />
+                            <Tunable name="exit" class="TunableExistance" display="Exit" />
+                        </TunableVariant>
+                        <Tunable type="snippet" name="portal_type" class="TunableReference" display="Portal Type" description="A reference to the type of portal to use for the starting location." allow_none="False" group="General" restrict="PortalData" />
+                    </TunableTuple>
+                    <TunableTuple name="spawner_location" class="TunableTuple" display="Spawner Location" description="If selected the object will be spawned near the location of the spawner object." group="General">
+                        <Tunable type="bool" name="consider_source_object_footprint" class="Tunable" default="False" display="Consider Source Object Footprint" description="If True, then the source object's footprints will be considered in the creation of FGL context. Example: If the source is invisible, then setting this to False would allow the spawned object to be located at its spawner's location. If the source is a visible object, then setting this to True would force the spawned object to be offset by any existing footprints on the source." group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+            <TunableTuple name="interaction_spawning" class="TunableTuple" display="Interaction Spawning" group="General" />
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableTuple name="slot_spawning" class="TunableTuple" display="Slot Spawning" group="General">
+                <TunableVariant type="None" name="force_initialization_spawn" class="OptionalTunable" default="disabled" display="Force Initialization Spawn" description="If enabled, objects with this component will force a spawning of objects on initialization. This is mainly used for objects on the open street where we want to fake that some time has already passed." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableRange" default="1" display="Enabled" min="1" max="None" description="The number of objects to be created." tuning_state="NeedsTuning" group="General" />
+                </TunableVariant>
+                <Tunable type="slot_type" name="slot_type" class="TunableReference" display="Slot Type" description="Slot type where spawned objects should appear" allow_none="False" group="General" />
+                <TunableList name="state_mapping" class="TunableMapping" display="State Mapping" mapping_key="key" mapping_value="value" description="Mapping of states from the spawner object into the possible states that the spawned object may have" group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="object_state" name="key" class="TunableReference" display="Key" allow_none="False" group="General" restrict="ObjectStateValue" />
+                        <TunableList name="value" class="TunableList" display="Value" description="List of possible children for a parent state" group="General">
+                            <TunableTuple class="TunableTuple" description="Pair of weight and possible state that the spawned object may have" group="General">
+                                <Tunable type="object_state" name="child_state" class="TunableReference" display="Child State" allow_none="False" group="General" restrict="ObjectStateValue" />
+                                <Tunable type="int" name="weight" class="TunableRange" default="1" display="Weight" min="0" max="None" description="Weight that object will have on the probability calculation of which object to spawn." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Conditional tests to determine if spawning occurs." group="General" />
+    </Instance>
+</TuningRoot>

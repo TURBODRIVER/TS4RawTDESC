@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="recipe" class="VocalTrack" module="crafting.music" description="A vocal track that will be played at the same time as a music track." instance_subclasses_only="False" path="Recipes\Descriptions" use_guid_for_reference="True">
+        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests to verify if this song is available for the Sim to play." group="General" />
+
+        <Tunable type="ResourceKey" name="vocal_clip" class="TunableResourceKey" default="None" display="Vocal Clip" description="The propx file of the vox to play." group="General" resource_types="0x39b2aa4a" />
+    </Instance>
+</TuningRoot>

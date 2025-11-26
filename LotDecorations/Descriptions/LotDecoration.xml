@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="lot_decoration" class="LotDecoration" module="lot_decoration.lot_decoration" description="A lot decoration is an item that may be applied to certain locations of the lot as supported by the client lot decoration system." instance_subclasses_only="False" path="LotDecorations\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="_display_data" class="OptionalTunable" default="disabled" display="Display Data" description="If enabled, specify display data for this instance." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="The instance's display data." group="General">
+                <TunableVariant type="None" name="instance_display_description" class="OptionalTunable" default="enabled" display="Instance Display Description" description="If enabled, specify a display description for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The instance's description. " group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_icon" class="OptionalTunable" default="enabled" display="Instance Display Icon" description="If enabled, specify a display icon for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="ResourceKey" name="enabled" class="TunableIcon" default="None" display="Enabled" description="The instance's icon." group="General" resource_types="0x2f7d0004" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_name" class="OptionalTunable" default="enabled" display="Instance Display Name" description="If enabled, specify a display name for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The instance's name." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_tooltip" class="OptionalTunable" default="enabled" display="Instance Display Tooltip" description="If enabled, specify a display tooltip for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The instance's tooltip. " group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="available_locations" class="TunableEnumSet" display="Available Locations" description="The locations where this decoration may be applied. Used for picker filtering." group="General" unique_entries="true">
+            <TunableEnum type="DecorationLocation" class="TunableEnumEntry" default="FOUNDATIONS" static_entries="lot_decoration-lot_decoration_enums.DecorationLocation" group="General" />
+        </TunableList>
+
+        <Tunable type="decotrim" name="decoration_resource" class="TunableReference" display="Decoration Resource" description="The catalog decoration resource used for this lot decoration." group="General" />
+
+        <TunableList name="picker_categories" class="TunableEnumSet" default="ALL" display="Picker Categories" description="The categories this decoration applies to. Used for picker drop-down filtering." group="General" unique_entries="true">
+            <TunableEnum type="DecorationPickerCategory" class="TunableEnumEntry" default="ALL" dynamic_entries="lot_decoration-lot_decoration_enums.DecorationPickerCategory._elements" static_entries="lot_decoration-lot_decoration_enums.DecorationPickerCategory" group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

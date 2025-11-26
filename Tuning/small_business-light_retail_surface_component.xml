@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="small_business.light_retail_surface_component">
+        <Class name="LightRetailSurfaceComponent">
+            <Tunable type="object_state" name="LIGHT_RETAIL_ACTIVE_STATE" class="TunableReference" display="Light Retail Active State" description="The state in case the business is registered." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <Tunable type="object_state" name="LIGHT_RETAIL_CLOSED_STATE" class="TunableReference" display="Light Retail Closed State" description="The state in case the business is closed." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <Tunable type="object_state" name="LIGHT_RETAIL_DISABLED_STATE" class="TunableReference" display="Light Retail Disabled State" description="The state value that object has Light Retail Surfaces disabled." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <Tunable type="object_state" name="LIGHT_RETAIL_ENABLED_STATE" class="TunableReference" display="Light Retail Enabled State" description="The state value that object has Light Retail Surfaces enabled." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <Tunable type="object_state" name="LIGHT_RETAIL_INACTIVE_STATE" class="TunableReference" display="Light Retail Inactive State" description="The state in case the business is unregistered." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <Tunable type="object_state" name="LIGHT_RETAIL_OPEN_STATE" class="TunableReference" display="Light Retail Open State" description="The state in case the business is open." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <TunableTuple name="SET_FOR_SALE_VFX" class="TunablePlayEffect" display="Set For Sale Vfx" description="An effect that will play on an object when it gets set for sale." group="General">
+                <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+                <TunableVariant type="None" name="joint_name" class="OptionalTunable" default="Slot" display="Joint Name" description="Specify if the visual effect is attached to a slot and, if so, which slot." group="General">
+                    <Tunable name="Current_Position" class="TunableExistance" display="Current Position" />
+                    <Tunable type="str" name="Slot" class="TunableStringHash32" default="_FX_" display="Slot" description="The name of the slot this effect is attached to." group="General" />
+                </TunableVariant>
+                <Tunable type="bool" name="play_immediate" class="Tunable" default="False" display="Play Immediate" description="If checked, this effect will be triggered immediately, nothing will block. ex. VFX will be played immediately while the Sim is routing or animating." group="General" />
+            </TunableTuple>
+
+            <TunableTuple name="SET_NOT_FOR_SALE_VFX" class="TunablePlayEffect" display="Set Not For Sale Vfx" description="An effect that will play on an object when it gets set not for sale." group="General">
+                <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+                <TunableVariant type="None" name="joint_name" class="OptionalTunable" default="Slot" display="Joint Name" description="Specify if the visual effect is attached to a slot and, if so, which slot." group="General">
+                    <Tunable name="Current_Position" class="TunableExistance" display="Current Position" />
+                    <Tunable type="str" name="Slot" class="TunableStringHash32" default="_FX_" display="Slot" description="The name of the slot this effect is attached to." group="General" />
+                </TunableVariant>
+                <Tunable type="bool" name="play_immediate" class="Tunable" default="False" display="Play Immediate" description="If checked, this effect will be triggered immediately, nothing will block. ex. VFX will be played immediately while the Sim is routing or animating." group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

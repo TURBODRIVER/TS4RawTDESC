@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.outfits.outfit_tuning">
+        <Class name="OutfitTuning">
+            <TunableList name="COSTUMES_LOCALIZATION_TUNING" class="TunableMapping" display="Costumes Localization Tuning" mapping_key="key" mapping_value="value" description="Mapping of tags for sim costumes to localization strings. This will be used for pie menu interactions when we want to switch to this specific custom costume tags." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Tag" name="key" class="TunableEnumWithFilter" default="INVALID" display="Key" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="uniform|outfitcategory|style" group="General" pack_safe="True" />
+                    <Tunable type="int" name="value" class="TunableLocalizedString" default="0x0" display="Value" description="A localized string that may use tokens." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="INAPPROPRIATE_STREETWEAR" class="TunableList" display="Inappropriate Streetwear" description="A list of outfit categories inappropriate for wearing on open streets. If the Sim is in one of these categories when they first decided to go off-lot, they will switch out of it beforehand." group="General">
+                <TunableEnum type="OutfitCategory" class="TunableEnumEntry" default="EVERYDAY" static_entries="sims-outfits-outfit_enums.OutfitCategory" group="General" />
+            </TunableList>
+
+            <TunableList name="LOOT_ON_OUTFIT_CHANGE" class="TunableList" display="Loot On Outfit Change" description="Loot that will be applied every time a Sim changes their outfit (right before)" group="General" unique_entries="true">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableList>
+
+            <TunableList name="OUTFIT_CATEGORY_TUNING" class="TunableMapping" display="Outfit Category Tuning" mapping_key="key" mapping_value="value" description="Define attributes specific to each of the existing outfit categories." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="OutfitCategory" name="key" class="TunableEnumEntry" default="EVERYDAY" display="Key" static_entries="sims-outfits-outfit_enums.OutfitCategory" group="General" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="Data specific to the outfit category." group="General">
+                        <TunableList name="buffs" class="TunableList" display="Buffs" description="List of buffs given to sim while in this outfit category." group="General">
+                            <TunableTuple class="TunableBuffReference" description="Buff that will get added to sim." group="General">
+                                <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                                </TunableVariant>
+                                <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                        <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                                        <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                                        <Tunable name="none" class="TunableExistance" display="None" />
+                                    </TunableVariant>
+                                </TunableVariant>
+                                <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" pack_safe="True" />
+                            </TunableTuple>
+                        </TunableList>
+                        <TunableVariant type="None" name="save_outfit_category" class="OptionalTunable" default="save_this_category" display="Save Outfit Category" description="If set to 'save_this_category', a Sim saved while wearing this outfit category will change back into this outfit category on load. e.g.: you're tuning Everyday outfit, which is set as save_this_category, meaning a sim wearing everyday will still be wearing everyday on load. Otherwise, you can set to save_as_different_category, which allows you to specific another outfit category for the sim to be saved in instead of this category. e.g.: if tuning Bathing category, if the sim is in the bathing category, set this to Everyday so that when the sim loads back up, the sim will be in Everyday wear instead of naked." group="General">
+                            <TunableEnum type="OutfitCategory" name="save_as_different_category" class="TunableEnumEntry" default="EVERYDAY" display="Save As Different Category" static_entries="sims-outfits-outfit_enums.OutfitCategory" description="The outfit category to save as instead of this category." group="General" />
+                            <Tunable name="save_this_category" class="TunableExistance" display="Save This Category" />
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="OUTFIT_CHANGE_ANIMATIONS" class="TunableMapping" display="Outfit Change Animations" mapping_key="Species" mapping_value="AnimationElement" description="Mapping for which animations to use when switching into an outfit by species." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="animation" name="AnimationElement" class="TunableReference" display="Animationelement" description="The animation element containing the ASM for animating changing outfits for this species." allow_none="False" group="General" pack_safe="True" restrict="AnimationElement" />
+                    <TunableEnum type="Species" name="Species" class="TunableEnumEntry" default="INVALID" display="Species" static_entries="sims-sim_info_types.Species" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="OUTFIT_CHANGE_REASONS" class="TunableMapping" display="Outfit Change Reasons" mapping_key="OutfitChangeReason" mapping_value="TunableMappings" description="Define the outfits that correspond to specific Outfit Change Reasons." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="OutfitChangeReason" name="OutfitChangeReason" class="TunableEnumEntry" default="PreviousClothing" display="Outfitchangereason" dynamic_entries="sims-outfits-outfit_enums.OutfitChangeReason._elements" static_entries="sims-outfits-outfit_enums.OutfitChangeReason" group="General" />
+                    <TunableList name="TunableMappings" class="TunableList" display="Tunablemappings" description="A list of test and Outfit Category pairs. The outfit corresponding to the first passing test is selected." group="General">
+                        <TunableTuple class="TunableTuple" description="A test and Outfit Category pair." group="General">
+                            <TunableEnum type="OutfitCategory" name="outfit_category" class="TunableEnumEntry" default="EVERYDAY" display="Outfit Category" static_entries="sims-outfits-outfit_enums.OutfitCategory" description="Should the associated test pass, the Outfit Category to switch into for the specified reason." group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

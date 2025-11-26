@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="weather.weather_service">
+        <Class name="WeatherService">
+            <TunableTuple name="ACTIVE_LIGHTNING" class="TunableTuple" display="Active Lightning" description="Lightning information for active strikes." group="General">
+                <TunableList name="creation_metrics" class="TunableList" display="Creation Metrics" description="Metrics for determining how bolts are created at differing ambient lightning ranges." group="General">
+                    <TunableTuple class="TunableTuple" description="A tuple of ambient lightning range to metrics." group="General">
+                        <Tunable type="float" name="chance" class="TunablePercent" default="10.0" display="Chance" min="0" max="100" description="Chance of spawning active lightning each check." group="General" />
+                        <TunableTuple name="interval" class="TunableInterval" display="Interval" description="Range of minutes between creation checks at this amount of ambient lightning." group="General">
+                            <Tunable type="float" name="lower_bound" class="TunableSimMinute" default="10" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="upper_bound" class="TunableSimMinute" default="20" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="value_range" class="TunableInterval" display="Value Range" description="Ambient lightning range within which this metric is applied" group="General">
+                            <Tunable type="float" name="lower_bound" class="Tunable100ConvertRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." group="General" />
+                            <Tunable type="float" name="upper_bound" class="Tunable100ConvertRange" default="100" display="Upper Bound" min="None" max="100" description="The upper bound of the interval." group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+
+            <TunableList name="COUNTS_AS_SHADE" class="TunableEnumSet" display="Counts As Shade" description="A set of WeatherTypes that count as shade as far as is sun out is concerned." group="General" unique_entries="true">
+                <TunableEnum type="WeatherType" class="TunableEnumEntry" default="UNDEFINED" dynamic_entries="weather-weather_enums.WeatherType._elements" static_entries="weather-weather_enums.WeatherType" group="General" invalid_entries="UNDEFINED" />
+            </TunableList>
+
+            <TunableEnum type="WeatherType" name="EXTREME_COLD_WEATHER_TYPE" class="TunableEnumEntry" default="UNDEFINED" display="Extreme Cold Weather Type" dynamic_entries="weather-weather_enums.WeatherType._elements" static_entries="weather-weather_enums.WeatherType" description="The weather type enum that is for extreme cold. UI needs this tuning." group="General" invalid_entries="UNDEFINED" />
+
+            <TunableEnum type="WeatherType" name="EXTREME_HEAT_WEATHER_TYPE" class="TunableEnumEntry" default="UNDEFINED" display="Extreme Heat Weather Type" dynamic_entries="weather-weather_enums.WeatherType._elements" static_entries="weather-weather_enums.WeatherType" description="The weather type enum that is for extreme heat. UI needs this tuning." group="General" invalid_entries="UNDEFINED" />
+
+            <Tunable type="weather_forecast" name="FALLBACK_FORECAST" class="TunableReference" display="Fallback Forecast" description="The weather forecast to use if no valid forecast is found." allow_none="False" group="General" restrict="WeatherForecast" />
+
+            <Tunable type="float" name="FROST_GROUND_ACCUMULATION_MAX" class="Tunable100ConvertRange" default="10" display="Frost Ground Accumulation Max" min="0" max="100" description="Maximum amount of accumulation for ground frost." group="General" />
+
+            <TunableTuple name="FROST_WINDOW_MELT_RATE" class="TunableTemperatureTuple" display="Frost Window Melt Rate" description="Rate per minute at each temperature that window frost melts. Negative means it accumulates." group="General">
+                <Tunable type="float" name="burning" class="Tunable100ConvertRange" default="10.0" display="Burning" min="None" max="None" group="General" />
+                <Tunable type="float" name="cold" class="Tunable100ConvertRange" default="1.0" display="Cold" min="None" max="None" group="General" />
+                <Tunable type="float" name="cool" class="Tunable100ConvertRange" default="3.0" display="Cool" min="None" max="None" group="General" />
+                <Tunable type="float" name="freezing" class="Tunable100ConvertRange" default="-0.1" display="Freezing" min="None" max="None" group="General" />
+                <Tunable type="float" name="hot" class="Tunable100ConvertRange" default="9.0" display="Hot" min="None" max="None" group="General" />
+                <Tunable type="float" name="warm" class="Tunable100ConvertRange" default="5.0" display="Warm" min="None" max="None" group="General" />
+            </TunableTuple>
+
+            <TunableTuple name="ICY_CONDITIONS" class="TunableTuple" display="Icy Conditions" description="Icy conditions specific tuning." group="General">
+                <Tunable type="float" name="duration" class="TunableSimMinute" default="60.0" display="Duration" min="30.0" max="None" description="The amount of time (in sim mins) to run icy conditions for." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="start_in" class="TunableSimMinute" default="60.0" display="Start In" min="0.0" max="None" description="The amount of time (in sim mins) to the start Icy conditions from stop of snow accumulation." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="time_to_icy" class="TunableSimMinute" default="10.0" display="Time To Icy" min="1.0" max="None" description="The amount of time (in sim mins) to from 0 to full ICY." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="time_to_icy_decay" class="TunableSimMinute" default="10.0" display="Time To Icy Decay" min="1.0" max="None" description="The amount of time (in sim mins) to from full ICY (or current value) to zero." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="whitelisted_temperatures" class="TunableEnumSet" display="Whitelisted Temperatures" description="Temperatures for which we allow Icy conditions." group="General" unique_entries="true">
+                    <TunableEnum type="Temperature" class="TunableEnumEntry" default="FREEZING" static_entries="weather-weather_enums.Temperature" group="General" />
+                </TunableList>
+            </TunableTuple>
+
+            <TunableList name="OUTDOOR_AUTONOMY_RAIN_PENALTIES" class="TunableWeatherAutonomyPenalties" display="Outdoor Autonomy Rain Penalties" description="A list of penalties modifiers for outside autonomy when it is raining. score = score - score * modifier i.e. is sims score outside interactions at 10% of normal when it's 80-100 precipitation, then range would be 80-100, modifier would be 0.9" group="General">
+                <TunableTuple class="TunableTuple" description="A tuple of precipitation range to modifier." group="General">
+                    <Tunable type="float" name="modifier" class="Tunable" default="1.0" display="Modifier" description="Multiplier to autonomy score by." tuning_state="NeedsTuning" group="General" />
+                    <TunableTuple name="value_range" class="TunableInterval" display="Value Range" description="Precipitation range within which this penalty is applied" group="General">
+                        <Tunable type="float" name="lower_bound" class="Tunable100ConvertRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." group="General" />
+                        <Tunable type="float" name="upper_bound" class="Tunable100ConvertRange" default="100" display="Upper Bound" min="None" max="100" description="The upper bound of the interval." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="OUTDOOR_AUTONOMY_RAIN_PENALTY_REDUCTIONS" class="TunableWeatherAutonomyPenaltyReductions" display="Outdoor Autonomy Rain Penalty Reductions" mapping_key="key" mapping_value="value" description="A mapping of traits to penalty modifiers for rain. score = score - score * modifier * penalty reduction modifier i.e. if sim with the likes the outdoors trait is only half as affected by the precipitation, key would be the likes the outdoors trait, value would be 0.5" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="trait" name="key" class="TunableReference" display="Key" description="The trait the receives this modifier." allow_none="False" group="General" pack_safe="True" />
+                    <Tunable type="float" name="value" class="Tunable" default="1.0" display="Value" description="Multiplier to modify penalty by." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="OUTDOOR_AUTONOMY_SNOW_PENALTIES" class="TunableWeatherAutonomyPenalties" display="Outdoor Autonomy Snow Penalties" description="A list of penalties for outside autonomy when it is snowing. score = score - score*modifier i.e. is sims score outside interactions at 10% of normal when it's 80-100 precipitation, then range would be 80-100, modifier would be 0.9" group="General">
+                <TunableTuple class="TunableTuple" description="A tuple of precipitation range to modifier." group="General">
+                    <Tunable type="float" name="modifier" class="Tunable" default="1.0" display="Modifier" description="Multiplier to autonomy score by." tuning_state="NeedsTuning" group="General" />
+                    <TunableTuple name="value_range" class="TunableInterval" display="Value Range" description="Precipitation range within which this penalty is applied" group="General">
+                        <Tunable type="float" name="lower_bound" class="Tunable100ConvertRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." group="General" />
+                        <Tunable type="float" name="upper_bound" class="Tunable100ConvertRange" default="100" display="Upper Bound" min="None" max="100" description="The upper bound of the interval." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="OUTDOOR_AUTONOMY_SNOW_PENALTY_REDUCTIONS" class="TunableWeatherAutonomyPenaltyReductions" display="Outdoor Autonomy Snow Penalty Reductions" mapping_key="key" mapping_value="value" description="score = score - score * modifier * penalty reduction modifier i.e. if sim with the likes the outdoors trait is only half as affected by the precipitation, key would be the likes the outdoors trait, value would be 0.5" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="trait" name="key" class="TunableReference" display="Key" description="The trait the receives this modifier." allow_none="False" group="General" pack_safe="True" />
+                    <Tunable type="float" name="value" class="Tunable" default="1.0" display="Value" description="Multiplier to modify penalty by." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="PUDDLES" class="TunableTuple" display="Puddles" description="Puddle information" group="General">
+                <TunableList name="creation_metrics" class="TunableList" display="Creation Metrics" description="metrics for determining how puddles are created at differing precipitation ranges." group="General">
+                    <TunableTuple class="TunableTuple" description="A tuple of precipitation range to metrics." group="General">
+                        <Tunable type="float" name="chance" class="TunablePercent" default="10.0" display="Chance" min="0" max="100" description="Chance of spawning puddle each check." group="General" />
+                        <TunableTuple name="interval" class="TunableInterval" display="Interval" description="Range of minutes between creation checks at this amount of precipitation." group="General">
+                            <Tunable type="int" name="lower_bound" class="TunableRange" default="10" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="upper_bound" class="TunableRange" default="20" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="value_range" class="TunableInterval" display="Value Range" description="Precipitation range within which this metric is applied" group="General">
+                            <Tunable type="float" name="lower_bound" class="Tunable100ConvertRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." group="General" />
+                            <Tunable type="float" name="upper_bound" class="Tunable100ConvertRange" default="100" display="Upper Bound" min="None" max="100" description="The upper bound of the interval." group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="int" name="max" class="Tunable" default="10" display="Max" description="Maximum number of rain-based puddles to exist at one time." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="natural_terrain_definitions" class="TunableList" display="Natural Terrain Definitions" description="This is a list of associated tests and lists of definitions that will be used to create a puddle on natural terrain. i.e. mud puddles. All of the definitions in the list will be considered valid if all of the tests in the test set pass." group="General">
+                    <TunableTuple class="TunableTuple" description="A list of definitions paired with a set of tests. The tests must pass for the definitions in the list to be considered valid for creating a puddle on natural terrain. i.e. mud puddles." group="General">
+                        <TunableList name="definitions" class="TunableDefinitionList" display="Definitions" description="Definitions for which puddles can be created when associated tests pass." group="General">
+                            <Tunable type="object" class="TunableReference" description="The definition of the object." allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Set of tests that must pass in order for the associated definitions in the definition list to be considered valid for puddle creation." group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableList name="tag" class="TunableTags" display="Tag" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The set of tags that are used to determine which objects are treated as rain-based puddles." group="General" invalid_entries="INVALID" pack_safe="True" />
+                </TunableList>
+                <TunableList name="unnatural_terrain_definitions" class="TunableList" display="Unnatural Terrain Definitions" description="This is a list of associated tests and lists of definitions that will be used to create a puddle on natural terrain. i.e. water puddles. All of the definitions in the list will be considered valid if all of the tests in the test set pass. " group="General">
+                    <TunableTuple class="TunableTuple" description="A set of definitions paired with a set of tests. The tests must pass for the definitions in the list to be considered valid for creating a puddle on unnatural terrain. i.e. water puddles." group="General">
+                        <TunableList name="definitions" class="TunableDefinitionList" display="Definitions" description="Definitions for which puddles can be created when associated tests pass." group="General">
+                            <Tunable type="object" class="TunableReference" description="The definition of the object." allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Set of tests that must pass in order for the associated definitions in the definition list to be considered valid for puddle creation." group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+
+            <Tunable type="float" name="SNOW_ACCUMULATION_RATE" class="Tunable" default="0.03" display="Snow Accumulation Rate" description="Rate per minute per target precipitation amount that snow accumulates. i.e. 0.03 means ~30 minutes to 100 coverage in 100 snow." tuning_state="NeedsTuning" group="General" />
+
+            <TunableTuple name="SNOW_DRIFT" class="TunableTuple" display="Snow Drift" description="Snow drift information" group="General">
+                <TunableList name="creation_metrics" class="TunableList" display="Creation Metrics" description="metrics for determining how drifts are created at differing precipitation ranges." group="General">
+                    <TunableTuple class="TunableTuple" description="A tuple of precipitation range to metrics." group="General">
+                        <Tunable type="float" name="chance" class="TunablePercent" default="10.0" display="Chance" min="0" max="100" description="Chance of spawning drift each check." group="General" />
+                        <TunableTuple name="interval" class="TunableInterval" display="Interval" description="Range of minutes between creation checks at this amount of precipitation." group="General">
+                            <Tunable type="int" name="lower_bound" class="TunableRange" default="10" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="upper_bound" class="TunableRange" default="20" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="value_range" class="TunableInterval" display="Value Range" description="Precipitation range within which this metric is applied" group="General">
+                            <Tunable type="float" name="lower_bound" class="Tunable100ConvertRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." group="General" />
+                            <Tunable type="float" name="upper_bound" class="Tunable100ConvertRange" default="100" display="Upper Bound" min="None" max="100" description="The upper bound of the interval." group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+                <TunableList name="definitions" class="TunableDefinitionList" display="Definitions" description="Definitions for which objects to be created as snow drifts" group="General">
+                    <Tunable type="object" class="TunableReference" description="The definition of the object." allow_none="False" group="General" pack_safe="True" />
+                </TunableList>
+                <Tunable type="int" name="max" class="Tunable" default="10" display="Max" description="Maximum number of snow drifts to exist at one time." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="tag" class="TunableTags" display="Tag" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The set of tags that are used to determine which objects are treated as snow drifts." group="General" invalid_entries="INVALID" pack_safe="True" />
+                </TunableList>
+            </TunableTuple>
+
+            <Tunable type="float" name="SNOW_FRESHNESS_ACCUMULATION_RATE" class="Tunable" default="0.02" display="Snow Freshness Accumulation Rate" description="Rate per minute per target precipitation amount that snow freshness accumulates. Snow freshness decay rate is subtracted from this to get the final decay/accumulation rate. i.e. 0.02 here with 1.0 freshness decay means it'll take 100 minutes to accumulate to full at 100 snow. (100 * 0.02 = 2.0 rate. 2.0 accumulation rate - 1.0 decay rate = final rate 1.0. And at 50 precipitation the two rates will precisely cancel out." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="SNOW_FRESHNESS_DECAY_RATE" class="Tunable100ConvertRange" default="1" display="Snow Freshness Decay Rate" min="None" max="None" description="Rate per minute that snow freshness decays. This is subtracted from the calculated accumulation rate to get the final decay/accumulation rate. At 1 this means it'll take 100 minutes to go from full freshness to full decay." group="General" />
+
+            <TunableTuple name="SNOW_MELT_RATE" class="TunableTemperatureTuple" display="Snow Melt Rate" description="Rate per minute at each temperature that snow melts. Negative means it accumulates (i.e. frost) up to the frost limit" group="General">
+                <Tunable type="float" name="burning" class="Tunable100ConvertRange" default="10.0" display="Burning" min="None" max="None" group="General" />
+                <Tunable type="float" name="cold" class="Tunable100ConvertRange" default="1.0" display="Cold" min="None" max="None" group="General" />
+                <Tunable type="float" name="cool" class="Tunable100ConvertRange" default="3.0" display="Cool" min="None" max="None" group="General" />
+                <Tunable type="float" name="freezing" class="Tunable100ConvertRange" default="-0.03" display="Freezing" min="None" max="None" group="General" />
+                <Tunable type="float" name="hot" class="Tunable100ConvertRange" default="9.0" display="Hot" min="None" max="None" group="General" />
+                <Tunable type="float" name="warm" class="Tunable100ConvertRange" default="5.0" display="Warm" min="None" max="None" group="General" />
+            </TunableTuple>
+
+            <Tunable type="buff" name="TEMPERATURE_CONTROL_BUFF" class="TunableReference" display="Temperature Control Buff" description="If the enable temperature effects on Sims option is disabled, this buff is applied to Sims. " allow_none="True" group="General" pack_safe="True" />
+
+            <Tunable type="float" name="WATER_ACCUMULATION_RATE" class="Tunable" default="0.03" display="Water Accumulation Rate" description="Rate per minute per target precipitation amount that water accumulates. i.e. 0.03 means ~30 minutes to 100 coverage in 100 rain." tuning_state="NeedsTuning" group="General" />
+
+            <TunableTuple name="WATER_EVAPORATION_RATE" class="TunableTemperatureTuple" display="Water Evaporation Rate" description="Rate per minute at each temperature that water evaporates." group="General">
+                <Tunable type="float" name="burning" class="Tunable100ConvertRange" default="10.0" display="Burning" min="None" max="None" group="General" />
+                <Tunable type="float" name="cold" class="Tunable100ConvertRange" default="1.0" display="Cold" min="None" max="None" group="General" />
+                <Tunable type="float" name="cool" class="Tunable100ConvertRange" default="3.0" display="Cool" min="None" max="None" group="General" />
+                <Tunable type="float" name="freezing" class="Tunable100ConvertRange" default="1.0" display="Freezing" min="None" max="None" group="General" />
+                <Tunable type="float" name="hot" class="Tunable100ConvertRange" default="9.0" display="Hot" min="None" max="None" group="General" />
+                <Tunable type="float" name="warm" class="Tunable100ConvertRange" default="5.0" display="Warm" min="None" max="None" group="General" />
+            </TunableTuple>
+
+            <TunableTuple name="WATER_THAW_RATE" class="TunableTemperatureTuple" display="Water Thaw Rate" description="Rate per minute at each temperature that water thaws. Negative means it freezes." group="General">
+                <Tunable type="float" name="burning" class="Tunable100ConvertRange" default="10.0" display="Burning" min="None" max="None" group="General" />
+                <Tunable type="float" name="cold" class="Tunable100ConvertRange" default="1.0" display="Cold" min="None" max="None" group="General" />
+                <Tunable type="float" name="cool" class="Tunable100ConvertRange" default="3.0" display="Cool" min="None" max="None" group="General" />
+                <Tunable type="float" name="freezing" class="Tunable100ConvertRange" default="-0.1" display="Freezing" min="None" max="None" group="General" />
+                <Tunable type="float" name="hot" class="Tunable100ConvertRange" default="9.0" display="Hot" min="None" max="None" group="General" />
+                <Tunable type="float" name="warm" class="Tunable100ConvertRange" default="5.0" display="Warm" min="None" max="None" group="General" />
+            </TunableTuple>
+
+            <Tunable type="float" name="WEATHER_AWARE_TIME_SLICE_SECONDS" class="TunableRealSecond" default="0.1" display="Weather Aware Time Slice Seconds" min="None" max="None" description="The maximum alloted time for updating weather aware objects between time slices in seconds." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="WEATHER_ENDING_EVENT" class="TunableMapping" display="Weather Ending Event" mapping_key="key" mapping_value="value" description="Tuning information on event that can happen when a specific weather is done." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="WeatherType" name="key" class="TunableEnumEntry" default="UNDEFINED" display="Key" dynamic_entries="weather-weather_enums.WeatherType._elements" static_entries="weather-weather_enums.WeatherType" description="Weather type that when completed will trigger additional functionality." group="General" invalid_entries="UNDEFINED" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="Information about event that should happen when the specified weather ends. " group="General">
+                        <TunableVariant type="None" name="event_type" class="TunableVariant" default="none" display="Event Type" description="Possible ingredient mapping by object definition of by catalog object Tag." group="General">
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                            <TunableTuple name="spawn_rainbow" class="TunableSpawnRainbow" display="Spawn Rainbow" description="Handles finding the location and creation of rainbows in the world." group="General">
+                                <Tunable type="object" name="rainbow_definition" class="TunableReference" display="Rainbow Definition" description="Rainbow definition to be placed on the world." allow_none="False" group="General" pack_safe="True" />
+                                <Tunable type="int" name="spawn_max_radius" class="TunableRange" default="3" display="Spawn Max Radius" min="0" max="None" description="Max radius around the spawner object to search to place the new object." tuning_state="NeedsTuning" group="General" />
+                                <TunableList name="spawner_object_tag_set" class="TunableTags" display="Spawner Object Tag Set" group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The set of tags that define the objects where the new object should try to position itself." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                </TunableList>
+                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests to run to validate if the placement of the rainbow should be valid. This will run over the object being placed, so any object tests will be valid." group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <Tunable type="float" name="trigger_chance" class="TunablePercent" default="10.0" display="Trigger Chance" min="0" max="100" description="Chance of spawning drift each check." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="WEATHER_OUFTIT_CHANGE_REASONS_TO_IGNORE" class="TunableEnumSet" display="Weather Ouftit Change Reasons To Ignore" description="A list of outfit change reasons that are exempt from testing for weather." group="General" unique_entries="true">
+                <TunableEnum type="OutfitChangeReason" class="TunableEnumEntry" default="Invalid" dynamic_entries="sims-outfits-outfit_enums.OutfitChangeReason._elements" static_entries="sims-outfits-outfit_enums.OutfitChangeReason" group="General" invalid_entries="Invalid" />
+            </TunableList>
+
+            <TunableTuple name="WEATHER_OUTFIT_TESTS" class="TunableTuple" display="Weather Outfit Tests" description="A default weather outfit test and a list of tests to use instead of the default test for specific outfit change reasons." group="General">
+                <TunableList name="default_outfit_change_tests" class="TunableMapping" display="Default Outfit Change Tests" mapping_key="key" mapping_value="value" description="A map of outfit category to test set. If the test set passes a Sim will change outfit to the corresponding outfit category. This is the default set of tests that is run to determine outfit change behavior based on weather." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="WeatherOutfitCategory" name="key" class="TunableEnumEntry" default="HOTWEATHER" display="Key" static_entries="sims-outfits-outfit_enums.WeatherOutfitCategory" description="The outfit category to set if the test set passes" group="General" />
+                        <TdescFragTag name="value" class="TunableTestSet" display="Value" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <TunableList name="outfit_change_reason_tests" class="TunableList" display="Outfit Change Reason Tests" description="The tests to run insted of the default test for specific outfit change reasons." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableList name="outfit_change_reasons" class="TunableEnumSet" display="Outfit Change Reasons" description="The list of outfit change reasons for which we use the specific tests instead of the default test." group="General" unique_entries="true">
+                            <TunableEnum type="OutfitChangeReason" class="TunableEnumEntry" default="Invalid" dynamic_entries="sims-outfits-outfit_enums.OutfitChangeReason._elements" static_entries="sims-outfits-outfit_enums.OutfitChangeReason" group="General" invalid_entries="Invalid" />
+                        </TunableList>
+                        <TunableList name="outfit_change_tests" class="TunableMapping" display="Outfit Change Tests" mapping_key="key" mapping_value="value" description="A map of outfit category to test set. If the test set passes a Sim will change outfit to the corresponding outfit category." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <TunableEnum type="WeatherOutfitCategory" name="key" class="TunableEnumEntry" default="HOTWEATHER" display="Key" static_entries="sims-outfits-outfit_enums.WeatherOutfitCategory" description="The outfit category to set if the test set passes" group="General" />
+                                <TdescFragTag name="value" class="TunableTestSet" display="Value" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+
+            <TunableVariant type="None" name="WEATHER_TYPE_EXCLUSIVE_TEST" class="TunableExclusiveWeatherTypeVariant" default="single_entry" display="Weather Type Exclusive Test" description="Tests that specify the exclusive weather type based on the current weather." group="General">
+                <TunableTuple name="single_entry" class="TunableExclusiveWeatherTypeLeaf" display="Single Entry" description="Leaf node of the Exclusive Weather Type tree" group="General">
+                    <TunableEnum type="WeatherType" name="weather_type" class="TunableEnumEntry" default="UNDEFINED" display="Weather Type" dynamic_entries="weather-weather_enums.WeatherType._elements" static_entries="weather-weather_enums.WeatherType" description="The weather type." group="General" invalid_entries="Freezing,Cold,Cool,Warm,Hot,Burning,UNDEFINED,AnySnow,AnyRain,Max_Snow_Accumulation,Max_Rain_Accumulation,AnyLightning,StruckByLightning" />
+                </TunableTuple>
+                <Tunable type="snippet" name="tested" class="TunableReference" display="Tested" allow_none="False" group="General" pack_safe="True" restrict="ExclusiveWeatherTypeBranch" />
+            </TunableVariant>
+
+            <TunableList name="WEATHER_TYPE_MULTIPLE_TEST" class="TunableMapping" display="Weather Type Multiple Test" mapping_key="WeatherTypeKey" mapping_value="WeatherTypeTest" description="Tests that specify which non-exclusive weather types are true based on the current weather." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="WeatherType" name="WeatherTypeKey" class="TunableEnumEntry" default="UNDEFINED" display="Weathertypekey" dynamic_entries="weather-weather_enums.WeatherType._elements" static_entries="weather-weather_enums.WeatherType" description="The weather type enum." group="General" invalid_entries="Freezing,Cold,Cool,Warm,Hot,Burning,UNDEFINED,AnySnow,AnyRain,Max_Snow_Accumulation,Max_Rain_Accumulation,AnyLightning,StruckByLightning" />
+                    <TdescFragTag name="WeatherTypeTest" class="TunableTestSet" display="Weathertypetest" description="At least one of these must pass for weather type to be true based on the current weather. When test is true: WeatherEnumTest will return true for that enum. That enum will be sent to any objects with a weatheraware component listening for that enum." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="WEATHER_TYPE_UI_INFO" class="TunableMapping" display="Weather Type Ui Info" mapping_key="WeatherTypeKey" mapping_value="WeatherTypeValue" description="Mapping of weather type enum to weather information. The information includes the list of tests for the weather type, the type of weather information and the corresponding UI information." group="General" mapping_class="WeatherTypeTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="WeatherType" name="WeatherTypeKey" class="TunableEnumEntry" default="UNDEFINED" display="Weathertypekey" dynamic_entries="weather-weather_enums.WeatherType._elements" static_entries="weather-weather_enums.WeatherType" description="The weather type enum." group="General" />
+                    <TunableTuple name="WeatherTypeValue" class="WeatherTypeValueTuple" display="Weathertypevalue" description="Test and UI information for this weather type." group="General">
+                        <TunableTuple name="display_information" class="WeatherDisplayInformation" display="Display Information" group="General">
+                            <Tunable type="ResourceKey" name="icon" class="TunableIconAllPacks" default="None" display="Icon" description="The icon of the weather type." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                            <Tunable type="ResourceKey" name="icon_large" class="TunableIconAllPacks" default="None" display="Icon Large" description="Large icon of the weather type, used on the weather tooltip." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                            <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of the weather type." group="General" />
+                        </TunableTuple>
+                        <TunableEnum type="WeatherTypeGroup" name="weather_group_type" class="TunableEnumEntry" default="UNGROUPED" display="Weather Group Type" static_entries="weather-weather_enums.WeatherTypeGroup" description="What this weather type actually is. Weather VS temperature VS lightning state etc..." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

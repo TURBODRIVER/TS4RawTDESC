@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="story_chapter" class="SimStoryChapter" module="story_progression.story_progression_chapter" description="A Story Chapter for Sims." instance_needs_reference="True" instance_subclasses_only="False" parents="BaseStoryChapter" path="StoryChapters\Descriptions" use_guid_for_reference="True">
+        <TunableList name="actions" class="TunableList" display="Actions" description="The actions that will be taken when this chapter runs." group="General">
+            <TunableVariant type="None" class="TunableVariant" default="death" description="The action that will be taken when this chapter runs." group="General">
+                <TunableTuple name="add_family_member" class="TunableAddFamilyMemberStoryProgressionAction" display="Add Family Member" description="Story progression action that adds a Sim to the family." group="General">
+                    <Tunable type="bool" name="add_adoption_relationships" class="Tunable" default="True" display="Add Adoption Relationships" description="If checked then we will add default adoption relationships like the Sim is normally getting adopted as a child." group="General" />
+                    <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_new_family_member_participant" class="OptionalTunable" default="disabled" display="Store New Family Member Participant" description="If enabled we will store off the new family member for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionSim" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionSim1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionSim" description="The sim participant to save it into." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_world_name_participant" class="OptionalTunable" default="disabled" display="Store World Name Participant" description="If enabled we will store off the target world name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <Tunable type="sim_template" name="template" class="TunableReference" display="Template" description="The template we will use to create the Sim being added to the family." allow_none="False" group="General" restrict="TunableSimTemplate" />
+                    <Tunable type="bool" name="use_adoptors_last_name" class="Tunable" default="True" display="Use Adoptors Last Name" description="If checked then we will change the last name of the created Sim to the last name of the Sim adopting them." group="General" />
+                </TunableTuple>
+                <TunableTuple name="career_add" class="TunableAddCareerStoryProgressionAction" display="Career Add" description="Story progression action that adds a career to a Sim." group="General">
+                    <TunableVariant type="None" name="store_career_name_participant" class="OptionalTunable" default="disabled" display="Store Career Name Participant" description="If enabled we will store off the career name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_job_name_participant" class="OptionalTunable" default="disabled" display="Store Job Name Participant" description="If enabled we will store off the job name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_world_name_participant" class="OptionalTunable" default="disabled" display="Store World Name Participant" description="If enabled we will store off the target world name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="career_remove" class="TunableRemoveCareerStoryProgressionAction" display="Career Remove" description="Story progression action that removes a career from a Sim." group="General">
+                    <TunableVariant type="None" name="store_career_name_participant" class="OptionalTunable" default="disabled" display="Store Career Name Participant" description="If enabled we will store off the career name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_job_name_participant" class="OptionalTunable" default="disabled" display="Store Job Name Participant" description="If enabled we will store off the job name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_world_name_participant" class="OptionalTunable" default="disabled" display="Store World Name Participant" description="If enabled we will store off the target world name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="career_retire" class="TunableRetireStoryProgressionAction" display="Career Retire" description="Story progression action that retires a Sim." group="General">
+                    <TunableVariant type="None" name="store_career_name_participant" class="OptionalTunable" default="disabled" display="Store Career Name Participant" description="If enabled we will store off the career name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_job_name_participant" class="OptionalTunable" default="disabled" display="Store Job Name Participant" description="If enabled we will store off the job name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_world_name_participant" class="OptionalTunable" default="disabled" display="Store World Name Participant" description="If enabled we will store off the target world name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="death" class="TunableDeathStoryProgressionAction" display="Death" description="Story progression action that kills a Sim." group="General">
+                    <TunableList name="death_types" class="TunableList" display="Death Types" description="A list of death types and the weight of it being chosen for the death of this Sim." group="General">
+                        <TunableTuple class="TunableTuple" description="A collection of data for the death of a Sim." group="General">
+                            <TunableVariant type="None" name="additional_pack_requirement" class="OptionalTunable" default="disabled" display="Additional Pack Requirement" description="If enabled then this death type requires an additional pack installed in order for the death to take place." group="General">
+                                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                <TunableEnum type="Pack" name="enabled" class="TunableEnumEntry" default="BASE_GAME" display="Enabled" static_entries="sims4-common.Pack" description="The content associated with a given death type. The death type will not be chosen unless that content is installed." group="General" invalid_entries="BASE_GAME" />
+                            </TunableVariant>
+                            <TunableEnum type="DeathType" name="death_type" class="TunableEnumEntry" default="NONE" display="Death Type" dynamic_entries="interactions-utils-death_enums.DeathType._elements" static_entries="interactions-utils-death_enums.DeathType" description="The death type that will be used to kill the Sim." group="General" invalid_entries="NONE" />
+                            <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="The weight that this death type will be chosen." group="General">
+                                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                    <TunableTuple class="TunableTuple" group="General">
+                                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                    <TunableVariant type="None" name="store_death_type_discovery_string_participant" class="OptionalTunable" default="disabled" display="Store Death Type Discovery String Participant" description="If enabled we will store off the death type string for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_world_name_participant" class="OptionalTunable" default="disabled" display="Store World Name Participant" description="If enabled we will store off the target world name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="pregnancy" class="TunableMakePregnantStoryProgressionAction" display="Pregnancy" description="Story progression action that makes the Sim pregnant." group="General">
+                    <Tunable type="sim_filter" name="pregnancy_partner_filter" class="TunableReference" display="Pregnancy Partner Filter" description="The filter that we will use to find the pregnancy partner." allow_none="False" group="General" />
+                    <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_pregnancy_partner_participant" class="OptionalTunable" default="disabled" display="Store Pregnancy Partner Participant" description="If enabled we will store off pregnancy partner for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionSim" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionSim1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionSim" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_world_name_participant" class="OptionalTunable" default="disabled" display="Store World Name Participant" description="If enabled we will store off the target world name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="relationship_modified" class="TunableRelationshipModifiedStoryProgressionAction" display="Relationship Modified" description="Story Progression Action that stores information about a relationship between two Sims." group="General">
+                    <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_partner_sim" class="OptionalTunable" default="disabled" display="Store Partner Sim" description="If tuned, stores the partner Sim as the tuned participant." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionSim" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionSim1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionSim" group="General" />
+                    </TunableVariant>
+                    <TunableTuple name="store_relationship_bit_name" class="TunableTuple" display="Store Relationship Bit Name" description="Store the bit name of the tuned relationship track between the Sims in this Chapter." group="General">
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="participant_type" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Participant Type" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" description="Participant type to store the track bit name as." group="General" />
+                        <Tunable type="statistic" name="track" class="TunableReference" display="Track" description="The relationship track to look for the bit name of." allow_none="False" group="General" restrict="RelationshipTrack" />
+                    </TunableTuple>
+                    <TunableVariant type="None" name="store_world_name_participant" class="OptionalTunable" default="disabled" display="Store World Name Participant" description="If enabled we will store off the target world name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TunableList name="linked_chapters" class="StoryProgressionLinkedChapters" display="Linked Chapters" description="A list of possible future chapters that are selected utilizing a weighted random with tests." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="story_chapter" name="possible_chapter" class="TunableReference" display="Possible Chapter" description="A possible future Chapter." allow_none="False" group="General" restrict="SimStoryChapter" />
+                <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A weight with testable multipliers that is used to determine how likely this entry is to be picked when selecting randomly." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

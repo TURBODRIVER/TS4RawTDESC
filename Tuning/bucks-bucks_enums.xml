@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="bucks.bucks_enums">
+        <Class name="BucksType" enum_bit_flag="False" enum_locked="True" enum_partitioned="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="BucksTrackerType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CLUB" enum_value="1" />
+
+            <EnumItem name="HOUSEHOLD" enum_value="0" />
+
+            <EnumItem name="SIM" enum_value="2" />
+
+            <EnumItem name="SMALL_BUSINESS" enum_value="3" />
+        </Class>
+    </Module>
+</TuningRoot>

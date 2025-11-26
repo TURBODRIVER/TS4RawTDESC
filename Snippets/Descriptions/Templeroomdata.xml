@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="Templeroomdata" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableTempleRoomData" display="Value" description="Tuning for an individual room in a temple." group="General">
+            <TunableList name="gate" class="TunableSet" display="Gate" description="A set of states in which the gate in this room can potentially start." group="General" unique_entries="true">
+                <Tunable type="object_state" class="TunableReference" description="A potential starting state for the gate in this room." allow_none="False" group="General" restrict="ObjectStateValue" />
+            </TunableList>
+            <TunableList name="traps" class="TunableMapping" display="Traps" mapping_key="Trap" mapping_value="Potential Trigger Interactions" description="A mapping of trap objects to the interactions that can be used in the pool potential of 'trigger' interaction. A trap object will be chosen at random from this mapping and placed at each placeholder trap in this room. Once all trap objects have been chosen and placed for a room, all of the mapped interactions will be collected and one random interaction will be chosen as the 'trigger' interaction." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="Potential Trigger Interactions" class="TunableSet" display="Potential Trigger Interactions" description="A set of interactions that, if successfully completed on the chosen trap object, will trigger the loot for the gate in this room." group="General" unique_entries="true">
+                        <Tunable type="interaction" class="TunableReference" description="One of the potential trigger interactions. This interaction also needs to be tuned on the object chosen for this trap." allow_none="False" group="General" restrict="SuperInteraction" />
+                    </TunableList>
+                    <Tunable type="object" name="Trap" class="TunableReference" display="Trap" description="A reference to the trap object." allow_none="False" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

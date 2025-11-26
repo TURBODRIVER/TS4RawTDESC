@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="sickness" class="Symptom" module="sickness.symptom" description="Symptom tunable resource." instance_subclasses_only="False" path="Sicknesses\Descriptions" use_guid_for_reference="True">
+        <TunableList name="associated_buffs" class="TunableSet" display="Associated Buffs" description="The associated buffs that will be added to the Sim when the symptom is applied, and removed when the symptom is removed." group="General" unique_entries="true">
+            <Tunable type="buff" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="associated_statistics" class="TunableSet" display="Associated Statistics" description="The associated stats that will be added to the Sim when the symptom is applied, and removed when the symptom is removed. These are added at the statistic's default value." group="General" unique_entries="true">
+            <Tunable type="statistic" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="int" name="display_name" class="TunableLocalizedString" default="0x0" display="Display Name" description="The symptom's display name. This string is provided with the owning Sim as its only token." group="UI" />
+    </Instance>
+</TuningRoot>

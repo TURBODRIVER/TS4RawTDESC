@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="fishing.fish_object">
+        <Class name="Fish">
+            <Tunable type="object_state" name="FISH_FRESHNESS_STATE" class="TunableReference" display="Fish Freshness State" description="The statistic used for fish freshness." allow_none="False" group="General" restrict="ObjectState" />
+
+            <Tunable type="statistic" name="FISHING_SKILL_STATISTIC" class="TunableReference" display="Fishing Skill Statistic" description="The fishing skill stat. This just makes lookups on the fishing skill easier." allow_none="False" group="General" />
+
+            <Tunable type="int" name="LOCALIZED_WEIGHT" class="TunableLocalizedString" default="0x0" display="Localized Weight" description="How the weight should appear when used in other strings, like the 'catch fish' notification. i.e. '2.2 kg' {0.Number} = weight value" group="General" />
+
+            <Tunable type="statistic" name="WEIGHT_STATISTIC" class="TunableReference" display="Weight Statistic" description="The weight statistic that will be added to the fish and set as they are caught." allow_none="False" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

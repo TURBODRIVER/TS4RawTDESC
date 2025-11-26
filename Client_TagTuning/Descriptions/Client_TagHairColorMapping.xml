@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tagtuning" class="Client_TagHairColorMapping" module="tagtuning.Client_TagHairColorMapping" description="List of tag pairs for mapping adult exclusive to child-friendly hair colors." path="Client_TagTuning\Descriptions">
+        <TunableList name="TagPair" class="TunableList" display="AdultToChild" description="Tag List.">
+            <TunableTuple name="AdultToChild" class="Client_TagHairColorMapping.AdultToChild" description="Tag Pair.">
+                <TunableEnum type="Tag" name="Adult" class="TunableEnumEntry" default="INVALID" display="Adult_HairColor" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Adult exclusive hair color." />
+                <TunableEnum type="Tag" name="Child" class="TunableEnumEntry" default="INVALID" display="Child_HairColor" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Child-friendly hair color." />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="UIResponseCommand" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="Tunable_UiResponseCommand" display="Value" description="A UI Response that sends a server command." group="General">
+            <TunableList name="arguments" class="TunableList" display="Arguments" description="The arguments for this command. Arguments will be added after the command." group="General">
+                <TunableVariant type="None" class="TunableVariant" default="none" description="An argument being passed to the command." group="General">
+                    <TunableTuple name="boolean" class="TunableTuple" display="Boolean" description="A boolean value." group="General">
+                        <Tunable type="bool" name="arg_value" class="Tunable" default="False" display="Arg Value" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="floating_point" class="TunableTuple" display="Floating Point" description="A floating point number." group="General">
+                        <Tunable type="float" name="arg_value" class="Tunable" default="0.0" display="Arg Value" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="integer" class="TunableTuple" display="Integer" description="An integer number." group="General">
+                        <Tunable type="int" name="arg_value" class="Tunable" default="0" display="Arg Value" tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                    <Tunable name="none" class="TunableExistance" display="None" />
+                    <TunableTuple name="participant_id" class="TunableUiResponseParticipantId" display="Participant Id" description="UI Response argument that will resolve the participant specified." group="General">
+                        <TunableEnum type="UiResponseParticipant" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="ui-ui_dialog.UiResponseParticipant" description="The participant to resolve for this response argument. The value sent will be the id of the specified participant. If more than one participant is found, it will only send the id of the first participant found." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="special_command_data" class="TunableTuple" display="Special Command Data" description="This will use the data passed into the show_dialog() function. This must be supported with GPE work, so only use this if you have talked to a GPE." group="General" />
+                    <TunableTuple name="string" class="TunableTuple" display="String" description="A string." group="General">
+                        <Tunable type="str" name="arg_value" class="Tunable" default="" display="Arg Value" group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableList>
+            <Tunable type="str" name="command" class="Tunable" default="" display="Command" description="The command." group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

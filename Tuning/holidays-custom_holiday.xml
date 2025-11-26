@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="holidays.custom_holiday">
+        <Class name="CustomHoliday">
+            <Tunable type="int" name="CALENDAR_ALERT_DESCRIPTION" class="TunableLocalizedString" default="0x0" display="Calendar Alert Description" description="Description that shows up in the calendar alert. 0 - Holiday Name" group="General" />
+
+            <Tunable type="ResourceKey" name="GENERIC_HOLIDAY_START_AUDIO" class="TunablePlayAudioAllPacks" default="None" display="Generic Holiday Start Audio" group="General" pack_safe="True" resource_types="0x39b2aa4a" />
+        </Class>
+    </Module>
+</TuningRoot>

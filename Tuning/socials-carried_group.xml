@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="socials.carried_group">
+        <Class name="CarriedGroup">
+            <TunableTuple name="HORSE_SOCIAL_CONSTRAINT_OFFSET" class="TunableVector3" display="Horse Social Constraint Offset" description="When generating constraints around a horse for CarriedGroups, offset the position of the horse who is the focus of this group by this much. This will prevent geometric constraints from clipping through the horse's head since their root bone is at the base of their neck. " group="General">
+                <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="z" class="Tunable" default="1.5" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

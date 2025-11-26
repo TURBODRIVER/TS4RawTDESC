@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="ZoneDirectorApb" module="careers.detective.detective_career_apb" description="Setup the lot in such a way that the suspect of a crime is present, as well as a certain number of decoys." instance_needs_reference="True" instance_subclasses_only="False" parents="CareerEventZoneDirectorProxy, CareerEventZoneDirector, SchedulingZoneDirector, ZoneDirectorVenueProxy, ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <Tunable type="situation" name="apb_neutral_situation" class="TunableReference" display="Apb Neutral Situation" description="The situation controlling all Sims in the zone, including Sims in the APB situation." allow_none="False" group="Career" />
+
+        <Tunable type="situation" name="apb_situation" class="TunableReference" display="Apb Situation" description="The situation controlling the APB. This will manage the criminal Sim as well as all the decoys." allow_none="False" group="Career" />
+
+        <Tunable type="situation_job" name="apb_situation_job_criminal" class="TunableReference" display="Apb Situation Job Criminal" description="The job that the criminal is put into for the duration of the APB." allow_none="False" group="Career" restrict="SituationJob" />
+
+        <Tunable type="situation_job" name="apb_situation_job_decoy" class="TunableReference" display="Apb Situation Job Decoy" description="The job that the decoys are put into for the duration of the APB." allow_none="False" group="Career" restrict="SituationJob" />
+
+        <Tunable type="situation_job" name="apb_situation_job_detective" class="TunableReference" display="Apb Situation Job Detective" description="The job that the detective is put into for the duration of the APB." allow_none="False" group="Career" restrict="SituationJob" />
+
+        <Tunable type="career" name="detective_career" class="TunableReference" display="Detective Career" description="The career that we want to use to spawn the criminal." allow_none="False" group="Career" restrict="DetectiveCareer" />
+    </Instance>
+</TuningRoot>

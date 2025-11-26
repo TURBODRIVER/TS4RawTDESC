@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="story_arc" class="MultiSimStoryArc" module="story_progression.story_progression_arc" description="A Story Arc for multiple Sims." instance_needs_reference="True" instance_subclasses_only="False" parents="SimBasedStoryArc, BaseStoryArc" path="StoryArcs\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="candidate_selection_function" class="TunableVariant" default="multi_sim_from_demographic_list" display="Candidate Selection Function" description="The function used to figure out the actual candidates to run the arcs on." group="General">
+            <TunableTuple name="multi_sim_from_aggregate" class="TunableSelectMultipleSimCandidatesFromAggregateFunction" display="Multi Sim From Aggregate" description="Select Sims from an Aggregate Filter while ignoring all demographic lists." group="General">
+                <Tunable type="sim_filter" name="aggregate_filter" class="TunableReference" display="Aggregate Filter" description="The Aggregate Filter that we will use in order to determine the candidate Sims." allow_none="False" group="General" restrict="TunableAggregateFilter" />
+            </TunableTuple>
+            <TunableTuple name="multi_sim_from_demographic_list" class="TunableSelectMultipleSimCandidatesFromDemographicListFunction" display="Multi Sim From Demographic List" description="Select Sims from the demographic list." group="General">
+                <Tunable type="int" name="count" class="Tunable" default="2" display="Count" description="The number of Sims to return. Candidate selection will fail if this many Sims are not found." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <TunableTuple name="multi_sim_from_filter" class="TunableSelectMultipleSimCandidatesFromFilterFunction" display="Multi Sim From Filter" description="Select Sims from a Sim Filter while ignoring all demographic lists." group="General">
+                <Tunable type="int" name="count" class="Tunable" default="2" display="Count" description="The number of Sims to return. Candidate selection will fail if this many Sims are not found." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="sim_filter" name="sim_filter" class="TunableReference" display="Sim Filter" description="The Sim Filter that we will use in order to determine the candidate Sims." allow_none="False" group="General" restrict="TunableSimFilter" />
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

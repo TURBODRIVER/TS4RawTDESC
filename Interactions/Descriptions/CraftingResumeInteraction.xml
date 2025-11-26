@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CraftingResumeInteraction" module="crafting.crafting_interactions" description="Using the crafting process saved in the target, restart the crafting process by pushing the correct SI for the phase that is the next step in the process." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="create_unavailable_recipe_description" class="TunableLocalizedString" default="0xfc089996" display="Unavailable Recipe Description" description="A localized string that may use tokens." group="UI" />
+
+        <TunableEnum type="PhaseName" name="resume_phase_name" class="TunableEnumEntry" default="None" display="Resume Phase Name" dynamic_entries="crafting-recipe.PhaseName._elements" static_entries="crafting-recipe.PhaseName" description="The name of the phase to resume for this certain resume interaction. None means starts at current phase." group="General" />
+    </Instance>
+</TuningRoot>

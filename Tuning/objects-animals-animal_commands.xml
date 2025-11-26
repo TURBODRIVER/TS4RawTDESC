@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.animals.animal_commands">
+        <Class name="AnimalCommandTuning">
+            <Tunable type="object_state" name="DISABLE_BIRD_HOME_STATE" class="TunableReference" display="Disable Bird Home State" description="State used to disable bird homes." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <TunableList name="DISABLE_BIRDS_GLOBAL_FLAGS" class="TunableEnumFlags" display="Disable Birds Global Flags" description="Flags to set to disable the spawning of birds." group="General" unique_entries="true">
+                <TunableEnum type="GlobalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="global_flags-global_flags.GlobalFlags._elements" static_entries="global_flags-global_flags.GlobalFlags" group="General" />
+            </TunableList>
+
+            <TunableEnum type="Tag" name="DISABLE_BIRDS_HOME_TAG" class="TunableEnumEntry" default="INVALID" display="Disable Birds Home Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag to disable the spawning of vfx on the actual bird homes." group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableEnum type="Tag" name="DISABLE_BIRDS_TAG" class="TunableEnumEntry" default="INVALID" display="Disable Birds Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag to use to destroy all birds when disabling birds." group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <Tunable type="object_state" name="ENABLE_BIRD_HOME_STATE" class="TunableReference" display="Enable Bird Home State" description="State used to enable bird homes." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+        </Class>
+    </Module>
+</TuningRoot>

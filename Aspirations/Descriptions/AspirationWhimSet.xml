@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="aspiration" class="AspirationWhimSet" module="whims.whim_set" description="An aspiration used to track active whim sets for a Sim." instance_subclasses_only="False" parents="AspirationBasic" path="Aspirations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="activated_priority" class="TunableRange" default="6" display="Activated Priority" min="0" max="10" description="Priority for this set to be chosen if triggered by contextual events." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="chained_priority" class="TunableRange" default="11" display="Chained Priority" min="0" max="15" description="Priority for this set to be chosen if triggered by a previous whim set." tuning_state="NeedsTuning" group="General" />
+
+        <Deleted name="do_not_register_events_on_load" />
+
+        <TunableVariant type="None" name="force_target" class="OptionalTunable" default="disabled" display="Force Target" description="Upon WhimSet activation, use this option to seek out and set a specific target for this set. If the desired target does not exist or is not instanced on the lot, WhimSet will not activate." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableVariant type="None" name="enabled" class="TunableWhimSetTargetVariant" default="genealogy_target" display="Enabled" group="General">
+                <TunableTuple name="genealogy_target" class="GeneTargetFactory" display="Genealogy Target" description="This option tests for completion of a tuned Achievement." group="General">
+                    <TunableEnum type="FamilyRelationshipIndex" name="relationship" class="TunableEnumEntry" default="FATHER" display="Relationship" static_entries="sims-genealogy_tracker.FamilyRelationshipIndex" group="General" />
+                </TunableTuple>
+                <TunableTuple name="relationship_target" class="RelationTargetFactory" display="Relationship Target" description="This option tests for completion of a tuned Achievement." group="General">
+                    <TunableTuple name="relationship_test" class="TunableRelationshipTest" display="Relationship Test" description="The relationship state that this goal will complete when obtained." group="General">
+                        <Tunable type="bool" name="invert_num_relations" class="Tunable" default="False" display="Invert Num Relations" description="If checked then we will check that your Num Relations is less than or equal to the value rather than the other way around." group="General" />
+                        <Tunable type="bool" name="must_have_track" class="Tunable" default="False" display="Must Have Track" description="Setting this to True (checked) will ensure that this test only passes if the tested Sims actually have the tuned relationship track. If left False (unchecked), this test will evaluate as if the Sims have the relationship track at the value of 0." group="General" />
+                        <TunableTuple name="prohibited_relationship_bits" class="TunableTuple" display="Prohibited Relationship Bits" group="General">
+                            <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must match to fail the test." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" />
+                            </TunableList>
+                            <TunableList name="match_any" class="TunableSet" display="Match Any" description="If any of these relationship bits match the test will fail." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="relationship_score_interval" class="TunableInterval" display="Relationship Score Interval" description="The range that the relationship score must be within in order for this test to pass." group="General">
+                            <Tunable type="float" name="lower_bound" class="TunableRange" default="-100.0" display="Lower Bound" min="-100.0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="upper_bound" class="TunableRange" default="100.0" display="Upper Bound" min="None" max="100.0" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="required_relationship_bits" class="TunableTuple" display="Required Relationship Bits" group="General">
+                            <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must be present to pass the test." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                            <TunableList name="match_any" class="TunableSet" display="Match Any" description="Any of these relationship bits will pass the test." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableEnum type="RelationshipTestEvents" name="test_event" class="TunableEnumEntry" default="AllRelationshipEvents" display="Test Event" static_entries="relationships-relationship_tests.RelationshipTestEvents" description="The event that we want to trigger this instance of the tuned test on." group="General" />
+                        <TunableVariant type="None" name="test_incest" class="TunableVariant" default="disabled" display="Test Incest" description="Test for incest status. Test passes if this matches the two Sim's incest status." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable name="is incestuous" class="TunableExistance" display="Is Incestuous" />
+                            <Tunable name="is not incestuous" class="TunableExistance" display="Is Not Incestuous" />
+                        </TunableVariant>
+                        <Tunable type="statistic" name="track" class="TunableReference" display="Track" description="If set, the test will use the relationship score between sims for this track. If unset, the track defaults to the global module tunable REL_INSPECTOR_TRACK." allow_none="True" group="General" pack_safe="True" restrict="RelationshipTrack" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableVariant>
+
+        <TunableList name="initial_whims" class="TunableWeightedWhimCollection" display="Initial Whims" description="List of initial weighted whims. This list is only considered if this whimset hasn't had any initial whim selected before." group="General">
+            <TunableTuple class="TunableWeightedWhimReference" group="General">
+                <Tunable type="float" name="weight" class="Tunable" default="1.0" display="Weight" description="A higher number means a higher chance of being selected." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="whim" name="whim" class="TunableReference" display="Whim" description="The whim that will be used when selecting this entry." allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="objectives" class="TunableList" display="Objectives" description="A Set of objectives for completing an aspiration." group="General" unique_entries="true">
+            <Tunable type="objective" class="TunableReference" description="One objective for an aspiration" allow_none="False" group="General" />
+        </TunableList>
+
+        <Tunable type="float" name="priority_decay_rate" class="TunableRange" default="0.01" display="Priority Decay Rate" min="0.0" max="None" description="The decay rate of a whimset's priority. A whimset's priority will only decay when a whim of that whimset is active. A whimset's priority will converge to the whimset's base priority." tuning_state="NeedsTuning" group="General" />
+
+        <Deleted name="screen_slam" />
+
+        <TunableVariant type="None" name="secondary_target" class="OptionalTunable" default="disabled" display="Secondary Target" description="Upon WhimSet activation, define a Sim that is used as a flavor target, such that text can reference it. For example, a Dare whim might use this field such that a 'Flirt with Bobby' whim has a '(From Being Dared by Frank)' origin." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableVariant type="None" name="enabled" class="TunableWhimSetTargetVariant" default="genealogy_target" display="Enabled" group="General">
+                <TunableTuple name="genealogy_target" class="GeneTargetFactory" display="Genealogy Target" description="This option tests for completion of a tuned Achievement." group="General">
+                    <TunableEnum type="FamilyRelationshipIndex" name="relationship" class="TunableEnumEntry" default="FATHER" display="Relationship" static_entries="sims-genealogy_tracker.FamilyRelationshipIndex" group="General" />
+                </TunableTuple>
+                <TunableTuple name="relationship_target" class="RelationTargetFactory" display="Relationship Target" description="This option tests for completion of a tuned Achievement." group="General">
+                    <TunableTuple name="relationship_test" class="TunableRelationshipTest" display="Relationship Test" description="The relationship state that this goal will complete when obtained." group="General">
+                        <Tunable type="bool" name="invert_num_relations" class="Tunable" default="False" display="Invert Num Relations" description="If checked then we will check that your Num Relations is less than or equal to the value rather than the other way around." group="General" />
+                        <Tunable type="bool" name="must_have_track" class="Tunable" default="False" display="Must Have Track" description="Setting this to True (checked) will ensure that this test only passes if the tested Sims actually have the tuned relationship track. If left False (unchecked), this test will evaluate as if the Sims have the relationship track at the value of 0." group="General" />
+                        <TunableTuple name="prohibited_relationship_bits" class="TunableTuple" display="Prohibited Relationship Bits" group="General">
+                            <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must match to fail the test." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" />
+                            </TunableList>
+                            <TunableList name="match_any" class="TunableSet" display="Match Any" description="If any of these relationship bits match the test will fail." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="relationship_score_interval" class="TunableInterval" display="Relationship Score Interval" description="The range that the relationship score must be within in order for this test to pass." group="General">
+                            <Tunable type="float" name="lower_bound" class="TunableRange" default="-100.0" display="Lower Bound" min="-100.0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="upper_bound" class="TunableRange" default="100.0" display="Upper Bound" min="None" max="100.0" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="required_relationship_bits" class="TunableTuple" display="Required Relationship Bits" group="General">
+                            <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must be present to pass the test." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                            <TunableList name="match_any" class="TunableSet" display="Match Any" description="Any of these relationship bits will pass the test." group="General" unique_entries="true">
+                                <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableEnum type="RelationshipTestEvents" name="test_event" class="TunableEnumEntry" default="AllRelationshipEvents" display="Test Event" static_entries="relationships-relationship_tests.RelationshipTestEvents" description="The event that we want to trigger this instance of the tuned test on." group="General" />
+                        <TunableVariant type="None" name="test_incest" class="TunableVariant" default="disabled" display="Test Incest" description="Test for incest status. Test passes if this matches the two Sim's incest status." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable name="is incestuous" class="TunableExistance" display="Is Incestuous" />
+                            <Tunable name="is not incestuous" class="TunableExistance" display="Is Not Incestuous" />
+                        </TunableVariant>
+                        <Tunable type="statistic" name="track" class="TunableReference" display="Track" description="If set, the test will use the relationship score between sims for this track. If unset, the track defaults to the global module tunable REL_INSPECTOR_TRACK." allow_none="True" group="General" pack_safe="True" restrict="RelationshipTrack" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableVariant>
+
+        <Tunable type="objective" name="timeout_retest" class="TunableReference" display="Timeout Retest" description="Tuning an objective here will re-test the WhimSet for contextual relevance upon active timer timeout; If the objective test passes, the active timer will be refreshed. Note you can only use tests without data passed in, other types will result in an assert on load." allow_none="True" group="General" />
+
+        <Tunable type="int" name="whim_reason" class="TunableLocalizedString" default="0x0" display="Whim Reason" description="The reason that shows in the whim tooltip for the reason that this whim was chosen for the sim. 0 (Number): The most relevant numerical value pertaining to the completion of this goal. This is usually the number of iterations required to complete it although it could also be other values such as the price of the item that the user is required to purchase. 1 (Sim): The Sim who owns the goal. 2 (Sim): The Sim the goal is directed at. 3 (Sim): The goal's secondary SimInfo, if one exists." group="General" />
+
+        <TunableList name="whims" class="TunableWeightedWhimCollection" display="Whims" description="List of weighted whims." group="General">
+            <TunableTuple class="TunableWeightedWhimReference" group="General">
+                <Tunable type="float" name="weight" class="Tunable" default="1.0" display="Weight" description="A higher number means a higher chance of being selected." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="whim" name="whim" class="TunableReference" display="Whim" description="The whim that will be used when selecting this entry." allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

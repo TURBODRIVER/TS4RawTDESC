@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="template_chooser" class="TunableTemplateChooser" module="filters.sim_template" description="A template chooser" instance_needs_reference="True" instance_subclasses_only="False" path="TemplateChoosers\Descriptions" use_guid_for_reference="True">
+        <TunableList name="_templates" class="TunableList" display="Templates" description="A list of templates that can be chosen from this template chooser." group="General">
+            <TunableTuple class="TunableTuple" description="The template and weights that can be chosen." group="General">
+                <Tunable type="sim_template" name="template" class="TunableReference" display="Template" description="A template that can be chosen." allow_none="False" group="General" pack_safe="True" restrict="TunableSimTemplate" />
+                <Tunable type="int" name="weight" class="Tunable" default="1" display="Weight" description="Weight of this template being chosen." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

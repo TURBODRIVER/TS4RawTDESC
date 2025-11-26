@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="retail.retail_tuning">
+        <Class name="RetailTuning">
+            <TunableList name="ADVERTISING_COMMODITY_MAP" class="TunableMapping" display="Advertising Commodity Map" mapping_key="advertising_enum" mapping_value="advertising_commodity" description="The mapping between advertising enum and the advertising data for that type." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="statistic" name="advertising_commodity" class="TunableReference" display="Advertising Commodity" description="The commodity that will be added to the lot when this advertising type is chosen. This commodity is applied via the Advertising Interaction. This makes it easier for design to tune differences in how each business handles advertising. i.e. Retail allows advertising on multiple channels at the same time while restaurants only allow one advertisement at a time." allow_none="False" group="General" pack_safe="True" restrict="Commodity" />
+                    <TunableEnum type="BusinessAdvertisingType" name="advertising_enum" class="TunableEnumEntry" default="INVALID" display="Advertising Enum" dynamic_entries="business-business_enums.BusinessAdvertisingType._elements" static_entries="business-business_enums.BusinessAdvertisingType" description="The Advertising Type ." group="General" invalid_entries="INVALID" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.inventory_item">
+        <Class name="InventoryItemComponent">
+            <TunableList name="DEFAULT_ADD_TO_SIM_INVENTORY_AFFORDANCES" class="TunableList" display="Default Add To Sim Inventory Affordances" description="A list of default affordances to add objects to a Sim's inventory." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" />
+            </TunableList>
+
+            <TunableList name="DEFAULT_ADD_TO_WORLD_AFFORDANCES" class="TunableList" display="Default Add To World Affordances" description="A list of default affordances to add objects in a Sim's inventory to the world." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" />
+            </TunableList>
+
+            <TunableList name="DEFAULT_NO_CARRY_ADD_TO_SIM_INVENTORY_AFFORDANCES" class="TunableList" display="Default No Carry Add To Sim Inventory Affordances" description="A list of default affordances to add objects that skip the carry pose to a Sim's inventory." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" />
+            </TunableList>
+
+            <TunableList name="DEFAULT_NO_CARRY_ADD_TO_WORLD_AFFORDANCES" class="TunableList" display="Default No Carry Add To World Affordances" description="A list of default affordances to add objects in a Sim's inventory that skip the carry pose to the world." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" />
+            </TunableList>
+
+            <TunableList name="DEFAULT_STACK_SCHEME_STATE_BASED_OVERRIDES" class="TunableList" display="Default Stack Scheme State Based Overrides" description="A list of state values and stack schemes. If any of these state values are active, the first tuned active state value's stack scheme will be used instead of the default stack scheme. NOTE: Please discuss with a GPE before using this tuning as it potentially performance sensitive. Currently only NONE stack_schemes are tested and supported." group="General">
+                <TunableTuple class="TunableTunableStackSchemeOverride" description="Tuning common to instance and module tuning for stack_scheme overrides." group="General">
+                    <TunableVariant type="None" name="inventory_icon_visual_state" class="OptionalTunable" default="disabled" display="Inventory Icon Visual State" description="If tuned, a string for the UI to determine what treatment should be done on this object when it is in the inventory. If un-tuned, no treatment will be done." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="str" name="enabled" class="Tunable" default="INVALID" display="Enabled" group="General" />
+                    </TunableVariant>
+                    <TunableEnum type="StackScheme" name="stack_scheme" class="TunableEnumEntry" default="NONE" display="Stack Scheme" dynamic_entries="objects-components-inventory_enums.StackScheme._elements" static_entries="objects-components-inventory_enums.StackScheme" group="General" />
+                    <Tunable type="object_state" name="state_value" class="TunableReference" display="State Value" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="interaction" name="PUT_AWAY_AFFORDANCE" class="TunableReference" display="Put Away Affordance" description="An affordance for putting an object away in an inventory." allow_none="False" group="General" />
+
+            <TunableList name="SET_FAVORITES_SIM_INVENTORY_AFFORDANCES" class="TunableList" display="Set Favorites Sim Inventory Affordances" description="A list of affordances to set whether objects are favorites in a sim's inventory." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" />
+            </TunableList>
+
+            <TunableList name="STACK_SCHEME_OPTIONS" class="TunableMapping" display="Stack Scheme Options" mapping_key="key" mapping_value="value" description="This mapping allows special functionality for dynamic stack schemes. This allows things like: - Ability to specify a stack icon. - Ability to specify the tooltip text that is shown in the stack hovertip." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="StackScheme" name="key" class="TunableEnumEntry" default="NONE" display="Key" dynamic_entries="objects-components-inventory_enums.StackScheme._elements" static_entries="objects-components-inventory_enums.StackScheme" group="General" invalid_entries="NONE,DEFINITION,VARIANT_GROUP" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="Various settings for the inventory stack scheme." group="General">
+                        <Tunable type="ResourceKey" name="icon" class="TunableIconAllPacks" default="None" display="Icon" description="Use this icon for this stack scheme." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                        <TunableTuple name="tooltip" class="TunableTuple" display="Tooltip" description="If set, these strings are used for the tooltip of the stack." group="General">
+                            <Tunable type="int" name="title" class="TunableLocalizedString" default="0x0" display="Title" description="Tooltip title" group="General" />
+                            <Tunable type="int" name="tooltip_description" class="TunableLocalizedString" default="0x0" display="Tooltip Description" description="Tooltip description" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="STACK_SORT_ORDER_STATES" class="TunableList" display="Stack Sort Order States" description="A list of states that dictate the order of an inventory stack. States lower down in this list will cause the object to be further down in the stack." group="General">
+                <TunableTuple class="TunableTuple" description="States to consider." group="General">
+                    <Tunable type="bool" name="is_value_order_inverted" class="Tunable" default="False" display="Is Value Order Inverted" description="Normally, higher state value is better. For example, an IngredientQuality value of 0 is the worst and 10 is the best. However, there are some state values where lower is better, e.g. burnt state is tied to the burnt commodity where 0 is unburnt and 100 is completely burnt. This option should be set for these states." group="General" />
+                    <Tunable type="object_state" name="state" class="TunableReference" display="State" description="State to sort on." allow_none="False" group="General" restrict="ObjectState" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

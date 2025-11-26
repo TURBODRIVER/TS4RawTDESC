@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="broadcasters.environment_score.environment_score_tuning">
+        <Class name="EnvironmentScoreTuning">
+            <TunableTuple name="BUILD_OBJECTS_ENVIRONMENT_SCORING" class="TunableTuple" display="Build Objects Environment Scoring" description="Defines the statistics which track the value of positive and negative environmental contribution from build objects." group="General">
+                <Tunable type="statistic" name="negative_environment_scoring" class="TunableReference" display="Negative Environment Scoring" description="Negative environmental statistic." allow_none="False" group="General" restrict="Statistic" />
+                <Tunable type="statistic" name="positive_environment_scoring" class="TunableReference" display="Positive Environment Scoring" description="Positive environmental statistic." allow_none="False" group="General" restrict="Statistic" />
+            </TunableTuple>
+
+            <Tunable type="interaction" name="DISABLE_AFFORDANCE" class="TunableReference" display="Disable Affordance" description="The interaction that will turn off Environment Score for a particular object. This interaction should set a state on the object that will have multipliers of 0 and adders of 0 for all moods." allow_none="False" group="General" />
+
+            <Tunable type="object_state" name="DISABLED_STATE_VALUE" class="TunableReference" display="Disabled State Value" description="A state value that indicates the object should not be contributing Environment Score." allow_none="False" group="General" restrict="ObjectStateValue" />
+
+            <Tunable type="interaction" name="ENABLE_AFFORDANCE" class="TunableReference" display="Enable Affordance" description="The interaction that will turn on Environment Score for a particular object. This interaction should set a state on the object that will have multipliers of 1 and adders of 0 for all moods." allow_none="False" group="General" />
+
+            <Tunable type="object_state" name="ENABLED_STATE_VALUE" class="TunableReference" display="Enabled State Value" description="A state value that indicates the object should be contributing Environment Score." allow_none="False" group="General" restrict="ObjectStateValue" />
+
+            <Tunable type="broadcaster" name="ENVIRONMENT_SCORE_BROADCASTER" class="TunableReference" display="Environment Score Broadcaster" description="The singleton broadcaster that groups all scoring objects. The constraints on this broadcaster determine the constraint within which a Sim is affected by environment score." allow_none="False" group="General" restrict="BroadcasterEnvironmentScore" />
+
+            <TunableList name="ENVIRONMENT_SCORE_MOODS" class="TunableMapping" display="Environment Score Moods" mapping_key="object_tag" mapping_value="mood" description="Tags on Objects correspond to a particular Mood. When an object is going to contribute to the environment score, put a tag in it's catalog object, and make sure that tag points to a Mood here." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="mood" name="mood" class="TunableReference" display="Mood" description="The mood that the Sim must be in for an object that emits this mood to score. Corresponds to the mood_tag." allow_none="False" group="General" restrict="Mood" />
+                    <TunableEnum type="Tag" name="object_tag" class="TunableEnumEntry" default="INVALID" display="Object Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The Tag that corresponds to mood and environmental scoring data." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="statistic" name="NEGATIVE_ENVIRONMENT_SCORING" class="TunableReference" display="Negative Environment Scoring" description="Defines the ranges and corresponding buffs to apply for negative environmental contribution. Be sure to tune min, max, and the different states. The convergence value is what will remove the buff. Suggested to be 0." allow_none="False" group="General" restrict="Commodity" />
+
+            <Tunable type="statistic" name="POSITIVE_ENVIRONMENT_SCORING" class="TunableReference" display="Positive Environment Scoring" description="Defines the ranges and corresponding buffs to apply for positive environmental contribution. Be sure to tune min, max, and the different states. The convergence value is what will remove the buff. Suggested to be 0." allow_none="False" group="General" restrict="Commodity" />
+        </Class>
+    </Module>
+</TuningRoot>

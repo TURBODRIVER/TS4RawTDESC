@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="visualization.spawn_point_visualizer">
+        <Class name="SpawnPointVisualizer">
+            <TunableList name="SPAWN_POINT_COLORS" class="TunableMapping" display="Spawn Point Colors" mapping_key="Spawn Point ID" mapping_value="Spawn Point Color" description="Debug Spawn Point Color mapping. This way we can map spawn point types to colors. When the user types the |debugvis.spawn_points.start command, they will be able to see which spawn point belongs to it's appropriate color, even if the catalog side changes." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Color" name="Spawn Point Color" class="TunableEnumEntry" default="WHITE" display="Spawn Point Color" static_entries="sims4-color.Color" description="The debug Color this Spawn Point will appear in the world." group="General" />
+                    <Tunable type="int" name="Spawn Point ID" class="Tunable" default="8890" display="Spawn Point Id" description="The ID of the Spawn Point from the Catalog under Locators." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

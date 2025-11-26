@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="SwitchLightImmediateInteraction" module="objects.lighting.lighting_interactions" description="An interaction that immediately changes the dimmer value of a light or a particular set of lights." instance_needs_reference="True" instance_subclasses_only="False" parents="ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="lighting_setting_operation" class="TunableVariant" default="from_tuning" display="Lighting Setting Operation" description="Define the operation we're going to execute. We can either apply settings from the tuning or display UI that allows the player to affect this light." group="General">
+            <TunableTuple name="from_tuning" class="Tunable_FromTuning" display="From Tuning" description="The interaction turns the light on or off depending on the tuned values." group="General">
+                <TunableTuple name="lighting_settings" class="TunableLightingHelper" display="Lighting Settings" description="A tunable that allows you to easily control lighting." group="General">
+                    <TunableVariant type="None" name="dimmer_value" class="TunableDimmerValueVariant" default="automated_by_client" display="Dimmer Value" description="Specify the intensity to be applied to the light." group="General">
+                        <TunableTuple name="automated_by_client" class="Tunable_DimmerValueFromClient" display="Automated By Client" description="The dimmer value is automated by client." group="General" />
+                        <TunableTuple name="do_not_change_dimmer_value" class="Tunable_DoNotChangeDimmerValue" display="Do Not Change Dimmer Value" description="Keep the dimmer value unchanged" group="General" />
+                        <TunableTuple name="specify_dimmer_value" class="Tunable_DimmerValueSpecified" display="Specify Dimmer Value" description="The dimmer value is specified." group="General">
+                            <Tunable type="float" name="dimmer_value" class="TunableRange" default="0" display="Dimmer Value" min="0" max="1" description="This value should be a float between 0.0 and 1.0. A value of 0.0 is off and a value of 1.0 is completely on." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="bool" name="store_previous_setting" class="Tunable" default="False" display="Store Previous Setting" description="If enabled, current dimmer value will be stored in previous setting before changing it to the new value.." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="use_previous_setting" class="Tunable_DimmerValueFromPreviousSetting" display="Use Previous Setting" description="The dimmer value is from previous dimmer value setting." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="light_color" class="TunableLightColorVariant" default="do_not_change_light_color" display="Light Color" description="Specify the color to be applied to the light." group="General">
+                        <TunableTuple name="do_not_change_light_color" class="Tunable_LightColorNoChange" display="Do Not Change Light Color" description="Light color will not change" group="General" />
+                        <TunableTuple name="specify_light_color" class="Tunable_LightColorSpecified" display="Specify Light Color" description="The light color is specified." group="General">
+                            <TunableVariant type="None" name="light_color" class="TunableColor" default="none" display="Light Color" description="The color of the lights." group="General">
+                                <TunableTuple name="hex" class="TunableColorHex" display="Hex" description="A color." group="General">
+                                    <Tunable type="str" name="hex_code" class="Tunable" default="#FFFFFFFF" display="Hex Code" description="An ARGB color in hex, same as one would use in HTML. A leading '0x' or '#' is allowed but not required. You can omit the alpha, in which case opaque is assumed." group="General" />
+                                </TunableTuple>
+                                <TunableEnum type="Color" name="name" class="TunableEnumEntry" default="WHITE" display="Name" static_entries="sims4-color.Color" group="General" />
+                                <Tunable name="none" class="TunableExistance" display="None" />
+                                <TunableTuple name="rgb" class="TunableColorRGBA" display="Rgb" description="A color." group="General">
+                                    <Tunable type="int" name="a" class="TunableRange" default="255" display="A" min="0" max="255" description="alpha value (0-255) (0 is transparent, 255 is opaque)" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="b" class="TunableRange" default="255" display="B" min="0" max="255" description="blue value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="g" class="TunableRange" default="255" display="G" min="0" max="255" description="green value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="r" class="TunableRange" default="255" display="R" min="0" max="255" description="red value (0-255)" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                            <Tunable type="bool" name="store_previous_setting" class="Tunable" default="False" display="Store Previous Setting" description="If enabled, current color will be stored in previous setting before changing it to the new color." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="use_previous_setting" class="Tunable_LightColorFromPreviousSetting" display="Use Previous Setting" description="The light color is from previous color value setting." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="light_target" class="TunableLightTargetVariant" default="this_light" display="Light Target" description="Define the set of lights that this interaction is applied to." group="General">
+                        <TunableTuple name="all_lights" class="Tunable_LightTargetAll" display="All Lights" description="The target are all lights, except those tagged as manual lights." group="General">
+                            <Tunable type="bool" name="include_common_area" class="Tunable" default="False" display="Include Common Area" description="If set, all lights in common areas of apartments or residential rental will be considered." group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="room_lights" class="Tunable_LightTargetRoom" display="Room Lights" description="The target are all lights in the same room as the interaction target, expect manual lights." group="General" />
+                        <TunableTuple name="specific_lights" class="Tunable_LightTargetFromTags" display="Specific Lights" description="The target are all lights with a specific tag, including lights tagged as manual lights." group="General">
+                            <TunableList name="tags" class="TunableSet" display="Tags" description="An object with any tag in this set is a potential target of this interaction, provided it has a lighting component." group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag." group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                        <TunableTuple name="this_light" class="Tunable_LightTargetInteraction" display="This Light" description="The target is the light that is the target of the interaction." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="state_change" class="OptionalTunable" default="disabled" display="State Change" description="If enabled, apply the state value to the light." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="object_state" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" restrict="ObjectStateValue" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableTuple>
+            <TunableTuple name="from_ui" class="Tunable_FromUi" display="From Ui" description="The interaction displays a dialog that changes the light's color or intensity." group="General">
+                <TunableVariant type="None" name="light_target" class="TunableLightTargetVariant" default="this_light" display="Light Target" description="Define the set of lights this operation applies to (e.g. All Lights, This Room, All Candles, etc...)" group="General">
+                    <TunableTuple name="all_lights" class="Tunable_LightTargetAll" display="All Lights" description="The target are all lights, except those tagged as manual lights." group="General">
+                        <Tunable type="bool" name="include_common_area" class="Tunable" default="False" display="Include Common Area" description="If set, all lights in common areas of apartments or residential rental will be considered." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="room_lights" class="Tunable_LightTargetRoom" display="Room Lights" description="The target are all lights in the same room as the interaction target, expect manual lights." group="General" />
+                    <TunableTuple name="specific_lights" class="Tunable_LightTargetFromTags" display="Specific Lights" description="The target are all lights with a specific tag, including lights tagged as manual lights." group="General">
+                        <TunableList name="tags" class="TunableSet" display="Tags" description="An object with any tag in this set is a potential target of this interaction, provided it has a lighting component." group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag." group="General" pack_safe="True" />
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableTuple name="this_light" class="Tunable_LightTargetInteraction" display="This Light" description="The target is the light that is the target of the interaction." group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

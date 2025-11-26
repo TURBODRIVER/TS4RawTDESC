@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.heirloom_component">
+        <Class name="HeirloomComponent">
+            <Tunable type="int" name="HEIRLOOM_OWNER" class="TunableLocalizedString" default="0x0" display="Heirloom Owner" description="This should provide the format for the sim in posession of the heirloom object. Parameter 0 provides the name of the sim that owns the heirloom. e.g. 'In Possession Of: {0.SimName}'" group="General" />
+
+            <Tunable type="int" name="HEIRLOOM_TITLE" class="TunableLocalizedString" default="0x0" display="Heirloom Title" description="This should provide the format for the title of an heirloom object hovertip. Parameter 0 provides the name of sim that created the heirloom. e.g. '{0.SimName}'s Heirloom' " group="General" />
+
+            <TunableList name="LOOTS_ON_HEIRLOOM_REMOVE" class="TunableList" display="Loots On Heirloom Remove" description="A list of loots that will be applied when the heirloom component is removed or object destroyed. The Actor is the sim that created the heirloom. If the Actor does not exist, then loots will not be given. The Object is the heirloom object itself." group="General">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

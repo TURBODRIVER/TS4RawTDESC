@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="AggregateSuperInteraction" module="objects.base_interactions" description="An interaction that runs only one of its composing interactions based on priority and tests. If there are multiple passing interactions at the same priority level, the tie will be broken based on distance estimation." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="aggregated_affordances" class="TunableList" display="Aggregated Affordances" description="A list of affordances composing this aggregate. Distance estimation will be used to break ties if there are multiple valid interactions at the same priority level." group="General">
+            <TunableTuple class="TunableTuple" description="An affordance and priority entry." group="General">
+                <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The aggregated affordance." allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+                <Tunable type="int" name="priority" class="Tunable" default="0" display="Priority" description="The relative priority of this affordance compared to other affordances in this aggregate." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableEnum type="ParticipantType" name="sim_to_push_affordance_on" class="TunableEnumEntry" default="Actor" display="Sim To Push Affordance On" static_entries="interactions.ParticipantType" description="The Sim to push the affordance on. If this is Actor, the affordance will be pushed as a continuation of this." group="Triggers" />
+
+        <Tunable type="bool" name="use_aggregated_affordance_constraints" class="Tunable" default="False" display="Use Aggregated Affordance Constraints" description="If enabled, this interaction will pull it's constraints from the interaction constraints of the aggregated affordances. The benefit is that we are compatible with interactions we intend to run, even if they have constraints different from one another. This prevents us from having to add a bunch of tests to those affordances and a generic constraint here." group="Constraints" />
+    </Instance>
+</TuningRoot>

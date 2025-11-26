@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="notebook_entry" class="NotebookEntryBait" module="notebook.notebook_entry" description="Specific type of notebook entry used for fishing bait. This will populate the notebook entries from the fish used and the fish collected." instance_subclasses_only="False" parents="NotebookEntry" path="NotebookEntrys\Descriptions" use_guid_for_reference="True">
+        <Deleted name="entry_icon" />
+
+        <Deleted name="entry_sublist" />
+
+        <Deleted name="entry_text" />
+
+        <Tunable type="int" name="entry_text_rarity" class="TunableLocalizedString" default="0x0" display="Entry Text Rarity" description=" The text to display for rarity. e.g.: Rarity: {0.String} " group="General" />
+
+        <TunableList name="entry_text_size_mapping" class="TunableMapping" display="Entry Text Size Mapping" mapping_key="key" mapping_value="value" description="Mapping between fish size and the text to display for size." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="str" name="key" class="Tunable" default="None" display="Key" description="The size of the fish." choice_query="SwingSupport:EnumNames(fishType)" group="General" />
+                <Tunable type="int" name="value" class="TunableLocalizedString" default="0x0" display="Value" description="The size text." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <Deleted name="entry_tooltip" />
+    </Instance>
+</TuningRoot>

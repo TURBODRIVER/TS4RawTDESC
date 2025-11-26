@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="BreakingAndEnteringPlayerGroupSituation" module="situations.breaking_and_entering.breaking_and_entering_situation" description="The Breaking and Entering Situation. This situation represents a sim visiting an NPC's home specifically when they are away. It consists of the player, the Sims they invite, and at the end the LotOwners or Renters of the household they're visiting. This also spins up a particular zone director at the current lot." instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_implies_greeted_status" />
+
+        <Deleted name="_resident_job" />
+
+        <Tunable type="zone_director" name="_zone_director" class="TunableReference" display="Zone Director" description="This zone director will automatically be requested by the situation during zone spin up." allow_none="False" group="General" restrict="ZoneDirectorBase" />
+
+        <Deleted name="exclusivity" />
+
+        <Tunable type="role_state" name="post_breakin_role" class="TunableReference" display="Post Breakin Role" description="The role state the player Sims who travelled here have once the door is open." allow_none="False" group="General" />
+
+        <TunableTuple name="pre_breakin_player_group_job_and_role_state" class="TunableSituationJobAndRoleState" display="Pre Breakin Player Group Job And Role State" description="The job and role state of the Sims who travelled here to B&amp;E." group="General">
+            <Tunable type="role_state" name="role_state" class="TunableReference" display="Role State" description="A role state the sim assigned to the job will perform" allow_none="False" group="General" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to a SituationJob that can be performed at this Situation." allow_none="False" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

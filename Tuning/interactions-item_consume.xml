@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.item_consume">
+        <Class name="ItemCost">
+            <Tunable type="int" name="AVAILABLE_TOOLTIP_HEADER" class="TunableLocalizedString" default="0x0" display="Available Tooltip Header" description="A string to be used as a header for a bulleted list of items that the Sim will consume in order to run this interaction." group="General" />
+
+            <Tunable type="int" name="UNAVAILABLE_TOOLTIP_HEADER" class="TunableLocalizedString" default="0x0" display="Unavailable Tooltip Header" description="A string to be used as a header for a bulleted list of items that the Sim is missing in order to run this interaction." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

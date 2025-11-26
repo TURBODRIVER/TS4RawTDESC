@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="autonomy.autonomy_modifier">
+        <Class name="OffLotAutonomyRules" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ANCHORED" enum_value="6" />
+
+            <EnumItem name="BUSINESS_CUSTOMER" enum_value="8" />
+
+            <EnumItem name="BUSINESS_EMPLOYEE" enum_value="7" />
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="OFF_LOT_ONLY" enum_value="3" />
+
+            <EnumItem name="ON_LOT_ONLY" enum_value="1" />
+
+            <EnumItem name="RESTRICTED" enum_value="5" />
+
+            <EnumItem name="SHARED_SPACE_ONLY" enum_value="2" />
+
+            <EnumItem name="UNLIMITED" enum_value="4" />
+        </Class>
+
+        <Class name="AutonomyModifier">
+            <TunableVariant type="None" name="ALWAYS_WHITELISTED_AFFORDANCES" class="TunableAffordanceFilterSnippet" default="literal" display="Always Whitelisted Affordances" description="Any affordances tuned to be compatible with this filter will always be allowed. This is useful for stuff like death and debug interactions, which should never be disallowed by an autonomy modifier. (This may be tuned in place here using 'literal' or as a reference to a AffordanceFilter tuning snippet.)" group="General">
+                <TdescFragTag name="literal" class="_TunableAffordanceFilter" display="Literal" description="An affordance filter." group="General" />
+                <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a AffordanceFilter tuning snippet." allow_none="False" group="General" restrict="AffordanceFilter" />
+            </TunableVariant>
+        </Class>
+    </Module>
+</TuningRoot>

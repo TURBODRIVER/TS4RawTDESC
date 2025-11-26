@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.constraints">
+        <Class name="Circle">
+            <Tunable type="int" name="NUM_SIDES" class="Tunable" default="8" display="Num Sides" description="The number of polygon sides to use when approximating a circle constraint." tuning_state="NeedsTuning" group="General" />
+        </Class>
+
+        <Class name="Constraint">
+            <Tunable type="float" name="DEFAULT_FACING_RANGE" class="TunableAngle" default="90.0" display="Default Facing Range" min="0.0" max="360.0" description="The size of the angle-range that sims should use when determining facing constraints." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MINIMUM_VALID_AREA" class="TunableRange" default="2" display="Minimum Valid Area" min="0" max="None" description="The minimum area, in square meters, of the polygon for constraints to be considered valid (unless they have allow_small_intersections set)." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="ROUTE_GOAL_COUNT_FOR_SCORING_FUNC" class="Tunable" default="40" display="Route Goal Count For Scoring Func" description="The number of points to sample when routing to a simple constraint that can be scored natively." tuning_state="NeedsTuning" group="General" />
+        </Class>
+
+        <Class name="FrontDoorOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="INSIDE_FRONT_DOOR" enum_value="1" />
+
+            <EnumItem name="OUTSIDE_FRONT_DOOR" enum_value="0" />
+        </Class>
+
+        <Class name="WaterDepthIntervals" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="SWIM" enum_value="3" />
+
+            <EnumItem name="WADE" enum_value="2" />
+
+            <EnumItem name="WALK" enum_value="0" />
+
+            <EnumItem name="WET" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

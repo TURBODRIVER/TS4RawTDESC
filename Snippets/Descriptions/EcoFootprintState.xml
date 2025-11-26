@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="EcoFootprintState" module="eco_footprint.eco_footprint_state" description="A wrapper for a list of StreetEffects related to the current street's eco footprint score, which are applied on that street when the state is entered." instance_needs_reference="True" instance_subclasses_only="False" parents="DisplaySnippet" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="effects" class="TunableList" display="Effects" description="A list of StreetEffects that will be enabled when this state is entered and disabled when this state is exited." group="General">
+            <Tunable type="snippet" class="TunableReference" description="A Street Effect to include." allow_none="False" group="General" pack_safe="True" restrict="StreetEffect" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

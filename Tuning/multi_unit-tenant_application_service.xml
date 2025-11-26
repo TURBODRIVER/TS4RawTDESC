@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="multi_unit.tenant_application_service">
+        <Class name="TenantApplicationService">
+            <Tunable type="sim_filter" name="BLACKLIST_HOUSEHOLD_FILTER" class="TunableReference" display="Blacklist Household Filter" description="The filter that should apply to homeless households to ensure we don't get anything included in this filter." allow_none="False" group="General" pack_safe="True" restrict="TunableSimFilter" />
+
+            <TunableList name="DESIRED_RENT_BOUNDS" class="TunableMapping" display="Desired Rent Bounds" mapping_key="key" mapping_value="value" description="A mapping of star rating (as an integer) to percentage of max rent, within a range." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="key" class="TunableRange" default="1" display="Key" min="1" max="5" description="The range of star ratings, should be 1-5." tuning_state="NeedsTuning" group="General" />
+                    <TunableTuple name="value" class="TunableInterval" display="Value" description="A tuple containing the lower bound and upper bound of the percentage of max rent for this star rating." group="General">
+                        <Tunable type="float" name="lower_bound" class="TunableRange" default="0.25" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="upper_bound" class="TunableRange" default="0.75" display="Upper Bound" min="None" max="1" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="DESIRED_RENT_MULTIPLIER" class="TunableTunableMultiplier" display="Desired Rent Multiplier" description="A multiplier to change an existing household's desired rent. Template households are tuned on the household template." group="General">
+                <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+
+            <Tunable type="sim_filter" name="HOMELESS_HOUSEHOLD_TENANT_FILTER" class="TunableReference" display="Homeless Household Tenant Filter" description="The filter that should apply to homeless households to ensure we only get the households we want." allow_none="False" group="General" pack_safe="True" restrict="TunableSimFilter" />
+
+            <Tunable type="int" name="HOMELESS_HOUSEHOLD_WEIGHT" class="TunableRange" default="6" display="Homeless Household Weight" min="1" max="10" description="The weight that a homeless household will be selected." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="NUMBER_OF_POTENTIAL_HOUSEHOLDS" class="TunableMapping" display="Number Of Potential Households" mapping_key="key" mapping_value="value" description="A mapping of star rating to a range of number of households that should appear in the list of potential tenant households." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="key" class="TunableRange" default="1" display="Key" min="1" max="5" description="The range of star ratings, should be 1-5." tuning_state="NeedsTuning" group="General" />
+                    <TunableTuple name="value" class="TunableInterval" display="Value" description="The minimum and maximum number of households to be displayed, depending on the star rating." group="General">
+                        <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="1" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="upper_bound" class="TunableRange" default="10" display="Upper Bound" min="None" max="15" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="PREMADE_HOUSEHOLD_TEMPLATE_WEIGHT" class="TunableRange" default="3" display="Premade Household Template Weight" min="1" max="10" description="The weight that a premade household template will be selected." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="PREMADE_TENANT_HOUSEHOLD_TEMPLATES" class="TunableList" display="Premade Tenant Household Templates" description="A list of all premade Tenant Household Templates that are part of the household generator." group="General">
+                <Tunable type="sim_template" class="TunableReference" description="Individual Tenant Household Templates to randomly pick from." allow_none="True" group="General" pack_safe="True" restrict="PremadeHouseholdTemplate" />
+            </TunableList>
+
+            <TunableList name="RANDOM_TENANT_HOUSEHOLD_TEMPLATES" class="TunableList" display="Random Tenant Household Templates" description="A list of all Tenant Household Templates that can appear in the household generator. Used if all premades are already selected." group="General">
+                <Tunable type="sim_template" class="TunableReference" description="Individual Tenant Household Templates to randomly pick from." allow_none="False" group="General" pack_safe="True" restrict="HouseholdTemplate" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

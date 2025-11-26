@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="StreetWeatherEffect" module="civic_policies.street_civic_policy_effect" description="When enacted, creates a weather transition." instance_needs_reference="True" instance_subclasses_only="False" parents="StreetEffect" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="enact_data" class="Tunable_WeatherParamData" display="Enact Data" description="The value of the parameter that will be sent when this effect is enacted." group="General">
+            <Tunable type="float" name="interpolation_time" class="TunableSimMinute" default="15.0" display="Interpolation Time" min="0.0" max="None" description="The time in sim minutes over which to transition to the new value, if this occurs during simulation." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="new_value" class="Tunable" default="1.0" display="New Value" description="The value that we will set this parameter to." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="repeal_data" class="Tunable_WeatherParamData" display="Repeal Data" description="The value of the parameter that will be sent when this effect is repealed." group="General">
+            <Tunable type="float" name="interpolation_time" class="TunableSimMinute" default="15.0" display="Interpolation Time" min="0.0" max="None" description="The time in sim minutes over which to transition to the new value, if this occurs during simulation." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="new_value" class="Tunable" default="1.0" display="New Value" description="The value that we will set this parameter to." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <TunableVariant type="None" name="weather_parameter_type" class="TunableVariant" default="none" display="Weather Parameter Type" description="The parameter that we wish to change." group="General">
+            <TunableEnum type="CloudType" name="cloud_type" class="TunableEnumEntry" default="SKYBOX_INDUSTRIAL" display="Cloud Type" static_entries="weather-weather_enums.CloudType" group="General" />
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableEnum type="WeatherEffectType" name="weather_effect_type" class="TunableEnumEntry" default="ECO_FOOTPRINT" display="Weather Effect Type" static_entries="weather-weather_enums.WeatherEffectType" group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

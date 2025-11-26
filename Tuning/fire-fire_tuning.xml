@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="fire.fire_tuning">
+        <Class name="FireTuning">
+            <TunableEnum type="Tag" name="FLAMMABLE_TAG" class="TunableEnumWithFilter" default="INVALID" display="Flammable Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Define a tag that is automatically added to all objects that are flammable." dynamic_entries_prefix="Fire" group="General" invalid_entries="INVALID" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <TdescFrag>
+        <TunableTuple class="TunableParameterizedAutonomy" description="Commodities and StaticCommodities will be combined, so interactions must support at least one commodity from both lists." group="General">
+            <TunableList name="commodities" class="TunableSet" display="Commodities" description="List of commodities to run parameterized autonomy against after running this interaction." group="General" unique_entries="true">
+                <Tunable type="statistic" class="TunableReference" description="The type of commodity to search for." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <Tunable type="bool" name="consider_same_target" class="Tunable" default="True" display="Consider Same Target" description="If checked, parameterized autonomy will consider interactions on the current Target." group="General" />
+            <Tunable type="bool" name="consider_scores_of_zero" class="Tunable" default="False" display="Consider Scores Of Zero" description="The autonomy request will consider scores of zero. This allows sims to to choose things they might not desire." group="General" />
+            <Tunable type="bool" name="ignore_suppressed_affordances_autonomy" class="Tunable" default="False" display="Ignore Suppressed Affordances Autonomy" description="If True, parametrized request will ignore autonomous suppressed affordances. A use case for this is when you want to push a consume affordance which has as target an object slotted in the Street Food Table, as all affordances are suppressed so sims can't interact with them menu). " group="General" />
+            <Tunable type="bool" name="ignore_user_directed_and_autonomous" class="Tunable" default="False" display="Ignore User Directed And Autonomous" description="If True, parametrized request will ignore autonomous and user directed checks. This means, that the request may push a user directed or autonomous interaction without restriction. A use case for this is when a vampire runs pre run autonomy to enable its dark form, we want to keep the context as user directed (to keep the high priority of the interaction), but the interaction being run can normally not be user directed (since we dont want it on the pie menu). " group="General" />
+            <Tunable type="float" name="radius_to_consider" class="Tunable" default="0" display="Radius To Consider" description="The radius around the sim that targets must be in to be valid for Parameterized Autonomy. Anything outside this radius will be ignored. A radius of 0 is considered infinite." tuning_state="NeedsTuning" group="General" />
+            <TunableVariant type="None" name="randomization_override" class="OptionalTunable" default="disabled" display="Randomization Override" description="If enabled then the parameterized autonomy will run with an overwritten autonomy randomization settings." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableEnum type="AutonomyRandomization" name="enabled" class="TunableEnumEntry" default="UNDEFINED" display="Enabled" static_entries="autonomy-settings.AutonomyRandomization" description="The autonomy randomization setting that will be used." group="General" />
+            </TunableVariant>
+            <Tunable type="bool" name="retain_carry_target" class="Tunable" default="True" display="Retain Carry Target" description="If checked, the interactions considered for autonomy will retain this interaction's carry target. It is useful to uncheck this if the desired autonomous interactions need not to consider carry, e.g. the Grim Reaper finding arbitrary interactions while in an interaction holding his scythe as a carry target." group="General" />
+            <Tunable type="bool" name="retain_context_source" class="Tunable" default="False" display="Retain Context Source" description="If True, any interactions that run as a result of this request will run with the same context source as the creating interaction. If False, it will default to InteractionContext.SOURCE_AUTONOMY." group="General" />
+            <Tunable type="bool" name="retain_priority" class="Tunable" default="True" display="Retain Priority" description="If checked, this autonomy request is run at the same priority level as the interaction creating it. If unchecked, the interaction chosen will run at low priority." group="General" />
+            <Tunable type="bool" name="same_target_only" class="Tunable" default="False" display="Same Target Only" description="If checked, only interactions on the same target as this interaction will be considered." group="General" />
+            <TunableList name="static_commodities" class="TunableSet" display="Static Commodities" description="List of static commodities to run parameterized autonomy against after running this interaction." group="General" unique_entries="true">
+                <Tunable type="scommodity" class="TunableReference" description="The type of static commodity to search for." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <Tunable type="bool" name="test_connectivity_to_target" class="Tunable" default="True" display="Test Connectivity To Target" description="If checked, this test will ensure the Sim can pass a pt to pt connectivity check to the advertising object." group="General" />
+        </TunableTuple>
+    </TdescFrag>
+</TuningRoot>

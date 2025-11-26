@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="PutDownSimNoConstraintInteraction" module="carry.put_down_sim_interactions" description="An interaction that can put the sim down anywhere. Useful if you have other systems ensuring the sim will be placed in a good location (i.e. jig constraint + animation snap events). Not to be confused with PutDownSimAnywhereInteraction which does actually put the sim down such that they satisfy particular constraints." instance_needs_reference="True" instance_subclasses_only="False" parents="PutDownSimInteraction, PutAwayBase, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True" />
+</TuningRoot>

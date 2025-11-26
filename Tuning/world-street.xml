@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="world.street">
+        <Class name="Street">
+            <TunableList name="WORLD_DESCRIPTION_TUNING_MAP" class="TunableMapping" display="World Description Tuning Map" mapping_key="WorldDescription" mapping_value="Street" description="A mapping between Catalog world description and street tuning instance. This way we can find out what world description the current zone belongs to at runtime then grab its street tuning instance." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="street" name="Street" class="TunableReference" display="Street" description="Street Tuning instance. This is retrieved at runtime based on what the active zone's world description is." allow_none="False" group="General" pack_safe="True" />
+                    <Tunable type="worlddescription" name="WorldDescription" class="TunableReference" display="Worlddescription" description="Catalog-side World Description." group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

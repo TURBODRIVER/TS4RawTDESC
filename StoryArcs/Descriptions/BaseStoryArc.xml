@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="story_arc" class="BaseStoryArc" module="story_progression.story_progression_arc" description="The Base Story Arc from which all story arcs are derived. All subclasses provide separate functionality and tuning that matches the different type of Story Progression Tracker that it is stored on." instance_needs_reference="True" instance_subclasses_only="True" path="StoryArcs\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="StoryProgressionExclusivityCategory" name="exclusivity_category" class="TunableEnumEntry" default="NEUTRAL" display="Exclusivity Category" dynamic_entries="story_progression-story_progression_exclusivity.StoryProgressionExclusivityCategory._elements" static_entries="story_progression-story_progression_exclusivity.StoryProgressionExclusivityCategory" description="The exclusivity category of this story progression arc. Neutral means that this arc can be seeded with any other arc already on the Sim/Household. See story_progression_exclusivity for details of how this works." group="General" />
+
+        <TunableList name="required_rules" class="TunableList" display="Required Rules" description="Sims/households must have these rules enabled in order to be chosen as a candidate for this arc." group="General">
+            <Tunable type="user_interface_info" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="StoryProgressionRuleDisplayInfo" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

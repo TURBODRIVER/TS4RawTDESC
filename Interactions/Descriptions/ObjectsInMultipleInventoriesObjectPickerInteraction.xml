@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ObjectsInMultipleInventoriesObjectPickerInteraction" module="interactions.base.picker_interaction" description="Picker Interaction to select a single object from various inventories." instance_needs_reference="True" instance_subclasses_only="False" parents="ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="inventory_item_test" class="TunableVariant" default="object" display="Inventory Item Test" description="A test to run on the objects in the inventory to determine which objects will show up in the picker. An object test type left un-tuned is considered any object." group="Picker Tuning">
+            <TunableTuple name="object" class="TunableObjectTypeFactory" display="Object" group="General">
+                <Tunable type="object" name="actual_object" class="TunableReference" display="Actual Object" description="The object we want to test ownership of" allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+            <TunableTuple name="tag_set" class="TunableObjectTagFactory" display="Tag Set" group="General">
+                <TunableList name="tag_set" class="TunableSet" display="Tag Set" group="General" unique_entries="true">
+                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for." group="General" pack_safe="True" />
+                </TunableList>
+                <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="use_household_inventory" class="OptionalTunable" default="disabled" display="Use Household Inventory" description="If enabled, the actor who's household inventory to look for items that pass the test." group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Actor" display="Enabled" static_entries="interactions.ParticipantType" description="Subject on which the household inventory exists." group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="use_sim_inventory" class="OptionalTunable" default="disabled" display="Use Sim Inventory" description="If enabled, the actor for who's inventory to look for items that pass the test." group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Actor" display="Enabled" static_entries="interactions.ParticipantType" description="Subject on which the sim inventory exists." group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

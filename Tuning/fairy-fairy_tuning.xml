@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="fairy.fairy_tuning">
+        <Class name="WingTuning">
+            <Tunable type="object" name="CARRY_BACK_WING_PROXY_OBJECT" class="TunableReference" display="Carry Back Wing Proxy Object" description="The CarryBackWingProxyObject is an object which the Sim carries on their back which acts as a proxy for controlling a fairy sim's wing visibility." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="interaction" name="FAIRY_CARRY_WING_INTERACTION" class="TunableReference" display="Fairy Carry Wing Interaction" description="The FairyCarryWingInteraction is used by the transition sequence to make a fairy pull out their wings when they have been stowed." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="interaction" name="FAIRY_SATISFY_CONSTRAINTS_INTERACTION" class="TunableReference" display="Fairy Satisfy Constraints Interaction" description="An interaction used by the transition sequence to route a fairy closer a destination before putting their wings away." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableList name="FAIRY_WING_BLOCKED_PORTAL_FLAGS" class="TunableEnumFlags" display="Fairy Wing Blocked Portal Flags" description="Flags which denote portals a fairy should not be able to route through with their wings out." group="General" unique_entries="true">
+                <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+            </TunableList>
+
+            <Tunable type="float" name="FAIRY_WING_PUTDOWN_CONSTRAINT_RADIUS" class="Tunable" default="0.5" display="Fairy Wing Putdown Constraint Radius" description="The radius of the circle constraint we use to tell the fairy to put down their wings. This radius is used typically when we're finalizing the path, and is larger to allow the Sim to route near objects without failing to transition." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="FAIRY_WING_PUTDOWN_PATH_INTERRUPT_CONSTRAINT_RADIUS" class="Tunable" default="0.2" display="Fairy Wing Putdown Path Interrupt Constraint Radius" description="The radius of the circle constraint we use to tell the fairy to put down their wings. This radius is used on path interrupts, which are generally blocking portals. This radius should be less than half of the wing visibility change path segment distance. If it's greater, the fairy will get stuck at portals forever." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="FAIRY_WING_VISIBILITY_CHANGE_PATH_SEGMENT_MINIMUM_DISTANCE" class="Tunable" default="10" display="Fairy Wing Visibility Change Path Segment Minimum Distance" description="The minimum distance a route or route segment must be for a fairy to take out or put away their wings." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="interaction" name="SIM_ROUTE_SATISFY_CONSTRAINT_INTERACTION" class="TunableReference" display="Sim Route Satisfy Constraint Interaction" description="An interaction used by the transition sequence to route Sims close to a destination." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableTuple name="WING_FIXUP_RULES" class="TunableTuple" display="Wing Fixup Rules" description="Tunables related to fixing up wings on load or travel." group="General">
+                <Tunable type="str" name="WING_CARRY_JOINT" class="TunableStringHash32" default="None" display="Wing Carry Joint" description="The joint of the carrier sim to parent the carryable to." group="General" />
+                <Tunable type="interaction" name="WING_FIXUP_OWNING_AFFORDANCE" class="TunableReference" display="Wing Fixup Owning Affordance" description="An interaction which we run as part of the fixup to own the object reservation and carry." allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+        </Class>
+
+        <Class name="WingStateChangePathInterruptType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="INTERRUPT_AT_NODE" enum_value="1" />
+
+            <EnumItem name="INTERRUPT_IMMEDIATE" enum_value="2" />
+
+            <EnumItem name="NO_INTERRUPT" enum_value="0" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="BreakingAndEnteringZoneDirector" module="situations.breaking_and_entering.breaking_and_entering_zone_director" description="Zone director for the Breaking and Entering situation." instance_needs_reference="True" instance_subclasses_only="False" parents="SchedulingZoneDirector, ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <Tunable type="buff" name="break_in_zone_buff" class="TunableReference" display="Break In Zone Buff" description="The buff applied to all sims who are part of a group that initiated a Break In Situation. Only active while the sim is on the Break In lot after the PlayerGroup Break In situation has completed." allow_none="False" group="General" pack_safe="True" />
+
+        <Tunable type="situation" name="resident_return_situation" class="TunableReference" display="Resident Return Situation" description="The situation we want resident sims to run when the time is right." allow_none="False" group="General" pack_safe="True" />
+    </Instance>
+</TuningRoot>

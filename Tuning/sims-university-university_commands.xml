@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.university.university_commands">
+        <Class name="UniversityCommandTuning">
+            <TunableList name="DEGREE_TRAITS" class="TunableList" display="Degree Traits" description="A list of all possible combinations of degrees, where each list is assigned a specific prestige and honors permutation." group="General">
+                <TunableTuple class="TunableTuple" description="A tuple of prestige and honors booleans, and the associated list of degree traits." group="General">
+                    <Tunable type="bool" name="honors" class="Tunable" default="False" display="Honors" description="The honors type (Honors or No Honors) of this degree list." group="General" />
+                    <Tunable type="bool" name="prestige" class="Tunable" default="False" display="Prestige" description="The prestige type (Prestige or No Prestige) of this degree list." group="General" />
+                    <TunableList name="traits" class="TunableList" display="Traits" description="The list of degree traits for this prestige and honors permutation." group="General">
+                        <Tunable type="trait" class="TunableReference" description="The degree trait." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

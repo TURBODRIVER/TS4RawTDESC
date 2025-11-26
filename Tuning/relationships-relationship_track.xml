@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="relationships.relationship_track">
+        <Class name="RelationshipTrack">
+            <TunableList name="COWORKER_TRACK_FILTER_BITS" class="TunableSet" display="Coworker Track Filter Bits" description="A set of relationship bits that will be used in the Sim Picker and the Relationship Panel for filtering sims met through careers. If a Sim has any of these bits then they will be displayed when the filter is active." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A specific bit used for filtering coworkers in the Sim Picker." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <TunableList name="FAMILY_FILTER_BITS" class="TunableSet" display="Family Filter Bits" description="A set of relationship bits that will be used in the Relationships Panel for filtering sims that are family members with the selected sim." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A specific bit used for filtering family members in the Relationship Panel." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <Tunable type="statistic" name="FRIENDSHIP_TRACK" class="TunableReference" display="Friendship Track" description="A reference to the friendship track so that the client knows which track is the friendship one." allow_none="False" group="General" restrict="RelationshipTrack" />
+
+            <TunableList name="FRIENDSHIP_TRACK_FILTER_BITS" class="TunableSet" display="Friendship Track Filter Bits" description="A set of relationship bits that will be used in the Sim Picker for filtering based on friendship. If a Sim has any of these bits then they will be displayed in the Sim Picker when filtering for romance." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A specific bit used for filtering romance in the Sim Picker." allow_none="False" group="General" />
+            </TunableList>
+
+            <Tunable type="int" name="FRIENDSHIP_TRACK_FILTER_THRESHOLD" class="Tunable" default="0" display="Friendship Track Filter Threshold" description="Value that the client will use when filtering friendship on the Sim Picker. Sims that have a track value equal to or above this value will be shown with the friendship filter." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="MULTI_UNIT_TRACK_FILTER_BITS" class="TunableSet" display="Multi Unit Track Filter Bits" description="A set of relationship bits that will be used in the Sim Picker and the Relationship Panel for filtering multi unit sims. If a Sim has any of these bits then they will be displayed when the business filter is active." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A specific bit used for filtering multi unit sims." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <Tunable type="statistic" name="PET_TO_PET_FRIENDSHIP_TRACK" class="TunableReference" display="Pet To Pet Friendship Track" description="A reference to the pet_to_pet_friendship track so that the client knows which track is the pet to pet friendship track." allow_none="False" group="General" pack_safe="True" restrict="RelationshipTrack" />
+
+            <Tunable type="statistic" name="ROMANCE_TRACK" class="TunableReference" display="Romance Track" description="A reference to the romance track so that the client knows which track is the romance one." allow_none="False" group="General" restrict="RelationshipTrack" />
+
+            <TunableList name="ROMANCE_TRACK_FILTER_BITS" class="TunableSet" display="Romance Track Filter Bits" description="A set of relationship bits that will be used in the Sim Picker for filtering based on romance. If a Sim has any of these bits then they will be displayed in the Sim Picker when filtering for romance." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A specific bit used for filtering romance in the Sim Picker." allow_none="False" group="General" />
+            </TunableList>
+
+            <Tunable type="int" name="ROMANCE_TRACK_FILTER_THRESHOLD" class="Tunable" default="0" display="Romance Track Filter Threshold" description="Value that the client will use when filtering romance on the Sim Picker. Sims that have a track value equal to or above this value will be shown with the romance filter." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="ROOMMATE_TRACK_FILTER_BITS" class="TunableSet" display="Roommate Track Filter Bits" description="A set of relationship bits that will be used in the Sim Picker and the Relationship Panel for filtering roommate sims. If a Sim has any of these bits then they will be displayed when the filter is active." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A specific bit used for filtering roommates in the Sim Picker." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <TunableList name="SIM_PROFILE_TRACKS" class="TunableSet" display="Sim Profile Tracks" description="A set of relationship tracks that will be displayed in the Sim Profile. Specifically, these tracks are displayed in the 'Sim A's Feelings About Sim B' sections of the Sim Profile." group="General" unique_entries="true">
+                <Tunable type="statistic" class="TunableReference" description="A specific track that will be displayed in the Sim Profile." allow_none="False" group="General" pack_safe="True" restrict="RelationshipTrack" />
+            </TunableList>
+
+            <Tunable type="statistic" name="SIM_TO_ANIMAL_OBJECT_FRIENDSHIP_TRACK" class="TunableReference" display="Sim To Animal Object Friendship Track" description="A reference to the sim_to_animal_object_friendship track so that the client knows which track is the sim to animal object friendship track." allow_none="False" group="General" pack_safe="True" restrict="RelationshipTrack" />
+
+            <Tunable type="int" name="SIM_TO_ANIMAL_OBJECT_FRIENDSHIP_TRACK_FILTER_THRESHOLD" class="Tunable" default="0" display="Sim To Animal Object Friendship Track Filter Threshold" description="Value that the client will use when filtering friendship on the Sim Picker. Pets that have a track value equal to or above this value will be shown with the friendship filter." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="statistic" name="SIM_TO_PET_FRIENDSHIP_TRACK" class="TunableReference" display="Sim To Pet Friendship Track" description="A reference to the sim_to_pet_friendship track so that the client knows which track is the sim to pet friendship track." allow_none="False" group="General" pack_safe="True" restrict="RelationshipTrack" />
+
+            <Tunable type="int" name="SIM_TO_PET_FRIENDSHIP_TRACK_FILTER_THRESHOLD" class="Tunable" default="0" display="Sim To Pet Friendship Track Filter Threshold" description="Value that the client will use when filtering friendship on the Sim Picker. Pets that have a track value equal to or above this value will be shown with the friendship filter." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="SOCIAL_MEDIA_TRACK_FILTER_BITS" class="TunableSet" display="Social Media Track Filter Bits" description="A set of relationship bits that will be used in the Sim Picker and the Relationship Panel for filtering social media friends sims. If a Sim has any of these bits then they will be displayed when the filter is active." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A specific bit used for filtering social media friends in the Sim Picker." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <TunableList name="STAYOVER_FILTER_BITS" class="TunableSet" display="Stayover Filter Bits" description="A set of relationship bits that will be used in the Sim Picker and the Relationship Panel for filtering stayover guest sims. If a Sim has any of these bits then they will be displayed when the filter is active." group="General" unique_entries="true">
+                <Tunable type="relbit" class="TunableReference" description="A specific bit used for filtering stayover guests in the Sim Picker." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+        </Class>
+
+        <Class name="ObjectRelationshipTrack">
+            <TunableList name="OBJECT_BASED_FRIENDSHIP_TRACKS" class="TunableMapping" display="Object Based Friendship Tracks" mapping_key="key" mapping_value="value" description="A mapping of sets of objects with a specific tag to a friendship track. Any value added to the tuned track will apply to all objects within the set." group="General" mapping_class="ObjectBasedFriendshipTrackTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="statistic" name="key" class="TunableReference" display="Key" description="This track can be referenced by all objects with the tuned tag." allow_none="False" group="General" pack_safe="True" restrict="ObjectRelationshipTrack" />
+                    <Tunable type="tag_set" name="value" class="TunableReference" display="Value" description="Tags that define the objects in the track." allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

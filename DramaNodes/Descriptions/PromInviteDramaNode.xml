@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="drama_node" class="PromInviteDramaNode" module="drama_scheduler.prom_invite_drama_node" description="A drama node designed for scheduling Prom." instance_subclasses_only="False" parents="NPCInviteSituationDramaNode, BaseDramaNode" path="DramaNodes\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_NPC_host_job" />
+
+        <Deleted name="_NPC_hosted_situation_player_job" />
+
+        <Deleted name="_NPC_hosted_situation_use_player_sim_as_filter_requester" />
+
+        <Deleted name="_require_predefined_guest_list" />
+
+        <TunableTuple name="award_presenter" class="TunableTuple" display="Award Presenter" description="Award presenter for the prom situation. " group="Participant">
+            <Tunable type="situation_job" name="job" class="TunableReference" display="Job" description="The situation job for the award presenter." allow_none="False" group="General" />
+            <Tunable type="sim_filter" name="sim_filter" class="TunableReference" display="Sim Filter" description="The sim filter used to find the award presenter." allow_none="False" group="General" />
+        </TunableTuple>
+
+        <Deleted name="is_simless" />
+
+        <Deleted name="override_picked_sim_info_resolver" />
+
+        <Deleted name="picked_sim_info" />
+
+        <TunableTuple name="prom_chaperones" class="TunableTuple" display="Prom Chaperones" description="Chaperones for the prom situation." group="Participant">
+            <Tunable type="situation_job" name="job" class="TunableReference" display="Job" description="The situation job for the prom chaperone." allow_none="False" group="General" />
+            <Tunable type="int" name="number_to_find" class="TunableRange" default="1" display="Number To Find" min="0" max="None" description="The number of chaperones to find." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="sim_filter" name="sim_filter" class="TunableReference" display="Sim Filter" description="The sim filter used to find the prom chaperones." allow_none="False" group="General" />
+        </TunableTuple>
+
+        <Deleted name="receiver_sim" />
+
+        <Deleted name="sender_sim_info" />
+
+        <Deleted name="sender_sim_info_type" />
+
+        <Deleted name="spawn_sims_during_zone_spin_up" />
+
+        <Tunable type="situation_job" name="teen_attendee_job" class="TunableReference" display="Teen Attendee Job" description="Job for prom attendees. This is used for all sims that were at the pre-prom party, as well as anyone with prom invite relbits." allow_none="False" group="Participant" />
+    </Instance>
+</TuningRoot>

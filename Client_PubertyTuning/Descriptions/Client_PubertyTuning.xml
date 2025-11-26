@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="pubertytuning" class="Client_PubertyTuning" module="pubertytuning.Client_PubertyTuning" description="Tuning data related to EP12 puberty" path="Client_PubertyTuning\Descriptions">
+        <TunableEnum type="TagCategory" name="AcneLevelTagCategory" class="TunableEnumEntry" default="INVALID" display="Level Tag Category" dynamic_entries="tag.TagCategory._elements" static_entries="tag.TagCategory" description="Tag category used to specify the level of a given acne part" group="Acne" invalid_entries="INVALID" />
+
+        <TunableList name="AcneLevelTags" class="TunableList" display="Level Tags" description="List of acne level tags checked by the puberty system" group="Acne">
+            <TunableEnum type="Tag" name="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" binary_type="uint32" dynamic_entries_prefix="AcneLevel" invalid_entries="INVALID" />
+        </TunableList>
+
+        <TunableEnum type="TagCategory" name="AcneSkinToneTagCategory" class="TunableEnumEntry" default="INVALID" display="Skin Tone Tag Category" dynamic_entries="tag.TagCategory._elements" static_entries="tag.TagCategory" description="Tag category used to specify the skin tone of a given acne part" group="Acne" invalid_entries="INVALID" />
+
+        <TunableEnum type="TagCategory" name="HairColorTagCategory" class="TunableEnumEntry" default="INVALID" display="Color Tag Category" dynamic_entries="tag.TagCategory._elements" static_entries="tag.TagCategory" description="Tag category used to specify the color of a given body hair part" group="Hair" invalid_entries="INVALID" />
+
+        <TunableEnum type="TagCategory" name="HairLengthTagCategory" class="TunableEnumEntry" default="INVALID" display="Length Tag Category" dynamic_entries="tag.TagCategory._elements" static_entries="tag.TagCategory" description="Tag category used to specify the length of a given body hair part" group="Hair" invalid_entries="INVALID" />
+
+        <TunableList name="HairLengthTags" class="TunableList" display="Length Tags" description="List of hair length tags checked by the puberty system" group="Hair">
+            <TunableEnum type="Tag" name="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" binary_type="uint32" dynamic_entries_prefix="GrowthLevel" invalid_entries="INVALID" />
+        </TunableList>
+
+        <TunableEnum type="TagCategory" name="HairStyleTagCategory" class="TunableEnumEntry" default="INVALID" display="Style Tag Category" dynamic_entries="tag.TagCategory._elements" static_entries="tag.TagCategory" description="Tag category used to specify the style of a given body hair part" group="Hair" invalid_entries="INVALID" />
+    </Instance>
+</TuningRoot>

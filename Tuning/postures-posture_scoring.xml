@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="postures.posture_scoring">
+        <Class name="InteractionPostureAffinityTag" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="ALL" enum_value="0" />
+        </Class>
+
+        <Class name="AttractSimAffinityStrategy">
+            <Tunable type="float" name="ATTRACTION_BONUS" class="Tunable" default="50" display="Attraction Bonus" description="The distance, in meters, the Sim will go out of their way to choose objects near other Sims. This bonus will drop off as distance from other Sims increases." tuning_state="NeedsTuning" group="General" />
+        </Class>
+
+        <Class name="RelationshipSimAffinityStrategy">
+            <TunableList name="DISTANCE_TO_IMPACT_CURVE" class="TunableCurve" display="Distance To Impact Curve" description="Tunable curve where the X-axis defines the distance between the goal and the target while the y axis corresponds at the impact multiplier that will affect how much of the relationship affinity should affect the scoring of the goal. Example: If the sims are at a close distance less than 2 meters, we want to tune the curve to be 1 from 0 to 2 meters, this way the impact of the relationship will not make the sims reposition if they are already close to each other. Then after two meters we want to start decaying how much impact the relationship should affect, so setting 0 impact on the y axis at a distance of 10 meters will create a linear decay where after 10 meters the relationship will not affect the goal scoring." group="General">
+                <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="x: Distance" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="y: Impact Modifier" description="y component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="RELATIONSHIP_TO_ATTRACTION_BONUS_CURVE" class="TunableCurve" display="Relationship To Attraction Bonus Curve" description="Tunable curve where the X-axis defines the relationship level between two sims while the Y-axis defines the attraction bonus. Note: Negative numbers are a penalty." group="General">
+                <TunableTuple class="TunableVector2" description="Point on a Curve" group="General">
+                    <Tunable type="float" name="x" class="Tunable" default="0.0" display="x: Relationship" description="x component" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="y" class="Tunable" default="0.0" display="y: Attraction Bonus" description="y component" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+
+        <Class name="AvoidSimAffinityStrategy">
+            <Tunable type="float" name="AVOID_PENALTY" class="Tunable" default="50" display="Avoid Penalty" description="The effective increased distance, in meters, the Sim will consider objects nearby other Sims. This penalty will drop off as distance from other Sims increases." tuning_state="NeedsTuning" group="General" />
+        </Class>
+
+        <Class name="PostureScoring">
+            <Tunable type="float" name="ADJACENT_TO_GROUP_MEMBER_BONUS" class="Tunable" default="15" display="Adjacent To Group Member Bonus" description="Add this bonus, in meters, if the object is a part and there is an adjacent part in use by a group member." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="AUTONOMOUSLY_PREFERRED_BONUS" class="Tunable" default="100" display="Autonomously Preferred Bonus" description="Add this bonus, in meters, if the interaction prefers that this target is selected. This uses autonomy preferences to help figure out where a Sim should go to. Example: When sims choose to use a bed they prefer to use their own bed. When Sims do a posture transition to do WooHoo, they should also use their bed. This value determines how far out of the way the Sim will go to meet that preference. " tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="BEST_OBJECT_BONUS" class="Tunable" default="100" display="Best Object Bonus" description="On the first route, we prefer parts on the object that contains the part that you clicked over other objects or parts. Sims will go this many meters out of their way to get to that object." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="BEST_PART_BONUS" class="Tunable" default="75" display="Best Part Bonus" description="Sims will go this many meters out of their way to get to the part picked when choosing the interaction. This should be slightly larger than the radius of our largest multi-part object. This bonus is applied in addition to the best object bonus." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="CARRYING_SIM_BUSY_PENALTY" class="TunableRange" default="20" display="Carrying Sim Busy Penalty" min="0" max="None" description="The penalty to apply to Sims running guaranteed SIs. The cost of being carried by a Sim is the product of their number of guaranteed SIs and this value." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="CARRYING_SIM_HAS_NOT_MET_PENALTY" class="TunableRange" default="300" display="Carrying Sim Has Not Met Penalty" min="0" max="None" description="The penalty to apply to Sims that are not met when attempting to transition into a 'Be Carried' posture targeting them." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="CARRYING_SIM_NON_CAREGIVER_PENALTY" class="TunableRange" default="80" display="Carrying Sim Non Caregiver Penalty" min="0" max="None" description="The penalty to apply to Sims that are not a Sim's caregiver when attempting to transition into a 'Be Carried' posture targeting them." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="CARRYING_SIM_NOT_IN_ENSEMBLE_PENALTY" class="TunableRange" default="80" display="Carrying Sim Not In Ensemble Penalty" min="0" max="None" description="The penalty to apply to Sims that are not in an ensemble with the Sim, if the Sim is in an ensemble, when attempting to transition into a 'Be Carried' posture targeting them." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="DEST_ALREADY_SELECTED_PENALTY" class="Tunable" default="10" display="Dest Already Selected Penalty" description="Add this penalty, in meters, if a transition sequence already picked this destination." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="ENSEMBLE_BONUS" class="Tunable" default="25" display="Ensemble Bonus" description="The distance, in meters, the Sim will go out of their way to choose objects near other Sims in their ensemble. This bonus will drop off as distance from other Sims increases." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="ENTER_EXIT_OBJECT_COST" class="Tunable" default="0.5" display="Enter Exit Object Cost" description="Cost for entering or exiting an object." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="HAS_NOT_MET_PENALTY" class="Tunable" default="15" display="Has Not Met Penalty" description="The effective increased distance, in meters, the Sim will consider objects nearby Sims they have met. This penalty will drop off as distance from other Sims increases." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="IN_PARTY_CONSTRAINT_BONUS" class="Tunable" default="100" display="In Party Constraint Bonus" description="Add this bonus, in meters, if the object is within the Sim's party's constraint." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="IN_USE_PENALTY" class="Tunable" default="20" display="In Use Penalty" description="The Penalty, in meters, to apply if the part is already in use. Keep this greater than Not Best Part Penalty so sims will still try a new part if the best part fails." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="INNER_NON_MOBILE_TO_NON_MOBILE_COINCIDENT_COST" class="Tunable" default="1" display="Inner Non Mobile To Non Mobile Coincident Cost" description="This cost is applied to transitions between parts of the same object, as long as those parts are coincident, i.e. have identical physical locations. Ideally, this cost is less than the cost of exiting the part and then re-entering the same part from stand. e.g. Transitioning from the middle cushion of the sofa, facing left, to the same cushion, but facing right." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="INNER_NON_MOBILE_TO_NON_MOBILE_COST" class="Tunable" default="3" display="Inner Non Mobile To Non Mobile Cost" description="This cost is applied to transitions between parts of the same object. This cost is only applied when the parts are not coincident, i.e. are in different physical locations. e.g. Scooting from the left cushion of the loveseat to the right cushion." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MIN_INNER_NON_MOBILE_TO_NON_MOBILE_COST" class="TunableRange" default="0.1" display="Min Inner Non Mobile To Non Mobile Cost" min="0.01" max="None" description="The minimum cost of transition between parts of the same object. This value will be used if the transition cost after calculation is zero or negative." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="OBJECT_RESERVED_PENALTY" class="Tunable" default="100" display="Object Reserved Penalty" description="The Penalty, in meters, to apply if another Sim has already started a transition to use an object a Sim is considering." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="PREFERRED_POSTURE_TARGET_BONUS" class="Tunable" default="10" display="Preferred Posture Target Bonus" description="Add this bonus if the target of the posture is a preferred target. For example, when calling to meal on a table, all seats of the table should be preferred over any other sit on the house no." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="SAME_CLUSTER_SIM_MULTIPLIER" class="Tunable" default="1.2" display="Same Cluster Sim Multiplier" description="This multiplier is applied to the bonus for Sims in the same cluster as the object being considered by the Sim. Raising this will encourage Sims to join/avoid clusters with people they like/dislike." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="SURFACE_BONUS" class="Tunable" default="7" display="Surface Bonus" description="Add this bonus, in meters, to surface nodes if we prefer surface for the interaction." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

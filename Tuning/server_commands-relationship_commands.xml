@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="server_commands.relationship_commands">
+        <Class name="RelationshipCommandTuning">
+            <Tunable type="sim_filter" name="CREATE_FRIENDS_COMMAND_FILTER" class="TunableReference" display="Create Friends Command Filter" description="The sim-filter for generating friendly sims." allow_none="False" group="General" restrict="TunableSimFilter" />
+
+            <Tunable type="int" name="CREATE_FRIENDS_COMMAND_QUANTITY" class="Tunable" default="1" display="Create Friends Command Quantity" description="The number of friendly sims to generate using command |relationships.create_friends_for_sim." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="relbit" name="INTRODUCE_BIT" class="TunableReference" display="Introduce Bit" description="Relationship bit to add to all Sims when running the introduce command." allow_none="False" group="General" />
+
+            <Tunable type="statistic" name="INTRODUCE_TRACK" class="TunableReference" display="Introduce Track" description="Relationship track for friendship used by cheats to introduce sims. " allow_none="False" group="General" restrict="RelationshipTrack" />
+
+            <Tunable type="int" name="INTRODUCE_VALUE" class="Tunable" default="0" display="Introduce Value" description="The value to add to the relationship to introduce the sims." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

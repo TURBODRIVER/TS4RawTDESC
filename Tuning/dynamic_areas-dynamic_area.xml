@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="dynamic_areas.dynamic_area">
+        <Class name="DynamicAreaService">
+            <TunableList name="AREA_TYPE_OBJECT_TAG" class="TunableMapping" display="Area Type Object Tag" mapping_key="Area Type" mapping_value="Tag" description="A mapping that define which tag objects will receive when they belong to a specific area type" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="DynamicAreaType" name="Area Type" class="TunableEnumEntry" default="INVALID" display="Area Type" static_entries="dynamic_areas-dynamic_area_enums.DynamicAreaType" group="General" invalid_entries="INVALID" />
+                    <TunableEnum type="Tag" name="Tag" class="TunableEnumEntry" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="DYNAMIC_AREA_AUTONOMY_RESTRICTION" class="TunableList" display="Dynamic Area Autonomy Restriction" description="Define the restrictions to use an object given an autonomy type and the dynamic area type" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="area_types" class="TunableList" display="Area Types" description="Define the dynamic area types that will affect the object usage" group="General">
+                        <TunableEnum type="DynamicAreaType" class="TunableEnumEntry" default="INVALID" static_entries="dynamic_areas-dynamic_area_enums.DynamicAreaType" group="General" />
+                    </TunableList>
+                    <TunableEnum type="OffLotAutonomyRules" name="autonomy_rule" class="TunableEnumEntry" default="DEFAULT" display="Autonomy Rule" static_entries="autonomy-autonomy_modifier.OffLotAutonomyRules" description="Define the autonomy rule that will restrict object usage" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableEnum type="DynamicAreaType" name="EXTERIOR_AREA_TYPE" class="TunableEnumEntry" default="INVALID" display="Exterior Area Type" static_entries="dynamic_areas-dynamic_area_enums.DynamicAreaType" description="Define the area type that should be set for exterior" group="General" />
+
+            <TunableList name="PORTALS_EXCLUSIONS" class="TunableList" display="Portals Exclusions" description="The list of navigation portal restriction for each dynamic area type" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="DynamicAreaType" name="area_type" class="TunableEnumEntry" default="INVALID" display="Area Type" static_entries="dynamic_areas-dynamic_area_enums.DynamicAreaType" group="General" />
+                    <TunableList name="portal_exclusion_flag" class="TunableEnumFlags" display="Portal Exclusion Flag" description="Define the exclusion flag for navigation portals" group="General" unique_entries="true">
+                        <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="PORTALS_TRANSITION_OVERRIDE" class="TunableList" display="Portals Transition Override" description="The list of transition between specific area type that will override Portal Exclusion" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="DynamicAreaType" name="entry_area_type" class="TunableEnumEntry" default="INVALID" display="Entry Area Type" static_entries="dynamic_areas-dynamic_area_enums.DynamicAreaType" group="General" />
+                    <TunableEnum type="DynamicAreaType" name="exit_area_type" class="TunableEnumEntry" default="INVALID" display="Exit Area Type" static_entries="dynamic_areas-dynamic_area_enums.DynamicAreaType" group="General" />
+                    <TunableList name="portal_exclusion_flag" class="TunableEnumFlags" display="Portal Exclusion Flag" description="Define the exclusion flag for navigation portals for transition from entry to exit" group="General" unique_entries="true">
+                        <TunableEnum type="PortalFlags" class="TunableEnumEntry" default="DEFAULT" dynamic_entries="routing-portals-portal_tuning.PortalFlags._elements" static_entries="routing-portals-portal_tuning.PortalFlags" group="General" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

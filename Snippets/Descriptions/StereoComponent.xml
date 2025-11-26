@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="StereoComponent" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableStereoComponent" display="Value" description="Manage radio channel states and interactions" group="General">
+            <Tunable type="object_state" name="channel_state" class="TunableReference" display="Channel State" description="The state used to populate the radio stations" allow_none="False" group="General" restrict="ObjectState" />
+            <Tunable type="bool" name="immediate" class="Tunable" default="False" display="Immediate" description="If checked, this audio will be triggered immediately, nothing will block. ex. Earbuds audio will be played immediately while the Sim is routing or animating. This is passed down to the audio state when it is triggered, and thus will overwrite any tuning on the state value." group="General" />
+            <TunableList name="listen_affordances" class="TunableList" display="Listen Affordances" description="An ordered list of affordances that define 'listening' to this stereo. The first succeeding affordance is used." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <Tunable type="object_state" name="off_state" class="TunableReference" display="Off State" description="The channel that represents the off state." allow_none="False" group="General" restrict="ObjectStateValue" />
+            <Tunable type="bool" name="play_on_active_sim_only" class="Tunable" default="False" display="Play On Active Sim Only" description="If enabled, and audio target is Sim, the audio will only be played on selected Sim. Otherwise it will be played regardless Sim is selected or not. If audio target is Object, always set this to False. Otherwise the audio will never be played. ex. This will be useful for Earbuds where we want to hear the music only when the Sim is selected. This is passed down to the audio state when it is triggered, and thus will overwrite any tuning on the state value." group="General" />
+            <TunableList name="unavailable_channels" class="TunableList" display="Unavailable Channels" description="Items in this list that past tests will not be available, even if the whitelist is empty. " group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="channel_states" class="TunableSet" display="Channel States" description="If the test passes, channel states in this list will be not be available. " group="General" unique_entries="true">
+                        <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    </TunableList>
+                    <TdescFragTag name="test" class="TunableTestSet" display="Test" description="Tests for unavailable channel states. Note that we also have tests on listen affordances, please make sure they are not duplicated so to save performance." group="General" />
+                </TunableTuple>
+            </TunableList>
+            <TunableList name="whitelist_channels" class="TunableList" display="Whitelist Channels" description="This acts like a filter. Items in this list who pass their test will be combined together and become a whitelist. We will check against this whitelist to generate available picker channel states. If this list is empty, the filter will be disabled." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableList name="channel_states" class="TunableSet" display="Channel States" description="If the test passes, channel states in this list will be in the whitelist and become available." group="General" unique_entries="true">
+                        <Tunable type="object_state" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    </TunableList>
+                    <TdescFragTag name="test" class="TunableTestSet" display="Test" description="Tests for whitelist channel states. Note that we also have tests on listen affordances, please make sure they are not duplicated so to save performance." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="clubs.club_enums">
+        <Class name="ClubRuleEncouragementStatus" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DISCOURAGED" enum_value="1" />
+
+            <EnumItem name="ENCOURAGED" enum_value="0" />
+
+            <EnumItem name="NO_EFFECT" enum_value="2" />
+        </Class>
+
+        <Class name="ClubOutfitSetting" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="COLOR" enum_value="2" />
+
+            <EnumItem name="NO_OUTFIT" enum_value="0" />
+
+            <EnumItem name="OVERRIDE" enum_value="3" />
+
+            <EnumItem name="STYLE" enum_value="1" />
+        </Class>
+
+        <Class name="ClubGatheringVibe" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="NO_VIBE" enum_value="0" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

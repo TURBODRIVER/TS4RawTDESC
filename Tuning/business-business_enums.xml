@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="business.business_enums">
+        <Class name="BusinessType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="INVALID" enum_value="0" />
+
+            <EnumItem name="RENTAL_UNIT" enum_value="4" />
+
+            <EnumItem name="RESTAURANT" enum_value="2" />
+
+            <EnumItem name="RETAIL" enum_value="1" />
+
+            <EnumItem name="SMALL_BUSINESS" enum_value="5" />
+
+            <EnumItem name="VET" enum_value="3" />
+        </Class>
+
+        <Class name="BusinessEmployeeType" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="BusinessCustomerStarRatingBuffBuckets" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="BusinessAdvertisingType" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="BusinessQualityType" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="FirstTimeMessageType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ANY_RATING_CHANGE" enum_value="4" />
+
+            <EnumItem name="ANY_RATING_CHANGE_TENANT" enum_value="5" />
+
+            <EnumItem name="GRACE_PERIOD_OWNER" enum_value="3" />
+
+            <EnumItem name="GRACE_PERIOD_TENANT" enum_value="2" />
+
+            <EnumItem name="INVALID" enum_value="0" />
+
+            <EnumItem name="STAR_RATING_CHANGE" enum_value="1" />
+        </Class>
+
+        <Class name="BusinessOriginTelemetryContext" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BB" enum_value="2" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="PREMADE" enum_value="3" />
+
+            <EnumItem name="XEVT" enum_value="1" />
+        </Class>
+
+        <Class name="SmallBusinessAttendanceSaleMode" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DISABLED" enum_value="0" />
+
+            <EnumItem name="ENTRY_FEE" enum_value="2" />
+
+            <EnumItem name="HOURLY_FEE" enum_value="1" />
+        </Class>
+
+        <Class name="SmallBusinessSalary" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AVERAGE" enum_value="1" />
+
+            <EnumItem name="HIGH" enum_value="2" />
+
+            <EnumItem name="LOW" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

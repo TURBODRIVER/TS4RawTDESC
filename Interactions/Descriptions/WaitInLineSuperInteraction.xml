@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="WaitInLineSuperInteraction" module="interactions.line_interactions" description="An interaction for sims waiting in a waiting-line. This interaction's primary purpose is to store an aop and an interaction context for re-execution when the sim reaches the front of the line. This interaction interfaces with a WaitingLineComponent on the stored target to gain information about it's position in line and the neighboring sims around it in line. The physical structure of the line is implemented here, via an overridden constraint_intersection." instance_needs_reference="True" instance_subclasses_only="False" parents="SitOrStandSuperInteraction, RepositioningSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Deleted name="basic_reserve_object" />
+    </Instance>
+
+    
+</TuningRoot>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="reputation.reputation_tuning">
+        <Class name="ReputationTunables">
+            <Tunable type="statistic" name="REPUTATION_RANKED_STATISTIC" class="TunableReference" display="Reputation Ranked Statistic" description="The ranked statistic that is to be used for tracking reputation progress. This should not need to be tuned at all. If you think you need to tune this please speak with a GPE before doing so." allow_none="False" group="General" pack_safe="True" restrict="RankedStatistic" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.collection_interactions">
+        <Class name="CollectionInteractionData">
+            <TunableList name="COLLECTION_COMBINING_TUNING" class="TunableMapping" display="Collection Combining Tuning" mapping_key="key" mapping_value="value" description="Mapping of collectible id, to states that we allow for collectible combining." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="CollectionIdentifier" name="key" class="TunableEnumEntry" default="Unindentified" display="Key" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="ID of the collectible that can be combined." group="General" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="Possible states that can be combined on a collectible. Mapping of state values that can be combined to get a new state" group="General">
+                        <TunableList name="combination_mapping" class="TunableList" display="Combination Mapping" description="Mapping of possible father-mother states to which new state can they generate on the newly created collectible. e.g. If collectible A has green color state, and collectible B has blue color states the resulting state can be a Green color state. This means the outcome of the interaction will look for a collectible that has this resulting state value." group="General">
+                            <TunableTuple class="TunableTuple" description="State combinations to create a new state on the result collectible." group="General">
+                                <Tunable type="object_state" name="father_state" class="TunableReference" display="Father State" allow_none="False" group="General" restrict="ObjectStateValue" />
+                                <Tunable type="object_state" name="mother_state" class="TunableReference" display="Mother State" allow_none="False" group="General" restrict="ObjectStateValue" />
+                                <Tunable type="object_state" name="resulting_state" class="TunableReference" display="Resulting State" allow_none="False" group="General" restrict="ObjectStateValue" />
+                            </TunableTuple>
+                        </TunableList>
+                        <TunableList name="states_to_combine" class="TunableList" display="States To Combine" description="Any states tuned here will be transfered from the combine collectibles to the resulting object. For example: Frogs will transfer their color and pattern states." group="General">
+                            <Tunable type="object_state" class="TunableReference" description="State that can be inherited by the new collectible." allow_none="False" group="General" restrict="ObjectState" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

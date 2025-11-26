@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="casthumbnailparttuning" class="Client_CASThumbnailPartTuning" module="casthumbnailparttuning.Client_CASThumbnailPartTuning" description="Defines the default parts used in CAS thumbnail builds" path="Client_CASThumbnailPartTuning\Descriptions">
+        <TunableList name="Ages" class="TunableSet" display="Ages" description="Ages for which this tuning applies" group="General" unique_entries="true">
+            <TunableEnum type="Age" class="TunableEnumEntry" default="None" static_entries="sims-sim_info_types.Age" group="General" />
+        </TunableList>
+
+        <TunableList name="BodyTypeMap" class="TunableMapping" display="BodyTypes" mapping_key="BodyType" mapping_value="BodyTypeDefaultData" description="List of default body types used when building a Sim for a thumbnail." mapping_class="Client_CASThumbnailPartTuning.BodyTypeMapEntry">
+            <TunableTuple name="BodyTypeMapEntry" class="Client_CASThumbnailPartTuning.BodyTypeMapEntry">
+                <TunableEnum type="BodyType" name="BodyType" class="TunableEnumEntry" default="UPPER_BODY" display="Body Type" static_entries="sims-outfits-outfit_enums.BodyType" description="The cas part type to be mapped." />
+                <TunableTuple name="BodyTypeDefaultData" class="Client_CASThumbnailPartTuning.BodyTypeDefaultData">
+                    <Tunable type="caspart" name="DefaultPart" class="TunableReference" display="Default CAS Part" description="The CAS part to use by default for this body type." allow_none="True" group="General" />
+                    <Tunable type="caspart" name="MannequinPart" class="TunableReference" display="Mannequin CAS Part" description="The CAS part to use by default for this body type for mannequin thumbnails." allow_none="True" group="General" />
+                    <Tunable type="bool" name="ShouldSkipForMannequin" class="Tunable" default="false" description="Defines whether the BodyType should be skipped altogether when rendering a thumbnail for a mannequin." group="General" />
+                    <TunableList name="ThumbBodyTypeMap" class="TunableMapping" display="Thumbnail BodyTypes" mapping_key="BodyType" mapping_value="ThumbBodyTypeMatchData" description="When rendering a thumbnail for a specific BodyType listed here, then instead of using the DefaultPart, we may instead want to use the MatchingPart specified here, or skip the part altogether." mapping_class="Client_CASThumbnailPartTuning.ThumbBodyTypeMapEntry">
+                        <TunableTuple name="ThumbBodyTypeMapEntry" class="Client_CASThumbnailPartTuning.ThumbBodyTypeMapEntry">
+                            <TunableEnum type="BodyType" name="BodyType" class="TunableEnumEntry" default="UPPER_BODY" display="Body Type" static_entries="sims-outfits-outfit_enums.BodyType" description="The cas part type to be mapped." />
+                            <TunableTuple name="ThumbBodyTypeMatchData" class="Client_CASThumbnailPartTuning.ThumbBodyTypeMatchData">
+                                <Tunable type="caspart" name="MatchingPart" class="TunableReference" display="Matching CAS Part" description="The CAS part to use instead of the DefaultPart when rendering a thumbnail for the specified Thumbnail BodyType." allow_none="True" group="General" />
+                                <Tunable type="bool" name="ShouldSkip" class="Tunable" default="false" description="Defines whether the BodyType should be skipped altogether when rendering a thumbnail for the specified Thumbnail BodyType" group="General" />
+                            </TunableTuple>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="Genders" class="TunableSet" display="Genders" description="Genders for which this tuning applies" group="General" unique_entries="true">
+            <TunableEnum type="Gender" class="TunableEnumEntry" default="None" static_entries="sims-sim_info_types.Gender" group="General" />
+        </TunableList>
+
+        <TunableEnum type="OccultType" name="OccultType" class="TunableEnumEntry" default="HUMAN" display="Occult Type" static_entries="sims-occult-occult_enums.OccultType" description="Ocult type for which this tuning applies" group="Occult" />
+
+        <TunableEnum type="SpeciesExtended" name="Species" class="TunableEnumEntry" default="HUMAN" display="Species" static_entries="sims-sim_info_types.SpeciesExtended" description="Species for which this tuning applies." group="General" />
+    </Instance>
+</TuningRoot>

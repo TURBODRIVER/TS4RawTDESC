@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="social_group" class="InterrogationGroup" module="socials.interrogation_group" description="Social group that registers to listen for a tuned statistic. When the statistic changes we will send a UI message notifying the value and current decay of the statistic." instance_needs_reference="True" instance_subclasses_only="False" parents="SocialGroup" path="SocialGroups\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="interrogation_end_interaction_data" class="TunableTuple" display="Interrogation End Interaction Data" description="Tunable information corresponding at the interaction that will be pushed when the interrogation is done. All these tunables are required." group="General">
+            <Tunable type="interaction" name="interrogation_end_interaction" class="TunableReference" display="Interrogation End Interaction" description="The affordance to push on from the officer (Actor of interaction) to the suspect (TargetSim of interaction)." allow_none="False" group="General" />
+            <TunableTuple name="interrogation_statistic_threshold" class="TunableThreshold" display="Interrogation Statistic Threshold" description="The threshold that the interrogation stat value will be compared to. If the threshold returns true then the interrogation end interaction will be pushed from the interrogation actor to its interrogation target." group="General">
+                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableTuple>
+
+        <Tunable type="statistic" name="interrogation_statistic" class="TunableReference" display="Interrogation Statistic" description="Statistic to listen to display on the interrogation progress." allow_none="False" group="General" />
+    </Instance>
+</TuningRoot>

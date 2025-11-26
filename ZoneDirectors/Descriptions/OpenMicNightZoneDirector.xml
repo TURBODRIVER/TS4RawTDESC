@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="OpenMicNightZoneDirector" module="venues.lounge_venue.open_mic_night_zone_director" description="A zone director that controls an open mic night experience on the lot." instance_needs_reference="True" instance_subclasses_only="False" parents="ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="bartender_count" class="Tunable" default="1" display="Bartender Count" description="The number of bar tenders that we want at the open mic night." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="situation" name="bartender_situation" class="TunableReference" display="Bartender Situation" description="The situation for the bar tender." allow_none="False" group="General" />
+
+        <Tunable type="float" name="check_contestant_alarm_timer" class="TunableSimMinute" default="10" display="Check Contestant Alarm Timer" min="1" max="None" description="The amount of time we will wait between checks to add a contestant if there is not a contestant currently taking their turn." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="npc_contestant_count" class="Tunable" default="1" display="Npc Contestant Count" description="The number of npc contestants that we want at the open mic night." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="situation" name="npc_contestant_situation" class="TunableReference" display="Npc Contestant Situation" description="The open mic contestant situation for npcs." allow_none="False" group="General" />
+
+        <Tunable type="situation" name="player_contestant_situation" class="TunableReference" display="Player Contestant Situation" description="The open mic contestant situation for player Sims" allow_none="False" group="General" />
+
+        <Tunable type="situation" name="player_controller_situation" class="TunableReference" display="Player Controller Situation" description="The situation for player Sims to control them " allow_none="False" group="General" />
+    </Instance>
+</TuningRoot>

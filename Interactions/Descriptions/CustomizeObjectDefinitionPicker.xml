@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CustomizeObjectDefinitionPicker" module="interactions.picker.customize_object_picker_interactions" description="A picker interaction that builds a list of object definitions for players to select, their selection will be passed to and update geometry/material picker" instance_needs_reference="True" instance_subclasses_only="False" parents="PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="object_definitions" class="TunableList" display="Object Definitions" description="A list of object definitions for players to select, player's selection will update geo/mat picker." group="Picker Tuning">
+            <Tunable type="object" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableVariant type="None" name="object_thumbnail_geo_state_override" class="OptionalTunable" default="disabled" display="Object Thumbnail Geo State Override" description="object's geometry state shown in this picker. If disabled, thumbnails use default geo state. For example, for droids we tune this to 'HeadOnly' so first picker only show droid heads" group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="str" name="enabled" class="TunableStringHash32" default="None" display="Enabled" group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

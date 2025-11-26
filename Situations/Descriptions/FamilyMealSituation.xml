@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="FamilyMealSituation" module="situations.complex.family_meal" instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_buff" />
+
+        <Deleted name="_cost" />
+
+        <Deleted name="_display_name" />
+
+        <Deleted name="_icon" />
+
+        <Deleted name="_initiating_sim_tests" />
+
+        <Deleted name="_level_data" />
+
+        <Deleted name="_main_goal_visibility_test" />
+
+        <Deleted name="_relationship_between_job_members" />
+
+        <Deleted name="_resident_job" />
+
+        <Deleted name="_supports_automatic_bronze" />
+
+        <Deleted name="audio_sting_on_start" />
+
+        <Deleted name="background_audio" />
+
+        <Tunable type="interaction" name="call_to_meal_interaction" class="TunableReference" display="Call To Meal Interaction" description="Interaction that is pushed on the chef sim with the crafted object as the target. " allow_none="False" group="General" />
+
+        <Deleted name="category" />
+
+        <TunableTuple name="chef" class="TunableTuple" display="Chef" group="Roles">
+            <Tunable type="role_state" name="chef_cooking_role_state" class="TunableReference" display="Chef Cooking Role State" description="Chef's role state while making food." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="role_state" name="chef_eating_role_state" class="TunableReference" display="Chef Eating Role State" description="Chef's role state when eating." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The SituationJob for the sim making the meal." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <Deleted name="compatible_venues" />
+
+        <TunableTuple name="cook_group_meal_interaction" class="TunableInteractionOfInterest" display="Cook Group Meal Interaction" description="When this interaction is started, the chef has successfully begun preparing the meal." group="Triggers">
+            <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+            </TunableList>
+        </TunableTuple>
+
+        <Tunable type="float" name="cooking_timeout" class="TunableSimMinute" default="60" display="Cooking Timeout" min="None" max="None" description="The amount of time the sim will attempt to actually cook." tuning_state="NeedsTuning" group="Triggers" />
+
+        <Deleted name="creation_ui_option" />
+
+        <Deleted name="end_situation_dialog" />
+
+        <Deleted name="entitlement" />
+
+        <Deleted name="exclusivity" />
+
+        <Deleted name="force_invite_only" />
+
+        <Deleted name="goal_button_text" />
+
+        <Deleted name="goal_sub_text" />
+
+        <TunableTuple name="guest_eater" class="TunableTuple" display="Guest Eater" group="Roles">
+            <Tunable type="role_state" name="guest_eater_cooking_role_state" class="TunableReference" display="Guest Eater Cooking Role State" description="Guest eater's role state while food is being prepared." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="role_state" name="guest_eater_eating_role_state" class="TunableReference" display="Guest Eater Eating Role State" description="Guest eater's role state when eating." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The SituationJob for an eater (a non-chef) sim who doesn't live here." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <Deleted name="highlight_first_incomplete_minor_goal" />
+
+        <TunableTuple name="household_eater" class="TunableTuple" display="Household Eater" group="Roles">
+            <Tunable type="role_state" name="household_eater_cooking_role_state" class="TunableReference" display="Household Eater Cooking Role State" description="Eater's role state while food is being prepared." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="role_state" name="household_eater_eating_role_state" class="TunableReference" display="Household Eater Eating Role State" description="Eater's role state when eating." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The SituationJob for an eater (a non-chef) sim." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <Deleted name="job_display_ordering" />
+
+        <Deleted name="main_goal" />
+
+        <Deleted name="main_goal_audio_sting" />
+
+        <Deleted name="max_participants" />
+
+        <TunableTuple name="meal_is_done_interaction" class="TunableInteractionOfInterest" display="Meal Is Done Interaction" description="When this interaction has been completed by the chef, it will signal the end of the eating phase." group="Triggers">
+            <TunableList name="affordances" class="TunableList" display="Affordances" description="The Sim must have started either any affordance in this list or an interaction matching one of the tags in this tunable's Tags field." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+            <TunableList name="tags" class="TunableSet" display="Tags" description="The Sim must have run either an interaction matching one of these Tags or an affordance from the list of Affordances in this tunable." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+            </TunableList>
+        </TunableTuple>
+
+        <Tunable type="float" name="meal_timeout" class="TunableSimMinute" default="30" display="Meal Timeout" min="None" max="None" description="The amount of time the meal will last, assuming not all sims made it to the meal." tuning_state="NeedsTuning" group="Triggers" />
+
+        <Deleted name="minor_goal_chains" />
+
+        <Deleted name="recommended_job_object_notification" />
+
+        <Deleted name="recommended_job_object_text" />
+
+        <Deleted name="screen_slam_bronze" />
+
+        <Deleted name="screen_slam_gold" />
+
+        <Deleted name="screen_slam_no_medal" />
+
+        <Deleted name="screen_slam_silver" />
+
+        <Deleted name="situation_description" />
+
+        <Deleted name="situation_display_description" />
+
+        <Deleted name="situation_location_description" />
+
+        <Deleted name="situation_main_objective" />
+
+        <Deleted name="suppress_scoring_progress_bar" />
+
+        <Deleted name="targeted_situation" />
+
+        <Deleted name="travel_request_behavior" />
+
+        <Tunable type="float" name="trying_to_cook_timeout" class="TunableSimMinute" default="30" display="Trying To Cook Timeout" min="None" max="None" description="The amount of time the sim will attempt to try to start cooking." tuning_state="NeedsTuning" group="Triggers" />
+
+        <Deleted name="tutorial" />
+
+        <Deleted name="venue_invitation_message" />
+
+        <Deleted name="venue_situation_player_job" />
+    </Instance>
+
+    
+</TuningRoot>

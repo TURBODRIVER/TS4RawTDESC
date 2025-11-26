@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="UnitRatingCategory" module="business.unit_rating.unit_rating_category" description="Class containing data about a unit rating category. This is a generic version of the UnitRatingSubcatTuning class." instance_needs_reference="True" instance_subclasses_only="False" parents="DisplaySnippet" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="UnitRatingCategoryType" name="category_type" class="TunableEnumEntry" default="SIZE" display="Category Type" static_entries="business-unit_rating-unit_rating_enums.UnitRatingCategoryType" description="A UnitRatingCategoryType." binary_type="uint32" group="General" />
+
+        <TunableList name="sub_scores" class="TunableMapping" display="Sub Scores" mapping_key="RatingSubScore" mapping_value="SubScoreData" description="Mapping of RatingSubScore enum to the data about the sub score (ie. icon, name). " group="General" mapping_class="SubScore">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableEnum type="RatingSubScore" name="RatingSubScore" class="TunableEnumEntry" default="MEDIUM" display="Ratingsubscore" static_entries="business-unit_rating-unit_rating_enums.RatingSubScore" description="A RatingSubScore." binary_type="uint32" group="General" />
+                <TunableTuple name="SubScoreData" class="SubScoreDataTuple" display="Subscoredata" description="Data about a sub score." group="General">
+                    <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="The icon for the sub score." group="General" resource_types="0x2f7d0004" />
+                    <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of the sub score." group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

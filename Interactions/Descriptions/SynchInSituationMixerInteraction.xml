@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="SynchInSituationMixerInteraction" module="interactions.jig_part_constraint_interaction" description="The mixer to put every sim inside certain situation that actor sim is in to do synchronized animation." instance_needs_reference="True" instance_subclasses_only="False" parents="SynchMixerInteraction, MixerInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableList name="situation_tags" class="TunableSet" display="Situation Tags" description="Tags for arbitrary groupings of situation types." group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="situation" group="General" pack_safe="True" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

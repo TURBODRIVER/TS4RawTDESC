@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="Businessemployeedata" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableBusinessEmployeeData" display="Value" description="Tuning specific to a single type of BusinessEmployee." group="General">
+            <Tunable type="career" name="career" class="TunableReference" display="Career" description="The Career that employees of this type will have applied to them." allow_none="False" group="General" />
+            <TunableList name="career_level_delta_buffs" class="TunableMapping" display="Career Level Delta Buffs" mapping_key="key" mapping_value="value" description="A dictionary mapping the delta in career level and desired career level to a buff that is applied when employee matches the delta. e.g. A Sim is hired at their desired career level. They would be awarded the buff corresponding to entry '0'. e.g. A Sim is hired at a level 2 employee but desires to be level 5. They would be awarded the buff corresponding to '-3'." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="key" class="Tunable" default="None" display="Key" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="buff" name="value" class="TunableReference" display="Value" description="The buff to be awarded when the specified difference between career level and desired career level matches." allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+            <Tunable type="int" name="employee_count_default" class="TunableRange" default="1" display="Employee Count Default" min="0" max="None" description="The number of this type of employee the player will be able to hire by default" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="employee_count_max" class="TunableRange" default="3" display="Employee Count Max" min="0" max="None" description="The maximum number of employees allowed to be hired. This assumes all perks have been unlocked." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="employee_skills" class="TunableMapping" display="Employee Skills" mapping_key="key" mapping_value="value" description="A mapping of employee skills to their data." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="statistic" name="key" class="TunableReference" display="Key" description="A skill on the employee. The Sim Filter that generates this employee should also apply this skill." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" description="The data associated with the tuned employee skill." group="General">
+                        <Tunable type="int" name="business_summary_description" class="TunableLocalizedString" default="0x0" display="Business Summary Description" description="The description displayed in the business summary UI for this skill." group="General" />
+                        <Tunable type="float" name="weight" class="TunablePercent" default="100" display="Weight" min="0" max="100" description="The weight of this skill's completion level. This is used to compute a weighted average of skill completion. e.g. If all skills are maxed out, and their weights are all 100%, the average completion is 100%. If there are two skills, both maxed out, one of which has a 50% weight while the other has a 100% weight, the average completion is 75%." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+            <Tunable type="interaction" name="interaction_demote" class="TunableReference" display="Interaction Demote" description="The interaction to run when demoting this type of employee via the UI." allow_none="False" group="General" pack_safe="True" />
+            <Tunable type="interaction" name="interaction_fire" class="TunableReference" display="Interaction Fire" description="The interaction to run when firing this type of employee via the UI." allow_none="False" group="General" pack_safe="True" />
+            <Tunable type="interaction" name="interaction_hire" class="TunableReference" display="Interaction Hire" description="The interaction to run when hiring this type of employee via the UI." allow_none="False" group="General" pack_safe="True" />
+            <Tunable type="interaction" name="interaction_promote" class="TunableReference" display="Interaction Promote" description="The interaction to run when promoting this type of employee via the UI." allow_none="False" group="General" pack_safe="True" />
+            <Tunable type="ResourceKey" name="job_icon" class="TunableResourceKey" default="None" display="Job Icon" description="The icon for this business job." group="UI" resource_types="0x2f7d0004" />
+            <Tunable type="int" name="job_name" class="TunableLocalizedString" default="0x0" display="Job Name" description="The name of this business job." group="UI" />
+            <Tunable type="sim_filter" name="potential_employee_pool_filter" class="TunableReference" display="Potential Employee Pool Filter" description="The filter to use when looking at Sims to hire this employee type." allow_none="False" group="General" pack_safe="True" />
+            <Tunable type="int" name="potential_employee_pool_size" class="TunableRange" default="6" display="Potential Employee Pool Size" min="1" max="9" description="The number of Sims shown in the hire picker. If you want the cap raised, you'll need to chat with a GPE. There are performance concerns with generating too many SimInfos." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="statistic" name="satisfaction_commodity" class="TunableReference" display="Satisfaction Commodity" description="The commodity representing this employee type's satisfaction. Its states are used to populate the UI for the business." allow_none="False" group="General" pack_safe="True" restrict="Commodity" />
+            <Tunable type="ResourceKey" name="uniform_female" class="TunablePackSafeResourceKey" default="None" display="Uniform Female" description=" " group="General" pack_safe="True" resource_types="0x25ed6f4" />
+            <Tunable type="ResourceKey" name="uniform_male" class="TunablePackSafeResourceKey" default="None" display="Uniform Male" description="The SimInfo file to use when editing male uniforms for this employee type." group="General" pack_safe="True" resource_types="0x25ed6f4" />
+            <Tunable type="animation" name="uniform_pose" class="TunableReference" display="Uniform Pose" description="The post that mannequins in CAS are in when designing the uniform for this employee type." allow_none="False" group="General" pack_safe="True" restrict="ObjectPose" />
+            <Tunable type="float" name="weighted_skill_to_career_level_ratio" class="TunableRange" default="1" display="Weighted Skill To Career Level Ratio" min="0" max="None" description="The ratio between the computed weighted average of the employee skills and the desired career level within the retail career. e.g. All skills are equally weighted, and the average skill level is 50% completion. If this value is 100%, then the employee will start in (and desire to be), at 50% progression within the career. If this value is 50%, then the employee will start in (and desire to be), at 25% progression within the career." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

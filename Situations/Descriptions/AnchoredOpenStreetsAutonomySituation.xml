@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="AnchoredOpenStreetsAutonomySituation" module="situations.ambient.anchored_open_streets_autonomy_situation" instance_subclasses_only="False" parents="GroupAnchoredAutonomySituationCommon, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_buff" />
+
+        <Deleted name="_cost" />
+
+        <Deleted name="_display_name" />
+
+        <Deleted name="_icon" />
+
+        <Deleted name="_implies_greeted_status" />
+
+        <Deleted name="_initiating_sim_tests" />
+
+        <Deleted name="_level_data" />
+
+        <Deleted name="_main_goal_visibility_test" />
+
+        <Deleted name="_relationship_between_job_members" />
+
+        <Deleted name="_resident_job" />
+
+        <Deleted name="_supports_automatic_bronze" />
+
+        <Deleted name="audio_sting_on_start" />
+
+        <Deleted name="background_audio" />
+
+        <TunableList name="can_start_walkby_limiting_tags" class="TunableSet" display="Can Start Walkby Limiting Tags" description="Don't start a situation of this type if another situation is already running that has any of these tags in its tags field. For instance, if you only want one Streaker at a time you would create a new tag SITUATION_STREAKER. Then set that in both this field and in the tags field of situation_streaker." group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="situation" group="General" />
+        </TunableList>
+
+        <Deleted name="category" />
+
+        <Deleted name="compatible_venues" />
+
+        <Deleted name="creation_ui_option" />
+
+        <Tunable type="float" name="do_stuff_timeout" class="TunableSimMinute" default="180" display="Do Stuff Timeout" min="None" max="None" description="The amount of time the sim does stuff before leaving." tuning_state="NeedsTuning" group="Triggers" />
+
+        <Deleted name="duration" />
+
+        <Deleted name="end_situation_dialog" />
+
+        <Deleted name="entitlement" />
+
+        <Deleted name="exclusivity" />
+
+        <Deleted name="force_invite_only" />
+
+        <Deleted name="goal_button_text" />
+
+        <Deleted name="goal_sub_text" />
+
+        <Tunable type="sim_filter" name="group_filter" class="TunableReference" display="Group Filter" description="The group filter for this walkby. If set, this filter will be used instead of the filter tuned in the walker_job. If it's None, the filter in the walker_job will be used. Note that all sims spawned with this filter will be put into the walker_job job." allow_none="False" group="Roles" restrict="TunableAggregateFilter" />
+
+        <Deleted name="highlight_first_incomplete_minor_goal" />
+
+        <Deleted name="job_display_ordering" />
+
+        <Deleted name="main_goal" />
+
+        <Deleted name="main_goal_audio_sting" />
+
+        <Deleted name="max_participants" />
+
+        <Deleted name="minor_goal_chains" />
+
+        <Deleted name="recommended_job_object_notification" />
+
+        <Deleted name="recommended_job_object_text" />
+
+        <TunableTuple name="role" class="TunableTuple" display="Role" group="Roles">
+            <Tunable type="role_state" name="arriving_role_state" class="TunableReference" display="Arriving Role State" description="The role state for the sim arriving on the spawn point and waiting for the rest of the group. This is the initial state." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="role_state" name="do_stuff_role_state" class="TunableReference" display="Do Stuff Role State" description="The role state for the sim doing stuff." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="role_state" name="leave_role_state" class="TunableReference" display="Leave Role State" description="The role state for the sim leaving." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="The situation job for all sims in this situation." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <Deleted name="screen_slam_bronze" />
+
+        <Deleted name="screen_slam_gold" />
+
+        <Deleted name="screen_slam_no_medal" />
+
+        <Deleted name="screen_slam_silver" />
+
+        <Deleted name="situation_description" />
+
+        <Deleted name="situation_display_description" />
+
+        <Deleted name="situation_location_description" />
+
+        <Deleted name="situation_main_objective" />
+
+        <Deleted name="suppress_scoring_progress_bar" />
+
+        <Deleted name="targeted_situation" />
+
+        <Deleted name="travel_request_behavior" />
+
+        <Deleted name="tutorial" />
+
+        <Deleted name="venue_invitation_message" />
+
+        <Deleted name="venue_situation_player_job" />
+
+        <Tunable type="float" name="wait_for_arrival_timeout" class="TunableSimMinute" default="30" display="Wait For Arrival Timeout" min="None" max="None" description="The amount of time the sim waits at the spawn point before doing stuff." tuning_state="NeedsTuning" group="Triggers" />
+    </Instance>
+
+    
+</TuningRoot>

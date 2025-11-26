@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="guidance.guidance_tip_enums">
+        <Class name="GuidanceTipPlatformFilter" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALL_PLATFORMS" enum_value="0" />
+
+            <EnumItem name="CONSOLE_ONLY" enum_value="2" />
+
+            <EnumItem name="DESKTOP_ONLY" enum_value="1" />
+        </Class>
+
+        <Class name="GuidanceTipGameState" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BUILD_BUY" enum_value="2919482169" />
+
+            <EnumItem name="CAS" enum_value="983016380" />
+
+            <EnumItem name="GALLERY" enum_value="1" />
+
+            <EnumItem name="GAMESTATE_NONE" enum_value="0" />
+
+            <EnumItem name="LIVE_MODE" enum_value="270579719" />
+
+            <EnumItem name="MAIN_MENU" enum_value="1273744144" />
+
+            <EnumItem name="NEIGHBORHOOD_VIEW" enum_value="3640749201" />
+
+            <EnumItem name="TRAVEL" enum_value="238138433" />
+        </Class>
+
+        <Class name="GuidanceTipGroupConditionType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AND" enum_value="0" />
+
+            <EnumItem name="OR" enum_value="1" />
+        </Class>
+
+        <Class name="GuidanceTipRuleBoolen" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALWAYS" enum_value="1" />
+
+            <EnumItem name="NEVER" enum_value="0" />
+        </Class>
+
+        <Class name="GuidanceTipMode" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DISABLED" enum_value="0" />
+
+            <EnumItem name="STANDARD" enum_value="1" />
+        </Class>
+
+        <Class name="GuidanceTipOptionType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EXPANDED" enum_value="1" />
+
+            <EnumItem name="STANDARD" enum_value="0" />
+        </Class>
+
+        <Class name="GuidanceTipRelaunchCategory" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="UNCATEGORIZED" enum_value="0" />
+        </Class>
+
+        <Class name="GuidancePack" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BASE_GAME" enum_value="0" />
+
+            <EnumItem name="EP15" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

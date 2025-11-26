@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="situations.situation_types">
+        <Class name="SituationCreationUIOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AVAILABLE" enum_value="1" />
+
+            <EnumItem name="DEBUG_AVAILABLE" enum_value="2" />
+
+            <EnumItem name="NOT_AVAILABLE" enum_value="0" />
+
+            <EnumItem name="SPECIFIED_ONLY" enum_value="3" />
+        </Class>
+
+        <Class name="SituationMedal" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BRONZE" enum_value="1" />
+
+            <EnumItem name="GOLD" enum_value="3" />
+
+            <EnumItem name="SILVER" enum_value="2" />
+
+            <EnumItem name="TIN" enum_value="0" />
+        </Class>
+
+        <Class name="SituationCategoryUid" enum_bit_flag="False" enum_locked="True" enum_sorted="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="BLIND_DATE" enum_value="5" />
+
+            <EnumItem name="DATE" enum_value="3" />
+
+            <EnumItem name="DEBUG" enum_value="1" />
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="FUNERAL" enum_value="6" />
+
+            <EnumItem name="HANGOUT" enum_value="4" />
+
+            <EnumItem name="WEDDING" enum_value="2" />
+        </Class>
+
+        <Class name="JobHolderNoShowAction" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DO_NOTHING" enum_value="2" />
+
+            <EnumItem name="END_SITUATION" enum_value="0" />
+
+            <EnumItem name="REPLACE_THEM" enum_value="1" />
+        </Class>
+
+        <Class name="JobHolderDiedOrLeftAction" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DO_NOTHING" enum_value="2" />
+
+            <EnumItem name="END_SITUATION" enum_value="0" />
+
+            <EnumItem name="REPLACE_THEM" enum_value="1" />
+        </Class>
+
+        <Class name="SituationSerializationOption" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DONT" enum_value="0" />
+
+            <EnumItem name="HOLIDAY" enum_value="3" />
+
+            <EnumItem name="LOT" enum_value="1" />
+
+            <EnumItem name="OPEN_STREETS" enum_value="2" />
+
+            <EnumItem name="PIVOTAL_MOMENT" enum_value="4" />
+
+            <EnumItem name="PIVOTAL_MOMENT_ACCT_LEVEL" enum_value="5" />
+
+            <EnumItem name="PIVOTAL_MOMENT_HOUSEHOLD_LEVEL" enum_value="6" />
+        </Class>
+
+        <Class name="SituationDisplayType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACTIVITY" enum_value="4" />
+
+            <EnumItem name="EVICTION" enum_value="6" />
+
+            <EnumItem name="LIVE_EVENT" enum_value="8" />
+
+            <EnumItem name="NORMAL" enum_value="0" />
+
+            <EnumItem name="PIVOTAL_MOMENT" enum_value="5" />
+
+            <EnumItem name="ROMANCE" enum_value="7" />
+
+            <EnumItem name="SCENARIO" enum_value="3" />
+
+            <EnumItem name="SIM_SPECIFIC" enum_value="2" />
+
+            <EnumItem name="VET" enum_value="1" />
+        </Class>
+
+        <Class name="SituationGoalDisplayType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="COMPLETION_ONLY" enum_value="1" />
+
+            <EnumItem name="NORMAL" enum_value="0" />
+        </Class>
+
+        <Class name="SituationUserFacingType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACTING_CAREER_EVENT" enum_value="4" />
+
+            <EnumItem name="CAREER_EVENT" enum_value="1" />
+
+            <EnumItem name="HOLIDAY_EVENT" enum_value="3" />
+
+            <EnumItem name="MOTHER_PLANT_EVENT" enum_value="5" />
+
+            <EnumItem name="PIVOTAL_MOMENT" enum_value="7" />
+
+            <EnumItem name="SOCIAL_EVENT" enum_value="0" />
+
+            <EnumItem name="UNIVERSITY_HOUSING_KICK_OUT_EVENT" enum_value="6" />
+
+            <EnumItem name="VET_SITUATION_EVENT" enum_value="2" />
+        </Class>
+
+        <Class name="SituationDisplayFlags" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="SHOW_CANCEL" enum_value="32" />
+
+            <EnumItem name="SHOW_END_TIME" enum_value="8" />
+
+            <EnumItem name="SHOW_GOALS" enum_value="2" />
+
+            <EnumItem name="SHOW_SCORE_BAR" enum_value="4" />
+
+            <EnumItem name="SHOW_TIMER" enum_value="1" />
+
+            <EnumItem name="STAT_BASED" enum_value="16" />
+        </Class>
+
+        <Class name="SituationDisplayStyle" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ANNIVERSARY" enum_value="4" />
+
+            <EnumItem name="DECEMBER_EVENT" enum_value="5" />
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="GRIM" enum_value="3" />
+
+            <EnumItem name="HAUNTED" enum_value="1" />
+
+            <EnumItem name="NATURE_EVENT" enum_value="6" />
+
+            <EnumItem name="ROMANCE" enum_value="2" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

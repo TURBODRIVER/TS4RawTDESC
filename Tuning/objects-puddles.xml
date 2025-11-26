@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.puddles">
+        <Class name="PuddleChoices">
+            <TunableList name="PUDDLE_DEFINITIONS" class="TunableDefinitionList" display="Puddle Definitions" description="All puddles that can be created through gameplay. Should not include block models and other dev-only puddles." group="General">
+                <Tunable type="object" class="TunableReference" description="The definition of the object." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+        </Class>
+
+        <Class name="PuddleSize" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="LargePuddle" enum_value="3" />
+
+            <EnumItem name="MediumPuddle" enum_value="2" />
+
+            <EnumItem name="NoPuddle" enum_value="0" />
+
+            <EnumItem name="SmallPuddle" enum_value="1" />
+        </Class>
+
+        <Class name="PuddleLiquid" enum_bit_flag="False" enum_locked="False" enum_partitioned="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="-1" />
+
+            <EnumItem name="WATER" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

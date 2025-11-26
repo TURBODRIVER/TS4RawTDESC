@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="live_festivals.live_festival_tuning">
+        <Class name="LiveFestivalEventState" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACTIVE" enum_value="0" />
+
+            <EnumItem name="DISABLED" enum_value="1" />
+        </Class>
+
+        <Class name="LiveFestivalTuning">
+            <TunableList name="LIVE_FESTIVAL_EVENT_DATA" class="TunableMapping" display="Live Festival Event Data" mapping_key="key" mapping_value="value" description="Defines event data for live events." group="General" mapping_class="LiveFestivalEventMap">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="LiveEventName" name="key" class="TunableEnumEntry" default="DEFAULT" display="Key" dynamic_entries="live_events-live_event_service.LiveEventName._elements" static_entries="live_events-live_event_service.LiveEventName" description="Festival event key." group="General" invalid_entries="DEFAULT" />
+                    <TunableTuple name="value" class="LiveFestivalEvent" display="Value" description="Defines a live festival event" group="General">
+                        <TunableTuple name="end_date" class="TunableChallengeDateTuple" display="End Date (UTC)" description="Date and time (UTC) for when the event is expected to end." group="General">
+                            <Tunable type="int" name="day" class="TunableRange" default="1" display="Day" min="1" max="31" description="Day" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="hour" class="TunableRange" default="0" display="Hour" min="0" max="23" description="Hour (24-hour)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="month" class="TunableRange" default="1" display="Month" min="1" max="12" description="Month" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="year" class="TunableRange" default="2021" display="Year" min="2014" max="None" description="Year" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="festival_time" class="LiveFestivalEventDate" display="Festival Time" description="In-game time of festival." group="General">
+                            <Tunable type="int" name="day" class="TunableRange" default="0" display="Day" min="0" max="6" description="Day of week, 0 = sunday, 6 = saturday." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="duration" class="Tunable" default="0" display="Duration" description="Duration of festival (estimated) in minutes." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="hour" class="TunableRange" default="0" display="Hour" min="0" max="23" description="Hour (24-hour)" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <Tunable type="str" name="live_event_name" class="Tunable" default="" display="Live Event Name" description="The name of this live festival, as defined by the PMs in the UM message that triggers it. This is needed so client can map festivals to their names from the UM messages. This should be the same as the name picked as the key for this festival." group="General" />
+                        <Tunable type="lotdescription" name="lot" class="TunableReference" display="Lot" description="Reference to the lot associated with this festival." group="General" pack_safe="True" />
+                        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="User-facing name for festival to be displayed in UI." group="General" />
+                        <TunableTuple name="start_date" class="TunableChallengeDateTuple" display="Start Date (UTC)" description="Date and time (UTC) for when the event is expected to start." group="General">
+                            <Tunable type="int" name="day" class="TunableRange" default="1" display="Day" min="1" max="31" description="Day" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="hour" class="TunableRange" default="0" display="Hour" min="0" max="23" description="Hour (24-hour)" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="month" class="TunableRange" default="1" display="Month" min="1" max="12" description="Month" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="year" class="TunableRange" default="2021" display="Year" min="2014" max="None" description="Year" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableEnum type="LiveFestivalEventState" name="state" class="TunableEnumEntry" default="ACTIVE" display="State" static_entries="live_festivals-live_festival_tuning.LiveFestivalEventState" description="The active state of the event" group="General" />
+                        <Tunable type="worlddescription" name="street" class="TunableReference" display="Street" description="Reference to the street associated with this festival." group="General" pack_safe="True" />
+                        <Tunable type="ResourceKey" name="street_description_image" class="TunableResourceKey" default="None" display="Street Description Image" description="An image which is shown on the map street description tooltip" group="General" resource_types="0x2f7d0004" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

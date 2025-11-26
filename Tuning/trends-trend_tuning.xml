@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="trends.trend_tuning">
+        <Class name="TrendType" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="TrendTuning">
+            <TunableEnum type="Tag" name="CELEBRITY_TREND" class="TunableTag" default="INVALID" display="Celebrity Trend" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag we use to indicate Celebrity Trends." dynamic_entries_prefix="func_trend" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableEnum type="Tag" name="TODDLER_CHILD_TREND" class="TunableTag" default="INVALID" display="Toddler Child Trend" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag we use to indicate Toddler or Child trends." dynamic_entries_prefix="func_trend" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+            <TunableList name="TREND_DATA" class="TunableList" display="Trend Data" description="A list of data about trends." group="General">
+                <TunableTuple class="TunableTuple" description="The data about this trend." group="General">
+                    <Tunable type="int" name="trend_name" class="TunableLocalizedString" default="0x0" display="Trend Name" description="The name for this trend. This will show up in a bulleted list when a player researches current trends." group="General" />
+                    <TunableEnum type="Tag" name="trend_tag" class="TunableTag" default="INVALID" display="Trend Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag for this trend." dynamic_entries_prefix="func_trend" group="General" invalid_entries="INVALID" pack_safe="True" />
+                    <TunableEnum type="TrendType" name="trend_type" class="TunableEnumEntry" default="INVALID" display="Trend Type" dynamic_entries="trends-trend_tuning.TrendType._elements" static_entries="trends-trend_tuning.TrendType" description="The type of this trend." group="General" invalid_entries="INVALID" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="TREND_REFRESH_COOLDOWN" class="TunableTimeSpan" display="Trend Refresh Cooldown" description="The amount of time it takes before trends refresh." group="General">
+                <Tunable type="int" name="days" class="TunableRange" default="2" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="hours" class="TunableRange" default="0" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TunableList name="TREND_TIME_REMAINING_DESCRIPTION" class="TunableMapping" display="Trend Time Remaining Description" mapping_key="sim_hours" mapping_value="description_string" description="A mapping of thresholds, in Sim Hours, to descriptions used when describing the amount of time remaining in the study trends notification." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="description_string" class="TunableLocalizedString" default="0x0" display="Description String" description="A localized string that may NOT require tokens." group="General" />
+                    <Tunable type="int" name="sim_hours" class="Tunable" default="None" display="Sim Hours" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="object" name="TRENDLESS_VIDEO_DEFINITION" class="TunableReference" display="Trendless Video Definition" description="The object definition to use if a Sim records a trendless video." allow_none="False" group="General" pack_safe="True" />
+        </Class>
+    </Module>
+</TuningRoot>

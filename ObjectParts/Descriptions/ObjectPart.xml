@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="object_part" class="ObjectPart" module="objects.part" description="The instance tuning for object parts, which can be shared between objects, contains information like support posture part, slot information and interaction just for parts." instance_needs_reference="True" instance_subclasses_only="False" path="ObjectParts\Descriptions" use_guid_for_reference="True">
+        <TunableList name="blacklisted_buffs" class="TunableList" display="Blacklisted Buffs" description="A list of buffs that will disable this part as a candidate to run an interaction." group="General">
+            <Tunable type="buff" class="TunableReference" description="Reference to a buff to disable the part." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="bool" name="can_pick" class="Tunable" default="True" display="Can Pick" description="If checked, this part can be picked (selected as target when clicking on object.) If unchecked, cannot be picked." group="General" />
+
+        <Tunable type="bool" name="on_owning_part_surface" class="Tunable" default="False" display="On Owning Part Surface" description="If checked, this object is considered on top of the owning object's routing surface when generating constraints. For instance, the enclosure in the Treehouse needs constaints built on the Treehouse routing surface." group="General" />
+
+        <TunableVariant type="None" name="part_surface" class="TunableVariant" default="part_owner" display="Part Surface" description="The rules to determine the surface type for this object." group="General">
+            <TunableTuple name="override_surface" class="Tunable_OverrideSurfaceType" display="Override Surface" description="Part will use the tuned override surface type" group="General">
+                <TunableEnum type="SurfaceType" name="override_surface_type" class="TunableEnumEntry" default="SURFACETYPE_WORLD" display="Override Surface Type" static_entries="routing.SurfaceType" description="The override for the surface type. If used, part owner's surface type will be ignored." group="General" />
+            </TunableTuple>
+            <TunableTuple name="part_owner" class="Tunable_PartOwnerSurfaceType" display="Part Owner" description="Part will use the part owners's surface type. If parent has no routing surface, return None" group="General" />
+        </TunableVariant>
+
+        <TunableList name="portal_data" class="TunableSet" display="Portal Data" description="If the object owning this part has a portal component tuned, the specified portals will be created for each part of this type. The root position of the part is the subroot position." group="General" unique_entries="true">
+            <Tunable type="snippet" class="TunableReference" description="A reference to a PortalData tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="PortalData" />
+        </TunableList>
+
+        <Tunable type="subroot" name="subroot" class="TunableReference" display="Subroot" description="The reference of the subroot definition in the part." allow_none="True" group="General" />
+
+        <TunableTuple name="supported_affordance_data" class="TunableTuple" display="Supported Affordance Data" description="Define affordance compatibility for this part." group="General">
+            <TunableVariant type="None" name="compatibility" class="TunableAffordanceFilterSnippet" default="literal" display="Compatibility" description="Affordances supported by the part (This may be tuned in place here using 'literal' or as a reference to a AffordanceFilter tuning snippet.)" group="General">
+                <TdescFragTag name="literal" class="_TunableAffordanceFilter" display="Literal" description="An affordance filter." group="General" />
+                <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a AffordanceFilter tuning snippet." allow_none="False" group="General" restrict="AffordanceFilter" />
+            </TunableVariant>
+            <Tunable type="bool" name="consider_mixers" class="Tunable" default="False" display="Consider Mixers" description="If checked, mixers are filtered through this compatibility check. If unchecked, all mixers are assumed to be valid to run on this part." group="General" />
+        </TunableTuple>
+
+        <TunableVariant type="None" name="supported_posture_types" class="TunablePostureTypeListSnippet" default="literal" display="Supported Posture Types" description="The postures supported by this part. If empty, assumes all postures are supported. (This may be tuned in place here using 'literal' or as a reference to a PostureTypeList tuning snippet.)" group="General">
+            <TunableList name="literal" class="TunableList" display="Literal" group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="posture" name="posture_type" class="TunableReference" display="Posture Type" description="Posture that is supported by this object." allow_none="False" group="General" pack_safe="True" />
+                    <TunableVariant type="None" name="required_clearance" class="OptionalTunable" default="disabled" display="Required Clearance" description="Amount of clearance you need in front of the object or part for this posture to be supported." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="Tunable" default="1" display="Enabled" description="Amount of clearance you need in front of the object or part for this posture to be supported." tuning_state="NeedsTuning" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableList>
+            <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a PostureTypeList tuning snippet." allow_none="False" group="General" restrict="PostureTypeList" />
+        </TunableVariant>
+
+        <TunableTuple name="trait_requirements" class="TunableWhiteBlackList" display="Trait Requirements" description="Trait blacklist and whitelist requirements to pick this part." group="General">
+            <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                    <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                        <Tunable type="trait" class="TunableReference" description="Reference to the trait white/blacklists." allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                    </TunableList>
+                    <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                        <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                            <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableVariant>
+            <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                <Tunable name="everything" class="TunableExistance" display="Everything" />
+                <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                    <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                        <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                            <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                        <Tunable type="trait" class="TunableReference" description="Reference to the trait white/blacklists." allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

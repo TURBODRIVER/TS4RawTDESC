@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="aspiration_category" class="AspirationCategory" module="aspirations.aspiration_tuning" description="A collection of UI data for an Aspiration Category." instance_needs_reference="True" instance_subclasses_only="False" path="AspirationCategories\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="display_text" class="TunableLocalizedString" default="0x0" display="Display Text" description="The Aspiration Category's name within the UI." group="UI" />
+
+        <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="The icon to be displayed in the panel view." allow_none="True" group="UI" resource_types="0x2f7d0004" />
+
+        <Tunable type="bool" name="is_sim_info_panel" class="Tunable" default="False" display="Is Sim Info Panel" description="If checked then this Category will be marked for the Sim Info panel rather than for the Aspiration panel." group="UI" />
+
+        <Tunable type="int" name="ui_sort_order" class="Tunable" default="0" display="Ui Sort Order" description="Order in which this category is sorted against other categories in the UI. If two categories share the same sort order, undefined behavior will ensue." tuning_state="NeedsTuning" group="UI" />
+
+        <TunableList name="used_by_packs" class="TunableEnumSet" display="Used By Packs" description="Optional set of packs which utilize this category. Used for excluding categories from the UI if their tuning resides in base game. (It is preferred to place category tuning in the appropriate pack, if possible.)" group="UI" unique_entries="true">
+            <TunableEnum type="Pack" class="TunableEnumEntry" default="BASE_GAME" static_entries="sims4-common.Pack" group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

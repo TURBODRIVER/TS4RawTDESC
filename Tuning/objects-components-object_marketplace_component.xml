@@ -1,0 +1,928 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.object_marketplace_component">
+        <Class name="ObjectMarketplaceComponent">
+            <TunableEnum type="SimNameType" name="BUYER_NAME_TYPE" class="TunableEnumEntry" default="DEFAULT" display="Buyer Name Type" dynamic_entries="sims-sim_spawner_enums.SimNameType._elements" static_entries="sims-sim_spawner_enums.SimNameType" description="The SimNameType to use for generating buyer names." group="General" />
+
+            <TunableTuple name="CUSTOM_TOOLTIP_TUNING" class="TunableTunableObjectMarketplaceCustomTooltip" display="Custom Tooltip Tuning" description="Any object that is listed or pending sale on the object marktplace will have this custom tooltip tuning prepending to its normal tooltip tuning." group="General">
+                <TunableList name="custom_tooltips" class="TunableList" display="Custom Tooltips" description="List of possible tooltips that will be displayed on an object when moused over. Each tooltip has its set of tests which will be evaluated whenever the object its created or when its state changes. The test that passes its the tooltip that the object will display." group="General">
+                    <TunableTuple class="TunableTuple" description="Variation of tooltips that may show when an object is hover over. Which tooltip is shows will depend on the object_tests that are tuned. " group="General">
+                        <TunableVariant type="None" name="display_object_preference" class="OptionalTunable" default="disabled" display="Display Object Preference" description="If enabled, will display autonomous preference for the specified tag in the tooltip." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableEnum type="ObjectPreferenceTag" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" dynamic_entries="autonomy-autonomy_preference.ObjectPreferenceTag._elements" static_entries="autonomy-autonomy_preference.ObjectPreferenceTag" description="The preference tag associated with the information to display." group="General" invalid_entries="INVALID" />
+                        </TunableVariant>
+                        <TunableList name="object_tests" class="TunableObjectModifyTestSet" display="Object Tests" description="All least one subtest group (AKA one list item) must pass within this list for the tooltip values to be valid on the object." group="General">
+                            <TunableList class="TunableList" description="A list of tests. All of these must pass for the group to pass." group="General">
+                                <TunableVariant type="None" class="TunableObjectModifyTestVariant" default="none" description="A single tunable test." group="General">
+                                    <TunableTuple name="animal_test" class="TunableAnimalTest" display="Animal Test" description="Tests for animal assignments and homes." group="General">
+                                        <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="Returns the opposite of the test results." group="General" />
+                                        <TunableVariant type="None" name="test_type" class="TunableVariant" default="none" display="Test Type" description="The type of animal test to run." group="General">
+                                            <TunableTuple name="animal_assigned_to_target_home" class="TunableAssignedToTargetHomeTest" display="Animal Assigned To Target Home" description="Test that returns true if all animals are assigned to a particular home. Will return False if any animal is not assigned to the target." group="General">
+                                                <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="Animal we're testing the assignment of." group="General" />
+                                                <TunableEnum type="ParticipantTypeSingle" name="target" class="TunableEnumEntry" default="ParticipantType.Object" display="Target" static_entries="interactions.ParticipantTypeSingle" description="Target home to test that the animal is assigned to." group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="animal_gifting_is_ready" class="TunableAnimalGiftingCooldownTest" display="Animal Gifting Is Ready" description="A tunable test that tests if the animal's cooldowns are ready for gifting, can test general and category" group="General">
+                                                <TunableVariant type="None" name="cooldown_op_variant" class="TunableVariant" default="category_cooldown_op" display="Cooldown Op Variant" description="Whether or not this should test against the general readiness, or category readiness" group="General">
+                                                    <TunableTuple name="category_cooldown_op" class="TunableTuple" display="Category Cooldown Op" description="This operation tests against category readiness" group="General">
+                                                        <TunableEnum type="Tag" name="tag" class="TunableTag" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Which tag category to test" dynamic_entries_prefix="Func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="general_cooldown_op" class="TunableTuple" display="General Cooldown Op" description="This operation tests against general readiness" group="General" />
+                                                </TunableVariant>
+                                                <TunableEnum type="ParticipantTypeActorTargetSim" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantTypeActorTargetSim" description="The subject initiating the test" group="General" />
+                                                <TunableEnum type="ParticipantTypeSingle" name="target" class="TunableEnumEntry" default="ParticipantType.Object" display="Target" static_entries="interactions.ParticipantTypeSingle" description="The animal we're targeting" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="animal_has_matching_preference" class="TunableAnimalPreferenceTest" display="Animal Has Matching Preference" description="A tunable test that tests if the animal has a preference that matches the requested preference." group="General">
+                                                <TunableEnum type="PreferenceTypes" name="preference_type" class="TunableEnumEntry" default="DISLIKE" display="Preference Type" static_entries="objects-animals-animal_tests.PreferenceTypes" description="The type of preference that we'll test the tag against" group="General" />
+                                                <TunableEnum type="Tag" name="tag_to_test" class="TunableTag" default="INVALID" display="Tag To Test" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag (category) to test against" dynamic_entries_prefix="Func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                <TunableEnum type="ParticipantTypeSingle" name="target" class="TunableEnumEntry" default="ParticipantType.Object" display="Target" static_entries="interactions.ParticipantTypeSingle" description="The animal we're targeting" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="animal_is_homeless" class="TunableHomelessTest" display="Animal Is Homeless" description="Test that returns true if all animal subjects are currently homeless." group="General">
+                                                <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="Animal to run the test on." group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="are_all_preferences_known" class="TunableAllAnimalPreferencesKnownTest" display="Are All Preferences Known" description="A tunable test that tests if the animal's cooldowns are ready for gifting, can test general and category" group="General">
+                                                <TunableEnum type="ParticipantTypeActorTargetSim" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantTypeActorTargetSim" description="The subject initiating the test" group="General" />
+                                                <TunableEnum type="ParticipantTypeSingle" name="target" class="TunableEnumEntry" default="ParticipantType.Object" display="Target" static_entries="interactions.ParticipantTypeSingle" description="The animal we're targeting" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="home_is_at_max_capacity" class="TunableHomeMaxCapacityTest" display="Home Is At Max Capacity" description="Test that returns true if subject's home is currently at maximum capacity. If subject is tuned on an animal, run the test for the animal's assigned home. Otherwise, we assume it's the home itself." group="General">
+                                                <TunableEnum type="ParticipantTypeSingle" name="subject" class="TunableEnumEntry" default="ParticipantType.Actor" display="Subject" static_entries="interactions.ParticipantTypeSingle" description="Animal or home to run the test on." group="General" />
+                                            </TunableTuple>
+                                            <Tunable name="none" class="TunableExistance" display="None" />
+                                            <TunableTuple name="sim_has_animal_preference_knowledge" class="TunableAnimalPreferenceKnowledgeTest" display="Sim Has Animal Preference Knowledge" description="A tunable test that tests if the sim's household has knowledge of a specific preference" group="General">
+                                                <TunableEnum type="ParticipantTypeActorTargetSim" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantTypeActorTargetSim" description="The subject initiating the test" group="General" />
+                                                <TunableEnum type="Tag" name="tag_to_test" class="TunableTag" default="INVALID" display="Tag To Test" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag (category) to test against" dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                                                <TunableEnum type="ParticipantTypeSingle" name="target" class="TunableEnumEntry" default="ParticipantType.Object" display="Target" static_entries="interactions.ParticipantTypeSingle" description="The animal we're targeting" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                    <TunableTuple name="consumable_test" class="TunableConsumableTest" display="Consumable Test" description="A test that checks information about consumables." group="General">
+                                        <TunableTuple name="bites_left" class="TunableTuple" display="Bites Left" description="A check that tests against the number of bites left before the subject is completely consumed." group="General">
+                                            <TunableEnum type="Operator" name="operator" class="TunableOperator" default="EQUAL" display="Operator" static_entries="sims4-math.Operator" description="The operator to use for the comparison." group="General" />
+                                            <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The number of bites to test against." tuning_state="NeedsTuning" group="General" />
+                                        </TunableTuple>
+                                        <Tunable type="bool" name="is_consumable" class="Tunable" default="True" display="Is Consumable" description="If checked, the subject must be a consumable, if unchecked, the subject must not be a consumable." group="General" />
+                                        <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Object" display="Subject" static_entries="interactions.ParticipantType" description="The subject of the test. This is the consumable object." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="custom_name" class="TunableCustomNameTest" display="Custom Name" description="Require or prohibit an object from having a custom name or description set." group="General">
+                                        <TunableVariant type="None" name="has_custom_description" class="OptionalTunable" default="disabled" display="Has Custom Description" description="If checked, the subject must have a custom description set. If unchecked, it cannot have a custom description set." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" description="If checked, the subject must have a custom description set. If unchecked, it cannot have a custom description set." group="General" />
+                                        </TunableVariant>
+                                        <TunableVariant type="None" name="has_custom_name" class="OptionalTunable" default="disabled" display="Has Custom Name" description="If checked, the subject must have a custom name set. If unchecked, it cannot have a custom name set." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" description="If checked, the subject must have a custom name set. If unchecked, it cannot have a custom name set." group="General" />
+                                        </TunableVariant>
+                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="The subject who is the object of this test." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="existence" class="TunableExistenceTest" display="Existence" description="A test to check whether the specified participant exists." group="General">
+                                        <Tunable type="bool" name="allow_hidden_sim_status" class="Tunable" default="False" display="Allow Hidden Sim Status" description="If checked then we will ignore hidden Sim status such that they will count as existing even though they have been hidden. Use this in conjunction with Require Instantiated in order to determine the Sim's actual instantiated status. " group="General" />
+                                        <Tunable type="bool" name="exists" class="Tunable" default="True" display="Exists" description="When checked, require the specified participant to exist. When unchecked, require the specified participant to not exist." group="General" />
+                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="TargetSim" display="Participant" static_entries="interactions.ParticipantType" description="The participant for which to check existence." group="General" />
+                                        <Tunable type="bool" name="require_instantiatable" class="Tunable" default="True" display="Require Instantiatable" description="If checked, the specified participant must be instantiatable. This is generally true for all Sims at LOD above MINIMUM." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="game_option" class="TunableSimInfoGameplayOptionsTest" display="Game Option" description="Test whether or not a Sim has a specific gameplay option set." group="General">
+                                        <TunableEnum type="TestableGameOptions" name="gameplay_option" class="TunableEnumEntry" default="CIVIC_POLICY_NPC_VOTING_ENABLED" display="Gameplay Option" static_entries="event_testing-game_option_tests.TestableGameOptions" description="The gameplay option to test. This test will pass if this option is set." group="General" />
+                                        <Tunable type="bool" name="invert" class="Tunable" default="False" display="Invert" description="If enabled, requires the option to be unset for the test to pass." group="General" />
+                                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                    <TunableTuple name="in_inventory" class="TunableInInventoryTest" display="In Inventory" description="A test to check if the specified participant is in, or not in, an inventory of a particular type." group="General">
+                                        <TunableList name="inventory_types" class="TunableSet" display="Inventory Types" description="Inventory types to test against. If this is any, the test will consider ALL inventory types." group="General" unique_entries="true">
+                                            <TunableEnum type="InventoryType" class="TunableEnumEntry" default="UNDEFINED" dynamic_entries="objects-components-inventory_enums.InventoryType._elements" static_entries="objects-components-inventory_enums.InventoryType" description="The inventory type to test." group="General" invalid_entries="UNDEFINED" />
+                                        </TunableList>
+                                        <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If enabled, we will check that the participant IS NOT in any of the specified inventory types. If disabled, we will check that the participant IS in at least one of the specified inventory types." group="General" />
+                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="The participant to test." group="General" />
+                                        <Tunable type="bool" name="test_hidden" class="Tunable" default="False" display="Test Hidden" description="If enabled, will test whether the participant is in the hidden storage of the inventory or not, based on the value of negate. If this is enabled and negate is not, we require the object to be in the hidden storage of the inventory. If this enabled and negate is enabled, we require that the object is not in the hidden storage of the inventory." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="inventory" class="TunableInventoryTest" display="Inventory" description="A test to check on the contents of either a sim inventory or an object inventory." group="General">
+                                        <TunableVariant type="None" name="contents_check" class="TunableVariant" default="has_anything" display="Contents Check" description="Checks to run on each object of the specified inventory" group="General">
+                                            <Tunable name="has_anything" class="TunableExistance" display="Has Anything" />
+                                            <TunableTuple name="has_object_in_situation" class="TunableTuple" display="Has Object In Situation" description=" " group="General">
+                                                <TunableTuple name="scheduled_situation_special_object_test" class="TunableScheduledSituationSpecialObjectTest" display="Scheduled Situation Special Object Test" description="Check if an object is the special object for a drama node's situation." group="General">
+                                                    <TunableEnum type="ParticipantTypeSingleSim" name="host_sim" class="TunableEnumEntry" default="ParticipantType.Actor" display="Host Sim" static_entries="interactions.ParticipantTypeSingleSim" description="The sim to compare against the host sim of a situation. " group="General" />
+                                                    <TunableVariant type="None" name="object_tags" class="OptionalTunable" default="disabled" display="Object Tags" description="Tagging requirements on the object. " group="General">
+                                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                        <TunableTuple name="enabled" class="TunableObjectTagFactory" display="Enabled" group="General">
+                                                            <TunableList name="tag_set" class="TunableSet" display="Tag Set" group="General" unique_entries="true">
+                                                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for." group="General" pack_safe="True" />
+                                                            </TunableList>
+                                                            <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                                                        </TunableTuple>
+                                                    </TunableVariant>
+                                                    <Tunable type="situation" name="situation_type" class="TunableReference" display="Situation Type" description="The type of situations you want to look for. " allow_none="False" group="General" pack_safe="True" />
+                                                    <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                    </TunableVariant>
+                                                </TunableTuple>
+                                            </TunableTuple>
+                                            <TunableTuple name="has_object_of_participant_type" class="TunableTuple" display="Has Object Of Participant Type" description="Participant type we want to test if its in the selected inventory." group="General">
+                                                <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="Which participant of the interaction do we want to validate on the inventory. " group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="has_object_with_def" class="TunableTuple" display="Has Object With Def" group="General">
+                                                <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object definition to look for inside inventory." allow_none="False" group="General" pack_safe="True" />
+                                            </TunableTuple>
+                                            <TunableTuple name="has_object_with_states" class="BasicStateCheckFactory" display="Has Object With States" description="This option tests crafted item's tags against a list of possible tags." group="General">
+                                                <TunableVariant type="None" name="object_requirement" class="TunableVariant" default="any_object" display="Object Requirement" group="General">
+                                                    <Tunable name="any_object" class="TunableExistance" display="Any Object" />
+                                                    <TunableTuple name="definition" class="TunableTuple" display="Definition" group="General">
+                                                        <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="The object must have this definition." allow_none="False" group="General" pack_safe="True" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="tag" class="TunableTuple" display="Tag" group="General">
+                                                        <TunableTuple name="tag" class="CraftTaggedItemFactory" display="Tag" description="The object must have this tag." group="General">
+                                                            <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tag of objects we want to test ownership of" group="General" unique_entries="true">
+                                                                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" pack_safe="True" />
+                                                            </TunableList>
+                                                            <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                                                        </TunableTuple>
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                                <TunableList name="state_set" class="TunableSet" display="State Set" group="General" unique_entries="true">
+                                                    <Tunable type="object_state" class="TunableReference" description="What state to test for." allow_none="False" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableEnum type="StateTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_STATE_IN_SET" display="Test Type" static_entries="objects-object_tests.StateTestType" description="How to test the states in the state set against the objects in the inventory." group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="has_object_with_tag" class="CraftTaggedItemFactory" display="Has Object With Tag" description="This option tests crafted item's tags against a list of possible tags" group="General">
+                                                <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tag of objects we want to test ownership of" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                        <Tunable type="bool" name="get_total_count" class="Tunable" default="False" display="Get Total Count" description="If disabled, we will stop searching the inventory as soon as we meet the required count, resulting in a partial count of the inventory. If enabled, we will search the entire inventory in order to get an accurate count of the inventory. Enable this option if you are interested in the total count of the inventory, such as during calculations." group="General" />
+                                        <TunableVariant type="None" name="inventory_location" class="TunableVariant" default="participant_inventory" display="Inventory Location" description="Who owns the inventory. Either look in the inventory of a participant or specify an object inventory type directly. If participant returns multiple inventory owners, the test will pass only if ALL of those owners pass the inventory content test." group="General">
+                                            <TunableTuple name="hidden_inventory_objects" class="TunableTuple" display="Hidden Inventory Objects" group="General">
+                                                <TunableEnum type="InventoryType" name="inventory" class="TunableEnumEntry" default="UNDEFINED" display="Inventory" dynamic_entries="objects-components-inventory_enums.InventoryType._elements" static_entries="objects-components-inventory_enums.InventoryType" description="Check in the hidden inventory for objects that can go into the specified inventory type. EX: check that there are mailbox objects in the hidden inventory" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="object_inventory_type" class="TunableTuple" display="Object Inventory Type" group="General">
+                                                <TunableEnum type="InventoryType" name="inventory" class="TunableEnumEntry" default="UNDEFINED" display="Inventory" dynamic_entries="objects-components-inventory_enums.InventoryType._elements" static_entries="objects-components-inventory_enums.InventoryType" description="Check the global Object inventory that has the specified type. EX: check in the global fridge inventory that exists for all fridges" group="General" />
+                                            </TunableTuple>
+                                            <TunableTuple name="participant_inventory" class="TunableTuple" display="Participant Inventory" group="General">
+                                                <TunableEnum type="ParticipantType" name="inventory" class="TunableEnumEntry" default="Actor" display="Inventory" static_entries="interactions.ParticipantType" description="The owner of the inventory" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                        <TunableTuple name="required_count" class="TunableThreshold" display="Required Count" description="The inventory must have a tunable threshold of objects that pass the contents check test. EX: test is object definition of type pizza. required count is enabled and has a threshold of >= 5. That means this test will pass if you have 5 or more pizzas in your inventory. To check if any objects exist, use required count >= 1" group="General">
+                                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                            <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                                        </TunableTuple>
+                                        <TunableEnum type="TestHiddenInventories" name="test_hidden" class="TunableEnumEntry" default="ANY" display="Test Hidden" static_entries="objects-object_tests.InventoryTest.TestHiddenInventories" description="Optionally restrict to only hidden or non-hidden inventories." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="location" class="TunableLocationTest" display="Location" description="Tests for object locations. Outside: Check if an object is on the inside or outside (has a roof over its head) Natural ground: Checks the floor tiles where the object is to see if it qualifies as natural ground" group="General">
+                                        <TunableTuple name="location_tests" class="TunableTuple" display="Location Tests" group="General">
+                                            <TunableVariant type="None" name="has_terrain_tag" class="OptionalTunable" default="Don't_Test" display="Has Terrain Tag" description="If checked, will verify the subject of the test is currently on the tuned terrain tag." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description=", A set of terrain tags required for this test to pass." group="General">
+                                                    <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If checked, the test will be inverted. In other words, the test will fail if at least one tag is detected at this location." group="General" />
+                                                    <TunableList name="terrain_tags" class="TunableEnumSet" display="Terrain Tags" description="A set of terrain tags. Only one of these tags needs to be present at this location. Although it is not tunable, there is a threshold weight underneath which a terrain tag will not appear to be present." group="General" unique_entries="true">
+                                                        <TunableEnum type="TerrainTag" class="TunableEnumEntry" default="INVALID" static_entries="world-terrain_enums.TerrainTag" group="General" />
+                                                    </TunableList>
+                                                    <Tunable type="bool" name="test_floor_tiles" class="Tunable" default="False" display="Test Floor Tiles" description="If checked, floor tiles will be tested. Otherwise, it'll only check the terrain and will ignore the floor tiles on the terrain." group="General" />
+                                                </TunableTuple>
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="in_common_area" class="OptionalTunable" default="Don't_Test" display="In Common Area" description="If checked, will verify the subject is in the common area of an apartment. If unchecked will verify the subject is not." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" group="General" />
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="is_fire_allowed" class="OptionalTunable" default="Don't_Test" display="Is Fire Allowed" description="If checked, will verify if fire is possible at the subject's position. If unchecked, will pass if fire is not possible. If not enabled, doesn't care either way." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" group="General" />
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="is_in_pond" class="OptionalTunable" default="Don't_Test" display="Is In Pond" description="If checked, test if the subject is inside a pond. If unchecked, test if the subject is not inside a pond. If disabled, don't care either way." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" group="General" />
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="is_in_slot" class="OptionalTunable" default="Don't_Test" display="Is In Slot" description="If enabled will test if the object is attacked/deattached to any of possible tuned slots. If you tune a slot type set the test will test if the object is slotted or not slotted into into any of those types. " group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Test if an object is current slotted in any of a possible list of slot types. Empty slot type set is allowed for testing for slotted or not slotted only." group="General">
+                                                    <TunableVariant type="None" name="slot_test_type" class="TunableVariant" default="any_slot" display="Slot Test Type" description="Strategy to test the slots: Any Slot - is the object in any slot Surface Slot - is object is in a surface slot Specific Slot - is the object in specific list of slots" group="General">
+                                                        <TunableTuple name="any_slot" class="TunableSlotTestType" display="Any Slot" description="Singleton factory for testing if object is slotted." group="General">
+                                                            <Tunable type="bool" name="require_slotted" class="Tunable" default="True" display="Require Slotted" description="If checked, return success if the object is slotted If unchecked, test the absense of slotting." group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="specific_slot" class="TunableSpecificSlotTest" display="Specific Slot" description="Subclass of SlotTestType that can check against a specific slot set." group="General">
+                                                            <Tunable type="bool" name="require_slotted" class="Tunable" default="True" display="Require Slotted" description="If checked, return success if the object is slotted If unchecked, test the absense of slotting." group="General" />
+                                                            <Tunable type="slot_type_set" name="specific_slot_set" class="TunableReference" display="Specific Slot Set" description="Set of slots the object may be attached to." allow_none="False" group="General" />
+                                                        </TunableTuple>
+                                                        <TunableTuple name="surface_slot" class="TunableSurfaceSlotTest" display="Surface Slot" description="Subclass of SlotTestType that checks that a slot has is_surface set to true." group="General">
+                                                            <Tunable type="bool" name="require_slotted" class="Tunable" default="True" display="Require Slotted" description="If checked, return success if the object is slotted If unchecked, test the absense of slotting." group="General" />
+                                                        </TunableTuple>
+                                                    </TunableVariant>
+                                                </TunableTuple>
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="is_inside_building" class="OptionalTunable" default="Don't_Test" display="Is Inside Building" description="If checked, will verify if the subject of the test is inside a building. This uses a client function that checks if the block the sim is mostly enclosed by walls or if not, if the adjoining blocks are themselves enclosed. This should be used when we want to test if a subject is inside a normally constructed building. If we simply want to test whether the subject is covered / has a roof over them, use is_outside. See comment on is_outside for more details. If unchecked, will negate this test." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" group="General" />
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="is_natural_ground" class="OptionalTunable" default="Don't_Test" display="Is Natural Ground" description="If checked, will verify the subject of the test is on natural ground (no floor tiles are under him). Otherwise, will verify the subject of the test is not on natural ground." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" group="General" />
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="is_on_active_lot" class="OptionalTunable" default="Don't_Test" display="Is On Active Lot" description="If disabled the test will not be used. If enabled and checked, the test will pass if the subject is on the active lot. (their center is within the lot bounds) If enabled and not checked, the test will pass if the subject is outside of the active lot. For example, Ask To Leave is tuned with this enabled and checked for the TargetSim. You can only ask someone to leave if they are actually on the active lot, but not if they are wandering around in the open streets." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <TunableTuple name="Is_or_is_not_on_active_lot" class="TunableTuple" display="Is Or Is Not On Active Lot" group="General">
+                                                    <Tunable type="bool" name="include_spawn_point" class="Tunable" default="False" display="Include Spawn Point" description="If set to true, we will consider the lot's spawn point as part of the active lot." group="General" />
+                                                    <Tunable type="bool" name="is_or_is_not_on_active_lot" class="Tunable" default="True" display="Is Or Is Not On Active Lot" description="If checked then the test will pass if the subject is on the active lot." group="General" />
+                                                    <TunableVariant type="None" name="tolerance" class="TunableVariant" default="explicit" display="Tolerance" group="General">
+                                                        <Tunable type="int" name="explicit" class="Tunable" default="0" display="Explicit" description="The tolerance from the edge of the lot that the location test will use in order to determine if the test target is considered on lot or not." tuning_state="NeedsTuning" group="General" />
+                                                        <TunableTuple name="use_default_tolerance" class="UseDefaultOfflotToleranceFactory" display="Use Default Tolerance" description="Use the default tuned global offlot tolerance tuned in objects.components.statistic_component.Default Off Lot." group="General" />
+                                                    </TunableVariant>
+                                                </TunableTuple>
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="is_on_level" class="OptionalTunable" default="Don't_Test" display="Is On Level" description="If enabled, we check the participant's current level against the tuned threshold. In the case of sims in pools, the effective level will be that of the surface of the pool, not the bottom." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <TunableTuple name="enabled" class="TunableThreshold" display="Enabled" description="Value/comparison pair used to define a Threshold." group="General">
+                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                    <Tunable type="int" name="value" class="Tunable" default="0" display="Value" tuning_state="NeedsTuning" group="General" />
+                                                </TunableTuple>
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="is_outside" class="OptionalTunable" default="Don't_Test" display="Is Outside" description="PLEASE BE AWARE. If checked, will verify if the subject of the test does not have a roof over their head. If unchecked, will test if the subject has a roof over their head. If the intention is to determine if a subject is in/not in a building, this test is deprecated in favor of is_inside_building. If you would like to test if a subject is inside a building, but also need to test if they have a roof over their head, please use both options." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" group="General" />
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="is_venue_type" class="OptionalTunable" default="Don't_Test" display="Is Venue Type" description="If checked, will verify if the subject is at a venue of the specified type." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Venue type required for this test to pass." group="General">
+                                                    <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If enabled, the test will return true if the subject IS NOT at a venue of the specified type." group="General" />
+                                                    <Tunable type="bool" name="use_source_venue" class="Tunable" default="False" display="Use Source Venue" description="If enabled, the test will test the source venue instead of the active venue. For example, the Community Lot instead of the active Marketplace. Testing the active venue is the default." group="General" />
+                                                    <Tunable type="venue" name="venue_type" class="TunableReference" display="Venue Type" description="Venue type to test against." allow_none="False" group="General" pack_safe="True" />
+                                                </TunableTuple>
+                                            </TunableVariant>
+                                            <TunableVariant type="None" name="valid_surface_types" class="OptionalTunable" default="Don't_Test" display="Valid Surface Types" description="If enabled, we will test the surface type of the subject against prohibited or required surface types." group="General">
+                                                <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                                                <TunableTuple name="Test_Surface_Types" class="TunableWhiteBlackList" display="Test Surface Types" description="Required and Prohibited Surface Types. " group="General">
+                                                    <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                                                        <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                                                        <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                                            <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                                                <TunableEnum type="SurfaceType" class="TunableEnumEntry" default="SURFACETYPE_WORLD" static_entries="routing.SurfaceType" description="Surface Type the object is placed on." group="General" invalid_entries="SURFACETYPE_UNKNOWN" />
+                                                            </TunableList>
+                                                            <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                    <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                </TunableTuple>
+                                                            </TunableVariant>
+                                                        </TunableTuple>
+                                                    </TunableVariant>
+                                                    <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                                                        <Tunable name="everything" class="TunableExistance" display="Everything" />
+                                                        <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                                            <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                    <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                </TunableTuple>
+                                                            </TunableVariant>
+                                                            <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                                                <TunableEnum type="SurfaceType" class="TunableEnumEntry" default="SURFACETYPE_WORLD" static_entries="routing.SurfaceType" description="Surface Type the object is placed on." group="General" invalid_entries="SURFACETYPE_UNKNOWN" />
+                                                            </TunableList>
+                                                        </TunableTuple>
+                                                    </TunableVariant>
+                                                </TunableTuple>
+                                            </TunableVariant>
+                                        </TunableTuple>
+                                    </TunableTuple>
+                                    <Tunable name="none" class="TunableExistance" display="None" />
+                                    <TunableTuple name="object_definition" class="TunableObjectMatchesDefinitionOrTagTest" display="Object Definition" description="Check to see if the specified object matches either a static definition or a set of tags" group="General">
+                                        <TunableVariant type="None" name="item" class="TunableVariant" default="tagged_item" display="Item" description="Whether to test for a specific item or item that has a set of tags" group="General">
+                                            <TunableTuple name="actual_item" class="CraftActualItemFactory" display="Actual Item" description="This option tests crafted item against a list of possible items" group="General">
+                                                <TunableList name="items_to_check" class="TunableList" display="Items To Check" group="General">
+                                                    <Tunable type="object" class="TunableReference" description="Object that qualifies for this check." allow_none="False" group="General" pack_safe="True" />
+                                                </TunableList>
+                                            </TunableTuple>
+                                            <TunableTuple name="tagged_item" class="CraftTaggedItemFactory" display="Tagged Item" description="This option tests crafted item's tags against a list of possible tags" group="General">
+                                                <TunableList name="tag_set" class="TunableSet" display="Tag Set" description="The tag of objects we want to test ownership of" group="General" unique_entries="true">
+                                                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for" group="General" pack_safe="True" />
+                                                </TunableList>
+                                                <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                    <TunableTuple name="object_preference" class="TunableObjectScoringPreferenceTest" display="Object Preference" description="A tunable factory that checks whether or not the target object of an affordance is the Sim's preferred scoring object." group="General">
+                                        <TunableVariant type="None" name="any_sim" class="OptionalTunable" default="disabled" display="Any Sim" description="If enabled, will return whether the object has any 'Use Only' preference set for the specified tag. Will not be sim specific, and thus only works for 'use only' preference type. Does NOT rely on interaction to determine preference type. Value is the tag to test for." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableEnum type="ObjectPreferenceTag" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" dynamic_entries="autonomy-autonomy_preference.ObjectPreferenceTag._elements" static_entries="autonomy-autonomy_preference.ObjectPreferenceTag" description="Tag to determine which preference type to use." group="General" invalid_entries="INVALID" />
+                                        </TunableVariant>
+                                        <Tunable type="bool" name="require" class="Tunable" default="True" display="Require" description="The Sim's preference is required to be True or required to be False." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="season" class="TunableSeasonTest" display="Season" description="SeasonTest will test if the current simulation time falls within the specified test conditions." group="General">
+                                        <Tunable type="bool" name="requires_seasons_pack" class="Tunable" default="True" display="Requires Seasons Pack" description="If checked, this test will require that the Seasons pack be installed in order for the seasons test to pass. If unchecked, this test will automatically pass." group="General" />
+                                        <TunableList name="seasons" class="TunableEnumSet" display="Seasons" min="1" description="Season(s) that we must be in to pass the test." group="General" unique_entries="true">
+                                            <TunableEnum type="SeasonType" class="TunableEnumEntry" default="SUMMER" static_entries="seasons-seasons_enums.SeasonType" group="General" />
+                                        </TunableList>
+                                        <TunableVariant type="None" name="time_of_season" class="OptionalTunable" default="disabled" display="Time Of Season" description="Portion(s) of season(s) that we must be in to pass the test." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableList name="enabled" class="TunableEnumSet" display="Enabled" min="1" description="Portion(s) of season(s) that we must be in to pass the test." group="General" unique_entries="true">
+                                                <TunableEnum type="SeasonSegment" class="TunableEnumEntry" default="EARLY" static_entries="seasons-seasons_enums.SeasonSegment" group="General" />
+                                            </TunableList>
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                    <TunableTuple name="state" class="TunableStateTest" display="State" description="Gate availability by object state. By default, the test will use the state's linked stat as a fallback in case the target doesn't have the state involved." group="General">
+                                        <TunableVariant type="None" name="fallback_behavior" class="TunableVariant" default="always_fail" display="Fallback Behavior" description="What to do if the given object doesn't have the state in question." group="General">
+                                            <Tunable name="always_fail" class="TunableExistance" display="Always Fail" />
+                                            <Tunable name="always_pass" class="TunableExistance" display="Always Pass" />
+                                        </TunableVariant>
+                                        <TunableEnum type="Operator" name="operator" class="TunableOperator" default="EQUAL" display="Operator" static_entries="sims4-math.Operator" description="The comparison to use." group="General" />
+                                        <Tunable type="bool" name="test_individual" class="Tunable" default="False" display="Test Individual" description="If true, the test will pass if any of the objects meet the criteria. If false, all objects have meet them." group="General" />
+                                        <Tunable type="object_state" name="value" class="TunableReference" display="Value" description="The value to compare to." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                                    </TunableTuple>
+                                    <TunableTuple name="street_civic_policy_test" class="TunableStreetCivicPolicyTest" display="Street Civic Policy Test" description="Test the state of the selected Street's Civic Policy Provider." group="General">
+                                        <TunableList name="civic_policy_tests" class="TunableList" display="Civic Policy Tests" description="The tests we wish to run on the civic policies in question, run in order. AND operation, all must pass, first to fail stops tests." group="General">
+                                            <TunableVariant type="None" class="TunableVariant" default="voting_open" description="Individual tests run on Civic Policy Provider." group="General">
+                                                <TunableTuple name="available" class="TunableBaseCivicPolicyTestAvailable" display="Available" description="Test available policies. Available policies include everything tuned." group="General">
+                                                    <TunableTuple name="white_black_list" class="TunableWhiteBlackList" display="White Black List" description="The civic policies must pass the whitelist and blacklist to pass the test." group="General">
+                                                        <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                                                            <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                                                            <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                                                    <Tunable type="snippet" class="TunableReference" description="Allowed and disallowed civic policies." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                                                                </TunableList>
+                                                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                    </TunableTuple>
+                                                                </TunableVariant>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                                                            <Tunable name="everything" class="TunableExistance" display="Everything" />
+                                                            <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                    </TunableTuple>
+                                                                </TunableVariant>
+                                                                <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                                                    <Tunable type="snippet" class="TunableReference" description="Allowed and disallowed civic policies." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                                                                </TunableList>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableTuple>
+                                                <TunableTuple name="balloted" class="TunableBaseCivicPolicyTestBalloted" display="Balloted" description="Test balloted policies. Policies being considered by the next/current vote are balloted." group="General">
+                                                    <TunableTuple name="white_black_list" class="TunableWhiteBlackList" display="White Black List" description="The civic policies must pass the whitelist and blacklist to pass the test." group="General">
+                                                        <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                                                            <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                                                            <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                                                    <Tunable type="snippet" class="TunableReference" description="Allowed and disallowed civic policies." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                                                                </TunableList>
+                                                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                    </TunableTuple>
+                                                                </TunableVariant>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                                                            <Tunable name="everything" class="TunableExistance" display="Everything" />
+                                                            <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                    </TunableTuple>
+                                                                </TunableVariant>
+                                                                <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                                                    <Tunable type="snippet" class="TunableReference" description="Allowed and disallowed civic policies." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                                                                </TunableList>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableTuple>
+                                                <TunableTuple name="dormant" class="TunableBaseCivicPolicyTestDormant" display="Dormant" description="Test dormant policies. Dormant policies are not enacted and not balloted." group="General">
+                                                    <TunableTuple name="white_black_list" class="TunableWhiteBlackList" display="White Black List" description="The civic policies must pass the whitelist and blacklist to pass the test." group="General">
+                                                        <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                                                            <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                                                            <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                                                    <Tunable type="snippet" class="TunableReference" description="Allowed and disallowed civic policies." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                                                                </TunableList>
+                                                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                    </TunableTuple>
+                                                                </TunableVariant>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                                                            <Tunable name="everything" class="TunableExistance" display="Everything" />
+                                                            <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                    </TunableTuple>
+                                                                </TunableVariant>
+                                                                <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                                                    <Tunable type="snippet" class="TunableReference" description="Allowed and disallowed civic policies." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                                                                </TunableList>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableTuple>
+                                                <TunableTuple name="enacted" class="TunableBaseCivicPolicyTestEnacted" display="Enacted" description="Test enacted policies." group="General">
+                                                    <TunableTuple name="white_black_list" class="TunableWhiteBlackList" display="White Black List" description="The civic policies must pass the whitelist and blacklist to pass the test." group="General">
+                                                        <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                                                            <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                                                            <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                                                    <Tunable type="snippet" class="TunableReference" description="Allowed and disallowed civic policies." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                                                                </TunableList>
+                                                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                    </TunableTuple>
+                                                                </TunableVariant>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                                                            <Tunable name="everything" class="TunableExistance" display="Everything" />
+                                                            <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                    </TunableTuple>
+                                                                </TunableVariant>
+                                                                <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                                                    <Tunable type="snippet" class="TunableReference" description="Allowed and disallowed civic policies." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                                                                </TunableList>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableTuple>
+                                                <TunableTuple name="repealable" class="TunableBaseCivicPolicyTestRepealable" display="Repealable" description="Test up for repeal policies. Up for Repeal policies have been specifically marked as such and will (if the vote/petition threshold is reached) be repealed as part of closing the next vote." group="General">
+                                                    <TunableTuple name="white_black_list" class="TunableWhiteBlackList" display="White Black List" description="The civic policies must pass the whitelist and blacklist to pass the test." group="General">
+                                                        <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                                                            <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                                                            <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                                                    <Tunable type="snippet" class="TunableReference" description="Allowed and disallowed civic policies." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                                                                </TunableList>
+                                                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                    </TunableTuple>
+                                                                </TunableVariant>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                                                            <Tunable name="everything" class="TunableExistance" display="Everything" />
+                                                            <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                                                <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                                                    <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                                        <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                                                    </TunableTuple>
+                                                                </TunableVariant>
+                                                                <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                                                    <Tunable type="snippet" class="TunableReference" description="Allowed and disallowed civic policies." allow_none="False" group="General" pack_safe="True" restrict="BaseCivicPolicy" />
+                                                                </TunableList>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableTuple>
+                                                <TunableTuple name="voting_open" class="TunableBaseCivicPolicyTestVotingOpen" display="Voting Open" description="If checked, will verify that voting is currently active." group="General">
+                                                    <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If checked then this test will return True when not active." group="General" />
+                                                </TunableTuple>
+                                                <TunableTuple name="voting_time_until_change" class="TunableBaseCivicPolicyTestVotingTimeUntilChange" display="Voting Time Until Change" description="If checked, will check the time remaining before the next voting open status change." group="General">
+                                                    <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="The amount of time relative to the next voting state change to test." group="General">
+                                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                        <TunableTuple name="value" class="TunableTimeSpan" display="Value" description="Duration before the next change." group="General">
+                                                            <Tunable type="int" name="days" class="TunableRange" default="0" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                                                            <Tunable type="int" name="hours" class="TunableRange" default="1" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                                                            <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+                                                        </TunableTuple>
+                                                    </TunableTuple>
+                                                </TunableTuple>
+                                            </TunableVariant>
+                                        </TunableList>
+                                        <TunableVariant type="None" name="street" class="TunableVariant" default="literal" display="Street" description="Select what street to test." group="General">
+                                            <Tunable type="street" name="literal" class="TunableReference" display="Literal" description="Identify a specific Street." allow_none="False" group="General" pack_safe="True" />
+                                            <TunableTuple name="via_street_participant" class="TunableStreetParticipant" display="Via Street Participant" description="Get the street participant." group="General" />
+                                            <TunableVariant type="None" name="via_zone_source" class="TunableVariant" default="use_current_zone" display="Via Zone Source" description="Select the street to use by specifying a Zone Source." group="General">
+                                                <TunableTuple name="use_current_zone" class="TunableActiveZone" display="Use Current Zone" description="Get the active zone." group="General" />
+                                                <TunableTuple name="use_participant_home_zone" class="TunableParticipantHomeZone" display="Use Participant Home Zone" description="Get a participant's home zone. Can be None if they don't have one." group="General">
+                                                    <TunableEnum type="ParticipantTypeSingleSim" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingleSim" description="Test against the participant's home zone. Townies' home zone will be None." group="General" />
+                                                </TunableTuple>
+                                                <TunableTuple name="use_pick_info" class="TunablePickInfoZone" display="Use Pick Info" description="Get the zone of the lot the user clicked on." group="General" />
+                                                <TunableTuple name="use_picked_zone_ids" class="TunablePickedZoneIds" display="Use Picked Zone Ids" description="Get the zone from the interaction's picked_zone_ids participant. Usually comes from a picker." group="General" />
+                                            </TunableVariant>
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableList>
+                        </TunableList>
+                        <TunableList name="tooltip_fields" class="TunableMapping" display="Tooltip Fields" mapping_key="key" mapping_value="value" description="Mapping of tooltip fields to its localized values. Since this fields are created from a system originally created for recipes, all of them may be tuned, but these are the most common fields to show on a tooltip: - recipe_name = This is the actual title of the tooltip. This is the main text - recipe_description = This description refers to the main text that will show below the title - header = Smaller text that will show just above the title - subtext = Smaller text that will show just bellow the title" group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <TunableEnum type="TooltipFields" name="key" class="TunableEnumEntry" default="recipe_name" display="Key" static_entries="objects-hovertip.TooltipFields" description="Fields to be populated in the tooltip. These fields will be populated with the text and tokens tuned." group="General" />
+                                <TunableTuple name="value" class="TunableTooltipText" display="Value" description="A class defining the text and tokens that will be interpreted when building an object's tooltip." group="General">
+                                    <TunableVariant type="None" name="override_component_information" class="OptionalTunable" default="override_component_fields" display="Override Component Information" description="When override component fields is chosen, this tooltip field tuning will have the highest priority over what data is displayed. So if an object has some fields set by the crafting component or name component, if this is set, this will trump that information. When concatenate with component fields is set, you have the option to combine the tooltip information given by the a component with any string you decide to add. Example: If we choose to override component fields on the recipe_name field of a craftable we will override the recipe_name that gets set by the crafting system. If we choose to concatenate we could have things like recipe_name, my_new_text" group="General">
+                                        <TunableTuple name="concatenate_with_component_fields" class="TunableTooltipConcatenateData" display="Concatenate With Component Fields" description="Class defining how the string on a specified tooltip will be concatenated." group="General">
+                                            <TunableEnum type="ConcatenationStyle" name="concatenation_style" class="TunableEnumEntry" default="NEW_LINE_SEPARATION" display="Concatenation Style" static_entries="sims4-localization.ConcatenationStyle" description=" Style of concatenation that ill be use between the two fields on the tunable. Example: Using COMMA_SEPARATION = 'string1, string' Using NEW_LINE_SEPARATION = 'string1 string' Using CONCATENATE_SEPARATION string1 and string will be concatenated but the order will change depending on the language. For example if we concatenated the tested state of a potion we will want the string 'Tested Reaper Potion' as a concatenated string, but this will be different in other languanges as the following example shows: English e.g. {0.String} {1.String} {'Untested'} {'Reaper Potion'} Spanish e.g. {1.String} {0.String} {'Pocion de muerte} {'sin probar'} So whenever you select CONCATENATE_SEPARATION be aware that the order will be given by the language itself. " group="General" />
+                                            <TunableEnum type="TooltipFieldConcatenationType" name="concatenation_type" class="TunableEnumEntry" default="CONCATENATE_BEFORE" display="Concatenation Type" static_entries="objects-hovertip.TooltipFieldConcatenationType" description="Type of concatenation that will be used on the tuned field and the component field. Example: We tune the text 'Crafted by Sim', and we tune it to CONCATENATE BEFORE result would be: Crafted by Sim CONCATENATION_STYLE RecipeName If we tune it to be CONCATENATE AFTER result will be: RecipeName CONCATENATION_STYLE Crafted by Sim " group="General" />
+                                        </TunableTuple>
+                                        <Tunable name="override_component_fields" class="TunableExistance" display="Override Component Fields" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="text" class="TunableLocalizedStringFactoryVariant" default="single" display="Text" description="Text that will be displayed on the tuned tooltip_fields of the tooltip." group="General">
+                                        <TunableTuple name="concatenation" class="TunableLocalizedStringFactoryConcatenation" display="Concatenation" description="A list of localized string concatenations. These strings will be joined together into single line-separated string" group="General">
+                                            <TunableList name="concatenations" class="TunableList" display="Concatenations" group="General">
+                                                <TunableVariant type="None" class="TunableLocalizedStringSnippet" default="literal" description="This may be tuned in place here using 'literal' or as a reference to a LocalizedString tuning snippet." group="General">
+                                                    <Tunable type="int" name="literal" class="TunableLocalizedString" default="0x0" display="Literal" description="A localized string that may use tokens." group="General" />
+                                                    <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a LocalizedString tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="LocalizedString" />
+                                                </TunableVariant>
+                                            </TunableList>
+                                        </TunableTuple>
+                                        <Tunable type="int" name="single" class="TunableLocalizedString" default="0x0" display="Single" description="A localized string that may use tokens." group="General" />
+                                        <TunableTuple name="variation" class="TunableLocalizedStringFactoryVariation" display="Variation" description="A list of possible localized string variations." group="General">
+                                            <TunableList name="variations" class="TunableList" display="Variations" group="General">
+                                                <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may use tokens." group="General" />
+                                            </TunableList>
+                                        </TunableTuple>
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="text_tokens" class="OptionalTunable" default="disabled" display="Text Tokens" description="If enabled, localization tokens to be passed into 'text' can be explicitly defined. For example, you could use a participant that is not normally used, such as a owned sim. Or you could also pass in statistic and commodity values. If disabled, the standard tokens from the interaction will be used (such as Actor and TargetSim). Participants tuned here should only be relevant to objects. If you try to tune a participant which only exist when you run an interaction (e.g. carry_target) tooltip wont show anything." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableTuple name="enabled" class="TunableLocalizationTokens" display="Enabled" description="A class returning a list of objects that can be passed into localization strings as tokens." group="General">
+                                            <TunableList name="tokens" class="TunableList" display="Tokens" description="A list of tokens that will be returned by this factory. Any string that uses this token will have token '0' be set to the first element, '1' to the second element, and so on. Do not let the list inheritance values confuse you; regardless of what the list element index is, the first element will always be 0, the second element 1, and so on." group="General">
+                                                <TunableVariant type="None" class="TunableVariant" default="participant_type" description="Define what the token at the specified index is." group="General">
+                                                    <Tunable name="active_holiday" class="TunableExistance" display="Active Holiday" />
+                                                    <TunableTuple name="animal_home" class="TunableTuple" display="Animal Home" description="Tokens for the animal home." group="General">
+                                                        <TunableVariant type="None" name="animal_home_data" class="TunableVariant" default="max_capacity" display="Animal Home Data" description="Data you'd like to fetch about the animal home." group="General">
+                                                            <Tunable name="current_occupancy" class="TunableExistance" display="Current Occupancy" />
+                                                            <Tunable name="max_capacity" class="TunableExistance" display="Max Capacity" />
+                                                        </TunableVariant>
+                                                        <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Object" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant from whom we will fetch specified data. This is expected to resolve to an Animal Home." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="associated_club" class="TunableTuple" display="Associated Club" description="The token is a stored 'associated_club' on this interaction. Only works with ClubMixerInteractions or ClubSuperInteractions." group="General" />
+                                                    <TunableTuple name="buck_amount" class="TunableTuple" display="Buck Amount" description="The token is a number repesenting the amount of the specified buck type the specified participant has." group="General">
+                                                        <TunableEnum type="BucksType" name="bucks_type" class="TunableEnumEntry" default="INVALID" display="Bucks Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" group="General" />
+                                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant from whom we will fetch the specified statistic's value." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="buff_duration_remaining" class="TunableTuple" display="Buff Duration Remaining" description="Tokens for the remaining duration of a buff" group="General">
+                                                        <Tunable type="buff" name="buff" class="TunableReference" display="Buff" description="The buff whose duration we want to fetch." allow_none="False" group="General" />
+                                                        <TunableEnum type="ParticipantTypeSingleSim" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingleSim" description="The participant from whom we will fetch the specified buff duration." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="career_data" class="TunableTuple" display="Career Data" description="The token is a localized string, number, or Sim, representing the specified career data for the specified participant." group="General">
+                                                        <TunableVariant type="None" name="career_data" class="TunableVariant" default="current_level_name" display="Career Data" description="The piece of data to fetch." group="General">
+                                                            <Tunable name="current_level_name" class="TunableExistance" display="Current Level Name" />
+                                                            <Tunable name="current_level_salary" class="TunableExistance" display="Current Level Salary" />
+                                                            <Tunable name="next_level_name" class="TunableExistance" display="Next Level Name" />
+                                                            <Tunable name="next_level_salary" class="TunableExistance" display="Next Level Salary" />
+                                                            <Tunable name="previous_level_name" class="TunableExistance" display="Previous Level Name" />
+                                                            <Tunable name="previous_level_salary" class="TunableExistance" display="Previous Level Salary" />
+                                                        </TunableVariant>
+                                                        <Tunable type="career" name="career_type" class="TunableReference" display="Career Type" description="The career we care about." allow_none="False" group="General" />
+                                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant's whose career data we care about." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="civic_policy" class="TunableTuple" display="Civic Policy" description="Tokens for the Civic Policy system." group="General">
+                                                        <TunableVariant type="None" name="civic_policy_data" class="TunableVariant" default="voting_start_time" display="Civic Policy Data" description="The specific value to display." group="General">
+                                                            <Tunable name="voting_end_time" class="TunableExistance" display="Voting End Time" />
+                                                            <Tunable name="voting_start_time" class="TunableExistance" display="Voting Start Time" />
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                    <Tunable name="current_trends" class="TunableExistance" display="Current Trends" />
+                                                    <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
+                                                        <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="game_component_data" class="TunableTuple" display="Game Component Data" description="The token is a localized number or Sim representing the specified game component data from game component." group="General">
+                                                        <TunableVariant type="None" name="game_component_data" class="TunableVariant" default="high_score" display="Game Component Data" description="The piece of data to fetch." group="General">
+                                                            <Tunable name="high_score" class="TunableExistance" display="High Score" />
+                                                            <Tunable name="high_score_sim" class="TunableExistance" display="High Score Sim" />
+                                                        </TunableVariant>
+                                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="The participant's from whom the game component data we want to fetch." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="gig_history" class="TunableTuple" display="Gig History" description="The token used to display data from gig history." group="General">
+                                                        <TunableVariant type="None" name="customer_participant" class="OptionalTunable" default="disabled" display="Customer Participant" description="If enabled, this is the participant representing the customer in gig history. If disabled, falls back to searching for any valid gig in history." group="General">
+                                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="TargetSim" display="Enabled" static_entries="interactions.ParticipantType" description="TargetSim searches for provided customer sim. Lot will search for the current lot." group="General" />
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="gig_history_data" class="TunableVariant" default="gig_customer_name" display="Gig History Data" description="The piece of data to fetch." group="General">
+                                                            <Tunable name="gig_customer_name" class="TunableExistance" display="Gig Customer Name" />
+                                                            <Tunable name="gig_project_title" class="TunableExistance" display="Gig Project Title" />
+                                                        </TunableVariant>
+                                                        <TunableEnum type="GigResult" name="max_gig_result" class="TunableEnumEntry" default="GREAT_SUCCESS" display="Max Gig Result" static_entries="careers-career_enums.GigResult" description="The worst acceptable gig result to find." group="General" />
+                                                        <TunableEnum type="GigResult" name="min_gig_result" class="TunableEnumEntry" default="CRITICAL_FAILURE" display="Min Gig Result" static_entries="careers-career_enums.GigResult" description="The worst acceptable gig result to find." group="General" />
+                                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant whose gig history we will search." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="global_policy" class="TunableTuple" display="Global Policy" description="The token used to display data from the tuned global policy." group="General">
+                                                        <Tunable type="snippet" name="global_policy" class="TunableReference" display="Global Policy" description="The global policy from which data is displayed." allow_none="False" group="General" restrict="GlobalPolicy" />
+                                                        <TunableEnum type="GlobalPolicyTokenType" name="token_property" class="TunableEnumEntry" default="NAME" display="Token Property" static_entries="global_policies-global_policy_enums.GlobalPolicyTokenType" description="Which property from the Global Policy Token to use. NAME will use the policy's display name, PROGRESS will use the progress made over the max progress value. " group="General" />
+                                                    </TunableTuple>
+                                                    <Tunable name="interaction_cost" class="TunableExistance" display="Interaction Cost" />
+                                                    <Tunable name="interaction_payout" class="TunableExistance" display="Interaction Payout" />
+                                                    <TunableTuple name="lifestyle_brand" class="TunableTuple" display="Lifestyle Brand" description="The token used to display the name of a Lifestyle Brand owned by a Sim." group="General">
+                                                        <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.TargetSim" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant who owns the lifestyle brand." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="luck" class="TunableTuple" display="Luck" description="Token for a sim's Luck level." group="General">
+                                                        <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="ParticipantType.Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant who's luck level we want to display." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="money_amount" class="TunableTuple" display="Money Amount" description="The token is a number representing the amount of Simoleons that were awarded in loot to the specified participant." group="General">
+                                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant for whom we fetch the earned amount of money." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="object_fashion_marketplace" class="TunableTuple" display="Object Fashion Marketplace" description="Tokens for the object fashion marketplace component and fashion marketplace system." group="General">
+                                                        <TunableVariant type="None" name="object_fashion_marketplace_data" class="TunableVariant" default="expiration_time" display="Object Fashion Marketplace Data" description="Please select what value you would like to use." group="General">
+                                                            <Tunable name="buyer_name" class="TunableExistance" display="Buyer Name" />
+                                                            <Tunable name="expiration_time" class="TunableExistance" display="Expiration Time" />
+                                                            <Tunable name="sale_price" class="TunableExistance" display="Sale Price" />
+                                                            <Tunable name="suggested_sale_price" class="TunableExistance" display="Suggested Sale Price" />
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                    <TunableTuple name="object_marketplace" class="TunableTuple" display="Object Marketplace" description="Tokens for the object marketplace component and marketplace system." group="General">
+                                                        <TunableVariant type="None" name="object_marketplace_data" class="TunableVariant" default="expiration_time" display="Object Marketplace Data" description="Please select what value you would like to use." group="General">
+                                                            <Tunable name="buyer_name" class="TunableExistance" display="Buyer Name" />
+                                                            <Tunable name="expiration_time" class="TunableExistance" display="Expiration Time" />
+                                                            <Tunable name="sale_price" class="TunableExistance" display="Sale Price" />
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                    <TunableTuple name="object_property" class="TunableTuple" display="Object Property" description="The token is a property of a game object. This could be catalog properties like its price or its rarity which is a property given by a component." group="General">
+                                                        <TunableEnum type="GameObjectProperty" name="obj_property" class="TunableEnumEntry" default="CATALOG_PRICE" display="Obj Property" static_entries="objects-game_object_properties.GameObjectProperty" description="The property of the object that we will request." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="object_state_value" class="TunableTuple" display="Object State Value" description="The token is a string representing the value of a specific state from the selected participant." group="General">
+                                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="The participant from whom we will fetch the specified state's value." group="General" />
+                                                        <Tunable type="object_state" name="state" class="TunableReference" display="State" description="The state's whose value we want to fetch." allow_none="False" group="General" restrict="ObjectState" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="participant_count" class="TunableTuple" display="Participant Count" description="The number of participants of the specified type." group="General">
+                                                        <TunableVariant type="None" name="objects" class="TunableObjectGeneratorVariant" default="from_participant" display="Objects" group="General">
+                                                            <TunableTuple name="from_gardening" class="Tunable_ObjectGeneratorFromGardening" display="From Gardening" description="The generated objects are those gardening objects that are within the specified distance from the tuned participant." group="General">
+                                                                <Tunable type="float" name="distance" class="TunableRange" default="4" display="Distance" min="1.192092896e-07" max="None" description="The distance used to determine which objects are generated." tuning_state="NeedsTuning" group="General" />
+                                                                <TunableVariant type="None" name="object_type" class="TunableVariant" default="plants" display="Object Type" description="The type of gardening object to return." group="General">
+                                                                    <TunableTuple name="harvestables" class="Tunable_ObjectTypeHarvestable" display="Harvestables" description="Return all harvestables, i.e. all fruits/flowers parented to plants." group="General" />
+                                                                    <TunableTuple name="plants" class="Tunable_ObjectTypePlant" display="Plants" description="Return all plants." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The object used as a center point for distance calculations." group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="from_participant" class="Tunable_ObjectGeneratorFromParticipant" display="From Participant" description="Specify a participant type to generate objects based on this interaction." group="General">
+                                                                <TunableVariant type="None" name="in_slot" class="TunableVariant" default="use_participant" display="In Slot" description="slots of the participant object from which the target objects should be pulled." group="General">
+                                                                    <Tunable type="str" name="by_name" class="Tunable" default="_ctnm_" display="By Name" description="The exact name of a slot on the parent object in which the object should be. " group="General" />
+                                                                    <Tunable type="slot_type" name="by_reference" class="TunableReference" display="By Reference" description="A particular slot type in which the object should be." allow_none="False" group="General" />
+                                                                    <TunableList name="by_set_of_references" class="TunableSet" display="By Set Of References" description="A set of references that the objects should be in." group="General" unique_entries="true">
+                                                                        <Tunable type="slot_type" class="TunableReference" allow_none="False" group="General" />
+                                                                    </TunableList>
+                                                                    <Tunable name="use_participant" class="TunableExistance" display="Use Participant" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="ObjectChildren" display="Participant" static_entries="interactions.ParticipantType" description="The participant determining which objects are to be generated." group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="from_stored_object_component" class="Tunable_ObjectGeneratorFromStoredObjectComponent" display="From Stored Object Component" description="Return the stored object of the specified type from the stored object component of the specified participant.S" group="General">
+                                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant from which the stored object is returned." group="General" />
+                                                                <TunableEnum type="StoredObjectType" name="stored_object_type" class="TunableEnumEntry" default="INVALID" display="Stored Object Type" dynamic_entries="objects-components-stored_object_info_tuning.StoredObjectType._elements" static_entries="objects-components-stored_object_info_tuning.StoredObjectType" description="The type of object to apply loot actions to." group="General" invalid_entries="INVALID" />
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                    <TunableTuple name="participant_type" class="TunableTuple" display="Participant Type" description="The token is a Sim or object participant from the interaction." group="General">
+                                                        <TunableVariant type="None" name="formatter" class="TunableObjectLocalizationTokenFormatterVariant" default="single" display="Formatter" description="Define the format for this token." group="General">
+                                                            <TunableTuple name="bullet_list" class="Tunable_TunableObjectLocalizationTokenFormatterBulletList" display="Bullet List" description="The token is a string, which is a formatted bullet point list. Objects are grouped by definition. The text for each item must be specified." group="General">
+                                                                <Tunable type="int" name="bullet_text" class="TunableLocalizedString" default="0x0" display="Bullet Text" description="The text for the bullet entry. The string is provided the following tokens, in this order: 0 An object representitive of the group 1 The number of objects in the group" group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="single" class="Tunable_TunableObjectLocalizationTokenFormatterSingle" display="Single" description="The token is a single object name. If multiple participants are returned, an arbitrary one is used. That is, unless the mismatch key is specified. In that case, the string is used unless all of the participants' definitions match." group="General">
+                                                                <TunableVariant type="None" name="mismatch_name" class="OptionalTunable" default="disabled" display="Mismatch Name" description="If enabled, this is the object name to use when using a multi- object participant yielding definitions with different names." group="General">
+                                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." allow_catalog_name="True" group="General" />
+                                                                </TunableVariant>
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                        <TunableVariant type="None" name="objects" class="TunableObjectGeneratorVariant" default="from_participant" display="Objects" group="General">
+                                                            <TunableTuple name="from_gardening" class="Tunable_ObjectGeneratorFromGardening" display="From Gardening" description="The generated objects are those gardening objects that are within the specified distance from the tuned participant." group="General">
+                                                                <Tunable type="float" name="distance" class="TunableRange" default="4" display="Distance" min="1.192092896e-07" max="None" description="The distance used to determine which objects are generated." tuning_state="NeedsTuning" group="General" />
+                                                                <TunableVariant type="None" name="object_type" class="TunableVariant" default="plants" display="Object Type" description="The type of gardening object to return." group="General">
+                                                                    <TunableTuple name="harvestables" class="Tunable_ObjectTypeHarvestable" display="Harvestables" description="Return all harvestables, i.e. all fruits/flowers parented to plants." group="General" />
+                                                                    <TunableTuple name="plants" class="Tunable_ObjectTypePlant" display="Plants" description="Return all plants." group="General" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The object used as a center point for distance calculations." group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="from_participant" class="Tunable_ObjectGeneratorFromParticipant" display="From Participant" description="Specify a participant type to generate objects based on this interaction." group="General">
+                                                                <TunableVariant type="None" name="in_slot" class="TunableVariant" default="use_participant" display="In Slot" description="slots of the participant object from which the target objects should be pulled." group="General">
+                                                                    <Tunable type="str" name="by_name" class="Tunable" default="_ctnm_" display="By Name" description="The exact name of a slot on the parent object in which the object should be. " group="General" />
+                                                                    <Tunable type="slot_type" name="by_reference" class="TunableReference" display="By Reference" description="A particular slot type in which the object should be." allow_none="False" group="General" />
+                                                                    <TunableList name="by_set_of_references" class="TunableSet" display="By Set Of References" description="A set of references that the objects should be in." group="General" unique_entries="true">
+                                                                        <Tunable type="slot_type" class="TunableReference" allow_none="False" group="General" />
+                                                                    </TunableList>
+                                                                    <Tunable name="use_participant" class="TunableExistance" display="Use Participant" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant determining which objects are to be generated." group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="from_stored_object_component" class="Tunable_ObjectGeneratorFromStoredObjectComponent" display="From Stored Object Component" description="Return the stored object of the specified type from the stored object component of the specified participant.S" group="General">
+                                                                <TunableEnum type="ParticipantTypeSingle" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingle" description="The participant from which the stored object is returned." group="General" />
+                                                                <TunableEnum type="StoredObjectType" name="stored_object_type" class="TunableEnumEntry" default="INVALID" display="Stored Object Type" dynamic_entries="objects-components-stored_object_info_tuning.StoredObjectType._elements" static_entries="objects-components-stored_object_info_tuning.StoredObjectType" description="The type of object to apply loot actions to." group="General" invalid_entries="INVALID" />
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                    <TunableTuple name="participant_type_special" class="TunableTuple" display="Participant Type Special" description="The token is a specified string grabbed from a supported participant type that requires special handling. Currently supported are: I. Participants that resolve into households 1. Household Name 2. Household Description 2. Participants that resolve into zone ids 1. Lot Name 2. Lot Description 3. Name of household that lives there 4. Description of household that lives there." group="General">
+                                                        <TunableVariant type="None" name="participant_type" class="_SpecialParticipantTokenVariant" default="household" display="Participant Type" group="General">
+                                                            <TunableTuple name="household" class="Tunable_FromHouseholdParticipant" display="Household" description="Helper class used to support participants that resolve into households." group="General">
+                                                                <TunableVariant type="None" name="attribute" class="TunableVariant" default="name" display="Attribute" description="Which string we are interested in." group="General">
+                                                                    <Tunable name="description" class="TunableExistance" display="Description" />
+                                                                    <Tunable name="name" class="TunableExistance" display="Name" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeHousehold" name="participant" class="TunableEnumEntry" default="TargetHousehold" display="Participant" static_entries="interactions.ParticipantTypeHousehold" description="Participant that resolves to a household." group="General" />
+                                                            </TunableTuple>
+                                                            <TunableTuple name="zone" class="Tunable_FromZone" display="Zone" description="Helper class used to support participants that resolve into zone ids." group="General">
+                                                                <TunableVariant type="None" name="attribute" class="TunableVariant" default="zone_name" display="Attribute" description="Which string we are interested in." group="General">
+                                                                    <Tunable name="occupant_household_description" class="TunableExistance" display="Occupant Household Description" />
+                                                                    <Tunable name="occupant_household_name" class="TunableExistance" display="Occupant Household Name" />
+                                                                    <Tunable name="zone_description" class="TunableExistance" display="Zone Description" />
+                                                                    <Tunable name="zone_name" class="TunableExistance" display="Zone Name" />
+                                                                </TunableVariant>
+                                                                <TunableEnum type="ParticipantTypeZoneId" name="participant" class="TunableEnumEntry" default="PickedZoneId" display="Participant" static_entries="interactions.ParticipantTypeZoneId" description="Participant that resolves to zone id of a multi unit business." group="General" invalid_entries="AllUnitZoneIds" />
+                                                            </TunableTuple>
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                    <TunableTuple name="picked_part" class="TunableTuple" display="Picked Part" description="The token used to display the name of a picked part." group="General" />
+                                                    <TunableTuple name="scholarship_letter_component_data" class="TunableTuple" display="Scholarship Letter Component Data" description="The token can be used to get strings representing scholarship information from the scholarship letter component of an object." group="General">
+                                                        <TunableEnum type="ParticipantTypeObject" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantTypeObject" description="The participant from whom to get the scholarship letter component data." group="General" />
+                                                        <TunableVariant type="None" name="scholarship_letter_component_data" class="TunableVariant" default="applicant_name" display="Scholarship Letter Component Data" description="The piece of data to fetch." group="General">
+                                                            <Tunable name="applicant_name" class="TunableExistance" display="Applicant Name" />
+                                                            <Tunable name="scholarship_amount" class="TunableExistance" display="Scholarship Amount" />
+                                                            <Tunable name="scholarship_description" class="TunableExistance" display="Scholarship Description" />
+                                                            <Tunable name="scholarship_name" class="TunableExistance" display="Scholarship Name" />
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                    <TunableTuple name="sickness" class="TunableTuple" display="Sickness" description="The token is the name of the sickness on the specified Sim." group="General">
+                                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="TargetSim" display="Participant" static_entries="interactions.ParticipantType" description="The participant who is sick." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="small_business" class="TunableTuple" display="Small Business" description="The token is the name of the small business owned by specified Sim." group="General">
+                                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant who has small business." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="statistic_value" class="TunableTuple" display="Statistic Value" description="The token is a number representing the value of a specific statistic from the selected participant." group="General">
+                                                        <Tunable type="bool" name="clamp_value_to_floor" class="Tunable" default="False" display="Clamp Value To Floor" description="If True, the value will be clamped to its floor." group="General" />
+                                                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant from whom we will fetch the specified statistic's value." group="General" />
+                                                        <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic's whose value we want to fetch." allow_none="False" group="General" />
+                                                        <Tunable type="bool" name="use_statistic_name" class="Tunable" default="False" display="Use Statistic Name" description="If True, the value will be the name of the statistic." group="General" />
+                                                    </TunableTuple>
+                                                    <TunableTuple name="street" class="TunableTuple" display="Street" description=" " group="General">
+                                                        <TunableTuple name="street" class="TunableTunableLocalizationStreetSelector" display="Street" description="Using the Street Selector tuning, provide a token localization appropriate street selection." group="General">
+                                                            <TunableVariant type="None" name="street" class="TunableVariant" default="literal" display="Street" description="Select what street to test." group="General">
+                                                                <Tunable type="street" name="literal" class="TunableReference" display="Literal" description="Identify a specific Street." allow_none="False" group="General" pack_safe="True" />
+                                                                <TunableTuple name="via_street_participant" class="TunableStreetParticipant" display="Via Street Participant" description="Get the street participant." group="General" />
+                                                                <TunableVariant type="None" name="via_zone_source" class="TunableVariant" default="use_current_zone" display="Via Zone Source" description="Select the street to use by specifying a Zone Source." group="General">
+                                                                    <TunableTuple name="use_current_zone" class="TunableActiveZone" display="Use Current Zone" description="Get the active zone." group="General" />
+                                                                    <TunableTuple name="use_participant_home_zone" class="TunableParticipantHomeZone" display="Use Participant Home Zone" description="Get a participant's home zone. Can be None if they don't have one." group="General">
+                                                                        <TunableEnum type="ParticipantTypeSingleSim" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantTypeSingleSim" description="Test against the participant's home zone. Townies' home zone will be None." group="General" />
+                                                                    </TunableTuple>
+                                                                    <TunableTuple name="use_pick_info" class="TunablePickInfoZone" display="Use Pick Info" description="Get the zone of the lot the user clicked on." group="General" />
+                                                                    <TunableTuple name="use_picked_zone_ids" class="TunablePickedZoneIds" display="Use Picked Zone Ids" description="Get the zone from the interaction's picked_zone_ids participant. Usually comes from a picker." group="General" />
+                                                                </TunableVariant>
+                                                            </TunableVariant>
+                                                        </TunableTuple>
+                                                        <TunableVariant type="None" name="street_data" class="TunableVariant" default="policy_up_for_repeal" display="Street Data" description="The piece of data to fetch." group="General">
+                                                            <Tunable name="policy_up_for_repeal" class="TunableExistance" display="Policy Up For Repeal" />
+                                                            <Tunable name="random_losing_balloted_policy" class="TunableExistance" display="Random Losing Balloted Policy" />
+                                                            <Tunable name="winning_balloted_policy" class="TunableExistance" display="Winning Balloted Policy" />
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                    <TunableTuple name="venue" class="TunableTuple" display="Venue" description=" " group="General">
+                                                        <TunableVariant type="None" name="venue_data" class="TunableVariant" default="active_venue" display="Venue Data" description=" " group="General">
+                                                            <Tunable name="active_venue" class="TunableExistance" display="Active Venue" />
+                                                            <Tunable name="source_venue" class="TunableExistance" display="Source Venue" />
+                                                        </TunableVariant>
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableList>
+                                        </TunableTuple>
+                                    </TunableVariant>
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableList>
+                        <TunableVariant type="None" name="tooltip_main_icon" class="OptionalTunable" default="disabled" display="Tooltip Main Icon" description="Main icon for the tooltip. Not all tooltip styles support tunable main icons. Consult your GPE and UI partners if you are unsure if this will work for your use case." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="ResourceKey" name="enabled" class="TunableResourceKey" default="None" display="Enabled" group="General" resource_types="0x2f7d0004" />
+                        </TunableVariant>
+                        <TunableEnum type="HovertipStyle" name="tooltip_style" class="TunableEnumEntry" default="HOVER_TIP_DEFAULT" display="Tooltip Style" static_entries="objects-hovertip.HovertipStyle" description="Types of possible tooltips that can be displayed for an object. It's recomended to use default or HOVER_TIP_CUSTOM_OBJECT on most objects. " group="General" />
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+
+            <TunableTuple name="DELIVERY_DURATION" class="TunableTimeSpan" display="Delivery Duration" description="This is the amount of time between an object being sold and it being delivered." group="General">
+                <Tunable type="int" name="days" class="TunableRange" default="0" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="hours" class="TunableRange" default="1" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TunableTuple name="LISTING_DURATION" class="TunableTimeSpan" display="Listing Duration" description="This is the duration of a listing on the marketplace. After this time has elapsed, the listing will expire." group="General">
+                <Tunable type="int" name="days" class="TunableRange" default="7" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="hours" class="TunableRange" default="0" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="int" name="NO_BUYER_TEXT" class="TunableLocalizedString" default="0x0" display="No Buyer Text" description="The text that will be used in place of a buyer name if this item does not have a buyer." group="General" />
+
+            <TunableTuple name="OBJECT_MARKETPLACE_BASE_VALUES" class="TunableTuple" display="Object Marketplace Base Values" description="The following fields represent the base values for properties of objects listed on the marketplace. To tune specific values for a specific object, tune an ObjectMarketplaceComponent on that object." group="General">
+                <TunableTuple name="base_list_cost_multiplier" class="TunableTunableMultiplier" display="Base List Cost Multiplier" description="This is used to calculate the cost of listing an object on the marketplace. This value will be multiplied by the catalog value of the object." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="base_sale_chance" class="TunableTunableMultiplier" display="Base Sale Chance" description="Base chance an object will sell." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="base_sale_price_multiplier" class="TunableTunableMultiplier" display="Base Sale Price Multiplier" description="This is used to calculate the sale price for selling object on the marketplace. This value will be multiplied by the object's value as calculated by gameplay (affected by things like quality) to form a bonus. We will then randomly select a value between .5 times and 1 times that bonus and add it to the original value." group="General">
+                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+
+            <TunableTuple name="OBJECT_MARKETPLACE_STATE_TUNING" class="TunableTuple" display="Object Marketplace State Tuning" description="Tuning relating to how objects behave as they are modified by the object marketplace." group="General">
+                <TunableTuple name="delisted_tuning" class="Tunable_TunableObjectMarketplaceState" display="Delisted Tuning" description="The tuning governing an object that has become delisted from the marketplace. This tuning functions slightly differently from other marketplace 'states' in that it is intended to set the object back to defaults that existed prior to the marketplace" group="General">
+                    <TunableList name="enter_loot" class="TunableList" display="Enter Loot" description="Loot actions to apply to an object and the sim selling it when this object enters this marketplace state." group="General">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <Tunable type="object_state" name="state_value" class="TunableReference" display="State Value" description="The ObjectStateValue to put an object in when it enters this marketplace state." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <TunableList name="tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that will be applied to an object when it enters this marketplace state." group="General" invalid_entries="INVALID" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="delivered_tuning" class="Tunable_TunableObjectMarketplaceState" display="Delivered Tuning" description="The tuning governing an object that has become delivered to a buyer. This tuning functions slightly differently from other marketplace 'states' in that it is intended to set the object back to defaults that existed prior to the marketplace" group="General">
+                    <TunableList name="enter_loot" class="TunableList" display="Enter Loot" description="Loot actions to apply to an object and the sim selling it when this object enters this marketplace state." group="General">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <Tunable type="object_state" name="state_value" class="TunableReference" display="State Value" description="The ObjectStateValue to put an object in when it enters this marketplace state." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <TunableList name="tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that will be applied to an object when it enters this marketplace state." group="General" invalid_entries="INVALID" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="expired_tuning" class="Tunable_TunableObjectMarketplaceState" display="Expired Tuning" description="The tuning governing an object that expires in the marketplace." group="General">
+                    <TunableList name="enter_loot" class="TunableList" display="Enter Loot" description="Loot actions to apply to an object and the sim selling it when this object enters this marketplace state." group="General">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <Tunable type="object_state" name="state_value" class="TunableReference" display="State Value" description="The ObjectStateValue to put an object in when it enters this marketplace state." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <TunableList name="tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that will be applied to an object when it enters this marketplace state." group="General" invalid_entries="INVALID" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="listed_tuning" class="Tunable_TunableObjectMarketplaceState" display="Listed Tuning" description="The tuning governing an object that is listed in the marketplace." group="General">
+                    <TunableList name="enter_loot" class="TunableList" display="Enter Loot" description="Loot actions to apply to an object and the sim selling it when this object enters this marketplace state." group="General">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableVariant type="None" name="inventory_icon_visual_state" class="OptionalTunable" default="disabled" display="Inventory Icon Visual State" description="If tuned, a string for the UI to determine what treatment should be done on this object when it is in the inventory. If un-tuned, no treatment will be done." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="str" name="enabled" class="Tunable" default="INVALID" display="Enabled" group="General" />
+                    </TunableVariant>
+                    <Tunable type="object_state" name="state_value" class="TunableReference" display="State Value" description="The ObjectStateValue to put an object in when it enters this marketplace state." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <TunableList name="tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that will be applied to an object when it enters this marketplace state." group="General" invalid_entries="INVALID" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="pending_sale_tuning" class="Tunable_TunableObjectMarketplaceState" display="Pending Sale Tuning" description="The tuning governing an object that is marked as pending sale in the marketplace." group="General">
+                    <TunableList name="enter_loot" class="TunableList" display="Enter Loot" description="Loot actions to apply to an object and the sim selling it when this object enters this marketplace state." group="General">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableVariant type="None" name="inventory_icon_visual_state" class="OptionalTunable" default="disabled" display="Inventory Icon Visual State" description="If tuned, a string for the UI to determine what treatment should be done on this object when it is in the inventory. If un-tuned, no treatment will be done." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="str" name="enabled" class="Tunable" default="INVALID" display="Enabled" group="General" />
+                    </TunableVariant>
+                    <Tunable type="object_state" name="state_value" class="TunableReference" display="State Value" description="The ObjectStateValue to put an object in when it enters this marketplace state." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <TunableList name="tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that will be applied to an object when it enters this marketplace state." group="General" invalid_entries="INVALID" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="sold_tuning" class="Tunable_TunableObjectMarketplaceState" display="Sold Tuning" description="The tuning governing an object that is sold in the marketplace." group="General">
+                    <TunableList name="enter_loot" class="TunableList" display="Enter Loot" description="Loot actions to apply to an object and the sim selling it when this object enters this marketplace state." group="General">
+                        <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <Tunable type="object_state" name="state_value" class="TunableReference" display="State Value" description="The ObjectStateValue to put an object in when it enters this marketplace state." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <TunableList name="tags" class="TunableTags" display="Tags" group="General" unique_entries="true">
+                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that will be applied to an object when it enters this marketplace state." group="General" invalid_entries="INVALID" pack_safe="True" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

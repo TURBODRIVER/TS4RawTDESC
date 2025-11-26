@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="autonomy.settings">
+        <Class name="AutonomyState" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DISABLED" enum_value="0" />
+
+            <EnumItem name="FULL" enum_value="3" />
+
+            <EnumItem name="LIMITED_ONLY" enum_value="1" />
+
+            <EnumItem name="MEDIUM" enum_value="2" />
+
+            <EnumItem name="UNDEFINED" enum_value="-1" />
+        </Class>
+
+        <Class name="AutonomyRandomization" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DISABLED" enum_value="0" />
+
+            <EnumItem name="ENABLED" enum_value="1" />
+
+            <EnumItem name="UNDEFINED" enum_value="-1" />
+        </Class>
+
+        <Class name="AutonomySettingsGroup" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+        </Class>
+
+        <Class name="NPCAutonomyType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BREAKUPS" enum_value="2" />
+
+            <EnumItem name="FRIENDLY" enum_value="0" />
+
+            <EnumItem name="ROMANTIC" enum_value="1" />
+        </Class>
+
+        <Class name="AutonomySettings">
+            <TunableEnum type="AutonomyState" name="STARTING_DEFAULT_AUTONOMY_STATE" class="TunableEnumEntry" default="FULL" display="Starting Default Autonomy State" static_entries="autonomy-settings.AutonomyState" description="The autonomy state for the 'default' layer. If a Sim doesn't have anything that overrides their autonomy state, this will be used instead. It is NOT used to define the default option in the autonomy options menu, it applies to all Sims that don't have an overridden autonomy state setting. Sims in the playable household will all have an overridden setting." group="General" />
+
+            <TunableEnum type="AutonomyRandomization" name="STARTING_DEFAULT_RANDOMIZATION" class="TunableEnumEntry" default="ENABLED" display="Starting Default Randomization" static_entries="autonomy-settings.AutonomyRandomization" description="The randomization state for the 'default' layer. If a Sim doesn't have anything that overrides their randomization state, this will be used instead." group="General" />
+
+            <TunableEnum type="AutonomyState" name="STARTING_HOUSEHOLD_AUTONOMY_STATE" class="TunableEnumEntry" default="FULL" display="Starting Household Autonomy State" static_entries="autonomy-settings.AutonomyState" description="The default autonomy setting when one hasn't been loaded. This is the default value for the autonomy drop-down in the options menu." group="General" />
+
+            <Tunable type="bool" name="STARTING_SELECTED_SIM_AUTONOMY" class="Tunable" default="True" display="Starting Selected Sim Autonomy" description="The default autonomy setting for the selected sim's autonomy. If checked, the selected sim will behave normally according to the autonomy state. If unchecked, the selected sim will not run autonomy at all." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

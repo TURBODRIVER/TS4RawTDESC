@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ObjectMarketplacePickerInteraction" module="interactions.picker.object_marketplace_picker_interaction" description="A picker for buying objects from the fictional object marketplace." instance_needs_reference="True" instance_subclasses_only="False" parents="PurchasePickerInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="default_description_text" class="TunableLocalizedString" default="0x0" display="Default Description Text" description="Description text for picker rows that are available. Tokens: 0: String, the username of the fictional seller." group="Picker Tuning" />
+
+        <Tunable type="int" name="items_available" class="TunableRange" default="1" display="Items Available" min="1" max="None" description="The number of items available in the picker." tuning_state="NeedsTuning" group="Picker Tuning" />
+
+        <Deleted name="purchase_list_option" />
+
+        <TunableEnum type="Tag" name="purchased_tag" class="TunableTag" default="INVALID" display="Purchased Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag." dynamic_entries_prefix="inventory_plopsy" group="General" invalid_entries="INVALID" pack_safe="True" />
+
+        <TunableList name="quality_weights" class="TunableList" display="Quality Weights" description="Weights and qualities for determining the quality of objects in the picker." group="Picker Tuning">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="object_state" name="state_value" class="TunableReference" display="State Value" description="The quality state value." allow_none="False" group="General" restrict="ObjectStateValue" />
+                <Tunable type="float" name="weight" class="Tunable" default="1" display="Weight" description="A weight that will make this quality more likely to appear." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="recipe_tags" class="TunableSet" display="Recipe Tags" min="1" description="Tags that determine what recipes will provide objects that appear in this picker." group="Picker Tuning" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="recipe" group="General" invalid_entries="INVALID" />
+        </TunableList>
+
+        <TunableTuple name="refresh_period" class="TunableTimeSpan" display="Refresh Period" description="This picker's items will refresh every refresh_period time. They will also refresh if the game is reloaded." group="Picker Tuning">
+            <Tunable type="int" name="days" class="TunableRange" default="0" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="hours" class="TunableRange" default="1" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+
+        <Tunable type="int" name="sold_description_text" class="TunableLocalizedString" default="0x0" display="Sold Description Text" description="Description text for picker rows that display sold items." group="Picker Tuning" />
+
+        <Tunable type="ResourceKey" name="sold_icon" class="TunableIcon" default="None" display="Sold Icon" description="An icon override for picker rows that display sold items." group="Picker Tuning" resource_types="0x2f7d0004" />
+    </Instance>
+</TuningRoot>

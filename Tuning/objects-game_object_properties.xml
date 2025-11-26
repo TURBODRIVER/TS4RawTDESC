@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.game_object_properties">
+        <Class name="GameObjectProperty" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CATALOG_PRICE" enum_value="0" />
+
+            <EnumItem name="FISH_FRESHNESS" enum_value="4" />
+
+            <EnumItem name="GENRE" enum_value="3" />
+
+            <EnumItem name="MODIFIED_PRICE" enum_value="1" />
+
+            <EnumItem name="OBJ_TYPE_REL_ID" enum_value="7" />
+
+            <EnumItem name="RARITY" enum_value="2" />
+
+            <EnumItem name="RECIPE_DESCRIPTION" enum_value="6" />
+
+            <EnumItem name="RECIPE_NAME" enum_value="5" />
+        </Class>
+
+        <Class name="GameObjectTuning">
+            <TunableEnum type="Tag" name="WALL_OBJ_LOS_TUNING_FLAG" class="TunableEnumEntry" default="INVALID" display="Wall Obj Los Tuning Flag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag that lets us know if this wall object needs a LOS test. Currently it only works on wall grounded objects, but we can add y position test later down the road. " group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

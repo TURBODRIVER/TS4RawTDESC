@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="ui.ui_tuning">
+        <Class name="PackTypes" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BASE" enum_value="0" />
+
+            <EnumItem name="EXPANSION_PACK" enum_value="1" />
+
+            <EnumItem name="FREE_PACK" enum_value="4" />
+
+            <EnumItem name="GAME_PACK" enum_value="2" />
+
+            <EnumItem name="STUFF_PACK" enum_value="3" />
+        </Class>
+
+        <Class name="PackSubTypes" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="FULL" enum_value="0" />
+
+            <EnumItem name="KIT" enum_value="1" />
+
+            <EnumItem name="KIT_BB" enum_value="3" />
+
+            <EnumItem name="KIT_CAS" enum_value="2" />
+        </Class>
+
+        <Class name="Platform" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CONSOLE" enum_value="1" />
+
+            <EnumItem name="DESKTOP" enum_value="0" />
+
+            <EnumItem name="PS4" enum_value="2" />
+
+            <EnumItem name="XB1" enum_value="3" />
+        </Class>
+
+        <Class name="InputMethod" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ANY" enum_value="0" />
+
+            <EnumItem name="CONTROLLER" enum_value="2" />
+
+            <EnumItem name="KBM" enum_value="1" />
+        </Class>
+
+        <Class name="BrandedLogoBackground" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DARK" enum_value="1" />
+
+            <EnumItem name="LIGHT" enum_value="0" />
+        </Class>
+
+        <Class name="BrandedStyle" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="TOP_LEFT_ICON" enum_value="1" />
+
+            <EnumItem name="TOP_WIDE" enum_value="0" />
+        </Class>
+
+        <Class name="MultiPickerStyle" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DEFAULT" enum_value="0" />
+
+            <EnumItem name="PHOTO_PAIR_SELECT" enum_value="2" />
+
+            <EnumItem name="PHOTOPAIR_ORGANIZE_DELETE" enum_value="1" />
+        </Class>
+
+        <Class name="MultiPickerFilterType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="NO_FILTER" enum_value="0" />
+
+            <EnumItem name="RELBIT_FILTER" enum_value="1" />
+
+            <EnumItem name="TOPIC_FILTER" enum_value="2" />
+        </Class>
+
+        <Class name="UiTuning">
+            <TunableList name="BRANDED_TAG_DATA" class="TunableList" display="Branded Tag Data" description="A list of tag to data used to show a branded logo on the item" group="General">
+                <TunableTuple class="BrandedTagEntry" description="Tuning for branded logo to use." group="General">
+                    <TunableEnum type="BrandedLogoBackground" name="background_type" class="TunableEnumEntry" default="LIGHT" display="Background Type" static_entries="ui-ui_tuning.BrandedLogoBackground" description="Background to be used for it" group="General" />
+                    <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="Icon to be displayed on the item" group="General" resource_types="0x2f7d0004" />
+                    <TunableEnum type="BrandedStyle" name="style" class="TunableEnumEntry" default="TOP_WIDE" display="Style" static_entries="ui-ui_tuning.BrandedStyle" description="The style that defines where in the thumbnail we place this branding." group="General" />
+                    <TunableEnum type="Tag" name="tag" class="TunableTag" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag to use for the brand to be displayed" dynamic_entries_prefix="" group="General" invalid_entries="INVALID" pack_safe="True" />
+                    <TunableVariant type="None" name="tooltip_text" class="OptionalTunable" default="disabled" display="Tooltip Text" description="Text for the tooltip shown when hovering the brand icon." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Text for the tooltip shown when hovering the brand icon." group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="tooltip_title" class="OptionalTunable" default="disabled" display="Tooltip Title" description="Title for the tooltip shown when hovering the brand icon." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Title for the tooltip shown when hovering the brand icon." group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="interaction" name="BRING_HERE_INTERACTION" class="TunableReference" display="Bring Here Interaction" description="An affordance to push on household members to summon them to the current lot if they are not instanced." allow_none="False" group="General" />
+
+            <TunableList name="BUNDLE_SPECIFIC_DATA" class="TunableMapping" display="Bundle Specific Data" mapping_key="key" mapping_value="value" description="Mapping from an MTX Bundle to its associated data. This is for bundles that should appear in the ui, but are not packs. This includes main menu icons, description, and the action associated with that bundle." group="General" mapping_class="BundleSpecificDataTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="mtxbundle" name="key" class="TunableReference" display="Key" description="The MTX bundle id for the associated data." group="General" pack_safe="True" />
+                    <TunableTuple name="value" class="TunableBundleDataTuple" display="Value" description="Each bundle has icons and a description, as well as an data for the action performed when the bundle is interacted with either the PromotionDialog or the PackDisplayPanel." group="General">
+                        <TunableVariant type="None" name="action" class="TunableVariant" default="url" display="Action" description="The action that should be performed when this bundle is interacted with in either the PromotionDialog or the PackDisplayPanel." group="General">
+                            <TunableTuple name="promo_data" class="TunablePromoDataTuple" display="Promo Data" description="Data that populates PromotionDialog." group="General">
+                                <Tunable type="ResourceKey" name="image" class="TunableIcon" default="None" display="Image" description="Image displayed in the promotion dialog." group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="int" name="legal_text" class="TunableLocalizedString" default="0x0" display="Legal Text" description="Legal text required for this promotion." allow_none="True" group="General" />
+                                <Tunable type="int" name="text" class="TunableLocalizedString" default="0x0" display="Text" description="Text describing the promotion." group="General" />
+                                <Tunable type="int" name="title" class="TunableLocalizedString" default="0x0" display="Title" description="Title of the promotion." group="General" />
+                            </TunableTuple>
+                            <Tunable type="str" name="url" class="Tunable" default="None" display="Url" description="External url to open from PackDisplayPanel." group="General" />
+                        </TunableVariant>
+                        <Tunable type="int" name="bundle_name" class="TunableLocalizedString" default="0x0" display="Bundle Name" description="Name used in pack detail panel and main menu. If empty, we fall back to using the MTX product name." allow_none="True" group="General" />
+                        <Tunable type="ResourceKey" name="icon_owned" class="TunableIcon" default="None" display="Icon Owned" description="Bundle icon that is displayed in the main menu pack display when the player is entitled to that bundle." group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="ResourceKey" name="icon_unowned" class="TunableIcon" default="None" display="Icon Unowned" description="Bundle icon that is displayed in the main menu pack display when the player is not entitled to that bundle." group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="int" name="short_description" class="TunableLocalizedString" default="0x0" display="Short Description" description="Short description of the bundle meant to be displayed in a tooltip." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="CG_CHALLENGE_DATAS" class="TunableList" display="Cg Challenge Datas" description="A list of a challenge's data." group="General">
+                <TunableTuple class="CGChallengeTuning" group="General">
+                    <Tunable type="int" name="cg_challenge_hashtag" class="TunableLocalizedString" default="0x0" display="Cg Challenge Hashtag" description="Hashtag of this challenge" group="General" />
+                    <Tunable type="int" name="cg_challenge_name" class="TunableLocalizedString" default="0x0" display="Cg Challenge Name" description="Name of this challenge" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="CHALLENGE_DATA" class="TunableList" display="Challenge Data" description="List of challenge event data for engagement challenge notification UI." group="General">
+                <TunableTuple class="TunableChallengeNotificationTuple" description="Data for each engagement challenge event." group="General">
+                    <TunableList name="challenge_list" class="TunableList" display="Challenge List" description="A list of tuples that describe each challenge." group="General">
+                        <TunableTuple class="TunableChallengeDataTuple" description="A tuple that contains data for a challenge." group="General">
+                            <Tunable type="int" name="challenge_description" class="TunableLocalizedString" default="0x0" display="Challenge Description" description="The description of the challenge." allow_none="True" group="General" />
+                            <Tunable type="int" name="challenge_name" class="TunableLocalizedString" default="0x0" display="Challenge Name" description="The name of the challenge." allow_none="True" group="General" />
+                            <TunableEnum type="CollectionIdentifier" name="collection_id" class="TunableEnumEntry" default="Unindentified" display="Collection Id" dynamic_entries="objects-collection_manager_enums.CollectionIdentifier._elements" static_entries="objects-collection_manager_enums.CollectionIdentifier" description="A CollectionIdentifier that is associated with this challenge. This is used by the UI to tie a collectible with this challenge. Use the default of Unindentified for challenges that aren't associated with a particular collection." group="General" />
+                            <TunableTuple name="event_display" class="TunableChallengeEventDisplayTuple" display="Event Display" description="Display data for a challenge event." group="General">
+                                <Tunable type="ResourceKey" name="activity_complete_icon" class="TunableIcon" default="None" display="Activity Complete Icon" description="Icon to be paired with the challenge complete text. If not specified, the in-progress icon will be used." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="int" name="activity_complete_text" class="TunableLocalizedString" default="0x0" display="Activity Complete Text" description="Status text for when the player has met the challenge goal. This is currently displayed on a tooltip. If not specified, the in-progress text will be used. A CSS class of 'timeremaining' will have its color changed when the event is close to ending. The following tokens are available (same as the in-progress text): 0 - Number: Current collection progress, if available. 1 - Number: Collection goal, if available. 2 - Number: Hours remaining. 3 - Number: Days remaining." allow_none="True" group="General" />
+                                <Tunable type="ResourceKey" name="activity_icon" class="TunableIcon" default="None" display="Activity Icon" description="Icon to display beside the activity progress bar." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="ResourceKey" name="activity_progress_icon" class="TunableIcon" default="None" display="Activity Progress Icon" description="Icon to be paired with the progress text." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="int" name="activity_progress_text" class="TunableLocalizedString" default="0x0" display="Activity Progress Text" description="Status text for when the player is still making progress towards the challenge goal. This is currently displayed on a tooltip. A CSS class of 'timeremaining' will have its color changed when the event is close to ending. The following tokens are available: 0 - Number: Current collection progress, if available. 1 - Number: Collection goal, if available. 2 - Number: Hours remaining. 3 - Number: Days remaining." allow_none="True" group="General" />
+                                <Tunable type="ResourceKey" name="community_complete_icon" class="TunableIcon" default="None" display="Community Complete Icon" description="Icon to be paired with the community challenge complete text." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="int" name="community_complete_text" class="TunableLocalizedString" default="0x0" display="Community Complete Text" description="Status text for when the community has met the challenge goal. This text is only used when a goal is defined. If not specified, the in-progress status text will be used. Two Number tokens are available: 0 - Current community collection progress. 1 - Community collection goal, if any." allow_none="True" group="General" />
+                                <Tunable type="int" name="community_goal_amount" class="Tunable" default="0" display="Community Goal Amount" description="Optional collection goal for the community to reach." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="ResourceKey" name="community_progress_icon" class="TunableIcon" default="None" display="Community Progress Icon" description="Icon to be paired with the community status text." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="int" name="community_progress_text" class="TunableLocalizedString" default="0x0" display="Community Progress Text" description="Status text describing the community's progress. This is currently displayed on a tooltip. This text is displayed even when challenges do not have community goals. Two Number tokens are available: 0 - Current community collection progress. 1 - Community collection goal, if any." allow_none="True" group="General" />
+                                <TunableTuple name="end_time" class="TunableChallengeDateTuple" display="End Time (UTC)" description="Date and time (UTC) for when the challenge event is expected to end. This is currently used to compute the time remaining in the UI." group="General">
+                                    <Tunable type="int" name="day" class="TunableRange" default="1" display="Day" min="1" max="31" description="Day" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="hour" class="TunableRange" default="0" display="Hour" min="0" max="23" description="Hour (24-hour)" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="month" class="TunableRange" default="1" display="Month" min="1" max="12" description="Month" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="year" class="TunableRange" default="2016" display="Year" min="2014" max="None" description="Year" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <Tunable type="ResourceKey" name="event_icon" class="TunableIcon" default="None" display="Event Icon" description="An icon to use for the challenge event." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="int" name="event_title" class="TunableLocalizedString" default="0x0" display="Event Title" description="Title to display. If not provided, challenge name will be used." allow_none="True" group="General" />
+                            </TunableTuple>
+                            <Tunable type="ResourceKey" name="image" class="TunableResourceKey" default="None" display="Image" description="The main image displayed for challenge info." group="General" resource_types="0x2f7d0004" />
+                            <Tunable type="str" name="info_link" class="Tunable" default="" display="Info Link" description="The url link to page for more info on a challenge." allow_none="True" group="General" />
+                            <TunableList name="reward_items" class="TunableList" display="Reward Items" description="A list of tuples that describe rewards for challenge." group="General">
+                                <TunableTuple class="TunableChallengeRewardTuple" description="A tuple that contains data for a challenge reward item." group="General">
+                                    <Tunable type="ResourceKey" name="reward_icon" class="TunableResourceKey" default="None" display="Reward Icon" description="The icon of reward item." group="General" resource_types="0x2f7d0004" />
+                                    <Tunable type="int" name="reward_name" class="TunableLocalizedString" default="0x0" display="Reward Name" description="The name of reward item." allow_none="True" group="General" />
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableList>
+                    <Tunable type="int" name="challenge_subtitle" class="TunableLocalizedString" default="0x0" display="Challenge Subtitle" description="The subtitle text to be displayed in notification UI." allow_none="True" group="General" />
+                    <Tunable type="int" name="challenge_title" class="TunableLocalizedString" default="0x0" display="Challenge Title" description="The title text to be displayed in notification UI." allow_none="True" group="General" />
+                    <Tunable type="str" name="switch_name" class="Tunable" default="" display="Switch Name" description="Server switch name to check whether challenge is active." allow_none="True" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="CHEAT_SHEET_TUNING" class="TunableList" display="Cheat Sheet Tuning" description="The entire set of cheat sheet hints. We iterate over this, checking each item against its tests to determine which should be visible." group="General">
+                <TunableTuple class="CheatSheetItemTuning" group="General">
+                    <TunableList name="conditions" class="TunableList" display="Conditions" group="General">
+                        <TunableEnum type="CheatSheetMode" class="TunableEnumEntry" default="INVALID" static_entries="cheat_sheet-cheat_sheet_enums.CheatSheetMode" description="Set of conditions that, when true, activate this item in the list. EG, TS3_CAMERA_ACTIVE + IN_LIVE_MODE will be visible when the TS3 camera is active and the user is in Live Mode, and invisible if either of those aren't true " group="General" invalid_entries="INVALID" />
+                    </TunableList>
+                    <TunableList name="control_elements" class="TunableList" display="Control Elements" description="List of elements that define this control item, which may be either names of Keyframes, or strings to display in this line item on the Cheat Sheet" group="General">
+                        <TunableVariant type="None" class="TunableVariant" default="none" description="Either a string that defines a keyframe, or a localized string to display" group="General">
+                            <TunableTuple name="keyframe_icon" class="CheatSheetElementKeyframeTuning" display="Keyframe Icon" description=" " group="General">
+                                <Tunable type="str" name="keyframe_string" class="Tunable" default="None" display="Keyframe String" description="When variant is this type, defines the keyframe in CheatSheetIcon in GuiComponentLibrary.fla to display " group="General" />
+                            </TunableTuple>
+                            <Tunable name="none" class="TunableExistance" display="None" />
+                            <TunableTuple name="string_control" class="CheatSheetElementControlStringTuning" display="String Control" description=" " group="General">
+                                <Tunable type="int" name="localized_string" class="TunableLocalizedString" default="0x0" display="Localized String" description="When variant is this type, specifies the localized string to display in this element" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableList>
+                    <Tunable type="int" name="item_description" class="TunableLocalizedString" default="0x0" display="Item Description" description="Localized text to display next to to the icon" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="interaction" name="COME_NEAR_ACTIVE_SIM" class="TunableReference" display="Come Near Active Sim" description="An affordance to push on a Sim so they come near the active Sim." allow_none="False" group="General" />
+
+            <TunableList name="DEFAULT_OVERLAY_MAP" class="TunableMapping" display="Default Overlay Map" mapping_key="key" mapping_value="value" description="This is a mapping of MapOverlayEnum -> List of MapOverlayEnums. The key is used as the layer to be shown when no other overlays are present. The value is a list of overlay types that would result in the default layer being turned off if both are active." group="General" mapping_class="OverlayDefaultData">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="MapOverlayEnum" name="key" class="TunableEnumEntry" default="NONE" display="Key" dynamic_entries="ui-ui_tuning.MapOverlayEnum._elements" static_entries="ui-ui_tuning.MapOverlayEnum" description="This is the OverlayType that acts as the default for the grouping of OverlayTypes." group="General" />
+                    <TunableList name="value" class="TunableList" display="Value" description="A list of OverlayTypes, that if turned on would result in the default OverlayType being shut off." group="General">
+                        <TunableEnum type="MapOverlayEnum" class="TunableEnumEntry" default="NONE" dynamic_entries="ui-ui_tuning.MapOverlayEnum._elements" static_entries="ui-ui_tuning.MapOverlayEnum" description="The OverlayType that causes the default value to turn off." group="General" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="DLC_TRIALS_EXPIRATION_DIALOG_DURATION_IN_DAYS" class="TunableRange" default="14" display="Dlc Trials Expiration Dialog Duration In Days" min="1" max="None" description="Duration in number of days after trial expiration in which it's still valid to show the Trial Expired dialog to the player. This value also doubles as the number of days after conversion in which it's still valid to show the Welcome to Pack dialog. After this period of time, these dialogs will not be able to show when the player returns to the game." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="EARLY_PURCHASE_INCENTIVE_ALERT_TUNING" class="TunableMapping" display="Early Purchase Incentive Alert Tuning" mapping_key="key" mapping_value="value" description="Mapping of Pack to Early Purchase Incentive data to be displayed when the user pre-orders the product." group="General" mapping_class="EarlyPurchaseIncentiveTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Pack" name="key" class="TunableEnumEntry" default="BASE_GAME" display="Key" static_entries="sims4-common.Pack" description="The pack associated with the EPI. This should really only have entries for EP14 or later as that was when this system was implemented." group="General" />
+                    <TunableTuple name="value" class="TunableEPITuple" display="Value" description="Each EPI will have a set of tuning of images and text to display to inform the user what new features have been introduced in the pack." group="General">
+                        <TunableList name="cycle_images" class="TunableList" display="Cycle Images" description="A list of images (screenshots) that the UI cycles through to show off the items/assets that are part of the EPI." group="General">
+                            <Tunable type="ResourceKey" class="TunableResourceKey" default="None" group="General" resource_types="0x2f7d0004" />
+                        </TunableList>
+                        <TunableList name="feature_list" class="TunableList" display="Feature List" max="4" description="A list of tuples that describe each object/asset in the EPI Alert UI. NOTE: This should NEVER have more than 4 elements in it." group="General">
+                            <TunableTuple class="TunableEPIAssetTuple" description="A tuple that contains title text, description, an icon, and a reference to the matching lesson for this new object/asset." group="General">
+                                <Tunable type="int" name="description_text" class="TunableLocalizedString" default="0x0" display="Description Text" description="A short description of the new object/asset." group="General" />
+                                <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="An icon that represents the object/asset." group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="int" name="title_text" class="TunableLocalizedString" default="0x0" display="Title Text" description="A title to be displayed in bold for the object/asset." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                        <Tunable type="int" name="title" class="TunableLocalizedString" default="0x0" display="Title" description="The title to be displayed at the top of the EPI alert UI for this pack." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="ENGAGEMENT_MESSAGES" class="TunableMapping" display="Engagement Messages" mapping_key="key" mapping_value="value" description="Defines offline engagement messages on the main menu, keyed by destination name. Maps as a subset of values for the UMMainMenuTemplateData class in as3.un" group="General" mapping_class="UIEngagementMessageMap">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="str" name="key" class="Tunable" default="" display="Key" description="Name of the destination these messages are assigned to." group="General" />
+                    <TunableList name="value" class="TunableList" display="Value" description="List of engagement messages for a destination." group="General">
+                        <TunableTuple class="UIEngagementMessage" description="Defines an engagement message." group="General">
+                            <Tunable type="str" name="button_cta_url" class="Tunable" default="" display="Button Cta Url" description="Url for when cta button is pressed. If button_text is defined this should also be defined." allow_none="True" group="General" />
+                            <Tunable type="int" name="button_text" class="TunableLocalizedString" default="0x0" display="Button Text" description="Optional string to display on the cta button" allow_none="True" group="General" />
+                            <Tunable type="bool" name="child_friendly" class="Tunable" default="False" display="Child Friendly" description="When true this message can be shown to children" group="General" />
+                            <Tunable type="int" name="description_text" class="TunableLocalizedString" default="0x0" display="Description Text" description="String to display for the description of the message" allow_none="True" group="General" />
+                            <Tunable type="ResourceKey" name="image" class="TunableResourceKey" default="None" display="Image" description="The main image displayed on the message" allow_none="True" group="General" resource_types="0x2f7d0004" />
+                            <Tunable type="int" name="layout" class="Tunable" default="1" display="Layout" description="Layout id, integer value." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="layout_position" class="TunableRange" default="0" display="Layout Position" min="0" max="3" description="0 = single large, 1 = left, 2 = right, 3 = middle" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="layout_size" class="TunableRange" default="0" display="Layout Size" min="0" max="2" description="0 = large, 1 = medium, 2 = small" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="str" name="link_cta_url" class="Tunable" default="" display="Link Cta Url" description="Optional url for when a link in the description is pressed" allow_none="True" group="General" />
+                            <Tunable type="str" name="message_type" class="Tunable" default="Message" display="Message Type" description="Message type." allow_none="True" group="General" />
+                            <Tunable type="int" name="title_text" class="TunableLocalizedString" default="0x0" display="Title Text" description="String to display for the title of the message" allow_none="True" group="General" />
+                            <Tunable type="str" name="video_url" class="Tunable" default="" display="Video Url" description="Optional url for when video button is pressed" allow_none="True" group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="interaction" name="GO_HOME_INTERACTION" class="TunableReference" display="Go Home Interaction" description="The interaction to push a Sim to go home." allow_none="False" group="General" />
+
+            <TunableList name="LOADING_SCREEN_STRINGS" class="TunableMapping" display="Loading Screen Strings" mapping_key="key" mapping_value="value" description="Mapping from the Pack to its associated loading strings." group="General" mapping_class="LoadingScreenStringsTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Pack" name="key" class="TunableEnumEntry" default="BASE_GAME" display="Key" static_entries="sims4-common.Pack" description="The pack containing the strings." group="General" />
+                    <TunableList name="value" class="TunableList" display="Value" description="The list of loading screen strings which belongs to the pack. We always display the strings from base game AND from the latest pack which the player is entitled to and has installed. " group="General">
+                        <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may NOT require tokens." group="General" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="MAIN_MENU_PLAY_TEXT" class="TunableMapping" display="Main Menu Play Text" mapping_key="key" mapping_value="value" description="Defines text strings which can be shown under the play/new game button on the main menu. A message will be randomly selected from a named group." group="General" mapping_class="MainMenuPlayTextMap">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="str" name="key" class="Tunable" default="" display="Key" description="Name of the group these messages are assigned to." group="General" />
+                    <TunableList name="value" class="TunableList" display="Value" description="List of main menu play texts." group="General">
+                        <TunableTuple class="MainMenuPlayText" description="Defines a main menu play button message." group="General">
+                            <Tunable type="int" name="text" class="TunableLocalizedString" default="0x0" display="Text" description="String to display." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="NEW_CONTENT_ALERT_TUNING" class="TunableMapping" display="New Content Alert Tuning" mapping_key="key" mapping_value="value" description="Mapping from Pack to its associated new content alert tuning" group="General" mapping_class="NewContentAlertTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Pack" name="key" class="TunableEnumEntry" default="BASE_GAME" display="Key" static_entries="sims4-common.Pack" description="The pack containing the new content tuning. NOTE: this should never be tuned to BASE_GAME. That would trigger for all users." group="General" />
+                    <TunableTuple name="value" class="TunablePackContentTuple" display="Value" description="Each pack will have a set of tuning of images and text to display to inform the user what new features have been introduced in the pack." group="General">
+                        <TunableList name="cycle_images" class="TunableList" display="Cycle Images" description="A list of images (screenshots) that the UI cycles through to show off some of the new features." group="General">
+                            <Tunable type="ResourceKey" class="TunableResourceKey" default="None" group="General" resource_types="0x2f7d0004" />
+                        </TunableList>
+                        <TunableList name="feature_list" class="TunableList" display="Feature List" max="4" description="A list of tuples that describe each new feature in the New Content Alert UI. NOTE: This should NEVER have more than 4 elements in it." group="General">
+                            <TunableTuple class="TunableFeatureTuple" description="A tuple that contains title text, description, an icon, and a reference to the matching lesson for this new feature." group="General">
+                                <Tunable type="int" name="description_text" class="TunableLocalizedString" default="0x0" display="Description Text" description="A short description of the new feature." group="General" />
+                                <Tunable type="ResourceKey" name="icon" class="TunableResourceKey" default="None" display="Icon" description="An icon that represents the feature." group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="tutorial" name="lesson" class="TunableReference" display="Lesson" description="A reference to the lesson that the user can go look at for this new feature." allow_none="True" group="General" pack_safe="True" />
+                                <Tunable type="int" name="title_text" class="TunableLocalizedString" default="0x0" display="Title Text" description="A title to be displayed in bold for the feature." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                        <Tunable type="int" name="title" class="TunableLocalizedString" default="0x0" display="Title" description="The title to be displayed at the top of the New Content Alert UI for this pack." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="OFFLINE_IMAGE_LOADING_SCREENS" class="TunableList" display="Offline Image Loading Screens" description="List of offline image loading screen data" group="General">
+                <TunableTuple class="UIImageLoadingScreen" description="Defines an image loading screen" group="General">
+                    <Tunable type="ResourceKey" name="image" class="TunableResourceKey" default="None" display="Image" description="The main image displayed on the message" group="General" resource_types="0x2f7d0004" />
+                    <TunableEnum type="Pack" name="packId" class="TunableEnumEntry" default="BASE_GAME" display="Packid" static_entries="sims4-common.Pack" description="Which Pack Id this image references to. Base Game if it is not from a DLC." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="PACK_RELEASE_ORDER" class="TunableList" display="Pack Release Order" description="List of Pack Ids in release order." group="General">
+                <TunableEnum type="Pack" class="TunableEnumEntry" default="BASE_GAME" static_entries="sims4-common.Pack" description="A pack Id." group="General" />
+            </TunableList>
+
+            <TunableList name="PACK_SPECIFIC_DATA" class="TunableMapping" display="Pack Specific Data" mapping_key="packId" mapping_value="packData" description="Mapping from a Pack to its associated data. This includes pack icons, filter strings, and the credits file." group="General" mapping_class="PackSpecificDataTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableTuple name="packData" class="TunablePackDataTuple" display="Packdata" description="Each pack will have a set icons and can have an optional filter string for use in Build/CAS and an optional Credits Title" group="General">
+                        <Tunable type="int" name="community_creator_name" class="TunableLocalizedString" default="0x0" display="Community Creator Name" description="The name of the community creator who helped create this pack, to be displayed in the Pack Detail Panel " allow_none="True" group="General" />
+                        <Tunable type="int" name="credits_title" class="TunableLocalizedString" default="0x0" display="Credits Title" description="The title used in the credits dropdown to select this packs credits. If set, there must be a creditsxml file for this pack in Assets/InGame/UI/Flash/data/" allow_none="True" group="General" />
+                        <Tunable type="ResourceKey" name="dlc_trial_image" class="TunableIcon" default="None" display="Dlc Trial Image" description="Image displayed in the 'Trial Goals' dialog in manage worlds when the player runs a trial of this pack." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="int" name="dlc_trial_pack_goals_description" class="TunableLocalizedString" default="0x0" display="Dlc Trial Pack Goals Description" description="A description of the goals associated with this pack. This is displayed in the 'Trial Goals' dialog in manage worlds when the player runs a trial of this pack." allow_none="True" group="General" />
+                        <TunableVariant type="None" name="dlc_trial_region" class="OptionalTunable" default="disabled" display="Dlc Trial Region" description="Reference to the region description catalog resource that will be shown in the 'Trial Goals' dialog in manage worlds when the player runs a trial of this pack." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="regiondescription" name="enabled" class="TunableReference" display="Enabled" group="General" pack_safe="True" />
+                        </TunableVariant>
+                        <Tunable type="int" name="dlc_trial_title" class="TunableLocalizedString" default="0x0" display="Dlc Trial Title" description="The title to display in the 'Trial Goals' dialog in manage worlds when the player runs a trial of this pack." allow_none="True" group="General" />
+                        <Tunable type="int" name="filter_name" class="TunableLocalizedString" default="0x0" display="Filter Name" description="The name to used to describe the pack in CAS and BuildBuy filters. If set, this pack will appear in the filter list." allow_none="True" group="General" />
+                        <Tunable type="ResourceKey" name="icon_128" class="TunableResourceKey" default="None" display="Icon 128" description="Pack icon. 128x128." group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="ResourceKey" name="icon_32" class="TunableResourceKey" default="None" display="Icon 32" description="Pack icon. 32x32." group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="ResourceKey" name="icon_64" class="TunableResourceKey" default="None" display="Icon 64" description="Pack icon. 64x64." group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="ResourceKey" name="icon_owned" class="TunableIcon" default="None" display="Icon Owned" description="Pack icon that is displayed in the main menu pack display when the player owns that pack." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                        <Tunable type="ResourceKey" name="icon_unowned" class="TunableIcon" default="None" display="Icon Unowned" description="Pack icon that is displayed in the main menu pack display when the player does not own that pack." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                        <TunableEnum type="PackSubTypes" name="pack_sub_type" class="TunableEnumEntry" default="FULL" display="Pack Sub Type" static_entries="ui-ui_tuning.PackSubTypes" description="Which sub type of pack is this." group="General" />
+                        <TunableEnum type="PackTypes" name="pack_type" class="TunableEnumEntry" default="BASE" display="Pack Type" static_entries="ui-ui_tuning.PackTypes" description="Which type of pack is this." group="General" />
+                        <TunableList name="promo_cycle_images" class="TunableList" display="Promo Cycle Images" description="A list of promo screenshots and titles to display in the Pack Detail panel." group="General">
+                            <TunableTuple class="PromoCycleImagesTuning" description="Screenshots and label displayed in the Pack Detail Panel and Pack Preview Panel." group="General">
+                                <Tunable type="ResourceKey" name="image_large" class="TunableResourceKey" default="None" display="Image Large" description="The large version of the screenshot displayed in the Pack Preview Panel." group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="ResourceKey" name="image_small" class="TunableResourceKey" default="None" display="Image Small" description="The small version of the screenshot displayed in the Pack Detail Panel." group="General" resource_types="0x2f7d0004" />
+                                <Tunable type="int" name="title" class="TunableLocalizedString" default="0x0" display="Title" description="The title displayed over the screenshot in both the Pack Detail Panel and Pack Preview Panel." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                        <TunableList name="region_list" class="TunableList" display="Region List" description="A list of tuples that describe each new region in the pack." group="General">
+                            <TunableTuple class="TunablePackRegionTuple" description="A tuple that contains metadata for a world select region." group="General">
+                                <Tunable type="bool" name="disable_view_lot_types" class="Tunable" default="False" display="Disable View Lot Types" description="When tuned, this disables the view lot types button in the World Info Description panel. " group="General" />
+                                <Tunable type="bool" name="is_destination_region" class="Tunable" default="False" display="Is Destination Region" description="Whether this region is a destination world." group="General" />
+                                <Tunable type="bool" name="is_player_facing" class="Tunable" default="False" display="Is Player Facing" description="Whether to display this region in world select when the user does not own the associated pack" group="General" />
+                                <Tunable type="bool" name="is_summit_weather_enabled" class="Tunable" default="False" display="Is Summit Weather Enabled" description="Whether this region has summit (EP10) weather enabled." group="General" />
+                                <Tunable type="ResourceKey" name="overlay_layer" class="TunableResourceKey" default="None" display="Overlay Layer" description="Hero image displayed on mouse over of region in world selection UI." allow_none="True" group="General" resource_types="0x2f7d0004" />
+                                <TunableList name="parallax_layers" class="TunableList" display="Parallax Layers" max="5" description="Images used for scrolling parallax layers for region in world selection UI. Max number of images = 5." group="General">
+                                    <Tunable type="ResourceKey" class="TunableResourceKey" default="None" group="General" resource_types="0x2f7d0004" />
+                                </TunableList>
+                                <Tunable type="int" name="region_description" class="TunableLocalizedString" default="0x0" display="Region Description" description="Localized description of region." allow_none="True" group="General" />
+                                <Tunable type="int" name="region_name" class="TunableLocalizedString" default="0x0" display="Region Name" description="Localized name of region." allow_none="True" group="General" />
+                                <Tunable type="regiondescription" name="region_resource" class="TunableReference" display="Region Resource" description="Reference to the region description catalog resource associated with this region" group="General" pack_safe="True" />
+                                <Tunable type="int" name="region_tooltip_override" class="TunableLocalizedString" default="0x0" display="Region Tooltip Override" description="Tooltip on the world select. If none is set, will use region_description." allow_none="True" group="General" />
+                                <TunableEnum type="RegionType" name="region_type" class="TunableEnumEntry" default="REGIONTYPE_RESIDENTIAL" display="Region Type" static_entries="world-region.RegionType" description="The region type for this region. Keep in sync with gameplay tuning at region->region type" group="General" />
+                                <TunableList name="tourist_highlights" class="TunableList" display="Tourist Highlights" description="Icon, heading, and description used to list points of interest when selecting world for vacations." group="General">
+                                    <TunableTuple class="TunableTouristHighlightTuple" description="Each highlight will have a set of tuning of icons, heading, and description." group="General">
+                                        <Tunable type="int" name="description_text" class="TunableLocalizedString" default="0x0" display="Description Text" description="The description." group="General" />
+                                        <Tunable type="int" name="heading" class="TunableLocalizedString" default="0x0" display="Heading" description="The heading text." group="General" />
+                                        <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="Icon to be displayed ." group="General" resource_types="0x2f7d0004" />
+                                    </TunableTuple>
+                                </TunableList>
+                                <TunableList name="travel_only_lots" class="TunableMapping" display="Travel Only Lots" mapping_key="lot" mapping_value="unselectable_text" description="Any lots tuned here are unselectable outside of gameplay travel/vacation flows, with text describing why this is the case." group="General" mapping_class="ManageWorldsUnselectableLotsTuple">
+                                    <TunableTuple class="TunableTuple" group="General">
+                                        <Tunable type="lotdescription" name="lot" class="TunableReference" display="Lot" description="The lot that is unselectable in manage worlds." group="General" pack_safe="True" />
+                                        <Tunable type="int" name="unselectable_text" class="TunableLocalizedString" default="0x0" display="Unselectable Text" description="Localized text describing why the lot is unselectable." group="General" />
+                                    </TunableTuple>
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableList>
+                        <Tunable type="int" name="short_description" class="TunableLocalizedString" default="0x0" display="Short Description" description="Short description of the pack meant to be displayed in a tooltip." allow_none="True" group="General" />
+                        <Tunable type="str" name="webstore_id" class="Tunable" default="None" display="Webstore Id" description="web store pack specific url identifier" group="General" />
+                    </TunableTuple>
+                    <TunableEnum type="Pack" name="packId" class="TunableEnumEntry" default="BASE_GAME" display="Packid" static_entries="sims4-common.Pack" description="The pack id for the associated data." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="PLATFORM_STRING_REPLACEMENTS" class="TunableList" display="Platform String Replacements" description="A list of strings that will be swapped out when in use on different platforms. Each entry contains the original and replacement LocKey, the platforms to perform the swap on, and the input method that is in use when the LocKey is used." group="General">
+                <TunableTuple class="PlatformStringReplacementTuple" group="General">
+                    <TunableEnum type="InputMethod" name="input_method" class="TunableEnumEntry" default="ANY" display="Input Method" static_entries="ui-ui_tuning.InputMethod" description="The input method that should be in use when attempting to replace the original_string." group="General" />
+                    <Tunable type="int" name="original_string" class="TunableLocalizedString" default="0x0" display="Original String" description="The string that will be replaced or ignored." group="General" />
+                    <TunableEnum type="Platform" name="platform" class="TunableEnumEntry" default="CONSOLE" display="Platform" static_entries="ui-ui_tuning.Platform" description="The platforms on which the string will be replaced." group="General" />
+                    <TunableVariant type="None" name="replacement_string" class="OptionalTunable" default="disabled" display="Replacement String" description="The string that will be used in place of original_string. If omitted, original_string will simply be ignored entirely." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="REGION_TYPE_HEADING_TUNING" class="TunableMapping" display="Region Type Heading Tuning" mapping_key="key" mapping_value="value" description="Mapping from region type to Heading information for world select screen" group="General" mapping_class="RegionTypeHeadingTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="RegionType" name="key" class="TunableEnumEntry" default="REGIONTYPE_RESIDENTIAL" display="Key" static_entries="world-region.RegionType" description="The regiontype that should get this heading data" group="General" />
+                    <TunableTuple name="value" class="TunableRegionHeadingTuple" display="Value" description="Each region will have a set of tuning of icons and text to display in the heading." group="General">
+                        <Tunable type="int" name="heading" class="TunableLocalizedString" default="0x0" display="Heading" description="The text to be displayed at the top." group="General" />
+                        <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="Icon to be displayed next to the heading." group="General" resource_types="0x2f7d0004" />
+                        <TunableVariant type="None" name="vacation_subheading" class="OptionalTunable" default="disabled" display="Vacation Subheading" description="The sub heading to be displayed below the heading when selecting a lot for a vacation." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SCALING" class="TunableList" display="Scaling" description="Defines a min/max ui scaling value for a screen resolution." group="General">
+                <TunableTuple class="UIScaleTuple" group="General">
+                    <Tunable type="float" name="scale_max" class="Tunable" default="1" display="Scale Max" description="Provide a float value." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="float" name="scale_min" class="Tunable" default="1" display="Scale Min" description="Provide a float value." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="screen_height" class="Tunable" default="0" display="Screen Height" description="Provide an integer value." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="screen_width" class="Tunable" default="0" display="Screen Width" description="Provide an integer value." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+
+        <Class name="MapOverlayEnum" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="NONE" enum_value="0" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

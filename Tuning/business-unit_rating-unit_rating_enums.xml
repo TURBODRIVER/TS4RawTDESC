@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="business.unit_rating.unit_rating_enums">
+        <Class name="ModifyDynamicUnitRating" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BONUS_LARGE" enum_value="5" />
+
+            <EnumItem name="BONUS_SMALL" enum_value="4" />
+
+            <EnumItem name="LARGE_GAIN" enum_value="3" />
+
+            <EnumItem name="LARGE_LOSS" enum_value="1" />
+
+            <EnumItem name="SMALL_GAIN" enum_value="2" />
+
+            <EnumItem name="SMALL_LOSS" enum_value="0" />
+        </Class>
+
+        <Class name="RatingSubScore" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="HIGH" enum_value="2" />
+
+            <EnumItem name="LOW" enum_value="0" />
+
+            <EnumItem name="MEDIUM" enum_value="1" />
+        </Class>
+
+        <Class name="RatingContributionObject" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="RCO_AMENITY" enum_value="5" />
+
+            <EnumItem name="RCO_BATH" enum_value="2" />
+
+            <EnumItem name="RCO_BED" enum_value="1" />
+
+            <EnumItem name="RCO_COUNT" enum_value="6" />
+
+            <EnumItem name="RCO_FRIDGE" enum_value="4" />
+
+            <EnumItem name="RCO_INVALID" enum_value="255" />
+
+            <EnumItem name="RCO_STOVE" enum_value="3" />
+
+            <EnumItem name="RCO_TOILET" enum_value="0" />
+        </Class>
+
+        <Class name="UnitRatingCategoryType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AMENITY" enum_value="1" />
+
+            <EnumItem name="ENVIRONMENT" enum_value="2" />
+
+            <EnumItem name="MAINTENANCE" enum_value="3" />
+
+            <EnumItem name="SIZE" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

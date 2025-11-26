@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="CustomStateWeddingSituation" module="situations.custom_states.situation_wedding_update" description="Wedding Situation Update." instance_subclasses_only="False" parents="CustomStatesSituation, BaseCustomStatesSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Tunable type="situation_job" name="betrothed_job" class="TunableReference" display="Betrothed Job" description="The Situation Job used by the betrothed couple." allow_none="False" group="General" restrict="SituationJob" />
+
+        <Tunable type="interaction" name="move_in_together_interaction" class="TunableReference" display="Move In Together Interaction" description="The affordance to push on the betrothed sims when the wedding event ends." allow_none="False" group="General" />
+
+        <TunableEnum type="OutfitChangeReason" name="outfit_change_reason_default" class="TunableEnumEntry" default="Invalid" display="Outfit Change Reason Default" dynamic_entries="sims-outfits-outfit_enums.OutfitChangeReason._elements" static_entries="sims-outfits-outfit_enums.OutfitChangeReason" description="An override applied to wedding jobs if the player has not selected customized outfit. An enum that represents a reason for outfit change for the outfit system, which determines the category of an outfit." group="General" invalid_entries="Invalid" />
+
+        <TunableList name="player_outfit_tags_jobs" class="TunableList" display="Player Outfit Tags Jobs" description="The jobs that will use the player defined outfit tags." group="General">
+            <Tunable type="situation_job" class="TunableReference" description="The Situation Job that will include player defined outfit tags in its uniform." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableList>
+
+        <TunableEnum type="OutfitCategory" name="preferred_outfit_category" class="TunableEnumEntry" default="SITUATION" display="Preferred Outfit Category" static_entries="sims-outfits-outfit_enums.OutfitCategory" description="If a sim's outfit in the tuned category complies with one of the tags in the outfit extra tag set, then use that existing outfit instead of generating a new one for wedding jobs. " group="General" />
+
+        <Deleted name="situation_display_type_override" />
+    </Instance>
+</TuningRoot>

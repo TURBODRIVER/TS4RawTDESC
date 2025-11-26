@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="live_events.live_event_service">
+        <Class name="LiveEventName" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+        </Class>
+
+        <Class name="LiveEventState" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ACTIVE" enum_value="1" />
+
+            <EnumItem name="COMPLETED" enum_value="0" />
+        </Class>
+
+        <Class name="LiveEventType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AB_TEST" enum_value="0" />
+
+            <EnumItem name="LIVE_FESTIVAL" enum_value="1" />
+
+            <EnumItem name="SCENARIO" enum_value="2" />
+        </Class>
+
+        <Class name="LiveEventService">
+            <TunableList name="LIVE_EVENTS" class="TunableMapping" display="Live Events" mapping_key="key" mapping_value="value" description="A list of all of the live events that we want to add functionality for." group="General" mapping_class="TunableLiveEventDataMap">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="LiveEventName" name="key" class="TunableEnumEntry" default="DEFAULT" display="Key" dynamic_entries="live_events-live_event_service.LiveEventName._elements" static_entries="live_events-live_event_service.LiveEventName" description="The name of this live event, as defined by the PMs in the UM message." group="General" invalid_entries="DEFAULT" />
+                    <TunableTuple name="value" class="TunableLiveEventData" display="Value" group="General">
+                        <TunableVariant type="None" name="action" class="TunableVariant" default="None" display="Action" description="A gameplay action that runs when the event occurs." group="General">
+                            <Tunable name="None" class="TunableExistance" display="None" />
+                            <TunableTuple name="start_drama_node" class="TunableTuple" display="Start Drama Node" description="If this event is active, we will schedule a drama node." group="General">
+                                <Tunable type="drama_node" name="drama_node" class="TunableReference" display="Drama Node" description="The drama node to schedule when the player is in this live event. This could be a Dialog drama node to trigger a dialog after a certain amount of time." allow_none="False" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="event_content" class="TunableVariant" default="None" display="Event Content" description="If enabled, specifies data related to the event that will be exported to client/UI." group="General">
+                            <Tunable name="None" class="TunableExistance" display="None" />
+                            <Tunable type="snippet" name="scenario" class="TunableReference" display="Scenario" description="This option enables or disables a tuned scenario via the live event." allow_none="False" group="General" restrict="Scenario" />
+                        </TunableVariant>
+                        <TunableEnum type="LiveEventType" name="event_type" class="TunableEnumEntry" default="AB_TEST" display="Event Type" static_entries="live_events-live_event_service.LiveEventType" description="The type of live event this is." group="General" />
+                        <Tunable type="bool" name="is_unique" class="Tunable" default="False" display="Is Unique" description="If this event is unique, there can only be 1 event of this type active at a time." group="General" />
+                        <TunableVariant type="None" name="timing_data" class="TunableVariant" default="None" display="Timing Data" description="Data about when the event should occur." group="General">
+                            <Tunable name="None" class="TunableExistance" display="None" />
+                            <TunableTuple name="tuned_start_and_end" class="TunableStartAndEndDate" display="Tuned Start And End" description="This option allows a fixed start and end time to be tuned." group="General">
+                                <TunableTuple name="end_date_and_time" class="TunableDateTuple" display="End Date (UTC)" group="General">
+                                    <Tunable type="int" name="day" class="TunableRange" default="1" display="Day" min="1" max="31" description="Day" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="hour" class="TunableRange" default="0" display="Hour" min="0" max="23" description="Hour (24-hour)" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="month" class="TunableRange" default="1" display="Month" min="1" max="12" description="Month" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="year" class="TunableRange" default="2021" display="Year" min="2014" max="None" description="Year" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="start_date_and_time" class="TunableDateTuple" display="Start Date (UTC)" group="General">
+                                    <Tunable type="int" name="day" class="TunableRange" default="1" display="Day" min="1" max="31" description="Day" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="hour" class="TunableRange" default="0" display="Hour" min="0" max="23" description="Hour (24-hour)" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="month" class="TunableRange" default="1" display="Month" min="1" max="12" description="Month" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="year" class="TunableRange" default="2021" display="Year" min="2014" max="None" description="Year" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

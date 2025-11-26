@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="eco_footprint.eco_footprint_enums">
+        <Class name="EcoFootprintStateType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="GREEN" enum_value="0" />
+
+            <EnumItem name="INDUSTRIAL" enum_value="2" />
+
+            <EnumItem name="NEUTRAL" enum_value="1" />
+        </Class>
+
+        <Class name="EcoFootprintDirection" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AT_CONVERGENCE" enum_value="1" />
+
+            <EnumItem name="TOWARD_GREEN" enum_value="0" />
+
+            <EnumItem name="TOWARD_INDUSTRIAL" enum_value="2" />
+        </Class>
+    </Module>
+</TuningRoot>

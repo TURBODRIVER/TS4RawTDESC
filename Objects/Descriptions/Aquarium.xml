@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="object" class="Aquarium" module="fishing.aquarium_object" description="Aquarium object that tracks vfx that are added to the object inventory." instance_needs_reference="True" instance_subclasses_only="False" parents="GameObject, ScriptObject" path="Objects\Descriptions" use_guid_for_reference="True">
+        <Tunable type="str" name="fish_vfx_prefix" class="Tunable" default="None" display="Fish Vfx Prefix" description="prefix gets added to beginning of every effect. This way we can swap out effects if we need to for different aquariums. i.e. if the effect on the fish is 'trout_vfx' and we put 'ep04' here, it will change it to 'ep04_trout_vfx'. This will apply to every fish object in this aquarium." group="Fishing" />
+    </Instance>
+</TuningRoot>

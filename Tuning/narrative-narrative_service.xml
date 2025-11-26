@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="narrative.narrative_service">
+        <Class name="NarrativeService">
+            <TunableList name="INITIAL_NARRATIVES" class="TunableSet" display="Initial Narratives" description="The initial set of narratives to set for a player. These narratives will be set for a player if they are neither set nor already completed." group="General" unique_entries="true">
+                <Tunable type="narrative" class="TunableReference" description="A narrative reference." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
+
+            <Tunable type="float" name="LAYER_OBJECTS_ALARM_TIME" class="TunableSimMinute" default="5" display="Layer Objects Alarm Time" min="1" max="None" description="The frequency that we will create or destroy objects in the layer. Please consult a GPE before changing this value as it will impact performance." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="LAYER_OBJECTS_TO_DESTROY" class="TunableRange" default="1" display="Layer Objects To Destroy" min="1" max="None" description="The number of objects to destroy at a time when destroying a layer. Please consult a GPE before changing this value as it will impact performance." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="LAYER_OBJECTS_TO_LOAD" class="TunableRange" default="1" display="Layer Objects To Load" min="1" max="None" description="The number of objects to load at a time when loading a layer. Please consult a GPE before changing this value as it will impact performance." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="TIME_SLICE_SECONDS" class="TunableRealSecond" default="0.1" display="Time Slice Seconds" min="None" max="None" description="The maximum alloted time for sending narrative loots to all sim infos." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

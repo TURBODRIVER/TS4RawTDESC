@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="bucks.bucks_utils">
+        <Class name="BucksUtils">
+            <TunableList name="BUCK_TYPE_TO_DISPLAY_DATA" class="TunableMapping" display="Buck Type To Display Data" mapping_key="Bucks Type" mapping_value="Bucks UI Data" description="For each supplied Bucks, a set of UI display data to be used when displaying information related to this bucks in the UI." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="BucksType" name="Bucks Type" class="TunableEnumEntry" default="INVALID" display="Bucks Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" group="General" pack_safe="True" />
+                    <TunableTuple name="Bucks UI Data" class="TunableTuple" display="Bucks Ui Data" description="A set of UI display data for one bucks type." group="General">
+                        <TunableVariant type="None" name="cost_string" class="OptionalTunable" default="disabled" display="Cost String" description="Format for displaying interaction names on interactions that have this buck as a cost. 0.String is the interaction name. 1 will be the the cost amount." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="gain_string" class="OptionalTunable" default="disabled" display="Gain String" description="Format for displaying interaction names on interactions that have this buck as a gain. 0.String is the interaction name. 1 will be the the gain amount." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="headline" class="OptionalTunable" default="disabled" display="Headline" description="If enabled when this buck updates we will display a headline update to the UI for selectable sims." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="headline" name="enabled" class="TunableReference" display="Enabled" description="The headline that we want to send down." allow_none="False" group="General" />
+                        </TunableVariant>
+                        <Tunable type="int" name="ui_name" class="TunableLocalizedString" default="0x0" display="Ui Name" description="A localized string that may use tokens." group="General" />
+                        <TunableVariant type="None" name="value_string" class="OptionalTunable" default="disabled" display="Value String" description="A string like '{0.Money}' that will be used in UI to display a value of this currency." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may use tokens." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="BUCK_TYPE_TO_TRACKER_MAP" class="TunableMapping" display="Buck Type To Tracker Map" mapping_key="Bucks Type" mapping_value="Bucks Tracker" description="Maps a buck type to the tracker that uses that bucks type." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="BucksTrackerType" name="Bucks Tracker" class="TunableEnumEntry" default="HOUSEHOLD" display="Bucks Tracker" static_entries="bucks-bucks_enums.BucksTrackerType" group="General" />
+                    <TunableEnum type="BucksType" name="Bucks Type" class="TunableEnumEntry" default="INVALID" display="Bucks Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="WALLET_BUCK_TYPES" class="TunableEnumSet" display="Wallet Buck Types" description="A list of buck types whose values will be displayed in the wallet tooltip." group="General" unique_entries="true">
+                <TunableEnum type="BucksType" class="TunableEnumEntry" default="INVALID" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" binary_type="uint32" group="General" pack_safe="True" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.sim_spawner_service">
+        <Class name="SimSpawnerService">
+            <TunableList name="LEAVING_INTERACTION_TAGS" class="TunableSet" display="Leaving Interaction Tags" description="Interaction tags to detect sims running leave lot interactions." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+            </TunableList>
+
+            <Tunable type="int" name="NPC_SOFT_CAP" class="Tunable" default="20" display="Npc Soft Cap" description="The base value for calculating the soft cap on the maximum number of NPCs instantiated. The actual value of the NPC soft cap will be this tuning value minus the number of sims in the active household. There is no hard cap because certain types of NPCs must always spawn or the game will be broken. The prime example of a game breaker is the Grim Reaper. If the number of NPCs is: 1) At or above the soft cap only game breaker NPCs will be spawned. 2) Above the soft cap then low priority NPCs will be driven from the lot. 3) Equal to the soft cap and there are pending requests for higher priority NPCs, then lower priority NPCs will be driven from the lot. " tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="SPAWN_COOLDOWN_TIME" class="TunableRealSecond" default="5" display="Spawn Cooldown Time" min="1" max="None" description="Minimum time between when a sim can despawn and respawn. Since create operations don't block on anything by default while delete operations block on everything, this is used to prevent the create operation from being processed before the delete operation, resulting in a sim existing on the server but not on client." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

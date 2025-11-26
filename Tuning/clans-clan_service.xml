@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="clans.clan_service">
+        <Class name="ClanAllianceState" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALLIED" enum_value="0" />
+
+            <EnumItem name="FEUDING" enum_value="2" />
+
+            <EnumItem name="NEUTRAL" enum_value="1" />
+        </Class>
+
+        <Class name="ClanService">
+            <TunableList name="CLAN_DATA" class="TunableMapping" display="Clan Data" mapping_key="key" mapping_value="value" description="A mapping from clan to the different types of loots that need to be applied to clan members for clan related operations." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="clan" name="key" class="TunableReference" display="Key" description="A reference to a clan for which we are defining a rival clan and the various loots that need to be applied." allow_none="False" group="General" pack_safe="True" />
+                    <TunableTuple name="value" class="TunableTuple" display="Value" group="General">
+                        <Tunable type="action" name="demote_leader_loot" class="TunableReference" display="Demote Leader Loot" description="The loot to apply to the existing leader of a clan when they are being replaced by another Sim." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                        <Tunable type="sim_filter" name="find_new_clan_leader_filter" class="TunableReference" display="Find New Clan Leader Filter" description="A reference to a sim filter that will be used to find a sim to make into the clan leader if the clan currently has no leader. It is recommended that the sim filter does NOT create a sim from template to prevent bugs where multiple sims could get turned into leaders." allow_none="False" group="General" pack_safe="True" />
+                        <Tunable type="action" name="information_dialog_loot" class="TunableReference" display="Information Dialog Loot" description="The loot to display clan information in a dialog." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                        <Tunable type="action" name="join_clan_loot" class="TunableReference" display="Join Clan Loot" description="The loot to apply to a Sim when they join a clan." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                        <Tunable type="action" name="leave_clan_loot" class="TunableReference" display="Leave Clan Loot" description="The loot to apply to a Sim when they leave a clan." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                        <Tunable type="action" name="promote_leader_loot" class="TunableReference" display="Promote Leader Loot" description="The loot to apply to a Sim when they are assigned leader of a clan." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                        <Tunable type="clan" name="rival_clan" class="TunableReference" display="Rival Clan" description="A reference to another clan that will be treated as the rival clan for the given key." allow_none="False" group="General" pack_safe="True" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="LEADER_CHECK_HOUR" class="TunableTimeOfDay" display="Leader Check Hour" description="The time of day to check for clans without a leader." group="General">
+                <Tunable type="int" name="hour" class="TunableRange" default="4" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <TunableList name="NARRATIVE_TO_ALLIANCE_STATE_MAP" class="TunableMapping" display="Narrative To Alliance State Map" mapping_key="key" mapping_value="value" description="A mapping of narrative to the clan alliance state it represents. When the clan service detects a narrative change, it will map the active narrative to one of the alliance states and update the UI if needed." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="narrative" name="key" class="TunableReference" display="Key" description="A reference to a narrative for which the clan service will attempt to update the UI." allow_none="False" group="General" pack_safe="True" />
+                    <TunableEnum type="ClanAllianceState" name="value" class="TunableEnumEntry" default="NEUTRAL" display="Value" static_entries="clans-clan_service.ClanAllianceState" description="The clan alliance state that the narrative corresponds to." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

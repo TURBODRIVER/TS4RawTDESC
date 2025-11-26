@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="routing.walkstyle.walkstyle_enums">
+        <Class name="WalkStyleRunAllowedFlags" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="RUN_ALLOWED_INDOORS" enum_value="1" />
+
+            <EnumItem name="RUN_ALLOWED_OUTDOORS" enum_value="2" />
+        </Class>
+
+        <Class name="WalkstyleBehaviorOverridePriority" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+        </Class>
+
+        <Class name="WalkStylePriority" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="COMBO" enum_value="1" />
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

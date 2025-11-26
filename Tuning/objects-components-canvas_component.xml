@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.canvas_component">
+        <Class name="CanvasType" enum_bit_flag="True" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="NONE" enum_value="0" />
+        </Class>
+
+        <Class name="PortraitType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AUTOGRAPH" enum_value="1" />
+
+            <EnumItem name="GRADUATION" enum_value="2" />
+
+            <EnumItem name="HS_GRADUATION" enum_value="3" />
+
+            <EnumItem name="NONE" enum_value="0" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="recipe" class="PaintingRecipe" module="crafting.painting" description="A Recipe that creates paintings of a particular PaintingStyle on a particular type of CanvasObject." instance_subclasses_only="False" parents="Recipe" path="Recipes\Descriptions" use_guid_for_reference="True">
+        <Deleted name="multi_serving_name" />
+
+        <Tunable type="recipe" name="painting_style" class="TunableReference" display="Painting Style" allow_none="False" group="General" restrict="PaintingStyle" />
+
+        <Deleted name="push_consume" />
+    </Instance>
+</TuningRoot>

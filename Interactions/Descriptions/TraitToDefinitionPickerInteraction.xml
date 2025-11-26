@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="TraitToDefinitionPickerInteraction" module="objects.definition_picker_interaction" description="Class for umbrella picker. We need this because we need a way to tell UI which umbrella is picked." instance_needs_reference="True" instance_subclasses_only="False" parents="ObjectDefinitionPickerInteraction, ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="disabled_toolip" class="TunableLocalizedString" default="0x0" display="Disabled Toolip" description="Tooltip that displays if the sim currently has the trait in the mapping." group="General" />
+
+        <TunableList name="trait_to_definition_id" class="TunableMapping" display="Trait To Definition Id" mapping_key="key" mapping_value="value" description="Backward mapping of trait to what umbrella the sim carries" group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="trait" name="key" class="TunableReference" display="Key" description="Trait to look for" allow_none="False" group="General" restrict="Trait" />
+                <Tunable type="object" name="value" class="TunableReference" display="Value" description="The object must have this definition." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

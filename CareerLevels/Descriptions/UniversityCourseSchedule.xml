@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="career_level" class="UniversityCourseSchedule" module="sims.university.university_career_tuning" description="University course 'CareerLevel' analog" instance_needs_reference="True" instance_subclasses_only="False" parents="CareerLevel" path="CareerLevels\Descriptions" use_guid_for_reference="True">
+        <Deleted name="ageup_branch_career" />
+
+        <Deleted name="demotion_performance_level" />
+
+        <TunableEnum type="FinalCourseRequirement" name="final_requirement_type" class="TunableEnumEntry" default="NONE" display="Final Requirement Type" static_entries="sims-university-university_enums.FinalCourseRequirement" description="The final course requirement type for this schedule. This schedule can only be assigned to a course that has the same final course requirement" group="General" />
+
+        <Deleted name="fired_performance_level" />
+
+        <TdescFragTag name="office_hour_test_set" class="TunableTestSetWithTooltip" display="Office Hour Test Set" description="Set of tests to determine if office hours are available for this course" group="General" />
+
+        <Deleted name="promote_performance_level" />
+
+        <Deleted name="promotion_audio_sting" />
+
+        <Deleted name="promotion_reward" />
+
+        <Deleted name="screen_slam" />
+
+        <Deleted name="simolean_trait_bonus" />
+
+        <Deleted name="simoleons_for_assignments_per_day" />
+    </Instance>
+</TuningRoot>

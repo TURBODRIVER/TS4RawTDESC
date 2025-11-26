@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.utilities_component">
+        <Class name="UtilitiesComponent">
+            <TunableList name="DISALLOW_UTILITY_USAGE_TOOLTIPS" class="TunableMapping" display="Disallow Utility Usage Tooltips" mapping_key="key" mapping_value="value" description="Tooltips to show when an interaction cannot be run on the object that has Utilities Component due to the utility usage being disallowed." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Utilities" name="key" class="TunableEnumEntry" default="POWER" display="Key" dynamic_entries="sims-household_utilities-utility_types.Utilities._elements" static_entries="sims-household_utilities-utility_types.Utilities" description="The utility type." group="General" />
+                    <Tunable type="int" name="value" class="TunableLocalizedString" default="0x0" display="Value" description="A tooltip to show." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="UTILITIES_COMPONENT_AFFORDANCES" class="TunableList" display="Utilities Component Affordances" description="List of affordance for object that has Utilities Component." group="General">
+                <Tunable type="interaction" class="TunableReference" allow_none="False" group="General" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

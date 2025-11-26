@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="PivotalMomentSituation" module="situations.custom_states.pivotal_moment_situation" instance_subclasses_only="False" parents="CustomStatesSituation, BaseCustomStatesSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_cost" />
+
+        <Deleted name="_initiating_sim_tests" />
+
+        <Deleted name="_level_data" />
+
+        <Deleted name="category" />
+
+        <Deleted name="compatible_venues" />
+
+        <Deleted name="entitlement" />
+
+        <Deleted name="exclusivity" />
+
+        <TunableVariant type="None" name="goal_button_required_packs" class="OptionalTunable" default="disabled" display="Goal Button Required Packs" description="Any packs tuned here that the player does not have will cause the goal button to appear. If all of the packs are owned, the button will be hidden. If no packs are tuned, this check will not be performed." group="Goals">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableEnumSet" display="Enabled" description="Any packs tuned here that the player does not have will cause the goal button to appear. If all of the packs are owned, the button will be hidden. If no packs are tuned, this check will not be performed." group="General" unique_entries="true">
+                <TunableEnum type="Pack" class="TunableEnumEntry" default="BASE_GAME" static_entries="sims4-common.Pack" group="General" />
+            </TunableList>
+        </TunableVariant>
+
+        <Deleted name="job_display_ordering" />
+
+        <TunableList name="loots_on_run" class="TunableList" display="Loots On Run" description="Loot Actions that will be applied to the active sim when the situation starts/load." group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+
+        <Deleted name="max_participants" />
+
+        <Tunable type="snippet" name="pivotal_moment" class="TunableReference" display="Pivotal Moment" description="Pivotal moment related to this situation." allow_none="False" group="General" pack_safe="True" restrict="PivotalMoment" />
+
+        <TunableList name="potential_rewards" class="TunableList" display="Potential Rewards" description="List of potential Rewards among which only one is to be given when completing this situation. The first one passing its tests will be given." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="reward" name="reward" class="TunableReference" display="Reward" description="One of the rewards the situation can give upon completion." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <Deleted name="screen_slam_bronze" />
+
+        <Deleted name="screen_slam_gold" />
+
+        <Deleted name="screen_slam_no_medal" />
+
+        <Deleted name="screen_slam_silver" />
+
+        <Deleted name="situation_display_type_override" />
+
+        <Deleted name="venue_invitation_message" />
+
+        <Deleted name="venue_situation_player_job" />
+    </Instance>
+
+    
+</TuningRoot>

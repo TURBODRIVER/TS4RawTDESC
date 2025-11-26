@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation_goal" class="SituationGoalActorCareer" module="situations.situation_goal_actor" description="Situation Goal for Sim's Career changes or promotions." instance_needs_reference="True" instance_subclasses_only="False" parents="SituationGoalActor, SituationGoal" path="SituationGoals\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="_evaluate_on_test_event_origin" class="OptionalTunable" default="any_origin" display="Evaluate On Test Event Origin" description="Specify when to evaluate the goal test based on the origin of where the Career TestEvents are sent from. If disabled, the goal test will run for every Career TestEvent processed." group="Tests">
+            <Tunable name="any_origin" class="TunableExistance" display="Any Origin" />
+            <TunableList name="specific_origins" class="TunableSet" display="Specific Origins" description="The goal test will only evaluate when the Career TestEvents come from one of these tuned origins. Ex. GotJob goal should only run when the TestEvent.CareerEvent originates from JOIN_CAREER. " group="General" unique_entries="true">
+                <TunableEnum type="TestEventCareersOrigin" class="TunableEnumEntry" default="UNSPECIFIED" static_entries="careers-career_enums.TestEventCareersOrigin" description="The origin from which the request to process Career TestEvents is from. " group="General" invalid_entries="UNSPECIFIED" />
+            </TunableList>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="_goal_test" class="TunableVariant" default="none" display="Goal Test" description="Primary test which triggers evaluation of goal completion." group="Tests">
+            <TunableTuple name="career" class="TunableTunableCareerTest" display="Career" description="Tunable test for what careers a Sim has. subjects: A ParticipantType used for choosing whom to run the test on. test_type: A variant of the different tunable tests that handle testing for careers." group="General">
+                <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If this is true then it will negate the result of the test type. For instance if this is true and the test would return true for whether or not a sim has a particular career False will be returned instead." group="General" />
+                <TunableEnum type="ParticipantType" name="subjects" class="TunableEnumEntry" default="Actor" display="Subjects" static_entries="interactions.ParticipantType" description="The participant to run the career test on." group="General" />
+                <TunableVariant type="None" name="test_type" class="TunableCareerTestVariant" default="career_reference" display="Test Type" group="General">
+                    <TunableTuple name="attended_first_day" class="TunableCareerAttendedFirstDay" display="Attended First Day" description="Test for whether or not the Sim has gone to work at all for the career." group="General">
+                        <Tunable type="career" name="career" class="TunableReference" display="Career" description="The career to see if the Sim has gone to work for." allow_none="False" group="General" pack_safe="True" />
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="can_join_career" class="TunableCareerAvailabilityTestFactory" display="Can Join Career" description="A test for whether a sim can join a tunable number threshold of the tuned careers. This requires that the career be valid for the sim and that the sim not already be in the career." group="General">
+                        <TunableTuple name="careers_to_consider" class="TunableWhiteBlackList" display="Careers To Consider" description="The set of careers to consider and the threshold for passing." group="General">
+                            <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                                <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                                <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                    <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                        <Tunable type="career" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                    </TunableList>
+                                    <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                        <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                            <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                        </TunableTuple>
+                                    </TunableVariant>
+                                </TunableTuple>
+                            </TunableVariant>
+                            <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                                <Tunable name="everything" class="TunableExistance" display="Everything" />
+                                <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                    <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                        <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                            <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                        </TunableTuple>
+                                    </TunableVariant>
+                                    <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                        <Tunable type="career" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                    </TunableList>
+                                </TunableTuple>
+                            </TunableVariant>
+                        </TunableTuple>
+                    </TunableTuple>
+                    <TunableTuple name="career_level" class="TunableCareerLevelTestFactory" display="Career Level" description="Test to see if the participants have a career at the specified level." group="General">
+                        <Tunable type="career_level" name="career_level" class="TunableReference" display="Career Level" description="A reference to career level tuning that each subject must have in at least one career in order for this test to pass." tuning_state="NeedsTuning" allow_none="False" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="career_reference" class="TunableCareerReferenceTestFactory" display="Career Reference" description="A test for whether or not the specified subjects have the specified career, career user level, or both." group="General">
+                        <Tunable type="bool" name="allow_invisible_careers" class="Tunable" default="False" display="Allow Invisible Careers" description="If checked, this test will also allow non-visible careers (such as Odd Jobs) to tested against." group="General" />
+                        <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Should be called 'Ignore List'. Set of careers that will be ignored on the Sim. If the Sim only had these careers, it would be like having no careers." group="General" unique_entries="true">
+                            <Tunable type="career" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableVariant type="None" name="career" class="OptionalTunable" default="all_careers" display="Career" description="The career to test for on the Sim. When set by itself it will pass if the subject simply has this career. When set with user level it will only pass if the subjects user level passes the threshold test." group="General">
+                            <Tunable name="all_careers" class="TunableExistance" display="All Careers" />
+                            <Tunable type="career" name="specific_career" class="TunableReference" display="Specific Career" allow_none="False" group="General" pack_safe="True" />
+                        </TunableVariant>
+                        <TunableList name="career_list" class="TunableSet" display="Career List" description="Should be another option in 'career', as if both are set, will be a validation error. Instead of checking if just one career is present, this will check if any one of the given careers are present." group="General" unique_entries="true">
+                            <Tunable type="career" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableVariant type="None" name="user_level" class="OptionalTunable" default="disabled" display="User Level" description="Threshold test for the current user value of a career. If user_level is set without career then it will pass if any of their careers pass the threshold test. If set along with career then it will only pass if the specified career passes the threshold test for user level. The min and max for the user level are inclusive. So the Sim can have any career level that meets the following equation and it will pass. min <= current career level <= max." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="Threshold test for the current user value of a career. If user_level is set without career then it will pass if any of their careers pass the threshold test. If set along with career then it will only pass if the specified career passes the threshold test for user level. The min and max for the user level are inclusive. So the Sim can have any career level that meets the following equation and it will pass. min <= current career level <= max." group="General">
+                                <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="upper_bound" class="TunableRange" default="11" display="Upper Bound" min="None" max="11" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="career_track" class="TunableCareerTrackTestFactory" display="Career Track" description="Test for whether the specified subjects have a career currently on the track specified." group="General">
+                        <Tunable type="career_track" name="career_track" class="TunableReference" display="Career Track" description="A reference to the career track that each subject must have in at least one career in order for this test to pass." allow_none="False" group="General" pack_safe="True" />
+                        <TunableVariant type="None" name="user_level" class="OptionalTunable" default="disabled" display="User Level" description="Interval test for the current user value of a career. Career track must also be specified for this check to work properly." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="Interval test for the current user value of a career. Career track must also be specified for this check to work properly." group="General">
+                                <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="int" name="upper_bound" class="TunableRange" default="10" display="Upper Bound" min="None" max="10" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="common_career" class="TunableCareerCommonTestFactory" display="Common Career" description="Test used to see if multiple participants have a career in common." group="General">
+                        <TunableList name="targets" class="TunableEnumFlags" default="Listeners" display="Targets" description="tuning for the targets to check for the same common career on." group="General" unique_entries="true">
+                            <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                        </TunableList>
+                        <TunableVariant type="None" name="test_type" class="TunableCommonCareerTestsVariant" default="career_reference" display="Test Type" group="General">
+                            <TunableTuple name="career_level" class="TunableCareerLevelTestFactory" display="Career Level" description="Test to see if the participants have a career at the specified level." group="General">
+                                <Tunable type="career_level" name="career_level" class="TunableReference" display="Career Level" description="A reference to career level tuning that each subject must have in at least one career in order for this test to pass." tuning_state="NeedsTuning" allow_none="False" group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="career_reference" class="TunableCareerReferenceTestFactory" display="Career Reference" description="A test for whether or not the specified subjects have the specified career, career user level, or both." group="General">
+                                <Tunable type="bool" name="allow_invisible_careers" class="Tunable" default="False" display="Allow Invisible Careers" description="If checked, this test will also allow non-visible careers (such as Odd Jobs) to tested against." group="General" />
+                                <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Should be called 'Ignore List'. Set of careers that will be ignored on the Sim. If the Sim only had these careers, it would be like having no careers." group="General" unique_entries="true">
+                                    <Tunable type="career" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableVariant type="None" name="career" class="OptionalTunable" default="all_careers" display="Career" description="The career to test for on the Sim. When set by itself it will pass if the subject simply has this career. When set with user level it will only pass if the subjects user level passes the threshold test." group="General">
+                                    <Tunable name="all_careers" class="TunableExistance" display="All Careers" />
+                                    <Tunable type="career" name="specific_career" class="TunableReference" display="Specific Career" allow_none="False" group="General" pack_safe="True" />
+                                </TunableVariant>
+                                <TunableList name="career_list" class="TunableSet" display="Career List" description="Should be another option in 'career', as if both are set, will be a validation error. Instead of checking if just one career is present, this will check if any one of the given careers are present." group="General" unique_entries="true">
+                                    <Tunable type="career" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableVariant type="None" name="user_level" class="OptionalTunable" default="disabled" display="User Level" description="Threshold test for the current user value of a career. If user_level is set without career then it will pass if any of their careers pass the threshold test. If set along with career then it will only pass if the specified career passes the threshold test for user level. The min and max for the user level are inclusive. So the Sim can have any career level that meets the following equation and it will pass. min <= current career level <= max." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="Threshold test for the current user value of a career. If user_level is set without career then it will pass if any of their careers pass the threshold test. If set along with career then it will only pass if the specified career passes the threshold test for user level. The min and max for the user level are inclusive. So the Sim can have any career level that meets the following equation and it will pass. min <= current career level <= max." group="General">
+                                        <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="int" name="upper_bound" class="TunableRange" default="11" display="Upper Bound" min="None" max="11" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableTuple>
+                            <TunableTuple name="career_track" class="TunableCareerTrackTestFactory" display="Career Track" description="Test for whether the specified subjects have a career currently on the track specified." group="General">
+                                <Tunable type="career_track" name="career_track" class="TunableReference" display="Career Track" description="A reference to the career track that each subject must have in at least one career in order for this test to pass." allow_none="False" group="General" pack_safe="True" />
+                                <TunableVariant type="None" name="user_level" class="OptionalTunable" default="disabled" display="User Level" description="Interval test for the current user value of a career. Career track must also be specified for this check to work properly." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="Interval test for the current user value of a career. Career track must also be specified for this check to work properly." group="General">
+                                        <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="int" name="upper_bound" class="TunableRange" default="10" display="Upper Bound" min="None" max="10" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableTuple>
+                            <TunableTuple name="same_career_at_user_level" class="TunableSameCareerAtUserLevelTestFactory" display="Same Career At User Level" description="Test to see if the participants share any career that they have the same user level." group="General">
+                                <TunableTuple name="user_level" class="TunableThreshold" display="User Level" description="User level to test for." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="days_worked" class="TunableCareerDaysWorked" display="Days Worked" description="Test for how many days the Sim has worked for a career." group="General">
+                        <Tunable type="bool" name="active_only" class="Tunable" default="True" display="Active Only" description="If checked, only workdays that the player has actively played will count." group="General" />
+                        <TunableTuple name="career_source" class="Tunable_CareerSourceTunable" display="Career Source" description="Which career(s) to test against." group="General">
+                            <TunableVariant type="None" name="career_source" class="TunableVariant" default="single_career" display="Career Source" description="Which career(s) to test against." group="General">
+                                <TunableTuple name="all_careers" class="Tunable_TargetAllCareers" display="All Careers" description="Test against all careers on the subject." group="General">
+                                    <Tunable type="bool" name="all_must_pass" class="Tunable" default="False" display="All Must Pass" description="If checked, will fail if any career fails, even if others pass." group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="single_career" class="Tunable_TargetSpecificCareer" display="Single Career" description="Test against a single, specific career." group="General">
+                                    <Tunable type="career" name="career" class="TunableReference" display="Career" description="The career to test against." allow_none="False" group="General" pack_safe="True" />
+                                </TunableTuple>
+                                <TunableTuple name="some_careers" class="Tunable_TargetSomeCareers" display="Some Careers" description="Test against a subset of careers." group="General">
+                                    <Tunable type="bool" name="all_must_pass" class="Tunable" default="False" display="All Must Pass" description="If checked, will fail if any career fails, even if others pass." group="General" />
+                                    <TunableList name="careers" class="TunableSet" display="Careers" min="1" description="The set of careers to test against." group="General" unique_entries="true">
+                                        <Tunable type="career" class="TunableReference" description="The career to test against." allow_none="False" group="General" pack_safe="True" />
+                                    </TunableList>
+                                </TunableTuple>
+                            </TunableVariant>
+                        </TunableTuple>
+                        <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Threshold test for days worked." group="General">
+                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                            <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="has_available_assignment" class="TunableCareerHasAssignmentTestFactory" display="Has Available Assignment" description="A test for whether or not the specified subjects has an available assignment in the specified career" group="General">
+                        <Tunable type="career" name="career" class="TunableReference" display="Career" description="The career to test for having an available assignment. If None, will expect career passed in via PickedItemIds (i.e. via picker)." allow_none="True" group="General" />
+                        <Tunable type="bool" name="fallback_to_picker" class="Tunable" default="True" display="Fallback To Picker" description="If the tuned career is not set, should we expect the career to be passed in via PickedItemIds?" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="has_career" class="TunableHasCareerTestFactory" display="Has Career" description="Test for whether or not the specified subjects have a career or not." group="General">
+                        <Tunable type="bool" name="has_career" class="Tunable" default="True" display="Has Career" description="If true all subjects must have a career for the test to pass. If False then none of the subjects can have a career for the test to pass." group="General" />
+                        <TunableVariant type="None" name="story_progression_requirement" class="OptionalTunable" default="disabled" display="Story Progression Requirement" description="If Has Career is tuned to true, the subjects must have a career that allows for the specified modification by the story progression system. If Has Career is tuned to false, this field is ignored." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableEnum type="CareerStoryProgressionModificationType" name="enabled" class="TunableEnumEntry" default="JOIN" display="Enabled" static_entries="event_testing-test_variants.CareerStoryProgressionModificationType" group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="has_career_icon_override" class="TunableCareerHasIconOverrideTest" display="Has Career Icon Override" description="Tunable test that checks a career has icon override." group="General">
+                        <Tunable type="career" name="career" class="TunableReference" display="Career" description="The career to check whether it has an icon override on the subject. " allow_none="False" group="General" pack_safe="True" />
+                        <Tunable type="bool" name="fallback_to_picker" class="Tunable" default="True" display="Fallback To Picker" description="If the tuned career is not set, should we expect the career to be passed in via PickedItemIds?" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="has_career_outfit" class="TunableHasCareerOutfit" display="Has Career Outfit" description="Test for if the subjects have a career outfit." group="General" />
+                    <TunableTuple name="has_quittable_career" class="TunableQuittableCareerTestFactory" display="Has Quittable Career" description="Test for whether or not the specified subjects have a quittable career or not." group="General">
+                        <Tunable type="bool" name="has_quittable_career" class="Tunable" default="True" display="Has Quittable Career" description="If True then all of the subjects must have a quittable career in order for the test to pass. If False then none of the subjects can have a quittable career in order to pass." group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="highest_level_achieved" class="TunableCareerHighestLevelAchievedTest" display="Highest Level Achieved" description="Test looking at the highest level ever achieved of a specific career." group="General">
+                        <TunableList name="career_blacklist" class="TunableSet" display="Career Blacklist" description="A set of careers that will not be looked at." group="General" unique_entries="true">
+                            <Tunable type="career" class="TunableReference" description="The career we will not check." allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableVariant type="None" name="careers_to_check" class="OptionalTunable" default="disabled" display="Careers To Check" description="If enabled then we will only look at the careers listed in this. set. Otherwise will will look at all careers." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableSet" display="Enabled" description="A set of careers that will be looked at." group="General" unique_entries="true">
+                                <Tunable type="career" class="TunableReference" description="The career we will check." allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableVariant>
+                        <Tunable type="int" name="careers_to_find" class="TunableRange" default="1" display="Careers To Find" min="1" max="None" description="The number of careers that need to match the passing threshold for this test to pass." tuning_state="NeedsTuning" group="General" />
+                        <TunableTuple name="passing_threshold" class="TunableThreshold" display="Passing Threshold" description="Threshold for determining if a career is considered passing for this test." group="General">
+                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                            <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="in_career_event" class="TunableCareerEventTest" display="In Career Event" description="A test for whether a sim is in the specified career event." group="General">
+                        <TunableVariant type="None" name="career_event" class="OptionalTunable" default="any" display="Career Event" description="The career event to test for." group="General">
+                            <Tunable name="any" class="TunableExistance" display="Any" />
+                            <Tunable type="career_event" name="specific_CareerEvent" class="TunableReference" display="Specific Careerevent" allow_none="False" group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="is_elective_course" class="TunableCareerIsElectiveCourseTest" display="Is Elective Course" description="Test used to see if a career slot for a sim's university course is associated with an elective Univerity course." group="General">
+                        <Tunable type="career" name="career" class="TunableReference" display="Career" description="The career slot to test for associated elective course data on the subjects. " allow_none="False" group="General" pack_safe="True" restrict="UniversityCourseCareerSlot" />
+                        <Tunable type="bool" name="fallback_to_picker" class="Tunable" default="True" display="Fallback To Picker" description="If the tuned career is not set, should we expect the career to be passed in via PickedItemIds?" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="is_retired" class="TunableIsRetiredTestFactory" display="Is Retired" description="Test for whether or not the specified subjects retired from a career." group="General">
+                        <Tunable type="career" name="career" class="TunableReference" display="Career" description="The retired career to test for on the subjects. If left unset, the test will pass if the Sim is retired from any career." allow_none="False" group="General" />
+                    </TunableTuple>
+                    <TunableTuple name="pto_amount" class="TunableCareerPTOAmountTestFactory" display="Pto Amount" description="A test for whether or not the specified subjects has the requested amount of PTO available in the specified career" group="General">
+                        <Tunable type="career" name="career" class="TunableReference" display="Career" description="The career to test for how much PTO the sim has. If None, will expect career passed in via PickedItemIds (i.e. via picker)." allow_none="True" group="General" />
+                        <Tunable type="bool" name="fallback_to_picker" class="Tunable" default="True" display="Fallback To Picker" description="If the tuned career is not set, should we expect the career to be passed in via PickedItemIds?" group="General" />
+                        <TunableTuple name="required_pto_available" class="TunableThreshold" display="Required Pto Available" description="Threshold test for how much PTO is required" group="General">
+                            <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                            <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                    <TunableTuple name="time_off" class="TunableCareerTimeOffTest" display="Time Off" description="Require a Sim to be in a career that does not have requested time off for the any reason." group="General">
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="time_until_work" class="TunableCareerTimeUntilWorkTestFactory" display="Time Until Work" description="A test for whether or not the specified subjects has the specified career, And that their next work day starts within the specified number of hours" group="General">
+                        <Tunable type="career" name="career" class="TunableReference" display="Career" description="The career to test the next start time of. If None, will expect career passed in via PickedItemIds (i.e. via picker)." allow_none="True" group="General" />
+                        <Tunable type="bool" name="check_all_careers" class="Tunable" default="False" display="Check All Careers" description="If checked then we will check all careers rather than just the one defined in the career tunable. The test will fail if any career fails." group="General" />
+                        <Tunable type="bool" name="fallback_to_picker" class="Tunable" default="True" display="Fallback To Picker" description="If the tuned career is not set, should we expect the career to be passed in via PickedItemIds?" group="General" />
+                        <TunableTuple name="hours_till_work" class="TunableInterval" display="Hours Till Work" description="Threshold test for how long 'till the 'next' start time. It will test up to one hour past the start time, at which point it will test against the next start time." group="General">
+                            <Tunable type="float" name="lower_bound" class="TunableRange" default="-1" display="Lower Bound" min="-23" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="upper_bound" class="TunableRange" default="23" display="Upper Bound" min="None" max="168" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+            <TunableTuple name="career_changed" class="TunableCareerChangedTest" display="Career Changed" description="Tunable test that checks a career that was changed against whitelist/blacklist tuning. Speak to a GPE partner for questions about the source of career events." group="General">
+                <TunableTuple name="event_origin_careers" class="TunableWhiteBlackList" display="Event Origin Careers" description="The goal test will only pass for career events originating from careers validated against the whitelist/blacklist." group="General">
+                    <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                        <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                        <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                            <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                <Tunable type="career" class="TunableReference" description="Allowed and Disallowed Careers." allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                            <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                        <Tunable name="everything" class="TunableExistance" display="Everything" />
+                        <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                            <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                            <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                <Tunable type="career" class="TunableReference" description="Allowed and Disallowed Careers." allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableTuple>
+            <TunableTuple name="career_promoted" class="TunableCareerPromotedTest" display="Career Promoted" description="Tunable test that checks a career that was promoted against whitelist/blacklist tuning." group="General">
+                <TunableTuple name="event_origin_careers" class="TunableWhiteBlackList" display="Event Origin Careers" description="The goal test will only pass for career events originating from careers validated against the whitelist/blacklist." group="General">
+                    <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                        <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                        <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                            <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                <Tunable type="career" class="TunableReference" description="Allowed and Disallowed Careers." allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                            <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                        <Tunable name="everything" class="TunableExistance" display="Everything" />
+                        <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                            <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                            <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                <Tunable type="career" class="TunableReference" description="Allowed and Disallowed Careers." allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableTuple>
+            <Tunable name="none" class="TunableExistance" display="None" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

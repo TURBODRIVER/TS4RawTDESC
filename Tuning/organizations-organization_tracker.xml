@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="organizations.organization_tracker">
+        <Class name="OrganizationTracker">
+            <Tunable type="int" name="ACTIVE_TASK_AMOUNT" class="TunableRange" default="3" display="Active Task Amount" min="0" max="None" description="Number of active tasks an organization member has assigned at a time." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

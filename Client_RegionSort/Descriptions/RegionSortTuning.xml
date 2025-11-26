@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="RegionSort" class="RegionSortTuning" module="RegionSort.Client_RegionSort" description="Sorted list of regions used by UI." path="Client_RegionSort\Descriptions">
+        <TunableList name="RegionList" class="TunableList" display="Region list" description="The ordered list of regions.">
+            <Tunable type="regiondescription" class="TunableReference" description="A RegionDescription item in the ordered list." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

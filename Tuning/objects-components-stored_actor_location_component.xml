@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.stored_actor_location_component">
+        <Class name="StoredActorLocationTuning">
+            <Tunable type="interaction" name="GO_TO_STORED_LOCATION_SI" class="TunableReference" display="Go To Stored Location Si" description="The affordance that is provided by the Stored Actor Location Component when there is a set location." allow_none="False" group="General" pack_safe="True" restrict="GoToStoredLocationSuperInteraction" />
+
+            <Tunable type="int" name="UNROUTABLE_MESSAGE_NOT_CONNECTED" class="TunableLocalizedString" default="0x0" display="Unroutable Message Not Connected" description="The tooltip used when the Stored Location SI is unavailable because the stored location does not have routing connectivity to the sim." group="General" />
+
+            <Tunable type="int" name="UNROUTABLE_MESSAGE_OFF_LOT" class="TunableLocalizedString" default="0x0" display="Unroutable Message Off Lot" description="The tooltip used when the Stored Location SI is unavailable because the stored location is not on the active lot." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="event_testing.tests_with_data">
+        <Class name="InteractionTestEvents" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="InteractionComplete" enum_value="3" />
+
+            <EnumItem name="InteractionStart" enum_value="20" />
+
+            <EnumItem name="InteractionUpdate" enum_value="43" />
+        </Class>
+
+        <Class name="AwayActionTestEvents" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AwayActionStart" enum_value="86" />
+
+            <EnumItem name="AwayActionStop" enum_value="87" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="PlayAudioMouthpieceSuperInteraction" module="crafting.music_interactions" description="An interaction that is a mouthpiece for a different sims PlayAudio interaction." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="audio_stop_event" class="Tunable" default="101" display="Audio Stop Event" description="The script event to listen for from animation so we know when to stop the music and vocals." tuning_state="NeedsTuning" group="General" />
+
+        <TunableEnum type="ParticipantTypeSingle" name="mouthpiece_target" class="TunableEnumEntry" default="Object" display="Mouthpiece Target" static_entries="interactions.ParticipantTypeSingle" description="The participant of mine that owning music interaction must target as its mouthpiece target. e.g. if we are targeting the sim running the music interaction their mouthpiece target would be actor, our mouthpiece target would be targetsim. If all of us are targeting a certain object then both would be object." group="General" />
+    </Instance>
+</TuningRoot>

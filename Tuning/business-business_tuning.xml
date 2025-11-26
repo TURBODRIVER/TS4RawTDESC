@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="business.business_tuning">
+        <Class name="BusinessTuning">
+            <TunableList name="BUSINESS_TYPE_TO_BUSINESS_DATA_MAP" class="TunableMapping" display="Business Type To Business Data Map" mapping_key="Business Type" mapping_value="Business Tuning" description="A mapping of business types to the business tuning for that type." group="General" mapping_class="BusinessTypeDataMap">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="business" name="Business Tuning" class="TunableReference" display="Business Tuning" description="A reference to the Business tuning that corresponds to the tuned Business Type." allow_none="False" group="General" pack_safe="True" />
+                    <TunableEnum type="BusinessType" name="Business Type" class="TunableEnumEntry" default="INVALID" display="Business Type" static_entries="business-business_enums.BusinessType" description="The business type to map to reference to business tuning." binary_type="uint32" group="General" invalid_entries="INVALID" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableEnum type="BusinessEmployeeType" name="LEGACY_RETAIL_ADDITIONAL_SLOT_EMPLOYEE_TYPE" class="TunableEnumEntry" default="INVALID" display="Legacy Retail Additional Slot Employee Type" dynamic_entries="business-business_enums.BusinessEmployeeType._elements" static_entries="business-business_enums.BusinessEmployeeType" description="Set the default employee type that gain the additional employee slot when loading legacy retail saves." group="General" invalid_entries="INVALID" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

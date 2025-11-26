@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="broadcaster" class="BroadcasterClubRule" module="clubs.club_tuning" description="A broadcaster attached to interactions affected by Club Rules that ties into the Club system and applies appropriate effects to Sims following or breaking rules." instance_needs_reference="True" instance_subclasses_only="False" parents="Broadcaster" path="Broadcasters\Descriptions" use_guid_for_reference="True">
+        <Deleted name="clock_type" />
+
+        <Deleted name="effects" />
+
+        <TunableTuple name="negative_effect" class="TunableBroadcasterEffectClubRule" display="Negative Effect" description="A broadcaster effect to run on Sims who witness a Sim running a discouraged Club Rule." group="General">
+            <TunableVariant type="None" name="affected_object_cap" class="OptionalTunable" default="disabled" display="Affected Object Cap" description="If enabled, specify the maximum number of objects that can be affected by this particular effect, per broadcaster. This is a soft- cap, since the data does not persist across multiple broadcaster requests nor save games." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="int" name="enabled" class="TunableRange" default="1" display="Enabled" min="1" max="None" description="The maximum number of objects that can be affected by this broadcaster." tuning_state="NeedsTuning" group="General" />
+            </TunableVariant>
+            <TunableVariant type="None" name="excluded_participants" class="OptionalTunable" default="disabled" display="Excluded Participants" description="If enabled, these participants will be excluded from this broadcaster effect." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableList name="enabled" class="TunableEnumFlags" default="Actor,TargetSim" display="Enabled" description="A set of Participants that will be excluded from having this effect applied to them. If the broadcaster comes from an interaction, these participants will come from that interaction." group="General" unique_entries="true">
+                    <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                </TunableList>
+            </TunableVariant>
+            <TunableList name="loot_list" class="TunableList" display="Loot List" description="A list of loot operations." group="General">
+                <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+            </TunableList>
+            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that must pass in order for the broadcaster effect to be applied." group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

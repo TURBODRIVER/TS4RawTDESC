@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="aspiration" class="ZoneDirectorEventListener" module="aspirations.zone_event_listener" description="A basic zone director reaction event listener." instance_subclasses_only="False" parents="AspirationBasic" path="Aspirations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="do_not_register_events_on_load" />
+
+        <Deleted name="screen_slam" />
+
+        <TunableList name="valid_times" class="TunableList" display="Valid Times" description="The valid times that this event listener can be completed." group="General">
+            <TunableTuple class="TunableTuple" description="A period time that this event listener can be completed." group="General">
+                <TunableTuple name="end_time" class="TunableTimeOfDay" display="End Time" description="The end time of this period of time that this event listener can be completed." group="General">
+                    <Tunable type="int" name="hour" class="TunableRange" default="17" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="The start of this period of time that this event listener can be completed." group="General">
+                    <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="business_rule" class="BusinessRule" module="business.business_rule" description="Class for business rule that can be applied to businesses. Business rule is responsible for checking rule compliance using tests." instance_needs_reference="True" instance_subclasses_only="False" path="BusinessRules\Descriptions" use_guid_for_reference="True">
+        <Tunable type="float" name="auto_resolve_time" class="TunableSimMinute" default="360" display="Auto Resolve Time" min="0" max="None" description="The amount of time a broken rule, if not addressed, will resolve itself." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="float" name="cooldown_time" class="TunableSimMinute" default="360" display="Cooldown Time" min="0" max="None" description="The minutes until a rule can be broken (compliance checks ran) again after it gets resolved." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="fine" class="TunableRange" default="500" display="Fine" min="0" max="None" description="The Simolean amount for breaking a rule. " tuning_state="NeedsTuning" group="UI" />
+
+        <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="Rule icon." group="UI" resource_types="0x2f7d0004" />
+
+        <Tunable type="action" name="loot_on_auto_resolved" class="TunableReference" display="Loot On Auto Resolved" description="A loot applied to the unit if the broken rule is not resolved within auto resolve time. Uses relevant business manager's resolver." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+
+        <Tunable type="action" name="loot_on_rule_broken" class="TunableReference" display="Loot On Rule Broken" description="A loot applied to the unit when the rule breaks. Uses relevant business manager's resolver." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+
+        <Tunable type="int" name="rule_description" class="TunableLocalizedString" default="0x0" display="Rule Description" description="Description of rule." group="UI" />
+
+        <Tunable type="int" name="rule_name" class="TunableLocalizedString" default="0x0" display="Rule Name" description="Name of rule." group="UI" />
+
+        <TunableList name="test_events" class="BusinessRuleTestSet" display="Test Events" description="At least one sub test group (AKA one list item) must pass within this list before the action associated with this tuning will be run. All tests in sub test group must pass for the sub test group to pass. Uses relevant business manager's resolver." group="General">
+            <TunableList class="TunableList" description="A list of tests. All of these must pass for the group to pass." group="General">
+                <TunableVariant type="None" class="BusinessRuleTestVariant" default="none" description="A single tunable test for rule compliance." group="General">
+                    <TunableTuple name="day_and_time" class="TunableDayTimeTest" display="Day And Time" description="Test to see if the current time falls within the tuned range and/or is on a valid day." group="General">
+                        <TunableVariant type="None" name="days_available" class="OptionalTunable" default="disabled" display="Days Available" description="Which days of the week to include" group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableAvailableDays" display="Enabled" description="Which days of the week to include" group="General">
+                                <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                                <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                                <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                                <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                                <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                                <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                                <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="is_day" class="OptionalTunable" default="disabled" display="Is Day" description="If enabled, allows you to only pass the test if it's either day or night, as per the Region's tuned sunrise and sunset times." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" description="If checked, this test will only pass if all other criteria are met and it's currently day time (between the sunrise and sunset times tuned for the current region). If unchecked, this test will only pass if all other criteria are met and it's currently night time (between the sunset and sunrise times tune for the current region)." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="time_range" class="OptionalTunable" default="disabled" display="Time Range" description="The time the test is valid. If days_available is tuned and the time range spans across two days with the second day tuned as unavailable, the test will pass for that day until time range is invalid. Example: Time range 20:00 - 4:00, Monday is valid, Tuesday is invalid. Tuesday at 2:00 the test passes. Tuesday at 4:01 the test fails." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="The time the test is valid. If days_available is tuned and the time range spans across two days with the second day tuned as unavailable, the test will pass for that day until time range is invalid. Example: Time range 20:00 - 4:00, Monday is valid, Tuesday is invalid. Tuesday at 2:00 the test passes. Tuesday at 4:01 the test fails." group="General">
+                                <TunableTuple name="begin_time" class="TunableTimeOfDay" display="Begin Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                                    <Tunable type="int" name="hour" class="TunableRange" default="0" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="duration" class="TunableTimeOfDay" display="Duration" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                                    <Tunable type="int" name="hour" class="TunableRange" default="1" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="event_ran" class="TunableEventRanSuccessfullyTest" display="Event Ran" description="A test that simply returns true, but allows you to tune which event it cares about." group="General">
+                        <TunableList name="test_events" class="TunableList" display="Test Events" description="List of events that this test wants to listen for. Whenever these tests are processed this test will just return True." group="General">
+                            <TunableEnum type="TestEvent" class="TunableEnumEntry" default="Invalid" dynamic_entries="event_testing-test_events.TestEvent._elements" static_entries="event_testing-test_events.TestEvent" description="An event type to listen for in order to satsify this test." group="General" />
+                        </TunableList>
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="household_size" class="TunableHouseholdSizeTest" display="Household Size" description="Require the specified participant's household to have a specified number of free Sim slots." group="General">
+                        <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The subject whose household is the object of this test." group="General" />
+                        <TunableVariant type="None" name="test_type" class="TunableVariant" default="count" display="Test Type" description="The type of test to " group="General">
+                            <TunableTuple name="actual_size" class="TunableTuple" display="Actual Size" description="Use this option when you're testing the actual number of sims in a household. This should not be used for testing if you are able to add a sim to the household and should only be used for functionality that depents on the actual household members being there and not counting reserved slots. ex. Achievement for having a household of 8 sims." group="General">
+                                <TunableTuple name="count" class="TunableThreshold" display="Count" description="The number of household members." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableTuple>
+                            <TunableTuple name="count" class="TunableTuple" display="Count" description="Use this option when you're testing for a specific number of free slots in the household." group="General">
+                                <TunableTuple name="count" class="TunableThreshold" display="Count" description="The number of required free slots for the specified household." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableTuple>
+                            <TunableTuple name="participant" class="TunableTuple" display="Participant" description="Use this option when you're testing a specific Sim being added to the household." group="General">
+                                <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="TargetSim" display="Participant" static_entries="interactions.ParticipantType" description="The participant whose required slot count we consider." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="test_sim_infos" class="TunableTuple" display="Test Sim Infos" description="Use this option when you're testing that a number of sims in a household pass some tuned test. ex. At least three sims in household are toddlers." group="General">
+                                <TunableTuple name="count" class="TunableThreshold" display="Count" description="The number of household members." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="int" name="value" class="Tunable" default="1" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <TunableVariant type="None" name="test" class="TunableVariant" default="sim_info" display="Test" description="A test to apply to each sim in the household. If the test passes for a given sim, that will count toward the total." group="General">
+                                    <TunableTuple name="scenario_sim_status" class="TunableScenarioSimStatusTest" display="Scenario Sim Status" description="Test if a target sim is part of a scenario and/or has a certain scenario role." group="General">
+                                        <Tunable type="bool" name="invert" class="Tunable" default="False" display="Invert" description="If checked, inverts the normal result of the test." group="General" />
+                                        <Tunable type="snippet" name="role" class="TunableReference" display="Role" description="If tuned, we will test if the target sim has this role. " allow_none="True" group="General" restrict="ScenarioRole" />
+                                        <Tunable type="snippet" name="scenario" class="TunableReference" display="Scenario" description="If tuned, we will test if the target sim is part of this scenario." allow_none="True" group="General" restrict="Scenario" />
+                                    </TunableTuple>
+                                    <TunableTuple name="sim_info" class="TunableSimInfoTest" display="Sim Info" description="The SimInfo tests some of the basic aspects of a Sim, such as their age, gender, or species." group="General">
+                                        <TunableVariant type="None" name="ages" class="OptionalTunable" default="unspecified" display="Ages" description="The Sim must be one of the specified ages." group="General">
+                                            <TunableList name="specified" class="TunableEnumSet" default="TEEN,YOUNGADULT,ADULT,ELDER" display="Specified" description="The Sim must be one of the specified ages." group="General" unique_entries="true">
+                                                <TunableEnum type="Age" class="TunableEnumEntry" default="ADULT" static_entries="sims-sim_info_types.Age" group="General" />
+                                            </TunableList>
+                                            <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                                        </TunableVariant>
+                                        <TunableVariant type="None" name="can_age_up" class="OptionalTunable" default="unspecified" display="Can Age Up" description="Whether the Sim is eligible to advance to the next age." group="General">
+                                            <Tunable type="bool" name="specified" class="Tunable" default="None" display="Specified" description="Whether the Sim is eligible to advance to the next age." group="General" />
+                                            <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                                        </TunableVariant>
+                                        <TunableVariant type="None" name="death_object_assigned" class="OptionalTunable" default="disabled" display="Death Object Assigned" description="Whether the Sim's death object (urnstone) has been assigned to it's tracker. This happens in the normal death flow, but is skipped from CAS or Gallery." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <Tunable type="bool" name="enabled" class="Tunable" default="False" display="Enabled" description="Whether the Sim's death object (urnstone) has been assigned to it's tracker. This happens in the normal death flow, but is skipped from CAS or Gallery." group="General" />
+                                        </TunableVariant>
+                                        <TunableVariant type="None" name="gender" class="OptionalTunable" default="unspecified" display="Gender" description="The Sim must be of the specified gender." group="General">
+                                            <TunableEnum type="Gender" name="specified" class="TunableEnumEntry" default="None" display="Specified" static_entries="sims-sim_info_types.Gender" description="The Sim must be of the specified gender." group="General" />
+                                            <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                                        </TunableVariant>
+                                        <TunableVariant type="None" name="has_been_played" class="OptionalTunable" default="disabled" display="Has Been Played" description="Whether the Sim has ever been played as a Playable Sim. If enabled and true, the Sim must have been played by the player. If enabled and false, the Sim must never have been played. If disabled, this portion of the Sim Info test will be ignored." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <Tunable type="bool" name="enabled" class="Tunable" default="False" display="Enabled" description="Whether the Sim has ever been played as a Playable Sim. If enabled and true, the Sim must have been played by the player. If enabled and false, the Sim must never have been played. If disabled, this portion of the Sim Info test will be ignored." group="General" />
+                                        </TunableVariant>
+                                        <TunableVariant type="None" name="is_active_sim" class="OptionalTunable" default="disabled" display="Is Active Sim" description="Whether the Sim must be the active selected Sim. If enabled and true, the sim must active for this test to pass. If enabled and false, the sim must not be active for this test to pass. If disabled, this portion of the Sim Info test will be ignored." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" description="Whether the Sim must be the active selected Sim. If enabled and true, the sim must active for this test to pass. If enabled and false, the sim must not be active for this test to pass. If disabled, this portion of the Sim Info test will be ignored." group="General" />
+                                        </TunableVariant>
+                                        <TunableEnum type="MatchType" name="match_type" class="TunableEnumEntry" default="MATCH_ALL" display="Match Type" static_entries="sims-sim_info_tests.MatchType" description="When testing multiple participants if MATCH_ALL is set, then all the participants need to pass the test. If MATCH_ANY is set, test will pass as soon as one of them meet the criteria" group="General" />
+                                        <TunableVariant type="None" name="npc" class="OptionalTunable" default="disabled" display="Npc" description="Whether the Sim must be an NPC or Playable Sim. If enabled and true, the sim must be an NPC for this test to pass. If enabled and false, the sim must be playable, non-NPC sim for this test to pass. If disabled, this portion of the Sim Info test will be ignored. Note: NPC in this case means a Sim that is not currently controllable (selectable), or Not Player Controllable. If you need to know if the Sim has ever been played, use 'Has Been Played'" group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <Tunable type="bool" name="enabled" class="Tunable" default="False" display="Enabled" description="Whether the Sim must be an NPC or Playable Sim. If enabled and true, the sim must be an NPC for this test to pass. If enabled and false, the sim must be playable, non-NPC sim for this test to pass. If disabled, this portion of the Sim Info test will be ignored. Note: NPC in this case means a Sim that is not currently controllable (selectable), or Not Player Controllable. If you need to know if the Sim has ever been played, use 'Has Been Played'" group="General" />
+                                        </TunableVariant>
+                                        <TunableVariant type="None" name="species" class="TunableVariant" default="unspecified" display="Species" group="General">
+                                            <TunableTuple name="specified" class="Tunable_SpeciesTestSpecies" display="Specified" description="The Sim must be one of the specified species. Species are consolidated, e.g. large/small dog are both DOG." group="General">
+                                                <TunableList name="species" class="TunableEnumSet" display="Species" description="The Sim must be one of the specified species. Species are consolidated, e.g. large/small dog are both DOG." group="General" unique_entries="true">
+                                                    <TunableEnum type="Species" class="TunableEnumEntry" default="HUMAN" static_entries="sims-sim_info_types.Species" group="General" invalid_entries="INVALID" />
+                                                </TunableList>
+                                            </TunableTuple>
+                                            <TunableTuple name="specified_extended" class="Tunable_SpeciesTestExtendedSpecies" display="Specified Extended" description="The Sim must be one of the specified species. Species are *not* consolidated, e.g. large/small dog are different species." group="General">
+                                                <TunableList name="species" class="TunableEnumSet" display="Species" description="The Sim must be one of the specified species. Species are *not* consolidated, e.g. large/small dog are different species." group="General" unique_entries="true">
+                                                    <TunableEnum type="SpeciesExtended" class="TunableEnumEntry" default="Species.HUMAN" static_entries="sims-sim_info_types.SpeciesExtended" group="General" invalid_entries="INVALID" />
+                                                </TunableList>
+                                            </TunableTuple>
+                                            <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <Tunable name="none" class="TunableExistance" display="None" />
+                    <TunableTuple name="object_criteria" class="TunableObjectCriteriaTest" display="Object Criteria" description="A test to look at all the objects and compare them to the tuned criteria." group="General">
+                        <Tunable type="bool" name="completed" class="Tunable" default="False" display="Completed" description="If checked, any craftable object (such as a painting) must be finished for it to be considered." group="General" />
+                        <TunableVariant type="None" name="desired_state_threshold" class="OptionalTunable" default="disabled" display="Desired State Threshold" description="A state threshold that the object must satisfy for this test to pass" group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableThreshold" display="Enabled" description="A state threshold that the object must satisfy for this test to pass" group="General">
+                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                <Tunable type="object_state" name="value" class="TunableReference" display="Value" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="identity_test" class="TunableVariant" default="no_identity_test" display="Identity Test" description="Which test to run on the object in order to determine if it matches or not." group="General">
+                            <TunableTuple name="definition_id" class="TunableObjectTypeFactory" display="Definition Id" group="General">
+                                <Tunable type="object" name="actual_object" class="TunableReference" display="Actual Object" description="The object we want to test ownership of" allow_none="False" group="General" pack_safe="True" />
+                            </TunableTuple>
+                            <Tunable name="no_identity_test" class="TunableExistance" display="No Identity Test" />
+                            <TunableTuple name="tags" class="TunableObjectTagFactory" display="Tags" group="General">
+                                <TunableList name="tag_set" class="TunableSet" display="Tag Set" group="General" unique_entries="true">
+                                    <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for." group="General" pack_safe="True" />
+                                </TunableList>
+                                <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="trending" class="TunableObjectTrendingFactory" display="Trending" group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="in_use_test" class="OptionalTunable" default="disabled" display="In Use Test" description="If enabled, test whether the object is currently in use." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableInUseTest" display="Enabled" description="A tunable test to tell if any of the tuned targets are in use by any sims." group="General">
+                                <TunableEnum type="Candidates" name="candidates" class="TunableEnumEntry" default="NON_ACTORS" display="Candidates" static_entries="objects-object_tests.InUseTest.Candidates" description="Which sims will be considered users of the target." group="General" />
+                                <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If unchecked, this test will pass when the object is in use. If checked, this test will pass when the object is not in use. If a number using range is specified, then if checked the test will pass when the number using is outside the specified range. Either too many or too few." group="General" />
+                                <TunableVariant type="None" name="number_using" class="OptionalTunable" default="disabled" display="Number Using" description="An optional interval to specify an inclusive range of valid sims that must be using the target(s) Too few or too many, and the test will fail." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="A tunable interval between lower_bound and upper_bound." group="General">
+                                        <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="int" name="upper_bound" class="TunableRange" default="1000" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableEnum type="ObjectLocation" name="object_location" class="TunableEnumEntry" default="AllSpaces" display="Object Location" static_entries="objects-object_tests.ObjectLocation" description="The Location restriction for the object on active lot. Object needs to be in the set location space to pass the test." group="General" />
+                        <Tunable type="bool" name="on_active_lot" class="Tunable" default="False" display="On Active Lot" description="If checked, test whether or not the object is on the active lot. If unchecked the object can be either on the active lot or in the open streets area, we don't really care." group="General" />
+                        <Tunable type="bool" name="owned" class="Tunable" default="True" display="Owned" description="If checked will test if the object is owned by the active household. If unchecked it doesn't matter who owns the object or if it is owned at all." group="General" />
+                        <TunableVariant type="None" name="positional_relationship_test" class="TunableVariant" default="no_positional_relationship_test" display="Positional Relationship Test" description="The type of positional relationship test to run on the object with respect to another object." group="General">
+                            <Tunable name="no_positional_relationship_test" class="TunableExistance" display="No Positional Relationship Test" />
+                            <TunableTuple name="radius_test" class="Tunable_RadiusFactory" display="Radius Test" description="The object must be within a certain radius of a tuned participant in order for the test to pass." group="General">
+                                <Tunable type="bool" name="check_same_level" class="Tunable" default="False" display="Check Same Level" description="If True, we will only check objects on the same level of the radius actor. " group="General" />
+                                <Tunable type="float" name="radius" class="TunableDistanceSquared" default="5.0" display="Radius" description="The radius, with the radius actor's position, that defines the area within which the object is valid." tuning_state="NeedsTuning" group="General" />
+                                <TunableEnum type="ParticipantType" name="radius_actor" class="TunableEnumEntry" default="ParticipantTypeSingle.Object" display="Radius Actor" static_entries="interactions.ParticipantType" description="The actor whose position, with the radius, defines the area within which the object is valid." group="General" />
+                            </TunableTuple>
+                            <TunableTuple name="tagged_object_on_same_level_test" class="Tunable_TaggedObjectOnSameLevelFactory" display="Tagged Object On Same Level Test" description="The object must has at least one object with a tuned tag on the same level as a tuned participant in order for the test to pass." group="General">
+                                <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="ParticipantTypeSingle.Object" display="Subject" static_entries="interactions.ParticipantType" description="The participant to test against. " group="General" />
+                                <TunableEnum type="Tag" name="tag" class="TunableTag" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A single tag to find an object matching to test against the participant. " dynamic_entries_prefix="" group="General" invalid_entries="INVALID" pack_safe="True" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="sim_ownership" class="OptionalTunable" default="disabled" display="Sim Ownership" description="If enabled, test whether or not the object is owned by the active Sim. If checked, test will pass if the Sim owns the object." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="slot_test" class="TunableVariant" default="no_slot_test" display="Slot Test" description="The slot test to run on the object." group="General">
+                            <Tunable name="no_slot_test" class="TunableExistance" display="No Slot Test" />
+                            <TunableTuple name="test" class="TunableSlotTest" display="Test" description="Verify slot status. This test will only apply for single entity participants" group="General">
+                                <Tunable type="bool" name="check_part_owner" class="Tunable" default="False" display="Check Part Owner" description="If enabled and target of tests is a part, the test will be run on the part owner instead." group="General" />
+                                <TunableVariant type="None" name="child_slot" class="TunableVariant" default="by_reference" display="Child Slot" description="The slot on the participant to be tested. " group="General">
+                                    <Tunable type="str" name="by_name" class="Tunable" default="_ctnm_" display="By Name" description="The exact name of a slot on the participant to be tested." group="General" />
+                                    <Tunable type="slot_type" name="by_reference" class="TunableReference" display="By Reference" description="A particular slot type to be tested." allow_none="False" group="General" restrict="SlotType" />
+                                </TunableVariant>
+                                <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantType" description="The subject of this situation data test." group="General" />
+                                <Tunable type="int" name="slot_count_required" class="Tunable" default="1" display="Slot Count Required" description="Minimum number of slots that must pass test only valid for reference slots And not if all are required to pass" tuning_state="NeedsTuning" group="General" />
+                                <TunableVariant type="None" name="slot_test_type" class="TunableVariant" default="has_empty_slot" display="Slot Test Type" description="Type of slot test to run on target subject." group="General">
+                                    <TunableTuple name="has_empty_slot" class="TunableTuple" display="Has Empty Slot" description="Verify the slot exists on the participant and it's unoccupied" group="General">
+                                        <Tunable type="bool" name="check_all_slots" class="Tunable" default="False" display="Check All Slots" description="Check this if you want to check that all the slots of the subject are empty." group="General" />
+                                    </TunableTuple>
+                                    <TunableTuple name="has_slot_type" class="TunableTuple" display="Has Slot Type" description="Verify if the child slot type is of the tuned slot type," group="General" />
+                                    <TunableTuple name="has_used_slot" class="TunableTuple" display="Has Used Slot" description="Verify if any slot of the child slot type is currently occupied" group="General">
+                                        <Tunable type="bool" name="check_all_slots" class="Tunable" default="False" display="Check All Slots" description="Check this if you want to check that all the slots of the subject are used." group="General" />
+                                        <TunableVariant type="None" name="object_type" class="OptionalTunable" default="disabled" display="Object Type" description="If enabled one of the children in the used slot must be of a certain kind of object. This test can be done by definition id or object tags." group="General">
+                                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                            <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="If set to definition id then at least one of the child objects must pass the definition test specified. If set to object tags then at least one of the child objects must pass the object tag test specified. " group="General">
+                                                <TunableTuple name="definition_id" class="TunableObjectTypeFactory" display="Definition Id" group="General">
+                                                    <Tunable type="object" name="actual_object" class="TunableReference" display="Actual Object" description="The object we want to test ownership of" allow_none="False" group="General" pack_safe="True" />
+                                                </TunableTuple>
+                                                <Tunable name="none" class="TunableExistance" display="None" />
+                                                <TunableTuple name="object_tags" class="TunableObjectTagFactory" display="Object Tags" group="General">
+                                                    <TunableList name="tag_set" class="TunableSet" display="Tag Set" group="General" unique_entries="true">
+                                                        <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="What tag to test for." group="General" pack_safe="True" />
+                                                    </TunableList>
+                                                    <TunableEnum type="TagTestType" name="test_type" class="TunableEnumEntry" default="CONTAINS_ANY_TAG_IN_SET" display="Test Type" static_entries="objects-object_factories.TagTestType" description="How to test the tags in the tag set against the objects on the lot." group="General" />
+                                                </TunableTuple>
+                                            </TunableVariant>
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="subject_specific_tests" class="TunableVariant" default="all_objects" display="Subject Specific Tests" group="General">
+                            <TunableTuple name="all_objects" class="TunableTuple" display="All Objects" group="General">
+                                <TunableTuple name="quantity" class="TunableThreshold" display="Quantity" description="The number of objects that meet the tuned critera needed to pass this test. quantity is run after a list of matching objects is created using the tuned criteria." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="float" name="value" class="Tunable" default="1" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <TunableVariant type="None" name="total_value" class="OptionalTunable" default="disabled" display="Total Value" description="If set, the total monetary value of all the objects that meet the tuned criteria needed in order to pass this test. total_value is run after a list of matching objects is created using the tuned criteria." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <TunableTuple name="enabled" class="TunableThreshold" display="Enabled" description="If set, the total monetary value of all the objects that meet the tuned criteria needed in order to pass this test. total_value is run after a list of matching objects is created using the tuned criteria." group="General">
+                                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                        <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableTuple>
+                            <TunableTuple name="single_object" class="TunableTuple" display="Single Object" group="General">
+                                <TunableEnum type="ParticipantType" name="target" class="TunableEnumEntry" default="Object" display="Target" static_entries="interactions.ParticipantType" description="If set this test will loop through the specified participants and run the object identity and criteria tests on them instead of all of the objects on the lot." group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableList name="test_events" class="TunableList" display="Test Events" description="The list of events that trigger this instance of the tuned test on. If you pick ObjectStateChange, the test will be registered with EventManager for every ObjectStateValue managed by ObjectState controlling the desired_state_threshold. E.g. if the test cares about BrokenState_Broken, we will register tolisten for events for state changes of BrokenState_Broken, BrokenState_Unbroken, BrokenState_Repairing, etc." group="General">
+                            <TunableEnum type="ObjectCriteriaTestEvents" class="TunableEnumEntry" default="AllObjectEvents" static_entries="objects-object_tests.ObjectCriteriaTestEvents" group="General" />
+                        </TunableList>
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                        <Tunable type="bool" name="use_depreciated_values" class="Tunable" default="False" display="Use Depreciated Values" description="If checked, the value consideration for each checked object will at its depreciated amount. This affects the 'All Objects' test type, changing the total value considered to be at the non-depreciated amount." group="General" />
+                        <TunableVariant type="None" name="value" class="OptionalTunable" default="disabled" display="Value" description="A threshold test for the monetary value of a single object in order for it to be considered." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                                <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="Value/comparison pair used to define a Threshold." group="General">
+                                    <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                    <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <TunableVariant type="None" name="value_to_check" class="TunableVariant" default="catalog_value" display="Value To Check" group="General">
+                                    <Tunable name="catalog_value" class="TunableExistance" display="Catalog Value" />
+                                    <Tunable name="current_value" class="TunableExistance" display="Current Value" />
+                                    <Tunable name="depreciated_value" class="TunableExistance" display="Depreciated Value" />
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="situation_running_test" class="TunableSituationRunningTest" display="Situation Running Test" description="A test to see if the participant is part of any situations that are running that satisfy the conditions of the test." group="General">
+                        <Tunable type="bool" name="check_for_initiating_sim" class="Tunable" default="False" display="Check For Initiating Sim" description="If checked, the situation must be initiated by the tuned Participant." group="General" />
+                        <TunableVariant type="None" name="level" class="OptionalTunable" default="disabled" display="Level" description="A check for the level of the situation we are checking." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableThreshold" display="Enabled" description="A check for the level of the situation we are checking." group="General">
+                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="participant" class="OptionalTunable" default="disabled" display="Participant" description="The subject of this situation test." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Actor" display="Enabled" static_entries="interactions.ParticipantType" description="The subject of this situation test." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="situation_blacklist" class="OptionalTunable" default="disabled" display="Situation Blacklist" description="Blacklisted situations, specified by this set of references or by tag in Tag Blacklist, will cause this test to fail." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableSet" display="Enabled" group="General" unique_entries="true">
+                                <Tunable type="situation" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="situation_whitelist" class="OptionalTunable" default="disabled" display="Situation Whitelist" description="Only whitelisted situations, specified by this set of references or by tags in Tag Whitelist, can cause this test to pass. If no situations are specified in this whitelist, all situations are considered whitelisted." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableSet" display="Enabled" description="Only whitelisted situations, specified by this set of references or by tags in Tag Whitelist, can cause this test to pass. If no situations are specified in this whitelist, all situations are considered whitelisted." group="General" unique_entries="true">
+                                <Tunable type="situation" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableVariant>
+                        <TunableList name="tag_blacklist" class="TunableSet" display="Tag Blacklist" description="Blacklisted situations, specified by this set of tags or by references in Situation Tag Blacklist, will cause this test to fail." group="General" unique_entries="true">
+                            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="situation" group="General" pack_safe="True" />
+                        </TunableList>
+                        <TunableVariant type="None" name="tag_whitelist" class="OptionalTunable" default="disabled" display="Tag Whitelist" description="Only whitelisted situations, specified by this set of tags or by references in Situation Whitelist, can cause this test to pass. If this whitelist is not enabled, all situations are considered whitelisted." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableSet" display="Enabled" group="General" unique_entries="true">
+                                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="situation" group="General" pack_safe="True" />
+                            </TunableList>
+                        </TunableVariant>
+                        <TunableEnum type="SituationRunningTestEvents" name="test_event" class="TunableEnumEntry" default="SituationEnded" display="Test Event" static_entries="event_testing-test_variants.SituationRunningTestEvents" description="The test event that this test will run on when tuned within an objective or the main goal trigger of a sitaution. If you are tuning this on an interaction then it will do nothing." group="General" />
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
+                    <TunableTuple name="trait" class="TunableTraitTest" display="Trait" description="Test to require a Sim to have or not have certain specific traits." group="General">
+                        <Tunable type="bool" name="apply_thresholds_on_individual_basis" class="Tunable" default="True" display="Apply Thresholds On Individual Basis" description="If checked then Num Whitelist Required and Num Blacklist Allowed will be applied to each individual participant from the subject. If unchecked then it will apply the values to the total whitelist and blacklist matches on the group. IMPORTANT!!! In the case of objectives this should probably be set to false since we know that this is coming from only one sim and that we want to use the value that comes out of the test result numeric. This isn't just locked to being this value since there are valid cases within that system when you are looking at a group of sims and could want to test that one of your sims passes. Ex. Having a ghost sim in the household." group="General" />
+                        <TunableList name="blacklist_trait_types" class="TunableEnumSet" display="Blacklist Trait Types" description="The Sim is required to not have traits of these types to pass this test. Should Num Blacklist Allowed be specified, then the Sim is allowed to have up to that amount of blacklisted traits before failing this test." group="General" unique_entries="true">
+                            <TunableEnum type="TraitType" class="TunableEnumEntry" default="PERSONALITY" static_entries="traits-trait_type.TraitType" group="General" />
+                        </TunableList>
+                        <TunableList name="blacklist_traits" class="TunableList" display="Blacklist Traits" description="The is required to not have traits from this list in order to pass this test. Should num_blacklist_allowed be specified, then the Sim is allowed to have up to that amount of blacklisted traits before failing this test." group="General">
+                            <Tunable type="trait" class="TunableReference" description="A blacklist trait." allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                        <Tunable type="int" name="num_blacklist_allowed" class="Tunable" default="0" display="Num Blacklist Allowed" description="The threshold of blacklist traits owned by the specified Sim that will trigger a test failure." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="num_whitelist_required" class="Tunable" default="1" display="Num Whitelist Required" description="The number of whitelist traits that the specified Sim is required to have in order to pass this test." tuning_state="NeedsTuning" group="General" />
+                        <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The participant that is to be the subject of the test." group="General" />
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                        <TunableList name="whitelist_trait_types" class="TunableEnumSet" display="Whitelist Trait Types" description="The Sim is required to have the specified number of traits with these types in order to pass the test." group="General" unique_entries="true">
+                            <TunableEnum type="TraitType" class="TunableEnumEntry" default="PERSONALITY" static_entries="traits-trait_type.TraitType" group="General" />
+                        </TunableList>
+                        <TunableList name="whitelist_traits" class="TunableList" display="Whitelist Traits" description="The Sim is required to have the specified number of traits from this list in order to pass the test." group="General">
+                            <Tunable type="trait" class="TunableReference" description="A whitelist trait. Please note: for pack-safe entries that are not loaded, the game will behave as if the entry doesn't exist. This allows you to specify a pack trait and required count of 1 and always fail the test should the appropriate pack not be installed." allow_none="False" group="General" pack_safe="True" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableList>
+        </TunableList>
+    </Instance>
+</TuningRoot>

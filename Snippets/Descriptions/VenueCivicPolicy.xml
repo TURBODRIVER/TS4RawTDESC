@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="VenueCivicPolicy" module="venues.civic_policies.venue_civic_policy" description="A Venue Civic Policy, when enacts, sets the active venue." instance_needs_reference="True" instance_subclasses_only="False" parents="BaseCivicPolicy, DisplaySnippet" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <Tunable type="venue" name="sub_venue" class="TunableReference" display="Sub Venue" description="Sub-Venue to make active when this policy is enacted." allow_none="False" group="General" pack_safe="True" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="StartCraftingFamilyRecipeSuperInteraction" module="sims.family_recipes.family_recipes_picker_interactions" description="An interaction that uses the picker for selecting a recipe, but in two different ways One variant is for use it in a multipicker displaying all the recipes, the other is to show only the family recipes that the sim knows." instance_needs_reference="True" instance_subclasses_only="False" parents="StartCraftingSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="mode" class="TunableVariant" default="none" display="Mode" description="Mode to be used to filter the recipes" group="General">
+            <TunableTuple name="creation" class="Tunable_CreationVariant" display="Creation" description="All existing recipes in the recipe list are used to be selected to create a family recipe." group="General" />
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableTuple name="preparation" class="Tunable_PreparationVariant" display="Preparation" description="Only recipes that are saved as family recipes will be shown." group="General" />
+        </TunableVariant>
+    </Instance>
+
+    
+</TuningRoot>

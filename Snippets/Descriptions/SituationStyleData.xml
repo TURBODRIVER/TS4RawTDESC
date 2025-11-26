@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="SituationStyleData" module="situations.situation_tuning" description="Tuning that holds style data for Situations." instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="cas_edit_job" class="OptionalTunable" default="disabled" display="Cas Edit Job" description="If enabled, shows up to two Sims from a specific job and allows taking them in to CAS." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="The job to show in the UI and the outfit category the Sim should be shown in." group="General">
+                <Tunable type="situation_job" name="job" class="TunableReference" display="Job" description="This is the Situation Job that can be edited in CAS. Currently, the UI only supports up to 2 Sims in this job." allow_none="False" group="General" />
+                <Tunable type="ResourceKey" name="no_sim_selected_icon" class="TunableIcon" default="None" display="No Sim Selected Icon" description="The icon to show in place of a Sim if no Sim has been selected for the tuned Job." group="General" resource_types="0x2f7d0004" />
+                <TunableEnum type="OutfitCategory" name="outfit_category" class="TunableEnumEntry" default="EVERYDAY" display="Outfit Category" static_entries="sims-outfits-outfit_enums.OutfitCategory" description="The outfit the Sim will wear in the UI. This is also the outfit that will be targeted when in CAS." group="General" invalid_entries="CURRENT_OUTFIT" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="customizable_guest_attire" class="OptionalTunable" default="disabled" display="Customizable Guest Attire" description="If enabled, allows customizing the guest attire for a Situation." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Color and Style tuning for the guest attire." group="General">
+                <TunableList name="color_map" class="TunableMapping" display="Color Map" mapping_key="key" mapping_value="value" description="A mapping from CAS tags to LocalizedStrings representing available colors for Situation guest attire." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="Tag" name="key" class="TunableEnumWithFilter" default="INVALID" display="Key" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A color tag used to find matching CAS parts for the Guests." dynamic_entries_prefix="color" group="General" pack_safe="True" />
+                        <TunableTuple name="value" class="TunableTuple" display="Value" description="The name and hex value for the color." group="General">
+                            <Tunable type="int" name="color_name" class="TunableLocalizedString" default="0x0" display="Color Name" description="The name of the Color." group="General" />
+                            <Tunable type="str" name="color_value" class="Tunable" default="ffffffff" display="Color Value" description="The hex value of the color." group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+                <TunableList name="style_map" class="TunableMapping" display="Style Map" mapping_key="key" mapping_value="value" description="A mapping from CAS tags to LocalizedStrings shown in the Situation Creation UI for choosing attire style." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="Tag" name="key" class="TunableEnumWithFilter" default="INVALID" display="Key" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The style tag of the CAS parts associated with this style." dynamic_entries_prefix="style" group="General" invalid_entries="INVALID" />
+                        <Tunable type="int" name="value" class="TunableLocalizedString" default="0x0" display="Value" description="The display name for this style. Shown in a dropdown in the Situation Creation UI." group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="bool" name="visible_on_role_page" class="Tunable" default="False" display="Visible On Role Page" description="If enabled, the GuestAttireSelector will be visible on the Guest Invite panel for the situation." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.components.spawner_component">
+        <Class name="GlobalObjectSpawnerTuning">
+            <Tunable type="float" name="SPAWN_ON_GROUND_FGL_HEIGHT_TOLERANCE" class="Tunable" default="0.1" display="Spawn On Ground Fgl Height Tolerance" description="Maximum height tolerance on the terrain we will use for the placement of the spawned object. If the spawned objects have interactions on them, this value will generate a height difference between the object and the sim. Because of this if this value changes all animations on spawned objects should be verified. Include a GPE and an Animator when making changes to this value. " tuning_state="NeedsTuning" group="General" />
+        </Class>
+
+        <Class name="SpawnerActionEnum" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="SPAWNER_DISABLE" enum_value="0" />
+
+            <EnumItem name="SPAWNER_ENABLE" enum_value="1" />
+        </Class>
+
+        <Class name="SpawnerComponent">
+            <Tunable type="statistic" name="GROUND_SPAWNER_DECAY_COMMODITY" class="TunableReference" display="Ground Spawner Decay Commodity" description="Commodity which will trigger the ground spawner of an object on decay." allow_none="False" group="General" />
+
+            <Tunable type="statistic" name="SLOT_SPAWNER_DECAY_COMMODITY" class="TunableReference" display="Slot Spawner Decay Commodity" description="Commodity which will trigger the slot spawner of an object on decay." allow_none="False" group="General" />
+
+            <Tunable type="int" name="SPAWNER_COMMODITY_RESET_VARIANCE" class="TunableRange" default="0" display="Spawner Commodity Reset Variance" min="0" max="None" description="Max variance to apply when the spawn commodity is being reset to its threshold value. This is meant to add some randomness on how spawners will create objects. e.g. After a spawner creates an objects its spawn statistic will go back to 100-RandomValue from 0 to Variance this way it wont always start at the same time" tuning_state="NeedsTuning" group="General" />
+        </Class>
+
+        <Class name="SpawnerInitializer">
+            <Tunable type="int" name="SPAWN_DELAYED_END" class="TunableRange" default="60" display="Spawn Delayed End" min="0" max="None" description="This is the maximum amount of sim minutes we wait before we start spawning objects for the first time in the zone at SPAWN_FREQUENCY. We pick a random time between the start and end delayed time." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="SPAWN_DELAYED_START" class="TunableRange" default="15" display="Spawn Delayed Start" min="0" max="None" description="This is the minimum amount of sim minutes we wait before we start spawning objects for the first time in the zone at SPAWN_FREQUENCY. We pick a random time between the start and end delayed time." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="SPAWN_FREQUENCY" class="Tunable" default="5" display="Spawn Frequency" description="This is the frequency at which the spawner components spawn the individual objects for the first time you are playing in the zone. Please talk with a GPE about performance concerns if you tune this value." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

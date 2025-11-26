@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="PutDownChooserInteraction" module="carry.put_down_interactions" description="This interaction will attempt to get the Sim to put down a carried object. Each interaction is one individual attempt. Subsequent attempts can be pushed as a result of failure, but that is handled by the PutDownLiability which should be added to each PutDownInteraction." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="object_to_put_down" class="TunableVariant" default="from_interaction" display="Object To Put Down" description="Define which object the Sim is to put down." group="General">
+            <TunableTuple name="from_hand" class="Tunable_ObjectToPutDownFromHand" display="From Hand" description="Put down the object held in one of the Sim's hands." group="General">
+                <TunableVariant type="None" name="hand" class="TunableVariant" default="right/mouth" display="Hand" group="General">
+                    <Tunable name="left/back" class="TunableExistance" display="Left/Back" />
+                    <Tunable name="right/mouth" class="TunableExistance" display="Right/Mouth" />
+                </TunableVariant>
+            </TunableTuple>
+            <TunableTuple name="from_interaction" class="Tunable_ObjectToPutDownTarget" display="From Interaction" description="Put down the interaction target." group="General" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.sim_info_tests">
+        <Class name="MatchType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="MATCH_ALL" enum_value="0" />
+
+            <EnumItem name="MATCH_ANY" enum_value="1" />
+        </Class>
+
+        <Class name="GenealogyRelationType" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="GRANDPARENTS" enum_value="2" />
+
+            <EnumItem name="INVALID" enum_value="0" />
+
+            <EnumItem name="PARENTS" enum_value="1" />
+
+            <EnumItem name="PARENTS_AND_GRANDPARENTS" enum_value="3" />
+        </Class>
+    </Module>
+</TuningRoot>

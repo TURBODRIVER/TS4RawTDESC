@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="story_progression.story_progression_tuning">
+        <Class name="StoryProgressionDomainType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="MY_HOUSEHOLDS" enum_value="0" />
+
+            <EnumItem name="OTHER_HOUSEHOLDS" enum_value="1" />
+        </Class>
+
+        <Class name="StoryProgTunables">
+            <TunableList name="DOMAIN_ENABLEMENT_DEFAULTS" class="TunableMapping" display="Domain Enablement Defaults" mapping_key="key" mapping_value="value" description="Default enablement states for all story progression domains that can be enabled/disabled." group="General" mapping_class="CategoryEnablementDefaultTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="StoryProgressionDomainType" name="key" class="TunableEnumEntry" default="MY_HOUSEHOLDS" display="Key" static_entries="story_progression-story_progression_tuning.StoryProgressionDomainType" group="General" />
+                    <Tunable type="bool" name="value" class="Tunable" default="True" display="Value" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="HISTORY" class="TunableTuple" display="History" group="General">
+                <TunableTuple name="chapter_history_lifetime" class="TunableTimeSpan" display="Chapter History Lifetime" description="How long a chapter's history will be stored in persistence." group="General">
+                    <Tunable type="int" name="days" class="TunableRange" default="5" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="hours" class="TunableRange" default="0" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableList name="death_type_discovery_string_map" class="TunableMapping" display="Death Type Discovery String Map" mapping_key="key" mapping_value="value" description="Mapping of death type to a discovery string. " group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="DeathType" name="key" class="TunableEnumEntry" default="NONE" display="Key" dynamic_entries="interactions-utils-death_enums.DeathType._elements" static_entries="interactions-utils-death_enums.DeathType" group="General" />
+                        <TunableVariant type="None" name="value" class="TunableLocalizedStringFactoryVariant" default="single" display="Value" description="A localization string. This may either be a single string, a set to pick a random string from, or concatenation from list of string." group="General">
+                            <TunableTuple name="concatenation" class="TunableLocalizedStringFactoryConcatenation" display="Concatenation" description="A list of localized string concatenations. These strings will be joined together into single line-separated string" group="General">
+                                <TunableList name="concatenations" class="TunableList" display="Concatenations" group="General">
+                                    <TunableVariant type="None" class="TunableLocalizedStringSnippet" default="literal" description="This may be tuned in place here using 'literal' or as a reference to a LocalizedString tuning snippet." group="General">
+                                        <Tunable type="int" name="literal" class="TunableLocalizedString" default="0x0" display="Literal" description="A localized string that may use tokens." group="General" />
+                                        <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a LocalizedString tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="LocalizedString" />
+                                    </TunableVariant>
+                                </TunableList>
+                            </TunableTuple>
+                            <Tunable type="int" name="single" class="TunableLocalizedString" default="0x0" display="Single" description="A localized string that may use tokens." group="General" />
+                            <TunableTuple name="variation" class="TunableLocalizedStringFactoryVariation" display="Variation" description="A list of possible localized string variations." group="General">
+                                <TunableList name="variations" class="TunableList" display="Variations" group="General">
+                                    <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may use tokens." group="General" />
+                                </TunableList>
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableList>
+                <TunableVariant type="None" name="no_history_discovery_string" class="TunableLocalizedStringFactoryVariant" default="single" display="No History Discovery String" description="String to display when there are no historical arcs to discover." group="General">
+                    <TunableTuple name="concatenation" class="TunableLocalizedStringFactoryConcatenation" display="Concatenation" description="A list of localized string concatenations. These strings will be joined together into single line-separated string" group="General">
+                        <TunableList name="concatenations" class="TunableList" display="Concatenations" group="General">
+                            <TunableVariant type="None" class="TunableLocalizedStringSnippet" default="literal" description="This may be tuned in place here using 'literal' or as a reference to a LocalizedString tuning snippet." group="General">
+                                <Tunable type="int" name="literal" class="TunableLocalizedString" default="0x0" display="Literal" description="A localized string that may use tokens." group="General" />
+                                <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a LocalizedString tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="LocalizedString" />
+                            </TunableVariant>
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="int" name="single" class="TunableLocalizedString" default="0x0" display="Single" description="A localized string that may use tokens." group="General" />
+                    <TunableTuple name="variation" class="TunableLocalizedStringFactoryVariation" display="Variation" description="A list of possible localized string variations." group="General">
+                        <TunableList name="variations" class="TunableList" display="Variations" group="General">
+                            <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may use tokens." group="General" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableVariant>
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

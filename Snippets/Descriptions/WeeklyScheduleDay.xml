@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="WeeklyScheduleDay" module="venues.weekly_schedule_zone_director" description="Structure containing a Schedule of situation sets for a day." instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="long_term_situations" class="TunableList" display="Long Term Situations" description="Long term situations that exist outside the schedule." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableTuple name="count" class="TunableInterval" display="Count" description="Number of this situation to spin up." group="General">
+                    <Tunable type="int" name="lower_bound" class="TunableRange" default="1" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="upper_bound" class="TunableRange" default="1" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableList name="count_modifiers" class="TunableList" display="Count Modifiers" description="For each sim/siminfo that is a valid participant that passes the test, reduce max and min count by 1. Participant based on SingleSimResolver using either sim in career event or active sim." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="Who or what to apply this test to." group="General" />
+                        <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests used to determine if specified participant(s) should be counted." group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="situation" name="situation" class="TunableReference" display="Situation" description="Situation to run." allow_none="False" group="General" pack_safe="True" />
+                <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="Time when this situation should start running." group="General">
+                    <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <TunableTuple name="stop_time" class="TunableTimeOfDay" display="Stop Time" description="Time when this situation should stop running. 0:00 means should stop at end of day midnight." group="General">
+                    <Tunable type="int" name="hour" class="TunableRange" default="12" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableTuple name="schedule" class="TunableTunableTimeOfDayMapping" display="Schedule" description="Each entry in the map has 3 columns. The first column is the hour of the day (0-24), 2nd column is minute of that hour, and the third maps to a weighted selection of situations for that time slot. The entry with starting hour that is closest to, but before the current hour will be chosen. Given this tuning: hour_of_day possible situation sets 6 [(w1, s1), (w2, s2)] 10 [(w1, s2)] 14 [(w2, s5)] 20 [(w9, s0)] If the current hour is 11, hour_of_day will be 10 and desired is [(w1, s2)]. If the current hour is 19, hour_of_day will be 14 and desired is [(w2, s5)]. If the current hour is 23, hour_of_day will be 20 and desired is [(w9, s0)]. If the current hour is 2, hour_of_day will be 20 and desired is [(w9, s0)]. (uses 20 tuning because it is not 6 yet) The entries will be automatically sorted by time." group="General">
+            <TunableList name="hours" class="TunableMapping" display="Hours" mapping_key="hour_of_day" mapping_value="Minute_of_hour" description="Hours of the map." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="hour_of_day" class="TunableRange" default="0" display="Hour Of Day" min="0" max="23" tuning_state="NeedsTuning" group="General" />
+                    <TunableList name="Minute_of_hour" class="TunableMapping" display="Minute Of Hour" min="1" mapping_key="minute_of_hour" mapping_value="Situation_sets" description="Minutes of the map." group="General">
+                        <TunableTuple class="TunableTuple" group="General">
+                            <Tunable type="int" name="minute_of_hour" class="TunableRange" default="0" display="Minute Of Hour" min="0" max="59" tuning_state="NeedsTuning" group="General" />
+                            <TunableList name="Situation_sets" class="TunableList" display="Situation Sets" group="General">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <Tunable type="snippet" name="situation_set" class="TunableReference" display="Situation Set" description="Set of situations for this time period." allow_none="False" group="General" restrict="WeeklyScheduleSituationSet" />
+                                    <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="Weight for this set of situations." group="General">
+                                        <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                        <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                            <TunableTuple class="TunableTuple" group="General">
+                                                <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                            </TunableTuple>
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

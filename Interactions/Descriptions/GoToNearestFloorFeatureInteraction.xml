@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="GoToNearestFloorFeatureInteraction" module="interactions.floor_feature_interactions" description="A Super Interaction that adds constraints around terrain points with the tuned floor feature type on the lot." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="bool" name="indoors_only" class="Tunable" default="False" display="Indoors Only" description="Indoors Only" group="General" />
+
+        <TunableVariant type="None" name="radius_filter" class="OptionalTunable" default="disabled" display="Radius Filter" description="If enabled, floor features will be filtered out unless they are within a radius of the radius_actor. The purpose of the radius filter is to constrain the set of found floor features only to those within a radius of a tuned participant. For example, this interaction could allow Sims only to route to leaves within the radius of a targeted leaf pile." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="float" name="radius" class="TunableDistanceSquared" default="5.0" display="Radius" description="The radius, with the Saved Actor 1's position, that defines the area within which the floor feature is valid." tuning_state="NeedsTuning" group="General" />
+                <TunableEnum type="ParticipantType" name="radius_actor" class="TunableEnumEntry" default="Actor" display="Radius Actor" static_entries="interactions.ParticipantType" description="The Actor within whose radius the tuned floor feature must be in for consideration." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableTuple name="routing_circle_constraint" class="TunableCircle" display="Routing Circle Constraint" description="Circle constraint around the floor feature" group="General">
+            <Tunable type="bool" name="enables_height_scoring" class="Tunable" default="False" display="Enables Height Scoring" description="If enabled, this constraint will score goals using the height of the surface. The higher the goal the cheaper it is." group="General" />
+            <Tunable type="float" name="ideal_radius" class="Tunable" default="None" display="Ideal Radius" description="Ideal distance for this circle constraint, points closer to the ideal distance will score higher." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="ideal_radius_width" class="Tunable" default="0" display="Ideal Radius Width" description="This creates a band around the ideal_radius that also costs 0 instead of rising in cost. ex: If you have a circle of radius 5, with an ideal_radius of 2.5, and a ideal_radius_width of 0.5, all goals in the radius 2 to radius 3 range will score optimially." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="bool" name="multi_surface" class="Tunable" default="False" display="Multi Surface" description="If enabled, this constraint will be considered for multiple surfaces. Example: You want a circle constraint that can be both inside and outside of a pool." group="General" />
+            <Tunable type="float" name="radial_cost_weight" class="TunableRange" default="2.25" display="Radial Cost Weight" min="0" max="None" description="The importance of the radial cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="float" name="radius" class="Tunable" default="1.5" display="Radius" description="Circle radius" tuning_state="NeedsTuning" group="General" />
+            <Tunable type="bool" name="require_los" class="Tunable" default="True" display="Require Los" description="If checked, the Sim will require line of sight to the actor. Positions where a Sim can't see the actor (e.g. there's a wall in the way) won't be valid. NOTE: This will NOT work on a constraint that is not used to generate routing goals such as broadcasters and reactions, use a Line Of Sight Constraint instead. This will work on constraints used to keep Sims in an interaction." group="General" />
+        </TunableTuple>
+
+        <TunableTuple name="routing_facing_constraint" class="TunableFacing" display="Routing Facing Constraint" description="Controls how a Sim must face the terrain feature" group="General">
+            <Tunable type="float" name="inner_radius" class="Tunable" default="0.0" display="Inner Radius" description="A radius around the center of the constraint that defines an area in which the Sim's facing is unrestricted." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="bool" name="invert" class="Tunable" default="False" display="Invert" description="If set then the facing constraint will have a requirement of facing away from the object instead of towards the object. This will not work if inner_radius is tuned to something other than 0 (actually > EPSILON because RelativeFacingWithCircle doesn't support invert." group="General" />
+            <Tunable type="float" name="range" class="TunableAngle" default="90.0" display="Range" min="0.0" max="360.0" description="The size of the angle-range that sims should use when determining facing constraints." tuning_state="NeedsTuning" group="General" />
+            <TunableVariant type="None" name="subroot_index" class="OptionalTunable" default="disabled" display="Subroot Index" description="An optional subroot to use for facing." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="int" name="enabled" class="Tunable" default="0" display="Enabled" tuning_state="NeedsTuning" group="General" />
+            </TunableVariant>
+        </TunableTuple>
+
+        <TunableEnum type="FloorFeatureType" name="terrain_feature" class="TunableEnumEntry" default="BURNT" display="Terrain Feature" static_entries="build_buy.FloorFeatureType" description="The type of floor feature the sim should route to" group="General" />
+    </Instance>
+</TuningRoot>

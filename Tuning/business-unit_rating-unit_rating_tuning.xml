@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="business.unit_rating.unit_rating_tuning">
+        <Class name="UnitRatingTuning">
+            <TunableList name="BED_COUNT" class="TunableMapping" display="Bed Count" mapping_key="NumBeds" mapping_value="UnitRating" description="A mapping of the number of beds inside of a unit to unit rating score." group="General" mapping_class="BedCount">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="NumBeds" class="Tunable" default="None" display="Numbeds" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="UnitRating" class="Tunable" default="None" display="Unitrating" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="FRIDGE_COUNT" class="TunableMapping" display="Fridge Count" mapping_key="NumFridge" mapping_value="UnitRating" description="A mapping of the number of refrigerators inside of a unit to unit rating score." group="General" mapping_class="FridgeCount">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="NumFridge" class="Tunable" default="None" display="Numfridge" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="UnitRating" class="Tunable" default="None" display="Unitrating" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="IN_UNIT_ENVIRONMENT_SCORE" class="TunableMapping" display="In Unit Environment Score" mapping_key="EnvironmentScore" mapping_value="UnitRating" description="A mapping of environment score of objects within a single unit to unit rating score. All values must be the same value apart for this to function." group="General" mapping_class="InUnitEnvironmentScoreMapping">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="EnvironmentScore" class="Tunable" default="None" display="Environmentscore" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="UnitRating" class="Tunable" default="None" display="Unitrating" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="IN_UNIT_ENVIRONMENT_SCORE_STEP" class="Tunable" default="10" display="In Unit Environment Score Step" description="The value between any two steps in the environment score map. Used for rounding in the calculation of unit rating." tuning_state="NeedsTuning" group="General" />
+
+            <TunableTuple name="MAINTENANCE_RATING_BOUNDS" class="TunableInterval" display="Maintenance Rating Bounds" description="The minimum and maximum values for Maintenance Rating." group="General">
+                <Tunable type="int" name="lower_bound" class="TunableRange" default="-100" display="Lower Bound" min="None" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="upper_bound" class="TunableRange" default="100" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="int" name="MAINTENANCE_RATING_START_VALUE" class="Tunable" default="-100" display="Maintenance Rating Start Value" description="The starting value for the Maintenance Rating score. " tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="PERSONAL_AMENITY_COUNT" class="TunableMapping" display="Personal Amenity Count" mapping_key="NumPersonalAmenity" mapping_value="UnitRating" description="A mapping of the number of personal amenities inside a unit to unit rating score." group="General" mapping_class="PersonalAmenityCount">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="NumPersonalAmenity" class="Tunable" default="None" display="Numpersonalamenity" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="UnitRating" class="Tunable" default="None" display="Unitrating" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="PERSONAL_TAG_TO_RATING_CONTRIBUTION" class="TunableMapping" display="Personal Tag To Rating Contribution" mapping_key="PersonalTag" mapping_value="RatingContributionObject" description="Maps tags to their rating contribution object enum." group="General" mapping_class="PersonalTagToRatingContribution">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Tag" name="PersonalTag" class="TunableTag" default="INVALID" display="Personaltag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The object tag that will map to a rating contribution object enum." dynamic_entries_prefix="" group="General" invalid_entries="INVALID" pack_safe="True" />
+                    <TunableEnum type="RatingContributionObject" name="RatingContributionObject" class="TunableEnumEntry" default="RCO_INVALID" display="Ratingcontributionobject" static_entries="business-unit_rating-unit_rating_enums.RatingContributionObject" description="The rating contribution object enum." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SHARED_AMENITY_COUNT" class="TunableMapping" display="Shared Amenity Count" mapping_key="NumSharedAmenity" mapping_value="UnitRating" description="A mapping of the number of personal amenities outside a unit to unit rating score." group="General" mapping_class="SharedAmenityCount">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="NumSharedAmenity" class="Tunable" default="None" display="Numsharedamenity" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="UnitRating" class="Tunable" default="None" display="Unitrating" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SHARED_ENVIRONMENT_SCORE" class="TunableMapping" display="Shared Environment Score" mapping_key="EnvironmentScore" mapping_value="UnitRating" description="A mapping of environment score of objects in shared space to unit rating score. All values must be the same value apart for this to function." group="General" mapping_class="SharedEnvironmentScore">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="EnvironmentScore" class="Tunable" default="None" display="Environmentscore" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="UnitRating" class="Tunable" default="None" display="Unitrating" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="SHARED_ENVIRONMENT_SCORE_STEP" class="Tunable" default="10" display="Shared Environment Score Step" description="The value between any two steps in the environment score map. Used for rounding in the calculation of unit rating." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="SHARED_TAG_TO_RATING_CONTRIBUTION" class="TunableMapping" display="Shared Tag To Rating Contribution" mapping_key="SharedTag" mapping_value="RatingContributionObject" description="Maps tags to their rating contribution object enum." group="General" mapping_class="TagToRatingContribution">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="RatingContributionObject" name="RatingContributionObject" class="TunableEnumEntry" default="RCO_INVALID" display="Ratingcontributionobject" static_entries="business-unit_rating-unit_rating_enums.RatingContributionObject" description="The rating contribution object enum." group="General" />
+                    <TunableEnum type="Tag" name="SharedTag" class="TunableTag" default="INVALID" display="Sharedtag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The object tag that will map to a rating contribution object enum." dynamic_entries_prefix="" group="General" invalid_entries="INVALID" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SHOWER_TUB_COUNT" class="TunableMapping" display="Shower Tub Count" mapping_key="NumShowerTub" mapping_value="UnitRating" description="A mapping of the number of showers/tubs inside of a unit to unit rating score." group="General" mapping_class="ShowerTubCount">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="NumShowerTub" class="Tunable" default="None" display="Numshowertub" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="UnitRating" class="Tunable" default="None" display="Unitrating" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SQUARE_FOOTAGE" class="TunableMapping" display="Square Footage" mapping_key="SquareFootage" mapping_value="UnitRating" description="A mapping of square footage to unit rating score. All values must be the same value apart for this to function." group="General" mapping_class="SquareFootageMapping">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="SquareFootage" class="Tunable" default="None" display="Squarefootage" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="UnitRating" class="Tunable" default="None" display="Unitrating" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="SQUARE_FOOTAGE_STEP" class="Tunable" default="100" display="Square Footage Step" description="The value between any two steps in the square footage map. Used for rounding in the calculation of unit rating." tuning_state="NeedsTuning" group="General" />
+
+            <TunableList name="STOVE_OVEN_COUNT" class="TunableMapping" display="Stove Oven Count" mapping_key="NumStoveOven" mapping_value="UnitRating" description="A mapping of the number of stoves/ovens inside of a unit to unit rating score." group="General" mapping_class="StoveOvenCount">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="NumStoveOven" class="Tunable" default="None" display="Numstoveoven" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="UnitRating" class="Tunable" default="None" display="Unitrating" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="TOILET_COUNT" class="TunableMapping" display="Toilet Count" mapping_key="NumToilets" mapping_value="UnitRating" description="A mapping of the number of toilets inside of a unit to unit rating score." group="General" mapping_class="ToiletCount">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="NumToilets" class="Tunable" default="None" display="Numtoilets" tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="UnitRating" class="Tunable" default="None" display="Unitrating" tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+
+        <Class name="UnitRatingSubcatTuning">
+            <TunableList name="AMENITIES_TO_RATING" class="TunableMapping" display="Amenities To Rating" mapping_key="Amenities" mapping_value="RatingSubScore" description="Number of beds, toilets, etc. to subcategory rating. The amenity score that's provided as the key should be considered a minimum value for that rating to be selected." group="General" mapping_class="AmenitiesToRating">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="Amenities" class="Tunable" default="None" display="Amenities" tuning_state="NeedsTuning" group="General" />
+                    <TunableEnum type="RatingSubScore" name="RatingSubScore" class="TunableEnumEntry" default="MEDIUM" display="Ratingsubscore" static_entries="business-unit_rating-unit_rating_enums.RatingSubScore" description="An enum that shows which subcategory rating each score maps to." binary_type="uint32" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="ENVIRONMENT_SCORE_TO_RATING" class="TunableMapping" display="Environment Score To Rating" mapping_key="EnvironmentScore" mapping_value="RatingSubScore" description="Combined (in-unit and shared) environment score to subcategory rating. The score that's provided as the key should be considered a minimum value for that rating to be selected." group="General" mapping_class="EnvironmentScoreToRating">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="EnvironmentScore" class="Tunable" default="None" display="Environmentscore" tuning_state="NeedsTuning" group="General" />
+                    <TunableEnum type="RatingSubScore" name="RatingSubScore" class="TunableEnumEntry" default="MEDIUM" display="Ratingsubscore" static_entries="business-unit_rating-unit_rating_enums.RatingSubScore" description="An enum that shows which subcategory rating each score maps to." binary_type="uint32" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="MAINTENANCE_TO_RATING" class="TunableMapping" display="Maintenance To Rating" mapping_key="Maintenance" mapping_value="RatingSubScore" description="Dynamic rating score to subcategory rating. The dynamic rating that's provided as the key should be considered a minimum value for that rating to be selected." group="General" mapping_class="MaintenanceToRating">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="Maintenance" class="Tunable" default="None" display="Maintenance" tuning_state="NeedsTuning" group="General" />
+                    <TunableEnum type="RatingSubScore" name="RatingSubScore" class="TunableEnumEntry" default="MEDIUM" display="Ratingsubscore" static_entries="business-unit_rating-unit_rating_enums.RatingSubScore" description="An enum that shows which subcategory rating each score maps to." binary_type="uint32" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="UNIT_SIZE_TO_RATING" class="TunableMapping" display="Unit Size To Rating" mapping_key="MinUnitSize" mapping_value="RatingSubScore" description="Unit size, in square footage, to subcategory rating. The square footage that's provided as the key should be considered a minimum value for that rating to be selected." group="General" mapping_class="UnitSizeToRating">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="MinUnitSize" class="Tunable" default="None" display="Minunitsize" tuning_state="NeedsTuning" group="General" />
+                    <TunableEnum type="RatingSubScore" name="RatingSubScore" class="TunableEnumEntry" default="MEDIUM" display="Ratingsubscore" static_entries="business-unit_rating-unit_rating_enums.RatingSubScore" description="An enum that shows which subcategory rating each score maps to." binary_type="uint32" group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+
+        <Class name="DynamicUnitRatingTuning">
+            <TunableList name="RATING_CHANGE" class="TunableMapping" display="Rating Change" mapping_key="modify_dynamic_unit_rating" mapping_value="unit_rating_change" description="A mapping of rating change size to actual rating change." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="ModifyDynamicUnitRating" name="modify_dynamic_unit_rating" class="TunableEnumEntry" default="SMALL_LOSS" display="Modify Dynamic Unit Rating" static_entries="business-unit_rating-unit_rating_enums.ModifyDynamicUnitRating" description="The unit rating change size." group="General" />
+                    <Tunable type="int" name="unit_rating_change" class="TunableRange" default="0" display="Unit Rating Change" min="-100" max="100" description="The range that any dynamic unit rating change could exist within." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="RATING_CHANGE_CLEAR_ALERT_TIME" class="TunableTimeOfDay" display="Rating Change Clear Alert Time" description="The time of day to clear all the UI alerts representing unit rating changes in the biz panel for units. " group="General">
+                <Tunable type="int" name="hour" class="TunableRange" default="23" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

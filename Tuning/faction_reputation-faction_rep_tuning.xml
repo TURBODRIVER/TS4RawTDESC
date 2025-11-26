@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="faction_reputation.faction_rep_tuning">
+        <Class name="FactionRepModuleTuning">
+            <Tunable type="statistic" name="FIRST_ORDER_REPUTATION" class="TunableReference" display="First Order Reputation" description="Ranked statistic for first order reputation." allow_none="False" group="General" pack_safe="True" restrict="RankedStatistic" />
+
+            <Tunable type="statistic" name="RESISTANCE_REPUTATION" class="TunableReference" display="Resistance Reputation" description="Ranked statistic for resistance reputation." allow_none="False" group="General" pack_safe="True" restrict="RankedStatistic" />
+
+            <Tunable type="statistic" name="SCOUNDREL_REPUTATION" class="TunableReference" display="Scoundrel Reputation" description="Ranked statistic for scoundrel reputation." allow_none="False" group="General" pack_safe="True" restrict="RankedStatistic" />
+        </Class>
+    </Module>
+</TuningRoot>

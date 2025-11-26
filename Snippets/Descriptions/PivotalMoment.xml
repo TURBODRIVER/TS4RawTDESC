@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="PivotalMoment" module="pivotal_moments.pivotal_moment" description="Defines the triggers and the situation to start for a Pivotal Moment" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="_display_data" class="OptionalTunable" default="disabled" display="Display Data" description="If enabled, specify display data for this instance." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="optional_display_mixin" class="OptionalDisplayMixinTunable" display="Optional Display Mixin" description="The instance's display data." group="General">
+                <TunableVariant type="None" name="instance_display_description" class="OptionalTunable" default="enabled_display_description" display="Instance Display Description" description="If enabled, specify a display description for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled_display_description" class="TunableLocalizedString" default="0x0" display="Enabled Display Description" description="The instance's description. " group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_name" class="OptionalTunable" default="enabled_display_name" display="Instance Display Name" description="If enabled, specify a display name for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled_display_name" class="TunableLocalizedString" default="0x0" display="Enabled Display Name" description="The instance's name." group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="activation_triggers" class="TunableMapping" display="Activation Triggers" mapping_key="key" mapping_value="value" description="Trigger condition that must be satisfied for pivotal moment to be triggered. Key is the id to determine which set of conditions will be used. REQUIRED FOR SAVING/LOADING." group="General" mapping_class="ActivationTriggersTuple">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="int" name="key" class="TunableRange" default="1" display="Key" min="0" max="5" description="Unique identifier to determine which sets of conditions to use." tuning_state="NeedsTuning" group="General" />
+                <TunableList name="value" class="TunableList" display="Value" description="Lists of trigger sets. If any of these groups of conditions is satisfied, then the pivotal moment is triggered." group="General">
+                    <TunableTuple class="PivotalConditionsTuple" group="General">
+                        <TunableList name="conditions" class="TunableList" display="Conditions" description="A list of conditions that all must be satisfied for the group to be considered satisfied." group="General">
+                            <TunableVariant type="None" class="TunableVariant" default="event_based" description="The type of trigger to listen for" group="General">
+                                <TunableTuple name="event_based" class="TunableEventBasedCondition" display="Event Based" description="Event trigger for the pivotal moment" group="General">
+                                    <TunableVariant type="None" name="event_custom_key" class="OptionalTunable" default="disabled" display="Event Custom Key" description="If enabled, only listen for events of the selected type when paired with this custom key." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableVariant type="None" name="enabled" class="EventConditionCustomKeyVariant" default="statistic" display="Enabled" description="When registering the event listener, it will only listen for events with this key." group="General">
+                                            <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic that the event must carry as custom key." allow_none="False" group="General" pack_safe="True" />
+                                        </TunableVariant>
+                                    </TunableVariant>
+                                    <TunableEnum type="TestEvent" name="event_to_listen_for" class="TunableEnumEntry" default="Invalid" display="Event To Listen For" dynamic_entries="event_testing-test_events.TestEvent._elements" static_entries="event_testing-test_events.TestEvent" description="Event that this exit condition should listen for " group="General" />
+                                    <Tunable type="int" name="save_id" class="Tunable" default="0" display="Save Id" description="ID of this trigger so a pivotal moment can save that it's been satisfied. This must be unique per trigger set. Any ids that are the same across sets will all be considered satisfied if one is satisfied." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="event_test_based" class="TunableEventTestCondition" display="Event Test Based" description="Event with test trigger for the pivotal moment" group="General">
+                                    <TunableVariant type="None" name="event_custom_key" class="OptionalTunable" default="disabled" display="Event Custom Key" description="If enabled, only listen for events of the selected type when paired with this custom key." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableVariant type="None" name="enabled" class="EventConditionCustomKeyVariant" default="statistic" display="Enabled" description="When registering the event listener, it will only listen for events with this key." group="General">
+                                            <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic that the event must carry as custom key." allow_none="False" group="General" pack_safe="True" />
+                                        </TunableVariant>
+                                    </TunableVariant>
+                                    <TunableEnum type="TestEvent" name="event_to_listen_for" class="TunableEnumEntry" default="Invalid" display="Event To Listen For" dynamic_entries="event_testing-test_events.TestEvent._elements" static_entries="event_testing-test_events.TestEvent" description="Event that this exit condition should listen for " group="General" />
+                                    <Tunable type="int" name="save_id" class="Tunable" default="0" display="Save Id" description="ID of this trigger so a pivotal moment can save that it's been satisfied. This must be unique per trigger set. Any ids that are the same across sets will all be considered satisfied if one is satisfied." tuning_state="NeedsTuning" group="General" />
+                                    <TdescFragTag name="test" class="TunableTestVariantFrag" display="Test" description="Pass this test to satisfy the condition." group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="live_event_quest" class="TunableLiveEventQuestAvailability" display="Live Event Quest" description="Trigger when a live quest event provides a quest." group="General">
+                                    <TunableList name="available_quests" class="TunableList" display="Available Quests" min="1" description="List of quests that need to be provided by a live event before the condition is satisfied." group="General">
+                                        <Tunable type="snippet" class="TunableReference" description="A quest that could satisfy this condition when active." allow_none="False" group="General" restrict="LiveEventQuest" />
+                                    </TunableList>
+                                    <Tunable type="int" name="save_id" class="Tunable" default="0" display="Save Id" description="ID of this trigger so a pivotal moment can save that it's been satisfied. This must be unique per trigger set. Any ids that are the same across sets will all be considered satisfied if one is satisfied." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="pivotal_moment" class="TunablePivotalMomentCondition" display="Pivotal Moment" description="Trigger when a pivotal moment is completed." group="General">
+                                    <TunableList name="pivotal_moments" class="TunableList" display="Pivotal Moments" min="1" description="List of pivotal moments that the condition waits to complete. The condition is satisfied when any of these is completed." group="General">
+                                        <Tunable type="snippet" class="TunableReference" description="A pivotal moment that could satisfy this condition when completed." allow_none="False" group="General" restrict="PivotalMoment" />
+                                    </TunableList>
+                                    <Tunable type="int" name="save_id" class="Tunable" default="0" display="Save Id" description="ID of this trigger so a pivotal moment can save that it's been satisfied. This must be unique per trigger set. Any ids that are the same across sets will all be considered satisfied if one is satisfied." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="time_based" class="TunableTimeRangeCondition" display="Time Based" description="Time trigger for the pivotal moment" group="General">
+                                    <Tunable type="float" name="max_time" class="TunableSimMinute" default="None" display="Max Time" min="None" max="None" description="Maximum amount of time (in sim minutes) for this condition to be satisfied." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="float" name="min_time" class="TunableSimMinute" default="1" display="Min Time" min="None" max="None" description="Minimum amount of time (in sim minutes) for this condition to be satisfied." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="save_id" class="Tunable" default="0" display="Save Id" description="ID of this trigger so a pivotal moment can save that it's been satisfied. This must be unique per trigger set. Any ids that are the same across sets will all be considered satisfied if one is satisfied." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="timed_event_based" class="TunableTimedEventCondition" display="Timed Event Based" description="Time trigger for the pivotal moment, with an event to reset the timer" group="General">
+                                    <TunableEnum type="TestEvent" name="event_to_listen_for" class="TunableEnumEntry" default="Invalid" display="Event To Listen For" dynamic_entries="event_testing-test_events.TestEvent._elements" static_entries="event_testing-test_events.TestEvent" description="Event that causes the timer to reset." group="General" />
+                                    <Tunable type="float" name="max_time" class="TunableSimMinute" default="None" display="Max Time" min="None" max="None" description="Maximum amount of time (in sim minutes) for this condition to be satisfied." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="float" name="min_time" class="TunableSimMinute" default="1" display="Min Time" min="None" max="None" description="Minimum amount of time (in sim minutes) for this condition to be satisfied." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="save_id" class="Tunable" default="0" display="Save Id" description="ID of this trigger so a pivotal moment can save that it's been satisfied. This must be unique per trigger set. Any ids that are the same across sets will all be considered satisfied if one is satisfied." tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableVariant>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="cooldown" class="OptionalTunable" default="disabled" display="Cooldown" description="Cool down in seconds before this pivotal moment can be shown again" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="Cooldown amount" group="General">
+                <Tunable type="int" name="lower_bound" class="TunableRange" default="600" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="upper_bound" class="TunableRange" default="600" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Tunable type="drama_node" name="drama_node" class="TunableReference" display="Drama Node" description="The drama node to schedule when the conditions for this pivotal moment have been met." allow_none="False" group="General" restrict="PivotalMomentDialogDramaNode" />
+
+        <Tunable type="bool" name="is_onboarding_requirement" class="Tunable" default="False" display="Is Onboarding Requirement" description="Defaults to False. When True, other pivotal moments that start, will start in a minimized state to give onboarding pivotal moments priority Warning, this toggle should only be used for Discovery Quests that are required for new player onboarding, and not pack onboarding" group="General" />
+
+        <TunableVariant type="None" name="on_situation_cancel" class="TunableVariant" default="mark_as_complete" display="On Situation Cancel" description="What should happen if a user cancels the pivotal moment situation" group="General">
+            <TunableTuple name="cooldown" class="Tunable_Cooldown" display="Cooldown" group="General" />
+            <TunableTuple name="mark_as_complete" class="Tunable_MarkAsComplete" display="Mark As Complete" group="General" />
+        </TunableVariant>
+
+        <Tunable type="int" name="outcome_already_rewarded_text" class="TunableLocalizedString" default="0x0" display="Outcome Already Rewarded Text" description="Text in the rewards screen that replaces 'Outcome Next Steps Text' when the reward has already been given a previous time this pivotal moment was completed." group="UI" />
+
+        <Tunable type="int" name="outcome_description_text" class="TunableLocalizedString" default="0x0" display="Outcome Description Text" description="The description for the reward screen when the pivotal moment is completed." group="UI" />
+
+        <Tunable type="int" name="outcome_next_steps_text" class="TunableLocalizedString" default="0x0" display="Outcome Next Steps Text" description="Text in the rewards screen, explaining what they can do after the pivotal moment is completed." group="UI" />
+
+        <Tunable type="int" name="outcome_title_text" class="TunableLocalizedString" default="0x0" display="Outcome Title Text" description="The title for the reward screen when the pivotal moment is completed." group="UI" />
+
+        <TunableEnum type="PivotalMomentSerializationOption" name="persistence_option" class="TunableEnumEntry" default="GAME" display="Persistence Option" static_entries="pivotal_moments-pivotal_moment.PivotalMomentSerializationOption" description="How this pivotal moment is handled when saving and loading. GAME: This pivotal moment will be saved game-wide. This means the pivotal moment can only be completed once per install. ACCOUNT: This pivotal moment will be saved at the account-level. This means the pivotal moment can only be completed once per account. HOUSEHOLD: This pivotal moment will be saved on the household. This means that the pivotal moment can be completed once per household. The options to reset and enable/disable Discovery Quests in the settings menu will not affect pivotal moments using this option." group="General" />
+
+        <TunableVariant type="None" name="reward_description_text" class="OptionalTunable" default="disabled" display="Reward Description Text" description="If enabled, this text will override the reward description that appears at the bottom of the situation's info dialog." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reward description that appears at the bottom of the situation's info dialog." group="General" />
+        </TunableVariant>
+
+        <TunableList name="reward_icons" class="TunableList" display="Reward Icons" description="List of reward icons associated with the pivotal moment. " group="UI">
+            <Tunable type="ResourceKey" class="TunableIcon" default="None" description="Resource key for the icon. " allow_none="True" group="General" resource_types="0x2f7d0004" />
+        </TunableList>
+
+        <Tunable type="situation" name="situation_to_start" class="TunableReference" display="Situation To Start" description="A situation that is available for situation replacement." allow_none="False" group="General" />
+    </Instance>
+
+    
+</TuningRoot>

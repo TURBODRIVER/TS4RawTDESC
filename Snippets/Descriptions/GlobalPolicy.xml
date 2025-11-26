@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="GlobalPolicy" module="global_policies.global_policy_tuning" description="Tuning for Global Policies." instance_needs_reference="True" instance_subclasses_only="False" parents="DisplaySnippet" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="decay_days" class="TunableRange" default="5" display="Decay Days" min="0" max="None" description="The number of days it will take for the global policy to revert to not-complete. Decay begins when the policy is completed." tuning_state="NeedsTuning" group="General" />
+
+        <TunableList name="global_policy_effects" class="TunableList" display="Global Policy Effects" description="Actions to apply when the global policy is enacted." group="General">
+            <TunableVariant type="None" class="GlobalPolicyEffectVariants" default="shut_off_utilities" description="The action to apply." group="General">
+                <TunableTuple name="bill_reduction" class="TunableBillReduction" display="Bill Reduction" description="An effect that, when turned on, modifies the bill amount for all households by the tuned percentage." group="General">
+                    <TunableTuple name="percent_reduction" class="TunableTuple" display="Percent Reduction" description="A mapping of bill reduction reason to percent reduction. Reasons for bill reduction can be added to sims.bills tuning." group="General">
+                        <Tunable type="float" name="reduction_amount" class="TunablePercent" default="50" display="Reduction Amount" min="0" max="100" description="Percent by which all household bills are reduced." group="General" />
+                        <TunableEnum type="BillReductionEnum" name="reduction_reason" class="TunableEnumEntry" default="GlobalPolicy_ControlInvasiveSpecies" display="Reduction Reason" dynamic_entries="sims-bills.BillReductionEnum._elements" static_entries="sims-bills.BillReductionEnum" description="Reason for bill reduction." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+                <TunableTuple name="shut_off_utilities" class="TunableScheduleUtilityShutOff" display="Shut Off Utilities" description="An effect that when turned on, uses the tuned weekly schedule to have a daily chance to turn off and on the tuned utility. " group="General">
+                    <TunableVariant type="None" name="chance" class="OptionalTunable" default="disabled" display="Chance" description="The percent chance that, after an effect is turned on, that utility will turn off day-to-day. " group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <Tunable type="float" name="enabled" class="TunablePercent" default="10" display="Enabled" min="0" max="100" group="General" />
+                    </TunableVariant>
+                    <TunableTuple name="schedule_data" class="TunableWeeklySchedule" display="Schedule Data" description="The information to schedule points during the week that the Global Policy Effect, if enacted, will turn off the tuned utility." group="General">
+                        <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                            <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                                <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                                    <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                                    <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                                    <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                                    <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                                    <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                                    <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                                    <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                                </TunableTuple>
+                                <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                                <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                                <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                                    <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                    <TunableList name="utilities" class="TunableList" display="Utilities" description="A list of utilities to shut off." group="General">
+                        <TunableTuple class="TunableShutOffUtilityModifier" description="A modifier for shutting off a household utility." group="General">
+                            <TunableEnum type="UtilityShutoffReasonPriority" name="shutoff_reason" class="TunableEnumEntry" default="NO_REASON" display="Shutoff Reason" dynamic_entries="sims-household_utilities-utility_types.UtilityShutoffReasonPriority._elements" static_entries="sims-household_utilities-utility_types.UtilityShutoffReasonPriority" description="The priority of our shutoff reason. This determines how important the shutoff tooltip is relative to other reasons the utility is being shutoff." group="General" />
+                            <Tunable type="int" name="shutoff_tooltip" class="TunableLocalizedString" default="0x0" display="Shutoff Tooltip" description="A tooltip to show when an interaction cannot be run due to this utility being shutoff." group="General" />
+                            <TunableEnum type="Utilities" name="utility" class="TunableEnumEntry" default="POWER" display="Utility" dynamic_entries="sims-household_utilities-utility_types.Utilities._elements" static_entries="sims-household_utilities-utility_types.Utilities" description="The household utility we want to modify." group="General" />
+                        </TunableTuple>
+                    </TunableList>
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TunableList name="loot_on_complete" class="TunableList" display="Loot On Complete" description="A list of loot actions that will be run when the policy is complete." group="General">
+            <Tunable type="action" class="TunableReference" description="The loot action will target the active Sim." allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="loot_on_decay" class="TunableList" display="Loot On Decay" description="A list of loot actions that will be run when the policy decays." group="General">
+            <Tunable type="action" class="TunableReference" description="The loot action will target the active Sim." allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+
+        <Tunable type="int" name="progress_initial_value" class="TunableRange" default="0" display="Progress Initial Value" min="0" max="None" description="The initial value of global policy progress. Progress begins when the policy is first set to in-progress." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="progress_max_value" class="TunableRange" default="100" display="Progress Max Value" min="1" max="None" description="The max value of global policy progress. Once the policy progress reaches the max threshold, global policy state becomes complete." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+</TuningRoot>

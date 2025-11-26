@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="crafting.photography_enums">
+        <Class name="ZoomCapability" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="LONG" enum_value="2" />
+
+            <EnumItem name="NO_ZOOM" enum_value="0" />
+
+            <EnumItem name="SHORT" enum_value="1" />
+
+            <EnumItem name="VERY_LONG" enum_value="3" />
+        </Class>
+
+        <Class name="CameraQuality" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CHEAP" enum_value="0" />
+
+            <EnumItem name="EXPENSIVE" enum_value="2" />
+
+            <EnumItem name="STANDARD" enum_value="1" />
+
+            <EnumItem name="SUPER_EXPENSIVE" enum_value="3" />
+        </Class>
+
+        <Class name="PhotoStyleType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EFFECT_GRAINY" enum_value="260" />
+
+            <EnumItem name="EFFECT_OVERSATURATED" enum_value="5" />
+
+            <EnumItem name="EFFECT_UNDERSATURATED" enum_value="6" />
+
+            <EnumItem name="NORMAL" enum_value="0" />
+
+            <EnumItem name="PAINT_PLAIN" enum_value="4" />
+
+            <EnumItem name="PHOTO_BRIGHT" enum_value="12" />
+
+            <EnumItem name="PHOTO_COOL" enum_value="11" />
+
+            <EnumItem name="PHOTO_CROSS_STITCH" enum_value="14" />
+
+            <EnumItem name="PHOTO_DARK" enum_value="13" />
+
+            <EnumItem name="PHOTO_FAIL_BLURRY" enum_value="258" />
+
+            <EnumItem name="PHOTO_FAIL_FINGER" enum_value="257" />
+
+            <EnumItem name="PHOTO_FAIL_GNOME" enum_value="256" />
+
+            <EnumItem name="PHOTO_FAIL_NOISE" enum_value="259" />
+
+            <EnumItem name="PHOTO_GRAY" enum_value="2" />
+
+            <EnumItem name="PHOTO_INVERT" enum_value="9" />
+
+            <EnumItem name="PHOTO_PLAIN" enum_value="1" />
+
+            <EnumItem name="PHOTO_SEPIA" enum_value="3" />
+
+            <EnumItem name="PHOTO_VIGNETTE" enum_value="7" />
+
+            <EnumItem name="PHOTO_WARM" enum_value="10" />
+
+            <EnumItem name="PHOTO_WHITE_VIGNETTE" enum_value="8" />
+        </Class>
+
+        <Class name="PhotoSize" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="EXTRA_LARGE" enum_value="3" />
+
+            <EnumItem name="LARGE" enum_value="2" />
+
+            <EnumItem name="MEDIUM" enum_value="1" />
+
+            <EnumItem name="SMALL" enum_value="0" />
+        </Class>
+
+        <Class name="PhotoOrientation" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="LANDSCAPE" enum_value="0" />
+
+            <EnumItem name="PORTRAIT" enum_value="1" />
+        </Class>
+
+        <Class name="RevealPhotoStates" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AFTER_PHOTO" enum_value="1" />
+
+            <EnumItem name="BEFORE_PHOTO" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

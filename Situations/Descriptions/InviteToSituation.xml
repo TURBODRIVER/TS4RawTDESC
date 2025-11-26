@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="InviteToSituation" module="situations.complex.invite_to_situation" instance_subclasses_only="False" parents="SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_display_name" />
+
+        <Deleted name="_implies_greeted_status" />
+
+        <Deleted name="creation_ui_option" />
+
+        <Deleted name="duration" />
+
+        <Deleted name="end_situation_dialog" />
+
+        <Deleted name="exclusivity" />
+
+        <TunableTuple name="invited_job" class="TunableTuple" display="Invited Job" group="General">
+            <Tunable type="role_state" name="invited_to_state" class="TunableReference" display="Invited To State" description="The state for telling a sim to wait. They will momentarily be pulled from this situation by a visit or venue situation." allow_none="False" group="General" restrict="RoleState" />
+            <Tunable type="situation_job" name="situation_job" class="TunableReference" display="Situation Job" description="A reference to the SituationJob used for the Sims invited to." allow_none="False" group="General" restrict="SituationJob" />
+        </TunableTuple>
+
+        <TunableEnum type="NPCSummoningPurpose" name="purpose" class="TunableEnumEntry" default="DEFAULT" display="Purpose" dynamic_entries="venues-venue_constants.NPCSummoningPurpose._elements" static_entries="venues-venue_constants.NPCSummoningPurpose" description="The purpose/reason used to perform the venue specific operation to get this sim in the appropriate situation. This should be tuned to Invite In, but since that is a dynamic enum you must do it yourself." group="General" />
+
+        <Deleted name="recommended_job_object_notification" />
+
+        <Deleted name="recommended_job_object_text" />
+
+        <Deleted name="situation_description" />
+
+        <Deleted name="situation_display_description" />
+
+        <Deleted name="situation_location_description" />
+
+        <Deleted name="situation_main_objective" />
+
+        <Deleted name="travel_request_behavior" />
+
+        <Deleted name="tutorial" />
+    </Instance>
+
+    
+</TuningRoot>

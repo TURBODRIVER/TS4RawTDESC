@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CreateAndServeObjectSuperInteraction" module="crafting.serving_interactions" description="A Crafting SI to Create and Serve an object. This interaction creates the final product as part of the interaction." instance_needs_reference="True" instance_subclasses_only="False" parents="CraftingPhaseCreateObjectSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <Tunable type="str" name="fill_object_actor_name" class="Tunable" default="consumable" display="Fill Object Actor Name" description="Name in Swing of the actor for the object being filled." group="General" />
+
+        <Tunable type="int" name="fill_object_xevt_id" class="Tunable" default="100" display="Fill Object Xevt Id" description="Xevt id for when to apply final states." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+</TuningRoot>

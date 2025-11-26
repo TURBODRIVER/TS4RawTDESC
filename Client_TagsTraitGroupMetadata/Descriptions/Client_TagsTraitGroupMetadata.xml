@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tagstraitgroupmetadata" class="Client_TagsTraitGroupMetadata" module="tagstraitgroupmetadata.Client_TagsTraitGroupMetadata" description="Metadata to expose trait group tags in UI." path="Client_TagsTraitGroupMetadata\Descriptions">
+        <TunableList name="tags_to_metadata_map" class="TunableMapping" display="Metadata" mapping_key="key_tag" mapping_value="value_metadatatuple" description="Tags Trait Group Metadata" mapping_class="Client_TagsTraitGroupMetadata.MapEntry">
+            <TunableTuple name="MapEntry" class="Client_TagsTraitGroupMetadata.MapEntry">
+                <TunableEnum type="Tag" name="key_tag" class="TunableEnumEntry" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag" />
+                <TunableTuple name="value_metadatatuple" class="Client_TagsTraitGroupMetadata.MetadataValue" display="Tag Metadata" description="Tunable tuple for unit testing.">
+                    <Tunable type="float" name="DisplayIndex" class="Tunable" default="1.1" display="Display Index" />
+                    <Tunable type="ResourceKey" name="Icon" class="TunableResourceKey" default="None" display="Icon" description="Icon representing the tag." resource_types="0x2f7d0004" />
+                    <Tunable type="ResourceKey" name="IconSelect" class="TunableResourceKey" default="None" display="Icon Selected" description="Highlighted version of the icon." resource_types="0x2f7d0004" />
+                    <Tunable type="int" name="TagLocalizedName" class="TunableLocalizedString" default="0x47b43883" display="Tag Name" />
+                    <Tunable type="int" name="TagLocalizedTitle" class="TunableLocalizedString" default="0x47b43883" display="Tag Title, may be different from Name" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

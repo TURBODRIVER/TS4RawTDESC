@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.sim_info_firemeter">
+        <Class name="SimInfoFireMeter">
+            <Tunable type="int" name="FIREMETER_FREQUENCY" class="Tunable" default="120" display="Firemeter Frequency" description="The game creates a repeating alarm at this frequency to check whether the SimInfoManager has more than the fire meter's threshold before triggering a purge of sim_infos. Please consult a member of performance group before updating this tuning." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="SIM_INFO_ALLOWED_PERCENTAGE_ABOVE_CAP" class="TunablePercent" default="15" display="Sim Info Allowed Percentage Above Cap" min="0" max="100" description="The game triggers an out-of-cycle story progression action to control population when we cross the current sim info cap plus this percentage. For instance, if this percentage is set to 15% and the current Sim Info cap is 100 Sim Infos, we'll start culling Sim Infos once we cross 115 (100 + 15%). Please consult a member of the performance group before updating this tuning." group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

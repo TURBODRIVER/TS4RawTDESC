@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.social.greeting_socials.greetings">
+        <Class name="GreetingType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="GREETING_GROUP" enum_value="0" />
+
+            <EnumItem name="GREETING_TARGETED" enum_value="1" />
+        </Class>
+
+        <Class name="GreetingsSatisfyContraintTuning">
+            <TunableTuple name="CONE_CONSTRAINT" class="TunableCone" display="Cone Constraint" description="Cone constraint sim must satisfy before running greeting social. This is intersected with facing, line of sight and adjustment constraint which is also done through code." group="General">
+                <Tunable type="float" name="angle" class="TunableAngle" default="180.0" display="Angle" min="0.0" max="360.0" description="The cone angle in degrees." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="angular_cost_weight" class="TunableRange" default="2.25" display="Angular Cost Weight" min="0" max="None" description="The importance of the angular cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="bool" name="apply_offset_on_cost" class="Tunable" default="False" display="Apply Offset On Cost" description="If checked, the offset defined above will affect how the constraint cost is calculated. " group="General" />
+                <Tunable type="bool" name="enables_height_scoring" class="Tunable" default="False" display="Enables Height Scoring" description="If enabled, this constraint will score goals using the height of the surface. The higher the goal the cheaper it is." group="General" />
+                <Tunable type="float" name="ideal_angle" class="TunableRange" default="0.25" display="Ideal Angle" min="0" max="1" description="The angular extents of an ideal region as a fraction of angle." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="ideal_radius_max" class="TunableRange" default="0.75" display="Ideal Radius Max" min="0" max="1" description="The radial upper bound of an ideal region as a fraction of the difference between max_radius and min_radius." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="ideal_radius_min" class="TunableRange" default="0.25" display="Ideal Radius Min" min="0" max="1" description="The radial lower bound of an ideal region as a fraction of the difference between max_radius and min_radius." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="max_radius" class="Tunable" default="4" display="Max Radius" description="The maximum cone radius." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="min_radius" class="Tunable" default="0.7" display="Min Radius" description="The minimum cone radius." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="bool" name="multi_surface" class="Tunable" default="False" display="Multi Surface" description="If enabled, this constraint will be considered for multiple surfaces. Example: You want a circle constraint that can be both inside and outside of a pool." group="General" />
+                <Tunable type="float" name="offset" class="TunableAngle" default="0.0" display="Offset" min="0.0" max="360.0" description="An offset (rotation) in degrees. By default the cone will face the forward vector of the object. Use an offset to rotate the cone to face a different direction. " tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="radial_cost_weight" class="TunableRange" default="2.25" display="Radial Cost Weight" min="0" max="None" description="The importance of the radial cost function. = 0: Not used > 1: Important on surfaces > 2: Important on grass" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="bool" name="require_los" class="Tunable" default="True" display="Require Los" description="If checked, the Sim will require line of sight to the actor. Positions where a Sim can't see the actor (e.g. there's a wall in the way) won't be valid. NOTE: This will NOT work on a constraint that is not used to generate routing goals such as broadcasters and reactions, use a Line Of Sight Constraint instead. This will work on constraints used to keep Sims in an interaction." group="General" />
+            </TunableTuple>
+        </Class>
+
+        <Class name="Greetings">
+            <Tunable type="relbit" name="GREETED_RELATIONSHIP_BIT" class="TunableReference" display="Greeted Relationship Bit" description="The relationship bit between greeted Sims." allow_none="False" group="General" restrict="RelationshipBit" />
+
+            <TunableList name="GROUP_GREETINGS" class="TunableList" display="Group Greetings" description="Group greetings play on the Sim relative to a target Sim. These greetings are only played on the actor. The PickedSim participant type will contain all Sims that should greet the actor in return, so you can make a reaction that greets the actor and push it from interactions in this list." group="General">
+                <TunableTuple class="TunableTuple" description="Prioritized greetings. Place content that is pack specific at a higher priority." group="General">
+                    <Tunable type="int" name="priority" class="Tunable" default="0" display="Priority" description="The relative priority of this affordance compared to other affordances in this list." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="snippet" name="tests_and_greetings" class="TunableReference" display="Tests And Greetings" description=" " allow_none="False" group="General" pack_safe="True" restrict="TunableTestedGreetingGroup" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="TARGETED_GREETINGS" class="TunableList" display="Targeted Greetings" description="Targeted greetings play between two Sims and are only available in the scenario that the actor wants to socialize with a target Sim that is not already socializing. These can be touching socials like hugging or hi fives." group="General">
+                <TunableTuple class="TunableTuple" description="Prioritized greetings. Place content that is pack specific at a higher priority." group="General">
+                    <Tunable type="int" name="priority" class="Tunable" default="0" display="Priority" description="The relative priority of this affordance compared to other affordances in this list." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="snippet" name="tests_and_greetings" class="TunableReference" display="Tests And Greetings" allow_none="False" group="General" pack_safe="True" restrict="TunableTestedGreetingTargeted" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

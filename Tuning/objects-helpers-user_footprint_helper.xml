@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.helpers.user_footprint_helper">
+        <Class name="UserFootprintHelper">
+            <Tunable type="float" name="DEFAULT_DISCOURAGE_AREA_COST" class="Tunable" default="1" display="Default Discourage Area Cost" description="The cost of routing between a Sim and an object." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="DEFAULT_DISCOURAGE_AREA_WIDTH" class="Tunable" default="0.3" display="Default Discourage Area Width" description="The default width of discouragement regions placed from a Sim to an object." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="interaction" name="MOVE_SIM_AFFORDANCE" class="TunableReference" display="Move Sim Affordance" description="When a Sim A places a discouragement region and Sim B is already inside of that discouragement region, Sim B gets MOVE_SIM_AFFORDANCE pushed on them." allow_none="False" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

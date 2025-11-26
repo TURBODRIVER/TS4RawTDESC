@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation_goal" class="SituationGoalCompound" module="situations.situation_goal_compound" description="Compound situation goal. Depending on the Evaluation Mode tunable, this can pass if either (a) any sub goals pass, or (b) all sub goals pass" instance_needs_reference="True" instance_subclasses_only="False" parents="SituationGoal" path="SituationGoals\Descriptions" use_guid_for_reference="True">
+        <Deleted name="_iterations" />
+
+        <TunableVariant type="None" name="evaluation_mode" class="TunableVariant" default="any" display="Evaluation Mode" description="Determines how progress of the compound goal is tracked. Any - Compound goal completes when any sub-goals complete. All - Compound goal completes when all sub-goals complete." group="General">
+            <TunableTuple name="all" class="Tunable_EvalModeAll" display="All" description="Evaluation mode where a compound goal is completed if all of its sub-goals are completed." group="General" />
+            <TunableTuple name="any" class="Tunable_EvalModeAny" display="Any" description="Evaluation mode where a compound goal is completed if any of its sub-goals are completed." group="General" />
+        </TunableVariant>
+
+        <Deleted name="score_on_iteration_complete" />
+
+        <TunableList name="situation_goals" class="TunableList" display="Situation Goals" min="2" description="If any of the situation goal passes this situation goal will pass too." group="General" unique_entries="true">
+            <Tunable type="situation_goal" class="TunableReference" description="If this situation goal passes, pass this compound one." allow_none="False" group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

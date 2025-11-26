@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="event_testing.test_events">
+        <Class name="TestEvent" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="ActiveHouseholdRentBecameOverdue" enum_value="125" />
+
+            <EnumItem name="AddRelationshipBit" enum_value="13" />
+
+            <EnumItem name="AgedUp" enum_value="68" />
+
+            <EnumItem name="AgeDurationUpdated" enum_value="116" />
+
+            <EnumItem name="AspirationChanged" enum_value="88" />
+
+            <EnumItem name="AspirationGoalComplete" enum_value="120" />
+
+            <EnumItem name="AspirationTrackSelected" enum_value="21" />
+
+            <EnumItem name="AvailableDaycareSimsChanged" enum_value="80" />
+
+            <EnumItem name="AwayActionStart" enum_value="86" />
+
+            <EnumItem name="AwayActionStop" enum_value="87" />
+
+            <EnumItem name="BillsDelivered" enum_value="51" />
+
+            <EnumItem name="BucksEarned" enum_value="103" />
+
+            <EnumItem name="BucksPerkUnlocked" enum_value="78" />
+
+            <EnumItem name="BuffBeganEvent" enum_value="15" />
+
+            <EnumItem name="BuffEndedEvent" enum_value="16" />
+
+            <EnumItem name="BuffUpdateEvent" enum_value="42" />
+
+            <EnumItem name="BusinessClosed" enum_value="82" />
+
+            <EnumItem name="BusinessCustomerServed" enum_value="138" />
+
+            <EnumItem name="BusinessDataUpdated" enum_value="142" />
+
+            <EnumItem name="BusinessFirstSimoleonEarned" enum_value="141" />
+
+            <EnumItem name="BusinessOpened" enum_value="123" />
+
+            <EnumItem name="BusinessRegistered" enum_value="139" />
+
+            <EnumItem name="BusinessSold" enum_value="140" />
+
+            <EnumItem name="CareerEvent" enum_value="41" />
+
+            <EnumItem name="CareerPromoted" enum_value="85" />
+
+            <EnumItem name="CareerStayLate" enum_value="107" />
+
+            <EnumItem name="CivicPoliciesChanged" enum_value="104" />
+
+            <EnumItem name="CivicPolicyCloseVoting" enum_value="102" />
+
+            <EnumItem name="CivicPolicyDailyRandomVoting" enum_value="101" />
+
+            <EnumItem name="CivicPolicyOpenVoting" enum_value="100" />
+
+            <EnumItem name="ClubBucksEarned" enum_value="66" />
+
+            <EnumItem name="ClubMemberAdded" enum_value="63" />
+
+            <EnumItem name="ClubMemberRemoved" enum_value="70" />
+
+            <EnumItem name="CollectedItem" enum_value="57" />
+
+            <EnumItem name="CollectionChanged" enum_value="24" />
+
+            <EnumItem name="CraftPayment" enum_value="135" />
+
+            <EnumItem name="DiagnosisUpdated" enum_value="81" />
+
+            <EnumItem name="DynamicAreaChanged" enum_value="144" />
+
+            <EnumItem name="EncouragedInteractionStarted" enum_value="71" />
+
+            <EnumItem name="ExitedPhotoMode" enum_value="94" />
+
+            <EnumItem name="FamilyTrigger" enum_value="25" />
+
+            <EnumItem name="FestivalStarted" enum_value="77" />
+
+            <EnumItem name="FireInsuranceFraud" enum_value="137" />
+
+            <EnumItem name="GenerationCreated" enum_value="58" />
+
+            <EnumItem name="GlobalPolicyProgress" enum_value="92" />
+
+            <EnumItem name="GroupWaitingToBeSeated" enum_value="72" />
+
+            <EnumItem name="HouseholdChanged" enum_value="19" />
+
+            <EnumItem name="HouseholdSplitPanelClosed" enum_value="96" />
+
+            <EnumItem name="InteractionAtEvent" enum_value="6" />
+
+            <EnumItem name="InteractionComplete" enum_value="3" />
+
+            <EnumItem name="InteractionExitedPipeline" enum_value="27" />
+
+            <EnumItem name="InteractionStaged" enum_value="26" />
+
+            <EnumItem name="InteractionStart" enum_value="20" />
+
+            <EnumItem name="InteractionUpdate" enum_value="43" />
+
+            <EnumItem name="Invalid" enum_value="0" />
+
+            <EnumItem name="ItemCrafted" enum_value="5" />
+
+            <EnumItem name="KnowledgeChanged" enum_value="127" />
+
+            <EnumItem name="LeaderAssigned" enum_value="64" />
+
+            <EnumItem name="LiveEventQuestsActive" enum_value="128" />
+
+            <EnumItem name="LiveEventStatesProcessed" enum_value="111" />
+
+            <EnumItem name="LoadingScreenLifted" enum_value="45" />
+
+            <EnumItem name="LoudNoise" enum_value="124" />
+
+            <EnumItem name="MainSituationGoalComplete" enum_value="89" />
+
+            <EnumItem name="MilestoneCompleted" enum_value="112" />
+
+            <EnumItem name="MoneyLoot" enum_value="134" />
+
+            <EnumItem name="MoodChange" enum_value="18" />
+
+            <EnumItem name="NarrativesUpdated" enum_value="91" />
+
+            <EnumItem name="NewbornStateChanged" enum_value="117" />
+
+            <EnumItem name="ObjectAdd" enum_value="2" />
+
+            <EnumItem name="ObjectDestroyed" enum_value="56" />
+
+            <EnumItem name="ObjectRelationshipChanged" enum_value="110" />
+
+            <EnumItem name="ObjectReplaced" enum_value="146" />
+
+            <EnumItem name="ObjectStateChange" enum_value="39" />
+
+            <EnumItem name="OffspringCreated" enum_value="40" />
+
+            <EnumItem name="OnBuildBuyReset" enum_value="47" />
+
+            <EnumItem name="OnExitBuildBuy" enum_value="46" />
+
+            <EnumItem name="OnInventoryChanged" enum_value="54" />
+
+            <EnumItem name="OnLootMoneyChange" enum_value="133" />
+
+            <EnumItem name="OnSendToInventory" enum_value="132" />
+
+            <EnumItem name="OnSimReset" enum_value="48" />
+
+            <EnumItem name="PaymentDone" enum_value="118" />
+
+            <EnumItem name="PaymentDoneToVoid" enum_value="136" />
+
+            <EnumItem name="PerkPurchased" enum_value="65" />
+
+            <EnumItem name="PhotoTaken" enum_value="93" />
+
+            <EnumItem name="PivotalMomentCompleted" enum_value="119" />
+
+            <EnumItem name="PrerelationshipChanged" enum_value="22" />
+
+            <EnumItem name="RankedStatisticChange" enum_value="79" />
+
+            <EnumItem name="ReadyToAge" enum_value="50" />
+
+            <EnumItem name="RelationshipChanged" enum_value="23" />
+
+            <EnumItem name="RemoveRelationshipBit" enum_value="14" />
+
+            <EnumItem name="RentalUnitStarRatingChanged" enum_value="126" />
+
+            <EnumItem name="RestaurantFoodOrdered" enum_value="73" />
+
+            <EnumItem name="RestaurantOrderDelivered" enum_value="74" />
+
+            <EnumItem name="RestaurantTableClaimed" enum_value="75" />
+
+            <EnumItem name="RoutingFormationStarted" enum_value="109" />
+
+            <EnumItem name="ScenarioGoalCompleted" enum_value="113" />
+
+            <EnumItem name="ScenarioPhaseTriggered" enum_value="114" />
+
+            <EnumItem name="ScholarshipInfoSignShown" enum_value="98" />
+
+            <EnumItem name="SeasonChanged" enum_value="83" />
+
+            <EnumItem name="SeasonChangedNoSim" enum_value="84" />
+
+            <EnumItem name="SimActiveLotStatusChanged" enum_value="53" />
+
+            <EnumItem name="SimDeathTypeSet" enum_value="76" />
+
+            <EnumItem name="SimEnrolledInUniversity" enum_value="97" />
+
+            <EnumItem name="SimHomeZoneChanged" enum_value="99" />
+
+            <EnumItem name="SimoleonsEarned" enum_value="7" />
+
+            <EnumItem name="SimoleonsEarnedBB" enum_value="122" />
+
+            <EnumItem name="SimTravel" enum_value="12" />
+
+            <EnumItem name="SituationEnded" enum_value="4" />
+
+            <EnumItem name="SituationStarted" enum_value="60" />
+
+            <EnumItem name="SkillLevelChange" enum_value="61" />
+
+            <EnumItem name="SkillValueChange" enum_value="1" />
+
+            <EnumItem name="SmallBusinessCustomerActivityDone" enum_value="145" />
+
+            <EnumItem name="SmallBusinessEmployeeHired" enum_value="147" />
+
+            <EnumItem name="SmallBusinessPaymentRegistered" enum_value="143" />
+
+            <EnumItem name="SoldUtilityOnBill" enum_value="106" />
+
+            <EnumItem name="SpouseEvent" enum_value="69" />
+
+            <EnumItem name="StatValueUpdate" enum_value="44" />
+
+            <EnumItem name="StoredSimInfoComponentAdded" enum_value="130" />
+
+            <EnumItem name="StoredSimInfoComponentLoaded" enum_value="131" />
+
+            <EnumItem name="TestedGameOptionChanged" enum_value="105" />
+
+            <EnumItem name="TestTotalTime" enum_value="11" />
+
+            <EnumItem name="TimeInClubGathering" enum_value="67" />
+
+            <EnumItem name="TraitAddEvent" enum_value="9" />
+
+            <EnumItem name="TraitRemoveEvent" enum_value="90" />
+
+            <EnumItem name="UIAchievementPanel" enum_value="35" />
+
+            <EnumItem name="UIAspirationsPanel" enum_value="30" />
+
+            <EnumItem name="UIBuildButton" enum_value="37" />
+
+            <EnumItem name="UICameraButton" enum_value="36" />
+
+            <EnumItem name="UICareerPanel" enum_value="29" />
+
+            <EnumItem name="UiElementInteracted" enum_value="121" />
+
+            <EnumItem name="UIMemoriesPanel" enum_value="49" />
+
+            <EnumItem name="UIPhoneButton" enum_value="34" />
+
+            <EnumItem name="UIRelationshipPanel" enum_value="31" />
+
+            <EnumItem name="UISimInventory" enum_value="33" />
+
+            <EnumItem name="UISkillsPanel" enum_value="32" />
+
+            <EnumItem name="UITraitsPanel" enum_value="28" />
+
+            <EnumItem name="UnfinishedBusinessTrackSelected" enum_value="129" />
+
+            <EnumItem name="UnlockEvent" enum_value="52" />
+
+            <EnumItem name="UnlockTrackerItemUnlocked" enum_value="95" />
+
+            <EnumItem name="UpdateAllEvent" enum_value="8" />
+
+            <EnumItem name="UpdateObjectiveData" enum_value="55" />
+
+            <EnumItem name="UtilityStatusChanged" enum_value="108" />
+
+            <EnumItem name="WhimBucksChanged" enum_value="59" />
+
+            <EnumItem name="WhimCompleted" enum_value="38" />
+
+            <EnumItem name="WorkDailyTaskProgress" enum_value="115" />
+
+            <EnumItem name="WorkdayComplete" enum_value="17" />
+
+            <EnumItem name="WorkdayStart" enum_value="62" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

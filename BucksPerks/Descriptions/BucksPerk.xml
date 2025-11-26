@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="bucks_perk" class="BucksPerk" module="bucks.bucks_perk" description="Tunable structure holding all relevant information for a Perk bought with a type of Bucks." instance_subclasses_only="False" path="BucksPerks\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="BucksType" name="associated_bucks_type" class="TunableEnumEntry" default="INVALID" display="Associated Bucks Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" description="The type of Bucks required to unlock this Perk." group="General" invalid_entries="INVALID" pack_safe="True" />
+
+        <TdescFragTag name="available_for_puchase_tests" class="TunableTestSetWithTooltip" display="Available For Puchase Tests" description="A set of tests that must pass in order for this perk to be available for purchase. This is enforced on the UI side. If the tests returns False then we will mark the perk as locked and pass along a tooltip, the one from the failed test. For the tooltip the first token is the Sim attempting to unlock the perk. " group="General" />
+
+        <TunableList name="buffs_to_award" class="TunableList" display="Buffs To Award" description="A list of references to buffs to add to the owner of bucks tracker this perk is unlocked in and optional reason for the buffs." group="General">
+            <TunableTuple class="TunableBuffReference" description="A pair of Buff and Reason for the buff." group="General">
+                <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                        <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                    </TunableVariant>
+                </TunableVariant>
+                <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="conflicting_perks" class="TunableList" display="Conflicting Perks" description="A list of perks that this perk is mutually exclusive with. When a perk is mutually exclusive with another perk it means that the perk cannot be purchased if that perk has already been purchased." group="General">
+            <Tunable type="bucks_perk" class="TunableReference" description="A reference to a perk that this perk is mutually exclusive with." allow_none="False" group="General" />
+        </TunableList>
+
+        <Tunable type="int" name="display_name" class="TunableLocalizedString" default="0x0" display="Display Name" description="This Perk's display name. No expected arguments." group="UI" />
+
+        <TunableTuple name="icon" class="TunableIconFactory" display="Icon" description="The icon image to be displayed." group="UI">
+            <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+        </TunableTuple>
+
+        <TunableList name="linked_perks" class="TunableList" display="Linked Perks" description="A list of Perks that will be unlocked along with this one if not already unlocked." group="General">
+            <Tunable type="bucks_perk" class="TunableReference" allow_none="False" group="General" />
+        </TunableList>
+
+        <TunableVariant type="None" name="lock_on_purchase" class="OptionalTunable" default="disabled" display="Lock On Purchase" description="A list of perks to lock when this perk is purchased." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableList" display="Enabled" description="List of perks to lock when this perk is unlocked." group="General">
+                <Tunable type="bucks_perk" class="TunableReference" description="Reference to a bucks perk that must be locked." allow_none="False" group="General" />
+            </TunableList>
+        </TunableVariant>
+
+        <TunableList name="loots_on_lock" class="TunableList" display="Loots On Lock" description="A list of loots to award when this perk is Locked." group="General">
+            <Tunable type="action" class="TunableReference" description="A loot to be applied. Actor is the Sim that the Perk is being locked for." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="loots_on_unlock" class="TunableList" display="Loots On Unlock" description="A list of loots to award when this perk is Unlocked." group="General">
+            <Tunable type="action" class="TunableReference" description="A loot to be applied. Actor is the Sim that the perk is being unlocked for." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="bucks_perk" name="next_level_perk" class="TunableReference" display="Next Level Perk" description="The next perk within this particular chain of perks. If tunable is None, then it either does not belong to a chain or is the last in the chain." allow_none="True" group="General" />
+
+        <Tunable type="int" name="perk_description" class="TunableLocalizedString" default="0x0" display="Perk Description" description="The description for this Perk. No expected arguments." group="UI" />
+
+        <TunableVariant type="None" name="progression_statistic" class="OptionalTunable" default="disabled" display="Progression Statistic" description="If enabled, this ranked statistic tracks the progress towards unlocking this perk. This statistic should tune an AwardPerkLoot in its event data with the ability to award this perk. Use an AwardPerkLoot with the progress strategy to give progress to obtaining the perk." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="statistic" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" restrict="RankedStatistic" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="required_unlocks" class="OptionalTunable" default="disabled" display="Required Unlocks" description="A list of all of the bucks perks that must be unlocked for this one to be available for purchase." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableList name="enabled" class="TunableList" display="Enabled" description="List of required perks for this perk to be available." group="General">
+                <Tunable type="bucks_perk" class="TunableReference" description="Reference to a bucks perk that must be unlocked." allow_none="False" group="General" />
+            </TunableList>
+        </TunableVariant>
+
+        <TunableList name="rewards" class="TunableList" display="Rewards" description="A list of rewards to grant the household when this Perk is unlocked." group="General">
+            <TunableVariant type="None" class="TunableSpecificReward" default="none" description="A single specific reward." group="General">
+                <TunableTuple name="additional_business_customer_count" class="TunableTunableRewardAdditionalCustomerCount" display="Additional Business Customer Count" description="A reward that unlocks increments in the customer countfor a business type." group="General">
+                    <TunableEnum type="BusinessType" name="business_type" class="TunableEnumEntry" default="INVALID" display="Business Type" static_entries="business-business_enums.BusinessType" description="The business type to which this reward should be given." group="General" invalid_entries="INVALID" />
+                    <Tunable type="float" name="customer_count_increment" class="Tunable" default="0" display="Customer Count Increment" description="The amount to increment the customer count for the tuned business type. You can also use this to decrement the customer count but the code will never allow a negative customer count or the sim cap to be violated. This change is permanent across all business types so use with caution!" tuning_state="NeedsTuning" group="General" />
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="additional_business_markup" class="TunableTunableRewardAdditionalMarkup" display="Additional Business Markup" description="A reward that unlocks increments in the markup multiplier for a business type." group="General">
+                    <TunableEnum type="BusinessType" name="business_type" class="TunableEnumEntry" default="INVALID" display="Business Type" static_entries="business-business_enums.BusinessType" description="The business type to which this reward should be given." group="General" invalid_entries="INVALID" />
+                    <Tunable type="float" name="markup_increment" class="Tunable" default="0" display="Markup Increment" description="The amount to increment the markup multiplier for the tuned business type. You can also use the to decrement the markup multiplier but the code will never allow a negative multiplier. This change is permanent across all business types so use with caution!" tuning_state="NeedsTuning" group="General" />
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="additional_employee_slot" class="TunableTunableRewardAdditionalEmployeeSlot" display="Additional Employee Slot" description="A reward that unlocks an additional employee slot for the entire household's businesses." group="General">
+                    <TunableEnum type="BusinessType" name="business_type" class="TunableEnumEntry" default="INVALID" display="Business Type" static_entries="business-business_enums.BusinessType" description="The business type to which this reward should be given." group="General" invalid_entries="INVALID" />
+                    <TunableEnum type="BusinessEmployeeType" name="employee_type" class="TunableEnumEntry" default="INVALID" display="Employee Type" dynamic_entries="business-business_enums.BusinessEmployeeType._elements" static_entries="business-business_enums.BusinessEmployeeType" description="The employee type to increment the slot count." group="General" invalid_entries="INVALID" />
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="bucks" class="TunableTunableRewardBucks" display="Bucks" description="A reward that gives the specified bucks." group="General">
+                    <Tunable type="int" name="amount" class="TunableRange" default="10" display="Amount" min="1" max="None" description="The amount of Bucks to award. Must be a positive value." tuning_state="NeedsTuning" group="General" />
+                    <TunableEnum type="BucksType" name="bucks_type" class="TunableEnumEntry" default="INVALID" display="Bucks Type" dynamic_entries="bucks-bucks_enums.BucksType._elements" static_entries="bucks-bucks_enums.BucksType" description="The type of Bucks to grant." group="General" invalid_entries="INVALID" pack_safe="True" />
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="buff" class="TunableTunableRewardBuff" display="Buff" description="A tunable buff to be given to a single Sim or all Sims in a household as a reward." group="General">
+                    <TunableTuple name="buff" class="TunableBuffReference" display="Buff" description="Buff to be given as a reward." group="General">
+                        <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                                <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                                <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                                <Tunable name="none" class="TunableExistance" display="None" />
+                            </TunableVariant>
+                        </TunableVariant>
+                        <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+                    </TunableTuple>
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="build_buy_magazine_collection" class="TunableTunableBuildBuyMagazineCollectionUnlock" display="Build Buy Magazine Collection" description="A tunable magazine collection that a Sim/household will have access to in build/buy." group="General">
+                    <Tunable type="magazinecollection" name="magazine_collection" class="TunableReference" display="Magazine Collection" description="Unlock a magazine room to purchase in build/buy." group="General" />
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="build_buy_object" class="TunableTunableBuildBuyObjectDefinitionUnlock" display="Build Buy Object" description="A tunable object definition that a Sim/household will have access to in build/buy." group="General">
+                    <Tunable type="object" name="object_definition" class="TunableReference" display="Object Definition" description="The definition of the object to be created." allow_none="False" group="General" />
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="cas_part" class="TunableTunableRewardCASPart" display="Cas Part" description="A tunable CAS part to be given to a Sim." group="General">
+                    <Tunable type="caspart" name="cas_part" class="TunableReference" display="Cas Part" description="The cas part for this reward." group="General" />
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="display_text" class="TunableTunableRewardDisplayText" display="Display Text" description="No reward. Only useful for supplying display text." group="General">
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="money" class="TunableTunableRewardMoney" display="Money" description="A tunable simoleon amount to be given as a reward." group="General">
+                    <TunableVariant type="None" name="money" class="TunableLiteralOrRandomValue" default="literal" display="Money" description="Give money to a sim/household." group="General">
+                        <TunableTuple name="literal" class="TunableIntervalLiteral" display="Literal" description="A literal value that is to be used as the lower and upper bound of an interval. This allows both literal and range interval tunings in the same TunableVariant without having to manually set the lower and upper bounds to the same value." group="General">
+                            <Tunable type="int" name="value" class="TunableRange" default="10" display="Value" min="0" max="None" description="The upper and lower bounds." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                        <TunableTuple name="random_in_range" class="TunableInterval" display="Random In Range" description="A tunable interval between lower_bound and upper_bound." group="General">
+                            <Tunable type="int" name="lower_bound" class="TunableRange" default="10" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="upper_bound" class="TunableRange" default="10" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <Tunable name="none" class="TunableExistance" display="None" />
+                <TunableTuple name="object_definition" class="TunableTunableRewardObject" display="Object Definition" description="A tunable object to be put in a sim/household inventory." group="General">
+                    <Tunable type="object" name="definition" class="TunableReference" display="Definition" description="Give an object as a reward." allow_none="False" group="General" />
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="set_club_gathering_vibe" class="TunableTunableSetClubGatheringVibe" display="Set Club Gathering Vibe" description="A reward that sets the specified club vibe." group="General">
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                    <TunableEnum type="ClubGatheringVibe" name="vibe_to_set" class="TunableEnumEntry" default="NO_VIBE" display="Vibe To Set" dynamic_entries="clubs-club_enums.ClubGatheringVibe._elements" static_entries="clubs-club_enums.ClubGatheringVibe" description="The vibe that the club gathering will be set to." group="General" />
+                </TunableTuple>
+                <TunableTuple name="trait" class="TunableTunableRewardTrait" display="Trait" description="A tunable trait to be given to a sim." group="General">
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                    <Tunable type="trait" name="trait" class="TunableReference" display="Trait" description="Give a trait as a reward" allow_none="False" group="General" />
+                </TunableTuple>
+                <TunableTuple name="whim_bucks" class="TunableTunableRewardWhimBucks" display="Whim Bucks" description="A tunable number of whim bucks to be given to a single Sim or all Sims in a household as a reward." group="General">
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                    <Tunable type="int" name="whim_bucks" class="TunableRange" default="1" display="Whim Bucks" min="1" max="None" description="The number of whim bucks to give." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableVariant>
+        </TunableList>
+
+        <TunableVariant type="None" name="temporary_perk_information" class="OptionalTunable" default="disabled" display="Temporary Perk Information" description="Tunables associated with temporary Perks." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Tunables associated with temporary Perks." group="General">
+                <Tunable type="int" name="duration" class="TunableRange" default="1" display="Duration" min="1" max="None" description="The tunable number of Sim hours this Perk should last for, if temporary." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="unlocked_tooltip" class="OptionalTunable" default="disabled" display="Unlocked Tooltip" description="A tooltip that will be shown on this Perk when unlocked so the user knows when they will be able to buy it again. No expected arguments." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A tooltip that will be shown on this Perk when unlocked so the user knows when they will be able to buy it again. No expected arguments." group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="traits_to_award" class="TunableList" display="Traits To Award" description="A list of references to traits to add to the owner of bucks tracker this perk is unlocked on. Traits will be removed when the perk is locked." group="General">
+            <Tunable type="trait" class="TunableReference" description="A reference to a trait to be awarded." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="ui_display_flags" class="TunableEnumFlags" display="Ui Display Flags" description="The display flags for this Perk in the Perks Panel UI. LINK_TOP: Display a line connecting this perk to the perk above it" group="UI" unique_entries="true">
+            <TunableEnum type="BucksUIDisplayFlag" class="TunableEnumEntry" default="LINK_TOP" static_entries="bucks-bucks_perk.BucksUIDisplayFlag" group="General" />
+        </TunableList>
+
+        <TunableVariant type="None" name="undiscovered_description" class="OptionalTunable" default="disabled" display="Undiscovered Description" description="When enabled will cause a different description to be displayed if the Perk has never been acquired by the Sim." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The description for this perk when it has never been acquired by this Sim." group="General" />
+        </TunableVariant>
+
+        <Tunable type="int" name="unlock_cost" class="Tunable" default="100" display="Unlock Cost" description="How many Bucks of the specified type this Perk costs to unlock." tuning_state="NeedsTuning" group="General" />
+    </Instance>
+
+    
+</TuningRoot>

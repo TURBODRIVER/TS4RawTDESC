@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="slot_type_set" class="SlotTypeSet" module="objects.slots" description="A class defining a combination of object slot types. ObjectSets - Represents which slot types an object goes into. SlotSets - Represents which slot type a slot is. More Details - https://confluence.ea.com/pages/viewpage.action?spaceKey=SIMS4&amp;title=Slots+and+Slotting" instance_base_game_only="True" instance_subclasses_only="False" path="SlotTypeSets\Descriptions">
+        <Tunable type="bool" name="allow_distant_relative_intersection" class="Tunable" default="False" display="Allow Distant Relative Intersection" description="True if objects slotted to this slot should be allowed to overlap with other objects that are slotted to a common ancestor, or slotted to something slotted to a common ancestor, etc." group="General" />
+
+        <Tunable type="bool" name="client_only_parenting" class="Tunable" default="False" display="Client Only Parenting" description="True if the object being slotted should bypass much of the server side parenting and hierarchy as possible.." group="General" />
+
+        <Tunable type="int" name="custom_error_text" class="TunableLocalizedString" default="0x0" display="Custom Error Text" description="Override error text to display if an object fails placement due to not matching this slot" allow_none="True" group="General" />
+
+        <Tunable type="bool" name="dont_propagate_ops" class="Tunable" default="False" display="Dont Propagate Ops" description="True if object operations performed on the parent should not transfer to children slotted to this slot. EG: If the parent is deleted or moved, the child is simply unparented and remains on the lot in place." group="General" />
+
+        <Tunable type="bool" name="force_full_footprint_checks" class="Tunable" default="False" display="Force Full Footprint Checks" description="True if the object being slotted needs to do full footprint checks with the parent, children, siblings and environment.." group="General" />
+
+        <Tunable type="bool" name="parent_snaps_to_child" class="Tunable" default="False" display="Parent Snaps To Child" description="True if, when the user picks up and moves an object with this slot around, the parent will snap to available nearby unslotted children. The child is slotted to the parent in-place (not moved)" group="General" />
+
+        <Tunable type="bool" name="prevent_sibling_intersection" class="Tunable" default="False" display="Prevent Sibling Intersection" description="True if objects slotted to this slot should not follow the normal rule of blindly allowing intersections with other objects slotted to the same parent at different heights." group="General" />
+
+        <Tunable type="float" name="search_radius" class="Tunable" default="0.5" display="Search Radius" description="Number of meters to search for co-located slots with different orientations." tuning_state="NeedsTuning" group="General" />
+
+        <TunableList name="slot_types" class="TunableSet" display="Slot Types" description="The slot types comprising this set." group="General" unique_entries="true">
+            <Tunable type="slot_type" class="TunableReference" allow_none="False" group="General" />
+        </TunableList>
+
+        <Tunable type="bool" name="user_facing" class="Tunable" default="True" display="User Facing" description="True if this slot will be available for slotting objects by the player through livedrag or Build buy. False if its only through gameplay interactions." group="General" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="world.rentable_lot_tuning">
+        <Class name="RentableZoneTuning">
+            <TunableTuple name="PRICE_MODIFIERS" class="TunablePriceModifiers" display="Price Modifiers" description="Global price modifiers for all rentable zones." group="General">
+                <Tunable type="float" name="add" class="Tunable" default="0.0" display="Add" description="Add modifier for the price to rent a lot." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="multiply" class="Tunable" default="1.0" display="Multiply" description="Multiplier for the price to rent a lot." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

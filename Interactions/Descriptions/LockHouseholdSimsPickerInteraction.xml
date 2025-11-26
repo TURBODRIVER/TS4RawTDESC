@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="LockHouseholdSimsPickerInteraction" module="interactions.picker.lock_picker_interaction" description="Sim picker interaction where the options are the Sims in the household and the selected one will be locked out of the portal." instance_needs_reference="True" instance_subclasses_only="False" parents="SimPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="LockOperationType" name="lock_operation" class="TunableEnumEntry" default="LOCK" display="Lock Operation" static_entries="interactions-picker-lock_picker_interaction.LockOperationType" description="Define the type of lock operation that should be made on this portal." group="Picker Tuning" />
+    </Instance>
+</TuningRoot>

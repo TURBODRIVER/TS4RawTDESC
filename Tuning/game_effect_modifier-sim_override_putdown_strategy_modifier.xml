@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="game_effect_modifier.sim_override_putdown_strategy_modifier">
+        <Class name="OwnershipMode" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ANY" enum_value="0" />
+
+            <EnumItem name="OWNED" enum_value="1" />
+
+            <EnumItem name="UNOWNED" enum_value="2" />
+        </Class>
+
+        <Class name="SimOverridePutDownStrategyModifierPriority" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="DEFAULT" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

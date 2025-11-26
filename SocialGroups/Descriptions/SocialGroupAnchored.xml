@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="social_group" class="SocialGroupAnchored" module="socials.group_anchored" description="Anchored social groups revolve around an object. The Sims running the social are usually bound by constraints that are more restrictive than the social constraint itself, e.g. a posture constraint. Anchored social group have the following specific functionality: * Sims in this group do not run any 'get close' behavior. Instead, they route directly to their final constraint. * The anchor object of this group is the 'picked object' of the initiating social super interaction. The picked object is the target of the pushing picker interaction. This group *must* be created as part of a picker -> social interaction flow. * The constraint for this group are always centered around the anchor object. They are never adjusted based on Sims joining/leaving. Sims never attempt to adjust." instance_needs_reference="True" instance_subclasses_only="False" parents="SocialGroup" path="SocialGroups\Descriptions" use_guid_for_reference="True">
+        <Deleted name="adjust_sim_positions_dynamically" />
+
+        <Deleted name="social_anchor_object" />
+    </Instance>
+</TuningRoot>

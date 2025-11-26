@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="casproxyparttuning" class="Client_CASProxyPartTuning" module="casproxyparttuning.Client_CASProxyPartTuning" description="CAS proxy parts per age/gender." path="Client_CASProxyPartTuning\Descriptions">
+        <TunableList name="Ages" class="TunableSet" display="Ages" description="Valid ages for this" group="General" unique_entries="true">
+            <TunableEnum type="Age" class="TunableEnumEntry" default="None" static_entries="sims-sim_info_types.Age" group="General" />
+        </TunableList>
+
+        <TunableList name="bodytype_to_caspart_map" class="TunableMapping" display="BodyTypes" mapping_key="CASPartType" mapping_value="ProxyPartValue" description="List of body types paired with cas part." mapping_class="ProxyPartMapping.MapEntry">
+            <TunableTuple name="MapEntry" class="ProxyPartMapping.MapEntry">
+                <TunableEnum type="CASPartType" name="CASPartType" class="TunableEnumEntry" default="UPPER_BODY" display="CASPart Type" static_entries="sims-outfits-outfit_enums.BodyType" description="The cas part type to be mapped." />
+                <Tunable type="caspart" name="ProxyPartValue" class="TunableReference" display="Cas Part" description="The proxy cas part id." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableList name="Genders" class="TunableSet" display="Genders" description="Trait allowed gender, empty set means not specified" group="General" unique_entries="true">
+            <TunableEnum type="Gender" class="TunableEnumEntry" default="None" static_entries="sims-sim_info_types.Gender" group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

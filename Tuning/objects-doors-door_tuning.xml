@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.doors.door_tuning">
+        <Class name="DoorTuning">
+            <TunableTuple name="FRONT_DOOR_AVAILABILITY_STATE" class="TunableTuple" display="Front Door Availability State" description="State values for front door availability." group="General">
+                <Tunable type="object_state" name="disabled" class="TunableReference" display="Disabled" description="State value for door being unavailable to be a front door." allow_none="False" group="General" restrict="ObjectStateValue" />
+                <Tunable type="object_state" name="enabled" class="TunableReference" display="Enabled" description="State value for door being available to be a front door." allow_none="False" group="General" restrict="ObjectStateValue" />
+            </TunableTuple>
+
+            <TunableTuple name="FRONT_DOOR_STATE" class="TunableTuple" display="Front Door State" description="State values for a door is or isn't a front door." group="General">
+                <Tunable type="object_state" name="disabled" class="TunableReference" display="Disabled" description="State value for door is not front door." allow_none="False" group="General" restrict="ObjectStateValue" />
+                <Tunable type="object_state" name="enabled" class="TunableReference" display="Enabled" description="State value for door is front door." allow_none="False" group="General" restrict="ObjectStateValue" />
+            </TunableTuple>
+
+            <TunableTuple name="INACTIVE_APARTMENT_DOOR_STATE" class="TunableTuple" display="Inactive Apartment Door State" description="State values for a door is or isn't for an inactive apartment." group="General">
+                <Tunable type="object_state" name="disabled" class="TunableReference" display="Disabled" description="State value for door is not for an inactive apartment." allow_none="False" group="General" restrict="ObjectStateValue" />
+                <Tunable type="object_state" name="enabled" class="TunableReference" display="Enabled" description="State value for door is for an inactive apartment." allow_none="False" group="General" restrict="ObjectStateValue" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

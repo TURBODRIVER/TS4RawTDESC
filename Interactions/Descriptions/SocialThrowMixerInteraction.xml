@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="SocialThrowMixerInteraction" module="interactions.social.social_throw_mixer_interaction" description="Social mixer interaction with the specific functionality to throw an object between Sims." instance_needs_reference="True" instance_subclasses_only="False" parents="SocialMixerInteraction, MixerInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="social_group_scoring" class="OptionalTunable" default="disabled" display="Social Group Scoring" description="If enabled, the thrower and target of this group will have an additional score to be the next person that generates the social adjustment. The higher the value, the more likely they will move after this mixer has ran." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Thrower and target tuning to affect the adjustment scoring." group="General">
+                <Tunable type="int" name="receiver_score" class="TunableRange" default="0" display="Receiver Score" min="0" max="10" description="Score to be added on the weight the receiver of this mixer to be more likely to move on the next social adjustment. " tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="thrower_score" class="TunableRange" default="0" display="Thrower Score" min="0" max="10" description="Score to be added on the weight the thrower of this mixer to be more likely to move on the next social adjustment. " tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="throw_impact_data" class="OptionalTunable" default="disabled" display="Throw Impact Data" description="If enabled, the object thrown will trigger a reaction at a specific timing of the throw on the target. If disabled, throw will happen but target will not react." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Specific tuning defining the target reaction." group="General">
+                <Tunable type="str" name="asm_state_name" class="Tunable" default="None" display="Asm State Name" description="State name that will be called on the ASM of the mixer when the impact happens." group="General" />
+                <Tunable type="int" name="destroy_event_id" class="TunableRange" default="668" display="Destroy Event Id" min="1" max="1000" description="Id number of the event the for the thrown object to be destroyed. By default, ballistic controller has an event at 668 at the end of the throw, unless animation requests it, that should be used. " tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="event_id" class="TunableRange" default="123" display="Event Id" min="1" max="1000" description="Id number of the event the ballistic controller will throw to trigger the reaction." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="event_timing_offset" class="TunableRange" default="0.2" display="Event Timing Offset" min="0.0" max="10.0" description="Offset in seconds when the event_id should trigger with reference to the ending of the throw. This means that a value of 0.2 will trigger this event 0.2 seconds before the object thrown hits its target. " tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="impact_effect" class="OptionalTunable" default="no_effect" display="Impact Effect" description="When enabled, effect will play on the thrown object position at the time given by event_timing_offset. Effect will not be parented, this is to trigger effects like a snowball explosion etc." group="General">
+                    <Tunable name="no_effect" class="TunableExistance" display="No Effect" />
+                    <TunableTuple name="play_effect" class="TunablePlayEffect" display="Play Effect" description="Effect to play." group="General">
+                        <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+                        <TunableVariant type="None" name="joint_name" class="OptionalTunable" default="Slot" display="Joint Name" description="Specify if the visual effect is attached to a slot and, if so, which slot." group="General">
+                            <Tunable name="Current_Position" class="TunableExistance" display="Current Position" />
+                            <Tunable type="str" name="Slot" class="TunableStringHash32" default="_FX_" display="Slot" description="The name of the slot this effect is attached to." group="General" />
+                        </TunableVariant>
+                        <Tunable type="bool" name="play_immediate" class="Tunable" default="False" display="Play Immediate" description="If checked, this effect will be triggered immediately, nothing will block. ex. VFX will be played immediately while the Sim is routing or animating." group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+                <TunableList name="impact_offset" class="TunableMapping" display="Impact Offset" mapping_key="key" mapping_value="value" description="Offsets for the impact position by age of the target Sim." group="General">
+                    <TunableTuple class="TunableTuple" group="General">
+                        <TunableEnum type="Age" name="key" class="TunableEnumEntry" default="YOUNGADULT" display="Key" static_entries="sims-sim_info_types.Age" description="Age for which this offset should be applied." group="General" />
+                        <TunableTuple name="value" class="TunableVector3" display="Value" description="Offset from the impact position where the ballistic controller should aim the object. For example, for an impact on a Sims feet, offset should be (0,0,0), but if we want a miss or another part we may want to push it higher." group="General">
+                            <Tunable type="float" name="x" class="Tunable" default="0.0" display="X" description="x component" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="y" class="Tunable" default="0.0" display="Y" description="y component" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="float" name="z" class="Tunable" default="0.0" display="Z" description="z component" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="animation.awareness.awareness_enums">
+        <Class name="AwarenessChannel" enum_bit_flag="False" enum_locked="False" enum_offset="1000">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" max="10" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="AUDIO_VOLUME" enum_value="1" />
+
+            <EnumItem name="PROXIMITY" enum_value="0" />
+        </Class>
+
+        <Class name="AwarenessChannelEvaluationType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="AVERAGE" enum_value="1" />
+
+            <EnumItem name="PEAK" enum_value="0" />
+
+            <EnumItem name="SUM" enum_value="2" />
+        </Class>
+    </Module>
+</TuningRoot>

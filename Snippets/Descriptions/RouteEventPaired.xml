@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="RouteEventPaired" module="routing.route_events.route_event_paired" description="Define a distributable operation that Sims play while routing that is paired with an additional route event on another sim." instance_needs_reference="True" instance_subclasses_only="False" parents="RouteEvent" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <Deleted name="chance" />
+
+        <TunableVariant type="None" name="focus" class="OptionalTunable" default="disabled" display="Focus" description="Optional tuning for controlling sims focus" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="str" name="focus_bone_override" class="TunableStringHash32" default="None" display="Focus Bone Override" description="The bone Sims direct their attention towards when focusing on an object." group="General" />
+                <Tunable type="int" name="layer" class="Tunable" default="None" display="Layer" description="Layer override: Ambient=0, SuperInteraction=3, Interaction=5." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="score" class="Tunable" default="1" display="Score" description="Focus score. This orders focus elements in the same layer." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <Deleted name="scheduling_override" />
+    </Instance>
+</TuningRoot>

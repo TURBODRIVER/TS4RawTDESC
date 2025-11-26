@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation" class="SecurityBouncerSituation" module="situations.complex.security_bouncer_situation" description="Situation for security bouncer who guards VIP door." instance_subclasses_only="False" parents="TendObjectSituation, SituationComplexCommon, SituationComplex, Situation" path="Situations\Descriptions" use_guid_for_reference="True">
+        <TunableList name="_loots_on_create" class="TunableList" display="Loots On Create" description="Loot Actions that will be applied to staffed object in this situation on situation create." group="Special Cases">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="_loots_on_destroy" class="TunableList" display="Loots On Destroy" description="Loot Actions that will be applied to staff member and staffed object in this situation on situation destroy." group="Special Cases">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="_loots_on_remove_sim_from_situation" class="TunableList" display="Loots On Remove Sim From Situation" description="Loot Actions that will be applied to a sim and staffed object in this situation when the sim is removed from situation." group="Special Cases">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="_loots_on_set_sim_job" class="TunableList" display="Loots On Set Sim Job" description="Loot Actions that will be applied to a sim and staffed object in this situation when the sim has been assigned a job." group="Special Cases">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="ScenarioTag" module="gameplay_scenarios.scenario" description="An identifier representing a type of scenario and how it should be displayed in the UI." instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="Name of the scenario type to display in the UI." group="General" />
+
+        <TunableEnum type="ScenarioTheme" name="theme" class="TunableEnumEntry" default="INVALID" display="Theme" dynamic_entries="gameplay_scenarios-scenario_enums.ScenarioTheme._elements" static_entries="gameplay_scenarios-scenario_enums.ScenarioTheme" description="The theme identifier for this tag." group="General" invalid_entries="INVALID" />
+    </Instance>
+</TuningRoot>

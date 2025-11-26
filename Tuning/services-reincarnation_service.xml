@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="services.reincarnation_service">
+        <Class name="ReincarnationService">
+            <Tunable type="statistic" name="REINCARNATION_COUNT_STATISTIC" class="TunableReference" display="Reincarnation Count Statistic" description="The statistic on a reincarnated Sim that represents the number of times they reincarnated." allow_none="False" group="General" pack_safe="True" />
+
+            <Tunable type="interaction" name="REINCARNATION_START_AFFORDANCE" class="TunableReference" display="Reincarnation Start Affordance" description="Affordance that will be applied to reincarnated sim when reincarnated sim enter's live mode the first time. This is the interaction that will be used to show animation when reincarnated sim arrives lot the first time." allow_none="False" group="General" pack_safe="True" restrict="SuperInteraction" />
+
+            <Tunable type="trait" name="REINCARNATION_TRAIT" class="TunableReference" display="Reincarnation Trait" description="Trait that gets added to the new sim, when the current sim reincarnated." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableList name="REINCARNATION_TRAIT_TO_PASS_TAGS" class="TunableTags" display="Reincarnation Trait To Pass Tags" group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="traits with these tags will be passed onto sims' next incarnation of life and will be available to apply to the new sim through peer into soul interaction." group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableList>
+
+            <Tunable type="int" name="SAVE_LOCK_TOOLTIP" class="TunableLocalizedString" default="0x0" display="Save Lock Tooltip" description="The tooltip/message to show when the player tries to save the game while reincarnation is happening" group="General" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

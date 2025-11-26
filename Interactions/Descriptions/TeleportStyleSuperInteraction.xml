@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="TeleportStyleSuperInteraction" module="interactions.base.teleport_interaction" description="A SuperInteraction that implements GoHere, which utilizes teleport styles to get a Sim from one point to another, while implementing other space- reserving utilities, such as jigs." instance_needs_reference="True" instance_subclasses_only="False" parents="TerrainSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="destination_jig" class="OptionalTunable" default="disabled" display="Destination Jig" description="If a jig is needed to reserve space where the Sim will teleport to, this should be enabled." group="~Core~">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="object" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" />
+        </TunableVariant>
+
+        <Tunable type="bool" name="destination_must_be_outside" class="Tunable" default="False" display="Destination Must Be Outside" description="Whether the jig can only be placed outside." group="~Core~" />
+
+        <TunableVariant type="None" name="required_destination_surface" class="OptionalTunable" default="disabled" display="Required Destination Surface" description="If a destination routing surface is required, it should be specified here. If it is not specified, the routing surface of the target will be used to place jigs or to specify a location to teleport to." group="~Core~">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableEnum type="SurfaceType" name="enabled" class="TunableEnumEntry" default="SURFACETYPE_UNKNOWN" display="Enabled" static_entries="routing.SurfaceType" description="The routing surface that must be used when planning a teleport destination." group="General" invalid_entries="SURFACETYPE_UNKNOWN" />
+        </TunableVariant>
+
+        <TunableEnum type="TeleportStyle" name="teleport_style_tuning" class="TunableEnumEntry" default="NONE" display="Teleport Style Tuning" dynamic_entries="teleport-teleport_enums.TeleportStyle._elements" static_entries="teleport-teleport_enums.TeleportStyle" description="Teleport style that is used to get the Sim from their start to end points." group="~Core~" invalid_entries="NONE" pack_safe="True" />
+    </Instance>
+</TuningRoot>

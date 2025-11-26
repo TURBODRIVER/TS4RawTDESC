@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="object" class="Rug" module="objects.decorative.rug" description="Implementation of a rug object." instance_needs_reference="True" instance_subclasses_only="False" parents="GameObject, ScriptObject" path="Objects\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="flammable_area" class="TunableObjectFootprintFlammability" display="Flammable Area" description="Flammable area is defined as the bounds defined by the object's footprint. Unlike the default flammable area, this does not adjust the area for fire retardant objects. " group="General">
+            <Tunable type="bool" name="use_largest_polygon" class="Tunable" default="False" display="Use Largest Polygon" description="When set, we use the largest polygon in the object's placement footprint to generate the bounding box area. Use this for complex footprints with multiple placement polys like the large green screen; if we can rely on the largest polygon as a good base." group="General" />
+        </TunableTuple>
+
+        <Deleted name="provides_terrain_interactions" />
+    </Instance>
+</TuningRoot>

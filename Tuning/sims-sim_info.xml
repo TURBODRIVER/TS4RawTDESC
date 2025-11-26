@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.sim_info">
+        <Class name="SimInfo">
+            <Tunable type="interaction" name="APPLY_DEFAULT_AWAY_ACTION_INTERACTION" class="TunableReference" display="Apply Default Away Action Interaction" description="Interaction that will be used to apply the default away action onto the sim info." allow_none="False" group="General" restrict="ApplyDefaultAwayActionInteraction" />
+
+            <TunableList name="AWAY_ACTIONS" class="TunableMapping" display="Away Actions" mapping_key="key" mapping_value="value" description="A mapping between affordances and lists of away actions. The affordances are used to generate AoPs with each of the away actions." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="interaction" name="key" class="TunableReference" display="Key" description="The interaction that will be used to create AoPs from the away list of away actions that it is mapped to." allow_none="False" group="General" />
+                    <TunableList name="value" class="TunableList" display="Value" description="A list of away actions that are available for the player to select from and apply to the sim." group="General">
+                        <Tunable type="away_action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="AwayAction" />
+                    </TunableList>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="DEFAULT_AWAY_ACTION" class="TunableMapping" display="Default Away Action" mapping_key="key" mapping_value="value" description="Map of commodities to away action. When the default away action is asked for we look at the ad data of each commodity and select the away action linked to the commodity that is advertising the highest." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="statistic" name="key" class="TunableReference" display="Key" description="The commodity that we will look at the advertising value for." allow_none="False" group="General" pack_safe="True" restrict="Commodity" />
+                    <Tunable type="away_action" name="value" class="TunableReference" display="Value" description="The away action that will applied if the key is the highest advertising commodity of the ones listed." allow_none="False" group="General" pack_safe="True" restrict="AwayAction" />
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="ResourceKey" name="DEFAULT_THUMBNAIL" class="TunableResourceKey" default="None" display="Default Thumbnail" description="Icon to be displayed for the Buff." group="General" resource_types="0x2f7d0004" />
+
+            <TunableList name="GENDER_STRINGS" class="TunableMapping" display="Gender Strings" mapping_key="species" mapping_value="species_strings" description="A mapping between Sim species and the strings to be used for female/male genders and a map of the strings to be used for age variants Currently used by: -Species: Humans, Cats, Dogs, Foxes, and Horses -Genders: Female, Male -Ages: Child, Elder, etc" group="General" mapping_class="GenderStringsMapTuple">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Species" name="species" class="TunableEnumEntry" default="HUMAN" display="Species" static_entries="sims-sim_info_types.Species" description="The species that determines which string set is for the Sim. " group="General" invalid_entries="INVALID" />
+                    <TunableTuple name="species_strings" class="SpeciesStringsTuple" display="Species Strings" description="The gender strings for the specified species." group="General">
+                        <TunableVariant type="None" name="age_variants" class="OptionalTunable" default="disabled" display="Age Variants" description="If enabled, set different female and male strings per age type." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableList name="enabled" class="TunableMapping" display="Enabled" mapping_key="age" mapping_value="age_variant_strings" description="A mapping between the Age type and the gender string key based on their age." group="General" mapping_class="AgeVariantsMapTuple">
+                                <TunableTuple class="TunableTuple" group="General">
+                                    <TunableEnum type="Age" name="age" class="TunableEnumEntry" default="CHILD" display="Age" static_entries="sims-sim_info_types.Age" description="The age of the species that determines which gender string variant set is for the Sim" group="General" invalid_entries="ADULT" />
+                                    <TunableTuple name="age_variant_strings" class="AgeVariantTuple" display="Age Variant Strings" description="The female/male gender string variants based on the age type." group="General">
+                                        <Tunable type="int" name="female_string" class="TunableLocalizedString" default="0x0" display="Female String" description="The Female String Variant of this age type." group="General" />
+                                        <Tunable type="int" name="male_string" class="TunableLocalizedString" default="0x0" display="Male String" description="The Male String Variant of this age type." group="General" />
+                                    </TunableTuple>
+                                </TunableTuple>
+                            </TunableList>
+                        </TunableVariant>
+                        <Tunable type="int" name="female_string" class="TunableLocalizedString" default="0x0" display="Female String" description="String for the Female Gender of this Species. If there are age variants, this string will be the adult age variant. Otherwise, this string will apply to all ages." group="General" />
+                        <Tunable type="int" name="male_string" class="TunableLocalizedString" default="0x0" display="Male String" description="String for the Male Gender of this Species. If there are age variants, this string will be the adult age variant. Otherwise, this string will apply to all ages." group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="GENDER_SYMBOLS" class="TunableTuple" display="Gender Symbols" description="The string keys for the Gender Sex Symbols." group="General">
+                <Tunable type="int" name="female_symbol" class="TunableLocalizedString" default="0x0" display="Female Symbol" description="The Sex Symbol for the Female Gender." group="General" />
+                <Tunable type="int" name="male_symbol" class="TunableLocalizedString" default="0x0" display="Male Symbol" description="The Sex Symbol for the Male Gender." group="General" />
+            </TunableTuple>
+
+            <TunableList name="INITIAL_STATISTICS" class="TunableList" display="Initial Statistics" description="A list of statistics that will be added to each sim info on its creation." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="A statistic that will be added to each sim info upon creation." allow_none="False" group="General" pack_safe="True" />
+                    <TunableVariant type="None" name="tests" class="OptionalTunable" default="disabled" display="Tests" description="If enabled, the statistic will only be added to each sim info if the tests pass." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableList name="enabled" class="TunableSimTestList" display="Enabled" description="A list of tests. All tests must succeed to pass the TestSet." group="General">
+                            <TunableVariant type="None" class="TunableSimTestVariant" default="sim_info" description="A single tunable test." group="General">
+                                <TunableTuple name="sim_info" class="TunableSimInfoTest" display="Sim Info" description="The SimInfo tests some of the basic aspects of a Sim, such as their age, gender, or species." group="General">
+                                    <TunableVariant type="None" name="ages" class="OptionalTunable" default="unspecified" display="Ages" description="The Sim must be one of the specified ages." group="General">
+                                        <TunableList name="specified" class="TunableEnumSet" default="TEEN,YOUNGADULT,ADULT,ELDER" display="Specified" description="The Sim must be one of the specified ages." group="General" unique_entries="true">
+                                            <TunableEnum type="Age" class="TunableEnumEntry" default="ADULT" static_entries="sims-sim_info_types.Age" group="General" />
+                                        </TunableList>
+                                        <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="can_age_up" class="OptionalTunable" default="unspecified" display="Can Age Up" description="Whether the Sim is eligible to advance to the next age." group="General">
+                                        <Tunable type="bool" name="specified" class="Tunable" default="None" display="Specified" description="Whether the Sim is eligible to advance to the next age." group="General" />
+                                        <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="death_object_assigned" class="OptionalTunable" default="disabled" display="Death Object Assigned" description="Whether the Sim's death object (urnstone) has been assigned to it's tracker. This happens in the normal death flow, but is skipped from CAS or Gallery." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <Tunable type="bool" name="enabled" class="Tunable" default="False" display="Enabled" description="Whether the Sim's death object (urnstone) has been assigned to it's tracker. This happens in the normal death flow, but is skipped from CAS or Gallery." group="General" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="gender" class="OptionalTunable" default="unspecified" display="Gender" description="The Sim must be of the specified gender." group="General">
+                                        <TunableEnum type="Gender" name="specified" class="TunableEnumEntry" default="None" display="Specified" static_entries="sims-sim_info_types.Gender" description="The Sim must be of the specified gender." group="General" />
+                                        <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="has_been_played" class="OptionalTunable" default="disabled" display="Has Been Played" description="Whether the Sim has ever been played as a Playable Sim. If enabled and true, the Sim must have been played by the player. If enabled and false, the Sim must never have been played. If disabled, this portion of the Sim Info test will be ignored." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <Tunable type="bool" name="enabled" class="Tunable" default="False" display="Enabled" description="Whether the Sim has ever been played as a Playable Sim. If enabled and true, the Sim must have been played by the player. If enabled and false, the Sim must never have been played. If disabled, this portion of the Sim Info test will be ignored." group="General" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="is_active_sim" class="OptionalTunable" default="disabled" display="Is Active Sim" description="Whether the Sim must be the active selected Sim. If enabled and true, the sim must active for this test to pass. If enabled and false, the sim must not be active for this test to pass. If disabled, this portion of the Sim Info test will be ignored." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" description="Whether the Sim must be the active selected Sim. If enabled and true, the sim must active for this test to pass. If enabled and false, the sim must not be active for this test to pass. If disabled, this portion of the Sim Info test will be ignored." group="General" />
+                                    </TunableVariant>
+                                    <TunableEnum type="MatchType" name="match_type" class="TunableEnumEntry" default="MATCH_ALL" display="Match Type" static_entries="sims-sim_info_tests.MatchType" description="When testing multiple participants if MATCH_ALL is set, then all the participants need to pass the test. If MATCH_ANY is set, test will pass as soon as one of them meet the criteria" group="General" />
+                                    <TunableVariant type="None" name="npc" class="OptionalTunable" default="disabled" display="Npc" description="Whether the Sim must be an NPC or Playable Sim. If enabled and true, the sim must be an NPC for this test to pass. If enabled and false, the sim must be playable, non-NPC sim for this test to pass. If disabled, this portion of the Sim Info test will be ignored. Note: NPC in this case means a Sim that is not currently controllable (selectable), or Not Player Controllable. If you need to know if the Sim has ever been played, use 'Has Been Played'" group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <Tunable type="bool" name="enabled" class="Tunable" default="False" display="Enabled" description="Whether the Sim must be an NPC or Playable Sim. If enabled and true, the sim must be an NPC for this test to pass. If enabled and false, the sim must be playable, non-NPC sim for this test to pass. If disabled, this portion of the Sim Info test will be ignored. Note: NPC in this case means a Sim that is not currently controllable (selectable), or Not Player Controllable. If you need to know if the Sim has ever been played, use 'Has Been Played'" group="General" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="species" class="TunableVariant" default="unspecified" display="Species" group="General">
+                                        <TunableTuple name="specified" class="Tunable_SpeciesTestSpecies" display="Specified" description="The Sim must be one of the specified species. Species are consolidated, e.g. large/small dog are both DOG." group="General">
+                                            <TunableList name="species" class="TunableEnumSet" display="Species" description="The Sim must be one of the specified species. Species are consolidated, e.g. large/small dog are both DOG." group="General" unique_entries="true">
+                                                <TunableEnum type="Species" class="TunableEnumEntry" default="HUMAN" static_entries="sims-sim_info_types.Species" group="General" invalid_entries="INVALID" />
+                                            </TunableList>
+                                        </TunableTuple>
+                                        <TunableTuple name="specified_extended" class="Tunable_SpeciesTestExtendedSpecies" display="Specified Extended" description="The Sim must be one of the specified species. Species are *not* consolidated, e.g. large/small dog are different species." group="General">
+                                            <TunableList name="species" class="TunableEnumSet" display="Species" description="The Sim must be one of the specified species. Species are *not* consolidated, e.g. large/small dog are different species." group="General" unique_entries="true">
+                                                <TunableEnum type="SpeciesExtended" class="TunableEnumEntry" default="Species.HUMAN" static_entries="sims-sim_info_types.SpeciesExtended" group="General" invalid_entries="INVALID" />
+                                            </TunableList>
+                                        </TunableTuple>
+                                        <Tunable name="unspecified" class="TunableExistance" display="Unspecified" />
+                                    </TunableVariant>
+                                    <TunableEnum type="ParticipantType" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantType" description="Who or what to apply this test to" group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="trait" class="TunableTraitTest" display="Trait" description="Test to require a Sim to have or not have certain specific traits." group="General">
+                                    <Tunable type="bool" name="apply_thresholds_on_individual_basis" class="Tunable" default="True" display="Apply Thresholds On Individual Basis" description="If checked then Num Whitelist Required and Num Blacklist Allowed will be applied to each individual participant from the subject. If unchecked then it will apply the values to the total whitelist and blacklist matches on the group. IMPORTANT!!! In the case of objectives this should probably be set to false since we know that this is coming from only one sim and that we want to use the value that comes out of the test result numeric. This isn't just locked to being this value since there are valid cases within that system when you are looking at a group of sims and could want to test that one of your sims passes. Ex. Having a ghost sim in the household." group="General" />
+                                    <TunableList name="blacklist_trait_types" class="TunableEnumSet" display="Blacklist Trait Types" description="The Sim is required to not have traits of these types to pass this test. Should Num Blacklist Allowed be specified, then the Sim is allowed to have up to that amount of blacklisted traits before failing this test." group="General" unique_entries="true">
+                                        <TunableEnum type="TraitType" class="TunableEnumEntry" default="PERSONALITY" static_entries="traits-trait_type.TraitType" group="General" />
+                                    </TunableList>
+                                    <TunableList name="blacklist_traits" class="TunableList" display="Blacklist Traits" description="The is required to not have traits from this list in order to pass this test. Should num_blacklist_allowed be specified, then the Sim is allowed to have up to that amount of blacklisted traits before failing this test." group="General">
+                                        <Tunable type="trait" class="TunableReference" description="A blacklist trait." allow_none="False" group="General" pack_safe="True" />
+                                    </TunableList>
+                                    <Tunable type="int" name="num_blacklist_allowed" class="Tunable" default="0" display="Num Blacklist Allowed" description="The threshold of blacklist traits owned by the specified Sim that will trigger a test failure." tuning_state="NeedsTuning" group="General" />
+                                    <Tunable type="int" name="num_whitelist_required" class="Tunable" default="1" display="Num Whitelist Required" description="The number of whitelist traits that the specified Sim is required to have in order to pass this test." tuning_state="NeedsTuning" group="General" />
+                                    <TunableEnum type="ParticipantType" name="subject" class="TunableEnumEntry" default="Actor" display="Subject" static_entries="interactions.ParticipantType" description="The participant that is to be the subject of the test." group="General" />
+                                    <TunableList name="whitelist_trait_types" class="TunableEnumSet" display="Whitelist Trait Types" description="The Sim is required to have the specified number of traits with these types in order to pass the test." group="General" unique_entries="true">
+                                        <TunableEnum type="TraitType" class="TunableEnumEntry" default="PERSONALITY" static_entries="traits-trait_type.TraitType" group="General" />
+                                    </TunableList>
+                                    <TunableList name="whitelist_traits" class="TunableList" display="Whitelist Traits" description="The Sim is required to have the specified number of traits from this list in order to pass the test." group="General">
+                                        <Tunable type="trait" class="TunableReference" description="A whitelist trait. Please note: for pack-safe entries that are not loaded, the game will behave as if the entry doesn't exist. This allows you to specify a pack trait and required count of 1 and always fail the test should the appropriate pack not be installed." allow_none="False" group="General" pack_safe="True" />
+                                    </TunableList>
+                                </TunableTuple>
+                            </TunableVariant>
+                        </TunableList>
+                    </TunableVariant>
+                </TunableTuple>
+            </TunableList>
+
+            <Tunable type="int" name="MAXIMUM_SAFE_FITNESS_VALUE" class="Tunable" default="90" display="Maximum Safe Fitness Value" description="This is the value over which a Sim's fitness will always decay. When a Sim's fitness is set initially inside of CAS, it will not decay below that value unless it is higher than this tunable. Sims with an initial fitness value higher than this tunable will see their fitness commodity decay towards this point. EXAMPLE: MAXIMUM_SAFE_FITNESS_VALUE is set to 90, and a Sim is created in CAS with a fitness value of 100. Their fitness commodity will decay towards 90. Another Sim is created with a fitness value of 80. Their fitness commodity will decay towards 80." tuning_state="NeedsTuning" group="General" />
+
+            <TunableTuple name="PHYSIQUE_CHANGE_AFFORDANCES" class="TunableTuple" display="Physique Change Affordances" description="Affordances to run when a Sim's physique changes." group="General">
+                <Tunable type="interaction" name="FAT_CHANGE_MAX_NEGATIVE_AFFORDANCE" class="TunableReference" display="Fat Change Max Negative Affordance" description="Affordance to run when a Sim's fat changes to maximum negative effect." allow_none="False" group="General" />
+                <Tunable type="interaction" name="FAT_CHANGE_MAX_POSITIVE_AFFORDANCE" class="TunableReference" display="Fat Change Max Positive Affordance" description="Affordance to run when a Sim's fat changes to maximum positive effect." allow_none="False" group="General" />
+                <Tunable type="interaction" name="FAT_CHANGE_NEGATIVE_AFFORDANCE" class="TunableReference" display="Fat Change Negative Affordance" description="Affordance to run when a Sim's fat changes to negative effect." allow_none="False" group="General" />
+                <Tunable type="interaction" name="FAT_CHANGE_NEUTRAL_AFFORDANCE" class="TunableReference" display="Fat Change Neutral Affordance" description="Affordance to run when a Sim's fat changes to neutral effect." allow_none="False" group="General" />
+                <Tunable type="interaction" name="FAT_CHANGE_POSITIVE_AFFORDANCE" class="TunableReference" display="Fat Change Positive Affordance" description="Affordance to run when a Sim's fat changes to positive effect." allow_none="False" group="General" />
+                <Tunable type="interaction" name="FIT_CHANGE_NEGATIVE_AFFORDANCE" class="TunableReference" display="Fit Change Negative Affordance" description="Affordance to run when a Sim's fitness changes to negative effect." allow_none="False" group="General" />
+                <Tunable type="interaction" name="FIT_CHANGE_NEUTRAL_AFFORDANCE" class="TunableReference" display="Fit Change Neutral Affordance" description="Affordance to run when a Sim's fitness changes to neutral effect." allow_none="False" group="General" />
+                <Tunable type="interaction" name="FIT_CHANGE_POSITIVE_AFFORDANCE" class="TunableReference" display="Fit Change Positive Affordance" description="Affordance to run when a Sim's fitness changes to positive effect." allow_none="False" group="General" />
+            </TunableTuple>
+
+            <TunableList name="SIM_DEFINITIONS" class="TunableMapping" display="Sim Definitions" mapping_key="key" mapping_value="value" description="A Map from Species to base definition object." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="SpeciesExtended" name="key" class="TunableEnumEntry" default="HUMAN" display="Key" static_entries="sims-sim_info_types.SpeciesExtended" description="Species this definition is for." group="General" invalid_entries="INVALID" />
+                    <Tunable type="object" name="value" class="TunableReference" display="Value" description="The definition used to instantiate Sims." allow_none="False" group="General" pack_safe="True" restrict="Sim" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="SIM_SKEWER_AFFORDANCES" class="TunableList" display="Sim Skewer Affordances" description="A list of affordances that will test and be available when the player clicks on a Sim's interaction button in the Sim skewer." group="General">
+                <Tunable type="interaction" class="TunableReference" description="An affordance shown when the player clicks on a sim's interaction button in the Sim skewer." allow_none="False" group="General" />
+            </TunableList>
+
+            <TunableList name="SPECIES_VALUE_STATISTICS" class="TunableMapping" display="Species Value Statistics" mapping_key="key" mapping_value="value" description="A mapping between Sim species and the statistics that dictate the value of the Sim. Currently only used by horses to keep track of their sale value." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="SpeciesExtended" name="key" class="TunableEnumEntry" default="HORSE" display="Key" static_entries="sims-sim_info_types.SpeciesExtended" description="The species that determines if/which value stat is added to the Sim." group="General" invalid_entries="INVALID" />
+                    <Tunable type="statistic" name="value" class="TunableReference" display="Value" description="A statistic that will be added to the Sim if it is of the keyed species." allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="STATIC_COMMODITIES_WHILE_INSTANCED" class="TunableList" display="Static Commodities While Instanced" description="A list of static commodities that are added to every sim info when they are instanced and removed when they become uninstanced. Only for human sims!" group="General">
+                <Tunable type="scommodity" class="TunableReference" description="A static commodity that is added to each sim info on its creation." allow_none="False" group="General" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

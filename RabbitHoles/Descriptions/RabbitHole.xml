@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="rabbit_hole" class="RabbitHole" module="rabbit_hole.rabbit_hole" description="A rabbit hole. Holds all the information relevant to a type of rabbit hole." instance_needs_reference="True" instance_subclasses_only="False" path="RabbitHoles\Descriptions" use_guid_for_reference="True">
+        <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The rabbit hole affordance. This affordance must have a tuned rabbit hole liability and must use a rabbit hole exit condition. NOTE: This affordance will always run on the home lot. If you want to run a rabbit hole on a different lot, make sure the sim(s) are using an affordance from Tested Affordances instead." allow_none="False" group="General" />
+
+        <TunableVariant type="None" name="away_action" class="OptionalTunable" default="enabled" display="Away Action" description="If tuned, an away action for the rabbit holed sim info to run. If not tuned, no away actions will be started." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="away_action" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" />
+        </TunableVariant>
+
+        <TunableList name="exit_conditions" class="TunableList" display="Exit Conditions" description="A list of exit conditions for this rabbit hole. When exit conditions are met then the rabbit hole ends." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <TunableList name="conditions" class="TunableList" display="Conditions" description="A list of conditions that all must be satisfied for the group to be considered satisfied." group="General">
+                    <TunableVariant type="None" class="TunableRabbitHoleCondition" default="stat_based" description="A condition that must be satisfied." group="General">
+                        <TunableTuple name="stat_based" class="TunableStatisticCondition" display="Stat Based" group="General">
+                            <Tunable type="bool" name="absolute" class="Tunable" default="True" display="Absolute" description="True = treat the threshold value as an absolute commodity value. Otherwise, it is relative to the Sim's start value." group="General" />
+                            <Tunable type="statistic" name="stat" class="TunableReference" display="Stat" description="The commodity we are gaining." allow_none="False" group="General" />
+                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="A commodity value and comparison that defines the exit condition hits (or hit commodity.maximum)." group="General">
+                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                            </TunableTuple>
+                            <TunableEnum type="ParticipantType" name="who" class="TunableEnumEntry" default="Actor" display="Who" static_entries="interactions.ParticipantType" description="Who or what to apply this test to" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
+                </TunableList>
+                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A set of tests. If these tests do not pass, this condition will not be attached." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="go_home_and_attend" class="OptionalTunable" default="disabled" display="Go Home And Attend" description="' If tuned, this affordance will run when a sim needs to go home to attend a rabbit hole. If not tuned, the sim will use the generic travel. This only needs to be tuned in cases where we need special travel behavior (like different constraints)." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="interaction" name="enabled" class="TunableReference" display="Enabled" allow_none="False" group="General" restrict="GoHomeTravelInteraction" />
+        </TunableVariant>
+
+        <TunableList name="loot_list" class="TunableList" display="Loot List" description="Loots to apply to rabbit holed sim after they leave the rabbit hole. Won't be applied if the rabbit hole is cancelled." group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="on_begin_loot_list" class="TunableList" display="On Begin Loot List" description="Loots to apply to rabbit holed sims once all particpants enter the rabbit hole." group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="tested_affordances" class="TunableList" display="Tested Affordances" description="A list of test sets to run to choose the affordance to do for this rabbit hole. If an affordance is found from this list, the sim will be instantiated into this zone if not already and pushed to do the found affordance, so tests should fail out if you do not want a sim to move zones. If no affordance is found from this list that pass the tests, normal rabbit hole affordance behavior will take over, running either 'affordance' if at home or 'go_home_and_attend' if not at home. These tests are run when Sim is being added to a rabbit hole and also on zone spin-up to check if we need to bring this Sim into the new zone to put them into the rabbit hole in the new zone." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="interaction" name="affordance" class="TunableReference" display="Affordance" description="The rabbit hole affordance for this test set. This affordance must have a tuned rabbit hole liability and must use a rabbit hole exit condition. " allow_none="False" group="General" />
+                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A set of tests that if passed will make this the affordance that is run for the rabbit hole." group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableEnum type="RabbitHoleTimingPolicy" name="time_tracking_policy" class="TunableEnumEntry" default="COUNT_ACTIVE_TIME" display="Time Tracking Policy" static_entries="rabbit_hole-rabbit_hole.RabbitHoleTimingPolicy" description="This option determines how a rabbit hole will keep track of duration: COUNT_ALL_TIME - This rabbit hole's duration will begin when this rabbit hole is first pushed. This should be used if the rabbit hole's duration is supposed to point to a specific time. For instance, if I know a sim has an audition between 1pm-2pm, I will push them into a rabbit hole at 1pm with a duration of 1 hour. Now imagine my sim is busy at class till 1:45pm. When they are done with class, they should go to the audition. At this point, there should be 15 minutes left in the audition and not 1 hour left. This is because we decided to COUNT_ALL_TIME for the audition rabbit hole. COUNT_ACTIVE_TIME - This rabbit hole's duration will begin when the sim enters it. Continuing from the above example, the audition rabbit hole would end at 2:45pm and not 2:00pm if it had been tuned to COUNT_ACTIVE_TIME since it only became active at 1:45pm." group="General" />
+    </Instance>
+</TuningRoot>

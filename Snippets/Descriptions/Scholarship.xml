@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="Scholarship" module="display_snippet_tuning" description="Container for Scholarship Information." instance_needs_reference="True" instance_subclasses_only="False" parents="DisplaySnippet" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="amount" class="TunableVariant" default="none" display="Amount" description="If fixed_amount, use the tuned value when receiving the scholarship. If evaluation_type, use the evaluation type to determine what the value of the scholarship should be. " group="General">
+            <TunableTuple name="evaluation_type" class="TunableTuple" display="Evaluation Type" group="General" />
+            <TunableTuple name="fixed_amount" class="TunableTuple" display="Fixed Amount" group="General">
+                <Tunable type="int" name="amount" class="TunableRange" default="50" display="Amount" min="1" max="None" description="The amount of money to award a Sim if they receive this scholarship." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <Tunable name="none" class="TunableExistance" display="None" />
+        </TunableVariant>
+
+        <TunableTuple name="evaluation_type" class="TunableScholarshipEvaluationType" display="Evaluation Type" description="The evaluation type used by this scholarship." group="General">
+            <TunableVariant type="None" name="evaluation_type" class="TunableVariant" default="none" display="Evaluation Type" description="The evaluation type that determines whether or not a Sim will earn a scholarship. " group="General">
+                <TunableTuple name="merit" class="TunableMeritEvaluation" display="Merit" description="Merit scholarships are granted on enrollment. If a student has qualified for a prestige degree, they have earned the corresponding Merit Scholarship." group="General">
+                    <TunableList name="prestige_majors" class="TunableList" display="Prestige Majors" description="All prestige majors considered towards the merit scholarship." group="General">
+                        <Tunable type="university_major" class="TunableReference" description="The Major a student Sim must have qualified for at enrollment in order to qualify for this scholarship." allow_none="False" group="General" />
+                    </TunableList>
+                </TunableTuple>
+                <TunableTuple name="need" class="TunableNeedEvaluation" display="Need" description="Need scholarships are granted based on the total value of the household. Use the base success chance to define the initial chance of success and tested multipliers against the household value." group="General">
+                    <TunableTuple name="success_chance" class="TunableTunableMultiplier" display="Success Chance" description="Base success percentage and tested multipliers that evaluate to the sum chance of earning the scholarship." group="General">
+                        <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                        <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+                <Tunable name="none" class="TunableExistance" display="None" />
+                <TunableTuple name="other" class="TunableOtherEvaluation" display="Other" description="Use any test criteria to generate a scholarship evaluation type." group="General">
+                    <Tunable type="test_based_score" name="additive_chance_scores" class="TunableReference" display="Additive Chance Scores" description="For each passing score, the sum is added onto the base scholarship acceptance chance." allow_none="False" group="General" />
+                    <Tunable type="float" name="base_chance" class="TunablePercent" default="20" display="Base Chance" min="0" max="100" description="The base chance a scholarship is earned." group="General" />
+                </TunableTuple>
+            </TunableVariant>
+        </TunableTuple>
+
+        <TunableTuple name="maintenance_type" class="TunableScholarshipMaintenaceType" display="Maintenance Type" description="The maintenance requirement of this scholarship." group="General">
+            <TunableVariant type="None" name="maintenance_type" class="TunableVariant" default="none" display="Maintenance Type" description="The type of requirement needed for a student to retain scholarship benefits throughout the university term." group="General">
+                <TunableTuple name="academic" class="TunableTuple" display="Academic" description="The scholarship is dependent on staying enrolled in school. Dropping out, getting suspended or graduating all will cause the Sim to lose the active scholarship status." group="General" />
+                <TunableTuple name="activity" class="TunableTuple" display="Activity" description="The scholarship is dependent on staying enrolled in an after-school activity. If the sim is accepted to this scholarship on enrollment, they will automatically be enrolled in this activity at the beginning of the term. Dropping out of the activity will cause them to lose this scholarship." group="General">
+                    <Tunable type="career" name="activity" class="TunableReference" display="Activity" description="The activity that this scholarship is dependent on." allow_none="False" group="General" />
+                </TunableTuple>
+                <Tunable name="none" class="TunableExistance" display="None" />
+            </TunableVariant>
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

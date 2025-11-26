@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="interactions.rabbit_hole">
+        <Class name="HideSimLiability">
+            <TunableList name="ROUTING_SLAVE_ENTRY_STATE" class="TunableMapping" display="Routing Slave Entry State" mapping_key="Routing Slave Entry State" mapping_value="value" description="Possible states to set on the routing slave on entry. The state is set if its tuned tests pass. The first state with tests that pass will be set." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="object_state" name="Routing Slave Entry State" class="TunableReference" display="Routing Slave Entry State" description="The state that the routing slave will be put into when their owner is hidden." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <TdescFragTag name="value" class="TunableTestSet" display="Value" description="The result of the tests determines if this state is set." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="ROUTING_SLAVE_EXIT_STATE" class="TunableMapping" display="Routing Slave Exit State" mapping_key="Routing Slave Exit State" mapping_value="value" description="Possible states to set on the routing slave on entry. The state is set if its tuned tests pass. The first state with tests that pass will be set." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="object_state" name="Routing Slave Exit State" class="TunableReference" display="Routing Slave Exit State" description="The state that the routing slave will be put into when their owner is unhidden." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                    <TdescFragTag name="value" class="TunableTestSet" display="Value" description="The result of the tests determines if this state is set." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

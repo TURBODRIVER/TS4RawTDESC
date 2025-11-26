@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="WaypointGraph" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableTunableWaypointGraph" display="Value" description="Tuning for defining a graph of connected waypoints (locators)." group="General">
+            <TunableList name="connections" class="TunableMapping" display="Connections" mapping_key="waypoint" mapping_value="connections" description="Defines the connections between waypoints in this graph." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableTuple name="connections" class="TunableTunableWaypointWeightedSet" display="Connections" description="Tuning for a weighted list of connections (linked waypoint locators)." group="General">
+                        <TunableList name="connections" class="TunableList" display="Connections" description="List of connected waypoints." group="General">
+                            <TunableTuple class="TunableTuple" description="Pair of waypoint and a tested weight." group="General">
+                                <Tunable type="locator" name="connected_waypoint" class="TunableReference" display="Connected Waypoint" description="Waypoint reference." group="General" />
+                                <TunableTuple name="weight" class="TunableTunableMultiplier" display="Weight" description="A weight with testable multipliers that is used to determine how likely this entry is to be picked when selecting randomly." group="General">
+                                    <Tunable type="float" name="base_value" class="Tunable" default="1" display="Base Value" description="The basic value to return if no modifications are applied." tuning_state="NeedsTuning" group="General" />
+                                    <TunableList name="multipliers" class="TunableList" display="Multipliers" description="A list of multipliers to apply to base_value." group="General">
+                                        <TunableTuple class="TunableTuple" group="General">
+                                            <Tunable type="float" name="multiplier" class="TunableRange" default="1" display="Multiplier" min="0" max="None" description="The multiplier to apply to base_value if the associated tests pass." tuning_state="NeedsTuning" group="General" />
+                                            <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A series of tests that must pass in order for multiplier to be applied." group="General" />
+                                        </TunableTuple>
+                                    </TunableList>
+                                </TunableTuple>
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                    <Tunable type="locator" name="waypoint" class="TunableReference" display="Waypoint" description="Waypoint reference." group="General" />
+                </TunableTuple>
+            </TunableList>
+            <Tunable type="float" name="constraint_radius" class="TunableRange" default="1.5" display="Constraint Radius" min="0" max="None" description="The radius, in meters, for each of the generated waypoint constraints." tuning_state="NeedsTuning" group="General" />
+        </TunableTuple>
+    </Instance>
+</TuningRoot>

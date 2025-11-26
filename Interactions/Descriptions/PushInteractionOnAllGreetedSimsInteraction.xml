@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="PushInteractionOnAllGreetedSimsInteraction" module="interactions.household_interactions" description="This affordance will push the tuned affordance on all sims that are in the household along with any greeted sims. It will not push it on the actor." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="_pushed_interaction_tunables" class="TunableTuple" display="Pushed Interaction Tunables" group="General">
+            <Tunable type="interaction" name="affordance_to_push" class="TunableReference" display="Affordance To Push" description="Affordance to push on all sims in the household and all greeted sims." allow_none="False" group="General" />
+            <Tunable type="bool" name="push_on_actor" class="Tunable" default="False" display="Push On Actor" description="Whether Afforance To Push should be pushed on the actor." group="General" />
+            <TunableVariant type="None" name="target_override_for_pushed_affordance" class="OptionalTunable" default="disabled" display="Target Override For Pushed Affordance" description="ParticipantType for the target to be set on the pushed affordance." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="Actor" display="Enabled" static_entries="interactions.ParticipantType" description="ParticipantType for the target to be set on the pushed affordance." group="General" />
+            </TunableVariant>
+        </TunableTuple>
+
+        <TunableList name="_required_appropriateness_tags" class="TunableSet" display="Required Appropriateness Tags" description="A list of tags that a Sim must have to be eligible for this interaction." group="General" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="CollectManyInteraction" module="carry.put_down_interactions" description="An interaction in which a Sim will collect all objects of the same time and simulate holding them in a stack. When picked up, the objects will be set to transient, and if it doesn't already exist, a 'stack' object will be added to the world as the new carry target." instance_needs_reference="True" instance_subclasses_only="False" parents="SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="aggregate_object" class="TunableVariant" default="no_aggregate_object" display="Aggregate Object" description="The type of object to use as the aggregate object. If a definition is specified, the aggregate object will be created using that definition. If 'interaction_target' is specified, the aggregate object will be created using the definition of the interaction target." group="General">
+            <TunableList name="definitions" class="TunableList" display="Definitions" description="A list of object definitions. One of them will be chosen randomly and created as part of this interaction to represent the many collected objects the participant has picked up." group="General" unique_entries="true">
+                <Tunable type="object" class="TunableReference" allow_none="False" group="General" />
+            </TunableList>
+            <Tunable name="interaction_target" class="TunableExistance" display="Interaction Target" />
+            <Tunable name="no_aggregate_object" class="TunableExistance" display="No Aggregate Object" />
+        </TunableVariant>
+
+        <TunableEnum type="AggregateObjectOwnership" name="aggregate_object_owner" class="TunableEnumEntry" default="SAME_AS_TARGET" display="Aggregate Object Owner" static_entries="carry-put_down_interactions.AggregateObjectOwnership" description="Specify the owner of the newly created aggregate object." group="General" />
+
+        <Tunable type="bool" name="destroy_original_object" class="Tunable" default="True" display="Destroy Original Object" description="If checked, the original object (the target of this interaction), will be destroyed and replaced with the specified aggregate object. If unchecked, the aggregate object will be created in the Sim's hand, but the original object will not be destroyed." group="General" />
+    </Instance>
+</TuningRoot>

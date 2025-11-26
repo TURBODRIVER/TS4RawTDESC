@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation_goal" class="SituationGoalSimoleonsEarned" module="situations.situation_goal_simoleons_earned" description="Situation Goal for actor running an interaction for a certain amount of time." instance_needs_reference="True" instance_subclasses_only="False" parents="SituationGoal" path="SituationGoals\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="_goal_test" class="TunableEarningsOfInterest" display="Goal Test" description="Interaction and Simoleon amount that this situation goal will use. Example: Earn 1000 Simoleons from Bartending activities." group="Tests">
+            <Tunable type="int" name="amount_to_earn" class="TunableRange" default="10" display="Amount To Earn" min="1" max="None" description="The amount of time in Simoleons earned from all relevant activities for this goal to pass." tuning_state="NeedsTuning" group="General" />
+            <TunableList name="tags" class="TunableSet" display="Tags" description="A set of tags that will match an affordance instead of looking for a specific one. If you leave this empty, all Simoleons earned will be counted." group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumEntry" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" group="General" />
+            </TunableList>
+        </TunableTuple>
+
+        <Deleted name="_iterations" />
+
+        <Deleted name="_post_tests" />
+    </Instance>
+</TuningRoot>

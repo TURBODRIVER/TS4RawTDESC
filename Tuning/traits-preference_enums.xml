@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="traits.preference_enums">
+        <Class name="PreferenceTypes" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DISLIKE" enum_value="23" />
+
+            <EnumItem name="LIKE" enum_value="22" />
+        </Class>
+
+        <Class name="GameplayObjectPreferenceTypes" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="DISLIKE" enum_value="2" />
+
+            <EnumItem name="LIKE" enum_value="3" />
+
+            <EnumItem name="LOVE" enum_value="4" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="UNSURE" enum_value="1" />
+        </Class>
+
+        <Class name="PreferenceSubject" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CHARACTERISTIC" enum_value="2" />
+
+            <EnumItem name="CONVERSATION" enum_value="3" />
+
+            <EnumItem name="DECOR" enum_value="1" />
+
+            <EnumItem name="OBJECT" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="placement">
+        <Class name="FGLTuning">
+            <Tunable type="float" name="MAX_FGL_DISTANCE" class="Tunable" default="100.0" display="Max Fgl Distance" description="The maximum distance searched by the Find Good Location code." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="MAX_PUTDOWN_DISTANCE" class="Tunable" default="10.0" display="Max Putdown Distance" description="The maximum distance searched by the Find Good Location code when putting down a sim/object" tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="MAX_PUTDOWN_STEPS" class="TunableRange" default="8" display="Max Putdown Steps" min="1" max="None" description="The maximum steps the Find Good Location search will run when putting down a sim/object." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="SOCIAL_FGL_HEIGHT_TOLERANCE" class="Tunable" default="0.1" display="Social Fgl Height Tolerance" description="Maximum height tolerance on the terrain we will use for the placement of social jigs. If this value needs to be retuned a GPE, an Animator and Motech should be involved." tuning_state="NeedsTuning" group="General" />
+        </Class>
+
+        <Class name="FGLSearchFlag" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ALLOW_GOALS_IN_SIM_INTENDED_POSITIONS" enum_value="64" />
+
+            <EnumItem name="ALLOW_GOALS_IN_SIM_POSITIONS" enum_value="32" />
+
+            <EnumItem name="ALLOW_INACTIVE_PLEX" enum_value="16384" />
+
+            <EnumItem name="ALLOW_TOO_CLOSE_TO_OBSTACLE" enum_value="16" />
+
+            <EnumItem name="CALCULATE_RESULT_TERRAIN_HEIGHTS" enum_value="1048576" />
+
+            <EnumItem name="CONTAINS_ANYWHERE_CONSTRAINT" enum_value="8" />
+
+            <EnumItem name="CONTAINS_NOWHERE_CONSTRAINT" enum_value="4" />
+
+            <EnumItem name="DONE_ON_MAX_RESULTS" enum_value="2097152" />
+
+            <EnumItem name="ENCLOSED_ROOM_ONLY" enum_value="262144" />
+
+            <EnumItem name="LOT_TERRAIN_ONLY" enum_value="524288" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="SHOULD_RAYTEST" enum_value="32768" />
+
+            <EnumItem name="SHOULD_TEST_BUILDBUY" enum_value="256" />
+
+            <EnumItem name="SHOULD_TEST_ROUTING" enum_value="128" />
+
+            <EnumItem name="SPIRAL_INWARDS" enum_value="65536" />
+
+            <EnumItem name="STAY_IN_CONNECTED_CONNECTIVITY_GROUP" enum_value="2048" />
+
+            <EnumItem name="STAY_IN_CURRENT_BLOCK" enum_value="4096" />
+
+            <EnumItem name="STAY_IN_LOT" enum_value="131072" />
+
+            <EnumItem name="STAY_IN_SAME_CONNECTIVITY_GROUP" enum_value="1024" />
+
+            <EnumItem name="STAY_OUTSIDE" enum_value="8192" />
+
+            <EnumItem name="USE_RANDOM_ORIENTATION" enum_value="2" />
+
+            <EnumItem name="USE_RANDOM_WEIGHTING" enum_value="1" />
+
+            <EnumItem name="USE_SIM_FOOTPRINT" enum_value="512" />
+        </Class>
+
+        <Class name="PlacementConstants">
+            <Tunable type="float" name="rotation_increment" class="TunableAngle" default="22.5" display="Rotation Increment" min="0.0" max="360.0" description="The size of the angle-range that sims should use when determining facing constraints." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+</TuningRoot>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="lot_decoration.lot_decoration_service">
+        <Class name="LotDecorationService">
+            <TunableTuple name="AUTO_DECORATION_PARAMS" class="TunableClientLotDecorationParams" display="Auto Decoration Params" description="The parameters used for when the neighbor lots get their decorations automatically put up during gameplay." group="General">
+                <Tunable type="float" name="client_fade_delay" class="TunableRealSecond" default="5" display="Client Fade Delay" min="0" max="None" description="After an lot decoration request is made, this is the delay amount given to the client decoration system before it starts to fade in the lot decorations. Note when the request is processed, gameplay has already saved that the lot is 'decorated', so there are save/load implications when this is set to a large value." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="fade_duration" class="TunableRealSecond" default="0.5" display="Fade Duration" min="0" max="None" description="Amount of time alloted for fading in a decoration on a lot." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="fade_variation_range" class="TunableRealSecond" default="2" display="Fade Variation Range" min="0" max="None" description="Randomized variation time range for fade in that is used so that all deco trims on a lot don't fade in at the same time." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+
+            <Tunable type="statistic" name="LOT_DECORATED_STATISTIC" class="TunableReference" display="Lot Decorated Statistic" description="The tunable statistic used to delineate that the active lot has been decorated. Used by Box of Decorations to set state based off whether the lot has been decorated or not." allow_none="False" group="General" pack_safe="True" />
+
+            <TunableList name="NON_DECORATABLE_TESTS" class="TunableList" display="Non Decoratable Tests" description="A list of tests applied to the neighborhood zones to determine if they will avoid being auto-decorated for occasions like holidays. Any test that passes will cause the specified zone to not decorate automatically." group="General">
+                <TunableTuple class="TunableZoneTest" description="A tunable factory that tests properties of a particular zone." group="General">
+                    <Tunable type="bool" name="zone_source_invalid_fallback" class="Tunable" default="False" display="Zone Source Invalid Fallback" description="If the zone source is invalid, specify the return value of the test. By default, if the zone source is invalid, the test will return False." group="General" />
+                    <TunableTuple name="zone_tests" class="TunableTuple" display="Zone Tests" description="The tests we wish to run on the zone in question." group="General">
+                        <TunableVariant type="None" name="business_tests" class="OptionalTunable" default="Don't_Test" display="Business Tests" description="If enabled, test if the specified zone is a business or not." group="General">
+                            <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                            <TunableVariant type="None" name="enabled" class="TunableVariant" default="is_business" display="Enabled" description="Test if the zone is a business, an open business, or a closed business." group="General">
+                                <TunableTuple name="is_business" class="Tunable_IsBusinessTest" display="Is Business" description="Test if the zone specified by the zone id is a business or not." group="General" />
+                                <TunableTuple name="is_business_npc_owned" class="Tunable_IsBusinessNPCOwned" display="Is Business Npc Owned" description="Test if the zone specified by the zone id is a business owned by an npc." group="General">
+                                    <Tunable type="bool" name="fail_if_not_a_business" class="Tunable" default="False" display="Fail If Not A Business" description="If checked, fail if the zone is not a business. If unchecked, pass if the zone is not a business." group="General" />
+                                    <Tunable type="bool" name="is_npc_owned" class="Tunable" default="True" display="Is Npc Owned" description="If checked, test will pass if the zone is npc-owned. If unchecked, test passes if the zone is NOT npc-owned." group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="is_business_open" class="Tunable_IsBusinessOpenTest" display="Is Business Open" description="Test if the zone specified by the zone id is an open business." group="General" />
+                            </TunableVariant>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="is_apartment" class="OptionalTunable" default="Don't_Test" display="Is Apartment" description="If checked, test will pass if the zone is an apartment. If unchecked, test passes if the zone is NOT an apartment. Useful in aspiration tuning, to discriminate between property types in tests of lot value. Allows 'Own a House worth X' and 'Own an Apartment worth X'" group="General">
+                            <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                            <TunableTuple name="Is_or_is_not_apartment_zone" class="TunableTuple" display="Is Or Is Not Apartment Zone" description="Test whether the zone is an apartment or not." group="General">
+                                <Tunable type="bool" name="consider_multi_unit_an_apartment" class="Tunable" default="False" display="Consider Multi Unit An Apartment" description="If enabled, we will consider multi unit(for residential rental) to be apartments when testing them against the apartment check." group="General" />
+                                <Tunable type="bool" name="consider_penthouse_an_apartment" class="Tunable" default="True" display="Consider Penthouse An Apartment" description="If enabled, we will consider penthouses to be apartments when testing them against the apartment check." group="General" />
+                                <Tunable type="bool" name="is_apartment" class="Tunable" default="True" display="Is Apartment" description="If checked, test will pass if the zone is an apartment. If unchecked, test passes if the zone is NOT an apartment." group="General" />
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="is_penthouse" class="OptionalTunable" default="disabled" display="Is Penthouse" description="If enabled, test whether or not the current zone is a penthouse." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" description="If checked, the zone must be a penthouse. If unchecked, the zone cannot be a penthouse." group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="is_reserved" class="OptionalTunable" default="Don't_Test" display="Is Reserved" description="If enabled, test if the specified zone is reserved by the zone reservation system. This usually indicates a system is using that zone in such a way that it should not be available for most other purposes." group="General">
+                            <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                            <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" description="If checked, this zone must be reserved. If not checked, it must be unreserved." group="General" />
+                        </TunableVariant>
+                        <Tunable type="bool" name="use_source_venue" class="Tunable" default="False" display="Use Source Venue" description="If enabled, the test will test the source venue instead of the active venue. For example, the Community Lot instead of the active Marketplace. Testing the active venue is the default." group="General" />
+                        <TunableVariant type="None" name="venue_tier" class="OptionalTunable" default="disabled" display="Venue Tier" description="If checked, will verify that the zone's venue is at the tuned tier. If 'no valid tier' is selected, this test will be True if either the current venue doesn't have tiers or if it does but it doesn't currently meet any of their requirements." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description=" " group="General">
+                                <Tunable name="no_valid_tier" class="TunableExistance" display="No Valid Tier" />
+                                <Tunable name="none" class="TunableExistance" display="None" />
+                                <Tunable type="int" name="tier_number" class="TunableRange" default="0" display="Tier Number" min="0" max="None" description="The index of the tier to test. This test will return true if this tier is active and false otherwise. This should be the index of the tier in the tier list and not any player-facing index. For instance, if a tier list had a single tier, that tier would be 0, and if a second tier were added, that second tier would be 1." tuning_state="NeedsTuning" group="General" />
+                            </TunableVariant>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="venue_type" class="OptionalTunable" default="Don't_Test" display="Venue Type" description="If checked, will verify the zone's venue type is allowed or disallowed." group="General">
+                            <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                            <TunableTuple name="enabled" class="TunableWhiteBlackList" display="Enabled" description="The zone's venue type must pass the whitelist and blacklist to pass the test." group="General">
+                                <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                                    <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                                    <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                        <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                            <Tunable type="venue" class="TunableReference" description="Allowed and disallowed venue types." allow_none="False" group="General" pack_safe="True" />
+                                        </TunableList>
+                                        <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                            <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                                    <Tunable name="everything" class="TunableExistance" display="Everything" />
+                                    <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                        <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                            <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                        <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                            <Tunable type="venue" class="TunableReference" description="Allowed and disallowed venue types." allow_none="False" group="General" pack_safe="True" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="was_owner_household_changed" class="OptionalTunable" default="Don't_Test" display="Was Owner Household Changed" description="If enabled, test if the lot owner household for the specified zone was changed between when the zone was saved and when it was loaded." group="General">
+                            <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                            <Tunable type="bool" name="enabled" class="Tunable" default="True" display="Enabled" description="If checked, test will pass if the zone's owner household was changed between when the zone was saved and when it was loaded. If unchecked, test will pass if the zone's owner household was NOT changed between when the zone was saved and when it was loaded. " group="General" />
+                        </TunableVariant>
+                        <TunableVariant type="None" name="world_tests" class="OptionalTunable" default="disabled" display="World Tests" description="If enabled, we test if specified zone is or is not in the specified world(s)" group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <TunableTuple name="enabled" class="TunableWhiteBlackList" display="Enabled" description="Pass if zone is in one of the worlds in the whitelist, or fail if it is any of the worlds in the blacklist." group="General">
+                                <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                                    <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                                    <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                        <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                            <Tunable type="worlddescription" class="TunableReference" description="World to check against." group="General" pack_safe="True" />
+                                        </TunableList>
+                                        <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                            <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                                    <Tunable name="everything" class="TunableExistance" display="Everything" />
+                                    <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                        <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                            <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                        <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                            <Tunable type="worlddescription" class="TunableReference" description="World to check against." group="General" pack_safe="True" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="zone_modifiers" class="OptionalTunable" default="Don't_Test" display="Zone Modifiers" description="if enabled, we test the zone modifiers allowed or disallowed." group="General">
+                            <Tunable name="Don't_Test" class="TunableExistance" display="Don'T Test" />
+                            <TunableTuple name="enabled" class="TunableWhiteBlackList" display="Enabled" description="The zone's modifiers must pass this whitelist and blacklist for the test to pass." group="General">
+                                <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
+                                    <Tunable name="nothing" class="TunableExistance" display="Nothing" />
+                                    <TunableTuple name="specify" class="TunableBlacklist" display="Specify" description="A tunable blacklist." group="General">
+                                        <TunableList name="blacklist" class="TunableSet" display="Blacklist" description="Blacklisted items." group="General" unique_entries="true">
+                                            <Tunable type="zone_modifier" class="TunableReference" description="Allowed and disallowed zone modifiers." allow_none="False" group="General" pack_safe="True" />
+                                        </TunableList>
+                                        <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the blacklist for the blacklist to fail when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                            <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the blacklist must pass this threshold test for the blacklist to disallow them all." group="General">
+                                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                    </TunableTuple>
+                                </TunableVariant>
+                                <TunableVariant type="None" name="whitelist" class="OptionalTunable" default="everything" display="Whitelist" description="When an item is tested against this white/black list, it is only allowed if it is in the whitelist. If no whitelist is specified, all items are allowed." group="General">
+                                    <Tunable name="everything" class="TunableExistance" display="Everything" />
+                                    <TunableTuple name="specify" class="TunableWhitelist" display="Specify" description="A tunable whitelist." group="General">
+                                        <TunableVariant type="None" name="threshold" class="OptionalTunable" default="threshold" display="Threshold" description="Tunable option for how many items must be in the whitelist for the whitelist to pass when testing a collection of items. By default, only one object needs to be in the list." group="General">
+                                            <Tunable name="all_must_match" class="TunableExistance" display="All Must Match" />
+                                            <TunableTuple name="threshold" class="TunableThreshold" display="Threshold" description="When testing a collection of items, the number of items in that collection that are in the whitelist must pass this threshold test for the whitelist to allow them all." group="General">
+                                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                                                <Tunable type="int" name="value" class="TunableRange" default="1" display="Value" min="0" max="None" tuning_state="NeedsTuning" group="General" />
+                                            </TunableTuple>
+                                        </TunableVariant>
+                                        <TunableList name="whitelist" class="TunableSet" display="Whitelist" description="Whitelisted items." group="General" unique_entries="true">
+                                            <Tunable type="zone_modifier" class="TunableReference" description="Allowed and disallowed zone modifiers." allow_none="False" group="General" pack_safe="True" />
+                                        </TunableList>
+                                    </TunableTuple>
+                                </TunableVariant>
+                            </TunableTuple>
+                        </TunableVariant>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+
+            <TunableTuple name="PLAYER_DECORATION_PARAMS" class="TunableClientLotDecorationParams" display="Player Decoration Params" description="The parameters used for when the player chooses to put up/down the decorations on their lot." group="General">
+                <Tunable type="float" name="client_fade_delay" class="TunableRealSecond" default="0" display="Client Fade Delay" min="0" max="None" description="After an lot decoration request is made, this is the delay amount given to the client decoration system before it starts to fade in the lot decorations. Note when the request is processed, gameplay has already saved that the lot is 'decorated', so there are save/load implications when this is set to a large value." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="fade_duration" class="TunableRealSecond" default="0.5" display="Fade Duration" min="0" max="None" description="Amount of time alloted for fading in a decoration on a lot." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="fade_variation_range" class="TunableRealSecond" default="0" display="Fade Variation Range" min="0" max="None" description="Randomized variation time range for fade in that is used so that all deco trims on a lot don't fade in at the same time." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

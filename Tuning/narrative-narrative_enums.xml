@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="narrative.narrative_enums">
+        <Class name="NarrativeGroup" enum_bit_flag="False" enum_locked="False" enum_partitioned="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="NarrativeEvent" enum_bit_flag="False" enum_locked="False" enum_partitioned="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="NarrativeSituationShiftType" enum_bit_flag="False" enum_locked="False" enum_partitioned="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="NarrativeEnvironmentParams" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BatuuFactionState_FO" enum_value="1015" />
+
+            <EnumItem name="BatuuFactionState_RES" enum_value="1014" />
+
+            <EnumItem name="StrangerVille_Act" enum_value="1011" />
+
+            <EnumItem name="StrangerVille_Strange_Skybox" enum_value="2008" />
+
+            <EnumItem name="StrangerVille_VeryStrange_Skybox" enum_value="2009" />
+        </Class>
+
+        <Class name="NarrativeProgressionEvent" enum_bit_flag="False" enum_locked="True" enum_partitioned="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>

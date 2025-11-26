@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="zone_director" class="ApartmentZoneDirectorPlayer" module="apartments.apartment_zone_director" description="Zone Director for apartments owned by the active household." instance_needs_reference="True" instance_subclasses_only="False" parents="ZoneDirectorResidentialPlayer, ZoneDirectorResidentialBase, SchedulingZoneDirector, ZoneDirectorBase" path="ZoneDirectors\Descriptions" use_guid_for_reference="True">
+        <TunableList name="neighbor_reaction_events" class="TunableMapping" display="Neighbor Reaction Events" mapping_key="key" mapping_value="value" description="A map of different neighbor reaction event listeners that we want to keep active on the Sims while this zone director is running and the situations to create when those event listeners are completed." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="aspiration" name="key" class="TunableReference" display="Key" description="The aspiration that we will register on all of the active household Sims that when completed will then trigger the appropriate situation." allow_none="False" group="General" restrict="ZoneDirectorEventListener" />
+                <TunableTuple name="value" class="TunableTuple" display="Value" description="Extra data for this specific aspiration." group="General">
+                    <Tunable type="situation" name="situation" class="TunableReference" display="Situation" description="The Situation that we want to start on the completion of this aspiration." allow_none="False" group="General" />
+                    <Tunable type="float" name="timeout" class="TunableSimMinute" default="60" display="Timeout" min="0" max="None" description="The amount of time in Sim Minutes that will pass from the completion of the aspiration before we will start the situation again." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

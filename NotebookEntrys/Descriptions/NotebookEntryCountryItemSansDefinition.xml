@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="notebook_entry" class="NotebookEntryCountryItemSansDefinition" module="notebook.country_living_notebook_entries" description="A Notebook Entry for Country Items." instance_subclasses_only="False" parents="NotebookEntry" path="NotebookEntrys\Descriptions" use_guid_for_reference="True">
+        <Deleted name="entry_icon" />
+
+        <Tunable type="object" name="entry_icon_definition" class="TunableReference" display="Entry Icon Definition" description="The definition that will be used to create the icon for this entry." allow_none="False" group="General" />
+
+        <Deleted name="entry_sublist" />
+
+        <Tunable type="int" name="entry_text_description" class="TunableLocalizedString" default="0x0" display="Entry Text Description" description="The text to display the item's description." group="General" />
+
+        <Tunable type="int" name="entry_text_flavor" class="TunableLocalizedString" default="0x0" display="Entry Text Flavor" description="The text to display the flavor text for the item." group="General" />
+
+        <Tunable type="int" name="entry_text_value" class="TunableLocalizedString" default="0x0" display="Entry Text Value" description="The text used to display the item's value." group="General" />
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="aspiration" class="TimedAspiration" module="aspirations.timed_aspiration" description="An aspiration that is only active for a specific amount of time before it will timeout." instance_subclasses_only="False" parents="AspirationBasic" path="Aspirations\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="_display_data" class="OptionalTunable" default="disabled" display="Display Data" description="If enabled, specify display data for this instance." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="optional_display_mixin" class="OptionalDisplayMixinTunable" display="Optional Display Mixin" description="The instance's display data." group="General">
+                <TunableVariant type="None" name="instance_display_description" class="OptionalTunable" default="enabled_display_description" display="Instance Display Description" description="If enabled, specify a display description for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled_display_description" class="TunableLocalizedString" default="0x0" display="Enabled Display Description" description="The instance's description. " group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_icon" class="OptionalTunable" default="enabled_display_icon" display="Instance Display Icon" description="If enabled, specify a display icon for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="ResourceKey" name="enabled_display_icon" class="TunableIcon" default="None" display="Enabled Display Icon" description="The instance's icon." group="General" resource_types="0x2f7d0004" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_name" class="OptionalTunable" default="enabled_display_name" display="Instance Display Name" description="If enabled, specify a display name for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled_display_name" class="TunableLocalizedString" default="0x0" display="Enabled Display Name" description="The instance's name." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_secondary_icon" class="OptionalTunable" default="disabled" display="Instance Display Secondary Icon" description="If enabled, specify a secondary display icon for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="ResourceKey" name="enabled_display_secondary_icon" class="TunableIcon" default="None" display="Enabled Display Secondary Icon" description="The instance's icon." group="General" resource_types="0x2f7d0004" />
+                </TunableVariant>
+                <TunableVariant type="None" name="instance_display_tooltip" class="OptionalTunable" default="enabled_display_tooltip" display="Instance Display Tooltip" description="If enabled, specify a display tooltip for this instance." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled_display_tooltip" class="TunableLocalizedString" default="0x0" display="Enabled Display Tooltip" description="The instance's tooltip. " group="General" />
+                </TunableVariant>
+            </TunableTuple>
+        </TunableVariant>
+
+        <Deleted name="do_not_register_events_on_load" />
+
+        <TunableVariant type="None" name="duration" class="TunableVariant" default="none" display="Duration" group="General">
+            <TunableTuple name="duration" class="TunableTimeSpan" display="Duration" description="The time that this aspiration is active within the tracker." group="General">
+                <Tunable type="int" name="days" class="TunableRange" default="0" display="Days" min="0" max="None" description="Number of days" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="hours" class="TunableRange" default="0" display="Hours" min="0" max="23" description="Number of hours" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="minutes" class="TunableRange" default="0" display="Minutes" min="0" max="59" description="Number of minutes" tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <Tunable name="none" class="TunableExistance" display="None" />
+            <TunableTuple name="weekly_schedule" class="TunableWeeklySchedule" display="Weekly Schedule" description="Determines days of the week when the aspiration will deactivate." group="General">
+                <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                    <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                        <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                            <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                            <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                            <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                            <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                            <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                            <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                            <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                        </TunableTuple>
+                        <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                        <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                        <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                            <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableList name="on_cancel_loot_actions" class="TunableList" display="On Cancel Loot Actions" description="List of loots operations that will be awarded when this aspiration is cancelled." group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="on_complete_loot_actions" class="TunableList" display="On Complete Loot Actions" description="List of loots operations that will be awarded when this aspiration complete." group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="on_failure_loot_actions" class="TunableList" display="On Failure Loot Actions" description="List of loots operations that will be awarded when this aspiration fails." group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" restrict="LootActions" />
+        </TunableList>
+
+        <TdescFragTag name="tests" class="TunableTestSetWithTooltip" display="Tests" description="Test set that must pass for this aspiration to be available." group="General" />
+
+        <TunableEnum type="TimedAspirationType" name="timed_aspiration_type" class="TunableEnumEntry" default="RESOLUTION" display="Timed Aspiration Type" static_entries="aspirations-timed_aspiration.TimedAspirationType" description="How should this timed aspiration be shown in the user interface." group="General" />
+
+        <TunableVariant type="None" name="warning_buff" class="OptionalTunable" default="disabled" display="Warning Buff" description="If enabled, the buff is given to the Sim as a warning the aspiration duration is ending." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableBuffReference" display="Enabled" description="The buff that is given to the Sim when the aspiration is getting close to timing out." group="General">
+                <TunableVariant type="None" name="buff_reason" class="OptionalTunable" default="disabled" display="Buff Reason" description="If set, specify a reason why the buff was added." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The reason the buff was added. This will be displayed in the buff tooltip." group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="buff_source" class="OptionalTunable" default="disabled" display="Buff Source" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableVariant type="None" name="enabled" class="TunableVariant" default="none" display="Enabled" description="The tuning file that applied this buff. This is typically tuned to be the same file that this buff is being tuned on. This is NOT player facing, and is used for telemetry only. " group="General">
+                        <Tunable type="interaction" name="from_interaction" class="TunableReference" display="From Interaction" allow_none="False" group="General" />
+                        <Tunable type="action" name="from_loot" class="TunableReference" display="From Loot" allow_none="False" group="General" />
+                        <Tunable name="none" class="TunableExistance" display="None" />
+                    </TunableVariant>
+                </TunableVariant>
+                <Tunable type="buff" name="buff_type" class="TunableReference" display="Buff Type" description="Buff that will get added to sim." allow_none="False" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+
+    
+</TuningRoot>

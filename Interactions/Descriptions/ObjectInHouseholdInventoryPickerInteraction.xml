@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="ObjectInHouseholdInventoryPickerInteraction" module="interactions.base.picker_interaction" description="The picker interaction to select a certain object from a subject's household inventory." instance_needs_reference="True" instance_subclasses_only="False" parents="ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="ParticipantType" name="inventory_subject" class="TunableEnumEntry" default="Actor" display="Inventory Subject" static_entries="interactions.ParticipantType" description="Subject on which the household inventory exists." group="Picker Tuning" />
+
+        <TunableList name="valid_tags" class="TunableSet" display="Valid Tags" description="If object defintion has any tags in the list then it is a valid object to consider for picker." group="Picker Tuning" unique_entries="true">
+            <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" dynamic_entries_prefix="Func" group="General" invalid_entries="INVALID" pack_safe="True" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

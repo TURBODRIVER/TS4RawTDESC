@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.gardening.wisp.wisp_tuning">
+        <Class name="WispTuning">
+            <Tunable type="float" name="IDLE_VFX_DURATION" class="TunableRange" default="10" display="Idle Vfx Duration" min="0" max="None" description="The target duration for the Idle VFX." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="object_state" name="IDLE_VFX_STATE" class="TunableReference" display="Idle Vfx State" description="Idle VFX State." allow_none="False" group="General" pack_safe="True" restrict="ObjectState" />
+
+            <Tunable type="object_state" name="IDLE_VFX_STATE_VALUE_OFF" class="TunableReference" display="Idle Vfx State Value Off" description="Idle VFX State Value for when the Wisp is not active on a Plant." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <Tunable type="object_state" name="IDLE_VFX_STATE_VALUE_ON" class="TunableReference" display="Idle Vfx State Value On" description="Idle VFX State Value for when the Wisp is active on a Plant." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+
+            <Tunable type="int" name="MINIMUM_NUMBER_OF_ENCHANTED_PLANTS_ON_LOT" class="TunableRange" default="5" display="Minimum Number Of Enchanted Plants On Lot" min="0" max="None" description="The minimum number of enchanted plants on the lot to start the wisp." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="MINIMUM_NUMBER_OF_SURROUNDING_ENCHANTED_PLANTS" class="TunableRange" default="5" display="Minimum Number Of Surrounding Enchanted Plants" min="0" max="None" description="The minimum number of surrounding enchanted plants to start the wisp on a selected plant." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="float" name="PLANT_SEARCH_RADIUS" class="Tunable" default="10.0" display="Plant Search Radius" description="The radius for searching for surrounding plants to travel to." tuning_state="NeedsTuning" group="General" />
+
+            <TunableTuple name="TRAVEL_VFX" class="TunablePlayEffect" display="Travel Vfx" description="The VFX to play wisp is travel from one plant to another" group="General">
+                <Tunable type="str" name="effect_name" class="Tunable" default="" display="Effect Name" description="The name of the effect to play." group="General" />
+                <TunableVariant type="None" name="joint_name" class="OptionalTunable" default="Slot" display="Joint Name" description="Specify if the visual effect is attached to a slot and, if so, which slot." group="General">
+                    <Tunable name="Current_Position" class="TunableExistance" display="Current Position" />
+                    <Tunable type="str" name="Slot" class="TunableStringHash32" default="_FX_" display="Slot" description="The name of the slot this effect is attached to." group="General" />
+                </TunableVariant>
+                <Tunable type="bool" name="play_immediate" class="Tunable" default="False" display="Play Immediate" description="If checked, this effect will be triggered immediately, nothing will block. ex. VFX will be played immediately while the Sim is routing or animating." group="General" />
+            </TunableTuple>
+
+            <Tunable type="float" name="TRAVEL_VFX_DURATION" class="TunableRange" default="5" display="Travel Vfx Duration" min="0" max="None" description="The target duration for the Travel VFX." tuning_state="NeedsTuning" group="General" />
+
+            <TunableTuple name="WISP_SCHEDULE" class="TunableWeeklySchedule" display="Wisp Schedule" description="The schedule for when to start the wisp." group="General">
+                <TunableList name="schedule_entries" class="TunableList" display="Schedule Entries" description="A list of event schedules. Each event is a mapping of days of the week to a start_time and duration." group="General">
+                    <TunableTuple class="TunableScheduleEntry" description="A schedule. Define availability for days of the week. For the set of specified days, define an hour of the day and a duration, in hours. Optionally, specified if the start time is random within the tuned window." group="General">
+                        <TunableTuple name="days_available" class="TunableAvailableDays" display="Days Available" description="Which days of the week to include" group="General">
+                            <Tunable type="bool" name="0 SUNDAY" class="Tunable" default="False" display="0 Sunday" group="General" />
+                            <Tunable type="bool" name="1 MONDAY" class="Tunable" default="False" display="1 Monday" group="General" />
+                            <Tunable type="bool" name="2 TUESDAY" class="Tunable" default="False" display="2 Tuesday" group="General" />
+                            <Tunable type="bool" name="3 WEDNESDAY" class="Tunable" default="False" display="3 Wednesday" group="General" />
+                            <Tunable type="bool" name="4 THURSDAY" class="Tunable" default="False" display="4 Thursday" group="General" />
+                            <Tunable type="bool" name="5 FRIDAY" class="Tunable" default="False" display="5 Friday" group="General" />
+                            <Tunable type="bool" name="6 SATURDAY" class="Tunable" default="False" display="6 Saturday" group="General" />
+                        </TunableTuple>
+                        <Tunable type="float" name="duration" class="Tunable" default="1.0" display="Duration" description="Duration of this work session in hours." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="bool" name="random_start" class="Tunable" default="False" display="Random Start" description="If checked, this schedule will have a random start time in the tuned window each time." group="General" />
+                        <TunableEnum type="CareerShiftType" name="schedule_shift_type" class="TunableEnumEntry" default="ALL_DAY" display="Schedule Shift Type" static_entries="careers-career_enums.CareerShiftType" description="Shift Type for the schedule, this will be used for validations." group="General" />
+                        <TunableTuple name="start_time" class="TunableTimeOfDay" display="Start Time" description="An Hour(24Hr) and Minute representing a time relative to the beginning of a day." group="General">
+                            <Tunable type="int" name="hour" class="TunableRange" default="9" display="Hour" min="0" max="23" description="Hour of the day" tuning_state="NeedsTuning" group="General" />
+                            <Tunable type="int" name="minute" class="TunableRange" default="0" display="Minute" min="0" max="59" description="Minute of Hour" tuning_state="NeedsTuning" group="General" />
+                        </TunableTuple>
+                    </TunableTuple>
+                </TunableList>
+            </TunableTuple>
+        </Class>
+    </Module>
+</TuningRoot>

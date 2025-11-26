@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="services.roommate_service_utils.roommate_enums">
+        <Class name="RoommateLeaveReason" enum_bit_flag="False" enum_locked="True">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+
+            <EnumItem name="OVERCAPACITY" enum_value="1" />
+        </Class>
+
+        <Class name="LeaveReasonTestingTime" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALL_ROOMMATES" enum_value="3" />
+
+            <EnumItem name="HOUSEHOLD_ROOMMATES_ALL_LOTS" enum_value="1" />
+
+            <EnumItem name="HOUSEHOLD_ROOMMATES_HOME_LOT" enum_value="2" />
+
+            <EnumItem name="UNTESTED" enum_value="0" />
+        </Class>
+    </Module>
+</TuningRoot>
