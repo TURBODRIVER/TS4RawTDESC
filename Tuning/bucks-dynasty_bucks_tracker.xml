@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="bucks.dynasty_bucks_tracker">
+        <Class name="DynastyBucksTracker">
+            <TunableList name="BUCKS_TRACKER_REWARDS_CATEGORIES" class="TunableMapping" display="Bucks Tracker Rewards Categories" mapping_key="key" mapping_value="value" description="Ordered list of Dynasty Bucks Reward categories that will appear in the Dynasty Bucks rewards UI along with the perks that belong in the category." group="General" mapping_class="CategoryMapping">
+                <TunableTuple class="TunableTuple" group="General">
+                    <Tunable type="int" name="key" class="Tunable" default="0" display="Key" description="An integer value used to set the specific order of the categories in the UI. the lower numbers are displayed first in the UI." tuning_state="NeedsTuning" group="General" />
+                    <TunableTuple name="value" class="RewardCategoryInfoTuple" display="Value" description="Tuning structure holding all of the localized string data for the tuned Perk Category. " group="General">
+                        <Tunable type="int" name="category_name" class="TunableLocalizedString" default="0x0" display="Category Name" description="This is the localized name of the category that will show up in the Dynasty bucks UI." group="General" />
+                        <Tunable type="int" name="category_tooltip" class="TunableLocalizedString" default="0x0" display="Category Tooltip" description="This is the description that will show up when the user hovers over the category name for a while." group="General" />
+                        <TunableList name="rewards" class="TunableMapping" display="Rewards" mapping_key="key" mapping_value="value" description="An ordered list of the rewards that will appear in this category." group="General" mapping_class="RewardCategoryMapping">
+                            <TunableTuple class="TunableTuple" group="General">
+                                <Tunable type="int" name="key" class="Tunable" default="0" display="Key" description="An integer value used to order the appearance of the rewards inside of the category. The smaller numbers are sorted to the front of the list." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="bucks_perk" name="value" class="TunableReference" display="Value" description="The Buck Perk (reward) to display in the category panel of the UI." allow_none="False" group="General" pack_safe="True" />
+                            </TunableTuple>
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

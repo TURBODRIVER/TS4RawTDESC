@@ -29,7 +29,11 @@
 
             <EnumItem name="COUSIN" enum_value="17" />
 
+            <EnumItem name="COUSINS_CHILD" enum_value="36" />
+
             <EnumItem name="DESCENDANT" enum_value="12" />
+
+            <EnumItem name="DISTANT_RELATIVE" enum_value="25" />
 
             <EnumItem name="FIANCE" enum_value="10" />
 
@@ -37,19 +41,39 @@
 
             <EnumItem name="GRANDPARENT" enum_value="13" />
 
+            <EnumItem name="GRANDPARENT_SIBLING" enum_value="28" />
+
+            <EnumItem name="GREAT_GRANDCHILD" enum_value="27" />
+
+            <EnumItem name="GREAT_GRANDPARENT" enum_value="26" />
+
+            <EnumItem name="GREAT_GRANDPARENT_SIBLING" enum_value="32" />
+
+            <EnumItem name="HALF_SIBLING" enum_value="33" />
+
             <EnumItem name="NONE" enum_value="6" />
 
             <EnumItem name="PARENT" enum_value="7" />
 
             <EnumItem name="PARENT_IN_LAW" enum_value="22" />
 
+            <EnumItem name="PARENTS_COUSIN" enum_value="29" />
+
             <EnumItem name="PARENTS_SIBLING" enum_value="16" />
+
+            <EnumItem name="SECRET_CHILD" enum_value="35" />
+
+            <EnumItem name="SECRET_PARENT" enum_value="34" />
 
             <EnumItem name="SIBLING" enum_value="8" />
 
             <EnumItem name="SIBLING_IN_LAW" enum_value="24" />
 
             <EnumItem name="SIBLINGS_CHILD" enum_value="15" />
+
+            <EnumItem name="SIBLINGS_GRANDCHILD" enum_value="30" />
+
+            <EnumItem name="SIBLINGS_GREAT_GRANDCHILD" enum_value="31" />
 
             <EnumItem name="SPOUSE" enum_value="9" />
 
@@ -70,6 +94,12 @@
             <EnumItem name="LONG" enum_value="1" />
 
             <EnumItem name="SHORT" enum_value="2" />
+        </Class>
+
+        <Class name="FamilyMatrixType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="CLOSE" enum_value="0" />
+
+            <EnumItem name="EXTENDED" enum_value="1" />
         </Class>
     </Module>
 

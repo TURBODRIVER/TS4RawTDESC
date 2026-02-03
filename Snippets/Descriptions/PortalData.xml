@@ -1165,6 +1165,13 @@
                             </TunableTuple>
                         </TunableVariant>
                     </TunableList>
+                    <TunableVariant type="None" name="portal_interactions" class="OptionalTunable" default="disabled" display="Portal Interactions" description="The interactions to be performed when sim is entering and exiting the portal." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Enter and exit interactions." group="General">
+                            <Tunable type="interaction" name="enter_portal_interaction" class="TunableReference" display="Enter Portal Interaction" description="The interaction to be performed when sim is entering the portal." allow_none="False" group="General" />
+                            <Tunable type="interaction" name="exit_portal_interaction" class="TunableReference" display="Exit Portal Interaction" description="The interaction to be performed when sim is exiting the portal." allow_none="False" group="General" />
+                        </TunableTuple>
+                    </TunableVariant>
                 </TunableTuple>
                 <TunableTuple name="variable_jump" class="Tunable_PortalTypeDataVariableJump" display="Variable Jump" description="The entry and exit points for this portal are manually defined. However, the Sim animates through the portal. The animation is provided with information regarding the portal points' distance." group="General">
                     <TunableVariant type="None" name="_height_tolerance" class="TunableVariant" default="no_tolerance" display="Height Tolerance" description="Define the maximum height between the portal points and the object's location. If either the portal entry point or the portal exit point is at a location whose y position differs by more than this amount from the object's, the portal is not created." group="General">

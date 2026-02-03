@@ -20,6 +20,11 @@
                                         <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
                                     </TunableList>
                                 </TunableTuple>
+                                <TunableTuple name="dynasty" class="TunableDynastyIconFactory" display="Dynasty" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                    </TunableList>
+                                </TunableTuple>
                                 <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
                                     <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
                                         <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
@@ -31,8 +36,19 @@
                                     </TunableList>
                                 </TunableTuple>
                                 <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                                <TunableTuple name="ranked_statistic" class="TunableRankedStatisticIconFactory" display="Ranked Statistic" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who's ranked statistic we want to get." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                    </TunableList>
+                                    <Tunable type="statistic" name="ranked_statistic" class="TunableReference" display="Ranked Statistic" description="The statistic to find the icon of." allow_none="False" group="General" pack_safe="True" />
+                                </TunableTuple>
                                 <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
                                     <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                                </TunableTuple>
+                                <TunableTuple name="secret_scandal" class="TunableSecretScandalIconFactory" display="Secret Scandal" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="PickedSecret" display="Participant Type" description="The Participant is secret for which we want to get the icon from." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                                    </TunableList>
                                 </TunableTuple>
                                 <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
                                     <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
@@ -54,6 +70,11 @@
                                     <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
                                 </TunableList>
                             </TunableTuple>
+                            <TunableTuple name="dynasty" class="TunableDynastyIconFactory" display="Dynasty" group="General">
+                                <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                    <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                </TunableList>
+                            </TunableTuple>
                             <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
                                 <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
                                     <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
@@ -65,8 +86,19 @@
                                 </TunableList>
                             </TunableTuple>
                             <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                            <TunableTuple name="ranked_statistic" class="TunableRankedStatisticIconFactory" display="Ranked Statistic" group="General">
+                                <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who's ranked statistic we want to get." group="General" unique_entries="true">
+                                    <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                </TunableList>
+                                <Tunable type="statistic" name="ranked_statistic" class="TunableReference" display="Ranked Statistic" description="The statistic to find the icon of." allow_none="False" group="General" pack_safe="True" />
+                            </TunableTuple>
                             <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
                                 <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                            </TunableTuple>
+                            <TunableTuple name="secret_scandal" class="TunableSecretScandalIconFactory" display="Secret Scandal" group="General">
+                                <TunableList name="participant_type" class="TunableEnumFlags" default="PickedSecret" display="Participant Type" description="The Participant is secret for which we want to get the icon from." group="General" unique_entries="true">
+                                    <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                                </TunableList>
                             </TunableTuple>
                             <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
                                 <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">

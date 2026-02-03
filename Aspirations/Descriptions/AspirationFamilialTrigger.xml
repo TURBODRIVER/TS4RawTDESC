@@ -9,7 +9,7 @@
         </TunableList>
 
         <TunableList name="target_family_relationships" class="TunableSet" display="Target Family Relationships" description="The genetic relationships that will be notified when this Aspiration is completed." group="~Core~" unique_entries="true">
-            <TunableEnum type="FamilyRelationshipIndex" class="TunableEnumEntry" default="FATHER" static_entries="sims-genealogy_tracker.FamilyRelationshipIndex" description="A genetic relationship that will be notified when this Aspiraiton is completed." group="General" />
+            <TunableEnum type="RelationshipType" class="TunableEnumEntry" default="PARENT" static_entries="relationships-relationship_enums.RelationshipType" description="A genetic relationship that will be notified when this Aspiraiton is completed." group="General" />
         </TunableList>
     </Instance>
 </TuningRoot>

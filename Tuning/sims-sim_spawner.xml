@@ -25,6 +25,10 @@
                 </TunableTuple>
             </TunableList>
 
+            <TunableList name="PRONOUNS_SUPPORTED_LOCALES" class="TunableList" display="Pronouns Supported Locales" description="List of languages that support pronouns." group="General">
+                <TunableEnum type="Language" class="TunableEnumEntry" default="ENGLISH" dynamic_entries="sims-sim_spawner.Language._elements" static_entries="sims-sim_spawner.Language" group="General" />
+            </TunableList>
+
             <TunableList name="RANDOM_NAME_TUNING" class="TunableMapping" display="Random Name Tuning" mapping_key="language" mapping_value="random_name_tuning" description="A mapping of sim name language to lists of random family name and first names appropriate for that language. This is used to generate random sim names appropriate for each account's specified locale." group="General" mapping_class="TunableRandomNameMappingTuple">
                 <TunableTuple class="TunableTuple" group="General">
                     <TunableEnum type="Language" name="language" class="TunableEnumEntry" default="ENGLISH" display="Language" dynamic_entries="sims-sim_spawner.Language._elements" static_entries="sims-sim_spawner.Language" group="General" />

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.object_knowledge.object_knowledge_tests">
+        <Class name="KnowledgeType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALL" enum_value="2" />
+
+            <EnumItem name="KNOWN" enum_value="0" />
+
+            <EnumItem name="UNKNOWN" enum_value="1" />
+        </Class>
+
+        <Class name="ZoneType" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="ALL" enum_value="2" />
+
+            <EnumItem name="CURRENT" enum_value="0" />
+
+            <EnumItem name="OUT_OF_CURRENT" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>

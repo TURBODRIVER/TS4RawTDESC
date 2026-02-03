@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="sim_template" class="TunablePremadeAncestor" module="family_tree.ancestor_sim" description="The data that define an Ancestor" instance_subclasses_only="False" path="SimTemplates\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="death_trait" class="OptionalTunable" default="disabled" display="Death Trait" description="Death trait that will show the death reason of the sim in the Family Tree" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="trait" name="enabled" class="TunableReference" display="Enabled" description="Death trait" allow_none="False" group="General" pack_safe="True" restrict="Trait" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="full_name" class="OptionalTunable" default="disabled" display="Full Name" description="Full localized name of the sim: first name + last name" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="A localized string that may NOT require tokens." group="General" />
+        </TunableVariant>
+
+        <TunableEnum type="Gender" name="gender" class="TunableEnumEntry" default="MALE" display="Gender" static_entries="sims-sim_info_types.Gender" description="The gender of the Ancestor" group="General" />
+
+        <TunableVariant type="None" name="kingdom_data" class="OptionalTunable" default="disabled" display="Kingdom Data" description="If enabled, the data related to the Kingdoms for this Ancestor" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTunablePremadeAncestorKingdomData" display="Enabled" description="The data related to the Kingdoms for a Premade Ancestor" group="General">
+                <Tunable type="int" name="level" class="TunableRange" default="1" display="Level" min="1" max="10" description="The level of the Ancestor in the Kingdoms" tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="localized_title" class="TunableLocalizedString" default="0x0" display="Localized Title" description="The localized title of the Ancestor in the Kingdoms" group="General" />
+                <Tunable type="int" name="region_name" class="TunableLocalizedString" default="0x0" display="Region Name" description="The localized region name associated with the Ancestor in the Kingdoms" group="General" />
+            </TunableTuple>
+        </TunableVariant>
+
+        <TunableVariant type="None" name="thumbnail" class="OptionalTunable" default="disabled" display="Thumbnail" description="Thumbnail of the sim that will be used in the Family Tree" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="ResourceKey" name="enabled" class="TunableIcon" default="None" display="Enabled" description="Thumbnail texture" group="General" resource_types="0x2f7d0004" />
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="SwipeAddToWaypointSuperInteraction" module="carry.put_down_interactions" description="An alternate Add To World SI used for swiping things in a waypoint position." instance_needs_reference="True" instance_subclasses_only="False" parents="SwipeAddToWorldSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableEnum type="SurfaceType" name="surface_type" class="TunableEnumEntry" default="SURFACETYPE_POOL" display="Surface Type" static_entries="routing.SurfaceType" description="The surface type where we are gonna place the object." group="General" invalid_entries="SURFACETYPE_UNKNOWN" />
+
+        <TunableList name="waypoints" class="TunableList" display="Waypoints" description="List of waypoints where the object can be placed. The waypoint closest to the player will be selected." group="General">
+            <Tunable type="locator" class="TunableReference" description="Waypoint reference." group="General" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

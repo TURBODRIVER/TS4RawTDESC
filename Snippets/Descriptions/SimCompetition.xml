@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="SimCompetition" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableTuple name="value" class="TunableSimCompetition" display="Value" description="A tunable that represents a sim competition. Contains all the relevant information for a single competition." group="General">
+            <TdescFragTag name="availability_tests" class="TunableTestSetWithTooltip" display="Availability Tests" description="The tests that determine if this competition is available. Should include both general availability and competitor specific availability." group="General" />
+            <Tunable type="int" name="competition_description" class="TunableLocalizedString" default="0x0" display="Competition Description" description="The description of this competition." group="General" />
+            <TunableVariant type="None" name="competition_situation" class="OptionalTunable" default="disabled" display="Competition Situation" description="The situation to put sims in when they are in the competition." group="General">
+                <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                <Tunable type="situation" name="enabled" class="TunableReference" display="Enabled" description="The situation to put sims in when they are in the competition." allow_none="False" group="General" pack_safe="True" />
+            </TunableVariant>
+            <TunableList name="competition_start_loot_actions" class="TunableList" display="Competition Start Loot Actions" description="A list of loot actions to apply to the sim that is participating in a competition when the competition starts." group="General">
+                <Tunable type="action" class="TunableReference" description="A loot actions instance to apply to the sim when the competition starts." allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+            </TunableList>
+            <Tunable type="ResourceKey" name="cropped_hero_image" class="TunableIconAllPacks" default="None" display="Cropped Hero Image" description="A cropped version of the hero image." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+            <Tunable type="int" name="entry_fee" class="Tunable" default="0" display="Entry Fee" description="The fee that must be paid to enter the competition." tuning_state="NeedsTuning" group="General" />
+            <Tunable type="ResourceKey" name="hero_image" class="TunableIconAllPacks" default="None" display="Hero Image" description="The hero image (larger image) used for this competition." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+            <Tunable type="ResourceKey" name="icon" class="TunableIconAllPacks" default="None" display="Icon" description="The icon used to represent this competition." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+            <TunableList name="placements" class="TunableList" display="Placements" description="A list of all the possible placements the competitors can get, in descending order. Should include non-placement. Needs to have as many placements as the tournament has rounds plus one." group="General">
+                <TunableTuple class="SimCompetitionPlacement" description="A single placement in the competition." group="General">
+                    <Tunable type="trait" name="associated_sim_trait" class="TunableReference" display="Associated Sim Trait" description="The trait that, if present on the sim, indicates that the sim has earned this placement before. NOTE: this does NOT give the sim the trait, it only looks for this trait when loading the sim's data." allow_none="False" group="General" />
+                    <Tunable type="str" name="frame_name" class="Tunable" default="" display="Frame Name" description="The frame label (NOT number) from the UI .fla file(s) that we want to use for this placement. Determines various colors, effects, etc." group="General" />
+                    <Tunable type="ResourceKey" name="icon" class="TunableIconAllPacks" default="None" display="Icon" description="The icon image to be displayed." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                    <Tunable type="ResourceKey" name="large_icon" class="TunableIconAllPacks" default="None" display="Large Icon" description="A large version of the icon image to be displayed." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                    <TunableList name="loots" class="TunableList" display="Loots" description="The loots that will be rewarded alongside the simoleon amount." group="General">
+                        <Tunable type="action" class="TunableReference" description="A loot that will be rewarded." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                    </TunableList>
+                    <Tunable type="int" name="medal_name" class="TunableLocalizedString" default="0x0" display="Medal Name" description="The name we will use for the medal itself, including the word 'medal'. For example, 'Gold Medal', or 'No Medal'." group="General" />
+                    <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="The name of this placement." group="General" />
+                    <Tunable type="int" name="narrative_description" class="TunableLocalizedString" default="0x0" display="Narrative Description" description="The description of this placement, used in the results screen." group="General" />
+                    <Tunable type="int" name="results_title_text" class="TunableLocalizedString" default="0x0" display="Results Title Text" description="The text we will use in the results screen when we get this placement. For example, 'First Place!', or 'Try Again!'." group="General" />
+                    <Tunable type="int" name="simoleon_amount" class="Tunable" default="0" display="Simoleon Amount" description="The simoleon amount given when earning this reward. Note: this amount does NOT need to be tuned in the loot in order to be given." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+            </TunableList>
+            <TdescFragTag name="prerequisite_tests" class="TunableTestSetWithTooltip" display="Prerequisite Tests" description="The tests to determine if the given participants have met all of the prerequisites, such as completing other competitions." group="General" />
+            <Tunable type="bool" name="show_title" class="Tunable" default="True" display="Show Title" description="Do we want to display the title for this competition?" group="General" />
+            <TunableList name="sim_skill_requirements" class="TunableList" display="Sim Skill Requirements" description="A list of all skill requirements recommended for the sim entering this competition." group="General">
+                <TunableTuple class="SimCompetitionSkillRequirement" description="A single skill requirement for the competition." group="General">
+                    <Tunable type="int" name="recommended_level" class="Tunable" default="0" display="Recommended Level" description="The recommended level of specified skill for the competitor." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="statistic" name="skill" class="TunableReference" display="Skill" description="The skill this requirement checks against." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+                </TunableTuple>
+            </TunableList>
+            <Tunable type="int" name="title" class="TunableLocalizedString" default="0x0" display="Title" description="The title of this competition." group="General" />
+        </TunableTuple>
+    </Instance>
+
+    
+</TuningRoot>

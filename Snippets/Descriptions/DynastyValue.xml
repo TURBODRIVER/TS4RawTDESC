@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="DynastyValue" module="dynasty.dynasty_values" description="Container for DynastyValue data." instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableList name="aligned_activities" class="TunableList" display="Aligned Activities" description="Aligned activities." group="General">
+            <Tunable type="club_interaction_group" class="TunableReference" description="The ClubInteractionGroup that this activity applies to." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableEnum type="DynastyMemberPoses" name="aligned_dynasty_member_pose" class="TunableEnumEntry" default="FORMAL_STANDING" display="Aligned Dynasty Member Pose" static_entries="dynasty-dynasty.DynastyMemberPoses" group="General" />
+
+        <TunableList name="allowed_packs" class="TunableList" display="Allowed Packs" description="If non-empty, this Dynasty Value will only be available for tuned packs." group="General">
+            <TunableEnum type="Pack" class="TunableEnumEntry" default="BASE_GAME" static_entries="sims4-common.Pack" description="Will only be allowed for the specified pack," group="General" />
+        </TunableList>
+
+        <Tunable type="scommodity" name="autonomy_aligned_commodity" class="TunableReference" display="Autonomy Aligned Commodity" description="Static commodity used to advertise the aligned activities to the members of the dynasty." allow_none="False" group="General" pack_safe="True" />
+
+        <Tunable type="int" name="autonomy_aligned_misaligned_threshold" class="Tunable" default="0" display="Autonomy Aligned Misaligned Threshold" description="The threshold value above which the aligned activities are promoted, and below misaligned are." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="scommodity" name="autonomy_misaligned_commodity" class="TunableReference" display="Autonomy Misaligned Commodity" description="Static commodity used to advertise the misaligned activities to the members of the dynasty." allow_none="False" group="General" pack_safe="True" />
+
+        <TunableList name="career_tracks_aligned_hidden" class="TunableSet" display="Career Tracks Aligned Hidden" description="List of aligned career tracks that will NOT shown in UI. But still affects calculation. It will be used to calculate daily unity prestige effects." group="General" unique_entries="true">
+            <Tunable type="career_track" class="TunableReference" description="These are the career tracks that aligned to this value." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="career_tracks_aligned_visible" class="TunableSet" display="Career Tracks Aligned Visible" description="List of aligned career tracks that will shown in UI. It will be used to calculate daily unity prestige effects." group="UI" unique_entries="true">
+            <Tunable type="career_track" class="TunableReference" description="These are the career tracks that aligned to this value." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="career_tracks_misaligned_hidden" class="TunableSet" display="Career Tracks Misaligned Hidden" description="List of misaligned career tracks that will NOT shown in UI. It will be used to calculate daily unity prestige effects." group="General" unique_entries="true">
+            <Tunable type="career_track" class="TunableReference" description="These are the career tracks that misaligned to this value." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="career_tracks_misaligned_visible" class="TunableSet" display="Career Tracks Misaligned Visible" description="List of misaligned career tracks that will shown in UI. It will be used to calculate daily unity prestige effects." group="UI" unique_entries="true">
+            <Tunable type="career_track" class="TunableReference" description="These are the career tracks that misaligned to this value." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableVariant type="None" name="icon" class="OptionalTunable" default="disabled" display="Icon" description="If enabled, use this field instead of Skill icon." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="ResourceKey" name="enabled" class="TunableIcon" default="None" display="Enabled" description="Dynasty Value icon." group="General" resource_types="0x2f7d0004" />
+        </TunableVariant>
+
+        <TunableList name="loot_on_dynasty_value_added" class="TunableList" display="Loot On Dynasty Value Added" description="Loot Actions that will be applied to all members when a new dynasty values is added. It is applied after the old one is removed." group="General">
+            <Tunable type="action" class="TunableReference" description="Loot Actions that will be applied to all members when a new dynasty values is added." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="loot_on_dynasty_value_removed" class="TunableList" display="Loot On Dynasty Value Removed" description="Loot Actions that will be applied to all members when a dynasty values is removed. It is applied before new one is added." group="General">
+            <Tunable type="action" class="TunableReference" description="Loot Actions that will be applied to all members when a dynasty values is removed." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+        </TunableList>
+
+        <TunableList name="misaligned_activities" class="TunableList" display="Misaligned Activities" description="Misaligned activities" group="General">
+            <Tunable type="club_interaction_group" class="TunableReference" description="The ClubInteractionGroup that this activity applies to." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableVariant type="None" name="name" class="OptionalTunable" default="disabled" display="Name" description="If enabled, use this field instead of Skill name." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Name of Dynasty Value." group="General" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="skill" class="OptionalTunable" default="disabled" display="Skill" description="If enabled, we will use name, description and icons from Skill object." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="statistic" name="enabled" class="TunableReference" display="Enabled" description="The skill object if the Value is of Skill type." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+        </TunableVariant>
+
+        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="If enable, display the tooltip when hovering over this Value." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The tooltip to display." group="UI" />
+        </TunableVariant>
+
+        <TunableList name="trait_modifiers" class="TunableList" display="Trait Modifiers" description="Each trait has a mapping of a numerical value. The sum of all values for a Trait that a Sim has is used for To simulate daily Unity for NPC Members To Block encouragement of autonomous behavior if the sum is below 0. For example, if Vicious value has a Good opposing Trait, a Good Sim will not be encouraged autonomously to do Vicious interactions." group="General">
+            <TunableTuple class="TunableTuple" group="General">
+                <Tunable type="trait" name="trait" class="TunableReference" display="Trait" description="The Trait that the Sim must have to enable these modifiers." allow_none="False" group="General" pack_safe="True" />
+                <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The modifier associated with this trait." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+        </TunableList>
+
+        <TunableVariant type="None" name="value_description" class="OptionalTunable" default="disabled" display="Value Description" description="If enabled, use this field instead of Skill description." group="UI">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Description of Dynasty Value." group="General" />
+        </TunableVariant>
+
+        <TunableEnum type="Tag" name="value_type" class="TunableEnumEntry" default="INVALID" display="Value Type" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="A tag to indicate the type of the dynasty value." group="General" pack_safe="True" />
+
+        <TunableList name="values_conflicting" class="TunableSet" display="Values Conflicting" description="Opposing dynasty values." group="General" unique_entries="true">
+            <Tunable type="snippet" class="TunableReference" description="Dynasty Value." allow_none="False" group="General" pack_safe="True" restrict="DynastyValue" />
+        </TunableList>
+
+        <TunableList name="values_matching" class="TunableSet" display="Values Matching" description="Aligned dynasty values." group="General" unique_entries="true">
+            <Tunable type="snippet" class="TunableReference" description="Dynasty Value." allow_none="False" group="General" pack_safe="True" restrict="DynastyValue" />
+        </TunableList>
+
+        <TunableVariant type="None" name="whim_set" class="OptionalTunable" default="disabled" display="Whim Set" description="If enabled then this dynasty value will offer a whim set to the sims in the dynasty" group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <Tunable type="aspiration" name="enabled" class="TunableReference" display="Enabled" description="A whim set that is active when sim is added to dynasty with this dynasty value" allow_none="False" group="General" restrict="ObjectivelessWhimSet" />
+        </TunableVariant>
+    </Instance>
+
+    
+</TuningRoot>

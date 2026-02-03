@@ -55,7 +55,9 @@
                 <Tunable type="trait" class="TunableReference" description="A significant trait." allow_none="False" group="General" pack_safe="True" />
             </TunableList>
 
-            <Tunable type="relbit" name="WORKPLACE_RIVAL_RELATIONSHIP_BIT" class="TunableReference" display="Workplace Rival Relationship Bit" description="A reference to the bit a Sim has with another Sim who is in the same career to make them rivals. " allow_none="False" group="General" pack_safe="True" />
+            <TunableList name="WORKPLACE_RIVAL_RELATIONSHIP_BITS" class="TunableList" display="Workplace Rival Relationship Bits" description="A list of references to the bit a Sim has with another Sim who is in the same career to make them rivals." group="General">
+                <Tunable type="relbit" class="TunableReference" description="A relationship bit that signifies that this is a workplace rivalry." allow_none="False" group="General" pack_safe="True" />
+            </TunableList>
         </Class>
 
         <Class name="TropeGlobalTuning">
@@ -100,4 +102,6 @@
             </TunableList>
         </Class>
     </Module>
+
+    
 </TuningRoot>

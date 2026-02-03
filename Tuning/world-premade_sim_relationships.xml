@@ -3,6 +3,17 @@
 <TuningRoot>
     <Module name="world.premade_sim_relationships">
         <Class name="PremadeSimRelationships">
+            <TunableList name="FAMILY_RELATIONS_FIXUP" class="TunableList" display="Family Relations Fixup" description="Relationship to give between premade Sims or Ancestors." group="General">
+                <TunableTuple class="TunableTuple" description="Two Sims and a FamilyRelationFlag." group="General">
+                    <Tunable type="bool" name="apply_on_legacy_saves" class="Tunable" default="False" display="Apply On Legacy Saves" description="This relation will be applied even if the sims are already present in the save." group="General" />
+                    <TunableList name="flag" class="TunableEnumFlags" display="Flag" min="1" description="FamilyRelationBitFlag to add from sim_a to sim_b ex: Sim_A Parent of Sim_B" group="General" unique_entries="true">
+                        <TunableEnum type="FamilyRelationBitFlags" class="TunableEnumEntry" default="NONE" static_entries="family_tree-family_tree_enums.FamilyRelationBitFlags" group="General" invalid_entries="NONE" />
+                    </TunableList>
+                    <Tunable type="sim_template" name="sim_a" class="TunableReference" display="Sim A" description="Family Relationship to create from sim_a to sim_b (sim_a being parent of sim_b)" allow_none="False" group="General" pack_safe="True" />
+                    <Tunable type="sim_template" name="sim_b" class="TunableReference" display="Sim B" description="Family Relationship to create that sim_b will receive from sim_a (sim_b becoming child of sim_a if flag is Parent)" allow_none="False" group="General" pack_safe="True" />
+                </TunableTuple>
+            </TunableList>
+
             <TunableList name="RELATIONSHIP_MAP" class="TunableList" display="Relationship Map" description="Relationship to give between premade Sims in different households." group="General">
                 <TunableTuple class="TunableTuple" description="Two Sims and a loot. The two Sims must be in different premade households, and there can only be one entry per pair of Sims." group="General">
                     <Tunable type="action" name="relationship_loot" class="TunableReference" display="Relationship Loot" description="Loot that contains relationship to add between the two Sims. Sim A is Actor and Sim B is TargetSim." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />

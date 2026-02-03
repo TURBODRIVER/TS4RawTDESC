@@ -22,6 +22,36 @@
                     <Tunable type="bool" name="use_adoptors_last_name" class="Tunable" default="True" display="Use Adoptors Last Name" description="If checked then we will change the last name of the created Sim to the last name of the Sim adopting them." group="General" />
                 </TunableTuple>
                 <TunableTuple name="career_add" class="TunableAddCareerStoryProgressionAction" display="Career Add" description="Story progression action that adds a career to a Sim." group="General">
+                    <TunableList name="careers_blacklist" class="TunableList" display="Careers Blacklist" description="List of careers that this action cannot apply to. If empty, no careers are excluded." group="General">
+                        <Tunable type="career" class="TunableReference" description="A career that this action can apply to." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="careers_whitelist" class="TunableList" display="Careers Whitelist" description="List of careers that this action can apply to. If empty, all careers are valid." group="General">
+                        <Tunable type="career" class="TunableReference" description="A career that this action can apply to." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableVariant type="None" name="store_career_name_participant" class="OptionalTunable" default="disabled" display="Store Career Name Participant" description="If enabled we will store off the career name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_household_name_participant" class="OptionalTunable" default="disabled" display="Store Household Name Participant" description="If enabled we will store off the affected household name for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_job_name_participant" class="OptionalTunable" default="disabled" display="Store Job Name Participant" description="If enabled we will store off the job name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                    <TunableVariant type="None" name="store_world_name_participant" class="OptionalTunable" default="disabled" display="Store World Name Participant" description="If enabled we will store off the target world name into the specified participant type for future use in tokens or other resolvers." group="General">
+                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                        <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
+                    </TunableVariant>
+                </TunableTuple>
+                <TunableTuple name="career_promote" class="TunablePromoteCareerStoryProgressionAction" display="Career Promote" description="Story progression action that promotes Sim's career" group="General">
+                    <TunableList name="careers_blacklist" class="TunableList" display="Careers Blacklist" description="List of careers that this action cannot apply to. If empty, no careers are excluded." group="General">
+                        <Tunable type="career" class="TunableReference" description="A career that this action can apply to." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="careers_whitelist" class="TunableList" display="Careers Whitelist" description="List of careers that this action can apply to. If empty, all careers are valid." group="General">
+                        <Tunable type="career" class="TunableReference" description="A career that this action can apply to." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
                     <TunableVariant type="None" name="store_career_name_participant" class="OptionalTunable" default="disabled" display="Store Career Name Participant" description="If enabled we will store off the career name into the specified participant type for future use in tokens or other resolvers." group="General">
                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                         <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
@@ -40,6 +70,12 @@
                     </TunableVariant>
                 </TunableTuple>
                 <TunableTuple name="career_remove" class="TunableRemoveCareerStoryProgressionAction" display="Career Remove" description="Story progression action that removes a career from a Sim." group="General">
+                    <TunableList name="careers_blacklist" class="TunableList" display="Careers Blacklist" description="List of careers that this action cannot apply to. If empty, no careers are excluded." group="General">
+                        <Tunable type="career" class="TunableReference" description="A career that this action can apply to." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="careers_whitelist" class="TunableList" display="Careers Whitelist" description="List of careers that this action can apply to. If empty, all careers are valid." group="General">
+                        <Tunable type="career" class="TunableReference" description="A career that this action can apply to." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
                     <TunableVariant type="None" name="store_career_name_participant" class="OptionalTunable" default="disabled" display="Store Career Name Participant" description="If enabled we will store off the career name into the specified participant type for future use in tokens or other resolvers." group="General">
                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                         <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />
@@ -58,6 +94,12 @@
                     </TunableVariant>
                 </TunableTuple>
                 <TunableTuple name="career_retire" class="TunableRetireStoryProgressionAction" display="Career Retire" description="Story progression action that retires a Sim." group="General">
+                    <TunableList name="careers_blacklist" class="TunableList" display="Careers Blacklist" description="List of careers that this action cannot apply to. If empty, no careers are excluded." group="General">
+                        <Tunable type="career" class="TunableReference" description="A career that this action can apply to." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
+                    <TunableList name="careers_whitelist" class="TunableList" display="Careers Whitelist" description="List of careers that this action can apply to. If empty, all careers are valid." group="General">
+                        <Tunable type="career" class="TunableReference" description="A career that this action can apply to." allow_none="False" group="General" pack_safe="True" />
+                    </TunableList>
                     <TunableVariant type="None" name="store_career_name_participant" class="OptionalTunable" default="disabled" display="Store Career Name Participant" description="If enabled we will store off the career name into the specified participant type for future use in tokens or other resolvers." group="General">
                         <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                         <TunableEnum type="ParticipantTypeSavedStoryProgressionString" name="enabled" class="TunableEnumEntry" default="SavedStoryProgressionString1" display="Enabled" static_entries="interactions.ParticipantTypeSavedStoryProgressionString" group="General" />

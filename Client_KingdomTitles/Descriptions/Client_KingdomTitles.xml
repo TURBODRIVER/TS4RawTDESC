@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="kingdomtitles" class="Client_KingdomTitles" module="kingdomtitles.Client_KingdomTitles" description="Defines the titles for each level in the Kingdom" path="Client_KingdomTitles\Descriptions">
+        <TunableList name="LevelMap" class="TunableMapping" display="Levels" mapping_key="Level" mapping_value="LevelData" description="Configuration for each career level" mapping_class="Client_KingdomTitles.LevelMapEntry">
+            <TunableTuple name="LevelMapEntry" class="Client_KingdomTitles.LevelMapEntry">
+                <Tunable type="int" name="Level" class="TunableEnumEntry" default="0" display="Level" description="Career level" />
+                <TunableTuple name="LevelData" class="Client_KingdomTitles.LevelData">
+                    <TunableTuple name="Primary" class="Client_KingdomTitles.PriorityData" display="Primary/Secondary" description="Primary and Secondary priority default title strings">
+                        <Tunable type="int" name="Female" class="TunableLocalizedString" default="0x0" />
+                        <Tunable type="int" name="Male" class="TunableLocalizedString" default="0x0" />
+                        <Tunable type="int" name="Neutral" class="TunableLocalizedString" default="0x0" />
+                    </TunableTuple>
+                    <TunableTuple name="Tertiary" class="Client_KingdomTitles.PriorityData" display="Tertiary" description="Tertiary priority default title strings">
+                        <Tunable type="int" name="Female" class="TunableLocalizedString" default="0x0" />
+                        <Tunable type="int" name="Male" class="TunableLocalizedString" default="0x0" />
+                        <Tunable type="int" name="Neutral" class="TunableLocalizedString" default="0x0" />
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

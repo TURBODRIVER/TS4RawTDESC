@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="dynasty_seed" class="DynastySeed" module="dynasty.dynasty_tunings" description="A tuning structure that specifies all the needed data to create a dynasty." instance_needs_reference="True" instance_subclasses_only="False" path="DynastySeeds\Descriptions" use_guid_for_reference="True">
+        <TunableList name="allies" class="TunableSet" display="Allies" description="A set of allied dynasties." group="General" unique_entries="true">
+            <Tunable type="dynasty_seed" class="TunableReference" description="The allied dynasty seed." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <Tunable type="int" name="dynasty_description" class="TunableLocalizedString" default="0x0" display="Dynasty Description" description="This Dynasty's description." group="UI" />
+
+        <TunableList name="dynasty_ideals" class="TunableSet" display="Dynasty Ideals" max="3" description="A set of values for the dynasty." group="General" unique_entries="true">
+            <Tunable type="snippet" class="TunableReference" description="Dynasty Value." allow_none="False" group="General" pack_safe="True" restrict="DynastyValue" />
+        </TunableList>
+
+        <TunableList name="dynasty_skills" class="TunableSet" display="Dynasty Skills" max="3" description="A set of values for the dynasty." group="General" unique_entries="true">
+            <Tunable type="snippet" class="TunableReference" description="Dynasty Value." allow_none="False" group="General" pack_safe="True" restrict="DynastyValue" />
+        </TunableList>
+
+        <Tunable type="ResourceKey" name="icon" class="TunableIcon" default="None" display="Icon" description="The icon image to be displayed." group="UI" resource_types="0x2f7d0004" />
+
+        <Tunable type="ResourceKey" name="icon_background" class="TunableIcon" default="None" display="Icon Background" description="The icon image to be displayed." group="UI" resource_types="0x2f7d0004" />
+
+        <Tunable type="float" name="initial_prestige" class="Tunable" default="100" display="Initial Prestige" description="The initial prestige for the dynasty." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="float" name="initial_unity" class="Tunable" default="150" display="Initial Unity" description="The initial unity for the dynasty." tuning_state="NeedsTuning" group="General" />
+
+        <Tunable type="int" name="name" class="TunableLocalizedString" default="0x0" display="Name" description="This Dynasty's display name." group="UI" />
+
+        <TunableList name="rivals" class="TunableSet" display="Rivals" description="A set of rival dynasties." group="General" unique_entries="true">
+            <Tunable type="dynasty_seed" class="TunableReference" description="The rival dynasty seed." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
+        <TunableList name="unlocked_perks" class="TunableSet" display="Unlocked Perks" description="A set of perks that should be unlocked for the dynasty." group="General" unique_entries="true">
+            <Tunable type="bucks_perk" class="TunableReference" description="The Dynasty Buck Perk." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -33,12 +33,33 @@
             </TunableTuple>
         </TunableVariant>
 
+        <TunableList name="client_fixups" class="TunableList" display="Client Fixups" description="A list of client fixups that will be applied to the SimInfo" group="General">
+            <TunableVariant type="None" class="TunableVariant" default="none" group="General">
+                <TunableTuple name="kingdom_sim_client_fixup" class="TunableKingdomSimClientFixup" display="Kingdom Sim Client Fixup" description="A fixup for a Sim that belongs to a kingdom." group="General">
+                    <Tunable type="sim_template" name="inheriting_premade_sim" class="TunableReference" display="Inheriting Premade Sim" description="The premade Sim that will inherit the title and kingdom of this Sim." allow_none="False" group="General" restrict="PremadeSimTemplate" />
+                    <Tunable type="int" name="level" class="Tunable" default="0" display="Level" description="The level of the kingdom this Sim belongs to." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="int" name="priority" class="Tunable" default="1" display="Priority" description="The priority of the sim in the kingdom." tuning_state="NeedsTuning" group="General" />
+                </TunableTuple>
+                <Tunable name="none" class="TunableExistance" display="None" />
+            </TunableVariant>
+        </TunableList>
+
         <TunableList name="clubs" class="TunableList" display="Clubs" description="Clubs this premade Sim is part of." group="General">
             <TunableTuple class="TunableTuple" group="General">
                 <Tunable type="bool" name="leader" class="Tunable" default="False" display="Leader" description="If enabled, this Sim will be the leader of the club." group="General" />
                 <Tunable type="club_seed" name="seed" class="TunableReference" display="Seed" description="The club seed for the premade Sim to be in." allow_none="False" group="General" />
             </TunableTuple>
         </TunableList>
+
+        <TunableVariant type="None" name="dynasty" class="OptionalTunable" default="disabled" display="Dynasty" description="Dynasty of the sim." group="General">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TunableTuple name="enabled" class="TunableTuple" display="Enabled" group="General">
+                <Tunable type="bool" name="is_black_sheep" class="Tunable" default="False" display="Is Black Sheep" description="If enabled, this Sim will be a black sheep in the dynasty." group="General" />
+                <Tunable type="bool" name="is_head" class="Tunable" default="False" display="Is Head" description="If enabled, this Sim will be the head of the dynasty." group="General" />
+                <Tunable type="bool" name="is_heir" class="Tunable" default="False" display="Is Heir" description="If enabled, this Sim will be the heir of the dynasty." group="General" />
+                <Tunable type="dynasty_seed" name="seed" class="TunableReference" display="Seed" description="The dynasty seed for the premade Sim to be in." allow_none="False" group="General" pack_safe="True" />
+            </TunableTuple>
+        </TunableVariant>
 
         <TunableVariant type="None" name="occult" class="OptionalTunable" default="disabled" display="Occult" description="Whether or not the Sim will have an occult." group="General">
             <Tunable name="disabled" class="TunableExistance" display="Disabled" />

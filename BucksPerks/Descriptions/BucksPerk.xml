@@ -160,6 +160,14 @@
                         <Tunable name="use_default" class="TunableExistance" display="Use Default" />
                     </TunableVariant>
                 </TunableTuple>
+                <TunableTuple name="dynasty_prestige" class="TunableTunableRewardWDynastyPrestige" display="Dynasty Prestige" description="A tunable amount of Dynasty Prestige to be given to a single Sim or all Sims in a household as a reward." group="General">
+                    <Tunable type="float" name="amount" class="Tunable" default="1" display="Amount" description="The amount of individual prestige awarded to the sim or household." tuning_state="NeedsTuning" group="General" />
+                    <TunableVariant type="None" name="text" class="TunableVariant" default="use_default" display="Text" description="Specify the display text to use for this tunable. This tuning structure may be shared across multiple tunables. It is up to the system consuming the tunable to determine in which ways the tuned display text is used. e.g. Loot Operations The adventure system auto-generates notifications based on the loot that was awarded from a chance card. A loot's display text, if used, will be an item in the generated bulleted list. The ability to override display text allows tuners to set custom next in such notifications. e.g. Reward Tuning Rewards have display text so that, similarly to adventures, a bulleted list of entries can be auto-generated when obtained by a Sim. Use this tunable to control the text of such entries." group="General">
+                        <Tunable name="no_text" class="TunableExistance" display="No Text" />
+                        <Tunable type="int" name="override" class="TunableLocalizedString" default="0x0" display="Override" description="Specify a string override. The tokens are different depending on the type of tunable." group="General" />
+                        <Tunable name="use_default" class="TunableExistance" display="Use Default" />
+                    </TunableVariant>
+                </TunableTuple>
                 <TunableTuple name="money" class="TunableTunableRewardMoney" display="Money" description="A tunable simoleon amount to be given as a reward." group="General">
                     <TunableVariant type="None" name="money" class="TunableLiteralOrRandomValue" default="literal" display="Money" description="Give money to a sim/household." group="General">
                         <TunableTuple name="literal" class="TunableIntervalLiteral" display="Literal" description="A literal value that is to be used as the lower and upper bound of an interval. This allows both literal and range interval tunings in the same TunableVariant without having to manually set the lower and upper bounds to the same value." group="General">

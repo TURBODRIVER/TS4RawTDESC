@@ -9,6 +9,8 @@
 
             <EnumItem name="ICON_DESCRIPTION_DATA" enum_value="2" />
 
+            <EnumItem name="NOTEBOOK_EXPANDABLE_SECRET_SCANDAL" enum_value="4" />
+
             <EnumItem name="NUMBERED_DATA" enum_value="1" />
         </Class>
 
@@ -24,6 +26,7 @@
                         <Tunable type="ResourceKey" name="category_icon" class="TunableIconAllPacks" default="None" display="Category Icon" description="Icon to display on the notebook UI corresponding to a category." allow_none="True" group="General" pack_safe="True" resource_types="0x2f7d0004" />
                         <Tunable type="ResourceKey" name="category_large_icon" class="TunableIconAllPacks" default="None" display="Category Large Icon" description="Large version of the icon to display on the notebook UI corresponding to a category." group="General" pack_safe="True" resource_types="0x2f7d0004" />
                         <Tunable type="int" name="category_name" class="TunableLocalizedString" default="0x0" display="Category Name" description="Name corresponding a the notebook category." group="General" />
+                        <Tunable type="bool" name="display_subcategory_title" class="Tunable" default="False" display="Display Subcategory Title" description="If True, it will be displayed the selected subcategory name." group="General" />
                         <TunableList name="subcategories" class="TunableMapping" display="Subcategories" mapping_key="key" mapping_value="value" description="A mapping from a notebook category ID to its global tuning data." group="General">
                             <TunableTuple class="TunableTuple" group="General">
                                 <TunableEnum type="NotebookSubCategories" name="key" class="TunableEnumEntry" default="INVALID" display="Key" dynamic_entries="ui-notebook_tuning.NotebookSubCategories._elements" static_entries="ui-notebook_tuning.NotebookSubCategories" description="Subcategory type." group="General" pack_safe="True" />

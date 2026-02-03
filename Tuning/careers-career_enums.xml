@@ -45,6 +45,8 @@
 
             <EnumItem name="MISSIONS_CAREER" enum_value="5" />
 
+            <EnumItem name="NOBLE_CAREER" enum_value="10" />
+
             <EnumItem name="NORMAL_CAREER" enum_value="0" />
 
             <EnumItem name="ODD_JOB_CAREER" enum_value="3" />
@@ -56,6 +58,8 @@
             <EnumItem name="SMALL_BUSINESS_CAREER" enum_value="9" />
 
             <EnumItem name="UNIVERSITY_COURSE" enum_value="4" />
+
+            <EnumItem name="VIRTUAL_NOBLE_CAREER" enum_value="11" />
         </Class>
 
         <Class name="GigResult" enum_bit_flag="False" enum_locked="False">
@@ -84,6 +88,8 @@
             <EnumItem name="MORNING" enum_value="1" />
 
             <EnumItem name="MULTI_DAY" enum_value="3" />
+
+            <EnumItem name="TWENTY_FOUR_HOURS" enum_value="4" />
         </Class>
 
         <Class name="ReceiveDailyHomeworkHelp" enum_bit_flag="False" enum_locked="False">
@@ -152,6 +158,18 @@
             </TunableList>
 
             <EnumItem name="DEFAULT" enum_value="0" />
+        </Class>
+
+        <Class name="CareerPromotionReason" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="KINGDOM_CLAIM_TITLE" enum_value="2" />
+
+            <EnumItem name="KINGDOM_INHERIT_PROMISED_SIM" enum_value="1" />
+
+            <EnumItem name="NONE" enum_value="0" />
         </Class>
     </Module>
 

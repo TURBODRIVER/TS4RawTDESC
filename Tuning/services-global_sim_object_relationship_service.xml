@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="services.global_sim_object_relationship_service">
+        <Class name="GlobalSimObjectRelationshipService">
+            <TunableList name="GLOBAL_KNOWLEDGE_UNLOCK_BY_TESTS" class="TunableMapping" display="Global Knowledge Unlock By Tests" mapping_key="knowledge_tag" mapping_value="tests" description="A mapping of tests that unlock sim knowing all objects with a knowledge tag." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Tag" name="knowledge_tag" class="TunableTag" default="INVALID" display="Knowledge Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag that the knowledge about will be granted for." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                    <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="Tests that need to be fulfilled for the knowledge to be granted." group="General" />
+                </TunableTuple>
+            </TunableList>
+
+            <TunableList name="ON_KNOWLEDGE_CHANGE_PER_TAG_LOOT" class="TunableMapping" display="On Knowledge Change Per Tag Loot" mapping_key="knowledge_tag" mapping_value="loot_actions" description="A mapping of loots to be applied to a sim for specific tag when the knowledge could have been changed or new object have been loaded via zone change." group="General">
+                <TunableTuple class="TunableTuple" group="General">
+                    <TunableEnum type="Tag" name="knowledge_tag" class="TunableTag" default="INVALID" display="Knowledge Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag for object with which the loot should be granted." dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+                    <TunableTuple name="loot_actions" class="TunableTuple" display="Loot Actions" description="The list of loots to be granted to the sim using the object as the target when their knowledge about the object has changed." group="General">
+                        <TunableList name="known_object_loot" class="TunableList" display="Known Object Loot" description="The list of loots to be granted when sim has knowledge about this object." group="General">
+                            <Tunable type="action" class="TunableReference" description="The loot to be granted when sim has knowledge about this object." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                        </TunableList>
+                        <TunableList name="unknown_object_loot" class="TunableList" display="Unknown Object Loot" description="The list of loots to be granted when sim does not have knowledge about this object." group="General">
+                            <Tunable type="action" class="TunableReference" description="The loot to be granted when sim does not have knowledge about this object." allow_none="False" group="General" pack_safe="True" restrict="LootActions" />
+                        </TunableList>
+                    </TunableTuple>
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

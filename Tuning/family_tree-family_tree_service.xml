@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="family_tree.family_tree_service">
+        <Class name="FamilyTreeService">
+            <Tunable type="relbit" name="ADOPTED_BY_SIM_BIT" class="TunableReference" display="Adopted By Sim Bit" description="A bit indicating that the target of the relationship is the sim that adopted the source. (Opposite of ADOPTED_SIM_BIT)" allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="ADOPTED_SIM_BIT" class="TunableReference" display="Adopted Sim Bit" description="A bit indicating that the target of the relationship is the sim that the source adopted. (Opposite of ADOPTED_BY_SIM_BIT)" allow_none="False" group="General" />
+
+            <TunableList name="CLOSE_FAMILY_MATRIX" class="TunableList" display="Close Family Matrix" description="4x4 Matrix that contains all the relbits that represent close family, which are those that can happen in family relations between Sim A and Sim B. These shall be Spouse, Parent, Grandparent, Great-Grandparent, Child, Sibling, Uncle/Aunt, Great Uncle/Aunt, Grandchild, Nephew, Cousin, 1st Cousin Once Removed, Great Grandchild, Grand Nephew or Niece, 1st Cousin Once Removed, and 2nd Cousin. The indices to access this matrix shall be the Ancestry Depth for both sims. ---- Sim B's ancestry depth ----> +-------------+-------------+-------------+-------------+ | | | | Great | | Spouse | Parent | Grandparent | Grandparent | |0-0 |1-0 |2-0 |3-0 | +-------------+-------------+-------------+-------------+ | | | | | Grand | | | Child | Sibling | Uncle/Aunt | Uncle/Aunt | | |0-1 |1-1 |2-1 |3-1 | Sim A's +-------------+-------------+-------------+-------------+ ancestry | | Nephew | | 1st Cousin | depth | Grandchild | /Niece | Cousin | 1xRemoved | | |0-2 |1-2 |2-2 |3-2 | | +-------------+-------------+-------------+-------------+ V | Great | Grand | 1st Cousin | | | Grandchild |Nephew/Niece | 1xRemoved | 2nd Cousin | |0-3 |1-3 |2-3 |3-3 | +-------------+-------------+-------------+-------------+" group="General">
+                <TunableList class="TunableList" group="General">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" />
+                </TunableList>
+            </TunableList>
+
+            <Tunable type="relbit" name="DEAD_SPOUSE_RELATIONSHIP_BIT" class="TunableReference" display="Dead Spouse Relationship Bit" description="A bit indicating that one Sim is another Sim's deceased spouse." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="DISTANT_ANCESTOR_BIT" class="TunableReference" display="Distant Ancestor Bit" description="A bit indicating that one Sim is another Sim's distant ancestor." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="DISTANT_DESCENDANT_BIT" class="TunableReference" display="Distant Descendant Bit" description="A bit indicating that one Sim is another Sim's distant descendant." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="DISTANT_RELATIVE_BIT" class="TunableReference" display="Distant Relative Bit" description="A bit indicating that one Sim is another Sim's distant relative." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="DIVORCED_SPOUSE_RELATIONSHIP_BIT" class="TunableReference" display="Divorced Spouse Relationship Bit" description="A bit indicating that one Sim is another Sim's estranged spouse." allow_none="False" group="General" />
+
+            <TunableList name="EXTENDED_FAMILY_MATRIX" class="TunableList" display="Extended Family Matrix" description="3x3 Matrix that contains all the relbits that represent extended family, which are those that can happen in family relations between Sim A's Partner and Sim B. These shall be Spouse, Parent in Law, Grandparent in Law, Child, Sibling in Law, Uncle or Aunt in Law, Grand Child, Nephew or Niece in Law, and Cousin in Law. The indices to access this matrix shall be the Ancestry Depth for both sims. Note that in contrast with the CLOSE_FAMILY_MATRIX matrix, this one uses Sim A's Partner's ancestry depth in relation to Sim B, not Sim A's ancestry depth. --- Sim B's ancestry depth ---> +-------------+-------------+-------------+ | | Parent | | | Spouse | in | Grandparent | | | Law | in Law | | +-------------+-------------+-------------+ | | | Sibling | Uncle or | Sim A's | Child | in | Aunt in | partner's | | Law | Law | ancestry +-------------+-------------+-------------+ depth | | Nephew or | Cousin | | | Grandchild | Niece in | in | V | | Law | Law | +-------------+-------------+-------------+" group="General">
+                <TunableList class="TunableList" group="General">
+                    <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" />
+                </TunableList>
+            </TunableList>
+
+            <Tunable type="relbit" name="GENERIC_IN_LAW_BIT" class="TunableReference" display="Generic In Law Bit" description="A bit indicating that one Sim is another Sim's generic/distant inlaw. Used as fallback for inlaws that are not represented in the matrix, or are just enough far away for us to not care that much, but still want to indicate they're inlaws." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="HALF_SIBLING_RELATIONSHIP_BIT" class="TunableReference" display="Half Sibling Relationship Bit" description="A bit indicating that one Sim is another Sim's half sibling (they share the same parent, but not the other)." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="HIDDEN_STEP_FAMILY_RELATIONSHIP_BIT" class="TunableReference" display="Hidden Step Family Relationship Bit" description="A bit indicating that one Sim was another Sim's step-family before the sim connecting them died." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="HIDDEN_STEP_PARENT_RELATIONSHIP_BIT" class="TunableReference" display="Hidden Step Parent Relationship Bit" description="A bit indicating that one Sim was another Sim's step-parent before the sim connecting them died." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="SPOUSE_OF_CHILD_RELATIONSHIP_BIT" class="TunableReference" display="Spouse Of Child Relationship Bit" description="A bit indicating that one Sim is the spouse of another Sim's child." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="SPOUSE_OF_GRAND_CHILD_RELATIONSHIP_BIT" class="TunableReference" display="Spouse Of Grand Child Relationship Bit" description="A bit indicating that one Sim is the spouse of another Sim's grand-child." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="SPOUSE_OF_PIBLING_RELATIONSHIP_BIT" class="TunableReference" display="Spouse Of Pibling Relationship Bit" description="A bit indicating that one Sim is the spouse of another Sim's pibling (sibling of parent)." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="STEP_CHILD_RELATIONSHIP_BIT" class="TunableReference" display="Step Child Relationship Bit" description="A bit indicating that one Sim is another Sim's step-child." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="STEP_PARENT_RELATIONSHIP_BIT" class="TunableReference" display="Step Parent Relationship Bit" description="A bit indicating that one Sim is another Sim's step-parent." allow_none="False" group="General" />
+
+            <Tunable type="relbit" name="STEP_SIBLING_RELATIONSHIP_BIT" class="TunableReference" display="Step Sibling Relationship Bit" description="A bit indicating that one Sim is another Sim's step-sibling." allow_none="False" group="General" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>

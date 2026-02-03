@@ -144,6 +144,12 @@
                                                     <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
                                                 </TunableVariant>
                                             </TunableTuple>
+                                            <TunableTuple name="can_be_promoted" class="TunableCareerCanBePromotedTest" display="Can Be Promoted" description="Used to check whether any of the career on the participant can be taken to next level (can be promoted)." group="General">
+                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                </TunableVariant>
+                                            </TunableTuple>
                                             <TunableTuple name="can_join_career" class="TunableCareerAvailabilityTestFactory" display="Can Join Career" description="A test for whether a sim can join a tunable number threshold of the tuned careers. This requires that the career be valid for the sim and that the sim not already be in the career." group="General">
                                                 <TunableTuple name="careers_to_consider" class="TunableWhiteBlackList" display="Careers To Consider" description="The set of careers to consider and the threshold for passing." group="General">
                                                     <TunableVariant type="None" name="blacklist" class="OptionalTunable" default="nothing" display="Blacklist" description="When an item is tested against this white/black list, it is only allowed if it is not in the blacklist. If no blacklist is specified, no items are disallowed." group="General">
@@ -177,6 +183,16 @@
                                                         </TunableTuple>
                                                     </TunableVariant>
                                                 </TunableTuple>
+                                            </TunableTuple>
+                                            <TunableTuple name="career_in_category" class="TunableCareerInCategoryTestFactory" display="Career In Category" description="Test for whether or not the specified subjects have careers within the specified categories." group="General">
+                                                <TunableList name="career_categories" class="TunableEnumSet" display="Career Categories" description="The career categories to look within for all subjects' careers." group="General" unique_entries="true">
+                                                    <TunableEnum type="CareerCategory" class="TunableEnumEntry" default="Invalid" static_entries="careers-career_enums.CareerCategory" group="General" />
+                                                </TunableList>
+                                                <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If checked then all subjects must not have a career in any of the specified categories for the test to pass. " group="General" />
+                                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                                </TunableVariant>
                                             </TunableTuple>
                                             <TunableTuple name="career_level" class="TunableCareerLevelTestFactory" display="Career Level" description="Test to see if the participants have a career at the specified level." group="General">
                                                 <Tunable type="career_level" name="career_level" class="TunableReference" display="Career Level" description="A reference to career level tuning that each subject must have in at least one career in order for this test to pass." tuning_state="NeedsTuning" allow_none="False" group="General" />
@@ -254,6 +270,18 @@
                                                             <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
                                                             <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
                                                         </TunableTuple>
+                                                    </TunableTuple>
+                                                </TunableVariant>
+                                            </TunableTuple>
+                                            <TunableTuple name="compare_careers_at_user_level" class="TunableCompareCareersAtUserLevelTestFactory" display="Compare Careers At User Level" description="A test to compare the career user level between two sims. Returns True if the comparison between all people in the subject and the target is met" group="General">
+                                                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform between the target's and the subject's career level." group="General" />
+                                                <TunableList name="target" class="TunableEnumFlags" default="TargetSim" display="Target" description="tuning for the target used to compare the level career." group="General" unique_entries="true">
+                                                    <TunableEnum type="ParticipantTypeSingleSim" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantTypeSingleSim" group="General" />
+                                                </TunableList>
+                                                <TunableVariant type="None" name="test_type" class="TunableCareerLevelsComparisonTestsVariant" default="specific_career_type" display="Test Type" group="General">
+                                                    <TunableTuple name="shared_career" class="TunableCommonCareerComparisonTestFactory" display="Shared Career" description="Compares the career level selected between the Actor and the Target sim." group="General" />
+                                                    <TunableTuple name="specific_career_type" class="TunableSpecificCareerComparisonTestFactory" display="Specific Career Type" description="Compares the career level selected between the Actor and the Target sim." group="General">
+                                                        <Tunable type="career" name="career" class="TunableReference" display="Career" description="A reference to the career that each subject must have in order for this test to pass." allow_none="False" group="General" pack_safe="True" />
                                                     </TunableTuple>
                                                 </TunableVariant>
                                             </TunableTuple>
@@ -411,6 +439,7 @@
                                             <TunableTuple name="enabled" class="TunableRelationshipTest" display="Enabled" description="Gate availability by a relationship status." group="General">
                                                 <Tunable type="bool" name="invert_num_relations" class="Tunable" default="False" display="Invert Num Relations" description="If checked then we will check that your Num Relations is less than or equal to the value rather than the other way around." group="General" />
                                                 <Tunable type="bool" name="must_have_track" class="Tunable" default="False" display="Must Have Track" description="Setting this to True (checked) will ensure that this test only passes if the tested Sims actually have the tuned relationship track. If left False (unchecked), this test will evaluate as if the Sims have the relationship track at the value of 0." group="General" />
+                                                <Tunable type="bool" name="only_validate_score_on_required_relation_bits" class="Tunable" default="False" display="Only Validate Score On Required Relation Bits" description="Sims that doesn't fit with required relation bits will be consider as valid even if they are not in track value threshold Sim doesn't have Relation Bit => Don't care about the score => VALID Sim have Relation Bit => Check Score => Score in Threshold => VALID" group="General" />
                                                 <TunableTuple name="prohibited_relationship_bits" class="TunableTuple" display="Prohibited Relationship Bits" group="General">
                                                     <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must match to fail the test." group="General" unique_entries="true">
                                                         <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" />
@@ -1133,6 +1162,7 @@
                                         <Tunable type="bool" name="invert_num_relations" class="Tunable" default="False" display="Invert Num Relations" description="If checked then we will check that your Num Relations is less than or equal to the value rather than the other way around." group="General" />
                                         <Tunable type="bool" name="must_have_track" class="Tunable" default="False" display="Must Have Track" description="Setting this to True (checked) will ensure that this test only passes if the tested Sims actually have the tuned relationship track. If left False (unchecked), this test will evaluate as if the Sims have the relationship track at the value of 0." group="General" />
                                         <Tunable type="int" name="num_relations" class="Tunable" default="0" display="Num Relations" description="Number of Sims with specified relationships required to pass, default(0) is all known relations. If value set to 1 or greater, then test is looking at least that number of relationship to match the criteria. If value is set to 0, then test will pass if relationships being tested must match all criteria of the test to succeed. For example, if interaction should not appear if any relationship contains a relationship bit, this value should be 0." tuning_state="NeedsTuning" group="General" />
+                                        <Tunable type="bool" name="only_validate_score_on_required_relation_bits" class="Tunable" default="False" display="Only Validate Score On Required Relation Bits" description="Sims that doesn't fit with required relation bits will be consider as valid even if they are not in track value threshold Sim doesn't have Relation Bit => Don't care about the score => VALID Sim have Relation Bit => Check Score => Score in Threshold => VALID" group="General" />
                                         <TunableTuple name="prohibited_relationship_bits" class="TunableTuple" display="Prohibited Relationship Bits" group="General">
                                             <TunableList name="match_all" class="TunableSet" display="Match All" description="All of these relationship bits must match to fail the test." group="General" unique_entries="true">
                                                 <Tunable type="relbit" class="TunableReference" allow_none="False" group="General" />

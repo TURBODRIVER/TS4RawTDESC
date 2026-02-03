@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="situation_goal" class="SituationGoalActorDynasty" module="situations.situation_goal_actor" description="Situation Goal for Sim's Dynasty events." instance_needs_reference="True" instance_subclasses_only="False" parents="SituationGoalActor, SituationGoal" path="SituationGoals\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="_goal_test" class="TunableVariant" default="none" display="Goal Test" description="Dynasty test which triggers evaluation of goal completion." group="Tests">
+            <TunableTuple name="dynasty_test" class="TunableDynastyMilestoneTest" display="Dynasty Test" description="Check to see if the dynasty triggered its milestone events" group="General">
+                <TunableEnum type="DynastyTestEvents" name="test_event" class="TunableEnumEntry" default="None" display="Test Event" static_entries="dynasty-dynasty_tests.DynastyTestEvents" description="The event that we want to trigger this instance of the tuned test on. Joined - When a sim joins a dynasty Founded - When a sim starts a dynasty Left - When a sim leaves a dynasty KickedOut - When a sim is kicked out of a dynasty BecomeBlackSheep - When a sim becomes black sheep in a dynasty LostBlackSheepStatus - When a sim looses black sheep status a dynasty BecomeHead - When a sim becomes head of a dynasty StoppedBeingHead - When a dynasty looses its head BecomeHeir - When a sim becomes heir to a dynasty StoppedBeingHeir - When a sim stops being heir to a dynasty" group="General" />
+            </TunableTuple>
+            <Tunable name="none" class="TunableExistance" display="None" />
+        </TunableVariant>
+    </Instance>
+
+    
+</TuningRoot>

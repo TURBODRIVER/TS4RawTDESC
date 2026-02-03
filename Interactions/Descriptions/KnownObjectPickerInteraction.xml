@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="interaction" class="KnownObjectPickerInteraction" module="interactions.picker.known_object_picker_interaction" description="Interaction that allows a player to pick a known object." instance_needs_reference="True" instance_subclasses_only="False" parents="ObjectPickerInteraction, PickerSingleChoiceSuperInteraction, PickerSuperInteraction, ImmediateSuperInteraction, SuperInteraction, Interaction" path="Interactions\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="additional_tests" class="OptionalTunable" default="disabled" display="Additional Tests" description="Additional tests to further trim Objects selected to show up in the picker." group="Picker Tuning">
+            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+            <TdescFragTag name="enabled" class="TunableTestSetWithTooltip" display="Enabled" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="Tests" />
+        </TunableVariant>
+
+        <TunableEnum type="Tag" name="knowledge_tag" class="TunableEnumEntry" default="INVALID" display="Knowledge Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="The tag for the knowledge type eg. secret_passageways." group="Picker Tuning" pack_safe="True" />
+
+        <TunableEnum type="KnowledgeType" name="knowledge_type" class="TunableEnumEntry" default="KNOWN" display="Knowledge Type" static_entries="interactions-picker-known_object_picker_interaction.KnowledgeType" description="The type of knowledge to filter objects by. KNOWN - Only known objects will be shown. UNKNOWN - Only unknown objects will be shown. ALL - All objects will be shown." group="Picker Tuning" />
+
+        <Tunable type="ResourceKey" name="out_of_zone_icon" class="TunableResourceKey" default="None" display="Out Of Zone Icon" description="The icon to be displayed to the right of object outside of the current zone." group="Picker Tuning" resource_types="0x2f7d0004" />
+
+        <TunableEnum type="ParticipantType" name="participant_to_save_on_selection" class="TunableEnumEntry" default="PickedItemId" display="Participant To Save On Selection" static_entries="interactions.ParticipantType" description="The participant that will be saved as the saved_participant specified." group="Picker Tuning" />
+
+        <TunableEnum type="ParticipantTypeSavedActor" name="saved_participant_slot" class="TunableEnumEntry" default="SavedActor1" display="Saved Participant Slot" static_entries="interactions.ParticipantTypeSavedActor" description="The saved participant slot that participant will be saved as." group="Picker Tuning" />
+
+        <TunableVariant type="None" name="variant" class="TunableVariant" default="anywhere" display="Variant" description="Location from where the objects will be shown." group="Picker Tuning">
+            <TunableTuple name="anywhere" class="Tunable_AnywhereVariant" display="Anywhere" description="Variant that returns all the items.." group="General" />
+            <TunableTuple name="in_zone" class="Tunable_InZoneVariant" display="In Zone" description="Variant that returns only items inside the current zone." group="General" />
+            <TunableTuple name="out_of_zone" class="Tunable_OutOfZoneVariant" display="Out Of Zone" description="Variant that returns only items outside the current zone." group="General" />
+        </TunableVariant>
+    </Instance>
+
+    
+</TuningRoot>

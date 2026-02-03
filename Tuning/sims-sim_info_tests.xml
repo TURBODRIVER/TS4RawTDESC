@@ -9,6 +9,8 @@
         </Class>
 
         <Class name="GenealogyRelationType" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="CHILDREN" enum_value="8" />
+
             <EnumItem name="GRANDPARENTS" enum_value="2" />
 
             <EnumItem name="INVALID" enum_value="0" />
@@ -16,6 +18,8 @@
             <EnumItem name="PARENTS" enum_value="1" />
 
             <EnumItem name="PARENTS_AND_GRANDPARENTS" enum_value="3" />
+
+            <EnumItem name="SIBLINGS" enum_value="4" />
         </Class>
     </Module>
 </TuningRoot>

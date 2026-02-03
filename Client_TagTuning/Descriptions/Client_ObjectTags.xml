@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="tagtuning" class="Client_ObjectTags" module="tagtuning.Client_ObjectTags" description="Defines objects tags for usage in client" path="Client_TagTuning\Descriptions">
+        <TunableList name="TagsMap" class="TunableMapping" display="Tags" mapping_key="Key" mapping_value="Tags" description="Objects Tags map" mapping_class="Client_ObjectTags.TagKeyEntry">
+            <TunableTuple name="TagKeyEntry" class="Client_ObjectTags.TagKeyEntry">
+                <Tunable type="str" name="Key" class="Tunable" default="" display="Key" description="Tag key" category="ASM" />
+                <TunableList name="Tags" class="TunableSet" display="Tag List" description="List of Tags" unique_entries="true">
+                    <TunableEnum type="Tag" name="Tag" class="TunableEnumEntry" default="INVALID" display="Tag" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tag" pack_safe="true" />
+                </TunableList>
+            </TunableTuple>
+        </TunableList>
+    </Instance>
+</TuningRoot>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="objects.object_creation_utils">
+        <Class name="ObjectCreationUtils">
+            <TunableList name="OBJECT_CREATION_FORBIDDEN_TAGS" class="TunableTags" display="Object Creation Forbidden Tags" group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that prevent an object from being created. This will filter out objects that have any of these tags when creating objects from a tags/random list" dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableList>
+
+            <TunableList name="OBJECT_PURCHASE_FORBIDDEN_TAGS" class="TunableTags" display="Object Purchase Forbidden Tags" group="General" unique_entries="true">
+                <TunableEnum type="Tag" class="TunableEnumWithFilter" default="INVALID" dynamic_entries="tag.Tag._elements" static_entries="tag.Tag" description="Tags that prevent an object from being purchased. This will filter out objects that have any of these tags when purchasing objects from a tags/random list" dynamic_entries_prefix="func" group="General" invalid_entries="INVALID" pack_safe="True" />
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>

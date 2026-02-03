@@ -6,6 +6,8 @@
 
         <Tunable type="bool" name="do_not_register_events_on_load" class="Tunable" default="False" display="Do Not Register Events On Load" description="If checked we will not register these events on load. This should be checked for all aspirations that are part of an aspiration track." group="General" />
 
+        <TunableEnum type="MilestoneExclusivityEnum" name="exclusivity_type" class="TunableEnumEntry" default="NO_EXCLUSIVITY" display="Exclusivity Type" dynamic_entries="event_testing-milestone_enums.MilestoneExclusivityEnum._elements" static_entries="event_testing-milestone_enums.MilestoneExclusivityEnum" description="An enum representing the exclusivity type of this Milestone. When generating the list of possible milestones to offer, exclusivity types will be used to prevent milestones with the same exclusivity type from being offered together. Note: Only works for career assignments at the moment." group="General" />
+
         <TunableVariant type="None" name="objective_completion_type" class="TunableVariant" default="complete_all" display="Objective Completion Type" description="A requirement of what objectives need to be completed. " group="~Core~">
             <TunableTuple name="complete_all" class="TunableAllCompletionType" display="Complete All" description="All of the Objectives as part of this Milestone must be completed in order for this Milestone to be considered complete." group="General" />
             <TunableTuple name="complete_subset" class="TunableSubsetCompletionType" display="Complete Subset" description="A numerical subset of the total Objectives need to be complete for this Milestone to be considered complete." group="General">

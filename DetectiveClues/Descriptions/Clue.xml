@@ -72,6 +72,7 @@
                         <TunableTuple name="career_user_level" class="Tunable_CareerUserLevelFilter" display="Career User Level" description="Filters sims based on a user career level." group="General">
                             <Tunable type="int" name="career_user_level" class="TunableRange" default="1" display="Career User Level" min="1" max="None" description="A user level. If this level cooresponds to an advanced branch and we conform or generate a sim with this filter and the career has branches a branch will be chosen at random. If this behavior is not desired, use Career Level Reference instead." tuning_state="NeedsTuning" group="General" />
                         </TunableTuple>
+                        <TunableTuple name="career_user_level_sorted" class="Tunable_CareerUserLevelSorted" display="Career User Level Sorted" description="Filters sims based on career level sorting. Scores using the career user level" group="General" />
                     </TunableVariant>
                 </TunableVariant>
                 <TunableVariant type="None" name="career_location" class="TunableVariant" default="none" display="Career Location" description="Define how important career location is for this filter. Leave None if location is not important." group="General">
@@ -111,6 +112,66 @@
                 <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
                 <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
             </TunableTuple>
+            <TunableVariant type="None" name="dynasty" class="DynastyFilterTermVariant" default="dynasty_compare_values" display="Dynasty" group="General">
+                <TunableTuple name="dynasty_compare_sim_traits_to_dynasty" class="TunableDynastyCompareSimTraitsToAllValuesFilterTerm" display="Dynasty Compare Sim Traits To Dynasty" description="A term for filtering Sims by checking the numerical value, with a field to set comparison type, of all aligned/misaligned Personality Traits a Sim has for all the Dynasty Values in a specific Dynasty." group="General">
+                    <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                    <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
+                    <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="use_dynasty_of_requesting_sim" class="Tunable" default="True" display="Use Dynasty Of Requesting Sim" description="If checked we use dynasty of requesting sim. Otherwise dynasty of sim we check/filter." group="General" />
+                    <TunableTuple name="value_threshold" class="TunableThreshold" display="Value Threshold" description="Number required to pass." group="General">
+                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                        <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+                <TunableTuple name="dynasty_compare_sim_traits_to_value" class="TunableDynastyCompareSimTraitsToValueFilterTerm" display="Dynasty Compare Sim Traits To Value" description="A term for checking the numerical value, with a field to set comparison type, of all Personality Traits a Sim has for a Dynasty Values. Alignment/Misalignment between a Trait and Value is defined as a list called Trait Modifiers in a Dynasty Value." group="General">
+                    <Tunable type="snippet" name="dynasty_value" class="TunableReference" display="Dynasty Value" description="The Dynasty Value to check." allow_none="False" group="General" pack_safe="True" restrict="DynastyValue" />
+                    <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                    <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
+                    <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+                    <TunableTuple name="value_threshold" class="TunableThreshold" display="Value Threshold" description="Number required to pass." group="General">
+                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                        <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+                <TunableTuple name="dynasty_compare_values" class="TunableDynastyValuesFilterTerm" display="Dynasty Compare Values" description="A term for filtering Sims by checking how many (with different comparison types) Aligned/Opposing Dynasty Values two Dynasties have (all Values are considered aligned with themselves). For each Dynasty Value of Requesting Sim's Dynasty, we iterate through each aligned/opposing Value(defined in a list in Dynasty Value) Score: If Requesting Sim's Dynasty aligned/opposing Value is in Filtered Sim's Dynasty's Values' list +1 for aligned dynasty, -1 for opposed." group="General">
+                    <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                    <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
+                    <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+                    <TunableTuple name="value_threshold" class="TunableThreshold" display="Value Threshold" description="Number required to pass." group="General">
+                        <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the value." group="General" />
+                        <Tunable type="float" name="value" class="Tunable" default="0" display="Value" description="The value of a threshold." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableTuple>
+                <TunableTuple name="dynasty_same_dynasty_membership" class="TunableDynastySimInDynastyFilterTerm" display="Dynasty Same Dynasty Membership" description="A term for filtering Sims based on them being in a dynasty or not." group="General">
+                    <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                    <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
+                    <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="use_dynasty_of_requesting_sim" class="Tunable" default="True" display="Use Dynasty Of Requesting Sim" description="If checked we use dynasty of requesting sim. Otherwise dynasty of sim we check/filter." group="General" />
+                </TunableTuple>
+                <TunableTuple name="dynasty_sim_in_allied_dynasty" class="TunableDynastySimInAllyDynastyFilterTerm" display="Dynasty Sim In Allied Dynasty" description="A term for filtering Sims based on them being in a dynasty allied of target sims's dynasty." group="General">
+                    <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                    <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
+                    <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="use_dynasty_of_requesting_sim" class="Tunable" default="True" display="Use Dynasty Of Requesting Sim" description="If checked we use dynasty of requesting sim. Otherwise dynasty of sim we check/filter." group="General" />
+                </TunableTuple>
+                <TunableTuple name="dynasty_sim_in_rival_dynasty" class="TunableDynastySimInRivalDynastyFilterTerm" display="Dynasty Sim In Rival Dynasty" description="A term for filtering Sims based on them being in a dynasty rival of target sims's dynasty." group="General">
+                    <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                    <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
+                    <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+                    <Tunable type="bool" name="use_dynasty_of_requesting_sim" class="Tunable" default="True" display="Use Dynasty Of Requesting Sim" description="If checked we use dynasty of requesting sim. Otherwise dynasty of sim we check/filter." group="General" />
+                </TunableTuple>
+            </TunableVariant>
+            <TunableTuple name="family" class="TunableFamilyFilterTerm" display="Family" description="A term for filtering Sims based on their family." group="General">
+                <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
+                <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="specific_family_relationship_types" class="OptionalTunable" default="disabled" display="Specific Family Relationship Types" description="These are the specific family relationships between the requesting sim and the target sim. If this optional is deactivated it'll pass if the target sim is within the entire family." group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableList name="enabled" class="TunableEnumSet" display="Enabled" description="These are the specific family relationships between the requesting sim and the target sim. If this optional is deactivated it'll pass if the target sim is within the entire family." group="General" unique_entries="true">
+                        <TunableEnum type="RelationshipType" class="TunableEnumEntry" default="NONE" static_entries="relationships-relationship_enums.RelationshipType" group="General" />
+                    </TunableList>
+                </TunableVariant>
+            </TunableTuple>
             <TunableTuple name="gender" class="TunableGenderFilterTerm" display="Gender" description="A term for filtering Sims base on their gender. Only new Sims may be conformed by creating them of a valid gender. Existing Sims may not be conformed." group="General">
                 <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
                 <TunableEnum type="Gender" name="gender" class="TunableEnumEntry" default="MALE" display="Gender" static_entries="sims-sim_info_types.Gender" description="The required gender of the sim we are filtering for." group="General" />
@@ -132,7 +193,7 @@
                 <Tunable type="bool" name="same" class="Tunable" default="False" display="Same" description="If checked then we will make sure that the sim is the same gender as the target sim. Otherwise the opposite gender" group="General" />
             </TunableTuple>
             <TunableTuple name="genealogy" class="TunableGenealogyFilterTerm" display="Genealogy" description="A term for filtering Sims based on their genealogy. New and existing Sims can be conformed by propagating genealogy relations." group="General">
-                <TunableEnum type="FamilyRelationshipIndex" name="family_relationship" class="TunableEnumEntry" default="MOTHER" display="Family Relationship" static_entries="sims-genealogy_tracker.FamilyRelationshipIndex" description="This is the family relationship between the requesting sim and the target sim." group="General" />
+                <TunableEnum type="RelationshipType" name="family_relationship" class="TunableEnumEntry" default="PARENT" display="Family Relationship" static_entries="relationships-relationship_enums.RelationshipType" description="This is the family relationship between the requesting sim and the target sim." group="General" />
                 <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
                 <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
                 <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
@@ -164,6 +225,23 @@
                 <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
                 <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
                 <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
+            <TunableTuple name="has_scandal_secret" class="TunableHasScandalSecretFilterTerm" display="Has Scandal Secret" description="A term for filtering if the Sim has an specific number of a certain type of secrets" group="General">
+                <Tunable type="bool" name="child_teen_safe" class="Tunable" default="False" display="Child Teen Safe" description="If enabled, it will only count the child-teen-safe secrets that the sim has." group="General" />
+                <TunableEnum type="Operator" name="comparison" class="TunableOperator" default="GREATER_OR_EQUAL" display="Comparison" static_entries="sims4-math.Operator" description="The comparison to perform against the subject's number of secrets." group="General" />
+                <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                <Tunable type="bool" name="get_known_secrets" class="Tunable" default="False" display="Get Known Secrets" description="If enabled, it will check the number of secrets that the sim knows about the requesting sim_info." group="General" />
+                <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
+                <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="secret_count" class="TunableRange" default="0" display="Secret Count" min="0" max="None" description="The number of secrets we want to compare against the sim's actual number of secrets." tuning_state="NeedsTuning" group="General" />
+                <TunableVariant type="None" name="secret_relationship_status" class="OptionalTunable" default="disabled" display="Secret Relationship Status" description="If set, it will check if there are any secrets with the chosen keeper status (Discovered, blackmailed..)" group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableEnum type="RelationshipSecretStatus" name="enabled" class="TunableEnumEntry" default="DISCOVERED" display="Enabled" static_entries="sims-secrets-sim_secret_enums.RelationshipSecretStatus" group="General" />
+                </TunableVariant>
+                <TunableVariant type="None" name="secret_status" class="OptionalTunable" default="disabled" display="Secret Status" description="If set, it will check if there are any secrets with the chosen keeper status (Discovered, blackmailed..)" group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableEnum type="SecretStatus" name="enabled" class="TunableEnumEntry" default="SECRET" display="Enabled" static_entries="sims-secrets-sim_secret_enums.SecretStatus" group="General" />
+                </TunableVariant>
             </TunableTuple>
             <TunableTuple name="household_composition" class="TunableHouseholdCompositionFilterTerm" display="Household Composition" description="A term for filtering Sims based on the composition of their household." group="General">
                 <TunableVariant type="None" name="age" class="OptionalTunable" default="Dont_Care" display="Age" description="Define an age condition for Sims in the household." group="General">
@@ -389,6 +467,11 @@
                     <Tunable type="worlddescription" name="enabled" class="TunableReference" display="Enabled" group="General" pack_safe="True" />
                 </TunableVariant>
             </TunableTuple>
+            <TunableTuple name="lives_in_same_region" class="TunableLivesInSameRegionFilterTerm" display="Lives In Same Region" description="A term for filtering Sims based on whether they live in the same region as the requesting Sim." group="General">
+                <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
+                <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+            </TunableTuple>
             <TunableTuple name="lives_on_apartment_floor" class="TunableLivesOnApartmentFloor" display="Lives On Apartment Floor" description="A term for filtering Sims that live on the current apartment floor." group="General">
                 <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
                 <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
@@ -609,6 +692,23 @@
                     <Tunable type="statistic" class="TunableReference" description="The list of skills the range applies to." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
                 </TunableList>
             </TunableTuple>
+            <TunableTuple name="skill_pack_safe" class="TunableSkillFilterTermPackSafe" display="Skill Pack Safe" description="A term for filtering Sims based on their skill. The score is modified based on the tuned ideal value of the skill. New and existing Sims can be conformed by granting them the skill, within the tuned bounds." group="General">
+                <Tunable type="bool" name="force_filter_term" class="Tunable" default="True" display="Force Filter Term" description="If checked, any Sim found via template will have this filter term applied when conforming it. If unchecked, this filter term will not be applied." group="General" />
+                <Tunable type="int" name="ideal_value" class="Tunable" default="5" display="Ideal Value" description="Ideal value of the skill that we are filtering against." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="bool" name="invert_score" class="Tunable" default="False" display="Invert Score" description="Invert the score so that the filter term will score is the opposite of what the score would be. For example, if sim is busy, normally would return 1, but if checked value would return 0 and would not be chosen by filter system." group="General" />
+                <Tunable type="int" name="max_value" class="Tunable" default="10" display="Max Value" description="Maximum value of the skill that we are filtering against." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="int" name="min_value" class="Tunable" default="0" display="Min Value" description="Minimum value of the skill that we are filtering against." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="float" name="minimum_filter_score" class="Tunable" default="0" display="Minimum Filter Score" description="The minimum score that this filter term is allowed to have. The purpose of this is to allow 'relaxed filters' that don't prevent sims from being chosen." tuning_state="NeedsTuning" group="General" />
+                <Tunable type="bool" name="only_check_statistic_owned" class="Tunable" default="False" display="Only Check Statistic Owned" description="Only require that the statistic is actually owned by the sim, ignoring the statistic's level." group="General" />
+                <TunableVariant type="None" name="score_spread_override" class="OptionalTunable" default="disabled" display="Score Spread Override" description="If enabled this interval modifies the spread over which the score should return. A score is typically between 0 and 1. A score of 0 means the sim will never be selected, the higher a score is the more likely that sim is to be selected. The score for statistic scoring is based on how close to the 'ideal' value the value for the specified statistic for a sim is. It's a 1 if it's that exact score. It's *near* 0 (though not exactly, because the general idea behind this filter to make it a weight not elimination) as it gets farther from the ideal value and closer to the min or max value. (Note: it uses min_value -1 and max_value + 1 as the min/max values to avoid hitting 0. However the min/max values don't have to be accurate, so you can hit 0 by adjusting the tuned min/max values here as desired.) So if you have it tuned as: min value: 0 max value: 5 ideal value: 5 The resulting score for each integer will be: 0 gives you: 0.17 1 gives you: 0.33 2 gives you: 0.5 3 gives you: 0.66 4 gives you: 0.83 5 gives you: 1 The minimum filter score tuning is simply a floor. Regardless of how low the calculated score is, if it's lower than the minimum filter score the result will simply be replaced with the minimum filter score. So adding a minimum filter score of 0.5 simply results in: 0 gives you: 0.5 1 gives you: 0.5 2 gives you: 0.5 3 gives you: 0.66 4 gives you: 0.83 5 gives you: 1 This optional tunable modifies the spread over which the score is returned (and gets rid of the -1/+1 padding as you can specify the padding in the actual range.) So instead of returning from 0 to 1, where 0 is as far away from the ideal as possible, and 1 is at the ideal value, it'll return the lower value when the statistic is as far away from the ideal value as possible, and the closer you get to the ideal value, the closer the return value will be to the maximum value. So adding a score spread override of 0.5 to 1.0, (instead of a minimum filter score) results in: 0 gives you: 0.5 1 gives you: 0.6 2 gives you: 0.7 3 gives you: 0.8 4 gives you: 0.9 5 gives you: 1 Note: Since, as stated, it's perfectly possible to lie about the min/max value, this result is also possible to achieve with clever tuning: min value of -4 max value of 5 ideal value of 5" group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <TunableTuple name="enabled" class="TunableInterval" display="Enabled" description="A tunable interval between lower_bound and upper_bound." group="General">
+                        <Tunable type="float" name="lower_bound" class="TunableRange" default="0.0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="float" name="upper_bound" class="TunableRange" default="1.0" display="Upper Bound" min="None" max="None" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableVariant>
+                <Tunable type="statistic" name="skill" class="TunableReference" display="Skill" description="The skill the range applies to." allow_none="False" group="General" pack_safe="True" restrict="Skill" />
+            </TunableTuple>
             <TunableTuple name="species" class="TunableSpeciesFilterTerm" display="Species" description="A term for filtering Sim based on their species. Only new Sims may be conformed by creating them with a valid species. Existing Sims may not be conformed." group="General">
                 <TunableList name="additional_species" class="TunableEnumSet" display="Additional Species" description="A set of additional species to filter for." group="General" unique_entries="true">
                     <TunableEnum type="Species" class="TunableEnumEntry" default="HUMAN" static_entries="sims-sim_info_types.Species" group="General" />
@@ -718,6 +818,11 @@
                                         <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
                                     </TunableList>
                                 </TunableTuple>
+                                <TunableTuple name="dynasty" class="TunableDynastyIconFactory" display="Dynasty" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                    </TunableList>
+                                </TunableTuple>
                                 <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
                                     <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
                                         <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
@@ -729,8 +834,19 @@
                                     </TunableList>
                                 </TunableTuple>
                                 <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                                <TunableTuple name="ranked_statistic" class="TunableRankedStatisticIconFactory" display="Ranked Statistic" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who's ranked statistic we want to get." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                    </TunableList>
+                                    <Tunable type="statistic" name="ranked_statistic" class="TunableReference" display="Ranked Statistic" description="The statistic to find the icon of." allow_none="False" group="General" pack_safe="True" />
+                                </TunableTuple>
                                 <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
                                     <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                                </TunableTuple>
+                                <TunableTuple name="secret_scandal" class="TunableSecretScandalIconFactory" display="Secret Scandal" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="PickedSecret" display="Participant Type" description="The Participant is secret for which we want to get the icon from." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                                    </TunableList>
                                 </TunableTuple>
                                 <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
                                     <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
@@ -757,6 +873,11 @@
                                         <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
                                     </TunableList>
                                 </TunableTuple>
+                                <TunableTuple name="dynasty" class="TunableDynastyIconFactory" display="Dynasty" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                    </TunableList>
+                                </TunableTuple>
                                 <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
                                     <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
                                         <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
@@ -768,8 +889,19 @@
                                     </TunableList>
                                 </TunableTuple>
                                 <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                                <TunableTuple name="ranked_statistic" class="TunableRankedStatisticIconFactory" display="Ranked Statistic" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who's ranked statistic we want to get." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                                    </TunableList>
+                                    <Tunable type="statistic" name="ranked_statistic" class="TunableReference" display="Ranked Statistic" description="The statistic to find the icon of." allow_none="False" group="General" pack_safe="True" />
+                                </TunableTuple>
                                 <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
                                     <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                                </TunableTuple>
+                                <TunableTuple name="secret_scandal" class="TunableSecretScandalIconFactory" display="Secret Scandal" group="General">
+                                    <TunableList name="participant_type" class="TunableEnumFlags" default="PickedSecret" display="Participant Type" description="The Participant is secret for which we want to get the icon from." group="General" unique_entries="true">
+                                        <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                                    </TunableList>
                                 </TunableTuple>
                                 <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
                                     <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
@@ -801,6 +933,11 @@
                                 <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
                             </TunableList>
                         </TunableTuple>
+                        <TunableTuple name="dynasty" class="TunableDynastyIconFactory" display="Dynasty" group="General">
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                            </TunableList>
+                        </TunableTuple>
                         <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
                             <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
                                 <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
@@ -812,8 +949,19 @@
                             </TunableList>
                         </TunableTuple>
                         <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                        <TunableTuple name="ranked_statistic" class="TunableRankedStatisticIconFactory" display="Ranked Statistic" group="General">
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who's ranked statistic we want to get." group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                            </TunableList>
+                            <Tunable type="statistic" name="ranked_statistic" class="TunableReference" display="Ranked Statistic" description="The statistic to find the icon of." allow_none="False" group="General" pack_safe="True" />
+                        </TunableTuple>
                         <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
                             <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                        </TunableTuple>
+                        <TunableTuple name="secret_scandal" class="TunableSecretScandalIconFactory" display="Secret Scandal" group="General">
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="PickedSecret" display="Participant Type" description="The Participant is secret for which we want to get the icon from." group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                            </TunableList>
                         </TunableTuple>
                         <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
                             <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
@@ -949,6 +1097,11 @@
                                 <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
                             </TunableList>
                         </TunableTuple>
+                        <TunableTuple name="dynasty" class="TunableDynastyIconFactory" display="Dynasty" group="General">
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                            </TunableList>
+                        </TunableTuple>
                         <TunableTuple name="lifestyle_brand" class="TunableLifestyleBrandIconFactory" display="Lifestyle Brand" group="General">
                             <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the lifestyle brand we want to use." group="General" unique_entries="true">
                                 <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
@@ -960,8 +1113,19 @@
                             </TunableList>
                         </TunableTuple>
                         <TunableTuple name="privacy" class="TunablePrivacyIconFactory" display="Privacy" description="Search an interaction's privacy liability to find violating Sims and randomly select one to display an icon of." group="General" />
+                        <TunableTuple name="ranked_statistic" class="TunableRankedStatisticIconFactory" display="Ranked Statistic" group="General">
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who's ranked statistic we want to get." group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantTypeSingle" class="TunableEnumEntry" default="Actor" static_entries="interactions.ParticipantTypeSingle" group="General" />
+                            </TunableList>
+                            <Tunable type="statistic" name="ranked_statistic" class="TunableReference" display="Ranked Statistic" description="The statistic to find the icon of." allow_none="False" group="General" pack_safe="True" />
+                        </TunableTuple>
                         <TunableTuple name="resource_key" class="TunableIconFactory" display="Resource Key" description="The icon image to be displayed." group="General">
                             <Tunable type="ResourceKey" name="key" class="TunableIcon" default="None" display="Key" description="The icon image to be displayed." group="General" resource_types="0x2f7d0004" />
+                        </TunableTuple>
+                        <TunableTuple name="secret_scandal" class="TunableSecretScandalIconFactory" display="Secret Scandal" group="General">
+                            <TunableList name="participant_type" class="TunableEnumFlags" default="PickedSecret" display="Participant Type" description="The Participant is secret for which we want to get the icon from." group="General" unique_entries="true">
+                                <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
+                            </TunableList>
                         </TunableTuple>
                         <TunableTuple name="small_business" class="TunableSmallBusinessIconFactory" display="Small Business" group="General">
                             <TunableList name="participant_type" class="TunableEnumFlags" default="Actor" display="Participant Type" description="The Participant who owns the small business we want to get the icon from." group="General" unique_entries="true">
@@ -1072,6 +1236,10 @@
                         <TunableEnum type="UiDialogUiRequest" name="ui_request" class="TunableEnumEntry" default="NO_REQUEST" display="Ui Request" static_entries="ui-ui_dialog.UiDialogResponse.UiDialogUiRequest" description="This prompt's associated UI action." group="General" />
                     </TunableTuple>
                 </TunableVariant>
+                <TunableVariant type="None" name="show_dialog_message_override" class="OptionalTunable" default="disabled" display="Show Dialog Message Override" description="If enabled, this will override the dialog message that is sent to the client when the dialog is shown" group="General">
+                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                    <Tunable type="str" name="enabled" class="Tunable" default="None" display="Enabled" group="General" />
+                </TunableVariant>
                 <TunableVariant type="None" name="subtitle" class="OptionalTunable" default="disabled" display="Subtitle" description="If enabled, this dialog will include subtitle text." group="General">
                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />
                     <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="The dialog's subtitle." group="General" />
@@ -1138,6 +1306,9 @@
                                 </TunableTuple>
                                 <TunableTuple name="definition" class="TunableTuple" display="Definition" description="A catalog definition to use as a token. This is useful if you want to properly localize an object's name or description." group="General">
                                     <Tunable type="object" name="definition" class="TunableReference" display="Definition" allow_none="False" group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="dynasty" class="TunableTuple" display="Dynasty" description="The token is the name of the dynasty in which sim has joined/founded." group="General">
+                                    <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant who is in a dynasty." group="General" />
                                 </TunableTuple>
                                 <TunableTuple name="game_component_data" class="TunableTuple" display="Game Component Data" description="The token is a localized number or Sim representing the specified game component data from game component." group="General">
                                     <TunableVariant type="None" name="game_component_data" class="TunableVariant" default="high_score" display="Game Component Data" description="The piece of data to fetch." group="General">
@@ -1282,6 +1453,26 @@
                                     </TunableVariant>
                                 </TunableTuple>
                                 <TunableTuple name="picked_part" class="TunableTuple" display="Picked Part" description="The token used to display the name of a picked part." group="General" />
+                                <TunableTuple name="scandal_secret_data" class="TunableTuple" display="Scandal Secret Data" description="The token is data from a specified secret or scandal." group="General">
+                                    <TunableVariant type="None" name="cost_type" class="OptionalTunable" default="disabled" display="Cost Type" description="If this is set and the scandal_secret_data is set to 'secret_cost' it will take the cost type and return the value. " group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableEnum type="SecretCostType" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" static_entries="sims-secrets-sim_secret_enums.SecretCostType" description="The participant's from whom the game component data we want to fetch." group="General" invalid_entries="INVALID" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="participant_type" class="OptionalTunable" default="disabled" display="Participant Type" description="If set it will take the selected participant type to retrieve the secret data." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <TunableEnum type="ParticipantType" name="enabled" class="TunableEnumEntry" default="PickedSecret" display="Enabled" static_entries="interactions.ParticipantType" description="The participant's from whom the game component data we want to fetch." group="General" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="scandal_secret_data" class="TunableVariant" default="secret_cost" display="Scandal Secret Data" description="The piece of data to fetch." group="General">
+                                        <Tunable name="create_warning" class="TunableExistance" display="Create Warning" />
+                                        <Tunable name="secret_cost" class="TunableExistance" display="Secret Cost" />
+                                        <Tunable name="secret_description" class="TunableExistance" display="Secret Description" />
+                                        <Tunable name="secret_name" class="TunableExistance" display="Secret Name" />
+                                    </TunableVariant>
+                                    <TunableVariant type="None" name="scandal_secret_type" class="OptionalTunable" default="disabled" display="Scandal Secret Type" description="If set, it will take the secret type selected to display the data." group="General">
+                                        <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                        <Tunable type="snippet" name="enabled" class="TunableReference" display="Enabled" description="The scandal secret from which data is displayed." allow_none="False" group="General" pack_safe="True" restrict="SimSecret" />
+                                    </TunableVariant>
+                                </TunableTuple>
                                 <TunableTuple name="scholarship_letter_component_data" class="TunableTuple" display="Scholarship Letter Component Data" description="The token can be used to get strings representing scholarship information from the scholarship letter component of an object." group="General">
                                     <TunableEnum type="ParticipantTypeObject" name="participant" class="TunableEnumEntry" default="Object" display="Participant" static_entries="interactions.ParticipantTypeObject" description="The participant from whom to get the scholarship letter component data." group="General" />
                                     <TunableVariant type="None" name="scholarship_letter_component_data" class="TunableVariant" default="applicant_name" display="Scholarship Letter Component Data" description="The piece of data to fetch." group="General">
@@ -1296,6 +1487,10 @@
                                 </TunableTuple>
                                 <TunableTuple name="small_business" class="TunableTuple" display="Small Business" description="The token is the name of the small business owned by specified Sim." group="General">
                                     <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant who has small business." group="General" />
+                                </TunableTuple>
+                                <TunableTuple name="statistic_rank_name" class="TunableTuple" display="Statistic Rank Name" description="The token is a name of the current statistic rank." group="General">
+                                    <TunableEnum type="ParticipantType" name="participant" class="TunableEnumEntry" default="Actor" display="Participant" static_entries="interactions.ParticipantType" description="The participant from whom we will fetch the specified statistic's rank." group="General" />
+                                    <Tunable type="statistic" name="statistic" class="TunableReference" display="Statistic" description="The statistic's whose rank we want to fetch." allow_none="False" group="General" />
                                 </TunableTuple>
                                 <TunableTuple name="statistic_value" class="TunableTuple" display="Statistic Value" description="The token is a number representing the value of a specific statistic from the selected participant." group="General">
                                     <Tunable type="bool" name="clamp_value_to_floor" class="Tunable" default="False" display="Clamp Value To Floor" description="If True, the value will be clamped to its floor." group="General" />
@@ -1401,6 +1596,22 @@
                                 </TunableTuple>
                                 <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a UIResponseCommand tuning snippet." allow_none="False" group="General" restrict="UIResponseCommand" />
                             </TunableVariant>
+                        </TunableVariant>
+                        <TunableVariant type="None" name="subtext" class="TunableLocalizedStringFactoryVariant" default="single" display="Subtext" description="If tuned, this text will display below the button. Span tags can be used to change the color of the text to green/positive and red/negative. <span class='positive'>TEXT</span> will make the word TEXT green <span class='negative'>TEXT</span> will make the word TEXT red" group="General">
+                            <TunableTuple name="concatenation" class="TunableLocalizedStringFactoryConcatenation" display="Concatenation" description="A list of localized string concatenations. These strings will be joined together into single line-separated string" group="General">
+                                <TunableList name="concatenations" class="TunableList" display="Concatenations" group="General">
+                                    <TunableVariant type="None" class="TunableLocalizedStringSnippet" default="literal" description="This may be tuned in place here using 'literal' or as a reference to a LocalizedString tuning snippet." group="General">
+                                        <Tunable type="int" name="literal" class="TunableLocalizedString" default="0x0" display="Literal" description="A localized string that may use tokens." group="General" />
+                                        <Tunable type="snippet" name="reference" class="TunableReference" display="Reference" description="A reference to a LocalizedString tuning snippet." allow_none="False" group="General" pack_safe="True" restrict="LocalizedString" />
+                                    </TunableVariant>
+                                </TunableList>
+                            </TunableTuple>
+                            <Tunable type="int" name="single" class="TunableLocalizedString" default="0x0" display="Single" description="A localized string that may use tokens." allow_none="True" group="General" />
+                            <TunableTuple name="variation" class="TunableLocalizedStringFactoryVariation" display="Variation" description="A list of possible localized string variations." group="General">
+                                <TunableList name="variations" class="TunableList" display="Variations" group="General">
+                                    <Tunable type="int" class="TunableLocalizedString" default="0x0" description="A localized string that may use tokens." allow_none="True" group="General" />
+                                </TunableList>
+                            </TunableTuple>
                         </TunableVariant>
                         <Tunable type="int" name="text" class="TunableLocalizedString" default="0x0" display="Text" description="The prompt's text." group="General" />
                         <TunableVariant type="None" name="tooltip_text" class="OptionalTunable" default="disabled" display="Tooltip Text" description="If enabled, this is the tooltip text to be shown on hover for this button." group="General">

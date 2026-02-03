@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Instance instance_type="snippet" class="CustomSimFilter" module="snippets" instance_needs_reference="True" instance_subclasses_only="False" path="Snippets\Descriptions" use_guid_for_reference="True">
+        <TunableVariant type="None" name="value" class="TunableCustomSimFilter" default="career" display="Value" description="A custom sim filter that can be used to filter Sims based on custom criteria." group="General">
+            <TunableTuple name="career" class="TunableTunableCareerCustomSimFilter" display="Career" description="A custom sim filter that can be used to filter Sims based on their career." group="General">
+                <Tunable type="career" name="career" class="TunableReference" display="Career" description="The career to filter Sims by." allow_none="False" group="General" pack_safe="True" restrict="Career" />
+                <Tunable type="ResourceKey" name="icon" class="TunableIconAllPacks" default="None" display="Icon" description="An icon to represent the custom sim filter." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                <Tunable type="int" name="tooltip" class="TunableLocalizedString" default="0x0" display="Tooltip" description="A tooltip to display when hovering over the custom sim filter in the UI." group="General" />
+            </TunableTuple>
+            <TunableTuple name="dynasty" class="TunableTunableDynastyCustomSimFilter" display="Dynasty" description="A custom sim filter that can be used to filter Sims that has a dynasty." group="General">
+                <Tunable type="ResourceKey" name="icon" class="TunableIconAllPacks" default="None" display="Icon" description="An icon to represent the custom sim filter." group="General" pack_safe="True" resource_types="0x2f7d0004" />
+                <Tunable type="int" name="tooltip" class="TunableLocalizedString" default="0x0" display="Tooltip" description="A tooltip to display when hovering over the custom sim filter in the UI." group="General" />
+            </TunableTuple>
+        </TunableVariant>
+    </Instance>
+</TuningRoot>

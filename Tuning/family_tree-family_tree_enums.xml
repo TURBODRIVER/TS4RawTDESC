@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="family_tree.family_tree_enums">
+        <Class name="FamilyRelationBitShift" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="BITSHIFT_ADOPTED" enum_value="5" />
+
+            <EnumItem name="BITSHIFT_CHILD" enum_value="1" />
+
+            <EnumItem name="BITSHIFT_FIANCE" enum_value="3" />
+
+            <EnumItem name="BITSHIFT_FORGED" enum_value="6" />
+
+            <EnumItem name="BITSHIFT_MAX" enum_value="8" />
+
+            <EnumItem name="BITSHIFT_PARENT" enum_value="0" />
+
+            <EnumItem name="BITSHIFT_SECRET_CHILD" enum_value="8" />
+
+            <EnumItem name="BITSHIFT_SECRET_PARENT" enum_value="7" />
+
+            <EnumItem name="BITSHIFT_SPOUSE" enum_value="2" />
+
+            <EnumItem name="BITSHIFT_STEADY" enum_value="4" />
+        </Class>
+
+        <Class name="FamilyRelationBitFlags" enum_bit_flag="True" enum_locked="False">
+            <EnumItem name="ADOPTED" enum_value="32" />
+
+            <EnumItem name="ALL" enum_value="511" />
+
+            <EnumItem name="CHILD" enum_value="2" />
+
+            <EnumItem name="FIANCE" enum_value="8" />
+
+            <EnumItem name="FORGED" enum_value="64" />
+
+            <EnumItem name="NONE" enum_value="0" />
+
+            <EnumItem name="PARENT" enum_value="1" />
+
+            <EnumItem name="PARTNER" enum_value="28" />
+
+            <EnumItem name="SECRET_CHILD" enum_value="256" />
+
+            <EnumItem name="SECRET_PARENT" enum_value="128" />
+
+            <EnumItem name="SPOUSE" enum_value="4" />
+
+            <EnumItem name="STEADY" enum_value="16" />
+        </Class>
+
+        <Class name="FamilyTreeTraversalMode" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="TRAVERSAL_BREADTH_FIRST" enum_value="0" />
+
+            <EnumItem name="TRAVERSAL_DEPTH_FIRST" enum_value="1" />
+        </Class>
+    </Module>
+</TuningRoot>
