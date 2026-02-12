@@ -342,6 +342,16 @@
                                     <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
                                 </TunableVariant>
                             </TunableTuple>
+                            <TunableTuple name="are_sims_blood_related" class="TunableAreSimsBloodRelatedTest" display="Are Sims Blood Related" description="Used to check if two sims are directly related. Directly related, as in, they share the same ancestor." group="General">
+                                <Tunable type="int" name="max_depth" class="Tunable" default="10" display="Max Depth" description="Max depth of ancestry the test should check. The lower the value is, the most performant, but less accurate the test will be." tuning_state="NeedsTuning" group="General" />
+                                <Tunable type="bool" name="negate" class="Tunable" default="False" display="Negate" description="If true, negates the result of the test." group="General" />
+                                <TunableEnum type="ParticipantTypeSingleSim" name="participant_a" class="TunableEnumEntry" default="Actor" display="Participant A" static_entries="interactions.ParticipantTypeSingleSim" description="One of the sims we want whose family relationship with another we want to check." group="General" />
+                                <TunableEnum type="ParticipantTypeSingleSim" name="participant_b" class="TunableEnumEntry" default="TargetSim" display="Participant B" static_entries="interactions.ParticipantTypeSingleSim" description="The other sim whose family relationship with the other we want to check." group="General" />
+                                <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                                    <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                                    <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                                </TunableVariant>
+                            </TunableTuple>
                             <TunableTuple name="aspiration_track_complete" class="TunableCompletedAspirationTrackTest" display="Aspiration Track Complete" description="A tunable test that tests if a Sim has completed an aspiration track." group="General">
                                 <TunableList name="aspiration_tracks" class="TunableList" display="Aspiration Tracks" description="A list of AspirationTracks to consider. If left empty, the test will consider all AspirationTracks." group="General">
                                     <Tunable type="aspiration_track" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
