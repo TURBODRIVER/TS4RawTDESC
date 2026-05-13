@@ -293,6 +293,7 @@
                             <TunableEnum type="ObjectPreferenceTag" name="enabled" class="TunableEnumEntry" default="INVALID" display="Enabled" dynamic_entries="autonomy-autonomy_preference.ObjectPreferenceTag._elements" static_entries="autonomy-autonomy_preference.ObjectPreferenceTag" description="Tag to determine which preference type to use." group="General" invalid_entries="INVALID" />
                         </TunableVariant>
                         <Tunable type="bool" name="require" class="Tunable" default="True" display="Require" description="The Sim's preference is required to be True or required to be False." group="General" />
+                        <Tunable type="bool" name="target_part" class="Tunable" default="True" display="Target Part" description="True to always try and test for target part, false for always full object." group="General" />
                     </TunableTuple>
                     <TunableTuple name="season" class="TunableSeasonTest" display="Season" description="SeasonTest will test if the current simulation time falls within the specified test conditions." group="General">
                         <Tunable type="bool" name="requires_seasons_pack" class="Tunable" default="True" display="Requires Seasons Pack" description="If checked, this test will require that the Seasons pack be installed in order for the seasons test to pass. If unchecked, this test will automatically pass." group="General" />

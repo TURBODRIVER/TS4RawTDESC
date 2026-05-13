@@ -16,6 +16,8 @@
 
         <Tunable type="bool" name="_remap_child_parenting" class="Tunable" default="False" display="Remap Child Parenting" description="DEPRECATED. Used only for banquette booth." group="General" />
 
+        <Tunable type="bool" name="_send_debug_telemetry" class="Tunable" default="False" display="Send Debug Telemetry" description="If enabled, debug telemetry will be sent for this object." group="General" />
+
         <Tunable type="bool" name="_transient_tuning" class="Tunable" default="False" display="Transient" description="If transient the object will always be destroyed and never put down." group="General" />
 
         <Tunable type="bool" name="add_parent_to_crafting_request" class="Tunable" default="True" display="Add Parent To Crafting Request" description="When checked parents of this objects are also considered as targets to crafting interactions available during the whole crafting process. If not checked then only object itself will be considered as target." group="General" />
