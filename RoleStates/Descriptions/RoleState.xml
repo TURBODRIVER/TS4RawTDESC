@@ -142,6 +142,10 @@
 
         <Tunable type="bool" name="always_active" class="Tunable" default="False" display="Always Active" description="If set to True, this role will always be allowed to be active when set on a Sim, regardless of whether or not it is lower priority than the Sim's other currently active roles. Use for roles that are important but retuning priority for it and/or other roles isn't feasible. Consult a GPE before you set this to True. This is not to be used lightly and there may be other options like situation exclusivity that can be explored before you go down this route. e.g. Sim is possessed which runs at HIGH priority. Sim wants to go visit an NPC residential lot, which places Sim in NORMAL priority Role_UngreetedPlayerVisitingNPC, which sets portal disallowance and adds specific buffs. We actually want Role_UngreetedPlayerVisitingNPC to run even though the role priority is now HIGH, because otherwise a possessed Sim visiting an NPC would magically be able to route through homes because portal disallowance is removed." group="General" />
 
+        <TunableList name="loot_on_activate" class="TunableList" display="Loot On Activate" description="A list of loots that will be applied if a sim is in this role state during role activation." group="General">
+            <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
+        </TunableList>
+
         <TunableList name="loot_on_load" class="TunableList" display="Loot On Load" description="A list of loots that will be applied if a sim is in this role state during zone spin up." group="General">
             <Tunable type="action" class="TunableReference" allow_none="False" group="General" pack_safe="True" restrict="LootActions,RandomWeightedLoot" />
         </TunableList>

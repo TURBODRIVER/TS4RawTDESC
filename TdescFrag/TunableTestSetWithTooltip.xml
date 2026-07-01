@@ -1997,6 +1997,13 @@
                             <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
                         </TunableVariant>
                     </TunableTuple>
+                    <TunableTuple name="festival_notification_options" class="TunableFestivalNotificationOptionsTest" display="Festival Notification Options" group="General">
+                        <TunableEnum type="FestivalNotificationOptionKey" name="option_key" class="TunableEnumEntry" default="INVALID" display="Option Key" dynamic_entries="festival_notification-festival_notification_options_tuning.FestivalNotificationOptionKey._elements" static_entries="festival_notification-festival_notification_options_tuning.FestivalNotificationOptionKey" description="Festival Notification Option key to test. Must match the Festival Notification Tuning option key. This option_key is part of a blacklist. The test will fail if the key is present on the list; otherwise, the case will succeed." group="General" invalid_entries="INVALID" />
+                        <TunableVariant type="None" name="tooltip" class="OptionalTunable" default="disabled" display="Tooltip" description="Reason of failure." group="General">
+                            <Tunable name="disabled" class="TunableExistance" display="Disabled" />
+                            <Tunable type="int" name="enabled" class="TunableLocalizedString" default="0x0" display="Enabled" description="Reason of failure." group="General" />
+                        </TunableVariant>
+                    </TunableTuple>
                     <TunableTuple name="festival_running" class="TunableFestivalRunningTest" display="Festival Running" description="A test to check whether a festival is running." group="General">
                         <TunableVariant type="None" name="check_if_on_festival_street" class="OptionalTunable" default="disabled" display="Check If On Festival Street" description="If enabled, test against if the player is on the festival's street." group="General">
                             <Tunable name="disabled" class="TunableExistance" display="Disabled" />

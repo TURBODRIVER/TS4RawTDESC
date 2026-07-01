@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="festival_notification.festival_notification_options_tuning">
+        <Class name="FestivalNotificationOptionKey" enum_bit_flag="False" enum_locked="False">
+            <TunableList name="_elements" class="TunableDynamicEnumElements" display="Elements" description="The list of elements in the dynamic enumeration." group="General" unique_entries="true">
+                <Tunable type="str" class="TunableEnumItem" default="None" group="General" />
+            </TunableList>
+
+            <EnumItem name="INVALID" enum_value="0" />
+        </Class>
+
+        <Class name="FestivalNotificationOptionsTuning">
+            <TunableList name="FESTIVAL_NOTIFICATION_OPTIONS" class="TunableList" display="Festival Notification Options" description="Festival Notification Option description." group="General">
+                <TunableTuple class="FestivalNotificationOptionsData" group="General">
+                    <Tunable type="int" name="description_text" class="TunableLocalizedString" default="0x0" display="Description Text" description="Option item description." group="General" />
+                    <TunableEnum type="FestivalNotificationOptionKey" name="option_key" class="TunableEnumEntry" default="INVALID" display="Option Key" dynamic_entries="festival_notification-festival_notification_options_tuning.FestivalNotificationOptionKey._elements" static_entries="festival_notification-festival_notification_options_tuning.FestivalNotificationOptionKey" description="Unique key for option identification." group="General" />
+                    <TunableEnum type="Pack" name="required_pack" class="TunableEnumEntry" default="BASE_GAME" display="Required Pack" static_entries="sims4-common.Pack" description="Required pack for the respective festival." group="General" />
+                    <Tunable type="int" name="title_text" class="TunableLocalizedString" default="0x0" display="Title Text" description="Option item title." group="General" />
+                </TunableTuple>
+            </TunableList>
+        </Class>
+    </Module>
+</TuningRoot>
