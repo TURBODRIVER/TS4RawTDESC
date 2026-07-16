@@ -225,6 +225,7 @@
                                     <TunableEnum type="UiDialogOption" class="TunableEnumEntry" default="DISABLE_CLOSE_BUTTON" static_entries="ui-ui_dialog.UiDialogOption" group="General" />
                                 </TunableList>
                                 <TunableEnum type="UiDialogStyle" name="dialog_style" class="TunableEnumEntry" default="DEFAULT" display="Dialog Style" static_entries="ui-ui_dialog.UiDialogStyle" description="The style layout to apply to this dialog." group="General" />
+                                <Tunable type="bool" name="disable_prompt_buttons_during_save_lock" class="Tunable" default="False" display="Disable Prompt Buttons During Save Lock" description="If this notification has buttons, whether or not the buttons should be enabled during a save lock state. Defaults to false, which is fine for most buttons." group="General" />
                                 <TunableEnum type="UiDialogNotificationExpandBehavior" name="expand_behavior" class="TunableEnumEntry" default="USER_SETTING" display="Expand Behavior" static_entries="ui-ui_dialog_notification.UiDialogNotification.UiDialogNotificationExpandBehavior" description="Specify the notification's expand behavior." group="General" />
                                 <TunableVariant type="None" name="icon" class="OptionalTunable" default="disabled" display="Icon" description="If enabled, specify an icon to be displayed." group="General">
                                     <Tunable name="disabled" class="TunableExistance" display="Disabled" />

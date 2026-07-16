@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="services.autosave_service">
+        <Class name="AutosaveService">
+            <Tunable type="int" name="REAL_TIME_AUTOSAVE_EXTRA_LONG_INTERVAL_MINUTES" class="TunableRange" default="120" display="Real Time Autosave Extra Long Interval Minutes" min="1" max="None" description="Interval in real minutes between autosaves when the frequency is set to Extra Long." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="REAL_TIME_AUTOSAVE_LONG_INTERVAL_MINUTES" class="TunableRange" default="60" display="Real Time Autosave Long Interval Minutes" min="1" max="None" description="Interval in real minutes between autosaves when the frequency is set to Long." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="REAL_TIME_AUTOSAVE_SHORT_INTERVAL_MINUTES" class="TunableRange" default="30" display="Real Time Autosave Short Interval Minutes" min="1" max="None" description="Interval in real minutes between autosaves when the frequency is set to Short." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="SAVE_REMINDER_EXTRA_EXTRA_LONG_INTERVAL_MINUTES" class="TunableRange" default="120" display="Save Reminder Extra Extra Long Interval Minutes" min="1" max="None" description="Real-world minutes for the extra extra long save reminder option." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="SAVE_REMINDER_EXTRA_LONG_INTERVAL_MINUTES" class="TunableRange" default="60" display="Save Reminder Extra Long Interval Minutes" min="1" max="None" description="Real-world minutes for the extra long save reminder option." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="int" name="SAVE_REMINDER_LONG_INTERVAL_MINUTES" class="TunableRange" default="30" display="Save Reminder Long Interval Minutes" min="1" max="None" description="Real-world minutes for the long save reminder option." tuning_state="NeedsTuning" group="General" />
+
+            <Tunable type="action" name="SAVE_REMINDER_LOOT" class="TunableReference" display="Save Reminder Loot" description="Random weighted loot used to determine which save reminder experience to show." allow_none="False" group="General" pack_safe="True" restrict="RandomWeightedLoot" />
+
+            <Tunable type="int" name="SAVE_REMINDER_SHORT_INTERVAL_MINUTES" class="TunableRange" default="15" display="Save Reminder Short Interval Minutes" min="1" max="None" description="Real-world minutes for the short save reminder option." tuning_state="NeedsTuning" group="General" />
+        </Class>
+    </Module>
+
+    
+</TuningRoot>
