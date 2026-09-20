@@ -41,6 +41,8 @@
 
             <Tunable type="int" name="FRUIT_DECAY_COMMODITY_DROPPED_VALUE" class="Tunable" default="10" display="Fruit Decay Commodity Dropped Value" description="Value to set the Fruit Decay Commodity on a harvestable that has been dropped from a plant during a seasonal transition." tuning_state="NeedsTuning" group="General" />
 
+            <Tunable type="statistic" name="FRUIT_SPAWN_COMMODITY" class="TunableReference" display="Fruit Spawn Commodity" description="The commodity that drives fruit spawn. It should be a decaying commodity with a well-defined convergence and that its change rate is used as a proxy for fruit per in-game time when in Growth Spurt On state." allow_none="False" group="General" />
+
             <TunableList name="FRUIT_STATES" class="TunableMapping" display="Fruit States" mapping_key="key" mapping_value="value" description="A mapping that defines which states on plants support fruits, and the behavior when plants transition out of these states." group="General">
                 <TunableTuple class="TunableTuple" group="General">
                     <Tunable type="object_state" name="key" class="TunableReference" display="Key" allow_none="False" group="General" pack_safe="True" restrict="ObjectState" />
@@ -958,6 +960,18 @@
                 </TunableList>
                 <TunableEnum type="UiDialogNotificationUrgency" name="urgency" class="TunableEnumEntry" default="DEFAULT" display="Urgency" static_entries="ui-ui_dialog_notification.UiDialogNotification.UiDialogNotificationUrgency" description="Specify the notification's urgency." group="General" />
                 <TunableEnum type="UiDialogNotificationVisualType" name="visual_type" class="TunableEnumEntry" default="INFORMATION" display="Visual Type" static_entries="ui-ui_dialog_notification.UiDialogNotification.UiDialogNotificationVisualType" description="Specify the notification's visual treatment." group="General" />
+            </TunableTuple>
+
+            <TunableTuple name="GROWTH_SPURT_STATE_INFO" class="TunableTuple" display="Growth Spurt State Info" group="General">
+                <TunableList name="growth_time_windows" class="TunableList" display="Growth Time Windows" description="A list of the Growth Spurt time windows in hours." group="General">
+                    <TunableTuple class="TunableInterval" description="An interval of begin and end hour of the growth spurt on a 24h day [0, 23]." group="General">
+                        <Tunable type="int" name="lower_bound" class="TunableRange" default="0" display="Lower Bound" min="0" max="None" description="The lower bound of the interval." tuning_state="NeedsTuning" group="General" />
+                        <Tunable type="int" name="upper_bound" class="TunableRange" default="23" display="Upper Bound" min="None" max="23" description="The upper bound of the interval." tuning_state="NeedsTuning" group="General" />
+                    </TunableTuple>
+                </TunableList>
+                <Tunable type="object_state" name="off" class="TunableReference" display="Off" description="The Spurt Off state value" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                <Tunable type="object_state" name="on" class="TunableReference" display="On" description="The Spurt On state value" allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />
+                <Tunable type="object_state" name="state" class="TunableReference" display="State" description="The state that allows or disallows the fruit spawn commodity to decay." allow_none="False" group="General" pack_safe="True" restrict="ObjectState" />
             </TunableTuple>
 
             <Tunable type="object_state" name="IN_SEASON_STATE_VALUE" class="TunableReference" display="In Season State Value" description="A reference to the state value that marks a plant as being 'In Season'. This state value is used to determine which Seasons the plant is active in." allow_none="False" group="General" pack_safe="True" restrict="ObjectStateValue" />

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<TuningRoot>
+    <Module name="sims.physique_change_tuning">
+        <Class name="PhysiqueChangeTuning">
+            <Tunable type="buff" name="MUSCLES_CHANGE_DISABLED_BUFF" class="TunableReference" display="Muscles Change Disabled Buff" description="Buff applied when the player disables muscle changes for a Sim. Blocks additive FIT commodity changes." allow_none="False" group="General" pack_safe="True" restrict="Buff" />
+
+            <Tunable type="buff" name="WEIGHT_CHANGE_DISABLED_BUFF" class="TunableReference" display="Weight Change Disabled Buff" description="Buff applied when the player disables weight changes for a Sim. Blocks additive FAT commodity changes." allow_none="False" group="General" pack_safe="True" restrict="Buff" />
+        </Class>
+    </Module>
+</TuningRoot>

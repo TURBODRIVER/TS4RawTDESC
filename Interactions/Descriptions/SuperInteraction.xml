@@ -20033,6 +20033,8 @@
 
         <Tunable type="bool" name="can_shoo" class="Tunable" default="True" display="Can Shoo" description="Whether this interaction can be canceled by the 'Shoo' interaction." group="Special Cases" />
 
+        <Tunable type="bool" name="cancel_on_user_directed_action" class="Tunable" default="False" display="Cancel On User Directed Action" description="Cancels this interaction when the player directs the Sim to perform another interaction. This applies to fresh and restored instances. Enable only for persistent or supporting interactions that should be fully abandoned by new player direction. Do not enable for interactions that must preserve shared-Sim state, reservations, or continuation chains." group="General" />
+
         <TunableList name="cancel_replacement_affordances" class="TunableMapping" display="Cancel Replacement Affordances" mapping_key="key" mapping_value="value" group="Posture">
             <TunableTuple class="TunableTuple" group="General">
                 <TunableEnum type="PostureTrackGroup" name="key" class="TunableEnumEntry" default="BODY" display="Key" static_entries="postures.PostureTrackGroup" description="What posture track the specified cancel replacement affordance will run for." group="General" />

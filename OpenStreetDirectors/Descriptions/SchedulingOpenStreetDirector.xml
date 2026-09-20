@@ -47,6 +47,10 @@
             </TunableList>
         </TunableTuple>
 
+        <TunableList name="seasonal_layer_backed_situations" class="TunableSet" display="Seasonal Layer Backed Situations" description="Situation types that depend on the current season's conditional-layer objects. If those objects are missing, these situations will be cleaned up and rebuilt when the layer returns." group="General" unique_entries="true">
+            <Tunable type="situation" class="TunableReference" description="A situation type that requires the current season's layer-backed objects to exist." allow_none="False" group="General" pack_safe="True" />
+        </TunableList>
+
         <TunableList name="seasonal_object_layer_schedule_mapping" class="TunableMapping" display="Seasonal Object Layer Schedule Mapping" mapping_key="key" mapping_value="value" description="A mapping of the season type to the object layer schedule for an open street director." group="General">
             <TunableTuple class="TunableTuple" group="General">
                 <TunableEnum type="SeasonType" name="key" class="TunableEnumEntry" default="SUMMER" display="Key" static_entries="seasons-seasons_enums.SeasonType" description="The season." group="General" />

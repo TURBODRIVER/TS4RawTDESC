@@ -16405,9 +16405,9 @@
                     </TunableList>
                     <Tunable type="game_ruleset" name="game_type" class="TunableReference" display="Game Type" description="The game to create or join." allow_none="False" group="General" restrict="GameRules" />
                 </TunableTuple>
-                <TunableTuple name="join_situation" class="TunableJoinSituationElement" display="Join Situation" description="The Sim of the tuned participant type will join a situation with the tuned situation type. If the situation doesn't exist, do nothing." group="General">
-                    <Tunable type="bool" name="reassign_within_situation" class="Tunable" default="False" display="Reassign Within Situation" description="If checked then we will reassign Sims who are already in this situation to this job." group="General" />
-                    <TunableVariant type="None" name="situation" class="SituationSearchByDefinitionOrTagsVariant" default="by_definition" display="Situation" description="The situation to join (by definition or by tag). Get the first situation that match the given criteria." group="General">
+                <TunableTuple name="join_situation" class="TunableJoinSituationElement" display="Join Situation" description="The Sim of the tuned participant type will join a running situation. Preferred tuning uses `situation`, which supports finding a running situation by definition or tags. For backward compatibility, this element also supports a legacy `situation_type` field if present." group="General">
+                    <Tunable type="bool" name="reassign_within_situation" class="Tunable" default="False" display="Reassign Within Situation" description="If checked, Sims who are already in this situation will be reassigned to the tuned job." group="General" />
+                    <TunableVariant type="None" name="situation" class="SituationSearchByDefinitionOrTagsVariant" default="by_definition" display="Situation" description="The situation to join (by definition or by tag). Get the first situation that matches the given criteria." group="General">
                         <TunableTuple name="by_definition" class="TunableSituationByDefinition" display="By Definition" description="A tunable which provides a way to search for situations a Sim is in based off provided situation types, whether a situation matches the given definitions, or to find all situations of the given definitions." group="General">
                             <TunableList name="situations" class="TunableSet" display="Situations" min="1" description="Situation types to match." group="General" unique_entries="true">
                                 <Tunable type="situation" class="TunableReference" allow_none="False" group="General" pack_safe="True" />
@@ -16419,11 +16419,11 @@
                             </TunableList>
                         </TunableTuple>
                     </TunableVariant>
-                    <TunableVariant type="None" name="situation_job" class="OptionalTunable" default="use_default_job" display="Situation Job" description="The situation job that sim will get to while join the situation." group="General">
+                    <TunableVariant type="None" name="situation_job" class="OptionalTunable" default="use_default_job" display="Situation Job" description="The situation job that the Sim will be assigned when joining the situation." group="General">
                         <Tunable type="situation_job" name="specify_job" class="TunableReference" display="Specify Job" allow_none="False" group="General" />
                         <Tunable name="use_default_job" class="TunableExistance" display="Use Default Job" />
                     </TunableVariant>
-                    <TunableList name="subject" class="TunableEnumFlags" default="Actor" display="Subject" description="The participant of who will join the situation." group="General" unique_entries="true">
+                    <TunableList name="subject" class="TunableEnumFlags" default="Actor" display="Subject" description="The participant who will join the situation." group="General" unique_entries="true">
                         <TunableEnum type="ParticipantType" class="TunableEnumEntry" default="Invalid" static_entries="interactions.ParticipantType" group="General" />
                     </TunableList>
                     <TunableTuple name="success_chance" class="TunableSuccessChance" display="Success Chance" description="The percentage chance that this action will be applied." group="General">

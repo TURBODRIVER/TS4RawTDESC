@@ -15,5 +15,17 @@
 
             <EnumItem name="SPAWNER" enum_value="0" />
         </Class>
+
+        <Class name="SpawnResult" enum_bit_flag="False" enum_locked="False">
+            <EnumItem name="FAILED_BY_CHANCE" enum_value="2" />
+
+            <EnumItem name="FAILED_BY_LIMIT" enum_value="1" />
+
+            <EnumItem name="FAILED_BY_TEST" enum_value="4" />
+
+            <EnumItem name="FAILED_BY_TUNING" enum_value="3" />
+
+            <EnumItem name="SUCCESS" enum_value="0" />
+        </Class>
     </Module>
 </TuningRoot>
