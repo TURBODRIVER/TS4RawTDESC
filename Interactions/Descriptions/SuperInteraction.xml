@@ -16225,6 +16225,7 @@
                                             </TunableTuple>
                                         </TunableList>
                                     </TunableTuple>
+                                    <Tunable type="bool" name="include_continuous_modifiers" class="Tunable" default="False" display="Include Continuous Modifiers" description="If enabled, this statistic lock also prevents continuous statistic modifiers from changing the statistic." group="General" />
                                     <Tunable type="bool" name="lock" class="Tunable" default="True" display="Lock" description="Lock or unlock a statistic." group="General" />
                                     <TunableEnum type="StatisticLockAction" name="lock_action" class="TunableEnumEntry" default="DO_NOT_CHANGE_VALUE" display="Lock Action" static_entries="statistics-statistic_enums.StatisticLockAction" description="Determine what to do with the value of a statistic when we lock it." group="General" />
                                     <Tunable type="statistic" name="stat" class="TunableReference" display="Stat" description="The statistic we are operating on." allow_none="False" group="General" pack_safe="True" restrict="Commodity" />
@@ -19641,6 +19642,7 @@
                                             </TunableTuple>
                                         </TunableList>
                                     </TunableTuple>
+                                    <Tunable type="bool" name="include_continuous_modifiers" class="Tunable" default="False" display="Include Continuous Modifiers" description="If enabled, this statistic lock also prevents continuous statistic modifiers from changing the statistic." group="General" />
                                     <Tunable type="bool" name="lock" class="Tunable" default="True" display="Lock" description="Lock or unlock a statistic." group="General" />
                                     <TunableEnum type="StatisticLockAction" name="lock_action" class="TunableEnumEntry" default="DO_NOT_CHANGE_VALUE" display="Lock Action" static_entries="statistics-statistic_enums.StatisticLockAction" description="Determine what to do with the value of a statistic when we lock it." group="General" />
                                     <Tunable type="statistic" name="stat" class="TunableReference" display="Stat" description="The statistic we are operating on." allow_none="False" group="General" pack_safe="True" restrict="Commodity" />
@@ -20030,6 +20032,8 @@
         </TunableVariant>
 
         <Tunable type="bool" name="can_acquire_posture_ownership" class="Tunable" default="True" display="Can Acquire Posture Ownership" description="If unchecked, this interaction is not valid to be an owner of the Sim's body posture." group="Posture" />
+
+        <Tunable type="bool" name="can_displace_protected_interactions" class="Tunable" default="False" display="Can Displace Protected Interactions" description="If enabled, this interaction may displace a running interaction protected from ordinary queue displacement. Enable only for approved necessary or emergency interactions." group="General" />
 
         <Tunable type="bool" name="can_shoo" class="Tunable" default="True" display="Can Shoo" description="Whether this interaction can be canceled by the 'Shoo' interaction." group="Special Cases" />
 
@@ -24624,6 +24628,8 @@
             <TdescFragTag class="TunableParameterizedAutonomy" description="Commodities and StaticCommodities will be combined, so interactions must support at least one commodity from both lists." group="General" />
         </TunableList>
 
+        <Tunable type="bool" name="prevent_social_group_relocation" class="Tunable" default="False" display="Prevent Social Group Relocation" description="If enabled, an active instance of this interaction prevents a social group from relocating around the Sim running the interaction. This does not prevent the Sim from participating in social interactions." group="General" />
+
         <TunableVariant type="None" name="privacy" class="OptionalTunable" default="disabled" display="Privacy" description="If enabled, this interaction requires privacy to run and will create a privacy footprint before executing." group="State">
             <Tunable name="disabled" class="TunableExistance" display="Disabled" />
             <TunableTuple name="enabled" class="TunableTuple" display="Enabled" description="Privacy_snippet to run if subject satisfied the specified tests." group="General">
@@ -24693,6 +24699,8 @@
                 <TdescFragTag name="tests" class="TunableTestSet" display="Tests" description="A list of tests groups. At least one must pass all its sub- tests to pass the TestSet. ORs of ANDs" group="General" />
             </TunableTuple>
         </TunableVariant>
+
+        <Tunable type="bool" name="protect_from_queued_displacement" class="Tunable" default="False" display="Protect From Queued Displacement" description="If enabled, ordinary queued interactions cannot displace this SuperInteraction. Interactions explicitly tuned to displace protected interactions remain permitted. This setting affects queue displacement only. It does not prevent direct player cancellation." group="General" />
 
         <TunableList name="provided_affordances" class="TunableProvidedAffordances" display="Provided Affordances" description="Affordances provided by this Super Interaction. These affordances are available when targeting or picking the Sim running this Super Interaction. Target defaults to the Actor Sim running this interaction. Carry Target defaults to None." group="State">
             <TunableTuple class="TunableTuple" description="Tunables related to a specific affordance we are providing, with the ability to override specifics about targets, restrictions, and dependencies." group="General">

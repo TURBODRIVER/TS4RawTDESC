@@ -1624,6 +1624,7 @@
                             </TunableTuple>
                         </TunableList>
                     </TunableTuple>
+                    <Tunable type="bool" name="include_continuous_modifiers" class="Tunable" default="False" display="Include Continuous Modifiers" description="If enabled, this statistic lock also prevents continuous statistic modifiers from changing the statistic." group="General" />
                     <Tunable type="bool" name="lock" class="Tunable" default="True" display="Lock" description="Lock or unlock a statistic." group="General" />
                     <TunableEnum type="StatisticLockAction" name="lock_action" class="TunableEnumEntry" default="DO_NOT_CHANGE_VALUE" display="Lock Action" static_entries="statistics-statistic_enums.StatisticLockAction" description="Determine what to do with the value of a statistic when we lock it." group="General" />
                     <Tunable type="statistic" name="stat" class="TunableReference" display="Stat" description="The statistic we are operating on." allow_none="False" group="General" pack_safe="True" restrict="Commodity" />
